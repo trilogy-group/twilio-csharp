@@ -28,16 +28,16 @@ namespace Kandy.Rest.Trusthub.V1.TrustProducts
 {
     public class TrustProductsChannelEndpointAssignmentResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateTrustProductsChannelEndpointAssignmentOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateTrustProductsChannelEndpointAssignmentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments";
 
             string PathTrustProductSid = options.PathTrustProductSid;
-            path = path.Replace("{"+"TrustProductSid"+"}", PathTrustProductSid);
+            path = path.Replace("{" + "TrustProductSid" + "}", PathTrustProductSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -52,26 +52,26 @@ namespace Kandy.Rest.Trusthub.V1.TrustProducts
         /// <param name="options"> Create TrustProductsChannelEndpointAssignment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of TrustProductsChannelEndpointAssignment </returns>
-        public static TrustProductsChannelEndpointAssignmentResource Create(CreateTrustProductsChannelEndpointAssignmentOptions options, ITwilioRestClient client = null)
+        public static TrustProductsChannelEndpointAssignmentResource Create(CreateTrustProductsChannelEndpointAssignmentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Assigned Item. </summary>
         /// <param name="options"> Create TrustProductsChannelEndpointAssignment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of TrustProductsChannelEndpointAssignment </returns>
         public static async System.Threading.Tasks.Task<TrustProductsChannelEndpointAssignmentResource> CreateAsync(CreateTrustProductsChannelEndpointAssignmentOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new Assigned Item. </summary>
         /// <param name="pathTrustProductSid"> The unique string that we created to identify the CustomerProfile resource. </param>
@@ -83,13 +83,13 @@ namespace Kandy.Rest.Trusthub.V1.TrustProducts
                                           string pathTrustProductSid,
                                           string channelEndpointType,
                                           string channelEndpointSid,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateTrustProductsChannelEndpointAssignmentOptions(pathTrustProductSid, channelEndpointType, channelEndpointSid){  };
+            var options = new CreateTrustProductsChannelEndpointAssignmentOptions(pathTrustProductSid, channelEndpointType, channelEndpointSid) { };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Assigned Item. </summary>
         /// <param name="pathTrustProductSid"> The unique string that we created to identify the CustomerProfile resource. </param>
         /// <param name="channelEndpointType"> The type of channel endpoint. eg: phone-number </param>
@@ -100,26 +100,26 @@ namespace Kandy.Rest.Trusthub.V1.TrustProducts
                                                                                   string pathTrustProductSid,
                                                                                   string channelEndpointType,
                                                                                   string channelEndpointSid,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateTrustProductsChannelEndpointAssignmentOptions(pathTrustProductSid, channelEndpointType, channelEndpointSid){  };
+            var options = new CreateTrustProductsChannelEndpointAssignmentOptions(pathTrustProductSid, channelEndpointType, channelEndpointSid) { };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Remove an Assignment Item Instance. </summary>
         /// <param name="options"> Delete TrustProductsChannelEndpointAssignment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of TrustProductsChannelEndpointAssignment </returns>
-        private static Request BuildDeleteRequest(DeleteTrustProductsChannelEndpointAssignmentOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteTrustProductsChannelEndpointAssignmentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments/{Sid}";
 
             string PathTrustProductSid = options.PathTrustProductSid;
-            path = path.Replace("{"+"TrustProductSid"+"}", PathTrustProductSid);
+            path = path.Replace("{" + "TrustProductSid" + "}", PathTrustProductSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -134,60 +134,60 @@ namespace Kandy.Rest.Trusthub.V1.TrustProducts
         /// <param name="options"> Delete TrustProductsChannelEndpointAssignment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of TrustProductsChannelEndpointAssignment </returns>
-        public static bool Delete(DeleteTrustProductsChannelEndpointAssignmentOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteTrustProductsChannelEndpointAssignmentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Remove an Assignment Item Instance. </summary>
         /// <param name="options"> Delete TrustProductsChannelEndpointAssignment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of TrustProductsChannelEndpointAssignment </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteTrustProductsChannelEndpointAssignmentOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Remove an Assignment Item Instance. </summary>
         /// <param name="pathTrustProductSid"> The unique string that we created to identify the CustomerProfile resource. </param>
         /// <param name="pathSid"> The unique string that we created to identify the resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of TrustProductsChannelEndpointAssignment </returns>
-        public static bool Delete(string pathTrustProductSid, string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathTrustProductSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteTrustProductsChannelEndpointAssignmentOptions(pathTrustProductSid, pathSid)        ;
+            var options = new DeleteTrustProductsChannelEndpointAssignmentOptions(pathTrustProductSid, pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Remove an Assignment Item Instance. </summary>
         /// <param name="pathTrustProductSid"> The unique string that we created to identify the CustomerProfile resource. </param>
         /// <param name="pathSid"> The unique string that we created to identify the resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of TrustProductsChannelEndpointAssignment </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathTrustProductSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathTrustProductSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteTrustProductsChannelEndpointAssignmentOptions(pathTrustProductSid, pathSid) ;
+            var options = new DeleteTrustProductsChannelEndpointAssignmentOptions(pathTrustProductSid, pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchTrustProductsChannelEndpointAssignmentOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchTrustProductsChannelEndpointAssignmentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments/{Sid}";
 
             string PathTrustProductSid = options.PathTrustProductSid;
-            path = path.Replace("{"+"TrustProductSid"+"}", PathTrustProductSid);
+            path = path.Replace("{" + "TrustProductSid" + "}", PathTrustProductSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -202,60 +202,60 @@ namespace Kandy.Rest.Trusthub.V1.TrustProducts
         /// <param name="options"> Fetch TrustProductsChannelEndpointAssignment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of TrustProductsChannelEndpointAssignment </returns>
-        public static TrustProductsChannelEndpointAssignmentResource Fetch(FetchTrustProductsChannelEndpointAssignmentOptions options, ITwilioRestClient client = null)
+        public static TrustProductsChannelEndpointAssignmentResource Fetch(FetchTrustProductsChannelEndpointAssignmentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch specific Assigned Item Instance. </summary>
         /// <param name="options"> Fetch TrustProductsChannelEndpointAssignment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of TrustProductsChannelEndpointAssignment </returns>
         public static async System.Threading.Tasks.Task<TrustProductsChannelEndpointAssignmentResource> FetchAsync(FetchTrustProductsChannelEndpointAssignmentOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch specific Assigned Item Instance. </summary>
         /// <param name="pathTrustProductSid"> The unique string that we created to identify the CustomerProfile resource. </param>
         /// <param name="pathSid"> The unique string that we created to identify the resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of TrustProductsChannelEndpointAssignment </returns>
         public static TrustProductsChannelEndpointAssignmentResource Fetch(
-                                         string pathTrustProductSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathTrustProductSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchTrustProductsChannelEndpointAssignmentOptions(pathTrustProductSid, pathSid){  };
+            var options = new FetchTrustProductsChannelEndpointAssignmentOptions(pathTrustProductSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch specific Assigned Item Instance. </summary>
         /// <param name="pathTrustProductSid"> The unique string that we created to identify the CustomerProfile resource. </param>
         /// <param name="pathSid"> The unique string that we created to identify the resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of TrustProductsChannelEndpointAssignment </returns>
-        public static async System.Threading.Tasks.Task<TrustProductsChannelEndpointAssignmentResource> FetchAsync(string pathTrustProductSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<TrustProductsChannelEndpointAssignmentResource> FetchAsync(string pathTrustProductSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchTrustProductsChannelEndpointAssignmentOptions(pathTrustProductSid, pathSid){  };
+            var options = new FetchTrustProductsChannelEndpointAssignmentOptions(pathTrustProductSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadTrustProductsChannelEndpointAssignmentOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadTrustProductsChannelEndpointAssignmentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments";
 
             string PathTrustProductSid = options.PathTrustProductSid;
-            path = path.Replace("{"+"TrustProductSid"+"}", PathTrustProductSid);
+            path = path.Replace("{" + "TrustProductSid" + "}", PathTrustProductSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -269,7 +269,7 @@ namespace Kandy.Rest.Trusthub.V1.TrustProducts
         /// <param name="options"> Read TrustProductsChannelEndpointAssignment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of TrustProductsChannelEndpointAssignment </returns>
-        public static ResourceSet<TrustProductsChannelEndpointAssignmentResource> Read(ReadTrustProductsChannelEndpointAssignmentOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<TrustProductsChannelEndpointAssignmentResource> Read(ReadTrustProductsChannelEndpointAssignmentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -277,13 +277,13 @@ namespace Kandy.Rest.Trusthub.V1.TrustProducts
             return new ResourceSet<TrustProductsChannelEndpointAssignmentResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Assigned Items for an account. </summary>
         /// <param name="options"> Read TrustProductsChannelEndpointAssignment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of TrustProductsChannelEndpointAssignment </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<TrustProductsChannelEndpointAssignmentResource>> ReadAsync(ReadTrustProductsChannelEndpointAssignmentOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -291,7 +291,7 @@ namespace Kandy.Rest.Trusthub.V1.TrustProducts
             var page = Page<TrustProductsChannelEndpointAssignmentResource>.FromJson("results", response.Content);
             return new ResourceSet<TrustProductsChannelEndpointAssignmentResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Assigned Items for an account. </summary>
         /// <param name="pathTrustProductSid"> The unique string that we created to identify the CustomerProfile resource. </param>
         /// <param name="channelEndpointSid"> The SID of an channel endpoint </param>
@@ -306,13 +306,13 @@ namespace Kandy.Rest.Trusthub.V1.TrustProducts
                                                      string channelEndpointSids = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadTrustProductsChannelEndpointAssignmentOptions(pathTrustProductSid){ ChannelEndpointSid = channelEndpointSid, ChannelEndpointSids = channelEndpointSids, PageSize = pageSize, Limit = limit};
+            var options = new ReadTrustProductsChannelEndpointAssignmentOptions(pathTrustProductSid) { ChannelEndpointSid = channelEndpointSid, ChannelEndpointSids = channelEndpointSids, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Assigned Items for an account. </summary>
         /// <param name="pathTrustProductSid"> The unique string that we created to identify the CustomerProfile resource. </param>
         /// <param name="channelEndpointSid"> The SID of an channel endpoint </param>
@@ -327,19 +327,19 @@ namespace Kandy.Rest.Trusthub.V1.TrustProducts
                                                                                              string channelEndpointSids = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadTrustProductsChannelEndpointAssignmentOptions(pathTrustProductSid){ ChannelEndpointSid = channelEndpointSid, ChannelEndpointSids = channelEndpointSids, PageSize = pageSize, Limit = limit};
+            var options = new ReadTrustProductsChannelEndpointAssignmentOptions(pathTrustProductSid) { ChannelEndpointSid = channelEndpointSid, ChannelEndpointSids = channelEndpointSids, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<TrustProductsChannelEndpointAssignmentResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<TrustProductsChannelEndpointAssignmentResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -356,7 +356,7 @@ namespace Kandy.Rest.Trusthub.V1.TrustProducts
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<TrustProductsChannelEndpointAssignmentResource> NextPage(Page<TrustProductsChannelEndpointAssignmentResource> page, ITwilioRestClient client)
+        public static Page<TrustProductsChannelEndpointAssignmentResource> NextPage(Page<TrustProductsChannelEndpointAssignmentResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -371,7 +371,7 @@ namespace Kandy.Rest.Trusthub.V1.TrustProducts
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<TrustProductsChannelEndpointAssignmentResource> PreviousPage(Page<TrustProductsChannelEndpointAssignmentResource> page, ITwilioRestClient client)
+        public static Page<TrustProductsChannelEndpointAssignmentResource> PreviousPage(Page<TrustProductsChannelEndpointAssignmentResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -382,7 +382,7 @@ namespace Kandy.Rest.Trusthub.V1.TrustProducts
             return Page<TrustProductsChannelEndpointAssignmentResource>.FromJson("results", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a TrustProductsChannelEndpointAssignmentResource object
         /// </summary>
@@ -400,7 +400,7 @@ namespace Kandy.Rest.Trusthub.V1.TrustProducts
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the Item Assignment resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -431,7 +431,8 @@ namespace Kandy.Rest.Trusthub.V1.TrustProducts
 
 
 
-        private TrustProductsChannelEndpointAssignmentResource() {
+        private TrustProductsChannelEndpointAssignmentResource()
+        {
 
         }
     }

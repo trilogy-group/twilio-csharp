@@ -28,16 +28,16 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
 {
     public class DeploymentResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateDeploymentOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateDeploymentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/DeployedDevices/Fleets/{FleetSid}/Deployments";
 
             string PathFleetSid = options.PathFleetSid;
-            path = path.Replace("{"+"FleetSid"+"}", PathFleetSid);
+            path = path.Replace("{" + "FleetSid" + "}", PathFleetSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -52,26 +52,26 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
         /// <param name="options"> Create Deployment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Deployment </returns>
-        public static DeploymentResource Create(CreateDeploymentOptions options, ITwilioRestClient client = null)
+        public static DeploymentResource Create(CreateDeploymentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Deployment in the Fleet, optionally giving it a friendly name and linking to a specific Twilio Sync service instance. </summary>
         /// <param name="options"> Create Deployment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Deployment </returns>
         public static async System.Threading.Tasks.Task<DeploymentResource> CreateAsync(CreateDeploymentOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new Deployment in the Fleet, optionally giving it a friendly name and linking to a specific Twilio Sync service instance. </summary>
         /// <param name="pathFleetSid">  </param>
@@ -83,13 +83,13 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
                                           string pathFleetSid,
                                           string friendlyName = null,
                                           string syncServiceSid = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateDeploymentOptions(pathFleetSid){  FriendlyName = friendlyName, SyncServiceSid = syncServiceSid };
+            var options = new CreateDeploymentOptions(pathFleetSid) { FriendlyName = friendlyName, SyncServiceSid = syncServiceSid };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Deployment in the Fleet, optionally giving it a friendly name and linking to a specific Twilio Sync service instance. </summary>
         /// <param name="pathFleetSid">  </param>
         /// <param name="friendlyName"> Provides a human readable descriptive text for this Deployment, up to 256 characters long. </param>
@@ -100,26 +100,26 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
                                                                                   string pathFleetSid,
                                                                                   string friendlyName = null,
                                                                                   string syncServiceSid = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateDeploymentOptions(pathFleetSid){  FriendlyName = friendlyName, SyncServiceSid = syncServiceSid };
+            var options = new CreateDeploymentOptions(pathFleetSid) { FriendlyName = friendlyName, SyncServiceSid = syncServiceSid };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Delete a specific Deployment from the Fleet, leaving associated devices effectively undeployed. </summary>
         /// <param name="options"> Delete Deployment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Deployment </returns>
-        private static Request BuildDeleteRequest(DeleteDeploymentOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteDeploymentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/DeployedDevices/Fleets/{FleetSid}/Deployments/{Sid}";
 
             string PathFleetSid = options.PathFleetSid;
-            path = path.Replace("{"+"FleetSid"+"}", PathFleetSid);
+            path = path.Replace("{" + "FleetSid" + "}", PathFleetSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -134,60 +134,60 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
         /// <param name="options"> Delete Deployment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Deployment </returns>
-        public static bool Delete(DeleteDeploymentOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteDeploymentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific Deployment from the Fleet, leaving associated devices effectively undeployed. </summary>
         /// <param name="options"> Delete Deployment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Deployment </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteDeploymentOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete a specific Deployment from the Fleet, leaving associated devices effectively undeployed. </summary>
         /// <param name="pathFleetSid">  </param>
         /// <param name="pathSid"> Provides a 34 character string that uniquely identifies the requested Deployment resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Deployment </returns>
-        public static bool Delete(string pathFleetSid, string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathFleetSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteDeploymentOptions(pathFleetSid, pathSid)        ;
+            var options = new DeleteDeploymentOptions(pathFleetSid, pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific Deployment from the Fleet, leaving associated devices effectively undeployed. </summary>
         /// <param name="pathFleetSid">  </param>
         /// <param name="pathSid"> Provides a 34 character string that uniquely identifies the requested Deployment resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Deployment </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathFleetSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathFleetSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteDeploymentOptions(pathFleetSid, pathSid) ;
+            var options = new DeleteDeploymentOptions(pathFleetSid, pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchDeploymentOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchDeploymentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/DeployedDevices/Fleets/{FleetSid}/Deployments/{Sid}";
 
             string PathFleetSid = options.PathFleetSid;
-            path = path.Replace("{"+"FleetSid"+"}", PathFleetSid);
+            path = path.Replace("{" + "FleetSid" + "}", PathFleetSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -202,60 +202,60 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
         /// <param name="options"> Fetch Deployment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Deployment </returns>
-        public static DeploymentResource Fetch(FetchDeploymentOptions options, ITwilioRestClient client = null)
+        public static DeploymentResource Fetch(FetchDeploymentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch information about a specific Deployment in the Fleet. </summary>
         /// <param name="options"> Fetch Deployment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Deployment </returns>
         public static async System.Threading.Tasks.Task<DeploymentResource> FetchAsync(FetchDeploymentOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch information about a specific Deployment in the Fleet. </summary>
         /// <param name="pathFleetSid">  </param>
         /// <param name="pathSid"> Provides a 34 character string that uniquely identifies the requested Deployment resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Deployment </returns>
         public static DeploymentResource Fetch(
-                                         string pathFleetSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathFleetSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchDeploymentOptions(pathFleetSid, pathSid){  };
+            var options = new FetchDeploymentOptions(pathFleetSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch information about a specific Deployment in the Fleet. </summary>
         /// <param name="pathFleetSid">  </param>
         /// <param name="pathSid"> Provides a 34 character string that uniquely identifies the requested Deployment resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Deployment </returns>
-        public static async System.Threading.Tasks.Task<DeploymentResource> FetchAsync(string pathFleetSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<DeploymentResource> FetchAsync(string pathFleetSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchDeploymentOptions(pathFleetSid, pathSid){  };
+            var options = new FetchDeploymentOptions(pathFleetSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadDeploymentOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadDeploymentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/DeployedDevices/Fleets/{FleetSid}/Deployments";
 
             string PathFleetSid = options.PathFleetSid;
-            path = path.Replace("{"+"FleetSid"+"}", PathFleetSid);
+            path = path.Replace("{" + "FleetSid" + "}", PathFleetSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -269,7 +269,7 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
         /// <param name="options"> Read Deployment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Deployment </returns>
-        public static ResourceSet<DeploymentResource> Read(ReadDeploymentOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<DeploymentResource> Read(ReadDeploymentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -277,13 +277,13 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
             return new ResourceSet<DeploymentResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Deployments belonging to the Fleet. </summary>
         /// <param name="options"> Read Deployment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Deployment </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<DeploymentResource>> ReadAsync(ReadDeploymentOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -291,7 +291,7 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
             var page = Page<DeploymentResource>.FromJson("deployments", response.Content);
             return new ResourceSet<DeploymentResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Deployments belonging to the Fleet. </summary>
         /// <param name="pathFleetSid">  </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -302,13 +302,13 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
                                                      string pathFleetSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadDeploymentOptions(pathFleetSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadDeploymentOptions(pathFleetSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Deployments belonging to the Fleet. </summary>
         /// <param name="pathFleetSid">  </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -319,19 +319,19 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
                                                                                              string pathFleetSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadDeploymentOptions(pathFleetSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadDeploymentOptions(pathFleetSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<DeploymentResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<DeploymentResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -348,7 +348,7 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<DeploymentResource> NextPage(Page<DeploymentResource> page, ITwilioRestClient client)
+        public static Page<DeploymentResource> NextPage(Page<DeploymentResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -363,7 +363,7 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<DeploymentResource> PreviousPage(Page<DeploymentResource> page, ITwilioRestClient client)
+        public static Page<DeploymentResource> PreviousPage(Page<DeploymentResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -374,16 +374,16 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
             return Page<DeploymentResource>.FromJson("deployments", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateDeploymentOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateDeploymentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/DeployedDevices/Fleets/{FleetSid}/Deployments/{Sid}";
 
             string PathFleetSid = options.PathFleetSid;
-            path = path.Replace("{"+"FleetSid"+"}", PathFleetSid);
+            path = path.Replace("{" + "FleetSid" + "}", PathFleetSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -398,7 +398,7 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
         /// <param name="options"> Update Deployment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Deployment </returns>
-        public static DeploymentResource Update(UpdateDeploymentOptions options, ITwilioRestClient client = null)
+        public static DeploymentResource Update(UpdateDeploymentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -409,15 +409,15 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
         /// <param name="options"> Update Deployment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Deployment </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<DeploymentResource> UpdateAsync(UpdateDeploymentOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update the given properties of a specific Deployment credential in the Fleet, giving it a friendly name or linking to a specific Twilio Sync service instance. </summary>
         /// <param name="pathFleetSid">  </param>
@@ -431,13 +431,13 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
                                           string pathSid,
                                           string friendlyName = null,
                                           string syncServiceSid = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateDeploymentOptions(pathFleetSid, pathSid){ FriendlyName = friendlyName, SyncServiceSid = syncServiceSid };
+            var options = new UpdateDeploymentOptions(pathFleetSid, pathSid) { FriendlyName = friendlyName, SyncServiceSid = syncServiceSid };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update the given properties of a specific Deployment credential in the Fleet, giving it a friendly name or linking to a specific Twilio Sync service instance. </summary>
         /// <param name="pathFleetSid">  </param>
         /// <param name="pathSid"> Provides a 34 character string that uniquely identifies the requested Deployment resource. </param>
@@ -450,13 +450,13 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
                                                                               string pathSid,
                                                                               string friendlyName = null,
                                                                               string syncServiceSid = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateDeploymentOptions(pathFleetSid, pathSid){ FriendlyName = friendlyName, SyncServiceSid = syncServiceSid };
+            var options = new UpdateDeploymentOptions(pathFleetSid, pathSid) { FriendlyName = friendlyName, SyncServiceSid = syncServiceSid };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a DeploymentResource object
         /// </summary>
@@ -474,7 +474,7 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
             }
         }
 
-    
+
         ///<summary> Contains a 34 character string that uniquely identifies this Deployment resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -509,7 +509,8 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
 
 
 
-        private DeploymentResource() {
+        private DeploymentResource()
+        {
 
         }
     }

@@ -28,12 +28,12 @@ namespace Kandy.Rest.Insights.V1.Call
 {
     public class EventResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class LevelEnum : StringEnum
         {
-            private LevelEnum(string value) : base(value) {}
-            public LevelEnum() {}
+            private LevelEnum(string value) : base(value) { }
+            public LevelEnum() { }
             public static implicit operator LevelEnum(string value)
             {
                 return new LevelEnum(value);
@@ -48,8 +48,8 @@ namespace Kandy.Rest.Insights.V1.Call
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class TwilioEdgeEnum : StringEnum
         {
-            private TwilioEdgeEnum(string value) : base(value) {}
-            public TwilioEdgeEnum() {}
+            private TwilioEdgeEnum(string value) : base(value) { }
+            public TwilioEdgeEnum() { }
             public static implicit operator TwilioEdgeEnum(string value)
             {
                 return new TwilioEdgeEnum(value);
@@ -62,14 +62,14 @@ namespace Kandy.Rest.Insights.V1.Call
 
         }
 
-        
-        private static Request BuildReadRequest(ReadEventOptions options, ITwilioRestClient client)
+
+        private static Request BuildReadRequest(ReadEventOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Voice/{CallSid}/Events";
 
             string PathCallSid = options.PathCallSid;
-            path = path.Replace("{"+"CallSid"+"}", PathCallSid);
+            path = path.Replace("{" + "CallSid" + "}", PathCallSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -83,7 +83,7 @@ namespace Kandy.Rest.Insights.V1.Call
         /// <param name="options"> Read Event parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Event </returns>
-        public static ResourceSet<EventResource> Read(ReadEventOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<EventResource> Read(ReadEventOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -91,13 +91,13 @@ namespace Kandy.Rest.Insights.V1.Call
             return new ResourceSet<EventResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read Event parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Event </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<EventResource>> ReadAsync(ReadEventOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -105,7 +105,7 @@ namespace Kandy.Rest.Insights.V1.Call
             var page = Page<EventResource>.FromJson("events", response.Content);
             return new ResourceSet<EventResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="pathCallSid">  </param>
         /// <param name="edge">  </param>
@@ -118,13 +118,13 @@ namespace Kandy.Rest.Insights.V1.Call
                                                      EventResource.TwilioEdgeEnum edge = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadEventOptions(pathCallSid){ Edge = edge, PageSize = pageSize, Limit = limit};
+            var options = new ReadEventOptions(pathCallSid) { Edge = edge, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="pathCallSid">  </param>
         /// <param name="edge">  </param>
@@ -137,19 +137,19 @@ namespace Kandy.Rest.Insights.V1.Call
                                                                                              EventResource.TwilioEdgeEnum edge = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadEventOptions(pathCallSid){ Edge = edge, PageSize = pageSize, Limit = limit};
+            var options = new ReadEventOptions(pathCallSid) { Edge = edge, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<EventResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<EventResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -166,7 +166,7 @@ namespace Kandy.Rest.Insights.V1.Call
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<EventResource> NextPage(Page<EventResource> page, ITwilioRestClient client)
+        public static Page<EventResource> NextPage(Page<EventResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -181,7 +181,7 @@ namespace Kandy.Rest.Insights.V1.Call
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<EventResource> PreviousPage(Page<EventResource> page, ITwilioRestClient client)
+        public static Page<EventResource> PreviousPage(Page<EventResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -192,7 +192,7 @@ namespace Kandy.Rest.Insights.V1.Call
             return Page<EventResource>.FromJson("events", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a EventResource object
         /// </summary>
@@ -210,7 +210,7 @@ namespace Kandy.Rest.Insights.V1.Call
             }
         }
 
-    
+
         ///<summary> The timestamp </summary> 
         [JsonProperty("timestamp")]
         public string Timestamp { get; private set; }
@@ -223,7 +223,7 @@ namespace Kandy.Rest.Insights.V1.Call
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
 
-        
+
         [JsonProperty("edge")]
         public EventResource.TwilioEdgeEnum Edge { get; private set; }
 
@@ -231,7 +231,7 @@ namespace Kandy.Rest.Insights.V1.Call
         [JsonProperty("group")]
         public string Group { get; private set; }
 
-        
+
         [JsonProperty("level")]
         public EventResource.LevelEnum Level { get; private set; }
 
@@ -257,7 +257,8 @@ namespace Kandy.Rest.Insights.V1.Call
 
 
 
-        private EventResource() {
+        private EventResource()
+        {
 
         }
     }

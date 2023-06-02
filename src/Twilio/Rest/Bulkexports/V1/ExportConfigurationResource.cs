@@ -28,16 +28,16 @@ namespace Kandy.Rest.Bulkexports.V1
 {
     public class ExportConfigurationResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchExportConfigurationOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchExportConfigurationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Exports/{ResourceType}/Configuration";
 
             string PathResourceType = options.PathResourceType;
-            path = path.Replace("{"+"ResourceType"+"}", PathResourceType);
+            path = path.Replace("{" + "ResourceType" + "}", PathResourceType);
 
             return new Request(
                 HttpMethod.Get,
@@ -52,57 +52,57 @@ namespace Kandy.Rest.Bulkexports.V1
         /// <param name="options"> Fetch ExportConfiguration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ExportConfiguration </returns>
-        public static ExportConfigurationResource Fetch(FetchExportConfigurationOptions options, ITwilioRestClient client = null)
+        public static ExportConfigurationResource Fetch(FetchExportConfigurationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Export Configuration. </summary>
         /// <param name="options"> Fetch ExportConfiguration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ExportConfiguration </returns>
         public static async System.Threading.Tasks.Task<ExportConfigurationResource> FetchAsync(FetchExportConfigurationOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a specific Export Configuration. </summary>
         /// <param name="pathResourceType"> The type of communication – Messages, Calls, Conferences, and Participants </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ExportConfiguration </returns>
         public static ExportConfigurationResource Fetch(
-                                         string pathResourceType, 
-                                         ITwilioRestClient client = null)
+                                         string pathResourceType,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchExportConfigurationOptions(pathResourceType){  };
+            var options = new FetchExportConfigurationOptions(pathResourceType) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Export Configuration. </summary>
         /// <param name="pathResourceType"> The type of communication – Messages, Calls, Conferences, and Participants </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ExportConfiguration </returns>
-        public static async System.Threading.Tasks.Task<ExportConfigurationResource> FetchAsync(string pathResourceType, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<ExportConfigurationResource> FetchAsync(string pathResourceType, IKandyRestClient client = null)
         {
-            var options = new FetchExportConfigurationOptions(pathResourceType){  };
+            var options = new FetchExportConfigurationOptions(pathResourceType) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildUpdateRequest(UpdateExportConfigurationOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildUpdateRequest(UpdateExportConfigurationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Exports/{ResourceType}/Configuration";
 
             string PathResourceType = options.PathResourceType;
-            path = path.Replace("{"+"ResourceType"+"}", PathResourceType);
+            path = path.Replace("{" + "ResourceType" + "}", PathResourceType);
 
             return new Request(
                 HttpMethod.Post,
@@ -117,7 +117,7 @@ namespace Kandy.Rest.Bulkexports.V1
         /// <param name="options"> Update ExportConfiguration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ExportConfiguration </returns>
-        public static ExportConfigurationResource Update(UpdateExportConfigurationOptions options, ITwilioRestClient client = null)
+        public static ExportConfigurationResource Update(UpdateExportConfigurationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -128,15 +128,15 @@ namespace Kandy.Rest.Bulkexports.V1
         /// <param name="options"> Update ExportConfiguration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ExportConfiguration </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<ExportConfigurationResource> UpdateAsync(UpdateExportConfigurationOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update a specific Export Configuration. </summary>
         /// <param name="pathResourceType"> The type of communication – Messages, Calls, Conferences, and Participants </param>
@@ -150,13 +150,13 @@ namespace Kandy.Rest.Bulkexports.V1
                                           bool? enabled = null,
                                           Uri webhookUrl = null,
                                           string webhookMethod = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateExportConfigurationOptions(pathResourceType){ Enabled = enabled, WebhookUrl = webhookUrl, WebhookMethod = webhookMethod };
+            var options = new UpdateExportConfigurationOptions(pathResourceType) { Enabled = enabled, WebhookUrl = webhookUrl, WebhookMethod = webhookMethod };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update a specific Export Configuration. </summary>
         /// <param name="pathResourceType"> The type of communication – Messages, Calls, Conferences, and Participants </param>
         /// <param name="enabled"> If true, Twilio will automatically generate every day's file when the day is over. </param>
@@ -169,13 +169,13 @@ namespace Kandy.Rest.Bulkexports.V1
                                                                               bool? enabled = null,
                                                                               Uri webhookUrl = null,
                                                                               string webhookMethod = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateExportConfigurationOptions(pathResourceType){ Enabled = enabled, WebhookUrl = webhookUrl, WebhookMethod = webhookMethod };
+            var options = new UpdateExportConfigurationOptions(pathResourceType) { Enabled = enabled, WebhookUrl = webhookUrl, WebhookMethod = webhookMethod };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a ExportConfigurationResource object
         /// </summary>
@@ -193,7 +193,7 @@ namespace Kandy.Rest.Bulkexports.V1
             }
         }
 
-    
+
         ///<summary> If true, Twilio will automatically generate every day's file when the day is over. </summary> 
         [JsonProperty("enabled")]
         public bool? Enabled { get; private set; }
@@ -216,7 +216,8 @@ namespace Kandy.Rest.Bulkexports.V1
 
 
 
-        private ExportConfigurationResource() {
+        private ExportConfigurationResource()
+        {
 
         }
     }

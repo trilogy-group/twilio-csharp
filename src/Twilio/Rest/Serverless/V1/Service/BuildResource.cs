@@ -28,12 +28,12 @@ namespace Kandy.Rest.Serverless.V1.Service
 {
     public class BuildResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class StatusEnum : StringEnum
         {
-            private StatusEnum(string value) : base(value) {}
-            public StatusEnum() {}
+            private StatusEnum(string value) : base(value) { }
+            public StatusEnum() { }
             public static implicit operator StatusEnum(string value)
             {
                 return new StatusEnum(value);
@@ -46,8 +46,8 @@ namespace Kandy.Rest.Serverless.V1.Service
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class RuntimeEnum : StringEnum
         {
-            private RuntimeEnum(string value) : base(value) {}
-            public RuntimeEnum() {}
+            private RuntimeEnum(string value) : base(value) { }
+            public RuntimeEnum() { }
             public static implicit operator RuntimeEnum(string value)
             {
                 return new RuntimeEnum(value);
@@ -60,14 +60,14 @@ namespace Kandy.Rest.Serverless.V1.Service
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateBuildOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateBuildOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Builds";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -82,26 +82,26 @@ namespace Kandy.Rest.Serverless.V1.Service
         /// <param name="options"> Create Build parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Build </returns>
-        public static BuildResource Create(CreateBuildOptions options, ITwilioRestClient client = null)
+        public static BuildResource Create(CreateBuildOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Build resource. At least one function version or asset version is required. </summary>
         /// <param name="options"> Create Build parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Build </returns>
         public static async System.Threading.Tasks.Task<BuildResource> CreateAsync(CreateBuildOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new Build resource. At least one function version or asset version is required. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to create the Build resource under. </param>
@@ -117,13 +117,13 @@ namespace Kandy.Rest.Serverless.V1.Service
                                           List<string> functionVersions = null,
                                           string dependencies = null,
                                           string runtime = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateBuildOptions(pathServiceSid){  AssetVersions = assetVersions, FunctionVersions = functionVersions, Dependencies = dependencies, Runtime = runtime };
+            var options = new CreateBuildOptions(pathServiceSid) { AssetVersions = assetVersions, FunctionVersions = functionVersions, Dependencies = dependencies, Runtime = runtime };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Build resource. At least one function version or asset version is required. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to create the Build resource under. </param>
         /// <param name="assetVersions"> The list of Asset Version resource SIDs to include in the Build. </param>
@@ -138,26 +138,26 @@ namespace Kandy.Rest.Serverless.V1.Service
                                                                                   List<string> functionVersions = null,
                                                                                   string dependencies = null,
                                                                                   string runtime = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateBuildOptions(pathServiceSid){  AssetVersions = assetVersions, FunctionVersions = functionVersions, Dependencies = dependencies, Runtime = runtime };
+            var options = new CreateBuildOptions(pathServiceSid) { AssetVersions = assetVersions, FunctionVersions = functionVersions, Dependencies = dependencies, Runtime = runtime };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Delete a Build resource. </summary>
         /// <param name="options"> Delete Build parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Build </returns>
-        private static Request BuildDeleteRequest(DeleteBuildOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteBuildOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Builds/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -172,60 +172,60 @@ namespace Kandy.Rest.Serverless.V1.Service
         /// <param name="options"> Delete Build parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Build </returns>
-        public static bool Delete(DeleteBuildOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteBuildOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a Build resource. </summary>
         /// <param name="options"> Delete Build parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Build </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteBuildOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete a Build resource. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to delete the Build resource from. </param>
         /// <param name="pathSid"> The SID of the Build resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Build </returns>
-        public static bool Delete(string pathServiceSid, string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathServiceSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteBuildOptions(pathServiceSid, pathSid)        ;
+            var options = new DeleteBuildOptions(pathServiceSid, pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a Build resource. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to delete the Build resource from. </param>
         /// <param name="pathSid"> The SID of the Build resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Build </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteBuildOptions(pathServiceSid, pathSid) ;
+            var options = new DeleteBuildOptions(pathServiceSid, pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchBuildOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchBuildOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Builds/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -240,60 +240,60 @@ namespace Kandy.Rest.Serverless.V1.Service
         /// <param name="options"> Fetch Build parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Build </returns>
-        public static BuildResource Fetch(FetchBuildOptions options, ITwilioRestClient client = null)
+        public static BuildResource Fetch(FetchBuildOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a specific Build resource. </summary>
         /// <param name="options"> Fetch Build parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Build </returns>
         public static async System.Threading.Tasks.Task<BuildResource> FetchAsync(FetchBuildOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Retrieve a specific Build resource. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to fetch the Build resource from. </param>
         /// <param name="pathSid"> The SID of the Build resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Build </returns>
         public static BuildResource Fetch(
-                                         string pathServiceSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathServiceSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchBuildOptions(pathServiceSid, pathSid){  };
+            var options = new FetchBuildOptions(pathServiceSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a specific Build resource. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to fetch the Build resource from. </param>
         /// <param name="pathSid"> The SID of the Build resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Build </returns>
-        public static async System.Threading.Tasks.Task<BuildResource> FetchAsync(string pathServiceSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<BuildResource> FetchAsync(string pathServiceSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchBuildOptions(pathServiceSid, pathSid){  };
+            var options = new FetchBuildOptions(pathServiceSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadBuildOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadBuildOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Builds";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -307,7 +307,7 @@ namespace Kandy.Rest.Serverless.V1.Service
         /// <param name="options"> Read Build parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Build </returns>
-        public static ResourceSet<BuildResource> Read(ReadBuildOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<BuildResource> Read(ReadBuildOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -315,13 +315,13 @@ namespace Kandy.Rest.Serverless.V1.Service
             return new ResourceSet<BuildResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Builds. </summary>
         /// <param name="options"> Read Build parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Build </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<BuildResource>> ReadAsync(ReadBuildOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -329,7 +329,7 @@ namespace Kandy.Rest.Serverless.V1.Service
             var page = Page<BuildResource>.FromJson("builds", response.Content);
             return new ResourceSet<BuildResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Builds. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to read the Build resources from. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -340,13 +340,13 @@ namespace Kandy.Rest.Serverless.V1.Service
                                                      string pathServiceSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadBuildOptions(pathServiceSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadBuildOptions(pathServiceSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Builds. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to read the Build resources from. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -357,19 +357,19 @@ namespace Kandy.Rest.Serverless.V1.Service
                                                                                              string pathServiceSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadBuildOptions(pathServiceSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadBuildOptions(pathServiceSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<BuildResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<BuildResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -386,7 +386,7 @@ namespace Kandy.Rest.Serverless.V1.Service
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<BuildResource> NextPage(Page<BuildResource> page, ITwilioRestClient client)
+        public static Page<BuildResource> NextPage(Page<BuildResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -401,7 +401,7 @@ namespace Kandy.Rest.Serverless.V1.Service
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<BuildResource> PreviousPage(Page<BuildResource> page, ITwilioRestClient client)
+        public static Page<BuildResource> PreviousPage(Page<BuildResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -412,7 +412,7 @@ namespace Kandy.Rest.Serverless.V1.Service
             return Page<BuildResource>.FromJson("builds", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a BuildResource object
         /// </summary>
@@ -430,7 +430,7 @@ namespace Kandy.Rest.Serverless.V1.Service
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the Build resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -443,7 +443,7 @@ namespace Kandy.Rest.Serverless.V1.Service
         [JsonProperty("service_sid")]
         public string ServiceSid { get; private set; }
 
-        
+
         [JsonProperty("status")]
         public BuildResource.StatusEnum Status { get; private set; }
 
@@ -459,7 +459,7 @@ namespace Kandy.Rest.Serverless.V1.Service
         [JsonProperty("dependencies")]
         public List<object> Dependencies { get; private set; }
 
-        
+
         [JsonProperty("runtime")]
         public BuildResource.RuntimeEnum Runtime { get; private set; }
 
@@ -481,7 +481,8 @@ namespace Kandy.Rest.Serverless.V1.Service
 
 
 
-        private BuildResource() {
+        private BuildResource()
+        {
 
         }
     }

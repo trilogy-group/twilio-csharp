@@ -28,12 +28,12 @@ namespace Kandy.Rest.Conversations.V1.Service
 {
     public class ParticipantConversationResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class StateEnum : StringEnum
         {
-            private StateEnum(string value) : base(value) {}
-            public StateEnum() {}
+            private StateEnum(string value) : base(value) { }
+            public StateEnum() { }
             public static implicit operator StateEnum(string value)
             {
                 return new StateEnum(value);
@@ -44,14 +44,14 @@ namespace Kandy.Rest.Conversations.V1.Service
 
         }
 
-        
-        private static Request BuildReadRequest(ReadParticipantConversationOptions options, ITwilioRestClient client)
+
+        private static Request BuildReadRequest(ReadParticipantConversationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ChatServiceSid}/ParticipantConversations";
 
             string PathChatServiceSid = options.PathChatServiceSid;
-            path = path.Replace("{"+"ChatServiceSid"+"}", PathChatServiceSid);
+            path = path.Replace("{" + "ChatServiceSid" + "}", PathChatServiceSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -65,7 +65,7 @@ namespace Kandy.Rest.Conversations.V1.Service
         /// <param name="options"> Read ParticipantConversation parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ParticipantConversation </returns>
-        public static ResourceSet<ParticipantConversationResource> Read(ReadParticipantConversationOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<ParticipantConversationResource> Read(ReadParticipantConversationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -73,13 +73,13 @@ namespace Kandy.Rest.Conversations.V1.Service
             return new ResourceSet<ParticipantConversationResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Conversations that this Participant belongs to by identity or by address. Only one parameter should be specified. </summary>
         /// <param name="options"> Read ParticipantConversation parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ParticipantConversation </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<ParticipantConversationResource>> ReadAsync(ReadParticipantConversationOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -87,7 +87,7 @@ namespace Kandy.Rest.Conversations.V1.Service
             var page = Page<ParticipantConversationResource>.FromJson("conversations", response.Content);
             return new ResourceSet<ParticipantConversationResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Conversations that this Participant belongs to by identity or by address. Only one parameter should be specified. </summary>
         /// <param name="pathChatServiceSid"> The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant Conversations resource is associated with. </param>
         /// <param name="identity"> A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters. </param>
@@ -102,13 +102,13 @@ namespace Kandy.Rest.Conversations.V1.Service
                                                      string address = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadParticipantConversationOptions(pathChatServiceSid){ Identity = identity, Address = address, PageSize = pageSize, Limit = limit};
+            var options = new ReadParticipantConversationOptions(pathChatServiceSid) { Identity = identity, Address = address, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Conversations that this Participant belongs to by identity or by address. Only one parameter should be specified. </summary>
         /// <param name="pathChatServiceSid"> The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant Conversations resource is associated with. </param>
         /// <param name="identity"> A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters. </param>
@@ -123,19 +123,19 @@ namespace Kandy.Rest.Conversations.V1.Service
                                                                                              string address = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadParticipantConversationOptions(pathChatServiceSid){ Identity = identity, Address = address, PageSize = pageSize, Limit = limit};
+            var options = new ReadParticipantConversationOptions(pathChatServiceSid) { Identity = identity, Address = address, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<ParticipantConversationResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<ParticipantConversationResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -152,7 +152,7 @@ namespace Kandy.Rest.Conversations.V1.Service
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<ParticipantConversationResource> NextPage(Page<ParticipantConversationResource> page, ITwilioRestClient client)
+        public static Page<ParticipantConversationResource> NextPage(Page<ParticipantConversationResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -167,7 +167,7 @@ namespace Kandy.Rest.Conversations.V1.Service
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<ParticipantConversationResource> PreviousPage(Page<ParticipantConversationResource> page, ITwilioRestClient client)
+        public static Page<ParticipantConversationResource> PreviousPage(Page<ParticipantConversationResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -178,7 +178,7 @@ namespace Kandy.Rest.Conversations.V1.Service
             return Page<ParticipantConversationResource>.FromJson("conversations", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a ParticipantConversationResource object
         /// </summary>
@@ -196,7 +196,7 @@ namespace Kandy.Rest.Conversations.V1.Service
             }
         }
 
-    
+
         ///<summary> The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this conversation. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -249,7 +249,7 @@ namespace Kandy.Rest.Conversations.V1.Service
         [JsonProperty("conversation_created_by")]
         public string ConversationCreatedBy { get; private set; }
 
-        
+
         [JsonProperty("conversation_state")]
         public ParticipantConversationResource.StateEnum ConversationState { get; private set; }
 
@@ -263,7 +263,8 @@ namespace Kandy.Rest.Conversations.V1.Service
 
 
 
-        private ParticipantConversationResource() {
+        private ParticipantConversationResource()
+        {
 
         }
     }

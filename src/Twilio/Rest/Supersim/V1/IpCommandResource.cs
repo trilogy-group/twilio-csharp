@@ -28,12 +28,12 @@ namespace Kandy.Rest.Supersim.V1
 {
     public class IpCommandResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class StatusEnum : StringEnum
         {
-            private StatusEnum(string value) : base(value) {}
-            public StatusEnum() {}
+            private StatusEnum(string value) : base(value) { }
+            public StatusEnum() { }
             public static implicit operator StatusEnum(string value)
             {
                 return new StatusEnum(value);
@@ -47,8 +47,8 @@ namespace Kandy.Rest.Supersim.V1
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class DirectionEnum : StringEnum
         {
-            private DirectionEnum(string value) : base(value) {}
-            public DirectionEnum() {}
+            private DirectionEnum(string value) : base(value) { }
+            public DirectionEnum() { }
             public static implicit operator DirectionEnum(string value)
             {
                 return new DirectionEnum(value);
@@ -60,8 +60,8 @@ namespace Kandy.Rest.Supersim.V1
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class PayloadTypeEnum : StringEnum
         {
-            private PayloadTypeEnum(string value) : base(value) {}
-            public PayloadTypeEnum() {}
+            private PayloadTypeEnum(string value) : base(value) { }
+            public PayloadTypeEnum() { }
             public static implicit operator PayloadTypeEnum(string value)
             {
                 return new PayloadTypeEnum(value);
@@ -71,10 +71,10 @@ namespace Kandy.Rest.Supersim.V1
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateIpCommandOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateIpCommandOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/IpCommands";
 
 
@@ -91,26 +91,26 @@ namespace Kandy.Rest.Supersim.V1
         /// <param name="options"> Create IpCommand parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of IpCommand </returns>
-        public static IpCommandResource Create(CreateIpCommandOptions options, ITwilioRestClient client = null)
+        public static IpCommandResource Create(CreateIpCommandOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Send an IP Command to a Super SIM. </summary>
         /// <param name="options"> Create IpCommand parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of IpCommand </returns>
         public static async System.Threading.Tasks.Task<IpCommandResource> CreateAsync(CreateIpCommandOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Send an IP Command to a Super SIM. </summary>
         /// <param name="sim"> The `sid` or `unique_name` of the [Super SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the IP Command to. </param>
@@ -128,13 +128,13 @@ namespace Kandy.Rest.Supersim.V1
                                           IpCommandResource.PayloadTypeEnum payloadType = null,
                                           Uri callbackUrl = null,
                                           Twilio.Http.HttpMethod callbackMethod = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateIpCommandOptions(sim, payload, devicePort){  PayloadType = payloadType, CallbackUrl = callbackUrl, CallbackMethod = callbackMethod };
+            var options = new CreateIpCommandOptions(sim, payload, devicePort) { PayloadType = payloadType, CallbackUrl = callbackUrl, CallbackMethod = callbackMethod };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Send an IP Command to a Super SIM. </summary>
         /// <param name="sim"> The `sid` or `unique_name` of the [Super SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the IP Command to. </param>
         /// <param name="payload"> The data that will be sent to the device. The payload cannot exceed 1300 bytes. If the PayloadType is set to text, the payload is encoded in UTF-8. If PayloadType is set to binary, the payload is encoded in Base64. </param>
@@ -151,20 +151,20 @@ namespace Kandy.Rest.Supersim.V1
                                                                                   IpCommandResource.PayloadTypeEnum payloadType = null,
                                                                                   Uri callbackUrl = null,
                                                                                   Twilio.Http.HttpMethod callbackMethod = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateIpCommandOptions(sim, payload, devicePort){  PayloadType = payloadType, CallbackUrl = callbackUrl, CallbackMethod = callbackMethod };
+            var options = new CreateIpCommandOptions(sim, payload, devicePort) { PayloadType = payloadType, CallbackUrl = callbackUrl, CallbackMethod = callbackMethod };
             return await CreateAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchIpCommandOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchIpCommandOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/IpCommands/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -179,53 +179,53 @@ namespace Kandy.Rest.Supersim.V1
         /// <param name="options"> Fetch IpCommand parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of IpCommand </returns>
-        public static IpCommandResource Fetch(FetchIpCommandOptions options, ITwilioRestClient client = null)
+        public static IpCommandResource Fetch(FetchIpCommandOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch IP Command instance from your account. </summary>
         /// <param name="options"> Fetch IpCommand parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of IpCommand </returns>
         public static async System.Threading.Tasks.Task<IpCommandResource> FetchAsync(FetchIpCommandOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch IP Command instance from your account. </summary>
         /// <param name="pathSid"> The SID of the IP Command resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of IpCommand </returns>
         public static IpCommandResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchIpCommandOptions(pathSid){  };
+            var options = new FetchIpCommandOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch IP Command instance from your account. </summary>
         /// <param name="pathSid"> The SID of the IP Command resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of IpCommand </returns>
-        public static async System.Threading.Tasks.Task<IpCommandResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<IpCommandResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchIpCommandOptions(pathSid){  };
+            var options = new FetchIpCommandOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadIpCommandOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadIpCommandOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/IpCommands";
 
 
@@ -241,7 +241,7 @@ namespace Kandy.Rest.Supersim.V1
         /// <param name="options"> Read IpCommand parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of IpCommand </returns>
-        public static ResourceSet<IpCommandResource> Read(ReadIpCommandOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<IpCommandResource> Read(ReadIpCommandOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -249,13 +249,13 @@ namespace Kandy.Rest.Supersim.V1
             return new ResourceSet<IpCommandResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of IP Commands from your account. </summary>
         /// <param name="options"> Read IpCommand parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of IpCommand </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<IpCommandResource>> ReadAsync(ReadIpCommandOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -263,7 +263,7 @@ namespace Kandy.Rest.Supersim.V1
             var page = Page<IpCommandResource>.FromJson("ip_commands", response.Content);
             return new ResourceSet<IpCommandResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of IP Commands from your account. </summary>
         /// <param name="sim"> The SID or unique name of the Sim resource that IP Command was sent to or from. </param>
         /// <param name="simIccid"> The ICCID of the Sim resource that IP Command was sent to or from. </param>
@@ -280,13 +280,13 @@ namespace Kandy.Rest.Supersim.V1
                                                      IpCommandResource.DirectionEnum direction = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadIpCommandOptions(){ Sim = sim, SimIccid = simIccid, Status = status, Direction = direction, PageSize = pageSize, Limit = limit};
+            var options = new ReadIpCommandOptions() { Sim = sim, SimIccid = simIccid, Status = status, Direction = direction, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of IP Commands from your account. </summary>
         /// <param name="sim"> The SID or unique name of the Sim resource that IP Command was sent to or from. </param>
         /// <param name="simIccid"> The ICCID of the Sim resource that IP Command was sent to or from. </param>
@@ -303,19 +303,19 @@ namespace Kandy.Rest.Supersim.V1
                                                                                              IpCommandResource.DirectionEnum direction = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadIpCommandOptions(){ Sim = sim, SimIccid = simIccid, Status = status, Direction = direction, PageSize = pageSize, Limit = limit};
+            var options = new ReadIpCommandOptions() { Sim = sim, SimIccid = simIccid, Status = status, Direction = direction, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<IpCommandResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<IpCommandResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -332,7 +332,7 @@ namespace Kandy.Rest.Supersim.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<IpCommandResource> NextPage(Page<IpCommandResource> page, ITwilioRestClient client)
+        public static Page<IpCommandResource> NextPage(Page<IpCommandResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -347,7 +347,7 @@ namespace Kandy.Rest.Supersim.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<IpCommandResource> PreviousPage(Page<IpCommandResource> page, ITwilioRestClient client)
+        public static Page<IpCommandResource> PreviousPage(Page<IpCommandResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -358,7 +358,7 @@ namespace Kandy.Rest.Supersim.V1
             return Page<IpCommandResource>.FromJson("ip_commands", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a IpCommandResource object
         /// </summary>
@@ -376,7 +376,7 @@ namespace Kandy.Rest.Supersim.V1
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the IP Command resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -393,11 +393,11 @@ namespace Kandy.Rest.Supersim.V1
         [JsonProperty("sim_iccid")]
         public string SimIccid { get; private set; }
 
-        
+
         [JsonProperty("status")]
         public IpCommandResource.StatusEnum Status { get; private set; }
 
-        
+
         [JsonProperty("direction")]
         public IpCommandResource.DirectionEnum Direction { get; private set; }
 
@@ -409,7 +409,7 @@ namespace Kandy.Rest.Supersim.V1
         [JsonProperty("device_port")]
         public int? DevicePort { get; private set; }
 
-        
+
         [JsonProperty("payload_type")]
         public IpCommandResource.PayloadTypeEnum PayloadType { get; private set; }
 
@@ -431,7 +431,8 @@ namespace Kandy.Rest.Supersim.V1
 
 
 
-        private IpCommandResource() {
+        private IpCommandResource()
+        {
 
         }
     }

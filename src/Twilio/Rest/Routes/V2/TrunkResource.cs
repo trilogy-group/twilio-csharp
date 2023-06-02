@@ -28,16 +28,16 @@ namespace Kandy.Rest.Routes.V2
 {
     public class TrunkResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchTrunkOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchTrunkOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Trunks/{SipTrunkDomain}";
 
             string PathSipTrunkDomain = options.PathSipTrunkDomain;
-            path = path.Replace("{"+"SipTrunkDomain"+"}", PathSipTrunkDomain);
+            path = path.Replace("{" + "SipTrunkDomain" + "}", PathSipTrunkDomain);
 
             return new Request(
                 HttpMethod.Get,
@@ -52,57 +52,57 @@ namespace Kandy.Rest.Routes.V2
         /// <param name="options"> Fetch Trunk parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Trunk </returns>
-        public static TrunkResource Fetch(FetchTrunkOptions options, ITwilioRestClient client = null)
+        public static TrunkResource Fetch(FetchTrunkOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch the Inbound Processing Region assigned to a SIP Trunk. </summary>
         /// <param name="options"> Fetch Trunk parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Trunk </returns>
         public static async System.Threading.Tasks.Task<TrunkResource> FetchAsync(FetchTrunkOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch the Inbound Processing Region assigned to a SIP Trunk. </summary>
         /// <param name="pathSipTrunkDomain"> The absolute URL of the SIP Trunk </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Trunk </returns>
         public static TrunkResource Fetch(
-                                         string pathSipTrunkDomain, 
-                                         ITwilioRestClient client = null)
+                                         string pathSipTrunkDomain,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchTrunkOptions(pathSipTrunkDomain){  };
+            var options = new FetchTrunkOptions(pathSipTrunkDomain) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch the Inbound Processing Region assigned to a SIP Trunk. </summary>
         /// <param name="pathSipTrunkDomain"> The absolute URL of the SIP Trunk </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Trunk </returns>
-        public static async System.Threading.Tasks.Task<TrunkResource> FetchAsync(string pathSipTrunkDomain, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<TrunkResource> FetchAsync(string pathSipTrunkDomain, IKandyRestClient client = null)
         {
-            var options = new FetchTrunkOptions(pathSipTrunkDomain){  };
+            var options = new FetchTrunkOptions(pathSipTrunkDomain) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildUpdateRequest(UpdateTrunkOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildUpdateRequest(UpdateTrunkOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Trunks/{SipTrunkDomain}";
 
             string PathSipTrunkDomain = options.PathSipTrunkDomain;
-            path = path.Replace("{"+"SipTrunkDomain"+"}", PathSipTrunkDomain);
+            path = path.Replace("{" + "SipTrunkDomain" + "}", PathSipTrunkDomain);
 
             return new Request(
                 HttpMethod.Post,
@@ -117,7 +117,7 @@ namespace Kandy.Rest.Routes.V2
         /// <param name="options"> Update Trunk parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Trunk </returns>
-        public static TrunkResource Update(UpdateTrunkOptions options, ITwilioRestClient client = null)
+        public static TrunkResource Update(UpdateTrunkOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -128,15 +128,15 @@ namespace Kandy.Rest.Routes.V2
         /// <param name="options"> Update Trunk parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Trunk </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<TrunkResource> UpdateAsync(UpdateTrunkOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Assign an Inbound Processing Region to a SIP Trunk </summary>
         /// <param name="pathSipTrunkDomain"> The absolute URL of the SIP Trunk </param>
@@ -148,13 +148,13 @@ namespace Kandy.Rest.Routes.V2
                                           string pathSipTrunkDomain,
                                           string voiceRegion = null,
                                           string friendlyName = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateTrunkOptions(pathSipTrunkDomain){ VoiceRegion = voiceRegion, FriendlyName = friendlyName };
+            var options = new UpdateTrunkOptions(pathSipTrunkDomain) { VoiceRegion = voiceRegion, FriendlyName = friendlyName };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Assign an Inbound Processing Region to a SIP Trunk </summary>
         /// <param name="pathSipTrunkDomain"> The absolute URL of the SIP Trunk </param>
         /// <param name="voiceRegion"> The Inbound Processing Region used for this SIP Trunk for voice </param>
@@ -165,13 +165,13 @@ namespace Kandy.Rest.Routes.V2
                                                                               string pathSipTrunkDomain,
                                                                               string voiceRegion = null,
                                                                               string friendlyName = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateTrunkOptions(pathSipTrunkDomain){ VoiceRegion = voiceRegion, FriendlyName = friendlyName };
+            var options = new UpdateTrunkOptions(pathSipTrunkDomain) { VoiceRegion = voiceRegion, FriendlyName = friendlyName };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a TrunkResource object
         /// </summary>
@@ -189,7 +189,7 @@ namespace Kandy.Rest.Routes.V2
             }
         }
 
-    
+
         ///<summary> The absolute URL of the SIP Trunk </summary> 
         [JsonProperty("sip_trunk_domain")]
         public string SipTrunkDomain { get; private set; }
@@ -224,7 +224,8 @@ namespace Kandy.Rest.Routes.V2
 
 
 
-        private TrunkResource() {
+        private TrunkResource()
+        {
 
         }
     }

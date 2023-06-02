@@ -28,12 +28,12 @@ namespace Kandy.Rest.Conversations.V1.Conversation.Message
 {
     public class DeliveryReceiptResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class DeliveryStatusEnum : StringEnum
         {
-            private DeliveryStatusEnum(string value) : base(value) {}
-            public DeliveryStatusEnum() {}
+            private DeliveryStatusEnum(string value) : base(value) { }
+            public DeliveryStatusEnum() { }
             public static implicit operator DeliveryStatusEnum(string value)
             {
                 return new DeliveryStatusEnum(value);
@@ -46,18 +46,18 @@ namespace Kandy.Rest.Conversations.V1.Conversation.Message
 
         }
 
-        
-        private static Request BuildFetchRequest(FetchDeliveryReceiptOptions options, ITwilioRestClient client)
+
+        private static Request BuildFetchRequest(FetchDeliveryReceiptOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts/{Sid}";
 
             string PathConversationSid = options.PathConversationSid;
-            path = path.Replace("{"+"ConversationSid"+"}", PathConversationSid);
+            path = path.Replace("{" + "ConversationSid" + "}", PathConversationSid);
             string PathMessageSid = options.PathMessageSid;
-            path = path.Replace("{"+"MessageSid"+"}", PathMessageSid);
+            path = path.Replace("{" + "MessageSid" + "}", PathMessageSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -72,26 +72,26 @@ namespace Kandy.Rest.Conversations.V1.Conversation.Message
         /// <param name="options"> Fetch DeliveryReceipt parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of DeliveryReceipt </returns>
-        public static DeliveryReceiptResource Fetch(FetchDeliveryReceiptOptions options, ITwilioRestClient client = null)
+        public static DeliveryReceiptResource Fetch(FetchDeliveryReceiptOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch the delivery and read receipts of the conversation message </summary>
         /// <param name="options"> Fetch DeliveryReceipt parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of DeliveryReceipt </returns>
         public static async System.Threading.Tasks.Task<DeliveryReceiptResource> FetchAsync(FetchDeliveryReceiptOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch the delivery and read receipts of the conversation message </summary>
         /// <param name="pathConversationSid"> The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message. </param>
         /// <param name="pathMessageSid"> The SID of the message within a [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) the delivery receipt belongs to. </param>
@@ -99,38 +99,38 @@ namespace Kandy.Rest.Conversations.V1.Conversation.Message
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of DeliveryReceipt </returns>
         public static DeliveryReceiptResource Fetch(
-                                         string pathConversationSid, 
-                                         string pathMessageSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathConversationSid,
+                                         string pathMessageSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchDeliveryReceiptOptions(pathConversationSid, pathMessageSid, pathSid){  };
+            var options = new FetchDeliveryReceiptOptions(pathConversationSid, pathMessageSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch the delivery and read receipts of the conversation message </summary>
         /// <param name="pathConversationSid"> The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message. </param>
         /// <param name="pathMessageSid"> The SID of the message within a [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) the delivery receipt belongs to. </param>
         /// <param name="pathSid"> A 34 character string that uniquely identifies this resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of DeliveryReceipt </returns>
-        public static async System.Threading.Tasks.Task<DeliveryReceiptResource> FetchAsync(string pathConversationSid, string pathMessageSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<DeliveryReceiptResource> FetchAsync(string pathConversationSid, string pathMessageSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchDeliveryReceiptOptions(pathConversationSid, pathMessageSid, pathSid){  };
+            var options = new FetchDeliveryReceiptOptions(pathConversationSid, pathMessageSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadDeliveryReceiptOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadDeliveryReceiptOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts";
 
             string PathConversationSid = options.PathConversationSid;
-            path = path.Replace("{"+"ConversationSid"+"}", PathConversationSid);
+            path = path.Replace("{" + "ConversationSid" + "}", PathConversationSid);
             string PathMessageSid = options.PathMessageSid;
-            path = path.Replace("{"+"MessageSid"+"}", PathMessageSid);
+            path = path.Replace("{" + "MessageSid" + "}", PathMessageSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -144,7 +144,7 @@ namespace Kandy.Rest.Conversations.V1.Conversation.Message
         /// <param name="options"> Read DeliveryReceipt parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of DeliveryReceipt </returns>
-        public static ResourceSet<DeliveryReceiptResource> Read(ReadDeliveryReceiptOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<DeliveryReceiptResource> Read(ReadDeliveryReceiptOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -152,13 +152,13 @@ namespace Kandy.Rest.Conversations.V1.Conversation.Message
             return new ResourceSet<DeliveryReceiptResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all delivery and read receipts of the conversation message </summary>
         /// <param name="options"> Read DeliveryReceipt parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of DeliveryReceipt </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<DeliveryReceiptResource>> ReadAsync(ReadDeliveryReceiptOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -166,7 +166,7 @@ namespace Kandy.Rest.Conversations.V1.Conversation.Message
             var page = Page<DeliveryReceiptResource>.FromJson("delivery_receipts", response.Content);
             return new ResourceSet<DeliveryReceiptResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all delivery and read receipts of the conversation message </summary>
         /// <param name="pathConversationSid"> The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message. </param>
         /// <param name="pathMessageSid"> The SID of the message within a [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) the delivery receipt belongs to. </param>
@@ -179,13 +179,13 @@ namespace Kandy.Rest.Conversations.V1.Conversation.Message
                                                      string pathMessageSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadDeliveryReceiptOptions(pathConversationSid, pathMessageSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadDeliveryReceiptOptions(pathConversationSid, pathMessageSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all delivery and read receipts of the conversation message </summary>
         /// <param name="pathConversationSid"> The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message. </param>
         /// <param name="pathMessageSid"> The SID of the message within a [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) the delivery receipt belongs to. </param>
@@ -198,19 +198,19 @@ namespace Kandy.Rest.Conversations.V1.Conversation.Message
                                                                                              string pathMessageSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadDeliveryReceiptOptions(pathConversationSid, pathMessageSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadDeliveryReceiptOptions(pathConversationSid, pathMessageSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<DeliveryReceiptResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<DeliveryReceiptResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -227,7 +227,7 @@ namespace Kandy.Rest.Conversations.V1.Conversation.Message
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<DeliveryReceiptResource> NextPage(Page<DeliveryReceiptResource> page, ITwilioRestClient client)
+        public static Page<DeliveryReceiptResource> NextPage(Page<DeliveryReceiptResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -242,7 +242,7 @@ namespace Kandy.Rest.Conversations.V1.Conversation.Message
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<DeliveryReceiptResource> PreviousPage(Page<DeliveryReceiptResource> page, ITwilioRestClient client)
+        public static Page<DeliveryReceiptResource> PreviousPage(Page<DeliveryReceiptResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -253,7 +253,7 @@ namespace Kandy.Rest.Conversations.V1.Conversation.Message
             return Page<DeliveryReceiptResource>.FromJson("delivery_receipts", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a DeliveryReceiptResource object
         /// </summary>
@@ -271,7 +271,7 @@ namespace Kandy.Rest.Conversations.V1.Conversation.Message
             }
         }
 
-    
+
         ///<summary> The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this participant. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -296,7 +296,7 @@ namespace Kandy.Rest.Conversations.V1.Conversation.Message
         [JsonProperty("participant_sid")]
         public string ParticipantSid { get; private set; }
 
-        
+
         [JsonProperty("status")]
         public DeliveryReceiptResource.DeliveryStatusEnum Status { get; private set; }
 
@@ -318,7 +318,8 @@ namespace Kandy.Rest.Conversations.V1.Conversation.Message
 
 
 
-        private DeliveryReceiptResource() {
+        private DeliveryReceiptResource()
+        {
 
         }
     }

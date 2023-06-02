@@ -28,12 +28,12 @@ namespace Kandy.Rest.Video.V1
 {
     public class RoomResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class VideoCodecEnum : StringEnum
         {
-            private VideoCodecEnum(string value) : base(value) {}
-            public VideoCodecEnum() {}
+            private VideoCodecEnum(string value) : base(value) { }
+            public VideoCodecEnum() { }
             public static implicit operator VideoCodecEnum(string value)
             {
                 return new VideoCodecEnum(value);
@@ -45,8 +45,8 @@ namespace Kandy.Rest.Video.V1
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class RoomTypeEnum : StringEnum
         {
-            private RoomTypeEnum(string value) : base(value) {}
-            public RoomTypeEnum() {}
+            private RoomTypeEnum(string value) : base(value) { }
+            public RoomTypeEnum() { }
             public static implicit operator RoomTypeEnum(string value)
             {
                 return new RoomTypeEnum(value);
@@ -60,8 +60,8 @@ namespace Kandy.Rest.Video.V1
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class RoomStatusEnum : StringEnum
         {
-            private RoomStatusEnum(string value) : base(value) {}
-            public RoomStatusEnum() {}
+            private RoomStatusEnum(string value) : base(value) { }
+            public RoomStatusEnum() { }
             public static implicit operator RoomStatusEnum(string value)
             {
                 return new RoomStatusEnum(value);
@@ -72,10 +72,10 @@ namespace Kandy.Rest.Video.V1
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateRoomOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateRoomOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Rooms";
 
 
@@ -92,26 +92,26 @@ namespace Kandy.Rest.Video.V1
         /// <param name="options"> Create Room parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Room </returns>
-        public static RoomResource Create(CreateRoomOptions options, ITwilioRestClient client = null)
+        public static RoomResource Create(CreateRoomOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create Room parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Room </returns>
         public static async System.Threading.Tasks.Task<RoomResource> CreateAsync(CreateRoomOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="enableTurn"> Deprecated, now always considered to be true. </param>
@@ -147,13 +147,13 @@ namespace Kandy.Rest.Video.V1
                                           int? emptyRoomTimeout = null,
                                           int? unusedRoomTimeout = null,
                                           bool? largeRoom = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateRoomOptions(){  EnableTurn = enableTurn, Type = type, UniqueName = uniqueName, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, MaxParticipants = maxParticipants, RecordParticipantsOnConnect = recordParticipantsOnConnect, VideoCodecs = videoCodecs, MediaRegion = mediaRegion, RecordingRules = recordingRules, AudioOnly = audioOnly, MaxParticipantDuration = maxParticipantDuration, EmptyRoomTimeout = emptyRoomTimeout, UnusedRoomTimeout = unusedRoomTimeout, LargeRoom = largeRoom };
+            var options = new CreateRoomOptions() { EnableTurn = enableTurn, Type = type, UniqueName = uniqueName, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, MaxParticipants = maxParticipants, RecordParticipantsOnConnect = recordParticipantsOnConnect, VideoCodecs = videoCodecs, MediaRegion = mediaRegion, RecordingRules = recordingRules, AudioOnly = audioOnly, MaxParticipantDuration = maxParticipantDuration, EmptyRoomTimeout = emptyRoomTimeout, UnusedRoomTimeout = unusedRoomTimeout, LargeRoom = largeRoom };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="enableTurn"> Deprecated, now always considered to be true. </param>
         /// <param name="type">  </param>
@@ -188,20 +188,20 @@ namespace Kandy.Rest.Video.V1
                                                                                   int? emptyRoomTimeout = null,
                                                                                   int? unusedRoomTimeout = null,
                                                                                   bool? largeRoom = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateRoomOptions(){  EnableTurn = enableTurn, Type = type, UniqueName = uniqueName, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, MaxParticipants = maxParticipants, RecordParticipantsOnConnect = recordParticipantsOnConnect, VideoCodecs = videoCodecs, MediaRegion = mediaRegion, RecordingRules = recordingRules, AudioOnly = audioOnly, MaxParticipantDuration = maxParticipantDuration, EmptyRoomTimeout = emptyRoomTimeout, UnusedRoomTimeout = unusedRoomTimeout, LargeRoom = largeRoom };
+            var options = new CreateRoomOptions() { EnableTurn = enableTurn, Type = type, UniqueName = uniqueName, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, MaxParticipants = maxParticipants, RecordParticipantsOnConnect = recordParticipantsOnConnect, VideoCodecs = videoCodecs, MediaRegion = mediaRegion, RecordingRules = recordingRules, AudioOnly = audioOnly, MaxParticipantDuration = maxParticipantDuration, EmptyRoomTimeout = emptyRoomTimeout, UnusedRoomTimeout = unusedRoomTimeout, LargeRoom = largeRoom };
             return await CreateAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchRoomOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchRoomOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Rooms/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -216,53 +216,53 @@ namespace Kandy.Rest.Video.V1
         /// <param name="options"> Fetch Room parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Room </returns>
-        public static RoomResource Fetch(FetchRoomOptions options, ITwilioRestClient client = null)
+        public static RoomResource Fetch(FetchRoomOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch Room parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Room </returns>
         public static async System.Threading.Tasks.Task<RoomResource> FetchAsync(FetchRoomOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathSid"> The SID of the Room resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Room </returns>
         public static RoomResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchRoomOptions(pathSid){  };
+            var options = new FetchRoomOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathSid"> The SID of the Room resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Room </returns>
-        public static async System.Threading.Tasks.Task<RoomResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<RoomResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchRoomOptions(pathSid){  };
+            var options = new FetchRoomOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadRoomOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadRoomOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Rooms";
 
 
@@ -278,7 +278,7 @@ namespace Kandy.Rest.Video.V1
         /// <param name="options"> Read Room parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Room </returns>
-        public static ResourceSet<RoomResource> Read(ReadRoomOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<RoomResource> Read(ReadRoomOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -286,13 +286,13 @@ namespace Kandy.Rest.Video.V1
             return new ResourceSet<RoomResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read Room parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Room </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<RoomResource>> ReadAsync(ReadRoomOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -300,7 +300,7 @@ namespace Kandy.Rest.Video.V1
             var page = Page<RoomResource>.FromJson("rooms", response.Content);
             return new ResourceSet<RoomResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="status"> Read only the rooms with this status. Can be: `in-progress` (default) or `completed` </param>
         /// <param name="uniqueName"> Read only rooms with the this `unique_name`. </param>
@@ -317,13 +317,13 @@ namespace Kandy.Rest.Video.V1
                                                      DateTime? dateCreatedBefore = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadRoomOptions(){ Status = status, UniqueName = uniqueName, DateCreatedAfter = dateCreatedAfter, DateCreatedBefore = dateCreatedBefore, PageSize = pageSize, Limit = limit};
+            var options = new ReadRoomOptions() { Status = status, UniqueName = uniqueName, DateCreatedAfter = dateCreatedAfter, DateCreatedBefore = dateCreatedBefore, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="status"> Read only the rooms with this status. Can be: `in-progress` (default) or `completed` </param>
         /// <param name="uniqueName"> Read only rooms with the this `unique_name`. </param>
@@ -340,19 +340,19 @@ namespace Kandy.Rest.Video.V1
                                                                                              DateTime? dateCreatedBefore = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadRoomOptions(){ Status = status, UniqueName = uniqueName, DateCreatedAfter = dateCreatedAfter, DateCreatedBefore = dateCreatedBefore, PageSize = pageSize, Limit = limit};
+            var options = new ReadRoomOptions() { Status = status, UniqueName = uniqueName, DateCreatedAfter = dateCreatedAfter, DateCreatedBefore = dateCreatedBefore, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<RoomResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<RoomResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -369,7 +369,7 @@ namespace Kandy.Rest.Video.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<RoomResource> NextPage(Page<RoomResource> page, ITwilioRestClient client)
+        public static Page<RoomResource> NextPage(Page<RoomResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -384,7 +384,7 @@ namespace Kandy.Rest.Video.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<RoomResource> PreviousPage(Page<RoomResource> page, ITwilioRestClient client)
+        public static Page<RoomResource> PreviousPage(Page<RoomResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -395,14 +395,14 @@ namespace Kandy.Rest.Video.V1
             return Page<RoomResource>.FromJson("rooms", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateRoomOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateRoomOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Rooms/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -417,7 +417,7 @@ namespace Kandy.Rest.Video.V1
         /// <param name="options"> Update Room parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Room </returns>
-        public static RoomResource Update(UpdateRoomOptions options, ITwilioRestClient client = null)
+        public static RoomResource Update(UpdateRoomOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -428,15 +428,15 @@ namespace Kandy.Rest.Video.V1
         /// <param name="options"> Update Room parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Room </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<RoomResource> UpdateAsync(UpdateRoomOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> update </summary>
         /// <param name="pathSid"> The SID of the Room resource to update. </param>
@@ -446,13 +446,13 @@ namespace Kandy.Rest.Video.V1
         public static RoomResource Update(
                                           string pathSid,
                                           RoomResource.RoomStatusEnum status,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateRoomOptions(pathSid, status){  };
+            var options = new UpdateRoomOptions(pathSid, status) { };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> update </summary>
         /// <param name="pathSid"> The SID of the Room resource to update. </param>
         /// <param name="status">  </param>
@@ -461,13 +461,13 @@ namespace Kandy.Rest.Video.V1
         public static async System.Threading.Tasks.Task<RoomResource> UpdateAsync(
                                                                               string pathSid,
                                                                               RoomResource.RoomStatusEnum status,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateRoomOptions(pathSid, status){  };
+            var options = new UpdateRoomOptions(pathSid, status) { };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a RoomResource object
         /// </summary>
@@ -485,12 +485,12 @@ namespace Kandy.Rest.Video.V1
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the Room resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
 
-        
+
         [JsonProperty("status")]
         public RoomResource.RoomStatusEnum Status { get; private set; }
 
@@ -530,7 +530,7 @@ namespace Kandy.Rest.Video.V1
         [JsonProperty("duration")]
         public int? Duration { get; private set; }
 
-        
+
         [JsonProperty("type")]
         public RoomResource.RoomTypeEnum Type { get; private set; }
 
@@ -584,7 +584,8 @@ namespace Kandy.Rest.Video.V1
 
 
 
-        private RoomResource() {
+        private RoomResource()
+        {
 
         }
     }

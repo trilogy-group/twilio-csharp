@@ -28,16 +28,16 @@ namespace Kandy.Rest.Preview.Marketplace
 {
     public class AvailableAddOnResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchAvailableAddOnOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchAvailableAddOnOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/marketplace/AvailableAddOns/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -52,53 +52,53 @@ namespace Kandy.Rest.Preview.Marketplace
         /// <param name="options"> Fetch AvailableAddOn parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AvailableAddOn </returns>
-        public static AvailableAddOnResource Fetch(FetchAvailableAddOnOptions options, ITwilioRestClient client = null)
+        public static AvailableAddOnResource Fetch(FetchAvailableAddOnOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch an instance of an Add-on currently available to be installed. </summary>
         /// <param name="options"> Fetch AvailableAddOn parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AvailableAddOn </returns>
         public static async System.Threading.Tasks.Task<AvailableAddOnResource> FetchAsync(FetchAvailableAddOnOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch an instance of an Add-on currently available to be installed. </summary>
         /// <param name="pathSid"> The SID of the AvailableAddOn resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AvailableAddOn </returns>
         public static AvailableAddOnResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchAvailableAddOnOptions(pathSid){  };
+            var options = new FetchAvailableAddOnOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch an instance of an Add-on currently available to be installed. </summary>
         /// <param name="pathSid"> The SID of the AvailableAddOn resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AvailableAddOn </returns>
-        public static async System.Threading.Tasks.Task<AvailableAddOnResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<AvailableAddOnResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchAvailableAddOnOptions(pathSid){  };
+            var options = new FetchAvailableAddOnOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadAvailableAddOnOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadAvailableAddOnOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/marketplace/AvailableAddOns";
 
 
@@ -114,7 +114,7 @@ namespace Kandy.Rest.Preview.Marketplace
         /// <param name="options"> Read AvailableAddOn parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AvailableAddOn </returns>
-        public static ResourceSet<AvailableAddOnResource> Read(ReadAvailableAddOnOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<AvailableAddOnResource> Read(ReadAvailableAddOnOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -122,13 +122,13 @@ namespace Kandy.Rest.Preview.Marketplace
             return new ResourceSet<AvailableAddOnResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of Add-ons currently available to be installed. </summary>
         /// <param name="options"> Read AvailableAddOn parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AvailableAddOn </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<AvailableAddOnResource>> ReadAsync(ReadAvailableAddOnOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -136,7 +136,7 @@ namespace Kandy.Rest.Preview.Marketplace
             var page = Page<AvailableAddOnResource>.FromJson("available_add_ons", response.Content);
             return new ResourceSet<AvailableAddOnResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of Add-ons currently available to be installed. </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -145,13 +145,13 @@ namespace Kandy.Rest.Preview.Marketplace
         public static ResourceSet<AvailableAddOnResource> Read(
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadAvailableAddOnOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadAvailableAddOnOptions() { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of Add-ons currently available to be installed. </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -160,19 +160,19 @@ namespace Kandy.Rest.Preview.Marketplace
         public static async System.Threading.Tasks.Task<ResourceSet<AvailableAddOnResource>> ReadAsync(
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadAvailableAddOnOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadAvailableAddOnOptions() { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<AvailableAddOnResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<AvailableAddOnResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -189,7 +189,7 @@ namespace Kandy.Rest.Preview.Marketplace
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<AvailableAddOnResource> NextPage(Page<AvailableAddOnResource> page, ITwilioRestClient client)
+        public static Page<AvailableAddOnResource> NextPage(Page<AvailableAddOnResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -204,7 +204,7 @@ namespace Kandy.Rest.Preview.Marketplace
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<AvailableAddOnResource> PreviousPage(Page<AvailableAddOnResource> page, ITwilioRestClient client)
+        public static Page<AvailableAddOnResource> PreviousPage(Page<AvailableAddOnResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -215,7 +215,7 @@ namespace Kandy.Rest.Preview.Marketplace
             return Page<AvailableAddOnResource>.FromJson("available_add_ons", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a AvailableAddOnResource object
         /// </summary>
@@ -233,7 +233,7 @@ namespace Kandy.Rest.Preview.Marketplace
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the AvailableAddOn resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -264,7 +264,8 @@ namespace Kandy.Rest.Preview.Marketplace
 
 
 
-        private AvailableAddOnResource() {
+        private AvailableAddOnResource()
+        {
 
         }
     }

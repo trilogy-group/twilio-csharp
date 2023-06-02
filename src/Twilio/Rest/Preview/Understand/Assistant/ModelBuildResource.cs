@@ -28,12 +28,12 @@ namespace Kandy.Rest.Preview.Understand.Assistant
 {
     public class ModelBuildResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class StatusEnum : StringEnum
         {
-            private StatusEnum(string value) : base(value) {}
-            public StatusEnum() {}
+            private StatusEnum(string value) : base(value) { }
+            public StatusEnum() { }
             public static implicit operator StatusEnum(string value)
             {
                 return new StatusEnum(value);
@@ -46,14 +46,14 @@ namespace Kandy.Rest.Preview.Understand.Assistant
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateModelBuildOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateModelBuildOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/understand/Assistants/{AssistantSid}/ModelBuilds";
 
             string PathAssistantSid = options.PathAssistantSid;
-            path = path.Replace("{"+"AssistantSid"+"}", PathAssistantSid);
+            path = path.Replace("{" + "AssistantSid" + "}", PathAssistantSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -68,26 +68,26 @@ namespace Kandy.Rest.Preview.Understand.Assistant
         /// <param name="options"> Create ModelBuild parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ModelBuild </returns>
-        public static ModelBuildResource Create(CreateModelBuildOptions options, ITwilioRestClient client = null)
+        public static ModelBuildResource Create(CreateModelBuildOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create ModelBuild parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ModelBuild </returns>
         public static async System.Threading.Tasks.Task<ModelBuildResource> CreateAsync(CreateModelBuildOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="pathAssistantSid">  </param>
@@ -99,13 +99,13 @@ namespace Kandy.Rest.Preview.Understand.Assistant
                                           string pathAssistantSid,
                                           Uri statusCallback = null,
                                           string uniqueName = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateModelBuildOptions(pathAssistantSid){  StatusCallback = statusCallback, UniqueName = uniqueName };
+            var options = new CreateModelBuildOptions(pathAssistantSid) { StatusCallback = statusCallback, UniqueName = uniqueName };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="pathAssistantSid">  </param>
         /// <param name="statusCallback">  </param>
@@ -116,26 +116,26 @@ namespace Kandy.Rest.Preview.Understand.Assistant
                                                                                   string pathAssistantSid,
                                                                                   Uri statusCallback = null,
                                                                                   string uniqueName = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateModelBuildOptions(pathAssistantSid){  StatusCallback = statusCallback, UniqueName = uniqueName };
+            var options = new CreateModelBuildOptions(pathAssistantSid) { StatusCallback = statusCallback, UniqueName = uniqueName };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> delete </summary>
         /// <param name="options"> Delete ModelBuild parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ModelBuild </returns>
-        private static Request BuildDeleteRequest(DeleteModelBuildOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteModelBuildOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/understand/Assistants/{AssistantSid}/ModelBuilds/{Sid}";
 
             string PathAssistantSid = options.PathAssistantSid;
-            path = path.Replace("{"+"AssistantSid"+"}", PathAssistantSid);
+            path = path.Replace("{" + "AssistantSid" + "}", PathAssistantSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -150,60 +150,60 @@ namespace Kandy.Rest.Preview.Understand.Assistant
         /// <param name="options"> Delete ModelBuild parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ModelBuild </returns>
-        public static bool Delete(DeleteModelBuildOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteModelBuildOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="options"> Delete ModelBuild parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ModelBuild </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteModelBuildOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> delete </summary>
         /// <param name="pathAssistantSid">  </param>
         /// <param name="pathSid">  </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ModelBuild </returns>
-        public static bool Delete(string pathAssistantSid, string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathAssistantSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteModelBuildOptions(pathAssistantSid, pathSid)        ;
+            var options = new DeleteModelBuildOptions(pathAssistantSid, pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="pathAssistantSid">  </param>
         /// <param name="pathSid">  </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ModelBuild </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathAssistantSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathAssistantSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteModelBuildOptions(pathAssistantSid, pathSid) ;
+            var options = new DeleteModelBuildOptions(pathAssistantSid, pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchModelBuildOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchModelBuildOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/understand/Assistants/{AssistantSid}/ModelBuilds/{Sid}";
 
             string PathAssistantSid = options.PathAssistantSid;
-            path = path.Replace("{"+"AssistantSid"+"}", PathAssistantSid);
+            path = path.Replace("{" + "AssistantSid" + "}", PathAssistantSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -218,60 +218,60 @@ namespace Kandy.Rest.Preview.Understand.Assistant
         /// <param name="options"> Fetch ModelBuild parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ModelBuild </returns>
-        public static ModelBuildResource Fetch(FetchModelBuildOptions options, ITwilioRestClient client = null)
+        public static ModelBuildResource Fetch(FetchModelBuildOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch ModelBuild parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ModelBuild </returns>
         public static async System.Threading.Tasks.Task<ModelBuildResource> FetchAsync(FetchModelBuildOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathAssistantSid">  </param>
         /// <param name="pathSid">  </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ModelBuild </returns>
         public static ModelBuildResource Fetch(
-                                         string pathAssistantSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathAssistantSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchModelBuildOptions(pathAssistantSid, pathSid){  };
+            var options = new FetchModelBuildOptions(pathAssistantSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathAssistantSid">  </param>
         /// <param name="pathSid">  </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ModelBuild </returns>
-        public static async System.Threading.Tasks.Task<ModelBuildResource> FetchAsync(string pathAssistantSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<ModelBuildResource> FetchAsync(string pathAssistantSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchModelBuildOptions(pathAssistantSid, pathSid){  };
+            var options = new FetchModelBuildOptions(pathAssistantSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadModelBuildOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadModelBuildOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/understand/Assistants/{AssistantSid}/ModelBuilds";
 
             string PathAssistantSid = options.PathAssistantSid;
-            path = path.Replace("{"+"AssistantSid"+"}", PathAssistantSid);
+            path = path.Replace("{" + "AssistantSid" + "}", PathAssistantSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -285,7 +285,7 @@ namespace Kandy.Rest.Preview.Understand.Assistant
         /// <param name="options"> Read ModelBuild parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ModelBuild </returns>
-        public static ResourceSet<ModelBuildResource> Read(ReadModelBuildOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<ModelBuildResource> Read(ReadModelBuildOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -293,13 +293,13 @@ namespace Kandy.Rest.Preview.Understand.Assistant
             return new ResourceSet<ModelBuildResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read ModelBuild parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ModelBuild </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<ModelBuildResource>> ReadAsync(ReadModelBuildOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -307,7 +307,7 @@ namespace Kandy.Rest.Preview.Understand.Assistant
             var page = Page<ModelBuildResource>.FromJson("model_builds", response.Content);
             return new ResourceSet<ModelBuildResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="pathAssistantSid">  </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -318,13 +318,13 @@ namespace Kandy.Rest.Preview.Understand.Assistant
                                                      string pathAssistantSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadModelBuildOptions(pathAssistantSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadModelBuildOptions(pathAssistantSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="pathAssistantSid">  </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -335,19 +335,19 @@ namespace Kandy.Rest.Preview.Understand.Assistant
                                                                                              string pathAssistantSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadModelBuildOptions(pathAssistantSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadModelBuildOptions(pathAssistantSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<ModelBuildResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<ModelBuildResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -364,7 +364,7 @@ namespace Kandy.Rest.Preview.Understand.Assistant
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<ModelBuildResource> NextPage(Page<ModelBuildResource> page, ITwilioRestClient client)
+        public static Page<ModelBuildResource> NextPage(Page<ModelBuildResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -379,7 +379,7 @@ namespace Kandy.Rest.Preview.Understand.Assistant
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<ModelBuildResource> PreviousPage(Page<ModelBuildResource> page, ITwilioRestClient client)
+        public static Page<ModelBuildResource> PreviousPage(Page<ModelBuildResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -390,16 +390,16 @@ namespace Kandy.Rest.Preview.Understand.Assistant
             return Page<ModelBuildResource>.FromJson("model_builds", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateModelBuildOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateModelBuildOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/understand/Assistants/{AssistantSid}/ModelBuilds/{Sid}";
 
             string PathAssistantSid = options.PathAssistantSid;
-            path = path.Replace("{"+"AssistantSid"+"}", PathAssistantSid);
+            path = path.Replace("{" + "AssistantSid" + "}", PathAssistantSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -414,7 +414,7 @@ namespace Kandy.Rest.Preview.Understand.Assistant
         /// <param name="options"> Update ModelBuild parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ModelBuild </returns>
-        public static ModelBuildResource Update(UpdateModelBuildOptions options, ITwilioRestClient client = null)
+        public static ModelBuildResource Update(UpdateModelBuildOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -425,15 +425,15 @@ namespace Kandy.Rest.Preview.Understand.Assistant
         /// <param name="options"> Update ModelBuild parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ModelBuild </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<ModelBuildResource> UpdateAsync(UpdateModelBuildOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> update </summary>
         /// <param name="pathAssistantSid">  </param>
@@ -445,13 +445,13 @@ namespace Kandy.Rest.Preview.Understand.Assistant
                                           string pathAssistantSid,
                                           string pathSid,
                                           string uniqueName = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateModelBuildOptions(pathAssistantSid, pathSid){ UniqueName = uniqueName };
+            var options = new UpdateModelBuildOptions(pathAssistantSid, pathSid) { UniqueName = uniqueName };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> update </summary>
         /// <param name="pathAssistantSid">  </param>
         /// <param name="pathSid">  </param>
@@ -462,13 +462,13 @@ namespace Kandy.Rest.Preview.Understand.Assistant
                                                                               string pathAssistantSid,
                                                                               string pathSid,
                                                                               string uniqueName = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateModelBuildOptions(pathAssistantSid, pathSid){ UniqueName = uniqueName };
+            var options = new UpdateModelBuildOptions(pathAssistantSid, pathSid) { UniqueName = uniqueName };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a ModelBuildResource object
         /// </summary>
@@ -486,7 +486,7 @@ namespace Kandy.Rest.Preview.Understand.Assistant
             }
         }
 
-    
+
         ///<summary> The unique ID of the Account that created this Model Build. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -507,7 +507,7 @@ namespace Kandy.Rest.Preview.Understand.Assistant
         [JsonProperty("sid")]
         public string Sid { get; private set; }
 
-        
+
         [JsonProperty("status")]
         public ModelBuildResource.StatusEnum Status { get; private set; }
 
@@ -529,7 +529,8 @@ namespace Kandy.Rest.Preview.Understand.Assistant
 
 
 
-        private ModelBuildResource() {
+        private ModelBuildResource()
+        {
 
         }
     }

@@ -28,11 +28,11 @@ namespace Kandy.Rest.FlexApi.V1
 {
     public class WebChannelResource : Resource
     {
-    
+
         public sealed class ChatStatusEnum : StringEnum
         {
-            private ChatStatusEnum(string value) : base(value) {}
-            public ChatStatusEnum() {}
+            private ChatStatusEnum(string value) : base(value) { }
+            public ChatStatusEnum() { }
             public static implicit operator ChatStatusEnum(string value)
             {
                 return new ChatStatusEnum(value);
@@ -41,10 +41,10 @@ namespace Kandy.Rest.FlexApi.V1
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateWebChannelOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateWebChannelOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/WebChannels";
 
 
@@ -61,26 +61,26 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="options"> Create WebChannel parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of WebChannel </returns>
-        public static WebChannelResource Create(CreateWebChannelOptions options, ITwilioRestClient client = null)
+        public static WebChannelResource Create(CreateWebChannelOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create WebChannel parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of WebChannel </returns>
         public static async System.Threading.Tasks.Task<WebChannelResource> CreateAsync(CreateWebChannelOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="flexFlowSid"> The SID of the Flex Flow. </param>
@@ -98,13 +98,13 @@ namespace Kandy.Rest.FlexApi.V1
                                           string chatFriendlyName,
                                           string chatUniqueName = null,
                                           string preEngagementData = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateWebChannelOptions(flexFlowSid, identity, customerFriendlyName, chatFriendlyName){  ChatUniqueName = chatUniqueName, PreEngagementData = preEngagementData };
+            var options = new CreateWebChannelOptions(flexFlowSid, identity, customerFriendlyName, chatFriendlyName) { ChatUniqueName = chatUniqueName, PreEngagementData = preEngagementData };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="flexFlowSid"> The SID of the Flex Flow. </param>
         /// <param name="identity"> The chat identity. </param>
@@ -121,24 +121,24 @@ namespace Kandy.Rest.FlexApi.V1
                                                                                   string chatFriendlyName,
                                                                                   string chatUniqueName = null,
                                                                                   string preEngagementData = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateWebChannelOptions(flexFlowSid, identity, customerFriendlyName, chatFriendlyName){  ChatUniqueName = chatUniqueName, PreEngagementData = preEngagementData };
+            var options = new CreateWebChannelOptions(flexFlowSid, identity, customerFriendlyName, chatFriendlyName) { ChatUniqueName = chatUniqueName, PreEngagementData = preEngagementData };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> delete </summary>
         /// <param name="options"> Delete WebChannel parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of WebChannel </returns>
-        private static Request BuildDeleteRequest(DeleteWebChannelOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteWebChannelOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/WebChannels/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -153,56 +153,56 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="options"> Delete WebChannel parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of WebChannel </returns>
-        public static bool Delete(DeleteWebChannelOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteWebChannelOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="options"> Delete WebChannel parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of WebChannel </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteWebChannelOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> delete </summary>
         /// <param name="pathSid"> The SID of the WebChannel resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of WebChannel </returns>
-        public static bool Delete(string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteWebChannelOptions(pathSid)     ;
+            var options = new DeleteWebChannelOptions(pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="pathSid"> The SID of the WebChannel resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of WebChannel </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteWebChannelOptions(pathSid) ;
+            var options = new DeleteWebChannelOptions(pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchWebChannelOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchWebChannelOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/WebChannels/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -217,53 +217,53 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="options"> Fetch WebChannel parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of WebChannel </returns>
-        public static WebChannelResource Fetch(FetchWebChannelOptions options, ITwilioRestClient client = null)
+        public static WebChannelResource Fetch(FetchWebChannelOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch WebChannel parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of WebChannel </returns>
         public static async System.Threading.Tasks.Task<WebChannelResource> FetchAsync(FetchWebChannelOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathSid"> The SID of the WebChannel resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of WebChannel </returns>
         public static WebChannelResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchWebChannelOptions(pathSid){  };
+            var options = new FetchWebChannelOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathSid"> The SID of the WebChannel resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of WebChannel </returns>
-        public static async System.Threading.Tasks.Task<WebChannelResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<WebChannelResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchWebChannelOptions(pathSid){  };
+            var options = new FetchWebChannelOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadWebChannelOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadWebChannelOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/WebChannels";
 
 
@@ -279,7 +279,7 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="options"> Read WebChannel parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of WebChannel </returns>
-        public static ResourceSet<WebChannelResource> Read(ReadWebChannelOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<WebChannelResource> Read(ReadWebChannelOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -287,13 +287,13 @@ namespace Kandy.Rest.FlexApi.V1
             return new ResourceSet<WebChannelResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read WebChannel parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of WebChannel </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<WebChannelResource>> ReadAsync(ReadWebChannelOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -301,7 +301,7 @@ namespace Kandy.Rest.FlexApi.V1
             var page = Page<WebChannelResource>.FromJson("flex_chat_channels", response.Content);
             return new ResourceSet<WebChannelResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -310,13 +310,13 @@ namespace Kandy.Rest.FlexApi.V1
         public static ResourceSet<WebChannelResource> Read(
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadWebChannelOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadWebChannelOptions() { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -325,19 +325,19 @@ namespace Kandy.Rest.FlexApi.V1
         public static async System.Threading.Tasks.Task<ResourceSet<WebChannelResource>> ReadAsync(
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadWebChannelOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadWebChannelOptions() { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<WebChannelResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<WebChannelResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -354,7 +354,7 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<WebChannelResource> NextPage(Page<WebChannelResource> page, ITwilioRestClient client)
+        public static Page<WebChannelResource> NextPage(Page<WebChannelResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -369,7 +369,7 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<WebChannelResource> PreviousPage(Page<WebChannelResource> page, ITwilioRestClient client)
+        public static Page<WebChannelResource> PreviousPage(Page<WebChannelResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -380,14 +380,14 @@ namespace Kandy.Rest.FlexApi.V1
             return Page<WebChannelResource>.FromJson("flex_chat_channels", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateWebChannelOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateWebChannelOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/WebChannels/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -402,7 +402,7 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="options"> Update WebChannel parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of WebChannel </returns>
-        public static WebChannelResource Update(UpdateWebChannelOptions options, ITwilioRestClient client = null)
+        public static WebChannelResource Update(UpdateWebChannelOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -413,15 +413,15 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="options"> Update WebChannel parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of WebChannel </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<WebChannelResource> UpdateAsync(UpdateWebChannelOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> update </summary>
         /// <param name="pathSid"> The SID of the WebChannel resource to update. </param>
@@ -433,13 +433,13 @@ namespace Kandy.Rest.FlexApi.V1
                                           string pathSid,
                                           WebChannelResource.ChatStatusEnum chatStatus = null,
                                           string postEngagementData = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateWebChannelOptions(pathSid){ ChatStatus = chatStatus, PostEngagementData = postEngagementData };
+            var options = new UpdateWebChannelOptions(pathSid) { ChatStatus = chatStatus, PostEngagementData = postEngagementData };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> update </summary>
         /// <param name="pathSid"> The SID of the WebChannel resource to update. </param>
         /// <param name="chatStatus">  </param>
@@ -450,13 +450,13 @@ namespace Kandy.Rest.FlexApi.V1
                                                                               string pathSid,
                                                                               WebChannelResource.ChatStatusEnum chatStatus = null,
                                                                               string postEngagementData = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateWebChannelOptions(pathSid){ ChatStatus = chatStatus, PostEngagementData = postEngagementData };
+            var options = new UpdateWebChannelOptions(pathSid) { ChatStatus = chatStatus, PostEngagementData = postEngagementData };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a WebChannelResource object
         /// </summary>
@@ -474,7 +474,7 @@ namespace Kandy.Rest.FlexApi.V1
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the WebChannel resource and owns this Workflow. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -501,7 +501,8 @@ namespace Kandy.Rest.FlexApi.V1
 
 
 
-        private WebChannelResource() {
+        private WebChannelResource()
+        {
 
         }
     }

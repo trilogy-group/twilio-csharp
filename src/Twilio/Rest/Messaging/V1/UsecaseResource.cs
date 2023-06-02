@@ -28,12 +28,12 @@ namespace Kandy.Rest.Messaging.V1
 {
     public class UsecaseResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchUsecaseOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchUsecaseOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/Usecases";
 
 
@@ -50,47 +50,47 @@ namespace Kandy.Rest.Messaging.V1
         /// <param name="options"> Fetch Usecase parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Usecase </returns>
-        public static UsecaseResource Fetch(FetchUsecaseOptions options, ITwilioRestClient client = null)
+        public static UsecaseResource Fetch(FetchUsecaseOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch Usecase parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Usecase </returns>
         public static async System.Threading.Tasks.Task<UsecaseResource> FetchAsync(FetchUsecaseOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Usecase </returns>
         public static UsecaseResource Fetch(
-                                         ITwilioRestClient client = null)
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchUsecaseOptions(){  };
+            var options = new FetchUsecaseOptions() { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Usecase </returns>
-        public static async System.Threading.Tasks.Task<UsecaseResource> FetchAsync(ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<UsecaseResource> FetchAsync(IKandyRestClient client = null)
         {
-            var options = new FetchUsecaseOptions(){  };
+            var options = new FetchUsecaseOptions() { };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a UsecaseResource object
         /// </summary>
@@ -108,14 +108,15 @@ namespace Kandy.Rest.Messaging.V1
             }
         }
 
-    
+
         ///<summary> Human readable use case details (usecase, description and purpose) of Messaging Service Use Cases. </summary> 
         [JsonProperty("usecases")]
         public List<object> Usecases { get; private set; }
 
 
 
-        private UsecaseResource() {
+        private UsecaseResource()
+        {
 
         }
     }

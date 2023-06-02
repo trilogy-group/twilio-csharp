@@ -28,16 +28,16 @@ namespace Kandy.Rest.Content.V1.Content
 {
     public class ApprovalFetchResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchApprovalFetchOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchApprovalFetchOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Content/{Sid}/ApprovalRequests";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -52,50 +52,50 @@ namespace Kandy.Rest.Content.V1.Content
         /// <param name="options"> Fetch ApprovalFetch parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ApprovalFetch </returns>
-        public static ApprovalFetchResource Fetch(FetchApprovalFetchOptions options, ITwilioRestClient client = null)
+        public static ApprovalFetchResource Fetch(FetchApprovalFetchOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a Content resource's approval status by its unique Content Sid </summary>
         /// <param name="options"> Fetch ApprovalFetch parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ApprovalFetch </returns>
         public static async System.Threading.Tasks.Task<ApprovalFetchResource> FetchAsync(FetchApprovalFetchOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a Content resource's approval status by its unique Content Sid </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Content resource whose approval information to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ApprovalFetch </returns>
         public static ApprovalFetchResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchApprovalFetchOptions(pathSid){  };
+            var options = new FetchApprovalFetchOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a Content resource's approval status by its unique Content Sid </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Content resource whose approval information to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ApprovalFetch </returns>
-        public static async System.Threading.Tasks.Task<ApprovalFetchResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<ApprovalFetchResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchApprovalFetchOptions(pathSid){  };
+            var options = new FetchApprovalFetchOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a ApprovalFetchResource object
         /// </summary>
@@ -113,7 +113,7 @@ namespace Kandy.Rest.Content.V1.Content
             }
         }
 
-    
+
         ///<summary> The unique string that that we created to identify the Content resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -132,7 +132,8 @@ namespace Kandy.Rest.Content.V1.Content
 
 
 
-        private ApprovalFetchResource() {
+        private ApprovalFetchResource()
+        {
 
         }
     }

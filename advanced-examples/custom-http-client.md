@@ -22,9 +22,9 @@ var message = MessageResource.Create(
     body: "Hello from C#");
 ```
 
-Where does a `TwilioRestClient` get created and used? Out of the box, the helper library is creating a default `TwilioRestClient` for you, using the Twilio credentials you pass to the `Init` method. However, there’s nothing stopping you from creating your own and using that.
+Where does a `KandyRestClient` get created and used? Out of the box, the helper library is creating a default `KandyRestClient` for you, using the Twilio credentials you pass to the `Init` method. However, there’s nothing stopping you from creating your own and using that.
 
-Once you have your own `TwilioRestClient`, you can pass it to any Twilio REST API resource action you want. Here’s an example of sending an SMS message with a custom client:
+Once you have your own `KandyRestClient`, you can pass it to any Twilio REST API resource action you want. Here’s an example of sending an SMS message with a custom client:
 
 ```csharp
 using System;
@@ -37,16 +37,16 @@ namespace CustomClientDotNet4x
     {
         static void Main(string[] args)
         {
-            var twilioRestClient = ProxiedTwilioClientCreator.GetClient();
+            var KandyRestClient = ProxiedTwilioClientCreator.GetClient();
 
-            // Now that we have our custom built TwilioRestClient,
+            // Now that we have our custom built KandyRestClient,
             // we can pass it to any REST API resource action.
             var message = MessageResource.Create(
                 to: new PhoneNumber("+15017122661"),
                 from: new PhoneNumber("+15017122661"),
                 body: "Hey there!",
                 // Here's where you inject the custom client
-                client: twilioRestClient
+                client: KandyRestClient
             );
 
             Console.WriteLine($"Message SID: {message.Sid}");
@@ -55,15 +55,15 @@ namespace CustomClientDotNet4x
 }
 ```
 
-## Create your custom TwilioRestClient
+## Create your custom KandyRestClient
 
-When you take a closer look at the constructor for `TwilioRestClient`, you see that the `httpClient` parameter is actually of type `Twilio.Http.HttpClient` and not the `System.Net.HttpClient` we were expecting. `Twilio.Http.HttpClient` is actually an abstraction that allows plugging in any implementation of an HTTP client you want (or even creating a mocking layer for unit testing).
+When you take a closer look at the constructor for `KandyRestClient`, you see that the `httpClient` parameter is actually of type `Twilio.Http.HttpClient` and not the `System.Net.HttpClient` we were expecting. `Twilio.Http.HttpClient` is actually an abstraction that allows plugging in any implementation of an HTTP client you want (or even creating a mocking layer for unit testing).
 
 However, within the helper library, there is an implementation of `Twilio.Http.HttpClient` called SystemNetHttpClient. This class wraps the `System.Net.HttpClient` and provides it to the Twilio helper library to make the necessary HTTP requests.
 
 ## Call Twilio through the proxy server
 
-Now that we understand how all the components fit together, we can create our own `TwilioRestClient` that can connect through a proxy server. To make this reusable, here’s a class that you can use to create this `TwilioRestClient` whenever you need one.
+Now that we understand how all the components fit together, we can create our own `KandyRestClient` that can connect through a proxy server. To make this reusable, here’s a class that you can use to create this `KandyRestClient` whenever you need one.
 
 ```csharp
 using System;
@@ -102,7 +102,7 @@ namespace CustomClientDotNet4x
                 );
         }
 
-        public static TwilioRestClient GetClient()
+        public static KandyRestClient GetClient()
         {
             var accountSid = ConfigurationManager.AppSettings["TwilioAccountSid"];
             var authToken = ConfigurationManager.AppSettings["TwilioAuthToken"];
@@ -114,13 +114,13 @@ namespace CustomClientDotNet4x
                 CreateHttpClient();
             }
 
-            var twilioRestClient = new TwilioRestClient(
+            var KandyRestClient = new KandyRestClient(
                 accountSid,
                 authToken,
                 httpClient: new Twilio.Http.SystemNetHttpClient(_httpClient)
             );
 
-            return twilioRestClient;
+            return KandyRestClient;
         }
     }
 }
@@ -160,16 +160,16 @@ namespace CustomClientDotNet4x
     {
         static void Main(string[] args)
         {
-            var twilioRestClient = ProxiedTwilioClientCreator.GetClient();
+            var KandyRestClient = ProxiedTwilioClientCreator.GetClient();
 
-            // Now that we have our custom built TwilioRestClient,
+            // Now that we have our custom built KandyRestClient,
             // we can pass it to any REST API resource action.
             var message = MessageResource.Create(
                 to: new PhoneNumber("+15017122661"),
                 from: new PhoneNumber("+15017122661"),
                 body: "Hey there!",
                 // Here's where you inject the custom client
-                client: twilioRestClient
+                client: KandyRestClient
             );
 
             Console.WriteLine($"Message SID: {message.Sid}");

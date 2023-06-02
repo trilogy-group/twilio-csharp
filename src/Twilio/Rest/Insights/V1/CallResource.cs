@@ -28,16 +28,16 @@ namespace Kandy.Rest.Insights.V1
 {
     public class CallResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchCallOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchCallOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Voice/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -52,50 +52,50 @@ namespace Kandy.Rest.Insights.V1
         /// <param name="options"> Fetch Call parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Call </returns>
-        public static CallResource Fetch(FetchCallOptions options, ITwilioRestClient client = null)
+        public static CallResource Fetch(FetchCallOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch Call parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Call </returns>
         public static async System.Threading.Tasks.Task<CallResource> FetchAsync(FetchCallOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathSid">  </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Call </returns>
         public static CallResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchCallOptions(pathSid){  };
+            var options = new FetchCallOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathSid">  </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Call </returns>
-        public static async System.Threading.Tasks.Task<CallResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<CallResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchCallOptions(pathSid){  };
+            var options = new FetchCallOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a CallResource object
         /// </summary>
@@ -113,7 +113,7 @@ namespace Kandy.Rest.Insights.V1
             }
         }
 
-    
+
         ///<summary> The sid </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -128,7 +128,8 @@ namespace Kandy.Rest.Insights.V1
 
 
 
-        private CallResource() {
+        private CallResource()
+        {
 
         }
     }

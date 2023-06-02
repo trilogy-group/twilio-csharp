@@ -28,16 +28,16 @@ namespace Kandy.Rest.Messaging.V1
 {
     public class LinkshorteningMessagingServiceDomainAssociationResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchLinkshorteningMessagingServiceDomainAssociationOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchLinkshorteningMessagingServiceDomainAssociationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/LinkShortening/MessagingServices/{MessagingServiceSid}/Domain";
 
             string PathMessagingServiceSid = options.PathMessagingServiceSid;
-            path = path.Replace("{"+"MessagingServiceSid"+"}", PathMessagingServiceSid);
+            path = path.Replace("{" + "MessagingServiceSid" + "}", PathMessagingServiceSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -52,50 +52,50 @@ namespace Kandy.Rest.Messaging.V1
         /// <param name="options"> Fetch LinkshorteningMessagingServiceDomainAssociation parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of LinkshorteningMessagingServiceDomainAssociation </returns>
-        public static LinkshorteningMessagingServiceDomainAssociationResource Fetch(FetchLinkshorteningMessagingServiceDomainAssociationOptions options, ITwilioRestClient client = null)
+        public static LinkshorteningMessagingServiceDomainAssociationResource Fetch(FetchLinkshorteningMessagingServiceDomainAssociationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch LinkshorteningMessagingServiceDomainAssociation parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of LinkshorteningMessagingServiceDomainAssociation </returns>
         public static async System.Threading.Tasks.Task<LinkshorteningMessagingServiceDomainAssociationResource> FetchAsync(FetchLinkshorteningMessagingServiceDomainAssociationOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathMessagingServiceSid"> Unique string used to identify the Messaging service that this domain should be associated with. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of LinkshorteningMessagingServiceDomainAssociation </returns>
         public static LinkshorteningMessagingServiceDomainAssociationResource Fetch(
-                                         string pathMessagingServiceSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathMessagingServiceSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchLinkshorteningMessagingServiceDomainAssociationOptions(pathMessagingServiceSid){  };
+            var options = new FetchLinkshorteningMessagingServiceDomainAssociationOptions(pathMessagingServiceSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathMessagingServiceSid"> Unique string used to identify the Messaging service that this domain should be associated with. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of LinkshorteningMessagingServiceDomainAssociation </returns>
-        public static async System.Threading.Tasks.Task<LinkshorteningMessagingServiceDomainAssociationResource> FetchAsync(string pathMessagingServiceSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<LinkshorteningMessagingServiceDomainAssociationResource> FetchAsync(string pathMessagingServiceSid, IKandyRestClient client = null)
         {
-            var options = new FetchLinkshorteningMessagingServiceDomainAssociationOptions(pathMessagingServiceSid){  };
+            var options = new FetchLinkshorteningMessagingServiceDomainAssociationOptions(pathMessagingServiceSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a LinkshorteningMessagingServiceDomainAssociationResource object
         /// </summary>
@@ -113,7 +113,7 @@ namespace Kandy.Rest.Messaging.V1
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the Domain resource. </summary> 
         [JsonProperty("domain_sid")]
         public string DomainSid { get; private set; }
@@ -128,7 +128,8 @@ namespace Kandy.Rest.Messaging.V1
 
 
 
-        private LinkshorteningMessagingServiceDomainAssociationResource() {
+        private LinkshorteningMessagingServiceDomainAssociationResource()
+        {
 
         }
     }

@@ -28,16 +28,16 @@ namespace Kandy.Rest.Bulkexports.V1
 {
     public class ExportResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchExportOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchExportOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Exports/{ResourceType}";
 
             string PathResourceType = options.PathResourceType;
-            path = path.Replace("{"+"ResourceType"+"}", PathResourceType);
+            path = path.Replace("{" + "ResourceType" + "}", PathResourceType);
 
             return new Request(
                 HttpMethod.Get,
@@ -52,50 +52,50 @@ namespace Kandy.Rest.Bulkexports.V1
         /// <param name="options"> Fetch Export parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Export </returns>
-        public static ExportResource Fetch(FetchExportOptions options, ITwilioRestClient client = null)
+        public static ExportResource Fetch(FetchExportOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Export. </summary>
         /// <param name="options"> Fetch Export parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Export </returns>
         public static async System.Threading.Tasks.Task<ExportResource> FetchAsync(FetchExportOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a specific Export. </summary>
         /// <param name="pathResourceType"> The type of communication – Messages, Calls, Conferences, and Participants </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Export </returns>
         public static ExportResource Fetch(
-                                         string pathResourceType, 
-                                         ITwilioRestClient client = null)
+                                         string pathResourceType,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchExportOptions(pathResourceType){  };
+            var options = new FetchExportOptions(pathResourceType) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Export. </summary>
         /// <param name="pathResourceType"> The type of communication – Messages, Calls, Conferences, and Participants </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Export </returns>
-        public static async System.Threading.Tasks.Task<ExportResource> FetchAsync(string pathResourceType, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<ExportResource> FetchAsync(string pathResourceType, IKandyRestClient client = null)
         {
-            var options = new FetchExportOptions(pathResourceType){  };
+            var options = new FetchExportOptions(pathResourceType) { };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a ExportResource object
         /// </summary>
@@ -113,7 +113,7 @@ namespace Kandy.Rest.Bulkexports.V1
             }
         }
 
-    
+
         ///<summary> The type of communication – Messages, Calls, Conferences, and Participants </summary> 
         [JsonProperty("resource_type")]
         public string ResourceType { get; private set; }
@@ -128,7 +128,8 @@ namespace Kandy.Rest.Bulkexports.V1
 
 
 
-        private ExportResource() {
+        private ExportResource()
+        {
 
         }
     }

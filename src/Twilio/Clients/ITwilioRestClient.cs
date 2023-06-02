@@ -5,7 +5,7 @@ namespace Kandy.Clients
     /// <summary>
     /// Interface for a Twilio Client
     /// </summary>
-    public interface ITwilioRestClient
+    public interface IKandyRestClient
     {
         /// <summary>
         /// Get the account sid all requests are made against

@@ -28,18 +28,18 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.TaskQueue
 {
     public class TaskQueueRealTimeStatisticsResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchTaskQueueRealTimeStatisticsOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchTaskQueueRealTimeStatisticsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{TaskQueueSid}/RealTimeStatistics";
 
             string PathWorkspaceSid = options.PathWorkspaceSid;
-            path = path.Replace("{"+"WorkspaceSid"+"}", PathWorkspaceSid);
+            path = path.Replace("{" + "WorkspaceSid" + "}", PathWorkspaceSid);
             string PathTaskQueueSid = options.PathTaskQueueSid;
-            path = path.Replace("{"+"TaskQueueSid"+"}", PathTaskQueueSid);
+            path = path.Replace("{" + "TaskQueueSid" + "}", PathTaskQueueSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -54,26 +54,26 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.TaskQueue
         /// <param name="options"> Fetch TaskQueueRealTimeStatistics parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of TaskQueueRealTimeStatistics </returns>
-        public static TaskQueueRealTimeStatisticsResource Fetch(FetchTaskQueueRealTimeStatisticsOptions options, ITwilioRestClient client = null)
+        public static TaskQueueRealTimeStatisticsResource Fetch(FetchTaskQueueRealTimeStatisticsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch TaskQueueRealTimeStatistics parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of TaskQueueRealTimeStatistics </returns>
         public static async System.Threading.Tasks.Task<TaskQueueRealTimeStatisticsResource> FetchAsync(FetchTaskQueueRealTimeStatisticsOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathWorkspaceSid"> The SID of the Workspace with the TaskQueue to fetch. </param>
         /// <param name="pathTaskQueueSid"> The SID of the TaskQueue for which to fetch statistics. </param>
@@ -81,29 +81,29 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.TaskQueue
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of TaskQueueRealTimeStatistics </returns>
         public static TaskQueueRealTimeStatisticsResource Fetch(
-                                         string pathWorkspaceSid, 
-                                         string pathTaskQueueSid, 
-                                         string taskChannel = null, 
-                                         ITwilioRestClient client = null)
+                                         string pathWorkspaceSid,
+                                         string pathTaskQueueSid,
+                                         string taskChannel = null,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchTaskQueueRealTimeStatisticsOptions(pathWorkspaceSid, pathTaskQueueSid){ TaskChannel = taskChannel };
+            var options = new FetchTaskQueueRealTimeStatisticsOptions(pathWorkspaceSid, pathTaskQueueSid) { TaskChannel = taskChannel };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathWorkspaceSid"> The SID of the Workspace with the TaskQueue to fetch. </param>
         /// <param name="pathTaskQueueSid"> The SID of the TaskQueue for which to fetch statistics. </param>
         /// <param name="taskChannel"> The TaskChannel for which to fetch statistics. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of TaskQueueRealTimeStatistics </returns>
-        public static async System.Threading.Tasks.Task<TaskQueueRealTimeStatisticsResource> FetchAsync(string pathWorkspaceSid, string pathTaskQueueSid, string taskChannel = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<TaskQueueRealTimeStatisticsResource> FetchAsync(string pathWorkspaceSid, string pathTaskQueueSid, string taskChannel = null, IKandyRestClient client = null)
         {
-            var options = new FetchTaskQueueRealTimeStatisticsOptions(pathWorkspaceSid, pathTaskQueueSid){ TaskChannel = taskChannel };
+            var options = new FetchTaskQueueRealTimeStatisticsOptions(pathWorkspaceSid, pathTaskQueueSid) { TaskChannel = taskChannel };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a TaskQueueRealTimeStatisticsResource object
         /// </summary>
@@ -121,7 +121,7 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.TaskQueue
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the TaskQueue resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -180,7 +180,8 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.TaskQueue
 
 
 
-        private TaskQueueRealTimeStatisticsResource() {
+        private TaskQueueRealTimeStatisticsResource()
+        {
 
         }
     }

@@ -28,12 +28,12 @@ namespace Kandy.Rest.Proxy.V1
 {
     public class ServiceResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class GeoMatchLevelEnum : StringEnum
         {
-            private GeoMatchLevelEnum(string value) : base(value) {}
-            public GeoMatchLevelEnum() {}
+            private GeoMatchLevelEnum(string value) : base(value) { }
+            public GeoMatchLevelEnum() { }
             public static implicit operator GeoMatchLevelEnum(string value)
             {
                 return new GeoMatchLevelEnum(value);
@@ -47,8 +47,8 @@ namespace Kandy.Rest.Proxy.V1
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class NumberSelectionBehaviorEnum : StringEnum
         {
-            private NumberSelectionBehaviorEnum(string value) : base(value) {}
-            public NumberSelectionBehaviorEnum() {}
+            private NumberSelectionBehaviorEnum(string value) : base(value) { }
+            public NumberSelectionBehaviorEnum() { }
             public static implicit operator NumberSelectionBehaviorEnum(string value)
             {
                 return new NumberSelectionBehaviorEnum(value);
@@ -58,10 +58,10 @@ namespace Kandy.Rest.Proxy.V1
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateServiceOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateServiceOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services";
 
 
@@ -78,26 +78,26 @@ namespace Kandy.Rest.Proxy.V1
         /// <param name="options"> Create Service parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Service </returns>
-        public static ServiceResource Create(CreateServiceOptions options, ITwilioRestClient client = null)
+        public static ServiceResource Create(CreateServiceOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Service for Twilio Proxy </summary>
         /// <param name="options"> Create Service parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Service </returns>
         public static async System.Threading.Tasks.Task<ServiceResource> CreateAsync(CreateServiceOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new Service for Twilio Proxy </summary>
         /// <param name="uniqueName"> An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.** </param>
@@ -119,13 +119,13 @@ namespace Kandy.Rest.Proxy.V1
                                           Uri interceptCallbackUrl = null,
                                           Uri outOfSessionCallbackUrl = null,
                                           string chatInstanceSid = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateServiceOptions(uniqueName){  DefaultTtl = defaultTtl, CallbackUrl = callbackUrl, GeoMatchLevel = geoMatchLevel, NumberSelectionBehavior = numberSelectionBehavior, InterceptCallbackUrl = interceptCallbackUrl, OutOfSessionCallbackUrl = outOfSessionCallbackUrl, ChatInstanceSid = chatInstanceSid };
+            var options = new CreateServiceOptions(uniqueName) { DefaultTtl = defaultTtl, CallbackUrl = callbackUrl, GeoMatchLevel = geoMatchLevel, NumberSelectionBehavior = numberSelectionBehavior, InterceptCallbackUrl = interceptCallbackUrl, OutOfSessionCallbackUrl = outOfSessionCallbackUrl, ChatInstanceSid = chatInstanceSid };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Service for Twilio Proxy </summary>
         /// <param name="uniqueName"> An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.** </param>
         /// <param name="defaultTtl"> The default `ttl` value to set for Sessions created in the Service. The TTL (time to live) is measured in seconds after the Session's last create or last Interaction. The default value of `0` indicates an unlimited Session length. You can override a Session's default TTL value by setting its `ttl` value. </param>
@@ -146,24 +146,24 @@ namespace Kandy.Rest.Proxy.V1
                                                                                   Uri interceptCallbackUrl = null,
                                                                                   Uri outOfSessionCallbackUrl = null,
                                                                                   string chatInstanceSid = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateServiceOptions(uniqueName){  DefaultTtl = defaultTtl, CallbackUrl = callbackUrl, GeoMatchLevel = geoMatchLevel, NumberSelectionBehavior = numberSelectionBehavior, InterceptCallbackUrl = interceptCallbackUrl, OutOfSessionCallbackUrl = outOfSessionCallbackUrl, ChatInstanceSid = chatInstanceSid };
+            var options = new CreateServiceOptions(uniqueName) { DefaultTtl = defaultTtl, CallbackUrl = callbackUrl, GeoMatchLevel = geoMatchLevel, NumberSelectionBehavior = numberSelectionBehavior, InterceptCallbackUrl = interceptCallbackUrl, OutOfSessionCallbackUrl = outOfSessionCallbackUrl, ChatInstanceSid = chatInstanceSid };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Delete a specific Service. </summary>
         /// <param name="options"> Delete Service parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Service </returns>
-        private static Request BuildDeleteRequest(DeleteServiceOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteServiceOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -178,56 +178,56 @@ namespace Kandy.Rest.Proxy.V1
         /// <param name="options"> Delete Service parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Service </returns>
-        public static bool Delete(DeleteServiceOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteServiceOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific Service. </summary>
         /// <param name="options"> Delete Service parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Service </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteServiceOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete a specific Service. </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Service resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Service </returns>
-        public static bool Delete(string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteServiceOptions(pathSid)     ;
+            var options = new DeleteServiceOptions(pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific Service. </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Service resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Service </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteServiceOptions(pathSid) ;
+            var options = new DeleteServiceOptions(pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchServiceOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchServiceOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -242,53 +242,53 @@ namespace Kandy.Rest.Proxy.V1
         /// <param name="options"> Fetch Service parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Service </returns>
-        public static ServiceResource Fetch(FetchServiceOptions options, ITwilioRestClient client = null)
+        public static ServiceResource Fetch(FetchServiceOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Service. </summary>
         /// <param name="options"> Fetch Service parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Service </returns>
         public static async System.Threading.Tasks.Task<ServiceResource> FetchAsync(FetchServiceOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a specific Service. </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Service resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Service </returns>
         public static ServiceResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchServiceOptions(pathSid){  };
+            var options = new FetchServiceOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Service. </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Service resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Service </returns>
-        public static async System.Threading.Tasks.Task<ServiceResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<ServiceResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchServiceOptions(pathSid){  };
+            var options = new FetchServiceOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadServiceOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadServiceOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services";
 
 
@@ -304,7 +304,7 @@ namespace Kandy.Rest.Proxy.V1
         /// <param name="options"> Read Service parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Service </returns>
-        public static ResourceSet<ServiceResource> Read(ReadServiceOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<ServiceResource> Read(ReadServiceOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -312,13 +312,13 @@ namespace Kandy.Rest.Proxy.V1
             return new ResourceSet<ServiceResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Services for Twilio Proxy. A maximum of 100 records will be returned per page. </summary>
         /// <param name="options"> Read Service parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Service </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<ServiceResource>> ReadAsync(ReadServiceOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -326,7 +326,7 @@ namespace Kandy.Rest.Proxy.V1
             var page = Page<ServiceResource>.FromJson("services", response.Content);
             return new ResourceSet<ServiceResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Services for Twilio Proxy. A maximum of 100 records will be returned per page. </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -335,13 +335,13 @@ namespace Kandy.Rest.Proxy.V1
         public static ResourceSet<ServiceResource> Read(
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadServiceOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadServiceOptions() { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Services for Twilio Proxy. A maximum of 100 records will be returned per page. </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -350,19 +350,19 @@ namespace Kandy.Rest.Proxy.V1
         public static async System.Threading.Tasks.Task<ResourceSet<ServiceResource>> ReadAsync(
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadServiceOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadServiceOptions() { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<ServiceResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<ServiceResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -379,7 +379,7 @@ namespace Kandy.Rest.Proxy.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<ServiceResource> NextPage(Page<ServiceResource> page, ITwilioRestClient client)
+        public static Page<ServiceResource> NextPage(Page<ServiceResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -394,7 +394,7 @@ namespace Kandy.Rest.Proxy.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<ServiceResource> PreviousPage(Page<ServiceResource> page, ITwilioRestClient client)
+        public static Page<ServiceResource> PreviousPage(Page<ServiceResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -405,14 +405,14 @@ namespace Kandy.Rest.Proxy.V1
             return Page<ServiceResource>.FromJson("services", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateServiceOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateServiceOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -427,7 +427,7 @@ namespace Kandy.Rest.Proxy.V1
         /// <param name="options"> Update Service parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Service </returns>
-        public static ServiceResource Update(UpdateServiceOptions options, ITwilioRestClient client = null)
+        public static ServiceResource Update(UpdateServiceOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -438,15 +438,15 @@ namespace Kandy.Rest.Proxy.V1
         /// <param name="options"> Update Service parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Service </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<ServiceResource> UpdateAsync(UpdateServiceOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update a specific Service. </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Service resource to update. </param>
@@ -470,13 +470,13 @@ namespace Kandy.Rest.Proxy.V1
                                           Uri interceptCallbackUrl = null,
                                           Uri outOfSessionCallbackUrl = null,
                                           string chatInstanceSid = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateServiceOptions(pathSid){ UniqueName = uniqueName, DefaultTtl = defaultTtl, CallbackUrl = callbackUrl, GeoMatchLevel = geoMatchLevel, NumberSelectionBehavior = numberSelectionBehavior, InterceptCallbackUrl = interceptCallbackUrl, OutOfSessionCallbackUrl = outOfSessionCallbackUrl, ChatInstanceSid = chatInstanceSid };
+            var options = new UpdateServiceOptions(pathSid) { UniqueName = uniqueName, DefaultTtl = defaultTtl, CallbackUrl = callbackUrl, GeoMatchLevel = geoMatchLevel, NumberSelectionBehavior = numberSelectionBehavior, InterceptCallbackUrl = interceptCallbackUrl, OutOfSessionCallbackUrl = outOfSessionCallbackUrl, ChatInstanceSid = chatInstanceSid };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update a specific Service. </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Service resource to update. </param>
         /// <param name="uniqueName"> An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.** </param>
@@ -499,13 +499,13 @@ namespace Kandy.Rest.Proxy.V1
                                                                               Uri interceptCallbackUrl = null,
                                                                               Uri outOfSessionCallbackUrl = null,
                                                                               string chatInstanceSid = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateServiceOptions(pathSid){ UniqueName = uniqueName, DefaultTtl = defaultTtl, CallbackUrl = callbackUrl, GeoMatchLevel = geoMatchLevel, NumberSelectionBehavior = numberSelectionBehavior, InterceptCallbackUrl = interceptCallbackUrl, OutOfSessionCallbackUrl = outOfSessionCallbackUrl, ChatInstanceSid = chatInstanceSid };
+            var options = new UpdateServiceOptions(pathSid) { UniqueName = uniqueName, DefaultTtl = defaultTtl, CallbackUrl = callbackUrl, GeoMatchLevel = geoMatchLevel, NumberSelectionBehavior = numberSelectionBehavior, InterceptCallbackUrl = interceptCallbackUrl, OutOfSessionCallbackUrl = outOfSessionCallbackUrl, ChatInstanceSid = chatInstanceSid };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a ServiceResource object
         /// </summary>
@@ -523,7 +523,7 @@ namespace Kandy.Rest.Proxy.V1
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the Service resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -548,11 +548,11 @@ namespace Kandy.Rest.Proxy.V1
         [JsonProperty("default_ttl")]
         public int? DefaultTtl { get; private set; }
 
-        
+
         [JsonProperty("number_selection_behavior")]
         public ServiceResource.NumberSelectionBehaviorEnum NumberSelectionBehavior { get; private set; }
 
-        
+
         [JsonProperty("geo_match_level")]
         public ServiceResource.GeoMatchLevelEnum GeoMatchLevel { get; private set; }
 
@@ -582,7 +582,8 @@ namespace Kandy.Rest.Proxy.V1
 
 
 
-        private ServiceResource() {
+        private ServiceResource()
+        {
 
         }
     }

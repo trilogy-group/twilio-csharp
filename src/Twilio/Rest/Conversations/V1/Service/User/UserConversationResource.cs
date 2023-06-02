@@ -28,12 +28,12 @@ namespace Kandy.Rest.Conversations.V1.Service.User
 {
     public class UserConversationResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class NotificationLevelEnum : StringEnum
         {
-            private NotificationLevelEnum(string value) : base(value) {}
-            public NotificationLevelEnum() {}
+            private NotificationLevelEnum(string value) : base(value) { }
+            public NotificationLevelEnum() { }
             public static implicit operator NotificationLevelEnum(string value)
             {
                 return new NotificationLevelEnum(value);
@@ -45,8 +45,8 @@ namespace Kandy.Rest.Conversations.V1.Service.User
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class StateEnum : StringEnum
         {
-            private StateEnum(string value) : base(value) {}
-            public StateEnum() {}
+            private StateEnum(string value) : base(value) { }
+            public StateEnum() { }
             public static implicit operator StateEnum(string value)
             {
                 return new StateEnum(value);
@@ -57,22 +57,22 @@ namespace Kandy.Rest.Conversations.V1.Service.User
 
         }
 
-        
+
         /// <summary> Delete a specific User Conversation. </summary>
         /// <param name="options"> Delete UserConversation parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of UserConversation </returns>
-        private static Request BuildDeleteRequest(DeleteUserConversationOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteUserConversationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ChatServiceSid}/Users/{UserSid}/Conversations/{ConversationSid}";
 
             string PathChatServiceSid = options.PathChatServiceSid;
-            path = path.Replace("{"+"ChatServiceSid"+"}", PathChatServiceSid);
+            path = path.Replace("{" + "ChatServiceSid" + "}", PathChatServiceSid);
             string PathUserSid = options.PathUserSid;
-            path = path.Replace("{"+"UserSid"+"}", PathUserSid);
+            path = path.Replace("{" + "UserSid" + "}", PathUserSid);
             string PathConversationSid = options.PathConversationSid;
-            path = path.Replace("{"+"ConversationSid"+"}", PathConversationSid);
+            path = path.Replace("{" + "ConversationSid" + "}", PathConversationSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -87,26 +87,26 @@ namespace Kandy.Rest.Conversations.V1.Service.User
         /// <param name="options"> Delete UserConversation parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of UserConversation </returns>
-        public static bool Delete(DeleteUserConversationOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteUserConversationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific User Conversation. </summary>
         /// <param name="options"> Delete UserConversation parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of UserConversation </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteUserConversationOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete a specific User Conversation. </summary>
         /// <param name="pathChatServiceSid"> The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with. </param>
@@ -114,37 +114,37 @@ namespace Kandy.Rest.Conversations.V1.Service.User
         /// <param name="pathConversationSid"> The unique SID identifier of the Conversation. This value can be either the `sid` or the `unique_name` of the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource). </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of UserConversation </returns>
-        public static bool Delete(string pathChatServiceSid, string pathUserSid, string pathConversationSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathChatServiceSid, string pathUserSid, string pathConversationSid, IKandyRestClient client = null)
         {
-            var options = new DeleteUserConversationOptions(pathChatServiceSid, pathUserSid, pathConversationSid)           ;
+            var options = new DeleteUserConversationOptions(pathChatServiceSid, pathUserSid, pathConversationSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific User Conversation. </summary>
         /// <param name="pathChatServiceSid"> The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with. </param>
         /// <param name="pathUserSid"> The unique SID identifier of the [User resource](https://www.twilio.com/docs/conversations/api/user-resource). This value can be either the `sid` or the `identity` of the User resource. </param>
         /// <param name="pathConversationSid"> The unique SID identifier of the Conversation. This value can be either the `sid` or the `unique_name` of the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource). </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of UserConversation </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathChatServiceSid, string pathUserSid, string pathConversationSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathChatServiceSid, string pathUserSid, string pathConversationSid, IKandyRestClient client = null)
         {
-            var options = new DeleteUserConversationOptions(pathChatServiceSid, pathUserSid, pathConversationSid) ;
+            var options = new DeleteUserConversationOptions(pathChatServiceSid, pathUserSid, pathConversationSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchUserConversationOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchUserConversationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ChatServiceSid}/Users/{UserSid}/Conversations/{ConversationSid}";
 
             string PathChatServiceSid = options.PathChatServiceSid;
-            path = path.Replace("{"+"ChatServiceSid"+"}", PathChatServiceSid);
+            path = path.Replace("{" + "ChatServiceSid" + "}", PathChatServiceSid);
             string PathUserSid = options.PathUserSid;
-            path = path.Replace("{"+"UserSid"+"}", PathUserSid);
+            path = path.Replace("{" + "UserSid" + "}", PathUserSid);
             string PathConversationSid = options.PathConversationSid;
-            path = path.Replace("{"+"ConversationSid"+"}", PathConversationSid);
+            path = path.Replace("{" + "ConversationSid" + "}", PathConversationSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -159,26 +159,26 @@ namespace Kandy.Rest.Conversations.V1.Service.User
         /// <param name="options"> Fetch UserConversation parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of UserConversation </returns>
-        public static UserConversationResource Fetch(FetchUserConversationOptions options, ITwilioRestClient client = null)
+        public static UserConversationResource Fetch(FetchUserConversationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific User Conversation. </summary>
         /// <param name="options"> Fetch UserConversation parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of UserConversation </returns>
         public static async System.Threading.Tasks.Task<UserConversationResource> FetchAsync(FetchUserConversationOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a specific User Conversation. </summary>
         /// <param name="pathChatServiceSid"> The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with. </param>
         /// <param name="pathUserSid"> The unique SID identifier of the [User resource](https://www.twilio.com/docs/conversations/api/user-resource). This value can be either the `sid` or the `identity` of the User resource. </param>
@@ -186,38 +186,38 @@ namespace Kandy.Rest.Conversations.V1.Service.User
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of UserConversation </returns>
         public static UserConversationResource Fetch(
-                                         string pathChatServiceSid, 
-                                         string pathUserSid, 
-                                         string pathConversationSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathChatServiceSid,
+                                         string pathUserSid,
+                                         string pathConversationSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchUserConversationOptions(pathChatServiceSid, pathUserSid, pathConversationSid){  };
+            var options = new FetchUserConversationOptions(pathChatServiceSid, pathUserSid, pathConversationSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific User Conversation. </summary>
         /// <param name="pathChatServiceSid"> The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with. </param>
         /// <param name="pathUserSid"> The unique SID identifier of the [User resource](https://www.twilio.com/docs/conversations/api/user-resource). This value can be either the `sid` or the `identity` of the User resource. </param>
         /// <param name="pathConversationSid"> The unique SID identifier of the Conversation. This value can be either the `sid` or the `unique_name` of the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource). </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of UserConversation </returns>
-        public static async System.Threading.Tasks.Task<UserConversationResource> FetchAsync(string pathChatServiceSid, string pathUserSid, string pathConversationSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<UserConversationResource> FetchAsync(string pathChatServiceSid, string pathUserSid, string pathConversationSid, IKandyRestClient client = null)
         {
-            var options = new FetchUserConversationOptions(pathChatServiceSid, pathUserSid, pathConversationSid){  };
+            var options = new FetchUserConversationOptions(pathChatServiceSid, pathUserSid, pathConversationSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadUserConversationOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadUserConversationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ChatServiceSid}/Users/{UserSid}/Conversations";
 
             string PathChatServiceSid = options.PathChatServiceSid;
-            path = path.Replace("{"+"ChatServiceSid"+"}", PathChatServiceSid);
+            path = path.Replace("{" + "ChatServiceSid" + "}", PathChatServiceSid);
             string PathUserSid = options.PathUserSid;
-            path = path.Replace("{"+"UserSid"+"}", PathUserSid);
+            path = path.Replace("{" + "UserSid" + "}", PathUserSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -231,7 +231,7 @@ namespace Kandy.Rest.Conversations.V1.Service.User
         /// <param name="options"> Read UserConversation parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of UserConversation </returns>
-        public static ResourceSet<UserConversationResource> Read(ReadUserConversationOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<UserConversationResource> Read(ReadUserConversationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -239,13 +239,13 @@ namespace Kandy.Rest.Conversations.V1.Service.User
             return new ResourceSet<UserConversationResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all User Conversations for the User. </summary>
         /// <param name="options"> Read UserConversation parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of UserConversation </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<UserConversationResource>> ReadAsync(ReadUserConversationOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -253,7 +253,7 @@ namespace Kandy.Rest.Conversations.V1.Service.User
             var page = Page<UserConversationResource>.FromJson("conversations", response.Content);
             return new ResourceSet<UserConversationResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all User Conversations for the User. </summary>
         /// <param name="pathChatServiceSid"> The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with. </param>
         /// <param name="pathUserSid"> The unique SID identifier of the [User resource](https://www.twilio.com/docs/conversations/api/user-resource). This value can be either the `sid` or the `identity` of the User resource. </param>
@@ -266,13 +266,13 @@ namespace Kandy.Rest.Conversations.V1.Service.User
                                                      string pathUserSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadUserConversationOptions(pathChatServiceSid, pathUserSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadUserConversationOptions(pathChatServiceSid, pathUserSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all User Conversations for the User. </summary>
         /// <param name="pathChatServiceSid"> The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with. </param>
         /// <param name="pathUserSid"> The unique SID identifier of the [User resource](https://www.twilio.com/docs/conversations/api/user-resource). This value can be either the `sid` or the `identity` of the User resource. </param>
@@ -285,19 +285,19 @@ namespace Kandy.Rest.Conversations.V1.Service.User
                                                                                              string pathUserSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadUserConversationOptions(pathChatServiceSid, pathUserSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadUserConversationOptions(pathChatServiceSid, pathUserSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<UserConversationResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<UserConversationResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -314,7 +314,7 @@ namespace Kandy.Rest.Conversations.V1.Service.User
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<UserConversationResource> NextPage(Page<UserConversationResource> page, ITwilioRestClient client)
+        public static Page<UserConversationResource> NextPage(Page<UserConversationResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -329,7 +329,7 @@ namespace Kandy.Rest.Conversations.V1.Service.User
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<UserConversationResource> PreviousPage(Page<UserConversationResource> page, ITwilioRestClient client)
+        public static Page<UserConversationResource> PreviousPage(Page<UserConversationResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -340,18 +340,18 @@ namespace Kandy.Rest.Conversations.V1.Service.User
             return Page<UserConversationResource>.FromJson("conversations", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateUserConversationOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateUserConversationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ChatServiceSid}/Users/{UserSid}/Conversations/{ConversationSid}";
 
             string PathChatServiceSid = options.PathChatServiceSid;
-            path = path.Replace("{"+"ChatServiceSid"+"}", PathChatServiceSid);
+            path = path.Replace("{" + "ChatServiceSid" + "}", PathChatServiceSid);
             string PathUserSid = options.PathUserSid;
-            path = path.Replace("{"+"UserSid"+"}", PathUserSid);
+            path = path.Replace("{" + "UserSid" + "}", PathUserSid);
             string PathConversationSid = options.PathConversationSid;
-            path = path.Replace("{"+"ConversationSid"+"}", PathConversationSid);
+            path = path.Replace("{" + "ConversationSid" + "}", PathConversationSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -366,7 +366,7 @@ namespace Kandy.Rest.Conversations.V1.Service.User
         /// <param name="options"> Update UserConversation parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of UserConversation </returns>
-        public static UserConversationResource Update(UpdateUserConversationOptions options, ITwilioRestClient client = null)
+        public static UserConversationResource Update(UpdateUserConversationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -377,15 +377,15 @@ namespace Kandy.Rest.Conversations.V1.Service.User
         /// <param name="options"> Update UserConversation parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of UserConversation </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<UserConversationResource> UpdateAsync(UpdateUserConversationOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update a specific User Conversation. </summary>
         /// <param name="pathChatServiceSid"> The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with. </param>
@@ -403,13 +403,13 @@ namespace Kandy.Rest.Conversations.V1.Service.User
                                           UserConversationResource.NotificationLevelEnum notificationLevel = null,
                                           DateTime? lastReadTimestamp = null,
                                           int? lastReadMessageIndex = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateUserConversationOptions(pathChatServiceSid, pathUserSid, pathConversationSid){ NotificationLevel = notificationLevel, LastReadTimestamp = lastReadTimestamp, LastReadMessageIndex = lastReadMessageIndex };
+            var options = new UpdateUserConversationOptions(pathChatServiceSid, pathUserSid, pathConversationSid) { NotificationLevel = notificationLevel, LastReadTimestamp = lastReadTimestamp, LastReadMessageIndex = lastReadMessageIndex };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update a specific User Conversation. </summary>
         /// <param name="pathChatServiceSid"> The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with. </param>
         /// <param name="pathUserSid"> The unique SID identifier of the [User resource](https://www.twilio.com/docs/conversations/api/user-resource). This value can be either the `sid` or the `identity` of the User resource. </param>
@@ -426,13 +426,13 @@ namespace Kandy.Rest.Conversations.V1.Service.User
                                                                               UserConversationResource.NotificationLevelEnum notificationLevel = null,
                                                                               DateTime? lastReadTimestamp = null,
                                                                               int? lastReadMessageIndex = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateUserConversationOptions(pathChatServiceSid, pathUserSid, pathConversationSid){ NotificationLevel = notificationLevel, LastReadTimestamp = lastReadTimestamp, LastReadMessageIndex = lastReadMessageIndex };
+            var options = new UpdateUserConversationOptions(pathChatServiceSid, pathUserSid, pathConversationSid) { NotificationLevel = notificationLevel, LastReadTimestamp = lastReadTimestamp, LastReadMessageIndex = lastReadMessageIndex };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a UserConversationResource object
         /// </summary>
@@ -450,7 +450,7 @@ namespace Kandy.Rest.Conversations.V1.Service.User
             }
         }
 
-    
+
         ///<summary> The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this conversation. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -483,7 +483,7 @@ namespace Kandy.Rest.Conversations.V1.Service.User
         [JsonProperty("friendly_name")]
         public string FriendlyName { get; private set; }
 
-        
+
         [JsonProperty("conversation_state")]
         public UserConversationResource.StateEnum ConversationState { get; private set; }
 
@@ -507,7 +507,7 @@ namespace Kandy.Rest.Conversations.V1.Service.User
         [JsonProperty("created_by")]
         public string CreatedBy { get; private set; }
 
-        
+
         [JsonProperty("notification_level")]
         public UserConversationResource.NotificationLevelEnum NotificationLevel { get; private set; }
 
@@ -525,7 +525,8 @@ namespace Kandy.Rest.Conversations.V1.Service.User
 
 
 
-        private UserConversationResource() {
+        private UserConversationResource()
+        {
 
         }
     }

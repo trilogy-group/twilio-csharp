@@ -28,12 +28,12 @@ namespace Kandy.Rest.Verify.V2
 {
     public class FormResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class FormTypesEnum : StringEnum
         {
-            private FormTypesEnum(string value) : base(value) {}
-            public FormTypesEnum() {}
+            private FormTypesEnum(string value) : base(value) { }
+            public FormTypesEnum() { }
             public static implicit operator FormTypesEnum(string value)
             {
                 return new FormTypesEnum(value);
@@ -42,14 +42,14 @@ namespace Kandy.Rest.Verify.V2
 
         }
 
-        
-        private static Request BuildFetchRequest(FetchFormOptions options, ITwilioRestClient client)
+
+        private static Request BuildFetchRequest(FetchFormOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Forms/{FormType}";
 
             string PathFormType = options.PathFormType.ToString();
-            path = path.Replace("{"+"FormType"+"}", PathFormType);
+            path = path.Replace("{" + "FormType" + "}", PathFormType);
 
             return new Request(
                 HttpMethod.Get,
@@ -64,50 +64,50 @@ namespace Kandy.Rest.Verify.V2
         /// <param name="options"> Fetch Form parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Form </returns>
-        public static FormResource Fetch(FetchFormOptions options, ITwilioRestClient client = null)
+        public static FormResource Fetch(FetchFormOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch the forms for a specific Form Type. </summary>
         /// <param name="options"> Fetch Form parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Form </returns>
         public static async System.Threading.Tasks.Task<FormResource> FetchAsync(FetchFormOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch the forms for a specific Form Type. </summary>
         /// <param name="pathFormType"> The Type of this Form. Currently only `form-push` is supported. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Form </returns>
         public static FormResource Fetch(
-                                         FormResource.FormTypesEnum pathFormType, 
-                                         ITwilioRestClient client = null)
+                                         FormResource.FormTypesEnum pathFormType,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchFormOptions(pathFormType){  };
+            var options = new FetchFormOptions(pathFormType) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch the forms for a specific Form Type. </summary>
         /// <param name="pathFormType"> The Type of this Form. Currently only `form-push` is supported. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Form </returns>
-        public static async System.Threading.Tasks.Task<FormResource> FetchAsync(FormResource.FormTypesEnum pathFormType, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<FormResource> FetchAsync(FormResource.FormTypesEnum pathFormType, IKandyRestClient client = null)
         {
-            var options = new FetchFormOptions(pathFormType){  };
+            var options = new FetchFormOptions(pathFormType) { };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a FormResource object
         /// </summary>
@@ -125,8 +125,8 @@ namespace Kandy.Rest.Verify.V2
             }
         }
 
-    
-        
+
+
         [JsonProperty("form_type")]
         public FormResource.FormTypesEnum FormType { get; private set; }
 
@@ -144,7 +144,8 @@ namespace Kandy.Rest.Verify.V2
 
 
 
-        private FormResource() {
+        private FormResource()
+        {
 
         }
     }

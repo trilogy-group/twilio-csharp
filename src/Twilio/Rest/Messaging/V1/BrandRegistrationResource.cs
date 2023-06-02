@@ -28,12 +28,12 @@ namespace Kandy.Rest.Messaging.V1
 {
     public class BrandRegistrationResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class StatusEnum : StringEnum
         {
-            private StatusEnum(string value) : base(value) {}
-            public StatusEnum() {}
+            private StatusEnum(string value) : base(value) { }
+            public StatusEnum() { }
             public static implicit operator StatusEnum(string value)
             {
                 return new StatusEnum(value);
@@ -48,8 +48,8 @@ namespace Kandy.Rest.Messaging.V1
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class IdentityStatusEnum : StringEnum
         {
-            private IdentityStatusEnum(string value) : base(value) {}
-            public IdentityStatusEnum() {}
+            private IdentityStatusEnum(string value) : base(value) { }
+            public IdentityStatusEnum() { }
             public static implicit operator IdentityStatusEnum(string value)
             {
                 return new IdentityStatusEnum(value);
@@ -63,8 +63,8 @@ namespace Kandy.Rest.Messaging.V1
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class BrandFeedbackEnum : StringEnum
         {
-            private BrandFeedbackEnum(string value) : base(value) {}
-            public BrandFeedbackEnum() {}
+            private BrandFeedbackEnum(string value) : base(value) { }
+            public BrandFeedbackEnum() { }
             public static implicit operator BrandFeedbackEnum(string value)
             {
                 return new BrandFeedbackEnum(value);
@@ -77,10 +77,10 @@ namespace Kandy.Rest.Messaging.V1
             public static readonly BrandFeedbackEnum Others = new BrandFeedbackEnum("OTHERS");
         }
 
-        
-        private static Request BuildCreateRequest(CreateBrandRegistrationOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateBrandRegistrationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/a2p/BrandRegistrations";
 
 
@@ -97,26 +97,26 @@ namespace Kandy.Rest.Messaging.V1
         /// <param name="options"> Create BrandRegistration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of BrandRegistration </returns>
-        public static BrandRegistrationResource Create(CreateBrandRegistrationOptions options, ITwilioRestClient client = null)
+        public static BrandRegistrationResource Create(CreateBrandRegistrationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create BrandRegistration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of BrandRegistration </returns>
         public static async System.Threading.Tasks.Task<BrandRegistrationResource> CreateAsync(CreateBrandRegistrationOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="customerProfileBundleSid"> Customer Profile Bundle Sid. </param>
@@ -132,13 +132,13 @@ namespace Kandy.Rest.Messaging.V1
                                           string brandType = null,
                                           bool? mock = null,
                                           bool? skipAutomaticSecVet = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateBrandRegistrationOptions(customerProfileBundleSid, a2PProfileBundleSid){  BrandType = brandType, Mock = mock, SkipAutomaticSecVet = skipAutomaticSecVet };
+            var options = new CreateBrandRegistrationOptions(customerProfileBundleSid, a2PProfileBundleSid) { BrandType = brandType, Mock = mock, SkipAutomaticSecVet = skipAutomaticSecVet };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="customerProfileBundleSid"> Customer Profile Bundle Sid. </param>
         /// <param name="a2PProfileBundleSid"> A2P Messaging Profile Bundle Sid. </param>
@@ -153,20 +153,20 @@ namespace Kandy.Rest.Messaging.V1
                                                                                   string brandType = null,
                                                                                   bool? mock = null,
                                                                                   bool? skipAutomaticSecVet = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateBrandRegistrationOptions(customerProfileBundleSid, a2PProfileBundleSid){  BrandType = brandType, Mock = mock, SkipAutomaticSecVet = skipAutomaticSecVet };
+            var options = new CreateBrandRegistrationOptions(customerProfileBundleSid, a2PProfileBundleSid) { BrandType = brandType, Mock = mock, SkipAutomaticSecVet = skipAutomaticSecVet };
             return await CreateAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchBrandRegistrationOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchBrandRegistrationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/a2p/BrandRegistrations/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -181,53 +181,53 @@ namespace Kandy.Rest.Messaging.V1
         /// <param name="options"> Fetch BrandRegistration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of BrandRegistration </returns>
-        public static BrandRegistrationResource Fetch(FetchBrandRegistrationOptions options, ITwilioRestClient client = null)
+        public static BrandRegistrationResource Fetch(FetchBrandRegistrationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch BrandRegistration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of BrandRegistration </returns>
         public static async System.Threading.Tasks.Task<BrandRegistrationResource> FetchAsync(FetchBrandRegistrationOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathSid"> The SID of the Brand Registration resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of BrandRegistration </returns>
         public static BrandRegistrationResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchBrandRegistrationOptions(pathSid){  };
+            var options = new FetchBrandRegistrationOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathSid"> The SID of the Brand Registration resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of BrandRegistration </returns>
-        public static async System.Threading.Tasks.Task<BrandRegistrationResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<BrandRegistrationResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchBrandRegistrationOptions(pathSid){  };
+            var options = new FetchBrandRegistrationOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadBrandRegistrationOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadBrandRegistrationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/a2p/BrandRegistrations";
 
 
@@ -243,7 +243,7 @@ namespace Kandy.Rest.Messaging.V1
         /// <param name="options"> Read BrandRegistration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of BrandRegistration </returns>
-        public static ResourceSet<BrandRegistrationResource> Read(ReadBrandRegistrationOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<BrandRegistrationResource> Read(ReadBrandRegistrationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -251,13 +251,13 @@ namespace Kandy.Rest.Messaging.V1
             return new ResourceSet<BrandRegistrationResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read BrandRegistration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of BrandRegistration </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<BrandRegistrationResource>> ReadAsync(ReadBrandRegistrationOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -265,7 +265,7 @@ namespace Kandy.Rest.Messaging.V1
             var page = Page<BrandRegistrationResource>.FromJson("data", response.Content);
             return new ResourceSet<BrandRegistrationResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -274,13 +274,13 @@ namespace Kandy.Rest.Messaging.V1
         public static ResourceSet<BrandRegistrationResource> Read(
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadBrandRegistrationOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadBrandRegistrationOptions() { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -289,19 +289,19 @@ namespace Kandy.Rest.Messaging.V1
         public static async System.Threading.Tasks.Task<ResourceSet<BrandRegistrationResource>> ReadAsync(
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadBrandRegistrationOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadBrandRegistrationOptions() { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<BrandRegistrationResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<BrandRegistrationResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -318,7 +318,7 @@ namespace Kandy.Rest.Messaging.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<BrandRegistrationResource> NextPage(Page<BrandRegistrationResource> page, ITwilioRestClient client)
+        public static Page<BrandRegistrationResource> NextPage(Page<BrandRegistrationResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -333,7 +333,7 @@ namespace Kandy.Rest.Messaging.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<BrandRegistrationResource> PreviousPage(Page<BrandRegistrationResource> page, ITwilioRestClient client)
+        public static Page<BrandRegistrationResource> PreviousPage(Page<BrandRegistrationResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -344,14 +344,14 @@ namespace Kandy.Rest.Messaging.V1
             return Page<BrandRegistrationResource>.FromJson("data", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateBrandRegistrationOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateBrandRegistrationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/a2p/BrandRegistrations/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -366,7 +366,7 @@ namespace Kandy.Rest.Messaging.V1
         /// <param name="options"> Update BrandRegistration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of BrandRegistration </returns>
-        public static BrandRegistrationResource Update(UpdateBrandRegistrationOptions options, ITwilioRestClient client = null)
+        public static BrandRegistrationResource Update(UpdateBrandRegistrationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -377,15 +377,15 @@ namespace Kandy.Rest.Messaging.V1
         /// <param name="options"> Update BrandRegistration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of BrandRegistration </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<BrandRegistrationResource> UpdateAsync(UpdateBrandRegistrationOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> update </summary>
         /// <param name="pathSid"> The SID of the Brand Registration resource to update. </param>
@@ -393,26 +393,26 @@ namespace Kandy.Rest.Messaging.V1
         /// <returns> A single instance of BrandRegistration </returns>
         public static BrandRegistrationResource Update(
                                           string pathSid,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateBrandRegistrationOptions(pathSid){  };
+            var options = new UpdateBrandRegistrationOptions(pathSid) { };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> update </summary>
         /// <param name="pathSid"> The SID of the Brand Registration resource to update. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of BrandRegistration </returns>
         public static async System.Threading.Tasks.Task<BrandRegistrationResource> UpdateAsync(
                                                                               string pathSid,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateBrandRegistrationOptions(pathSid){  };
+            var options = new UpdateBrandRegistrationOptions(pathSid) { };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a BrandRegistrationResource object
         /// </summary>
@@ -430,7 +430,7 @@ namespace Kandy.Rest.Messaging.V1
             }
         }
 
-    
+
         ///<summary> The unique string to identify Brand Registration. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -459,7 +459,7 @@ namespace Kandy.Rest.Messaging.V1
         [JsonProperty("brand_type")]
         public string BrandType { get; private set; }
 
-        
+
         [JsonProperty("status")]
         public BrandRegistrationResource.StatusEnum Status { get; private set; }
 
@@ -483,7 +483,7 @@ namespace Kandy.Rest.Messaging.V1
         [JsonProperty("brand_feedback")]
         public List<BrandRegistrationResource.BrandFeedbackEnum> BrandFeedback { get; private set; }
 
-        
+
         [JsonProperty("identity_status")]
         public BrandRegistrationResource.IdentityStatusEnum IdentityStatus { get; private set; }
 
@@ -513,7 +513,8 @@ namespace Kandy.Rest.Messaging.V1
 
 
 
-        private BrandRegistrationResource() {
+        private BrandRegistrationResource()
+        {
 
         }
     }

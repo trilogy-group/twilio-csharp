@@ -28,12 +28,12 @@ namespace Kandy.Rest.Events.V1
 {
     public class SubscriptionResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateSubscriptionOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateSubscriptionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Subscriptions";
 
 
@@ -50,26 +50,26 @@ namespace Kandy.Rest.Events.V1
         /// <param name="options"> Create Subscription parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Subscription </returns>
-        public static SubscriptionResource Create(CreateSubscriptionOptions options, ITwilioRestClient client = null)
+        public static SubscriptionResource Create(CreateSubscriptionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Subscription. </summary>
         /// <param name="options"> Create Subscription parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Subscription </returns>
         public static async System.Threading.Tasks.Task<SubscriptionResource> CreateAsync(CreateSubscriptionOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new Subscription. </summary>
         /// <param name="description"> A human readable description for the Subscription **This value should not contain PII.** </param>
@@ -81,13 +81,13 @@ namespace Kandy.Rest.Events.V1
                                           string description,
                                           string sinkSid,
                                           List<object> types,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateSubscriptionOptions(description, sinkSid, types){  };
+            var options = new CreateSubscriptionOptions(description, sinkSid, types) { };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Subscription. </summary>
         /// <param name="description"> A human readable description for the Subscription **This value should not contain PII.** </param>
         /// <param name="sinkSid"> The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created. </param>
@@ -98,24 +98,24 @@ namespace Kandy.Rest.Events.V1
                                                                                   string description,
                                                                                   string sinkSid,
                                                                                   List<object> types,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateSubscriptionOptions(description, sinkSid, types){  };
+            var options = new CreateSubscriptionOptions(description, sinkSid, types) { };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Delete a specific Subscription. </summary>
         /// <param name="options"> Delete Subscription parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Subscription </returns>
-        private static Request BuildDeleteRequest(DeleteSubscriptionOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteSubscriptionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Subscriptions/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -130,56 +130,56 @@ namespace Kandy.Rest.Events.V1
         /// <param name="options"> Delete Subscription parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Subscription </returns>
-        public static bool Delete(DeleteSubscriptionOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteSubscriptionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific Subscription. </summary>
         /// <param name="options"> Delete Subscription parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Subscription </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteSubscriptionOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete a specific Subscription. </summary>
         /// <param name="pathSid"> A 34 character string that uniquely identifies this Subscription. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Subscription </returns>
-        public static bool Delete(string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteSubscriptionOptions(pathSid)     ;
+            var options = new DeleteSubscriptionOptions(pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific Subscription. </summary>
         /// <param name="pathSid"> A 34 character string that uniquely identifies this Subscription. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Subscription </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteSubscriptionOptions(pathSid) ;
+            var options = new DeleteSubscriptionOptions(pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchSubscriptionOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchSubscriptionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Subscriptions/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -194,53 +194,53 @@ namespace Kandy.Rest.Events.V1
         /// <param name="options"> Fetch Subscription parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Subscription </returns>
-        public static SubscriptionResource Fetch(FetchSubscriptionOptions options, ITwilioRestClient client = null)
+        public static SubscriptionResource Fetch(FetchSubscriptionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Subscription. </summary>
         /// <param name="options"> Fetch Subscription parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Subscription </returns>
         public static async System.Threading.Tasks.Task<SubscriptionResource> FetchAsync(FetchSubscriptionOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a specific Subscription. </summary>
         /// <param name="pathSid"> A 34 character string that uniquely identifies this Subscription. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Subscription </returns>
         public static SubscriptionResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchSubscriptionOptions(pathSid){  };
+            var options = new FetchSubscriptionOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Subscription. </summary>
         /// <param name="pathSid"> A 34 character string that uniquely identifies this Subscription. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Subscription </returns>
-        public static async System.Threading.Tasks.Task<SubscriptionResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<SubscriptionResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchSubscriptionOptions(pathSid){  };
+            var options = new FetchSubscriptionOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadSubscriptionOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadSubscriptionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Subscriptions";
 
 
@@ -256,7 +256,7 @@ namespace Kandy.Rest.Events.V1
         /// <param name="options"> Read Subscription parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Subscription </returns>
-        public static ResourceSet<SubscriptionResource> Read(ReadSubscriptionOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<SubscriptionResource> Read(ReadSubscriptionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -264,13 +264,13 @@ namespace Kandy.Rest.Events.V1
             return new ResourceSet<SubscriptionResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a paginated list of Subscriptions belonging to the account used to make the request. </summary>
         /// <param name="options"> Read Subscription parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Subscription </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<SubscriptionResource>> ReadAsync(ReadSubscriptionOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -278,7 +278,7 @@ namespace Kandy.Rest.Events.V1
             var page = Page<SubscriptionResource>.FromJson("subscriptions", response.Content);
             return new ResourceSet<SubscriptionResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a paginated list of Subscriptions belonging to the account used to make the request. </summary>
         /// <param name="sinkSid"> The SID of the sink that the list of Subscriptions should be filtered by. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -289,13 +289,13 @@ namespace Kandy.Rest.Events.V1
                                                      string sinkSid = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadSubscriptionOptions(){ SinkSid = sinkSid, PageSize = pageSize, Limit = limit};
+            var options = new ReadSubscriptionOptions() { SinkSid = sinkSid, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a paginated list of Subscriptions belonging to the account used to make the request. </summary>
         /// <param name="sinkSid"> The SID of the sink that the list of Subscriptions should be filtered by. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -306,19 +306,19 @@ namespace Kandy.Rest.Events.V1
                                                                                              string sinkSid = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadSubscriptionOptions(){ SinkSid = sinkSid, PageSize = pageSize, Limit = limit};
+            var options = new ReadSubscriptionOptions() { SinkSid = sinkSid, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<SubscriptionResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<SubscriptionResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -335,7 +335,7 @@ namespace Kandy.Rest.Events.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<SubscriptionResource> NextPage(Page<SubscriptionResource> page, ITwilioRestClient client)
+        public static Page<SubscriptionResource> NextPage(Page<SubscriptionResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -350,7 +350,7 @@ namespace Kandy.Rest.Events.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<SubscriptionResource> PreviousPage(Page<SubscriptionResource> page, ITwilioRestClient client)
+        public static Page<SubscriptionResource> PreviousPage(Page<SubscriptionResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -361,14 +361,14 @@ namespace Kandy.Rest.Events.V1
             return Page<SubscriptionResource>.FromJson("subscriptions", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateSubscriptionOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateSubscriptionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Subscriptions/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -383,7 +383,7 @@ namespace Kandy.Rest.Events.V1
         /// <param name="options"> Update Subscription parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Subscription </returns>
-        public static SubscriptionResource Update(UpdateSubscriptionOptions options, ITwilioRestClient client = null)
+        public static SubscriptionResource Update(UpdateSubscriptionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -394,15 +394,15 @@ namespace Kandy.Rest.Events.V1
         /// <param name="options"> Update Subscription parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Subscription </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<SubscriptionResource> UpdateAsync(UpdateSubscriptionOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update a Subscription. </summary>
         /// <param name="pathSid"> A 34 character string that uniquely identifies this Subscription. </param>
@@ -414,13 +414,13 @@ namespace Kandy.Rest.Events.V1
                                           string pathSid,
                                           string description = null,
                                           string sinkSid = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateSubscriptionOptions(pathSid){ Description = description, SinkSid = sinkSid };
+            var options = new UpdateSubscriptionOptions(pathSid) { Description = description, SinkSid = sinkSid };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update a Subscription. </summary>
         /// <param name="pathSid"> A 34 character string that uniquely identifies this Subscription. </param>
         /// <param name="description"> A human readable description for the Subscription. </param>
@@ -431,13 +431,13 @@ namespace Kandy.Rest.Events.V1
                                                                               string pathSid,
                                                                               string description = null,
                                                                               string sinkSid = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateSubscriptionOptions(pathSid){ Description = description, SinkSid = sinkSid };
+            var options = new UpdateSubscriptionOptions(pathSid) { Description = description, SinkSid = sinkSid };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a SubscriptionResource object
         /// </summary>
@@ -455,7 +455,7 @@ namespace Kandy.Rest.Events.V1
             }
         }
 
-    
+
         ///<summary> The unique SID identifier of the Account. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -490,7 +490,8 @@ namespace Kandy.Rest.Events.V1
 
 
 
-        private SubscriptionResource() {
+        private SubscriptionResource()
+        {
 
         }
     }

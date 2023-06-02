@@ -28,12 +28,12 @@ namespace Kandy.Rest.Preview.HostedNumbers.AuthorizationDocument
 {
     public class DependentHostedNumberOrderResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class StatusEnum : StringEnum
         {
-            private StatusEnum(string value) : base(value) {}
-            public StatusEnum() {}
+            private StatusEnum(string value) : base(value) { }
+            public StatusEnum() { }
             public static implicit operator StatusEnum(string value)
             {
                 return new StatusEnum(value);
@@ -52,8 +52,8 @@ namespace Kandy.Rest.Preview.HostedNumbers.AuthorizationDocument
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class VerificationTypeEnum : StringEnum
         {
-            private VerificationTypeEnum(string value) : base(value) {}
-            public VerificationTypeEnum() {}
+            private VerificationTypeEnum(string value) : base(value) { }
+            public VerificationTypeEnum() { }
             public static implicit operator VerificationTypeEnum(string value)
             {
                 return new VerificationTypeEnum(value);
@@ -63,14 +63,14 @@ namespace Kandy.Rest.Preview.HostedNumbers.AuthorizationDocument
 
         }
 
-        
-        private static Request BuildReadRequest(ReadDependentHostedNumberOrderOptions options, ITwilioRestClient client)
+
+        private static Request BuildReadRequest(ReadDependentHostedNumberOrderOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/HostedNumbers/AuthorizationDocuments/{SigningDocumentSid}/DependentHostedNumberOrders";
 
             string PathSigningDocumentSid = options.PathSigningDocumentSid;
-            path = path.Replace("{"+"SigningDocumentSid"+"}", PathSigningDocumentSid);
+            path = path.Replace("{" + "SigningDocumentSid" + "}", PathSigningDocumentSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -84,7 +84,7 @@ namespace Kandy.Rest.Preview.HostedNumbers.AuthorizationDocument
         /// <param name="options"> Read DependentHostedNumberOrder parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of DependentHostedNumberOrder </returns>
-        public static ResourceSet<DependentHostedNumberOrderResource> Read(ReadDependentHostedNumberOrderOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<DependentHostedNumberOrderResource> Read(ReadDependentHostedNumberOrderOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -92,13 +92,13 @@ namespace Kandy.Rest.Preview.HostedNumbers.AuthorizationDocument
             return new ResourceSet<DependentHostedNumberOrderResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of dependent HostedNumberOrders belonging to the AuthorizationDocument. </summary>
         /// <param name="options"> Read DependentHostedNumberOrder parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of DependentHostedNumberOrder </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<DependentHostedNumberOrderResource>> ReadAsync(ReadDependentHostedNumberOrderOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -106,7 +106,7 @@ namespace Kandy.Rest.Preview.HostedNumbers.AuthorizationDocument
             var page = Page<DependentHostedNumberOrderResource>.FromJson("items", response.Content);
             return new ResourceSet<DependentHostedNumberOrderResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of dependent HostedNumberOrders belonging to the AuthorizationDocument. </summary>
         /// <param name="pathSigningDocumentSid">  </param>
         /// <param name="status"> Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses. </param>
@@ -127,13 +127,13 @@ namespace Kandy.Rest.Preview.HostedNumbers.AuthorizationDocument
                                                      string uniqueName = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadDependentHostedNumberOrderOptions(pathSigningDocumentSid){ Status = status, PhoneNumber = phoneNumber, IncomingPhoneNumberSid = incomingPhoneNumberSid, FriendlyName = friendlyName, UniqueName = uniqueName, PageSize = pageSize, Limit = limit};
+            var options = new ReadDependentHostedNumberOrderOptions(pathSigningDocumentSid) { Status = status, PhoneNumber = phoneNumber, IncomingPhoneNumberSid = incomingPhoneNumberSid, FriendlyName = friendlyName, UniqueName = uniqueName, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of dependent HostedNumberOrders belonging to the AuthorizationDocument. </summary>
         /// <param name="pathSigningDocumentSid">  </param>
         /// <param name="status"> Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses. </param>
@@ -154,19 +154,19 @@ namespace Kandy.Rest.Preview.HostedNumbers.AuthorizationDocument
                                                                                              string uniqueName = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadDependentHostedNumberOrderOptions(pathSigningDocumentSid){ Status = status, PhoneNumber = phoneNumber, IncomingPhoneNumberSid = incomingPhoneNumberSid, FriendlyName = friendlyName, UniqueName = uniqueName, PageSize = pageSize, Limit = limit};
+            var options = new ReadDependentHostedNumberOrderOptions(pathSigningDocumentSid) { Status = status, PhoneNumber = phoneNumber, IncomingPhoneNumberSid = incomingPhoneNumberSid, FriendlyName = friendlyName, UniqueName = uniqueName, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<DependentHostedNumberOrderResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<DependentHostedNumberOrderResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -183,7 +183,7 @@ namespace Kandy.Rest.Preview.HostedNumbers.AuthorizationDocument
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<DependentHostedNumberOrderResource> NextPage(Page<DependentHostedNumberOrderResource> page, ITwilioRestClient client)
+        public static Page<DependentHostedNumberOrderResource> NextPage(Page<DependentHostedNumberOrderResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -198,7 +198,7 @@ namespace Kandy.Rest.Preview.HostedNumbers.AuthorizationDocument
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<DependentHostedNumberOrderResource> PreviousPage(Page<DependentHostedNumberOrderResource> page, ITwilioRestClient client)
+        public static Page<DependentHostedNumberOrderResource> PreviousPage(Page<DependentHostedNumberOrderResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -209,7 +209,7 @@ namespace Kandy.Rest.Preview.HostedNumbers.AuthorizationDocument
             return Page<DependentHostedNumberOrderResource>.FromJson("items", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a DependentHostedNumberOrderResource object
         /// </summary>
@@ -227,7 +227,7 @@ namespace Kandy.Rest.Preview.HostedNumbers.AuthorizationDocument
             }
         }
 
-    
+
         ///<summary> A 34 character string that uniquely identifies this Authorization Document </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -265,7 +265,7 @@ namespace Kandy.Rest.Preview.HostedNumbers.AuthorizationDocument
         [JsonProperty("unique_name")]
         public string UniqueName { get; private set; }
 
-        
+
         [JsonProperty("status")]
         public DependentHostedNumberOrderResource.StatusEnum Status { get; private set; }
 
@@ -293,7 +293,7 @@ namespace Kandy.Rest.Preview.HostedNumbers.AuthorizationDocument
         [JsonProperty("cc_emails")]
         public List<string> CcEmails { get; private set; }
 
-        
+
         [JsonProperty("verification_type")]
         public DependentHostedNumberOrderResource.VerificationTypeEnum VerificationType { get; private set; }
 
@@ -319,7 +319,8 @@ namespace Kandy.Rest.Preview.HostedNumbers.AuthorizationDocument
 
 
 
-        private DependentHostedNumberOrderResource() {
+        private DependentHostedNumberOrderResource()
+        {
 
         }
     }

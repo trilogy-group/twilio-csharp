@@ -28,16 +28,16 @@ namespace Kandy.Rest.Trunking.V1.Trunk
 {
     public class OriginationUrlResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateOriginationUrlOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateOriginationUrlOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Trunks/{TrunkSid}/OriginationUrls";
 
             string PathTrunkSid = options.PathTrunkSid;
-            path = path.Replace("{"+"TrunkSid"+"}", PathTrunkSid);
+            path = path.Replace("{" + "TrunkSid" + "}", PathTrunkSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -52,26 +52,26 @@ namespace Kandy.Rest.Trunking.V1.Trunk
         /// <param name="options"> Create OriginationUrl parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of OriginationUrl </returns>
-        public static OriginationUrlResource Create(CreateOriginationUrlOptions options, ITwilioRestClient client = null)
+        public static OriginationUrlResource Create(CreateOriginationUrlOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create OriginationUrl parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of OriginationUrl </returns>
         public static async System.Threading.Tasks.Task<OriginationUrlResource> CreateAsync(CreateOriginationUrlOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="pathTrunkSid"> The SID of the Trunk to associate the resource with. </param>
@@ -89,13 +89,13 @@ namespace Kandy.Rest.Trunking.V1.Trunk
                                           bool? enabled,
                                           string friendlyName,
                                           Uri sipUrl,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateOriginationUrlOptions(pathTrunkSid, weight, priority, enabled, friendlyName, sipUrl){  };
+            var options = new CreateOriginationUrlOptions(pathTrunkSid, weight, priority, enabled, friendlyName, sipUrl) { };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="pathTrunkSid"> The SID of the Trunk to associate the resource with. </param>
         /// <param name="weight"> The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority. </param>
@@ -112,26 +112,26 @@ namespace Kandy.Rest.Trunking.V1.Trunk
                                                                                   bool? enabled,
                                                                                   string friendlyName,
                                                                                   Uri sipUrl,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateOriginationUrlOptions(pathTrunkSid, weight, priority, enabled, friendlyName, sipUrl){  };
+            var options = new CreateOriginationUrlOptions(pathTrunkSid, weight, priority, enabled, friendlyName, sipUrl) { };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> delete </summary>
         /// <param name="options"> Delete OriginationUrl parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of OriginationUrl </returns>
-        private static Request BuildDeleteRequest(DeleteOriginationUrlOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteOriginationUrlOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Trunks/{TrunkSid}/OriginationUrls/{Sid}";
 
             string PathTrunkSid = options.PathTrunkSid;
-            path = path.Replace("{"+"TrunkSid"+"}", PathTrunkSid);
+            path = path.Replace("{" + "TrunkSid" + "}", PathTrunkSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -146,60 +146,60 @@ namespace Kandy.Rest.Trunking.V1.Trunk
         /// <param name="options"> Delete OriginationUrl parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of OriginationUrl </returns>
-        public static bool Delete(DeleteOriginationUrlOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteOriginationUrlOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="options"> Delete OriginationUrl parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of OriginationUrl </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteOriginationUrlOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> delete </summary>
         /// <param name="pathTrunkSid"> The SID of the Trunk from which to delete the OriginationUrl. </param>
         /// <param name="pathSid"> The unique string that we created to identify the OriginationUrl resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of OriginationUrl </returns>
-        public static bool Delete(string pathTrunkSid, string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathTrunkSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteOriginationUrlOptions(pathTrunkSid, pathSid)        ;
+            var options = new DeleteOriginationUrlOptions(pathTrunkSid, pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="pathTrunkSid"> The SID of the Trunk from which to delete the OriginationUrl. </param>
         /// <param name="pathSid"> The unique string that we created to identify the OriginationUrl resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of OriginationUrl </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathTrunkSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathTrunkSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteOriginationUrlOptions(pathTrunkSid, pathSid) ;
+            var options = new DeleteOriginationUrlOptions(pathTrunkSid, pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchOriginationUrlOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchOriginationUrlOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Trunks/{TrunkSid}/OriginationUrls/{Sid}";
 
             string PathTrunkSid = options.PathTrunkSid;
-            path = path.Replace("{"+"TrunkSid"+"}", PathTrunkSid);
+            path = path.Replace("{" + "TrunkSid" + "}", PathTrunkSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -214,60 +214,60 @@ namespace Kandy.Rest.Trunking.V1.Trunk
         /// <param name="options"> Fetch OriginationUrl parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of OriginationUrl </returns>
-        public static OriginationUrlResource Fetch(FetchOriginationUrlOptions options, ITwilioRestClient client = null)
+        public static OriginationUrlResource Fetch(FetchOriginationUrlOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch OriginationUrl parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of OriginationUrl </returns>
         public static async System.Threading.Tasks.Task<OriginationUrlResource> FetchAsync(FetchOriginationUrlOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathTrunkSid"> The SID of the Trunk from which to fetch the OriginationUrl. </param>
         /// <param name="pathSid"> The unique string that we created to identify the OriginationUrl resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of OriginationUrl </returns>
         public static OriginationUrlResource Fetch(
-                                         string pathTrunkSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathTrunkSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchOriginationUrlOptions(pathTrunkSid, pathSid){  };
+            var options = new FetchOriginationUrlOptions(pathTrunkSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathTrunkSid"> The SID of the Trunk from which to fetch the OriginationUrl. </param>
         /// <param name="pathSid"> The unique string that we created to identify the OriginationUrl resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of OriginationUrl </returns>
-        public static async System.Threading.Tasks.Task<OriginationUrlResource> FetchAsync(string pathTrunkSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<OriginationUrlResource> FetchAsync(string pathTrunkSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchOriginationUrlOptions(pathTrunkSid, pathSid){  };
+            var options = new FetchOriginationUrlOptions(pathTrunkSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadOriginationUrlOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadOriginationUrlOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Trunks/{TrunkSid}/OriginationUrls";
 
             string PathTrunkSid = options.PathTrunkSid;
-            path = path.Replace("{"+"TrunkSid"+"}", PathTrunkSid);
+            path = path.Replace("{" + "TrunkSid" + "}", PathTrunkSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -281,7 +281,7 @@ namespace Kandy.Rest.Trunking.V1.Trunk
         /// <param name="options"> Read OriginationUrl parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of OriginationUrl </returns>
-        public static ResourceSet<OriginationUrlResource> Read(ReadOriginationUrlOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<OriginationUrlResource> Read(ReadOriginationUrlOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -289,13 +289,13 @@ namespace Kandy.Rest.Trunking.V1.Trunk
             return new ResourceSet<OriginationUrlResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read OriginationUrl parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of OriginationUrl </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<OriginationUrlResource>> ReadAsync(ReadOriginationUrlOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -303,7 +303,7 @@ namespace Kandy.Rest.Trunking.V1.Trunk
             var page = Page<OriginationUrlResource>.FromJson("origination_urls", response.Content);
             return new ResourceSet<OriginationUrlResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="pathTrunkSid"> The SID of the Trunk from which to read the OriginationUrl. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -314,13 +314,13 @@ namespace Kandy.Rest.Trunking.V1.Trunk
                                                      string pathTrunkSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadOriginationUrlOptions(pathTrunkSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadOriginationUrlOptions(pathTrunkSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="pathTrunkSid"> The SID of the Trunk from which to read the OriginationUrl. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -331,19 +331,19 @@ namespace Kandy.Rest.Trunking.V1.Trunk
                                                                                              string pathTrunkSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadOriginationUrlOptions(pathTrunkSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadOriginationUrlOptions(pathTrunkSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<OriginationUrlResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<OriginationUrlResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -360,7 +360,7 @@ namespace Kandy.Rest.Trunking.V1.Trunk
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<OriginationUrlResource> NextPage(Page<OriginationUrlResource> page, ITwilioRestClient client)
+        public static Page<OriginationUrlResource> NextPage(Page<OriginationUrlResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -375,7 +375,7 @@ namespace Kandy.Rest.Trunking.V1.Trunk
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<OriginationUrlResource> PreviousPage(Page<OriginationUrlResource> page, ITwilioRestClient client)
+        public static Page<OriginationUrlResource> PreviousPage(Page<OriginationUrlResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -386,16 +386,16 @@ namespace Kandy.Rest.Trunking.V1.Trunk
             return Page<OriginationUrlResource>.FromJson("origination_urls", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateOriginationUrlOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateOriginationUrlOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Trunks/{TrunkSid}/OriginationUrls/{Sid}";
 
             string PathTrunkSid = options.PathTrunkSid;
-            path = path.Replace("{"+"TrunkSid"+"}", PathTrunkSid);
+            path = path.Replace("{" + "TrunkSid" + "}", PathTrunkSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -410,7 +410,7 @@ namespace Kandy.Rest.Trunking.V1.Trunk
         /// <param name="options"> Update OriginationUrl parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of OriginationUrl </returns>
-        public static OriginationUrlResource Update(UpdateOriginationUrlOptions options, ITwilioRestClient client = null)
+        public static OriginationUrlResource Update(UpdateOriginationUrlOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -421,15 +421,15 @@ namespace Kandy.Rest.Trunking.V1.Trunk
         /// <param name="options"> Update OriginationUrl parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of OriginationUrl </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<OriginationUrlResource> UpdateAsync(UpdateOriginationUrlOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> update </summary>
         /// <param name="pathTrunkSid"> The SID of the Trunk from which to update the OriginationUrl. </param>
@@ -449,13 +449,13 @@ namespace Kandy.Rest.Trunking.V1.Trunk
                                           bool? enabled = null,
                                           string friendlyName = null,
                                           Uri sipUrl = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateOriginationUrlOptions(pathTrunkSid, pathSid){ Weight = weight, Priority = priority, Enabled = enabled, FriendlyName = friendlyName, SipUrl = sipUrl };
+            var options = new UpdateOriginationUrlOptions(pathTrunkSid, pathSid) { Weight = weight, Priority = priority, Enabled = enabled, FriendlyName = friendlyName, SipUrl = sipUrl };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> update </summary>
         /// <param name="pathTrunkSid"> The SID of the Trunk from which to update the OriginationUrl. </param>
         /// <param name="pathSid"> The unique string that we created to identify the OriginationUrl resource to update. </param>
@@ -474,13 +474,13 @@ namespace Kandy.Rest.Trunking.V1.Trunk
                                                                               bool? enabled = null,
                                                                               string friendlyName = null,
                                                                               Uri sipUrl = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateOriginationUrlOptions(pathTrunkSid, pathSid){ Weight = weight, Priority = priority, Enabled = enabled, FriendlyName = friendlyName, SipUrl = sipUrl };
+            var options = new UpdateOriginationUrlOptions(pathTrunkSid, pathSid) { Weight = weight, Priority = priority, Enabled = enabled, FriendlyName = friendlyName, SipUrl = sipUrl };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a OriginationUrlResource object
         /// </summary>
@@ -498,7 +498,7 @@ namespace Kandy.Rest.Trunking.V1.Trunk
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the OriginationUrl resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -545,7 +545,8 @@ namespace Kandy.Rest.Trunking.V1.Trunk
 
 
 
-        private OriginationUrlResource() {
+        private OriginationUrlResource()
+        {
 
         }
     }

@@ -28,20 +28,20 @@ namespace Kandy.Rest.Microvisor.V1
 {
     public class AppResource : Resource
     {
-    
 
-        
+
+
         /// <summary> Delete a specific App. </summary>
         /// <param name="options"> Delete App parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of App </returns>
-        private static Request BuildDeleteRequest(DeleteAppOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteAppOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Apps/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -56,56 +56,56 @@ namespace Kandy.Rest.Microvisor.V1
         /// <param name="options"> Delete App parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of App </returns>
-        public static bool Delete(DeleteAppOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteAppOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific App. </summary>
         /// <param name="options"> Delete App parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of App </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteAppOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete a specific App. </summary>
         /// <param name="pathSid"> A 34-character string that uniquely identifies this App. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of App </returns>
-        public static bool Delete(string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteAppOptions(pathSid)     ;
+            var options = new DeleteAppOptions(pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific App. </summary>
         /// <param name="pathSid"> A 34-character string that uniquely identifies this App. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of App </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteAppOptions(pathSid) ;
+            var options = new DeleteAppOptions(pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchAppOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchAppOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Apps/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -120,53 +120,53 @@ namespace Kandy.Rest.Microvisor.V1
         /// <param name="options"> Fetch App parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of App </returns>
-        public static AppResource Fetch(FetchAppOptions options, ITwilioRestClient client = null)
+        public static AppResource Fetch(FetchAppOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific App. </summary>
         /// <param name="options"> Fetch App parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of App </returns>
         public static async System.Threading.Tasks.Task<AppResource> FetchAsync(FetchAppOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a specific App. </summary>
         /// <param name="pathSid"> A 34-character string that uniquely identifies this App. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of App </returns>
         public static AppResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchAppOptions(pathSid){  };
+            var options = new FetchAppOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific App. </summary>
         /// <param name="pathSid"> A 34-character string that uniquely identifies this App. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of App </returns>
-        public static async System.Threading.Tasks.Task<AppResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<AppResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchAppOptions(pathSid){  };
+            var options = new FetchAppOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadAppOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadAppOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Apps";
 
 
@@ -182,7 +182,7 @@ namespace Kandy.Rest.Microvisor.V1
         /// <param name="options"> Read App parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of App </returns>
-        public static ResourceSet<AppResource> Read(ReadAppOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<AppResource> Read(ReadAppOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -190,13 +190,13 @@ namespace Kandy.Rest.Microvisor.V1
             return new ResourceSet<AppResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Apps for an Account. </summary>
         /// <param name="options"> Read App parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of App </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<AppResource>> ReadAsync(ReadAppOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -204,7 +204,7 @@ namespace Kandy.Rest.Microvisor.V1
             var page = Page<AppResource>.FromJson("apps", response.Content);
             return new ResourceSet<AppResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Apps for an Account. </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -213,13 +213,13 @@ namespace Kandy.Rest.Microvisor.V1
         public static ResourceSet<AppResource> Read(
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadAppOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadAppOptions() { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Apps for an Account. </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -228,19 +228,19 @@ namespace Kandy.Rest.Microvisor.V1
         public static async System.Threading.Tasks.Task<ResourceSet<AppResource>> ReadAsync(
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadAppOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadAppOptions() { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<AppResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<AppResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -257,7 +257,7 @@ namespace Kandy.Rest.Microvisor.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<AppResource> NextPage(Page<AppResource> page, ITwilioRestClient client)
+        public static Page<AppResource> NextPage(Page<AppResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -272,7 +272,7 @@ namespace Kandy.Rest.Microvisor.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<AppResource> PreviousPage(Page<AppResource> page, ITwilioRestClient client)
+        public static Page<AppResource> PreviousPage(Page<AppResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -283,7 +283,7 @@ namespace Kandy.Rest.Microvisor.V1
             return Page<AppResource>.FromJson("apps", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a AppResource object
         /// </summary>
@@ -301,7 +301,7 @@ namespace Kandy.Rest.Microvisor.V1
             }
         }
 
-    
+
         ///<summary> A 34-character string that uniquely identifies this App. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -336,7 +336,8 @@ namespace Kandy.Rest.Microvisor.V1
 
 
 
-        private AppResource() {
+        private AppResource()
+        {
 
         }
     }

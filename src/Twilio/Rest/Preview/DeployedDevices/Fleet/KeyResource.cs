@@ -28,16 +28,16 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
 {
     public class KeyResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateKeyOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateKeyOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/DeployedDevices/Fleets/{FleetSid}/Keys";
 
             string PathFleetSid = options.PathFleetSid;
-            path = path.Replace("{"+"FleetSid"+"}", PathFleetSid);
+            path = path.Replace("{" + "FleetSid" + "}", PathFleetSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -52,26 +52,26 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
         /// <param name="options"> Create Key parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Key </returns>
-        public static KeyResource Create(CreateKeyOptions options, ITwilioRestClient client = null)
+        public static KeyResource Create(CreateKeyOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Key credential in the Fleet, optionally giving it a friendly name and assigning to a Device. </summary>
         /// <param name="options"> Create Key parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Key </returns>
         public static async System.Threading.Tasks.Task<KeyResource> CreateAsync(CreateKeyOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new Key credential in the Fleet, optionally giving it a friendly name and assigning to a Device. </summary>
         /// <param name="pathFleetSid">  </param>
@@ -83,13 +83,13 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
                                           string pathFleetSid,
                                           string friendlyName = null,
                                           string deviceSid = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateKeyOptions(pathFleetSid){  FriendlyName = friendlyName, DeviceSid = deviceSid };
+            var options = new CreateKeyOptions(pathFleetSid) { FriendlyName = friendlyName, DeviceSid = deviceSid };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Key credential in the Fleet, optionally giving it a friendly name and assigning to a Device. </summary>
         /// <param name="pathFleetSid">  </param>
         /// <param name="friendlyName"> Provides a human readable descriptive text for this Key credential, up to 256 characters long. </param>
@@ -100,26 +100,26 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
                                                                                   string pathFleetSid,
                                                                                   string friendlyName = null,
                                                                                   string deviceSid = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateKeyOptions(pathFleetSid){  FriendlyName = friendlyName, DeviceSid = deviceSid };
+            var options = new CreateKeyOptions(pathFleetSid) { FriendlyName = friendlyName, DeviceSid = deviceSid };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Delete a specific Key credential from the Fleet, effectively disallowing any inbound client connections that are presenting it. </summary>
         /// <param name="options"> Delete Key parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Key </returns>
-        private static Request BuildDeleteRequest(DeleteKeyOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteKeyOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/DeployedDevices/Fleets/{FleetSid}/Keys/{Sid}";
 
             string PathFleetSid = options.PathFleetSid;
-            path = path.Replace("{"+"FleetSid"+"}", PathFleetSid);
+            path = path.Replace("{" + "FleetSid" + "}", PathFleetSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -134,60 +134,60 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
         /// <param name="options"> Delete Key parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Key </returns>
-        public static bool Delete(DeleteKeyOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteKeyOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific Key credential from the Fleet, effectively disallowing any inbound client connections that are presenting it. </summary>
         /// <param name="options"> Delete Key parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Key </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteKeyOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete a specific Key credential from the Fleet, effectively disallowing any inbound client connections that are presenting it. </summary>
         /// <param name="pathFleetSid">  </param>
         /// <param name="pathSid"> Provides a 34 character string that uniquely identifies the requested Key credential resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Key </returns>
-        public static bool Delete(string pathFleetSid, string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathFleetSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteKeyOptions(pathFleetSid, pathSid)        ;
+            var options = new DeleteKeyOptions(pathFleetSid, pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific Key credential from the Fleet, effectively disallowing any inbound client connections that are presenting it. </summary>
         /// <param name="pathFleetSid">  </param>
         /// <param name="pathSid"> Provides a 34 character string that uniquely identifies the requested Key credential resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Key </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathFleetSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathFleetSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteKeyOptions(pathFleetSid, pathSid) ;
+            var options = new DeleteKeyOptions(pathFleetSid, pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchKeyOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchKeyOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/DeployedDevices/Fleets/{FleetSid}/Keys/{Sid}";
 
             string PathFleetSid = options.PathFleetSid;
-            path = path.Replace("{"+"FleetSid"+"}", PathFleetSid);
+            path = path.Replace("{" + "FleetSid" + "}", PathFleetSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -202,60 +202,60 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
         /// <param name="options"> Fetch Key parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Key </returns>
-        public static KeyResource Fetch(FetchKeyOptions options, ITwilioRestClient client = null)
+        public static KeyResource Fetch(FetchKeyOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch information about a specific Key credential in the Fleet. </summary>
         /// <param name="options"> Fetch Key parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Key </returns>
         public static async System.Threading.Tasks.Task<KeyResource> FetchAsync(FetchKeyOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch information about a specific Key credential in the Fleet. </summary>
         /// <param name="pathFleetSid">  </param>
         /// <param name="pathSid"> Provides a 34 character string that uniquely identifies the requested Key credential resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Key </returns>
         public static KeyResource Fetch(
-                                         string pathFleetSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathFleetSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchKeyOptions(pathFleetSid, pathSid){  };
+            var options = new FetchKeyOptions(pathFleetSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch information about a specific Key credential in the Fleet. </summary>
         /// <param name="pathFleetSid">  </param>
         /// <param name="pathSid"> Provides a 34 character string that uniquely identifies the requested Key credential resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Key </returns>
-        public static async System.Threading.Tasks.Task<KeyResource> FetchAsync(string pathFleetSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<KeyResource> FetchAsync(string pathFleetSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchKeyOptions(pathFleetSid, pathSid){  };
+            var options = new FetchKeyOptions(pathFleetSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadKeyOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadKeyOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/DeployedDevices/Fleets/{FleetSid}/Keys";
 
             string PathFleetSid = options.PathFleetSid;
-            path = path.Replace("{"+"FleetSid"+"}", PathFleetSid);
+            path = path.Replace("{" + "FleetSid" + "}", PathFleetSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -269,7 +269,7 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
         /// <param name="options"> Read Key parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Key </returns>
-        public static ResourceSet<KeyResource> Read(ReadKeyOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<KeyResource> Read(ReadKeyOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -277,13 +277,13 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
             return new ResourceSet<KeyResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Keys credentials belonging to the Fleet. </summary>
         /// <param name="options"> Read Key parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Key </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<KeyResource>> ReadAsync(ReadKeyOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -291,7 +291,7 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
             var page = Page<KeyResource>.FromJson("keys", response.Content);
             return new ResourceSet<KeyResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Keys credentials belonging to the Fleet. </summary>
         /// <param name="pathFleetSid">  </param>
         /// <param name="deviceSid"> Filters the resulting list of Keys by a unique string identifier of an authenticated Device. </param>
@@ -304,13 +304,13 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
                                                      string deviceSid = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadKeyOptions(pathFleetSid){ DeviceSid = deviceSid, PageSize = pageSize, Limit = limit};
+            var options = new ReadKeyOptions(pathFleetSid) { DeviceSid = deviceSid, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Keys credentials belonging to the Fleet. </summary>
         /// <param name="pathFleetSid">  </param>
         /// <param name="deviceSid"> Filters the resulting list of Keys by a unique string identifier of an authenticated Device. </param>
@@ -323,19 +323,19 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
                                                                                              string deviceSid = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadKeyOptions(pathFleetSid){ DeviceSid = deviceSid, PageSize = pageSize, Limit = limit};
+            var options = new ReadKeyOptions(pathFleetSid) { DeviceSid = deviceSid, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<KeyResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<KeyResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -352,7 +352,7 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<KeyResource> NextPage(Page<KeyResource> page, ITwilioRestClient client)
+        public static Page<KeyResource> NextPage(Page<KeyResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -367,7 +367,7 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<KeyResource> PreviousPage(Page<KeyResource> page, ITwilioRestClient client)
+        public static Page<KeyResource> PreviousPage(Page<KeyResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -378,16 +378,16 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
             return Page<KeyResource>.FromJson("keys", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateKeyOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateKeyOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/DeployedDevices/Fleets/{FleetSid}/Keys/{Sid}";
 
             string PathFleetSid = options.PathFleetSid;
-            path = path.Replace("{"+"FleetSid"+"}", PathFleetSid);
+            path = path.Replace("{" + "FleetSid" + "}", PathFleetSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -402,7 +402,7 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
         /// <param name="options"> Update Key parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Key </returns>
-        public static KeyResource Update(UpdateKeyOptions options, ITwilioRestClient client = null)
+        public static KeyResource Update(UpdateKeyOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -413,15 +413,15 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
         /// <param name="options"> Update Key parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Key </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<KeyResource> UpdateAsync(UpdateKeyOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update the given properties of a specific Key credential in the Fleet, giving it a friendly name or assigning to a Device. </summary>
         /// <param name="pathFleetSid">  </param>
@@ -435,13 +435,13 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
                                           string pathSid,
                                           string friendlyName = null,
                                           string deviceSid = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateKeyOptions(pathFleetSid, pathSid){ FriendlyName = friendlyName, DeviceSid = deviceSid };
+            var options = new UpdateKeyOptions(pathFleetSid, pathSid) { FriendlyName = friendlyName, DeviceSid = deviceSid };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update the given properties of a specific Key credential in the Fleet, giving it a friendly name or assigning to a Device. </summary>
         /// <param name="pathFleetSid">  </param>
         /// <param name="pathSid"> Provides a 34 character string that uniquely identifies the requested Key credential resource. </param>
@@ -454,13 +454,13 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
                                                                               string pathSid,
                                                                               string friendlyName = null,
                                                                               string deviceSid = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateKeyOptions(pathFleetSid, pathSid){ FriendlyName = friendlyName, DeviceSid = deviceSid };
+            var options = new UpdateKeyOptions(pathFleetSid, pathSid) { FriendlyName = friendlyName, DeviceSid = deviceSid };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a KeyResource object
         /// </summary>
@@ -478,7 +478,7 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
             }
         }
 
-    
+
         ///<summary> Contains a 34 character string that uniquely identifies this Key credential resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -517,7 +517,8 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
 
 
 
-        private KeyResource() {
+        private KeyResource()
+        {
 
         }
     }

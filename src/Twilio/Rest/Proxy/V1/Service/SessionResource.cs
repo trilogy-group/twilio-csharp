@@ -28,12 +28,12 @@ namespace Kandy.Rest.Proxy.V1.Service
 {
     public class SessionResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class StatusEnum : StringEnum
         {
-            private StatusEnum(string value) : base(value) {}
-            public StatusEnum() {}
+            private StatusEnum(string value) : base(value) { }
+            public StatusEnum() { }
             public static implicit operator StatusEnum(string value)
             {
                 return new StatusEnum(value);
@@ -48,8 +48,8 @@ namespace Kandy.Rest.Proxy.V1.Service
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class ModeEnum : StringEnum
         {
-            private ModeEnum(string value) : base(value) {}
-            public ModeEnum() {}
+            private ModeEnum(string value) : base(value) { }
+            public ModeEnum() { }
             public static implicit operator ModeEnum(string value)
             {
                 return new ModeEnum(value);
@@ -60,14 +60,14 @@ namespace Kandy.Rest.Proxy.V1.Service
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateSessionOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateSessionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Sessions";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -82,26 +82,26 @@ namespace Kandy.Rest.Proxy.V1.Service
         /// <param name="options"> Create Session parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Session </returns>
-        public static SessionResource Create(CreateSessionOptions options, ITwilioRestClient client = null)
+        public static SessionResource Create(CreateSessionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Session </summary>
         /// <param name="options"> Create Session parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Session </returns>
         public static async System.Threading.Tasks.Task<SessionResource> CreateAsync(CreateSessionOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new Session </summary>
         /// <param name="pathServiceSid"> The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) resource. </param>
@@ -121,13 +121,13 @@ namespace Kandy.Rest.Proxy.V1.Service
                                           SessionResource.ModeEnum mode = null,
                                           SessionResource.StatusEnum status = null,
                                           List<object> participants = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateSessionOptions(pathServiceSid){  UniqueName = uniqueName, DateExpiry = dateExpiry, Ttl = ttl, Mode = mode, Status = status, Participants = participants };
+            var options = new CreateSessionOptions(pathServiceSid) { UniqueName = uniqueName, DateExpiry = dateExpiry, Ttl = ttl, Mode = mode, Status = status, Participants = participants };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Session </summary>
         /// <param name="pathServiceSid"> The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) resource. </param>
         /// <param name="uniqueName"> An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.** </param>
@@ -146,26 +146,26 @@ namespace Kandy.Rest.Proxy.V1.Service
                                                                                   SessionResource.ModeEnum mode = null,
                                                                                   SessionResource.StatusEnum status = null,
                                                                                   List<object> participants = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateSessionOptions(pathServiceSid){  UniqueName = uniqueName, DateExpiry = dateExpiry, Ttl = ttl, Mode = mode, Status = status, Participants = participants };
+            var options = new CreateSessionOptions(pathServiceSid) { UniqueName = uniqueName, DateExpiry = dateExpiry, Ttl = ttl, Mode = mode, Status = status, Participants = participants };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Delete a specific Session. </summary>
         /// <param name="options"> Delete Session parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Session </returns>
-        private static Request BuildDeleteRequest(DeleteSessionOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteSessionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Sessions/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -180,60 +180,60 @@ namespace Kandy.Rest.Proxy.V1.Service
         /// <param name="options"> Delete Session parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Session </returns>
-        public static bool Delete(DeleteSessionOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteSessionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific Session. </summary>
         /// <param name="options"> Delete Session parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Session </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteSessionOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete a specific Session. </summary>
         /// <param name="pathServiceSid"> The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to delete. </param>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Session resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Session </returns>
-        public static bool Delete(string pathServiceSid, string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathServiceSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteSessionOptions(pathServiceSid, pathSid)        ;
+            var options = new DeleteSessionOptions(pathServiceSid, pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific Session. </summary>
         /// <param name="pathServiceSid"> The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to delete. </param>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Session resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Session </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteSessionOptions(pathServiceSid, pathSid) ;
+            var options = new DeleteSessionOptions(pathServiceSid, pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchSessionOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchSessionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Sessions/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -248,60 +248,60 @@ namespace Kandy.Rest.Proxy.V1.Service
         /// <param name="options"> Fetch Session parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Session </returns>
-        public static SessionResource Fetch(FetchSessionOptions options, ITwilioRestClient client = null)
+        public static SessionResource Fetch(FetchSessionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Session. </summary>
         /// <param name="options"> Fetch Session parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Session </returns>
         public static async System.Threading.Tasks.Task<SessionResource> FetchAsync(FetchSessionOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a specific Session. </summary>
         /// <param name="pathServiceSid"> The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to fetch. </param>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Session resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Session </returns>
         public static SessionResource Fetch(
-                                         string pathServiceSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathServiceSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchSessionOptions(pathServiceSid, pathSid){  };
+            var options = new FetchSessionOptions(pathServiceSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Session. </summary>
         /// <param name="pathServiceSid"> The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to fetch. </param>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Session resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Session </returns>
-        public static async System.Threading.Tasks.Task<SessionResource> FetchAsync(string pathServiceSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<SessionResource> FetchAsync(string pathServiceSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchSessionOptions(pathServiceSid, pathSid){  };
+            var options = new FetchSessionOptions(pathServiceSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadSessionOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadSessionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Sessions";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -315,7 +315,7 @@ namespace Kandy.Rest.Proxy.V1.Service
         /// <param name="options"> Read Session parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Session </returns>
-        public static ResourceSet<SessionResource> Read(ReadSessionOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<SessionResource> Read(ReadSessionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -323,13 +323,13 @@ namespace Kandy.Rest.Proxy.V1.Service
             return new ResourceSet<SessionResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Sessions for the Service. A maximum of 100 records will be returned per page. </summary>
         /// <param name="options"> Read Session parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Session </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<SessionResource>> ReadAsync(ReadSessionOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -337,7 +337,7 @@ namespace Kandy.Rest.Proxy.V1.Service
             var page = Page<SessionResource>.FromJson("sessions", response.Content);
             return new ResourceSet<SessionResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Sessions for the Service. A maximum of 100 records will be returned per page. </summary>
         /// <param name="pathServiceSid"> The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to read. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -348,13 +348,13 @@ namespace Kandy.Rest.Proxy.V1.Service
                                                      string pathServiceSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadSessionOptions(pathServiceSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadSessionOptions(pathServiceSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Sessions for the Service. A maximum of 100 records will be returned per page. </summary>
         /// <param name="pathServiceSid"> The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to read. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -365,19 +365,19 @@ namespace Kandy.Rest.Proxy.V1.Service
                                                                                              string pathServiceSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadSessionOptions(pathServiceSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadSessionOptions(pathServiceSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<SessionResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<SessionResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -394,7 +394,7 @@ namespace Kandy.Rest.Proxy.V1.Service
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<SessionResource> NextPage(Page<SessionResource> page, ITwilioRestClient client)
+        public static Page<SessionResource> NextPage(Page<SessionResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -409,7 +409,7 @@ namespace Kandy.Rest.Proxy.V1.Service
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<SessionResource> PreviousPage(Page<SessionResource> page, ITwilioRestClient client)
+        public static Page<SessionResource> PreviousPage(Page<SessionResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -420,16 +420,16 @@ namespace Kandy.Rest.Proxy.V1.Service
             return Page<SessionResource>.FromJson("sessions", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateSessionOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateSessionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Sessions/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -444,7 +444,7 @@ namespace Kandy.Rest.Proxy.V1.Service
         /// <param name="options"> Update Session parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Session </returns>
-        public static SessionResource Update(UpdateSessionOptions options, ITwilioRestClient client = null)
+        public static SessionResource Update(UpdateSessionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -455,15 +455,15 @@ namespace Kandy.Rest.Proxy.V1.Service
         /// <param name="options"> Update Session parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Session </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<SessionResource> UpdateAsync(UpdateSessionOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update a specific Session. </summary>
         /// <param name="pathServiceSid"> The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to update. </param>
@@ -479,13 +479,13 @@ namespace Kandy.Rest.Proxy.V1.Service
                                           DateTime? dateExpiry = null,
                                           int? ttl = null,
                                           SessionResource.StatusEnum status = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateSessionOptions(pathServiceSid, pathSid){ DateExpiry = dateExpiry, Ttl = ttl, Status = status };
+            var options = new UpdateSessionOptions(pathServiceSid, pathSid) { DateExpiry = dateExpiry, Ttl = ttl, Status = status };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update a specific Session. </summary>
         /// <param name="pathServiceSid"> The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to update. </param>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Session resource to update. </param>
@@ -500,13 +500,13 @@ namespace Kandy.Rest.Proxy.V1.Service
                                                                               DateTime? dateExpiry = null,
                                                                               int? ttl = null,
                                                                               SessionResource.StatusEnum status = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateSessionOptions(pathServiceSid, pathSid){ DateExpiry = dateExpiry, Ttl = ttl, Status = status };
+            var options = new UpdateSessionOptions(pathServiceSid, pathSid) { DateExpiry = dateExpiry, Ttl = ttl, Status = status };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a SessionResource object
         /// </summary>
@@ -524,7 +524,7 @@ namespace Kandy.Rest.Proxy.V1.Service
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the Session resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -557,7 +557,7 @@ namespace Kandy.Rest.Proxy.V1.Service
         [JsonProperty("unique_name")]
         public string UniqueName { get; private set; }
 
-        
+
         [JsonProperty("status")]
         public SessionResource.StatusEnum Status { get; private set; }
 
@@ -569,7 +569,7 @@ namespace Kandy.Rest.Proxy.V1.Service
         [JsonProperty("ttl")]
         public int? Ttl { get; private set; }
 
-        
+
         [JsonProperty("mode")]
         public SessionResource.ModeEnum Mode { get; private set; }
 
@@ -591,7 +591,8 @@ namespace Kandy.Rest.Proxy.V1.Service
 
 
 
-        private SessionResource() {
+        private SessionResource()
+        {
 
         }
     }

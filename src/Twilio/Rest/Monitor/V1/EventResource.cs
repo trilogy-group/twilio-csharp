@@ -28,16 +28,16 @@ namespace Kandy.Rest.Monitor.V1
 {
     public class EventResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchEventOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchEventOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Events/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -52,53 +52,53 @@ namespace Kandy.Rest.Monitor.V1
         /// <param name="options"> Fetch Event parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Event </returns>
-        public static EventResource Fetch(FetchEventOptions options, ITwilioRestClient client = null)
+        public static EventResource Fetch(FetchEventOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch Event parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Event </returns>
         public static async System.Threading.Tasks.Task<EventResource> FetchAsync(FetchEventOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathSid"> The SID of the Event resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Event </returns>
         public static EventResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchEventOptions(pathSid){  };
+            var options = new FetchEventOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathSid"> The SID of the Event resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Event </returns>
-        public static async System.Threading.Tasks.Task<EventResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<EventResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchEventOptions(pathSid){  };
+            var options = new FetchEventOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadEventOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadEventOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Events";
 
 
@@ -114,7 +114,7 @@ namespace Kandy.Rest.Monitor.V1
         /// <param name="options"> Read Event parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Event </returns>
-        public static ResourceSet<EventResource> Read(ReadEventOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<EventResource> Read(ReadEventOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -122,13 +122,13 @@ namespace Kandy.Rest.Monitor.V1
             return new ResourceSet<EventResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Returns a list of events in the account, sorted by event-date. </summary>
         /// <param name="options"> Read Event parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Event </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<EventResource>> ReadAsync(ReadEventOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -136,7 +136,7 @@ namespace Kandy.Rest.Monitor.V1
             var page = Page<EventResource>.FromJson("events", response.Content);
             return new ResourceSet<EventResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Returns a list of events in the account, sorted by event-date. </summary>
         /// <param name="actorSid"> Only include events initiated by this Actor. Useful for auditing actions taken by specific users or API credentials. </param>
         /// <param name="eventType"> Only include events of this [Event Type](https://www.twilio.com/docs/usage/monitor-events#event-types). </param>
@@ -157,13 +157,13 @@ namespace Kandy.Rest.Monitor.V1
                                                      DateTime? endDate = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadEventOptions(){ ActorSid = actorSid, EventType = eventType, ResourceSid = resourceSid, SourceIpAddress = sourceIpAddress, StartDate = startDate, EndDate = endDate, PageSize = pageSize, Limit = limit};
+            var options = new ReadEventOptions() { ActorSid = actorSid, EventType = eventType, ResourceSid = resourceSid, SourceIpAddress = sourceIpAddress, StartDate = startDate, EndDate = endDate, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Returns a list of events in the account, sorted by event-date. </summary>
         /// <param name="actorSid"> Only include events initiated by this Actor. Useful for auditing actions taken by specific users or API credentials. </param>
         /// <param name="eventType"> Only include events of this [Event Type](https://www.twilio.com/docs/usage/monitor-events#event-types). </param>
@@ -184,19 +184,19 @@ namespace Kandy.Rest.Monitor.V1
                                                                                              DateTime? endDate = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadEventOptions(){ ActorSid = actorSid, EventType = eventType, ResourceSid = resourceSid, SourceIpAddress = sourceIpAddress, StartDate = startDate, EndDate = endDate, PageSize = pageSize, Limit = limit};
+            var options = new ReadEventOptions() { ActorSid = actorSid, EventType = eventType, ResourceSid = resourceSid, SourceIpAddress = sourceIpAddress, StartDate = startDate, EndDate = endDate, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<EventResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<EventResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -213,7 +213,7 @@ namespace Kandy.Rest.Monitor.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<EventResource> NextPage(Page<EventResource> page, ITwilioRestClient client)
+        public static Page<EventResource> NextPage(Page<EventResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -228,7 +228,7 @@ namespace Kandy.Rest.Monitor.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<EventResource> PreviousPage(Page<EventResource> page, ITwilioRestClient client)
+        public static Page<EventResource> PreviousPage(Page<EventResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -239,7 +239,7 @@ namespace Kandy.Rest.Monitor.V1
             return Page<EventResource>.FromJson("events", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a EventResource object
         /// </summary>
@@ -257,7 +257,7 @@ namespace Kandy.Rest.Monitor.V1
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Event resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -316,7 +316,8 @@ namespace Kandy.Rest.Monitor.V1
 
 
 
-        private EventResource() {
+        private EventResource()
+        {
 
         }
     }

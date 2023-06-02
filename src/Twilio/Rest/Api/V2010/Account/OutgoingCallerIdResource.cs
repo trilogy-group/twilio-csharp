@@ -28,22 +28,22 @@ namespace Kandy.Rest.Api.V2010.Account
 {
     public class OutgoingCallerIdResource : Resource
     {
-    
 
-        
+
+
         /// <summary> Delete the caller-id specified from the account </summary>
         /// <param name="options"> Delete OutgoingCallerId parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of OutgoingCallerId </returns>
-        private static Request BuildDeleteRequest(DeleteOutgoingCallerIdOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteOutgoingCallerIdOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -58,60 +58,60 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="options"> Delete OutgoingCallerId parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of OutgoingCallerId </returns>
-        public static bool Delete(DeleteOutgoingCallerIdOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteOutgoingCallerIdOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete the caller-id specified from the account </summary>
         /// <param name="options"> Delete OutgoingCallerId parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of OutgoingCallerId </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteOutgoingCallerIdOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete the caller-id specified from the account </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the OutgoingCallerId resource to delete. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the OutgoingCallerId resources to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of OutgoingCallerId </returns>
-        public static bool Delete(string pathSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static bool Delete(string pathSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new DeleteOutgoingCallerIdOptions(pathSid)      { PathAccountSid = pathAccountSid }   ;
+            var options = new DeleteOutgoingCallerIdOptions(pathSid) { PathAccountSid = pathAccountSid };
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete the caller-id specified from the account </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the OutgoingCallerId resource to delete. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the OutgoingCallerId resources to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of OutgoingCallerId </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new DeleteOutgoingCallerIdOptions(pathSid)  { PathAccountSid = pathAccountSid };
+            var options = new DeleteOutgoingCallerIdOptions(pathSid) { PathAccountSid = pathAccountSid };
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchOutgoingCallerIdOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchOutgoingCallerIdOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -126,60 +126,60 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="options"> Fetch OutgoingCallerId parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of OutgoingCallerId </returns>
-        public static OutgoingCallerIdResource Fetch(FetchOutgoingCallerIdOptions options, ITwilioRestClient client = null)
+        public static OutgoingCallerIdResource Fetch(FetchOutgoingCallerIdOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch an outgoing-caller-id belonging to the account used to make the request </summary>
         /// <param name="options"> Fetch OutgoingCallerId parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of OutgoingCallerId </returns>
         public static async System.Threading.Tasks.Task<OutgoingCallerIdResource> FetchAsync(FetchOutgoingCallerIdOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch an outgoing-caller-id belonging to the account used to make the request </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the OutgoingCallerId resource to fetch. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the OutgoingCallerId resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of OutgoingCallerId </returns>
         public static OutgoingCallerIdResource Fetch(
-                                         string pathSid, 
-                                         string pathAccountSid = null, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         string pathAccountSid = null,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchOutgoingCallerIdOptions(pathSid){ PathAccountSid = pathAccountSid };
+            var options = new FetchOutgoingCallerIdOptions(pathSid) { PathAccountSid = pathAccountSid };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch an outgoing-caller-id belonging to the account used to make the request </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the OutgoingCallerId resource to fetch. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the OutgoingCallerId resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of OutgoingCallerId </returns>
-        public static async System.Threading.Tasks.Task<OutgoingCallerIdResource> FetchAsync(string pathSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<OutgoingCallerIdResource> FetchAsync(string pathSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new FetchOutgoingCallerIdOptions(pathSid){ PathAccountSid = pathAccountSid };
+            var options = new FetchOutgoingCallerIdOptions(pathSid) { PathAccountSid = pathAccountSid };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadOutgoingCallerIdOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadOutgoingCallerIdOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -193,7 +193,7 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="options"> Read OutgoingCallerId parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of OutgoingCallerId </returns>
-        public static ResourceSet<OutgoingCallerIdResource> Read(ReadOutgoingCallerIdOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<OutgoingCallerIdResource> Read(ReadOutgoingCallerIdOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -201,13 +201,13 @@ namespace Kandy.Rest.Api.V2010.Account
             return new ResourceSet<OutgoingCallerIdResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of outgoing-caller-ids belonging to the account used to make the request </summary>
         /// <param name="options"> Read OutgoingCallerId parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of OutgoingCallerId </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<OutgoingCallerIdResource>> ReadAsync(ReadOutgoingCallerIdOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -215,7 +215,7 @@ namespace Kandy.Rest.Api.V2010.Account
             var page = Page<OutgoingCallerIdResource>.FromJson("outgoing_caller_ids", response.Content);
             return new ResourceSet<OutgoingCallerIdResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of outgoing-caller-ids belonging to the account used to make the request </summary>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the OutgoingCallerId resources to read. </param>
         /// <param name="phoneNumber"> The phone number of the OutgoingCallerId resources to read. </param>
@@ -230,13 +230,13 @@ namespace Kandy.Rest.Api.V2010.Account
                                                      string friendlyName = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadOutgoingCallerIdOptions(){ PathAccountSid = pathAccountSid, PhoneNumber = phoneNumber, FriendlyName = friendlyName, PageSize = pageSize, Limit = limit};
+            var options = new ReadOutgoingCallerIdOptions() { PathAccountSid = pathAccountSid, PhoneNumber = phoneNumber, FriendlyName = friendlyName, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of outgoing-caller-ids belonging to the account used to make the request </summary>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the OutgoingCallerId resources to read. </param>
         /// <param name="phoneNumber"> The phone number of the OutgoingCallerId resources to read. </param>
@@ -251,19 +251,19 @@ namespace Kandy.Rest.Api.V2010.Account
                                                                                              string friendlyName = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadOutgoingCallerIdOptions(){ PathAccountSid = pathAccountSid, PhoneNumber = phoneNumber, FriendlyName = friendlyName, PageSize = pageSize, Limit = limit};
+            var options = new ReadOutgoingCallerIdOptions() { PathAccountSid = pathAccountSid, PhoneNumber = phoneNumber, FriendlyName = friendlyName, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<OutgoingCallerIdResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<OutgoingCallerIdResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -280,7 +280,7 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<OutgoingCallerIdResource> NextPage(Page<OutgoingCallerIdResource> page, ITwilioRestClient client)
+        public static Page<OutgoingCallerIdResource> NextPage(Page<OutgoingCallerIdResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -295,7 +295,7 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<OutgoingCallerIdResource> PreviousPage(Page<OutgoingCallerIdResource> page, ITwilioRestClient client)
+        public static Page<OutgoingCallerIdResource> PreviousPage(Page<OutgoingCallerIdResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -306,16 +306,16 @@ namespace Kandy.Rest.Api.V2010.Account
             return Page<OutgoingCallerIdResource>.FromJson("outgoing_caller_ids", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateOutgoingCallerIdOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateOutgoingCallerIdOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -330,7 +330,7 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="options"> Update OutgoingCallerId parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of OutgoingCallerId </returns>
-        public static OutgoingCallerIdResource Update(UpdateOutgoingCallerIdOptions options, ITwilioRestClient client = null)
+        public static OutgoingCallerIdResource Update(UpdateOutgoingCallerIdOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -341,15 +341,15 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="options"> Update OutgoingCallerId parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of OutgoingCallerId </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<OutgoingCallerIdResource> UpdateAsync(UpdateOutgoingCallerIdOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Updates the caller-id </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the OutgoingCallerId resource to update. </param>
@@ -361,13 +361,13 @@ namespace Kandy.Rest.Api.V2010.Account
                                           string pathSid,
                                           string pathAccountSid = null,
                                           string friendlyName = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateOutgoingCallerIdOptions(pathSid){ PathAccountSid = pathAccountSid, FriendlyName = friendlyName };
+            var options = new UpdateOutgoingCallerIdOptions(pathSid) { PathAccountSid = pathAccountSid, FriendlyName = friendlyName };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Updates the caller-id </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the OutgoingCallerId resource to update. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the OutgoingCallerId resources to update. </param>
@@ -378,13 +378,13 @@ namespace Kandy.Rest.Api.V2010.Account
                                                                               string pathSid,
                                                                               string pathAccountSid = null,
                                                                               string friendlyName = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateOutgoingCallerIdOptions(pathSid){ PathAccountSid = pathAccountSid, FriendlyName = friendlyName };
+            var options = new UpdateOutgoingCallerIdOptions(pathSid) { PathAccountSid = pathAccountSid, FriendlyName = friendlyName };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a OutgoingCallerIdResource object
         /// </summary>
@@ -402,7 +402,7 @@ namespace Kandy.Rest.Api.V2010.Account
             }
         }
 
-    
+
         ///<summary> The unique string that that we created to identify the OutgoingCallerId resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -434,7 +434,8 @@ namespace Kandy.Rest.Api.V2010.Account
 
 
 
-        private OutgoingCallerIdResource() {
+        private OutgoingCallerIdResource()
+        {
 
         }
     }

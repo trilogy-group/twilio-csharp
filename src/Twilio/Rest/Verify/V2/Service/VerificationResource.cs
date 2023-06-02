@@ -28,11 +28,11 @@ namespace Kandy.Rest.Verify.V2.Service
 {
     public class VerificationResource : Resource
     {
-    
+
         public sealed class StatusEnum : StringEnum
         {
-            private StatusEnum(string value) : base(value) {}
-            public StatusEnum() {}
+            private StatusEnum(string value) : base(value) { }
+            public StatusEnum() { }
             public static implicit operator StatusEnum(string value)
             {
                 return new StatusEnum(value);
@@ -44,8 +44,8 @@ namespace Kandy.Rest.Verify.V2.Service
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class ChannelEnum : StringEnum
         {
-            private ChannelEnum(string value) : base(value) {}
-            public ChannelEnum() {}
+            private ChannelEnum(string value) : base(value) { }
+            public ChannelEnum() { }
             public static implicit operator ChannelEnum(string value)
             {
                 return new ChannelEnum(value);
@@ -58,14 +58,14 @@ namespace Kandy.Rest.Verify.V2.Service
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateVerificationOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateVerificationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Services/{ServiceSid}/Verifications";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -80,26 +80,26 @@ namespace Kandy.Rest.Verify.V2.Service
         /// <param name="options"> Create Verification parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Verification </returns>
-        public static VerificationResource Create(CreateVerificationOptions options, ITwilioRestClient client = null)
+        public static VerificationResource Create(CreateVerificationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Verification using a Service </summary>
         /// <param name="options"> Create Verification parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Verification </returns>
         public static async System.Threading.Tasks.Task<VerificationResource> CreateAsync(CreateVerificationOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new Verification using a Service </summary>
         /// <param name="pathServiceSid"> The SID of the verification [Service](https://www.twilio.com/docs/verify/api/service) to create the resource under. </param>
@@ -137,13 +137,13 @@ namespace Kandy.Rest.Verify.V2.Service
                                           string templateSid = null,
                                           string templateCustomSubstitutions = null,
                                           string deviceIp = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateVerificationOptions(pathServiceSid, to, channel){  CustomFriendlyName = customFriendlyName, CustomMessage = customMessage, SendDigits = sendDigits, Locale = locale, CustomCode = customCode, Amount = amount, Payee = payee, RateLimits = rateLimits, ChannelConfiguration = channelConfiguration, AppHash = appHash, TemplateSid = templateSid, TemplateCustomSubstitutions = templateCustomSubstitutions, DeviceIp = deviceIp };
+            var options = new CreateVerificationOptions(pathServiceSid, to, channel) { CustomFriendlyName = customFriendlyName, CustomMessage = customMessage, SendDigits = sendDigits, Locale = locale, CustomCode = customCode, Amount = amount, Payee = payee, RateLimits = rateLimits, ChannelConfiguration = channelConfiguration, AppHash = appHash, TemplateSid = templateSid, TemplateCustomSubstitutions = templateCustomSubstitutions, DeviceIp = deviceIp };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Verification using a Service </summary>
         /// <param name="pathServiceSid"> The SID of the verification [Service](https://www.twilio.com/docs/verify/api/service) to create the resource under. </param>
         /// <param name="to"> The phone number or [email](https://www.twilio.com/docs/verify/email) to verify. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164). </param>
@@ -180,22 +180,22 @@ namespace Kandy.Rest.Verify.V2.Service
                                                                                   string templateSid = null,
                                                                                   string templateCustomSubstitutions = null,
                                                                                   string deviceIp = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateVerificationOptions(pathServiceSid, to, channel){  CustomFriendlyName = customFriendlyName, CustomMessage = customMessage, SendDigits = sendDigits, Locale = locale, CustomCode = customCode, Amount = amount, Payee = payee, RateLimits = rateLimits, ChannelConfiguration = channelConfiguration, AppHash = appHash, TemplateSid = templateSid, TemplateCustomSubstitutions = templateCustomSubstitutions, DeviceIp = deviceIp };
+            var options = new CreateVerificationOptions(pathServiceSid, to, channel) { CustomFriendlyName = customFriendlyName, CustomMessage = customMessage, SendDigits = sendDigits, Locale = locale, CustomCode = customCode, Amount = amount, Payee = payee, RateLimits = rateLimits, ChannelConfiguration = channelConfiguration, AppHash = appHash, TemplateSid = templateSid, TemplateCustomSubstitutions = templateCustomSubstitutions, DeviceIp = deviceIp };
             return await CreateAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchVerificationOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchVerificationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Services/{ServiceSid}/Verifications/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -210,62 +210,62 @@ namespace Kandy.Rest.Verify.V2.Service
         /// <param name="options"> Fetch Verification parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Verification </returns>
-        public static VerificationResource Fetch(FetchVerificationOptions options, ITwilioRestClient client = null)
+        public static VerificationResource Fetch(FetchVerificationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Verification </summary>
         /// <param name="options"> Fetch Verification parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Verification </returns>
         public static async System.Threading.Tasks.Task<VerificationResource> FetchAsync(FetchVerificationOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a specific Verification </summary>
         /// <param name="pathServiceSid"> The SID of the verification [Service](https://www.twilio.com/docs/verify/api/service) to fetch the resource from. </param>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Verification resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Verification </returns>
         public static VerificationResource Fetch(
-                                         string pathServiceSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathServiceSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchVerificationOptions(pathServiceSid, pathSid){  };
+            var options = new FetchVerificationOptions(pathServiceSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Verification </summary>
         /// <param name="pathServiceSid"> The SID of the verification [Service](https://www.twilio.com/docs/verify/api/service) to fetch the resource from. </param>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Verification resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Verification </returns>
-        public static async System.Threading.Tasks.Task<VerificationResource> FetchAsync(string pathServiceSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<VerificationResource> FetchAsync(string pathServiceSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchVerificationOptions(pathServiceSid, pathSid){  };
+            var options = new FetchVerificationOptions(pathServiceSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildUpdateRequest(UpdateVerificationOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildUpdateRequest(UpdateVerificationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Services/{ServiceSid}/Verifications/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -280,7 +280,7 @@ namespace Kandy.Rest.Verify.V2.Service
         /// <param name="options"> Update Verification parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Verification </returns>
-        public static VerificationResource Update(UpdateVerificationOptions options, ITwilioRestClient client = null)
+        public static VerificationResource Update(UpdateVerificationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -291,15 +291,15 @@ namespace Kandy.Rest.Verify.V2.Service
         /// <param name="options"> Update Verification parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Verification </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<VerificationResource> UpdateAsync(UpdateVerificationOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update a Verification status </summary>
         /// <param name="pathServiceSid"> The SID of the verification [Service](https://www.twilio.com/docs/verify/api/service) to update the resource from. </param>
@@ -311,13 +311,13 @@ namespace Kandy.Rest.Verify.V2.Service
                                           string pathServiceSid,
                                           string pathSid,
                                           VerificationResource.StatusEnum status,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateVerificationOptions(pathServiceSid, pathSid, status){  };
+            var options = new UpdateVerificationOptions(pathServiceSid, pathSid, status) { };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update a Verification status </summary>
         /// <param name="pathServiceSid"> The SID of the verification [Service](https://www.twilio.com/docs/verify/api/service) to update the resource from. </param>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Verification resource to update. </param>
@@ -328,13 +328,13 @@ namespace Kandy.Rest.Verify.V2.Service
                                                                               string pathServiceSid,
                                                                               string pathSid,
                                                                               VerificationResource.StatusEnum status,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateVerificationOptions(pathServiceSid, pathSid, status){  };
+            var options = new UpdateVerificationOptions(pathServiceSid, pathSid, status) { };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a VerificationResource object
         /// </summary>
@@ -352,7 +352,7 @@ namespace Kandy.Rest.Verify.V2.Service
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the Verification resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -369,7 +369,7 @@ namespace Kandy.Rest.Verify.V2.Service
         [JsonProperty("to")]
         public string To { get; private set; }
 
-        
+
         [JsonProperty("channel")]
         public VerificationResource.ChannelEnum Channel { get; private set; }
 
@@ -415,7 +415,8 @@ namespace Kandy.Rest.Verify.V2.Service
 
 
 
-        private VerificationResource() {
+        private VerificationResource()
+        {
 
         }
     }

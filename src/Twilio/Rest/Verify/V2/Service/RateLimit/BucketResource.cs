@@ -28,18 +28,18 @@ namespace Kandy.Rest.Verify.V2.Service.RateLimit
 {
     public class BucketResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateBucketOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateBucketOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathRateLimitSid = options.PathRateLimitSid;
-            path = path.Replace("{"+"RateLimitSid"+"}", PathRateLimitSid);
+            path = path.Replace("{" + "RateLimitSid" + "}", PathRateLimitSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -54,26 +54,26 @@ namespace Kandy.Rest.Verify.V2.Service.RateLimit
         /// <param name="options"> Create Bucket parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Bucket </returns>
-        public static BucketResource Create(CreateBucketOptions options, ITwilioRestClient client = null)
+        public static BucketResource Create(CreateBucketOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Bucket for a Rate Limit </summary>
         /// <param name="options"> Create Bucket parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Bucket </returns>
         public static async System.Threading.Tasks.Task<BucketResource> CreateAsync(CreateBucketOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new Bucket for a Rate Limit </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with. </param>
@@ -87,13 +87,13 @@ namespace Kandy.Rest.Verify.V2.Service.RateLimit
                                           string pathRateLimitSid,
                                           int? max,
                                           int? interval,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateBucketOptions(pathServiceSid, pathRateLimitSid, max, interval){  };
+            var options = new CreateBucketOptions(pathServiceSid, pathRateLimitSid, max, interval) { };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Bucket for a Rate Limit </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with. </param>
         /// <param name="pathRateLimitSid"> The Twilio-provided string that uniquely identifies the Rate Limit resource. </param>
@@ -106,28 +106,28 @@ namespace Kandy.Rest.Verify.V2.Service.RateLimit
                                                                                   string pathRateLimitSid,
                                                                                   int? max,
                                                                                   int? interval,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateBucketOptions(pathServiceSid, pathRateLimitSid, max, interval){  };
+            var options = new CreateBucketOptions(pathServiceSid, pathRateLimitSid, max, interval) { };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Delete a specific Bucket. </summary>
         /// <param name="options"> Delete Bucket parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Bucket </returns>
-        private static Request BuildDeleteRequest(DeleteBucketOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteBucketOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathRateLimitSid = options.PathRateLimitSid;
-            path = path.Replace("{"+"RateLimitSid"+"}", PathRateLimitSid);
+            path = path.Replace("{" + "RateLimitSid" + "}", PathRateLimitSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -142,26 +142,26 @@ namespace Kandy.Rest.Verify.V2.Service.RateLimit
         /// <param name="options"> Delete Bucket parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Bucket </returns>
-        public static bool Delete(DeleteBucketOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteBucketOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific Bucket. </summary>
         /// <param name="options"> Delete Bucket parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Bucket </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteBucketOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete a specific Bucket. </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with. </param>
@@ -169,37 +169,37 @@ namespace Kandy.Rest.Verify.V2.Service.RateLimit
         /// <param name="pathSid"> A 34 character string that uniquely identifies this Bucket. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Bucket </returns>
-        public static bool Delete(string pathServiceSid, string pathRateLimitSid, string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathServiceSid, string pathRateLimitSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteBucketOptions(pathServiceSid, pathRateLimitSid, pathSid)           ;
+            var options = new DeleteBucketOptions(pathServiceSid, pathRateLimitSid, pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific Bucket. </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with. </param>
         /// <param name="pathRateLimitSid"> The Twilio-provided string that uniquely identifies the Rate Limit resource. </param>
         /// <param name="pathSid"> A 34 character string that uniquely identifies this Bucket. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Bucket </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathRateLimitSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathRateLimitSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteBucketOptions(pathServiceSid, pathRateLimitSid, pathSid) ;
+            var options = new DeleteBucketOptions(pathServiceSid, pathRateLimitSid, pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchBucketOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchBucketOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathRateLimitSid = options.PathRateLimitSid;
-            path = path.Replace("{"+"RateLimitSid"+"}", PathRateLimitSid);
+            path = path.Replace("{" + "RateLimitSid" + "}", PathRateLimitSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -214,26 +214,26 @@ namespace Kandy.Rest.Verify.V2.Service.RateLimit
         /// <param name="options"> Fetch Bucket parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Bucket </returns>
-        public static BucketResource Fetch(FetchBucketOptions options, ITwilioRestClient client = null)
+        public static BucketResource Fetch(FetchBucketOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Bucket. </summary>
         /// <param name="options"> Fetch Bucket parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Bucket </returns>
         public static async System.Threading.Tasks.Task<BucketResource> FetchAsync(FetchBucketOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a specific Bucket. </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with. </param>
         /// <param name="pathRateLimitSid"> The Twilio-provided string that uniquely identifies the Rate Limit resource. </param>
@@ -241,38 +241,38 @@ namespace Kandy.Rest.Verify.V2.Service.RateLimit
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Bucket </returns>
         public static BucketResource Fetch(
-                                         string pathServiceSid, 
-                                         string pathRateLimitSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathServiceSid,
+                                         string pathRateLimitSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchBucketOptions(pathServiceSid, pathRateLimitSid, pathSid){  };
+            var options = new FetchBucketOptions(pathServiceSid, pathRateLimitSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Bucket. </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with. </param>
         /// <param name="pathRateLimitSid"> The Twilio-provided string that uniquely identifies the Rate Limit resource. </param>
         /// <param name="pathSid"> A 34 character string that uniquely identifies this Bucket. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Bucket </returns>
-        public static async System.Threading.Tasks.Task<BucketResource> FetchAsync(string pathServiceSid, string pathRateLimitSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<BucketResource> FetchAsync(string pathServiceSid, string pathRateLimitSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchBucketOptions(pathServiceSid, pathRateLimitSid, pathSid){  };
+            var options = new FetchBucketOptions(pathServiceSid, pathRateLimitSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadBucketOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadBucketOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathRateLimitSid = options.PathRateLimitSid;
-            path = path.Replace("{"+"RateLimitSid"+"}", PathRateLimitSid);
+            path = path.Replace("{" + "RateLimitSid" + "}", PathRateLimitSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -286,7 +286,7 @@ namespace Kandy.Rest.Verify.V2.Service.RateLimit
         /// <param name="options"> Read Bucket parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Bucket </returns>
-        public static ResourceSet<BucketResource> Read(ReadBucketOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<BucketResource> Read(ReadBucketOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -294,13 +294,13 @@ namespace Kandy.Rest.Verify.V2.Service.RateLimit
             return new ResourceSet<BucketResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Buckets for a Rate Limit. </summary>
         /// <param name="options"> Read Bucket parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Bucket </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<BucketResource>> ReadAsync(ReadBucketOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -308,7 +308,7 @@ namespace Kandy.Rest.Verify.V2.Service.RateLimit
             var page = Page<BucketResource>.FromJson("buckets", response.Content);
             return new ResourceSet<BucketResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Buckets for a Rate Limit. </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with. </param>
         /// <param name="pathRateLimitSid"> The Twilio-provided string that uniquely identifies the Rate Limit resource. </param>
@@ -321,13 +321,13 @@ namespace Kandy.Rest.Verify.V2.Service.RateLimit
                                                      string pathRateLimitSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadBucketOptions(pathServiceSid, pathRateLimitSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadBucketOptions(pathServiceSid, pathRateLimitSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Buckets for a Rate Limit. </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with. </param>
         /// <param name="pathRateLimitSid"> The Twilio-provided string that uniquely identifies the Rate Limit resource. </param>
@@ -340,19 +340,19 @@ namespace Kandy.Rest.Verify.V2.Service.RateLimit
                                                                                              string pathRateLimitSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadBucketOptions(pathServiceSid, pathRateLimitSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadBucketOptions(pathServiceSid, pathRateLimitSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<BucketResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<BucketResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -369,7 +369,7 @@ namespace Kandy.Rest.Verify.V2.Service.RateLimit
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<BucketResource> NextPage(Page<BucketResource> page, ITwilioRestClient client)
+        public static Page<BucketResource> NextPage(Page<BucketResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -384,7 +384,7 @@ namespace Kandy.Rest.Verify.V2.Service.RateLimit
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<BucketResource> PreviousPage(Page<BucketResource> page, ITwilioRestClient client)
+        public static Page<BucketResource> PreviousPage(Page<BucketResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -395,18 +395,18 @@ namespace Kandy.Rest.Verify.V2.Service.RateLimit
             return Page<BucketResource>.FromJson("buckets", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateBucketOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateBucketOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathRateLimitSid = options.PathRateLimitSid;
-            path = path.Replace("{"+"RateLimitSid"+"}", PathRateLimitSid);
+            path = path.Replace("{" + "RateLimitSid" + "}", PathRateLimitSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -421,7 +421,7 @@ namespace Kandy.Rest.Verify.V2.Service.RateLimit
         /// <param name="options"> Update Bucket parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Bucket </returns>
-        public static BucketResource Update(UpdateBucketOptions options, ITwilioRestClient client = null)
+        public static BucketResource Update(UpdateBucketOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -432,15 +432,15 @@ namespace Kandy.Rest.Verify.V2.Service.RateLimit
         /// <param name="options"> Update Bucket parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Bucket </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<BucketResource> UpdateAsync(UpdateBucketOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update a specific Bucket. </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with. </param>
@@ -456,13 +456,13 @@ namespace Kandy.Rest.Verify.V2.Service.RateLimit
                                           string pathSid,
                                           int? max = null,
                                           int? interval = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateBucketOptions(pathServiceSid, pathRateLimitSid, pathSid){ Max = max, Interval = interval };
+            var options = new UpdateBucketOptions(pathServiceSid, pathRateLimitSid, pathSid) { Max = max, Interval = interval };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update a specific Bucket. </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with. </param>
         /// <param name="pathRateLimitSid"> The Twilio-provided string that uniquely identifies the Rate Limit resource. </param>
@@ -477,13 +477,13 @@ namespace Kandy.Rest.Verify.V2.Service.RateLimit
                                                                               string pathSid,
                                                                               int? max = null,
                                                                               int? interval = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateBucketOptions(pathServiceSid, pathRateLimitSid, pathSid){ Max = max, Interval = interval };
+            var options = new UpdateBucketOptions(pathServiceSid, pathRateLimitSid, pathSid) { Max = max, Interval = interval };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a BucketResource object
         /// </summary>
@@ -501,7 +501,7 @@ namespace Kandy.Rest.Verify.V2.Service.RateLimit
             }
         }
 
-    
+
         ///<summary> A 34 character string that uniquely identifies this Bucket. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -540,7 +540,8 @@ namespace Kandy.Rest.Verify.V2.Service.RateLimit
 
 
 
-        private BucketResource() {
+        private BucketResource()
+        {
 
         }
     }

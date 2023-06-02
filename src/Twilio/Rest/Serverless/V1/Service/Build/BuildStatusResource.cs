@@ -28,12 +28,12 @@ namespace Kandy.Rest.Serverless.V1.Service.Build
 {
     public class BuildStatusResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class StatusEnum : StringEnum
         {
-            private StatusEnum(string value) : base(value) {}
-            public StatusEnum() {}
+            private StatusEnum(string value) : base(value) { }
+            public StatusEnum() { }
             public static implicit operator StatusEnum(string value)
             {
                 return new StatusEnum(value);
@@ -44,16 +44,16 @@ namespace Kandy.Rest.Serverless.V1.Service.Build
 
         }
 
-        
-        private static Request BuildFetchRequest(FetchBuildStatusOptions options, ITwilioRestClient client)
+
+        private static Request BuildFetchRequest(FetchBuildStatusOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Builds/{Sid}/Status";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -68,53 +68,53 @@ namespace Kandy.Rest.Serverless.V1.Service.Build
         /// <param name="options"> Fetch BuildStatus parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of BuildStatus </returns>
-        public static BuildStatusResource Fetch(FetchBuildStatusOptions options, ITwilioRestClient client = null)
+        public static BuildStatusResource Fetch(FetchBuildStatusOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a specific Build resource. </summary>
         /// <param name="options"> Fetch BuildStatus parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of BuildStatus </returns>
         public static async System.Threading.Tasks.Task<BuildStatusResource> FetchAsync(FetchBuildStatusOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Retrieve a specific Build resource. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to fetch the Build resource from. </param>
         /// <param name="pathSid"> The SID of the Build resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of BuildStatus </returns>
         public static BuildStatusResource Fetch(
-                                         string pathServiceSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathServiceSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchBuildStatusOptions(pathServiceSid, pathSid){  };
+            var options = new FetchBuildStatusOptions(pathServiceSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a specific Build resource. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to fetch the Build resource from. </param>
         /// <param name="pathSid"> The SID of the Build resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of BuildStatus </returns>
-        public static async System.Threading.Tasks.Task<BuildStatusResource> FetchAsync(string pathServiceSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<BuildStatusResource> FetchAsync(string pathServiceSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchBuildStatusOptions(pathServiceSid, pathSid){  };
+            var options = new FetchBuildStatusOptions(pathServiceSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a BuildStatusResource object
         /// </summary>
@@ -132,7 +132,7 @@ namespace Kandy.Rest.Serverless.V1.Service.Build
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the Build resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -145,7 +145,7 @@ namespace Kandy.Rest.Serverless.V1.Service.Build
         [JsonProperty("service_sid")]
         public string ServiceSid { get; private set; }
 
-        
+
         [JsonProperty("status")]
         public BuildStatusResource.StatusEnum Status { get; private set; }
 
@@ -155,7 +155,8 @@ namespace Kandy.Rest.Serverless.V1.Service.Build
 
 
 
-        private BuildStatusResource() {
+        private BuildStatusResource()
+        {
 
         }
     }

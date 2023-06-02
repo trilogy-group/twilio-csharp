@@ -28,12 +28,12 @@ namespace Kandy.Rest.Autopilot.V1
 {
     public class AssistantResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateAssistantOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateAssistantOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Assistants";
 
 
@@ -50,26 +50,26 @@ namespace Kandy.Rest.Autopilot.V1
         /// <param name="options"> Create Assistant parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Assistant </returns>
-        public static AssistantResource Create(CreateAssistantOptions options, ITwilioRestClient client = null)
+        public static AssistantResource Create(CreateAssistantOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create Assistant parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Assistant </returns>
         public static async System.Threading.Tasks.Task<AssistantResource> CreateAsync(CreateAssistantOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="friendlyName"> A descriptive string that you create to describe the new resource. It is not unique and can be up to 255 characters long. </param>
@@ -89,13 +89,13 @@ namespace Kandy.Rest.Autopilot.V1
                                           string callbackEvents = null,
                                           object styleSheet = null,
                                           object defaults = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateAssistantOptions(){  FriendlyName = friendlyName, LogQueries = logQueries, UniqueName = uniqueName, CallbackUrl = callbackUrl, CallbackEvents = callbackEvents, StyleSheet = styleSheet, Defaults = defaults };
+            var options = new CreateAssistantOptions() { FriendlyName = friendlyName, LogQueries = logQueries, UniqueName = uniqueName, CallbackUrl = callbackUrl, CallbackEvents = callbackEvents, StyleSheet = styleSheet, Defaults = defaults };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="friendlyName"> A descriptive string that you create to describe the new resource. It is not unique and can be up to 255 characters long. </param>
         /// <param name="logQueries"> Whether queries should be logged and kept after training. Can be: `true` or `false` and defaults to `true`. If `true`, queries are stored for 30 days, and then deleted. If `false`, no queries are stored. </param>
@@ -114,24 +114,24 @@ namespace Kandy.Rest.Autopilot.V1
                                                                                   string callbackEvents = null,
                                                                                   object styleSheet = null,
                                                                                   object defaults = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateAssistantOptions(){  FriendlyName = friendlyName, LogQueries = logQueries, UniqueName = uniqueName, CallbackUrl = callbackUrl, CallbackEvents = callbackEvents, StyleSheet = styleSheet, Defaults = defaults };
+            var options = new CreateAssistantOptions() { FriendlyName = friendlyName, LogQueries = logQueries, UniqueName = uniqueName, CallbackUrl = callbackUrl, CallbackEvents = callbackEvents, StyleSheet = styleSheet, Defaults = defaults };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> delete </summary>
         /// <param name="options"> Delete Assistant parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Assistant </returns>
-        private static Request BuildDeleteRequest(DeleteAssistantOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteAssistantOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Assistants/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -146,56 +146,56 @@ namespace Kandy.Rest.Autopilot.V1
         /// <param name="options"> Delete Assistant parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Assistant </returns>
-        public static bool Delete(DeleteAssistantOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteAssistantOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="options"> Delete Assistant parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Assistant </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteAssistantOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> delete </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Assistant resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Assistant </returns>
-        public static bool Delete(string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteAssistantOptions(pathSid)     ;
+            var options = new DeleteAssistantOptions(pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Assistant resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Assistant </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteAssistantOptions(pathSid) ;
+            var options = new DeleteAssistantOptions(pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchAssistantOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchAssistantOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Assistants/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -210,53 +210,53 @@ namespace Kandy.Rest.Autopilot.V1
         /// <param name="options"> Fetch Assistant parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Assistant </returns>
-        public static AssistantResource Fetch(FetchAssistantOptions options, ITwilioRestClient client = null)
+        public static AssistantResource Fetch(FetchAssistantOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch Assistant parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Assistant </returns>
         public static async System.Threading.Tasks.Task<AssistantResource> FetchAsync(FetchAssistantOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Assistant resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Assistant </returns>
         public static AssistantResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchAssistantOptions(pathSid){  };
+            var options = new FetchAssistantOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Assistant resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Assistant </returns>
-        public static async System.Threading.Tasks.Task<AssistantResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<AssistantResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchAssistantOptions(pathSid){  };
+            var options = new FetchAssistantOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadAssistantOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadAssistantOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Assistants";
 
 
@@ -272,7 +272,7 @@ namespace Kandy.Rest.Autopilot.V1
         /// <param name="options"> Read Assistant parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Assistant </returns>
-        public static ResourceSet<AssistantResource> Read(ReadAssistantOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<AssistantResource> Read(ReadAssistantOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -280,13 +280,13 @@ namespace Kandy.Rest.Autopilot.V1
             return new ResourceSet<AssistantResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read Assistant parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Assistant </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<AssistantResource>> ReadAsync(ReadAssistantOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -294,7 +294,7 @@ namespace Kandy.Rest.Autopilot.V1
             var page = Page<AssistantResource>.FromJson("assistants", response.Content);
             return new ResourceSet<AssistantResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -303,13 +303,13 @@ namespace Kandy.Rest.Autopilot.V1
         public static ResourceSet<AssistantResource> Read(
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadAssistantOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadAssistantOptions() { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -318,19 +318,19 @@ namespace Kandy.Rest.Autopilot.V1
         public static async System.Threading.Tasks.Task<ResourceSet<AssistantResource>> ReadAsync(
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadAssistantOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadAssistantOptions() { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<AssistantResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<AssistantResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -347,7 +347,7 @@ namespace Kandy.Rest.Autopilot.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<AssistantResource> NextPage(Page<AssistantResource> page, ITwilioRestClient client)
+        public static Page<AssistantResource> NextPage(Page<AssistantResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -362,7 +362,7 @@ namespace Kandy.Rest.Autopilot.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<AssistantResource> PreviousPage(Page<AssistantResource> page, ITwilioRestClient client)
+        public static Page<AssistantResource> PreviousPage(Page<AssistantResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -373,14 +373,14 @@ namespace Kandy.Rest.Autopilot.V1
             return Page<AssistantResource>.FromJson("assistants", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateAssistantOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateAssistantOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Assistants/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -395,7 +395,7 @@ namespace Kandy.Rest.Autopilot.V1
         /// <param name="options"> Update Assistant parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Assistant </returns>
-        public static AssistantResource Update(UpdateAssistantOptions options, ITwilioRestClient client = null)
+        public static AssistantResource Update(UpdateAssistantOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -406,15 +406,15 @@ namespace Kandy.Rest.Autopilot.V1
         /// <param name="options"> Update Assistant parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Assistant </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<AssistantResource> UpdateAsync(UpdateAssistantOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> update </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Assistant resource to update. </param>
@@ -438,13 +438,13 @@ namespace Kandy.Rest.Autopilot.V1
                                           object styleSheet = null,
                                           object defaults = null,
                                           string developmentStage = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateAssistantOptions(pathSid){ FriendlyName = friendlyName, LogQueries = logQueries, UniqueName = uniqueName, CallbackUrl = callbackUrl, CallbackEvents = callbackEvents, StyleSheet = styleSheet, Defaults = defaults, DevelopmentStage = developmentStage };
+            var options = new UpdateAssistantOptions(pathSid) { FriendlyName = friendlyName, LogQueries = logQueries, UniqueName = uniqueName, CallbackUrl = callbackUrl, CallbackEvents = callbackEvents, StyleSheet = styleSheet, Defaults = defaults, DevelopmentStage = developmentStage };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> update </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Assistant resource to update. </param>
         /// <param name="friendlyName"> A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long. </param>
@@ -467,13 +467,13 @@ namespace Kandy.Rest.Autopilot.V1
                                                                               object styleSheet = null,
                                                                               object defaults = null,
                                                                               string developmentStage = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateAssistantOptions(pathSid){ FriendlyName = friendlyName, LogQueries = logQueries, UniqueName = uniqueName, CallbackUrl = callbackUrl, CallbackEvents = callbackEvents, StyleSheet = styleSheet, Defaults = defaults, DevelopmentStage = developmentStage };
+            var options = new UpdateAssistantOptions(pathSid) { FriendlyName = friendlyName, LogQueries = logQueries, UniqueName = uniqueName, CallbackUrl = callbackUrl, CallbackEvents = callbackEvents, StyleSheet = styleSheet, Defaults = defaults, DevelopmentStage = developmentStage };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a AssistantResource object
         /// </summary>
@@ -491,7 +491,7 @@ namespace Kandy.Rest.Autopilot.V1
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Assistant resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -550,7 +550,8 @@ namespace Kandy.Rest.Autopilot.V1
 
 
 
-        private AssistantResource() {
+        private AssistantResource()
+        {
 
         }
     }

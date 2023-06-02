@@ -28,20 +28,20 @@ namespace Kandy.Rest.Serverless.V1.Service.Function.FunctionVersion
 {
     public class FunctionVersionContentResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchFunctionVersionContentOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchFunctionVersionContentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Functions/{FunctionSid}/Versions/{Sid}/Content";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathFunctionSid = options.PathFunctionSid;
-            path = path.Replace("{"+"FunctionSid"+"}", PathFunctionSid);
+            path = path.Replace("{" + "FunctionSid" + "}", PathFunctionSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -56,26 +56,26 @@ namespace Kandy.Rest.Serverless.V1.Service.Function.FunctionVersion
         /// <param name="options"> Fetch FunctionVersionContent parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of FunctionVersionContent </returns>
-        public static FunctionVersionContentResource Fetch(FetchFunctionVersionContentOptions options, ITwilioRestClient client = null)
+        public static FunctionVersionContentResource Fetch(FetchFunctionVersionContentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a the content of a specific Function Version resource. </summary>
         /// <param name="options"> Fetch FunctionVersionContent parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of FunctionVersionContent </returns>
         public static async System.Threading.Tasks.Task<FunctionVersionContentResource> FetchAsync(FetchFunctionVersionContentOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Retrieve a the content of a specific Function Version resource. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to fetch the Function Version content from. </param>
         /// <param name="pathFunctionSid"> The SID of the Function that is the parent of the Function Version content to fetch. </param>
@@ -83,29 +83,29 @@ namespace Kandy.Rest.Serverless.V1.Service.Function.FunctionVersion
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of FunctionVersionContent </returns>
         public static FunctionVersionContentResource Fetch(
-                                         string pathServiceSid, 
-                                         string pathFunctionSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathServiceSid,
+                                         string pathFunctionSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchFunctionVersionContentOptions(pathServiceSid, pathFunctionSid, pathSid){  };
+            var options = new FetchFunctionVersionContentOptions(pathServiceSid, pathFunctionSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a the content of a specific Function Version resource. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to fetch the Function Version content from. </param>
         /// <param name="pathFunctionSid"> The SID of the Function that is the parent of the Function Version content to fetch. </param>
         /// <param name="pathSid"> The SID of the Function Version content to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of FunctionVersionContent </returns>
-        public static async System.Threading.Tasks.Task<FunctionVersionContentResource> FetchAsync(string pathServiceSid, string pathFunctionSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<FunctionVersionContentResource> FetchAsync(string pathServiceSid, string pathFunctionSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchFunctionVersionContentOptions(pathServiceSid, pathFunctionSid, pathSid){  };
+            var options = new FetchFunctionVersionContentOptions(pathServiceSid, pathFunctionSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a FunctionVersionContentResource object
         /// </summary>
@@ -123,7 +123,7 @@ namespace Kandy.Rest.Serverless.V1.Service.Function.FunctionVersion
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the Function Version resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -150,7 +150,8 @@ namespace Kandy.Rest.Serverless.V1.Service.Function.FunctionVersion
 
 
 
-        private FunctionVersionContentResource() {
+        private FunctionVersionContentResource()
+        {
 
         }
     }

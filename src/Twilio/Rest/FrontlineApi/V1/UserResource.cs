@@ -28,12 +28,12 @@ namespace Kandy.Rest.FrontlineApi.V1
 {
     public class UserResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class StateTypeEnum : StringEnum
         {
-            private StateTypeEnum(string value) : base(value) {}
-            public StateTypeEnum() {}
+            private StateTypeEnum(string value) : base(value) { }
+            public StateTypeEnum() { }
             public static implicit operator StateTypeEnum(string value)
             {
                 return new StateTypeEnum(value);
@@ -43,14 +43,14 @@ namespace Kandy.Rest.FrontlineApi.V1
 
         }
 
-        
-        private static Request BuildFetchRequest(FetchUserOptions options, ITwilioRestClient client)
+
+        private static Request BuildFetchRequest(FetchUserOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Users/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -65,57 +65,57 @@ namespace Kandy.Rest.FrontlineApi.V1
         /// <param name="options"> Fetch User parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of User </returns>
-        public static UserResource Fetch(FetchUserOptions options, ITwilioRestClient client = null)
+        public static UserResource Fetch(FetchUserOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a frontline user </summary>
         /// <param name="options"> Fetch User parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of User </returns>
         public static async System.Threading.Tasks.Task<UserResource> FetchAsync(FetchUserOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a frontline user </summary>
         /// <param name="pathSid"> The SID of the User resource to fetch. This value can be either the `sid` or the `identity` of the User resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of User </returns>
         public static UserResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchUserOptions(pathSid){  };
+            var options = new FetchUserOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a frontline user </summary>
         /// <param name="pathSid"> The SID of the User resource to fetch. This value can be either the `sid` or the `identity` of the User resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of User </returns>
-        public static async System.Threading.Tasks.Task<UserResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<UserResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchUserOptions(pathSid){  };
+            var options = new FetchUserOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildUpdateRequest(UpdateUserOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildUpdateRequest(UpdateUserOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Users/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -130,7 +130,7 @@ namespace Kandy.Rest.FrontlineApi.V1
         /// <param name="options"> Update User parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of User </returns>
-        public static UserResource Update(UpdateUserOptions options, ITwilioRestClient client = null)
+        public static UserResource Update(UpdateUserOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -141,15 +141,15 @@ namespace Kandy.Rest.FrontlineApi.V1
         /// <param name="options"> Update User parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of User </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<UserResource> UpdateAsync(UpdateUserOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update an existing frontline user </summary>
         /// <param name="pathSid"> The SID of the User resource to update. This value can be either the `sid` or the `identity` of the User resource to update. </param>
@@ -165,13 +165,13 @@ namespace Kandy.Rest.FrontlineApi.V1
                                           string avatar = null,
                                           UserResource.StateTypeEnum state = null,
                                           bool? isAvailable = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateUserOptions(pathSid){ FriendlyName = friendlyName, Avatar = avatar, State = state, IsAvailable = isAvailable };
+            var options = new UpdateUserOptions(pathSid) { FriendlyName = friendlyName, Avatar = avatar, State = state, IsAvailable = isAvailable };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update an existing frontline user </summary>
         /// <param name="pathSid"> The SID of the User resource to update. This value can be either the `sid` or the `identity` of the User resource to update. </param>
         /// <param name="friendlyName"> The string that you assigned to describe the User. </param>
@@ -186,13 +186,13 @@ namespace Kandy.Rest.FrontlineApi.V1
                                                                               string avatar = null,
                                                                               UserResource.StateTypeEnum state = null,
                                                                               bool? isAvailable = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateUserOptions(pathSid){ FriendlyName = friendlyName, Avatar = avatar, State = state, IsAvailable = isAvailable };
+            var options = new UpdateUserOptions(pathSid) { FriendlyName = friendlyName, Avatar = avatar, State = state, IsAvailable = isAvailable };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a UserResource object
         /// </summary>
@@ -210,7 +210,7 @@ namespace Kandy.Rest.FrontlineApi.V1
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the User resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -227,7 +227,7 @@ namespace Kandy.Rest.FrontlineApi.V1
         [JsonProperty("avatar")]
         public string Avatar { get; private set; }
 
-        
+
         [JsonProperty("state")]
         public UserResource.StateTypeEnum State { get; private set; }
 
@@ -241,7 +241,8 @@ namespace Kandy.Rest.FrontlineApi.V1
 
 
 
-        private UserResource() {
+        private UserResource()
+        {
 
         }
     }

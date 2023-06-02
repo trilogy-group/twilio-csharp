@@ -28,12 +28,12 @@ namespace Kandy.Rest.Verify.V2
 {
     public class SafelistResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateSafelistOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateSafelistOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/SafeList/Numbers";
 
 
@@ -50,26 +50,26 @@ namespace Kandy.Rest.Verify.V2
         /// <param name="options"> Create Safelist parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Safelist </returns>
-        public static SafelistResource Create(CreateSafelistOptions options, ITwilioRestClient client = null)
+        public static SafelistResource Create(CreateSafelistOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Add a new phone number to SafeList. </summary>
         /// <param name="options"> Create Safelist parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Safelist </returns>
         public static async System.Threading.Tasks.Task<SafelistResource> CreateAsync(CreateSafelistOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Add a new phone number to SafeList. </summary>
         /// <param name="phoneNumber"> The phone number to be added in SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164). </param>
@@ -77,37 +77,37 @@ namespace Kandy.Rest.Verify.V2
         /// <returns> A single instance of Safelist </returns>
         public static SafelistResource Create(
                                           string phoneNumber,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateSafelistOptions(phoneNumber){  };
+            var options = new CreateSafelistOptions(phoneNumber) { };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Add a new phone number to SafeList. </summary>
         /// <param name="phoneNumber"> The phone number to be added in SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164). </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Safelist </returns>
         public static async System.Threading.Tasks.Task<SafelistResource> CreateAsync(
                                                                                   string phoneNumber,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateSafelistOptions(phoneNumber){  };
+            var options = new CreateSafelistOptions(phoneNumber) { };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Remove a phone number from SafeList. </summary>
         /// <param name="options"> Delete Safelist parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Safelist </returns>
-        private static Request BuildDeleteRequest(DeleteSafelistOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteSafelistOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/SafeList/Numbers/{PhoneNumber}";
 
             string PathPhoneNumber = options.PathPhoneNumber;
-            path = path.Replace("{"+"PhoneNumber"+"}", PathPhoneNumber);
+            path = path.Replace("{" + "PhoneNumber" + "}", PathPhoneNumber);
 
             return new Request(
                 HttpMethod.Delete,
@@ -122,56 +122,56 @@ namespace Kandy.Rest.Verify.V2
         /// <param name="options"> Delete Safelist parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Safelist </returns>
-        public static bool Delete(DeleteSafelistOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteSafelistOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Remove a phone number from SafeList. </summary>
         /// <param name="options"> Delete Safelist parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Safelist </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteSafelistOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Remove a phone number from SafeList. </summary>
         /// <param name="pathPhoneNumber"> The phone number to be removed from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164). </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Safelist </returns>
-        public static bool Delete(string pathPhoneNumber, ITwilioRestClient client = null)
+        public static bool Delete(string pathPhoneNumber, IKandyRestClient client = null)
         {
-            var options = new DeleteSafelistOptions(pathPhoneNumber)     ;
+            var options = new DeleteSafelistOptions(pathPhoneNumber);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Remove a phone number from SafeList. </summary>
         /// <param name="pathPhoneNumber"> The phone number to be removed from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164). </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Safelist </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathPhoneNumber, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathPhoneNumber, IKandyRestClient client = null)
         {
-            var options = new DeleteSafelistOptions(pathPhoneNumber) ;
+            var options = new DeleteSafelistOptions(pathPhoneNumber);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchSafelistOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchSafelistOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/SafeList/Numbers/{PhoneNumber}";
 
             string PathPhoneNumber = options.PathPhoneNumber;
-            path = path.Replace("{"+"PhoneNumber"+"}", PathPhoneNumber);
+            path = path.Replace("{" + "PhoneNumber" + "}", PathPhoneNumber);
 
             return new Request(
                 HttpMethod.Get,
@@ -186,50 +186,50 @@ namespace Kandy.Rest.Verify.V2
         /// <param name="options"> Fetch Safelist parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Safelist </returns>
-        public static SafelistResource Fetch(FetchSafelistOptions options, ITwilioRestClient client = null)
+        public static SafelistResource Fetch(FetchSafelistOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Check if a phone number exists in SafeList. </summary>
         /// <param name="options"> Fetch Safelist parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Safelist </returns>
         public static async System.Threading.Tasks.Task<SafelistResource> FetchAsync(FetchSafelistOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Check if a phone number exists in SafeList. </summary>
         /// <param name="pathPhoneNumber"> The phone number to be fetched from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164). </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Safelist </returns>
         public static SafelistResource Fetch(
-                                         string pathPhoneNumber, 
-                                         ITwilioRestClient client = null)
+                                         string pathPhoneNumber,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchSafelistOptions(pathPhoneNumber){  };
+            var options = new FetchSafelistOptions(pathPhoneNumber) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Check if a phone number exists in SafeList. </summary>
         /// <param name="pathPhoneNumber"> The phone number to be fetched from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164). </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Safelist </returns>
-        public static async System.Threading.Tasks.Task<SafelistResource> FetchAsync(string pathPhoneNumber, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<SafelistResource> FetchAsync(string pathPhoneNumber, IKandyRestClient client = null)
         {
-            var options = new FetchSafelistOptions(pathPhoneNumber){  };
+            var options = new FetchSafelistOptions(pathPhoneNumber) { };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a SafelistResource object
         /// </summary>
@@ -247,7 +247,7 @@ namespace Kandy.Rest.Verify.V2
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the SafeList resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -262,7 +262,8 @@ namespace Kandy.Rest.Verify.V2
 
 
 
-        private SafelistResource() {
+        private SafelistResource()
+        {
 
         }
     }

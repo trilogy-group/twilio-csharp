@@ -28,16 +28,16 @@ namespace Kandy.Rest.Messaging.V1
 {
     public class DomainConfigResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchDomainConfigOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchDomainConfigOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/LinkShortening/Domains/{DomainSid}/Config";
 
             string PathDomainSid = options.PathDomainSid;
-            path = path.Replace("{"+"DomainSid"+"}", PathDomainSid);
+            path = path.Replace("{" + "DomainSid" + "}", PathDomainSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -52,57 +52,57 @@ namespace Kandy.Rest.Messaging.V1
         /// <param name="options"> Fetch DomainConfig parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of DomainConfig </returns>
-        public static DomainConfigResource Fetch(FetchDomainConfigOptions options, ITwilioRestClient client = null)
+        public static DomainConfigResource Fetch(FetchDomainConfigOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch DomainConfig parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of DomainConfig </returns>
         public static async System.Threading.Tasks.Task<DomainConfigResource> FetchAsync(FetchDomainConfigOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathDomainSid"> Unique string used to identify the domain that this config should be associated with. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of DomainConfig </returns>
         public static DomainConfigResource Fetch(
-                                         string pathDomainSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathDomainSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchDomainConfigOptions(pathDomainSid){  };
+            var options = new FetchDomainConfigOptions(pathDomainSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathDomainSid"> Unique string used to identify the domain that this config should be associated with. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of DomainConfig </returns>
-        public static async System.Threading.Tasks.Task<DomainConfigResource> FetchAsync(string pathDomainSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<DomainConfigResource> FetchAsync(string pathDomainSid, IKandyRestClient client = null)
         {
-            var options = new FetchDomainConfigOptions(pathDomainSid){  };
+            var options = new FetchDomainConfigOptions(pathDomainSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildUpdateRequest(UpdateDomainConfigOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildUpdateRequest(UpdateDomainConfigOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/LinkShortening/Domains/{DomainSid}/Config";
 
             string PathDomainSid = options.PathDomainSid;
-            path = path.Replace("{"+"DomainSid"+"}", PathDomainSid);
+            path = path.Replace("{" + "DomainSid" + "}", PathDomainSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -117,7 +117,7 @@ namespace Kandy.Rest.Messaging.V1
         /// <param name="options"> Update DomainConfig parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of DomainConfig </returns>
-        public static DomainConfigResource Update(UpdateDomainConfigOptions options, ITwilioRestClient client = null)
+        public static DomainConfigResource Update(UpdateDomainConfigOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -128,15 +128,15 @@ namespace Kandy.Rest.Messaging.V1
         /// <param name="options"> Update DomainConfig parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of DomainConfig </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<DomainConfigResource> UpdateAsync(UpdateDomainConfigOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> update </summary>
         /// <param name="pathDomainSid"> Unique string used to identify the domain that this config should be associated with. </param>
@@ -152,13 +152,13 @@ namespace Kandy.Rest.Messaging.V1
                                           Uri callbackUrl = null,
                                           bool? continueOnFailure = null,
                                           bool? disableHttps = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateDomainConfigOptions(pathDomainSid){ FallbackUrl = fallbackUrl, CallbackUrl = callbackUrl, ContinueOnFailure = continueOnFailure, DisableHttps = disableHttps };
+            var options = new UpdateDomainConfigOptions(pathDomainSid) { FallbackUrl = fallbackUrl, CallbackUrl = callbackUrl, ContinueOnFailure = continueOnFailure, DisableHttps = disableHttps };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> update </summary>
         /// <param name="pathDomainSid"> Unique string used to identify the domain that this config should be associated with. </param>
         /// <param name="fallbackUrl"> Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping. </param>
@@ -173,13 +173,13 @@ namespace Kandy.Rest.Messaging.V1
                                                                               Uri callbackUrl = null,
                                                                               bool? continueOnFailure = null,
                                                                               bool? disableHttps = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateDomainConfigOptions(pathDomainSid){ FallbackUrl = fallbackUrl, CallbackUrl = callbackUrl, ContinueOnFailure = continueOnFailure, DisableHttps = disableHttps };
+            var options = new UpdateDomainConfigOptions(pathDomainSid) { FallbackUrl = fallbackUrl, CallbackUrl = callbackUrl, ContinueOnFailure = continueOnFailure, DisableHttps = disableHttps };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a DomainConfigResource object
         /// </summary>
@@ -197,7 +197,7 @@ namespace Kandy.Rest.Messaging.V1
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the Domain resource. </summary> 
         [JsonProperty("domain_sid")]
         public string DomainSid { get; private set; }
@@ -236,7 +236,8 @@ namespace Kandy.Rest.Messaging.V1
 
 
 
-        private DomainConfigResource() {
+        private DomainConfigResource()
+        {
 
         }
     }

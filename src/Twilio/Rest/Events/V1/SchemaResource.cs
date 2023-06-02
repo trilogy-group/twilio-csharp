@@ -28,16 +28,16 @@ namespace Kandy.Rest.Events.V1
 {
     public class SchemaResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchSchemaOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchSchemaOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Schemas/{Id}";
 
             string PathId = options.PathId;
-            path = path.Replace("{"+"Id"+"}", PathId);
+            path = path.Replace("{" + "Id" + "}", PathId);
 
             return new Request(
                 HttpMethod.Get,
@@ -52,50 +52,50 @@ namespace Kandy.Rest.Events.V1
         /// <param name="options"> Fetch Schema parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Schema </returns>
-        public static SchemaResource Fetch(FetchSchemaOptions options, ITwilioRestClient client = null)
+        public static SchemaResource Fetch(FetchSchemaOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific schema with its nested versions. </summary>
         /// <param name="options"> Fetch Schema parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Schema </returns>
         public static async System.Threading.Tasks.Task<SchemaResource> FetchAsync(FetchSchemaOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a specific schema with its nested versions. </summary>
         /// <param name="pathId"> The unique identifier of the schema. Each schema can have multiple versions, that share the same id. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Schema </returns>
         public static SchemaResource Fetch(
-                                         string pathId, 
-                                         ITwilioRestClient client = null)
+                                         string pathId,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchSchemaOptions(pathId){  };
+            var options = new FetchSchemaOptions(pathId) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific schema with its nested versions. </summary>
         /// <param name="pathId"> The unique identifier of the schema. Each schema can have multiple versions, that share the same id. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Schema </returns>
-        public static async System.Threading.Tasks.Task<SchemaResource> FetchAsync(string pathId, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<SchemaResource> FetchAsync(string pathId, IKandyRestClient client = null)
         {
-            var options = new FetchSchemaOptions(pathId){  };
+            var options = new FetchSchemaOptions(pathId) { };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a SchemaResource object
         /// </summary>
@@ -113,7 +113,7 @@ namespace Kandy.Rest.Events.V1
             }
         }
 
-    
+
         ///<summary> The unique identifier of the schema. Each schema can have multiple versions, that share the same id. </summary> 
         [JsonProperty("id")]
         public string Id { get; private set; }
@@ -136,7 +136,8 @@ namespace Kandy.Rest.Events.V1
 
 
 
-        private SchemaResource() {
+        private SchemaResource()
+        {
 
         }
     }

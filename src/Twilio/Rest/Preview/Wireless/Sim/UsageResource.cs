@@ -28,16 +28,16 @@ namespace Kandy.Rest.Preview.Wireless.Sim
 {
     public class UsageResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchUsageOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchUsageOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/wireless/Sims/{SimSid}/Usage";
 
             string PathSimSid = options.PathSimSid;
-            path = path.Replace("{"+"SimSid"+"}", PathSimSid);
+            path = path.Replace("{" + "SimSid" + "}", PathSimSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -52,26 +52,26 @@ namespace Kandy.Rest.Preview.Wireless.Sim
         /// <param name="options"> Fetch Usage parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Usage </returns>
-        public static UsageResource Fetch(FetchUsageOptions options, ITwilioRestClient client = null)
+        public static UsageResource Fetch(FetchUsageOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch Usage parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Usage </returns>
         public static async System.Threading.Tasks.Task<UsageResource> FetchAsync(FetchUsageOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathSimSid">  </param>
         /// <param name="end">  </param>
@@ -79,29 +79,29 @@ namespace Kandy.Rest.Preview.Wireless.Sim
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Usage </returns>
         public static UsageResource Fetch(
-                                         string pathSimSid, 
-                                         string end = null, 
-                                         string start = null, 
-                                         ITwilioRestClient client = null)
+                                         string pathSimSid,
+                                         string end = null,
+                                         string start = null,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchUsageOptions(pathSimSid){ End = end,Start = start };
+            var options = new FetchUsageOptions(pathSimSid) { End = end, Start = start };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathSimSid">  </param>
         /// <param name="end">  </param>
         /// <param name="start">  </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Usage </returns>
-        public static async System.Threading.Tasks.Task<UsageResource> FetchAsync(string pathSimSid, string end = null, string start = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<UsageResource> FetchAsync(string pathSimSid, string end = null, string start = null, IKandyRestClient client = null)
         {
-            var options = new FetchUsageOptions(pathSimSid){ End = end,Start = start };
+            var options = new FetchUsageOptions(pathSimSid) { End = end, Start = start };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a UsageResource object
         /// </summary>
@@ -119,7 +119,7 @@ namespace Kandy.Rest.Preview.Wireless.Sim
             }
         }
 
-    
+
         ///<summary> The sim_sid </summary> 
         [JsonProperty("sim_sid")]
         public string SimSid { get; private set; }
@@ -158,7 +158,8 @@ namespace Kandy.Rest.Preview.Wireless.Sim
 
 
 
-        private UsageResource() {
+        private UsageResource()
+        {
 
         }
     }

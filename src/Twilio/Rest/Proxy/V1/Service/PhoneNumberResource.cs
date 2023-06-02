@@ -28,16 +28,16 @@ namespace Kandy.Rest.Proxy.V1.Service
 {
     public class PhoneNumberResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreatePhoneNumberOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreatePhoneNumberOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/PhoneNumbers";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -52,26 +52,26 @@ namespace Kandy.Rest.Proxy.V1.Service
         /// <param name="options"> Create PhoneNumber parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of PhoneNumber </returns>
-        public static PhoneNumberResource Create(CreatePhoneNumberOptions options, ITwilioRestClient client = null)
+        public static PhoneNumberResource Create(CreatePhoneNumberOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Add a Phone Number to a Service's Proxy Number Pool. </summary>
         /// <param name="options"> Create PhoneNumber parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of PhoneNumber </returns>
         public static async System.Threading.Tasks.Task<PhoneNumberResource> CreateAsync(CreatePhoneNumberOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Add a Phone Number to a Service's Proxy Number Pool. </summary>
         /// <param name="pathServiceSid"> The SID parent [Service](https://www.twilio.com/docs/proxy/api/service) resource of the new PhoneNumber resource. </param>
@@ -85,13 +85,13 @@ namespace Kandy.Rest.Proxy.V1.Service
                                           string sid = null,
                                           Types.PhoneNumber phoneNumber = null,
                                           bool? isReserved = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreatePhoneNumberOptions(pathServiceSid){  Sid = sid, PhoneNumber = phoneNumber, IsReserved = isReserved };
+            var options = new CreatePhoneNumberOptions(pathServiceSid) { Sid = sid, PhoneNumber = phoneNumber, IsReserved = isReserved };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Add a Phone Number to a Service's Proxy Number Pool. </summary>
         /// <param name="pathServiceSid"> The SID parent [Service](https://www.twilio.com/docs/proxy/api/service) resource of the new PhoneNumber resource. </param>
         /// <param name="sid"> The SID of a Twilio [IncomingPhoneNumber](https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource) resource that represents the Twilio Number you would like to assign to your Proxy Service. </param>
@@ -104,26 +104,26 @@ namespace Kandy.Rest.Proxy.V1.Service
                                                                                   string sid = null,
                                                                                   Types.PhoneNumber phoneNumber = null,
                                                                                   bool? isReserved = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreatePhoneNumberOptions(pathServiceSid){  Sid = sid, PhoneNumber = phoneNumber, IsReserved = isReserved };
+            var options = new CreatePhoneNumberOptions(pathServiceSid) { Sid = sid, PhoneNumber = phoneNumber, IsReserved = isReserved };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Delete a specific Phone Number from a Service. </summary>
         /// <param name="options"> Delete PhoneNumber parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of PhoneNumber </returns>
-        private static Request BuildDeleteRequest(DeletePhoneNumberOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeletePhoneNumberOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/PhoneNumbers/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -138,60 +138,60 @@ namespace Kandy.Rest.Proxy.V1.Service
         /// <param name="options"> Delete PhoneNumber parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of PhoneNumber </returns>
-        public static bool Delete(DeletePhoneNumberOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeletePhoneNumberOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific Phone Number from a Service. </summary>
         /// <param name="options"> Delete PhoneNumber parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of PhoneNumber </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeletePhoneNumberOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete a specific Phone Number from a Service. </summary>
         /// <param name="pathServiceSid"> The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the PhoneNumber resource to delete. </param>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the PhoneNumber resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of PhoneNumber </returns>
-        public static bool Delete(string pathServiceSid, string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathServiceSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeletePhoneNumberOptions(pathServiceSid, pathSid)        ;
+            var options = new DeletePhoneNumberOptions(pathServiceSid, pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific Phone Number from a Service. </summary>
         /// <param name="pathServiceSid"> The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the PhoneNumber resource to delete. </param>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the PhoneNumber resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of PhoneNumber </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeletePhoneNumberOptions(pathServiceSid, pathSid) ;
+            var options = new DeletePhoneNumberOptions(pathServiceSid, pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchPhoneNumberOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchPhoneNumberOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/PhoneNumbers/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -206,60 +206,60 @@ namespace Kandy.Rest.Proxy.V1.Service
         /// <param name="options"> Fetch PhoneNumber parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of PhoneNumber </returns>
-        public static PhoneNumberResource Fetch(FetchPhoneNumberOptions options, ITwilioRestClient client = null)
+        public static PhoneNumberResource Fetch(FetchPhoneNumberOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Phone Number. </summary>
         /// <param name="options"> Fetch PhoneNumber parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of PhoneNumber </returns>
         public static async System.Threading.Tasks.Task<PhoneNumberResource> FetchAsync(FetchPhoneNumberOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a specific Phone Number. </summary>
         /// <param name="pathServiceSid"> The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the PhoneNumber resource to fetch. </param>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the PhoneNumber resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of PhoneNumber </returns>
         public static PhoneNumberResource Fetch(
-                                         string pathServiceSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathServiceSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchPhoneNumberOptions(pathServiceSid, pathSid){  };
+            var options = new FetchPhoneNumberOptions(pathServiceSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Phone Number. </summary>
         /// <param name="pathServiceSid"> The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the PhoneNumber resource to fetch. </param>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the PhoneNumber resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of PhoneNumber </returns>
-        public static async System.Threading.Tasks.Task<PhoneNumberResource> FetchAsync(string pathServiceSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<PhoneNumberResource> FetchAsync(string pathServiceSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchPhoneNumberOptions(pathServiceSid, pathSid){  };
+            var options = new FetchPhoneNumberOptions(pathServiceSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadPhoneNumberOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadPhoneNumberOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/PhoneNumbers";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -273,7 +273,7 @@ namespace Kandy.Rest.Proxy.V1.Service
         /// <param name="options"> Read PhoneNumber parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of PhoneNumber </returns>
-        public static ResourceSet<PhoneNumberResource> Read(ReadPhoneNumberOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<PhoneNumberResource> Read(ReadPhoneNumberOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -281,13 +281,13 @@ namespace Kandy.Rest.Proxy.V1.Service
             return new ResourceSet<PhoneNumberResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Phone Numbers in the Proxy Number Pool for a Service. A maximum of 100 records will be returned per page. </summary>
         /// <param name="options"> Read PhoneNumber parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of PhoneNumber </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<PhoneNumberResource>> ReadAsync(ReadPhoneNumberOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -295,7 +295,7 @@ namespace Kandy.Rest.Proxy.V1.Service
             var page = Page<PhoneNumberResource>.FromJson("phone_numbers", response.Content);
             return new ResourceSet<PhoneNumberResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Phone Numbers in the Proxy Number Pool for a Service. A maximum of 100 records will be returned per page. </summary>
         /// <param name="pathServiceSid"> The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the PhoneNumber resources to read. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -306,13 +306,13 @@ namespace Kandy.Rest.Proxy.V1.Service
                                                      string pathServiceSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadPhoneNumberOptions(pathServiceSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadPhoneNumberOptions(pathServiceSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Phone Numbers in the Proxy Number Pool for a Service. A maximum of 100 records will be returned per page. </summary>
         /// <param name="pathServiceSid"> The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the PhoneNumber resources to read. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -323,19 +323,19 @@ namespace Kandy.Rest.Proxy.V1.Service
                                                                                              string pathServiceSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadPhoneNumberOptions(pathServiceSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadPhoneNumberOptions(pathServiceSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<PhoneNumberResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<PhoneNumberResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -352,7 +352,7 @@ namespace Kandy.Rest.Proxy.V1.Service
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<PhoneNumberResource> NextPage(Page<PhoneNumberResource> page, ITwilioRestClient client)
+        public static Page<PhoneNumberResource> NextPage(Page<PhoneNumberResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -367,7 +367,7 @@ namespace Kandy.Rest.Proxy.V1.Service
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<PhoneNumberResource> PreviousPage(Page<PhoneNumberResource> page, ITwilioRestClient client)
+        public static Page<PhoneNumberResource> PreviousPage(Page<PhoneNumberResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -378,16 +378,16 @@ namespace Kandy.Rest.Proxy.V1.Service
             return Page<PhoneNumberResource>.FromJson("phone_numbers", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdatePhoneNumberOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdatePhoneNumberOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/PhoneNumbers/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -402,7 +402,7 @@ namespace Kandy.Rest.Proxy.V1.Service
         /// <param name="options"> Update PhoneNumber parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of PhoneNumber </returns>
-        public static PhoneNumberResource Update(UpdatePhoneNumberOptions options, ITwilioRestClient client = null)
+        public static PhoneNumberResource Update(UpdatePhoneNumberOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -413,15 +413,15 @@ namespace Kandy.Rest.Proxy.V1.Service
         /// <param name="options"> Update PhoneNumber parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of PhoneNumber </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<PhoneNumberResource> UpdateAsync(UpdatePhoneNumberOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update a specific Proxy Number. </summary>
         /// <param name="pathServiceSid"> The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the PhoneNumber resource to update. </param>
@@ -433,13 +433,13 @@ namespace Kandy.Rest.Proxy.V1.Service
                                           string pathServiceSid,
                                           string pathSid,
                                           bool? isReserved = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdatePhoneNumberOptions(pathServiceSid, pathSid){ IsReserved = isReserved };
+            var options = new UpdatePhoneNumberOptions(pathServiceSid, pathSid) { IsReserved = isReserved };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update a specific Proxy Number. </summary>
         /// <param name="pathServiceSid"> The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the PhoneNumber resource to update. </param>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the PhoneNumber resource to update. </param>
@@ -450,13 +450,13 @@ namespace Kandy.Rest.Proxy.V1.Service
                                                                               string pathServiceSid,
                                                                               string pathSid,
                                                                               bool? isReserved = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdatePhoneNumberOptions(pathServiceSid, pathSid){ IsReserved = isReserved };
+            var options = new UpdatePhoneNumberOptions(pathServiceSid, pathSid) { IsReserved = isReserved };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a PhoneNumberResource object
         /// </summary>
@@ -474,7 +474,7 @@ namespace Kandy.Rest.Proxy.V1.Service
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the PhoneNumber resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -526,7 +526,8 @@ namespace Kandy.Rest.Proxy.V1.Service
 
 
 
-        private PhoneNumberResource() {
+        private PhoneNumberResource()
+        {
 
         }
     }

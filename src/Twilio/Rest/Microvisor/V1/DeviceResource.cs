@@ -28,16 +28,16 @@ namespace Kandy.Rest.Microvisor.V1
 {
     public class DeviceResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchDeviceOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchDeviceOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Devices/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -52,53 +52,53 @@ namespace Kandy.Rest.Microvisor.V1
         /// <param name="options"> Fetch Device parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Device </returns>
-        public static DeviceResource Fetch(FetchDeviceOptions options, ITwilioRestClient client = null)
+        public static DeviceResource Fetch(FetchDeviceOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Device. </summary>
         /// <param name="options"> Fetch Device parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Device </returns>
         public static async System.Threading.Tasks.Task<DeviceResource> FetchAsync(FetchDeviceOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a specific Device. </summary>
         /// <param name="pathSid"> A 34-character string that uniquely identifies this Device. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Device </returns>
         public static DeviceResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchDeviceOptions(pathSid){  };
+            var options = new FetchDeviceOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Device. </summary>
         /// <param name="pathSid"> A 34-character string that uniquely identifies this Device. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Device </returns>
-        public static async System.Threading.Tasks.Task<DeviceResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<DeviceResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchDeviceOptions(pathSid){  };
+            var options = new FetchDeviceOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadDeviceOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadDeviceOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Devices";
 
 
@@ -114,7 +114,7 @@ namespace Kandy.Rest.Microvisor.V1
         /// <param name="options"> Read Device parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Device </returns>
-        public static ResourceSet<DeviceResource> Read(ReadDeviceOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<DeviceResource> Read(ReadDeviceOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -122,13 +122,13 @@ namespace Kandy.Rest.Microvisor.V1
             return new ResourceSet<DeviceResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Devices registered with the Account. </summary>
         /// <param name="options"> Read Device parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Device </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<DeviceResource>> ReadAsync(ReadDeviceOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -136,7 +136,7 @@ namespace Kandy.Rest.Microvisor.V1
             var page = Page<DeviceResource>.FromJson("devices", response.Content);
             return new ResourceSet<DeviceResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Devices registered with the Account. </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -145,13 +145,13 @@ namespace Kandy.Rest.Microvisor.V1
         public static ResourceSet<DeviceResource> Read(
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadDeviceOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadDeviceOptions() { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Devices registered with the Account. </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -160,19 +160,19 @@ namespace Kandy.Rest.Microvisor.V1
         public static async System.Threading.Tasks.Task<ResourceSet<DeviceResource>> ReadAsync(
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadDeviceOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadDeviceOptions() { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<DeviceResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<DeviceResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -189,7 +189,7 @@ namespace Kandy.Rest.Microvisor.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<DeviceResource> NextPage(Page<DeviceResource> page, ITwilioRestClient client)
+        public static Page<DeviceResource> NextPage(Page<DeviceResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -204,7 +204,7 @@ namespace Kandy.Rest.Microvisor.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<DeviceResource> PreviousPage(Page<DeviceResource> page, ITwilioRestClient client)
+        public static Page<DeviceResource> PreviousPage(Page<DeviceResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -215,14 +215,14 @@ namespace Kandy.Rest.Microvisor.V1
             return Page<DeviceResource>.FromJson("devices", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateDeviceOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateDeviceOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Devices/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -237,7 +237,7 @@ namespace Kandy.Rest.Microvisor.V1
         /// <param name="options"> Update Device parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Device </returns>
-        public static DeviceResource Update(UpdateDeviceOptions options, ITwilioRestClient client = null)
+        public static DeviceResource Update(UpdateDeviceOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -248,15 +248,15 @@ namespace Kandy.Rest.Microvisor.V1
         /// <param name="options"> Update Device parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Device </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<DeviceResource> UpdateAsync(UpdateDeviceOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update a specific Device. </summary>
         /// <param name="pathSid"> A 34-character string that uniquely identifies this Device. </param>
@@ -270,13 +270,13 @@ namespace Kandy.Rest.Microvisor.V1
                                           string uniqueName = null,
                                           string targetApp = null,
                                           bool? loggingEnabled = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateDeviceOptions(pathSid){ UniqueName = uniqueName, TargetApp = targetApp, LoggingEnabled = loggingEnabled };
+            var options = new UpdateDeviceOptions(pathSid) { UniqueName = uniqueName, TargetApp = targetApp, LoggingEnabled = loggingEnabled };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update a specific Device. </summary>
         /// <param name="pathSid"> A 34-character string that uniquely identifies this Device. </param>
         /// <param name="uniqueName"> A unique and addressable name to be assigned to this Device by the developer. It may be used in place of the Device SID. </param>
@@ -289,13 +289,13 @@ namespace Kandy.Rest.Microvisor.V1
                                                                               string uniqueName = null,
                                                                               string targetApp = null,
                                                                               bool? loggingEnabled = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateDeviceOptions(pathSid){ UniqueName = uniqueName, TargetApp = targetApp, LoggingEnabled = loggingEnabled };
+            var options = new UpdateDeviceOptions(pathSid) { UniqueName = uniqueName, TargetApp = targetApp, LoggingEnabled = loggingEnabled };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a DeviceResource object
         /// </summary>
@@ -313,7 +313,7 @@ namespace Kandy.Rest.Microvisor.V1
             }
         }
 
-    
+
         ///<summary> A 34-character string that uniquely identifies this Device. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -352,7 +352,8 @@ namespace Kandy.Rest.Microvisor.V1
 
 
 
-        private DeviceResource() {
+        private DeviceResource()
+        {
 
         }
     }

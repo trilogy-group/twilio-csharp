@@ -28,18 +28,18 @@ namespace Kandy.Rest.Events.V1.Schema
 {
     public class SchemaVersionResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchSchemaVersionOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchSchemaVersionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Schemas/{Id}/Versions/{SchemaVersion}";
 
             string PathId = options.PathId;
-            path = path.Replace("{"+"Id"+"}", PathId);
+            path = path.Replace("{" + "Id" + "}", PathId);
             string PathSchemaVersion = options.PathSchemaVersion.ToString();
-            path = path.Replace("{"+"SchemaVersion"+"}", PathSchemaVersion);
+            path = path.Replace("{" + "SchemaVersion" + "}", PathSchemaVersion);
 
             return new Request(
                 HttpMethod.Get,
@@ -54,60 +54,60 @@ namespace Kandy.Rest.Events.V1.Schema
         /// <param name="options"> Fetch SchemaVersion parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SchemaVersion </returns>
-        public static SchemaVersionResource Fetch(FetchSchemaVersionOptions options, ITwilioRestClient client = null)
+        public static SchemaVersionResource Fetch(FetchSchemaVersionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific schema and version. </summary>
         /// <param name="options"> Fetch SchemaVersion parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SchemaVersion </returns>
         public static async System.Threading.Tasks.Task<SchemaVersionResource> FetchAsync(FetchSchemaVersionOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a specific schema and version. </summary>
         /// <param name="pathId"> The unique identifier of the schema. Each schema can have multiple versions, that share the same id. </param>
         /// <param name="pathSchemaVersion"> The version of the schema </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SchemaVersion </returns>
         public static SchemaVersionResource Fetch(
-                                         string pathId, 
-                                         int? pathSchemaVersion, 
-                                         ITwilioRestClient client = null)
+                                         string pathId,
+                                         int? pathSchemaVersion,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchSchemaVersionOptions(pathId, pathSchemaVersion){  };
+            var options = new FetchSchemaVersionOptions(pathId, pathSchemaVersion) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific schema and version. </summary>
         /// <param name="pathId"> The unique identifier of the schema. Each schema can have multiple versions, that share the same id. </param>
         /// <param name="pathSchemaVersion"> The version of the schema </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SchemaVersion </returns>
-        public static async System.Threading.Tasks.Task<SchemaVersionResource> FetchAsync(string pathId, int? pathSchemaVersion, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<SchemaVersionResource> FetchAsync(string pathId, int? pathSchemaVersion, IKandyRestClient client = null)
         {
-            var options = new FetchSchemaVersionOptions(pathId, pathSchemaVersion){  };
+            var options = new FetchSchemaVersionOptions(pathId, pathSchemaVersion) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadSchemaVersionOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadSchemaVersionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Schemas/{Id}/Versions";
 
             string PathId = options.PathId;
-            path = path.Replace("{"+"Id"+"}", PathId);
+            path = path.Replace("{" + "Id" + "}", PathId);
 
             return new Request(
                 HttpMethod.Get,
@@ -121,7 +121,7 @@ namespace Kandy.Rest.Events.V1.Schema
         /// <param name="options"> Read SchemaVersion parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SchemaVersion </returns>
-        public static ResourceSet<SchemaVersionResource> Read(ReadSchemaVersionOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<SchemaVersionResource> Read(ReadSchemaVersionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -129,13 +129,13 @@ namespace Kandy.Rest.Events.V1.Schema
             return new ResourceSet<SchemaVersionResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a paginated list of versions of the schema. </summary>
         /// <param name="options"> Read SchemaVersion parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SchemaVersion </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<SchemaVersionResource>> ReadAsync(ReadSchemaVersionOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -143,7 +143,7 @@ namespace Kandy.Rest.Events.V1.Schema
             var page = Page<SchemaVersionResource>.FromJson("schema_versions", response.Content);
             return new ResourceSet<SchemaVersionResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a paginated list of versions of the schema. </summary>
         /// <param name="pathId"> The unique identifier of the schema. Each schema can have multiple versions, that share the same id. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -154,13 +154,13 @@ namespace Kandy.Rest.Events.V1.Schema
                                                      string pathId,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadSchemaVersionOptions(pathId){ PageSize = pageSize, Limit = limit};
+            var options = new ReadSchemaVersionOptions(pathId) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a paginated list of versions of the schema. </summary>
         /// <param name="pathId"> The unique identifier of the schema. Each schema can have multiple versions, that share the same id. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -171,19 +171,19 @@ namespace Kandy.Rest.Events.V1.Schema
                                                                                              string pathId,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadSchemaVersionOptions(pathId){ PageSize = pageSize, Limit = limit};
+            var options = new ReadSchemaVersionOptions(pathId) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<SchemaVersionResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<SchemaVersionResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -200,7 +200,7 @@ namespace Kandy.Rest.Events.V1.Schema
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<SchemaVersionResource> NextPage(Page<SchemaVersionResource> page, ITwilioRestClient client)
+        public static Page<SchemaVersionResource> NextPage(Page<SchemaVersionResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -215,7 +215,7 @@ namespace Kandy.Rest.Events.V1.Schema
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<SchemaVersionResource> PreviousPage(Page<SchemaVersionResource> page, ITwilioRestClient client)
+        public static Page<SchemaVersionResource> PreviousPage(Page<SchemaVersionResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -226,7 +226,7 @@ namespace Kandy.Rest.Events.V1.Schema
             return Page<SchemaVersionResource>.FromJson("schema_versions", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a SchemaVersionResource object
         /// </summary>
@@ -244,7 +244,7 @@ namespace Kandy.Rest.Events.V1.Schema
             }
         }
 
-    
+
         ///<summary> The unique identifier of the schema. Each schema can have multiple versions, that share the same id. </summary> 
         [JsonProperty("id")]
         public string Id { get; private set; }
@@ -267,7 +267,8 @@ namespace Kandy.Rest.Events.V1.Schema
 
 
 
-        private SchemaVersionResource() {
+        private SchemaVersionResource()
+        {
 
         }
     }

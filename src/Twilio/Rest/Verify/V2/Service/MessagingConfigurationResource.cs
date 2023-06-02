@@ -28,16 +28,16 @@ namespace Kandy.Rest.Verify.V2.Service
 {
     public class MessagingConfigurationResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateMessagingConfigurationOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateMessagingConfigurationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Services/{ServiceSid}/MessagingConfigurations";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -52,26 +52,26 @@ namespace Kandy.Rest.Verify.V2.Service
         /// <param name="options"> Create MessagingConfiguration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of MessagingConfiguration </returns>
-        public static MessagingConfigurationResource Create(CreateMessagingConfigurationOptions options, ITwilioRestClient client = null)
+        public static MessagingConfigurationResource Create(CreateMessagingConfigurationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new MessagingConfiguration for a service. </summary>
         /// <param name="options"> Create MessagingConfiguration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of MessagingConfiguration </returns>
         public static async System.Threading.Tasks.Task<MessagingConfigurationResource> CreateAsync(CreateMessagingConfigurationOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new MessagingConfiguration for a service. </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/verify/api/service) that the resource is associated with. </param>
@@ -83,13 +83,13 @@ namespace Kandy.Rest.Verify.V2.Service
                                           string pathServiceSid,
                                           string country,
                                           string messagingServiceSid,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateMessagingConfigurationOptions(pathServiceSid, country, messagingServiceSid){  };
+            var options = new CreateMessagingConfigurationOptions(pathServiceSid, country, messagingServiceSid) { };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new MessagingConfiguration for a service. </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/verify/api/service) that the resource is associated with. </param>
         /// <param name="country"> The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`. </param>
@@ -100,26 +100,26 @@ namespace Kandy.Rest.Verify.V2.Service
                                                                                   string pathServiceSid,
                                                                                   string country,
                                                                                   string messagingServiceSid,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateMessagingConfigurationOptions(pathServiceSid, country, messagingServiceSid){  };
+            var options = new CreateMessagingConfigurationOptions(pathServiceSid, country, messagingServiceSid) { };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Delete a specific MessagingConfiguration. </summary>
         /// <param name="options"> Delete MessagingConfiguration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of MessagingConfiguration </returns>
-        private static Request BuildDeleteRequest(DeleteMessagingConfigurationOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteMessagingConfigurationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Services/{ServiceSid}/MessagingConfigurations/{Country}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathCountry = options.PathCountry;
-            path = path.Replace("{"+"Country"+"}", PathCountry);
+            path = path.Replace("{" + "Country" + "}", PathCountry);
 
             return new Request(
                 HttpMethod.Delete,
@@ -134,60 +134,60 @@ namespace Kandy.Rest.Verify.V2.Service
         /// <param name="options"> Delete MessagingConfiguration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of MessagingConfiguration </returns>
-        public static bool Delete(DeleteMessagingConfigurationOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteMessagingConfigurationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific MessagingConfiguration. </summary>
         /// <param name="options"> Delete MessagingConfiguration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of MessagingConfiguration </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteMessagingConfigurationOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete a specific MessagingConfiguration. </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/verify/api/service) that the resource is associated with. </param>
         /// <param name="pathCountry"> The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of MessagingConfiguration </returns>
-        public static bool Delete(string pathServiceSid, string pathCountry, ITwilioRestClient client = null)
+        public static bool Delete(string pathServiceSid, string pathCountry, IKandyRestClient client = null)
         {
-            var options = new DeleteMessagingConfigurationOptions(pathServiceSid, pathCountry)        ;
+            var options = new DeleteMessagingConfigurationOptions(pathServiceSid, pathCountry);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific MessagingConfiguration. </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/verify/api/service) that the resource is associated with. </param>
         /// <param name="pathCountry"> The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of MessagingConfiguration </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathCountry, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathCountry, IKandyRestClient client = null)
         {
-            var options = new DeleteMessagingConfigurationOptions(pathServiceSid, pathCountry) ;
+            var options = new DeleteMessagingConfigurationOptions(pathServiceSid, pathCountry);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchMessagingConfigurationOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchMessagingConfigurationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Services/{ServiceSid}/MessagingConfigurations/{Country}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathCountry = options.PathCountry;
-            path = path.Replace("{"+"Country"+"}", PathCountry);
+            path = path.Replace("{" + "Country" + "}", PathCountry);
 
             return new Request(
                 HttpMethod.Get,
@@ -202,60 +202,60 @@ namespace Kandy.Rest.Verify.V2.Service
         /// <param name="options"> Fetch MessagingConfiguration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of MessagingConfiguration </returns>
-        public static MessagingConfigurationResource Fetch(FetchMessagingConfigurationOptions options, ITwilioRestClient client = null)
+        public static MessagingConfigurationResource Fetch(FetchMessagingConfigurationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific MessagingConfiguration. </summary>
         /// <param name="options"> Fetch MessagingConfiguration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of MessagingConfiguration </returns>
         public static async System.Threading.Tasks.Task<MessagingConfigurationResource> FetchAsync(FetchMessagingConfigurationOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a specific MessagingConfiguration. </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/verify/api/service) that the resource is associated with. </param>
         /// <param name="pathCountry"> The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of MessagingConfiguration </returns>
         public static MessagingConfigurationResource Fetch(
-                                         string pathServiceSid, 
-                                         string pathCountry, 
-                                         ITwilioRestClient client = null)
+                                         string pathServiceSid,
+                                         string pathCountry,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchMessagingConfigurationOptions(pathServiceSid, pathCountry){  };
+            var options = new FetchMessagingConfigurationOptions(pathServiceSid, pathCountry) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific MessagingConfiguration. </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/verify/api/service) that the resource is associated with. </param>
         /// <param name="pathCountry"> The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of MessagingConfiguration </returns>
-        public static async System.Threading.Tasks.Task<MessagingConfigurationResource> FetchAsync(string pathServiceSid, string pathCountry, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<MessagingConfigurationResource> FetchAsync(string pathServiceSid, string pathCountry, IKandyRestClient client = null)
         {
-            var options = new FetchMessagingConfigurationOptions(pathServiceSid, pathCountry){  };
+            var options = new FetchMessagingConfigurationOptions(pathServiceSid, pathCountry) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadMessagingConfigurationOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadMessagingConfigurationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Services/{ServiceSid}/MessagingConfigurations";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -269,7 +269,7 @@ namespace Kandy.Rest.Verify.V2.Service
         /// <param name="options"> Read MessagingConfiguration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of MessagingConfiguration </returns>
-        public static ResourceSet<MessagingConfigurationResource> Read(ReadMessagingConfigurationOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<MessagingConfigurationResource> Read(ReadMessagingConfigurationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -277,13 +277,13 @@ namespace Kandy.Rest.Verify.V2.Service
             return new ResourceSet<MessagingConfigurationResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Messaging Configurations for a Service. </summary>
         /// <param name="options"> Read MessagingConfiguration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of MessagingConfiguration </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<MessagingConfigurationResource>> ReadAsync(ReadMessagingConfigurationOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -291,7 +291,7 @@ namespace Kandy.Rest.Verify.V2.Service
             var page = Page<MessagingConfigurationResource>.FromJson("messaging_configurations", response.Content);
             return new ResourceSet<MessagingConfigurationResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Messaging Configurations for a Service. </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/verify/api/service) that the resource is associated with. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -302,13 +302,13 @@ namespace Kandy.Rest.Verify.V2.Service
                                                      string pathServiceSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadMessagingConfigurationOptions(pathServiceSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadMessagingConfigurationOptions(pathServiceSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Messaging Configurations for a Service. </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/verify/api/service) that the resource is associated with. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -319,19 +319,19 @@ namespace Kandy.Rest.Verify.V2.Service
                                                                                              string pathServiceSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadMessagingConfigurationOptions(pathServiceSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadMessagingConfigurationOptions(pathServiceSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<MessagingConfigurationResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<MessagingConfigurationResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -348,7 +348,7 @@ namespace Kandy.Rest.Verify.V2.Service
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<MessagingConfigurationResource> NextPage(Page<MessagingConfigurationResource> page, ITwilioRestClient client)
+        public static Page<MessagingConfigurationResource> NextPage(Page<MessagingConfigurationResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -363,7 +363,7 @@ namespace Kandy.Rest.Verify.V2.Service
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<MessagingConfigurationResource> PreviousPage(Page<MessagingConfigurationResource> page, ITwilioRestClient client)
+        public static Page<MessagingConfigurationResource> PreviousPage(Page<MessagingConfigurationResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -374,16 +374,16 @@ namespace Kandy.Rest.Verify.V2.Service
             return Page<MessagingConfigurationResource>.FromJson("messaging_configurations", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateMessagingConfigurationOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateMessagingConfigurationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Services/{ServiceSid}/MessagingConfigurations/{Country}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathCountry = options.PathCountry;
-            path = path.Replace("{"+"Country"+"}", PathCountry);
+            path = path.Replace("{" + "Country" + "}", PathCountry);
 
             return new Request(
                 HttpMethod.Post,
@@ -398,7 +398,7 @@ namespace Kandy.Rest.Verify.V2.Service
         /// <param name="options"> Update MessagingConfiguration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of MessagingConfiguration </returns>
-        public static MessagingConfigurationResource Update(UpdateMessagingConfigurationOptions options, ITwilioRestClient client = null)
+        public static MessagingConfigurationResource Update(UpdateMessagingConfigurationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -409,15 +409,15 @@ namespace Kandy.Rest.Verify.V2.Service
         /// <param name="options"> Update MessagingConfiguration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of MessagingConfiguration </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<MessagingConfigurationResource> UpdateAsync(UpdateMessagingConfigurationOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update a specific MessagingConfiguration </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/verify/api/service) that the resource is associated with. </param>
@@ -429,13 +429,13 @@ namespace Kandy.Rest.Verify.V2.Service
                                           string pathServiceSid,
                                           string pathCountry,
                                           string messagingServiceSid,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateMessagingConfigurationOptions(pathServiceSid, pathCountry, messagingServiceSid){  };
+            var options = new UpdateMessagingConfigurationOptions(pathServiceSid, pathCountry, messagingServiceSid) { };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update a specific MessagingConfiguration </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/verify/api/service) that the resource is associated with. </param>
         /// <param name="pathCountry"> The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`. </param>
@@ -446,13 +446,13 @@ namespace Kandy.Rest.Verify.V2.Service
                                                                               string pathServiceSid,
                                                                               string pathCountry,
                                                                               string messagingServiceSid,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateMessagingConfigurationOptions(pathServiceSid, pathCountry, messagingServiceSid){  };
+            var options = new UpdateMessagingConfigurationOptions(pathServiceSid, pathCountry, messagingServiceSid) { };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a MessagingConfigurationResource object
         /// </summary>
@@ -470,7 +470,7 @@ namespace Kandy.Rest.Verify.V2.Service
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -501,7 +501,8 @@ namespace Kandy.Rest.Verify.V2.Service
 
 
 
-        private MessagingConfigurationResource() {
+        private MessagingConfigurationResource()
+        {
 
         }
     }

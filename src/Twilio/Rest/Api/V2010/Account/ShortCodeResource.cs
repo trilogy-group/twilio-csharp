@@ -28,18 +28,18 @@ namespace Kandy.Rest.Api.V2010.Account
 {
     public class ShortCodeResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchShortCodeOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchShortCodeOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -54,60 +54,60 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="options"> Fetch ShortCode parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ShortCode </returns>
-        public static ShortCodeResource Fetch(FetchShortCodeOptions options, ITwilioRestClient client = null)
+        public static ShortCodeResource Fetch(FetchShortCodeOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch an instance of a short code </summary>
         /// <param name="options"> Fetch ShortCode parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ShortCode </returns>
         public static async System.Threading.Tasks.Task<ShortCodeResource> FetchAsync(FetchShortCodeOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch an instance of a short code </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the ShortCode resource to fetch </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource(s) to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ShortCode </returns>
         public static ShortCodeResource Fetch(
-                                         string pathSid, 
-                                         string pathAccountSid = null, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         string pathAccountSid = null,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchShortCodeOptions(pathSid){ PathAccountSid = pathAccountSid };
+            var options = new FetchShortCodeOptions(pathSid) { PathAccountSid = pathAccountSid };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch an instance of a short code </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the ShortCode resource to fetch </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource(s) to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ShortCode </returns>
-        public static async System.Threading.Tasks.Task<ShortCodeResource> FetchAsync(string pathSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<ShortCodeResource> FetchAsync(string pathSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new FetchShortCodeOptions(pathSid){ PathAccountSid = pathAccountSid };
+            var options = new FetchShortCodeOptions(pathSid) { PathAccountSid = pathAccountSid };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadShortCodeOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadShortCodeOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -121,7 +121,7 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="options"> Read ShortCode parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ShortCode </returns>
-        public static ResourceSet<ShortCodeResource> Read(ReadShortCodeOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<ShortCodeResource> Read(ReadShortCodeOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -129,13 +129,13 @@ namespace Kandy.Rest.Api.V2010.Account
             return new ResourceSet<ShortCodeResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of short-codes belonging to the account used to make the request </summary>
         /// <param name="options"> Read ShortCode parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ShortCode </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<ShortCodeResource>> ReadAsync(ReadShortCodeOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -143,7 +143,7 @@ namespace Kandy.Rest.Api.V2010.Account
             var page = Page<ShortCodeResource>.FromJson("short_codes", response.Content);
             return new ResourceSet<ShortCodeResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of short-codes belonging to the account used to make the request </summary>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource(s) to read. </param>
         /// <param name="friendlyName"> The string that identifies the ShortCode resources to read. </param>
@@ -158,13 +158,13 @@ namespace Kandy.Rest.Api.V2010.Account
                                                      string shortCode = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadShortCodeOptions(){ PathAccountSid = pathAccountSid, FriendlyName = friendlyName, ShortCode = shortCode, PageSize = pageSize, Limit = limit};
+            var options = new ReadShortCodeOptions() { PathAccountSid = pathAccountSid, FriendlyName = friendlyName, ShortCode = shortCode, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of short-codes belonging to the account used to make the request </summary>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource(s) to read. </param>
         /// <param name="friendlyName"> The string that identifies the ShortCode resources to read. </param>
@@ -179,19 +179,19 @@ namespace Kandy.Rest.Api.V2010.Account
                                                                                              string shortCode = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadShortCodeOptions(){ PathAccountSid = pathAccountSid, FriendlyName = friendlyName, ShortCode = shortCode, PageSize = pageSize, Limit = limit};
+            var options = new ReadShortCodeOptions() { PathAccountSid = pathAccountSid, FriendlyName = friendlyName, ShortCode = shortCode, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<ShortCodeResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<ShortCodeResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -208,7 +208,7 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<ShortCodeResource> NextPage(Page<ShortCodeResource> page, ITwilioRestClient client)
+        public static Page<ShortCodeResource> NextPage(Page<ShortCodeResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -223,7 +223,7 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<ShortCodeResource> PreviousPage(Page<ShortCodeResource> page, ITwilioRestClient client)
+        public static Page<ShortCodeResource> PreviousPage(Page<ShortCodeResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -234,16 +234,16 @@ namespace Kandy.Rest.Api.V2010.Account
             return Page<ShortCodeResource>.FromJson("short_codes", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateShortCodeOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateShortCodeOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -258,7 +258,7 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="options"> Update ShortCode parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ShortCode </returns>
-        public static ShortCodeResource Update(UpdateShortCodeOptions options, ITwilioRestClient client = null)
+        public static ShortCodeResource Update(UpdateShortCodeOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -269,15 +269,15 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="options"> Update ShortCode parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ShortCode </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<ShortCodeResource> UpdateAsync(UpdateShortCodeOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update a short code with the following parameters </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the ShortCode resource to update </param>
@@ -299,13 +299,13 @@ namespace Kandy.Rest.Api.V2010.Account
                                           Twilio.Http.HttpMethod smsMethod = null,
                                           Uri smsFallbackUrl = null,
                                           Twilio.Http.HttpMethod smsFallbackMethod = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateShortCodeOptions(pathSid){ PathAccountSid = pathAccountSid, FriendlyName = friendlyName, ApiVersion = apiVersion, SmsUrl = smsUrl, SmsMethod = smsMethod, SmsFallbackUrl = smsFallbackUrl, SmsFallbackMethod = smsFallbackMethod };
+            var options = new UpdateShortCodeOptions(pathSid) { PathAccountSid = pathAccountSid, FriendlyName = friendlyName, ApiVersion = apiVersion, SmsUrl = smsUrl, SmsMethod = smsMethod, SmsFallbackUrl = smsFallbackUrl, SmsFallbackMethod = smsFallbackMethod };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update a short code with the following parameters </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the ShortCode resource to update </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource(s) to update. </param>
@@ -326,13 +326,13 @@ namespace Kandy.Rest.Api.V2010.Account
                                                                               Twilio.Http.HttpMethod smsMethod = null,
                                                                               Uri smsFallbackUrl = null,
                                                                               Twilio.Http.HttpMethod smsFallbackMethod = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateShortCodeOptions(pathSid){ PathAccountSid = pathAccountSid, FriendlyName = friendlyName, ApiVersion = apiVersion, SmsUrl = smsUrl, SmsMethod = smsMethod, SmsFallbackUrl = smsFallbackUrl, SmsFallbackMethod = smsFallbackMethod };
+            var options = new UpdateShortCodeOptions(pathSid) { PathAccountSid = pathAccountSid, FriendlyName = friendlyName, ApiVersion = apiVersion, SmsUrl = smsUrl, SmsMethod = smsMethod, SmsFallbackUrl = smsFallbackUrl, SmsFallbackMethod = smsFallbackMethod };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a ShortCodeResource object
         /// </summary>
@@ -350,7 +350,7 @@ namespace Kandy.Rest.Api.V2010.Account
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this ShortCode resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -401,7 +401,8 @@ namespace Kandy.Rest.Api.V2010.Account
 
 
 
-        private ShortCodeResource() {
+        private ShortCodeResource()
+        {
 
         }
     }

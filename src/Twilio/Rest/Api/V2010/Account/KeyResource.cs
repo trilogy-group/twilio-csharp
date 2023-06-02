@@ -28,22 +28,22 @@ namespace Kandy.Rest.Api.V2010.Account
 {
     public class KeyResource : Resource
     {
-    
 
-        
+
+
         /// <summary> delete </summary>
         /// <param name="options"> Delete Key parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Key </returns>
-        private static Request BuildDeleteRequest(DeleteKeyOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteKeyOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -58,60 +58,60 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="options"> Delete Key parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Key </returns>
-        public static bool Delete(DeleteKeyOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteKeyOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="options"> Delete Key parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Key </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteKeyOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> delete </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Key resource to delete. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Key resources to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Key </returns>
-        public static bool Delete(string pathSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static bool Delete(string pathSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new DeleteKeyOptions(pathSid)      { PathAccountSid = pathAccountSid }   ;
+            var options = new DeleteKeyOptions(pathSid) { PathAccountSid = pathAccountSid };
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Key resource to delete. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Key resources to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Key </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new DeleteKeyOptions(pathSid)  { PathAccountSid = pathAccountSid };
+            var options = new DeleteKeyOptions(pathSid) { PathAccountSid = pathAccountSid };
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchKeyOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchKeyOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -126,60 +126,60 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="options"> Fetch Key parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Key </returns>
-        public static KeyResource Fetch(FetchKeyOptions options, ITwilioRestClient client = null)
+        public static KeyResource Fetch(FetchKeyOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch Key parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Key </returns>
         public static async System.Threading.Tasks.Task<KeyResource> FetchAsync(FetchKeyOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Key resource to fetch. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Key resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Key </returns>
         public static KeyResource Fetch(
-                                         string pathSid, 
-                                         string pathAccountSid = null, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         string pathAccountSid = null,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchKeyOptions(pathSid){ PathAccountSid = pathAccountSid };
+            var options = new FetchKeyOptions(pathSid) { PathAccountSid = pathAccountSid };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Key resource to fetch. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Key resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Key </returns>
-        public static async System.Threading.Tasks.Task<KeyResource> FetchAsync(string pathSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<KeyResource> FetchAsync(string pathSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new FetchKeyOptions(pathSid){ PathAccountSid = pathAccountSid };
+            var options = new FetchKeyOptions(pathSid) { PathAccountSid = pathAccountSid };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadKeyOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadKeyOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Keys.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -193,7 +193,7 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="options"> Read Key parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Key </returns>
-        public static ResourceSet<KeyResource> Read(ReadKeyOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<KeyResource> Read(ReadKeyOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -201,13 +201,13 @@ namespace Kandy.Rest.Api.V2010.Account
             return new ResourceSet<KeyResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read Key parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Key </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<KeyResource>> ReadAsync(ReadKeyOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -215,7 +215,7 @@ namespace Kandy.Rest.Api.V2010.Account
             var page = Page<KeyResource>.FromJson("keys", response.Content);
             return new ResourceSet<KeyResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Key resources to read. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -226,13 +226,13 @@ namespace Kandy.Rest.Api.V2010.Account
                                                      string pathAccountSid = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadKeyOptions(){ PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit};
+            var options = new ReadKeyOptions() { PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Key resources to read. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -243,19 +243,19 @@ namespace Kandy.Rest.Api.V2010.Account
                                                                                              string pathAccountSid = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadKeyOptions(){ PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit};
+            var options = new ReadKeyOptions() { PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<KeyResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<KeyResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -272,7 +272,7 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<KeyResource> NextPage(Page<KeyResource> page, ITwilioRestClient client)
+        public static Page<KeyResource> NextPage(Page<KeyResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -287,7 +287,7 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<KeyResource> PreviousPage(Page<KeyResource> page, ITwilioRestClient client)
+        public static Page<KeyResource> PreviousPage(Page<KeyResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -298,16 +298,16 @@ namespace Kandy.Rest.Api.V2010.Account
             return Page<KeyResource>.FromJson("keys", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateKeyOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateKeyOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -322,7 +322,7 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="options"> Update Key parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Key </returns>
-        public static KeyResource Update(UpdateKeyOptions options, ITwilioRestClient client = null)
+        public static KeyResource Update(UpdateKeyOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -333,15 +333,15 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="options"> Update Key parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Key </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<KeyResource> UpdateAsync(UpdateKeyOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> update </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Key resource to update. </param>
@@ -353,13 +353,13 @@ namespace Kandy.Rest.Api.V2010.Account
                                           string pathSid,
                                           string pathAccountSid = null,
                                           string friendlyName = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateKeyOptions(pathSid){ PathAccountSid = pathAccountSid, FriendlyName = friendlyName };
+            var options = new UpdateKeyOptions(pathSid) { PathAccountSid = pathAccountSid, FriendlyName = friendlyName };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> update </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Key resource to update. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Key resources to update. </param>
@@ -370,13 +370,13 @@ namespace Kandy.Rest.Api.V2010.Account
                                                                               string pathSid,
                                                                               string pathAccountSid = null,
                                                                               string friendlyName = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateKeyOptions(pathSid){ PathAccountSid = pathAccountSid, FriendlyName = friendlyName };
+            var options = new UpdateKeyOptions(pathSid) { PathAccountSid = pathAccountSid, FriendlyName = friendlyName };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a KeyResource object
         /// </summary>
@@ -394,7 +394,7 @@ namespace Kandy.Rest.Api.V2010.Account
             }
         }
 
-    
+
         ///<summary> The unique string that that we created to identify the Key resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -413,7 +413,8 @@ namespace Kandy.Rest.Api.V2010.Account
 
 
 
-        private KeyResource() {
+        private KeyResource()
+        {
 
         }
     }

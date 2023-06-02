@@ -28,12 +28,12 @@ namespace Kandy.Rest.Api.V2010.Account.Usage
 {
     public class TriggerResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class RecurringEnum : StringEnum
         {
-            private RecurringEnum(string value) : base(value) {}
-            public RecurringEnum() {}
+            private RecurringEnum(string value) : base(value) { }
+            public RecurringEnum() { }
             public static implicit operator RecurringEnum(string value)
             {
                 return new RecurringEnum(value);
@@ -47,8 +47,8 @@ namespace Kandy.Rest.Api.V2010.Account.Usage
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class UsageCategoryEnum : StringEnum
         {
-            private UsageCategoryEnum(string value) : base(value) {}
-            public UsageCategoryEnum() {}
+            private UsageCategoryEnum(string value) : base(value) { }
+            public UsageCategoryEnum() { }
             public static implicit operator UsageCategoryEnum(string value)
             {
                 return new UsageCategoryEnum(value);
@@ -303,8 +303,8 @@ namespace Kandy.Rest.Api.V2010.Account.Usage
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class TriggerFieldEnum : StringEnum
         {
-            private TriggerFieldEnum(string value) : base(value) {}
-            public TriggerFieldEnum() {}
+            private TriggerFieldEnum(string value) : base(value) { }
+            public TriggerFieldEnum() { }
             public static implicit operator TriggerFieldEnum(string value)
             {
                 return new TriggerFieldEnum(value);
@@ -315,14 +315,14 @@ namespace Kandy.Rest.Api.V2010.Account.Usage
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateTriggerOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateTriggerOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -337,26 +337,26 @@ namespace Kandy.Rest.Api.V2010.Account.Usage
         /// <param name="options"> Create Trigger parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Trigger </returns>
-        public static TriggerResource Create(CreateTriggerOptions options, ITwilioRestClient client = null)
+        public static TriggerResource Create(CreateTriggerOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new UsageTrigger </summary>
         /// <param name="options"> Create Trigger parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Trigger </returns>
         public static async System.Threading.Tasks.Task<TriggerResource> CreateAsync(CreateTriggerOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new UsageTrigger </summary>
         /// <param name="callbackUrl"> The URL we should call using `callback_method` when the trigger fires. </param>
@@ -378,13 +378,13 @@ namespace Kandy.Rest.Api.V2010.Account.Usage
                                           string friendlyName = null,
                                           TriggerResource.RecurringEnum recurring = null,
                                           TriggerResource.TriggerFieldEnum triggerBy = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateTriggerOptions(callbackUrl, triggerValue, usageCategory){  PathAccountSid = pathAccountSid, CallbackMethod = callbackMethod, FriendlyName = friendlyName, Recurring = recurring, TriggerBy = triggerBy };
+            var options = new CreateTriggerOptions(callbackUrl, triggerValue, usageCategory) { PathAccountSid = pathAccountSid, CallbackMethod = callbackMethod, FriendlyName = friendlyName, Recurring = recurring, TriggerBy = triggerBy };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new UsageTrigger </summary>
         /// <param name="callbackUrl"> The URL we should call using `callback_method` when the trigger fires. </param>
         /// <param name="triggerValue"> The usage value at which the trigger should fire.  For convenience, you can use an offset value such as `+30` to specify a trigger_value that is 30 units more than the current usage value. Be sure to urlencode a `+` as `%2B`. </param>
@@ -405,26 +405,26 @@ namespace Kandy.Rest.Api.V2010.Account.Usage
                                                                                   string friendlyName = null,
                                                                                   TriggerResource.RecurringEnum recurring = null,
                                                                                   TriggerResource.TriggerFieldEnum triggerBy = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateTriggerOptions(callbackUrl, triggerValue, usageCategory){  PathAccountSid = pathAccountSid, CallbackMethod = callbackMethod, FriendlyName = friendlyName, Recurring = recurring, TriggerBy = triggerBy };
+            var options = new CreateTriggerOptions(callbackUrl, triggerValue, usageCategory) { PathAccountSid = pathAccountSid, CallbackMethod = callbackMethod, FriendlyName = friendlyName, Recurring = recurring, TriggerBy = triggerBy };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> delete </summary>
         /// <param name="options"> Delete Trigger parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Trigger </returns>
-        private static Request BuildDeleteRequest(DeleteTriggerOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteTriggerOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -439,60 +439,60 @@ namespace Kandy.Rest.Api.V2010.Account.Usage
         /// <param name="options"> Delete Trigger parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Trigger </returns>
-        public static bool Delete(DeleteTriggerOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteTriggerOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="options"> Delete Trigger parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Trigger </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteTriggerOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> delete </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the UsageTrigger resource to delete. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resources to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Trigger </returns>
-        public static bool Delete(string pathSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static bool Delete(string pathSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new DeleteTriggerOptions(pathSid)      { PathAccountSid = pathAccountSid }   ;
+            var options = new DeleteTriggerOptions(pathSid) { PathAccountSid = pathAccountSid };
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the UsageTrigger resource to delete. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resources to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Trigger </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new DeleteTriggerOptions(pathSid)  { PathAccountSid = pathAccountSid };
+            var options = new DeleteTriggerOptions(pathSid) { PathAccountSid = pathAccountSid };
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchTriggerOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchTriggerOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -507,60 +507,60 @@ namespace Kandy.Rest.Api.V2010.Account.Usage
         /// <param name="options"> Fetch Trigger parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Trigger </returns>
-        public static TriggerResource Fetch(FetchTriggerOptions options, ITwilioRestClient client = null)
+        public static TriggerResource Fetch(FetchTriggerOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch and instance of a usage-trigger </summary>
         /// <param name="options"> Fetch Trigger parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Trigger </returns>
         public static async System.Threading.Tasks.Task<TriggerResource> FetchAsync(FetchTriggerOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch and instance of a usage-trigger </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the UsageTrigger resource to fetch. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Trigger </returns>
         public static TriggerResource Fetch(
-                                         string pathSid, 
-                                         string pathAccountSid = null, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         string pathAccountSid = null,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchTriggerOptions(pathSid){ PathAccountSid = pathAccountSid };
+            var options = new FetchTriggerOptions(pathSid) { PathAccountSid = pathAccountSid };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch and instance of a usage-trigger </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the UsageTrigger resource to fetch. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Trigger </returns>
-        public static async System.Threading.Tasks.Task<TriggerResource> FetchAsync(string pathSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<TriggerResource> FetchAsync(string pathSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new FetchTriggerOptions(pathSid){ PathAccountSid = pathAccountSid };
+            var options = new FetchTriggerOptions(pathSid) { PathAccountSid = pathAccountSid };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadTriggerOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadTriggerOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -574,7 +574,7 @@ namespace Kandy.Rest.Api.V2010.Account.Usage
         /// <param name="options"> Read Trigger parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Trigger </returns>
-        public static ResourceSet<TriggerResource> Read(ReadTriggerOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<TriggerResource> Read(ReadTriggerOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -582,13 +582,13 @@ namespace Kandy.Rest.Api.V2010.Account.Usage
             return new ResourceSet<TriggerResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of usage-triggers belonging to the account used to make the request </summary>
         /// <param name="options"> Read Trigger parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Trigger </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<TriggerResource>> ReadAsync(ReadTriggerOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -596,7 +596,7 @@ namespace Kandy.Rest.Api.V2010.Account.Usage
             var page = Page<TriggerResource>.FromJson("usage_triggers", response.Content);
             return new ResourceSet<TriggerResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of usage-triggers belonging to the account used to make the request </summary>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resources to read. </param>
         /// <param name="recurring"> The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers. </param>
@@ -613,13 +613,13 @@ namespace Kandy.Rest.Api.V2010.Account.Usage
                                                      TriggerResource.UsageCategoryEnum usageCategory = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadTriggerOptions(){ PathAccountSid = pathAccountSid, Recurring = recurring, TriggerBy = triggerBy, UsageCategory = usageCategory, PageSize = pageSize, Limit = limit};
+            var options = new ReadTriggerOptions() { PathAccountSid = pathAccountSid, Recurring = recurring, TriggerBy = triggerBy, UsageCategory = usageCategory, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of usage-triggers belonging to the account used to make the request </summary>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resources to read. </param>
         /// <param name="recurring"> The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers. </param>
@@ -636,19 +636,19 @@ namespace Kandy.Rest.Api.V2010.Account.Usage
                                                                                              TriggerResource.UsageCategoryEnum usageCategory = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadTriggerOptions(){ PathAccountSid = pathAccountSid, Recurring = recurring, TriggerBy = triggerBy, UsageCategory = usageCategory, PageSize = pageSize, Limit = limit};
+            var options = new ReadTriggerOptions() { PathAccountSid = pathAccountSid, Recurring = recurring, TriggerBy = triggerBy, UsageCategory = usageCategory, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<TriggerResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<TriggerResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -665,7 +665,7 @@ namespace Kandy.Rest.Api.V2010.Account.Usage
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<TriggerResource> NextPage(Page<TriggerResource> page, ITwilioRestClient client)
+        public static Page<TriggerResource> NextPage(Page<TriggerResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -680,7 +680,7 @@ namespace Kandy.Rest.Api.V2010.Account.Usage
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<TriggerResource> PreviousPage(Page<TriggerResource> page, ITwilioRestClient client)
+        public static Page<TriggerResource> PreviousPage(Page<TriggerResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -691,16 +691,16 @@ namespace Kandy.Rest.Api.V2010.Account.Usage
             return Page<TriggerResource>.FromJson("usage_triggers", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateTriggerOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateTriggerOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -715,7 +715,7 @@ namespace Kandy.Rest.Api.V2010.Account.Usage
         /// <param name="options"> Update Trigger parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Trigger </returns>
-        public static TriggerResource Update(UpdateTriggerOptions options, ITwilioRestClient client = null)
+        public static TriggerResource Update(UpdateTriggerOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -726,15 +726,15 @@ namespace Kandy.Rest.Api.V2010.Account.Usage
         /// <param name="options"> Update Trigger parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Trigger </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<TriggerResource> UpdateAsync(UpdateTriggerOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update an instance of a usage trigger </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the UsageTrigger resource to update. </param>
@@ -750,13 +750,13 @@ namespace Kandy.Rest.Api.V2010.Account.Usage
                                           Twilio.Http.HttpMethod callbackMethod = null,
                                           Uri callbackUrl = null,
                                           string friendlyName = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateTriggerOptions(pathSid){ PathAccountSid = pathAccountSid, CallbackMethod = callbackMethod, CallbackUrl = callbackUrl, FriendlyName = friendlyName };
+            var options = new UpdateTriggerOptions(pathSid) { PathAccountSid = pathAccountSid, CallbackMethod = callbackMethod, CallbackUrl = callbackUrl, FriendlyName = friendlyName };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update an instance of a usage trigger </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the UsageTrigger resource to update. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resources to update. </param>
@@ -771,13 +771,13 @@ namespace Kandy.Rest.Api.V2010.Account.Usage
                                                                               Twilio.Http.HttpMethod callbackMethod = null,
                                                                               Uri callbackUrl = null,
                                                                               string friendlyName = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateTriggerOptions(pathSid){ PathAccountSid = pathAccountSid, CallbackMethod = callbackMethod, CallbackUrl = callbackUrl, FriendlyName = friendlyName };
+            var options = new UpdateTriggerOptions(pathSid) { PathAccountSid = pathAccountSid, CallbackMethod = callbackMethod, CallbackUrl = callbackUrl, FriendlyName = friendlyName };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a TriggerResource object
         /// </summary>
@@ -795,7 +795,7 @@ namespace Kandy.Rest.Api.V2010.Account.Usage
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that the trigger monitors. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -832,7 +832,7 @@ namespace Kandy.Rest.Api.V2010.Account.Usage
         [JsonProperty("friendly_name")]
         public string FriendlyName { get; private set; }
 
-        
+
         [JsonProperty("recurring")]
         public TriggerResource.RecurringEnum Recurring { get; private set; }
 
@@ -840,7 +840,7 @@ namespace Kandy.Rest.Api.V2010.Account.Usage
         [JsonProperty("sid")]
         public string Sid { get; private set; }
 
-        
+
         [JsonProperty("trigger_by")]
         public TriggerResource.TriggerFieldEnum TriggerBy { get; private set; }
 
@@ -852,7 +852,7 @@ namespace Kandy.Rest.Api.V2010.Account.Usage
         [JsonProperty("uri")]
         public string Uri { get; private set; }
 
-        
+
         [JsonProperty("usage_category")]
         public TriggerResource.UsageCategoryEnum UsageCategory { get; private set; }
 
@@ -862,7 +862,8 @@ namespace Kandy.Rest.Api.V2010.Account.Usage
 
 
 
-        private TriggerResource() {
+        private TriggerResource()
+        {
 
         }
     }

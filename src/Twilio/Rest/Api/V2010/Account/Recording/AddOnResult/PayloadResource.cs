@@ -28,26 +28,26 @@ namespace Kandy.Rest.Api.V2010.Account.Recording.AddOnResult
 {
     public class PayloadResource : Resource
     {
-    
 
-        
+
+
         /// <summary> Delete a payload from the result along with all associated Data </summary>
         /// <param name="options"> Delete Payload parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Payload </returns>
-        private static Request BuildDeleteRequest(DeletePayloadOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeletePayloadOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{Sid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathReferenceSid = options.PathReferenceSid;
-            path = path.Replace("{"+"ReferenceSid"+"}", PathReferenceSid);
+            path = path.Replace("{" + "ReferenceSid" + "}", PathReferenceSid);
             string PathAddOnResultSid = options.PathAddOnResultSid;
-            path = path.Replace("{"+"AddOnResultSid"+"}", PathAddOnResultSid);
+            path = path.Replace("{" + "AddOnResultSid" + "}", PathAddOnResultSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -62,26 +62,26 @@ namespace Kandy.Rest.Api.V2010.Account.Recording.AddOnResult
         /// <param name="options"> Delete Payload parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Payload </returns>
-        public static bool Delete(DeletePayloadOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeletePayloadOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a payload from the result along with all associated Data </summary>
         /// <param name="options"> Delete Payload parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Payload </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeletePayloadOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete a payload from the result along with all associated Data </summary>
         /// <param name="pathReferenceSid"> The SID of the recording to which the AddOnResult resource that contains the payloads to delete belongs. </param>
@@ -90,13 +90,13 @@ namespace Kandy.Rest.Api.V2010.Account.Recording.AddOnResult
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult Payload resources to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Payload </returns>
-        public static bool Delete(string pathReferenceSid, string pathAddOnResultSid, string pathSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static bool Delete(string pathReferenceSid, string pathAddOnResultSid, string pathSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new DeletePayloadOptions(pathReferenceSid, pathAddOnResultSid, pathSid)            { PathAccountSid = pathAccountSid }   ;
+            var options = new DeletePayloadOptions(pathReferenceSid, pathAddOnResultSid, pathSid) { PathAccountSid = pathAccountSid };
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a payload from the result along with all associated Data </summary>
         /// <param name="pathReferenceSid"> The SID of the recording to which the AddOnResult resource that contains the payloads to delete belongs. </param>
         /// <param name="pathAddOnResultSid"> The SID of the AddOnResult to which the payloads to delete belongs. </param>
@@ -104,26 +104,26 @@ namespace Kandy.Rest.Api.V2010.Account.Recording.AddOnResult
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult Payload resources to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Payload </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathReferenceSid, string pathAddOnResultSid, string pathSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathReferenceSid, string pathAddOnResultSid, string pathSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new DeletePayloadOptions(pathReferenceSid, pathAddOnResultSid, pathSid)  { PathAccountSid = pathAccountSid };
+            var options = new DeletePayloadOptions(pathReferenceSid, pathAddOnResultSid, pathSid) { PathAccountSid = pathAccountSid };
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchPayloadOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchPayloadOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{Sid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathReferenceSid = options.PathReferenceSid;
-            path = path.Replace("{"+"ReferenceSid"+"}", PathReferenceSid);
+            path = path.Replace("{" + "ReferenceSid" + "}", PathReferenceSid);
             string PathAddOnResultSid = options.PathAddOnResultSid;
-            path = path.Replace("{"+"AddOnResultSid"+"}", PathAddOnResultSid);
+            path = path.Replace("{" + "AddOnResultSid" + "}", PathAddOnResultSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -138,26 +138,26 @@ namespace Kandy.Rest.Api.V2010.Account.Recording.AddOnResult
         /// <param name="options"> Fetch Payload parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Payload </returns>
-        public static PayloadResource Fetch(FetchPayloadOptions options, ITwilioRestClient client = null)
+        public static PayloadResource Fetch(FetchPayloadOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch an instance of a result payload </summary>
         /// <param name="options"> Fetch Payload parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Payload </returns>
         public static async System.Threading.Tasks.Task<PayloadResource> FetchAsync(FetchPayloadOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch an instance of a result payload </summary>
         /// <param name="pathReferenceSid"> The SID of the recording to which the AddOnResult resource that contains the payload to fetch belongs. </param>
         /// <param name="pathAddOnResultSid"> The SID of the AddOnResult to which the payload to fetch belongs. </param>
@@ -166,17 +166,17 @@ namespace Kandy.Rest.Api.V2010.Account.Recording.AddOnResult
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Payload </returns>
         public static PayloadResource Fetch(
-                                         string pathReferenceSid, 
-                                         string pathAddOnResultSid, 
-                                         string pathSid, 
-                                         string pathAccountSid = null, 
-                                         ITwilioRestClient client = null)
+                                         string pathReferenceSid,
+                                         string pathAddOnResultSid,
+                                         string pathSid,
+                                         string pathAccountSid = null,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchPayloadOptions(pathReferenceSid, pathAddOnResultSid, pathSid){ PathAccountSid = pathAccountSid };
+            var options = new FetchPayloadOptions(pathReferenceSid, pathAddOnResultSid, pathSid) { PathAccountSid = pathAccountSid };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch an instance of a result payload </summary>
         /// <param name="pathReferenceSid"> The SID of the recording to which the AddOnResult resource that contains the payload to fetch belongs. </param>
         /// <param name="pathAddOnResultSid"> The SID of the AddOnResult to which the payload to fetch belongs. </param>
@@ -184,24 +184,24 @@ namespace Kandy.Rest.Api.V2010.Account.Recording.AddOnResult
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult Payload resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Payload </returns>
-        public static async System.Threading.Tasks.Task<PayloadResource> FetchAsync(string pathReferenceSid, string pathAddOnResultSid, string pathSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<PayloadResource> FetchAsync(string pathReferenceSid, string pathAddOnResultSid, string pathSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new FetchPayloadOptions(pathReferenceSid, pathAddOnResultSid, pathSid){ PathAccountSid = pathAccountSid };
+            var options = new FetchPayloadOptions(pathReferenceSid, pathAddOnResultSid, pathSid) { PathAccountSid = pathAccountSid };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadPayloadOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadPayloadOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathReferenceSid = options.PathReferenceSid;
-            path = path.Replace("{"+"ReferenceSid"+"}", PathReferenceSid);
+            path = path.Replace("{" + "ReferenceSid" + "}", PathReferenceSid);
             string PathAddOnResultSid = options.PathAddOnResultSid;
-            path = path.Replace("{"+"AddOnResultSid"+"}", PathAddOnResultSid);
+            path = path.Replace("{" + "AddOnResultSid" + "}", PathAddOnResultSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -215,7 +215,7 @@ namespace Kandy.Rest.Api.V2010.Account.Recording.AddOnResult
         /// <param name="options"> Read Payload parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Payload </returns>
-        public static ResourceSet<PayloadResource> Read(ReadPayloadOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<PayloadResource> Read(ReadPayloadOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -223,13 +223,13 @@ namespace Kandy.Rest.Api.V2010.Account.Recording.AddOnResult
             return new ResourceSet<PayloadResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of payloads belonging to the AddOnResult </summary>
         /// <param name="options"> Read Payload parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Payload </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<PayloadResource>> ReadAsync(ReadPayloadOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -237,7 +237,7 @@ namespace Kandy.Rest.Api.V2010.Account.Recording.AddOnResult
             var page = Page<PayloadResource>.FromJson("payloads", response.Content);
             return new ResourceSet<PayloadResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of payloads belonging to the AddOnResult </summary>
         /// <param name="pathReferenceSid"> The SID of the recording to which the AddOnResult resource that contains the payloads to read belongs. </param>
         /// <param name="pathAddOnResultSid"> The SID of the AddOnResult to which the payloads to read belongs. </param>
@@ -252,13 +252,13 @@ namespace Kandy.Rest.Api.V2010.Account.Recording.AddOnResult
                                                      string pathAccountSid = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadPayloadOptions(pathReferenceSid, pathAddOnResultSid){ PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit};
+            var options = new ReadPayloadOptions(pathReferenceSid, pathAddOnResultSid) { PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of payloads belonging to the AddOnResult </summary>
         /// <param name="pathReferenceSid"> The SID of the recording to which the AddOnResult resource that contains the payloads to read belongs. </param>
         /// <param name="pathAddOnResultSid"> The SID of the AddOnResult to which the payloads to read belongs. </param>
@@ -273,19 +273,19 @@ namespace Kandy.Rest.Api.V2010.Account.Recording.AddOnResult
                                                                                              string pathAccountSid = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadPayloadOptions(pathReferenceSid, pathAddOnResultSid){ PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit};
+            var options = new ReadPayloadOptions(pathReferenceSid, pathAddOnResultSid) { PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<PayloadResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<PayloadResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -302,7 +302,7 @@ namespace Kandy.Rest.Api.V2010.Account.Recording.AddOnResult
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<PayloadResource> NextPage(Page<PayloadResource> page, ITwilioRestClient client)
+        public static Page<PayloadResource> NextPage(Page<PayloadResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -317,7 +317,7 @@ namespace Kandy.Rest.Api.V2010.Account.Recording.AddOnResult
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<PayloadResource> PreviousPage(Page<PayloadResource> page, ITwilioRestClient client)
+        public static Page<PayloadResource> PreviousPage(Page<PayloadResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -328,7 +328,7 @@ namespace Kandy.Rest.Api.V2010.Account.Recording.AddOnResult
             return Page<PayloadResource>.FromJson("payloads", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a PayloadResource object
         /// </summary>
@@ -346,7 +346,7 @@ namespace Kandy.Rest.Api.V2010.Account.Recording.AddOnResult
             }
         }
 
-    
+
         ///<summary> The unique string that that we created to identify the Recording AddOnResult Payload resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -393,7 +393,8 @@ namespace Kandy.Rest.Api.V2010.Account.Recording.AddOnResult
 
 
 
-        private PayloadResource() {
+        private PayloadResource()
+        {
 
         }
     }

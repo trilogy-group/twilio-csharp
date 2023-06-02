@@ -28,12 +28,12 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance
 {
     public class EndUserResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class TypeEnum : StringEnum
         {
-            private TypeEnum(string value) : base(value) {}
-            public TypeEnum() {}
+            private TypeEnum(string value) : base(value) { }
+            public TypeEnum() { }
             public static implicit operator TypeEnum(string value)
             {
                 return new TypeEnum(value);
@@ -43,10 +43,10 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateEndUserOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateEndUserOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/RegulatoryCompliance/EndUsers";
 
 
@@ -63,26 +63,26 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance
         /// <param name="options"> Create EndUser parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of EndUser </returns>
-        public static EndUserResource Create(CreateEndUserOptions options, ITwilioRestClient client = null)
+        public static EndUserResource Create(CreateEndUserOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new End User. </summary>
         /// <param name="options"> Create EndUser parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of EndUser </returns>
         public static async System.Threading.Tasks.Task<EndUserResource> CreateAsync(CreateEndUserOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new End User. </summary>
         /// <param name="friendlyName"> The string that you assigned to describe the resource. </param>
@@ -94,13 +94,13 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance
                                           string friendlyName,
                                           EndUserResource.TypeEnum type,
                                           object attributes = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateEndUserOptions(friendlyName, type){  Attributes = attributes };
+            var options = new CreateEndUserOptions(friendlyName, type) { Attributes = attributes };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new End User. </summary>
         /// <param name="friendlyName"> The string that you assigned to describe the resource. </param>
         /// <param name="type">  </param>
@@ -111,24 +111,24 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance
                                                                                   string friendlyName,
                                                                                   EndUserResource.TypeEnum type,
                                                                                   object attributes = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateEndUserOptions(friendlyName, type){  Attributes = attributes };
+            var options = new CreateEndUserOptions(friendlyName, type) { Attributes = attributes };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Delete a specific End User. </summary>
         /// <param name="options"> Delete EndUser parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of EndUser </returns>
-        private static Request BuildDeleteRequest(DeleteEndUserOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteEndUserOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/RegulatoryCompliance/EndUsers/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -143,56 +143,56 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance
         /// <param name="options"> Delete EndUser parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of EndUser </returns>
-        public static bool Delete(DeleteEndUserOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteEndUserOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific End User. </summary>
         /// <param name="options"> Delete EndUser parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of EndUser </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteEndUserOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete a specific End User. </summary>
         /// <param name="pathSid"> The unique string created by Twilio to identify the End User resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of EndUser </returns>
-        public static bool Delete(string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteEndUserOptions(pathSid)     ;
+            var options = new DeleteEndUserOptions(pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific End User. </summary>
         /// <param name="pathSid"> The unique string created by Twilio to identify the End User resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of EndUser </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteEndUserOptions(pathSid) ;
+            var options = new DeleteEndUserOptions(pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchEndUserOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchEndUserOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/RegulatoryCompliance/EndUsers/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -207,53 +207,53 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance
         /// <param name="options"> Fetch EndUser parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of EndUser </returns>
-        public static EndUserResource Fetch(FetchEndUserOptions options, ITwilioRestClient client = null)
+        public static EndUserResource Fetch(FetchEndUserOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch specific End User Instance. </summary>
         /// <param name="options"> Fetch EndUser parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of EndUser </returns>
         public static async System.Threading.Tasks.Task<EndUserResource> FetchAsync(FetchEndUserOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch specific End User Instance. </summary>
         /// <param name="pathSid"> The unique string created by Twilio to identify the End User resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of EndUser </returns>
         public static EndUserResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchEndUserOptions(pathSid){  };
+            var options = new FetchEndUserOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch specific End User Instance. </summary>
         /// <param name="pathSid"> The unique string created by Twilio to identify the End User resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of EndUser </returns>
-        public static async System.Threading.Tasks.Task<EndUserResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<EndUserResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchEndUserOptions(pathSid){  };
+            var options = new FetchEndUserOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadEndUserOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadEndUserOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/RegulatoryCompliance/EndUsers";
 
 
@@ -269,7 +269,7 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance
         /// <param name="options"> Read EndUser parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of EndUser </returns>
-        public static ResourceSet<EndUserResource> Read(ReadEndUserOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<EndUserResource> Read(ReadEndUserOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -277,13 +277,13 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance
             return new ResourceSet<EndUserResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all End User for an account. </summary>
         /// <param name="options"> Read EndUser parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of EndUser </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<EndUserResource>> ReadAsync(ReadEndUserOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -291,7 +291,7 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance
             var page = Page<EndUserResource>.FromJson("results", response.Content);
             return new ResourceSet<EndUserResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all End User for an account. </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -300,13 +300,13 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance
         public static ResourceSet<EndUserResource> Read(
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadEndUserOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadEndUserOptions() { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all End User for an account. </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -315,19 +315,19 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance
         public static async System.Threading.Tasks.Task<ResourceSet<EndUserResource>> ReadAsync(
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadEndUserOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadEndUserOptions() { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<EndUserResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<EndUserResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -344,7 +344,7 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<EndUserResource> NextPage(Page<EndUserResource> page, ITwilioRestClient client)
+        public static Page<EndUserResource> NextPage(Page<EndUserResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -359,7 +359,7 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<EndUserResource> PreviousPage(Page<EndUserResource> page, ITwilioRestClient client)
+        public static Page<EndUserResource> PreviousPage(Page<EndUserResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -370,14 +370,14 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance
             return Page<EndUserResource>.FromJson("results", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateEndUserOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateEndUserOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/RegulatoryCompliance/EndUsers/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -392,7 +392,7 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance
         /// <param name="options"> Update EndUser parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of EndUser </returns>
-        public static EndUserResource Update(UpdateEndUserOptions options, ITwilioRestClient client = null)
+        public static EndUserResource Update(UpdateEndUserOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -403,15 +403,15 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance
         /// <param name="options"> Update EndUser parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of EndUser </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<EndUserResource> UpdateAsync(UpdateEndUserOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update an existing End User. </summary>
         /// <param name="pathSid"> The unique string created by Twilio to identify the End User resource. </param>
@@ -423,13 +423,13 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance
                                           string pathSid,
                                           string friendlyName = null,
                                           object attributes = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateEndUserOptions(pathSid){ FriendlyName = friendlyName, Attributes = attributes };
+            var options = new UpdateEndUserOptions(pathSid) { FriendlyName = friendlyName, Attributes = attributes };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update an existing End User. </summary>
         /// <param name="pathSid"> The unique string created by Twilio to identify the End User resource. </param>
         /// <param name="friendlyName"> The string that you assigned to describe the resource. </param>
@@ -440,13 +440,13 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance
                                                                               string pathSid,
                                                                               string friendlyName = null,
                                                                               object attributes = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateEndUserOptions(pathSid){ FriendlyName = friendlyName, Attributes = attributes };
+            var options = new UpdateEndUserOptions(pathSid) { FriendlyName = friendlyName, Attributes = attributes };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a EndUserResource object
         /// </summary>
@@ -464,7 +464,7 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance
             }
         }
 
-    
+
         ///<summary> The unique string created by Twilio to identify the End User resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -477,7 +477,7 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance
         [JsonProperty("friendly_name")]
         public string FriendlyName { get; private set; }
 
-        
+
         [JsonProperty("type")]
         public EndUserResource.TypeEnum Type { get; private set; }
 
@@ -499,7 +499,8 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance
 
 
 
-        private EndUserResource() {
+        private EndUserResource()
+        {
 
         }
     }

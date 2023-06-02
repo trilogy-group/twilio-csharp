@@ -28,12 +28,12 @@ namespace Kandy.Rest.Insights.V1.Call
 {
     public class AnnotationResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class ConnectivityIssueEnum : StringEnum
         {
-            private ConnectivityIssueEnum(string value) : base(value) {}
-            public ConnectivityIssueEnum() {}
+            private ConnectivityIssueEnum(string value) : base(value) { }
+            public ConnectivityIssueEnum() { }
             public static implicit operator ConnectivityIssueEnum(string value)
             {
                 return new ConnectivityIssueEnum(value);
@@ -49,8 +49,8 @@ namespace Kandy.Rest.Insights.V1.Call
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class AnsweredByEnum : StringEnum
         {
-            private AnsweredByEnum(string value) : base(value) {}
-            public AnsweredByEnum() {}
+            private AnsweredByEnum(string value) : base(value) { }
+            public AnsweredByEnum() { }
             public static implicit operator AnsweredByEnum(string value)
             {
                 return new AnsweredByEnum(value);
@@ -61,14 +61,14 @@ namespace Kandy.Rest.Insights.V1.Call
 
         }
 
-        
-        private static Request BuildFetchRequest(FetchAnnotationOptions options, ITwilioRestClient client)
+
+        private static Request BuildFetchRequest(FetchAnnotationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Voice/{CallSid}/Annotation";
 
             string PathCallSid = options.PathCallSid;
-            path = path.Replace("{"+"CallSid"+"}", PathCallSid);
+            path = path.Replace("{" + "CallSid" + "}", PathCallSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -83,57 +83,57 @@ namespace Kandy.Rest.Insights.V1.Call
         /// <param name="options"> Fetch Annotation parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Annotation </returns>
-        public static AnnotationResource Fetch(FetchAnnotationOptions options, ITwilioRestClient client = null)
+        public static AnnotationResource Fetch(FetchAnnotationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Annotation. </summary>
         /// <param name="options"> Fetch Annotation parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Annotation </returns>
         public static async System.Threading.Tasks.Task<AnnotationResource> FetchAsync(FetchAnnotationOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a specific Annotation. </summary>
         /// <param name="pathCallSid"> The unique SID identifier of the Call. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Annotation </returns>
         public static AnnotationResource Fetch(
-                                         string pathCallSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathCallSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchAnnotationOptions(pathCallSid){  };
+            var options = new FetchAnnotationOptions(pathCallSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Annotation. </summary>
         /// <param name="pathCallSid"> The unique SID identifier of the Call. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Annotation </returns>
-        public static async System.Threading.Tasks.Task<AnnotationResource> FetchAsync(string pathCallSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<AnnotationResource> FetchAsync(string pathCallSid, IKandyRestClient client = null)
         {
-            var options = new FetchAnnotationOptions(pathCallSid){  };
+            var options = new FetchAnnotationOptions(pathCallSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildUpdateRequest(UpdateAnnotationOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildUpdateRequest(UpdateAnnotationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Voice/{CallSid}/Annotation";
 
             string PathCallSid = options.PathCallSid;
-            path = path.Replace("{"+"CallSid"+"}", PathCallSid);
+            path = path.Replace("{" + "CallSid" + "}", PathCallSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -148,7 +148,7 @@ namespace Kandy.Rest.Insights.V1.Call
         /// <param name="options"> Update Annotation parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Annotation </returns>
-        public static AnnotationResource Update(UpdateAnnotationOptions options, ITwilioRestClient client = null)
+        public static AnnotationResource Update(UpdateAnnotationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -159,15 +159,15 @@ namespace Kandy.Rest.Insights.V1.Call
         /// <param name="options"> Update Annotation parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Annotation </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<AnnotationResource> UpdateAsync(UpdateAnnotationOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create/Update the annotation for the call </summary>
         /// <param name="pathCallSid"> The unique string that Twilio created to identify this Call resource. It always starts with a CA. </param>
@@ -189,13 +189,13 @@ namespace Kandy.Rest.Insights.V1.Call
                                           int? callScore = null,
                                           string comment = null,
                                           string incident = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateAnnotationOptions(pathCallSid){ AnsweredBy = answeredBy, ConnectivityIssue = connectivityIssue, QualityIssues = qualityIssues, Spam = spam, CallScore = callScore, Comment = comment, Incident = incident };
+            var options = new UpdateAnnotationOptions(pathCallSid) { AnsweredBy = answeredBy, ConnectivityIssue = connectivityIssue, QualityIssues = qualityIssues, Spam = spam, CallScore = callScore, Comment = comment, Incident = incident };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create/Update the annotation for the call </summary>
         /// <param name="pathCallSid"> The unique string that Twilio created to identify this Call resource. It always starts with a CA. </param>
         /// <param name="answeredBy">  </param>
@@ -216,13 +216,13 @@ namespace Kandy.Rest.Insights.V1.Call
                                                                               int? callScore = null,
                                                                               string comment = null,
                                                                               string incident = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateAnnotationOptions(pathCallSid){ AnsweredBy = answeredBy, ConnectivityIssue = connectivityIssue, QualityIssues = qualityIssues, Spam = spam, CallScore = callScore, Comment = comment, Incident = incident };
+            var options = new UpdateAnnotationOptions(pathCallSid) { AnsweredBy = answeredBy, ConnectivityIssue = connectivityIssue, QualityIssues = qualityIssues, Spam = spam, CallScore = callScore, Comment = comment, Incident = incident };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a AnnotationResource object
         /// </summary>
@@ -240,7 +240,7 @@ namespace Kandy.Rest.Insights.V1.Call
             }
         }
 
-    
+
         ///<summary> The unique SID identifier of the Call. </summary> 
         [JsonProperty("call_sid")]
         public string CallSid { get; private set; }
@@ -249,11 +249,11 @@ namespace Kandy.Rest.Insights.V1.Call
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
 
-        
+
         [JsonProperty("answered_by")]
         public AnnotationResource.AnsweredByEnum AnsweredBy { get; private set; }
 
-        
+
         [JsonProperty("connectivity_issue")]
         public AnnotationResource.ConnectivityIssueEnum ConnectivityIssue { get; private set; }
 
@@ -283,7 +283,8 @@ namespace Kandy.Rest.Insights.V1.Call
 
 
 
-        private AnnotationResource() {
+        private AnnotationResource()
+        {
 
         }
     }

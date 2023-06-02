@@ -28,12 +28,12 @@ namespace Kandy.Rest.Verify.V2
 {
     public class ServiceResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateServiceOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateServiceOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Services";
 
 
@@ -50,26 +50,26 @@ namespace Kandy.Rest.Verify.V2
         /// <param name="options"> Create Service parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Service </returns>
-        public static ServiceResource Create(CreateServiceOptions options, ITwilioRestClient client = null)
+        public static ServiceResource Create(CreateServiceOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Verification Service. </summary>
         /// <param name="options"> Create Service parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Service </returns>
         public static async System.Threading.Tasks.Task<ServiceResource> CreateAsync(CreateServiceOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new Verification Service. </summary>
         /// <param name="friendlyName"> A descriptive string that you create to describe the verification service. It can be up to 32 characters long. **This value should not contain PII.** </param>
@@ -109,13 +109,13 @@ namespace Kandy.Rest.Verify.V2
                                           int? totpCodeLength = null,
                                           int? totpSkew = null,
                                           string defaultTemplateSid = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateServiceOptions(friendlyName){  CodeLength = codeLength, LookupEnabled = lookupEnabled, SkipSmsToLandlines = skipSmsToLandlines, DtmfInputRequired = dtmfInputRequired, TtsName = ttsName, Psd2Enabled = psd2Enabled, DoNotShareWarningEnabled = doNotShareWarningEnabled, CustomCodeEnabled = customCodeEnabled, PushIncludeDate = pushIncludeDate, PushApnCredentialSid = pushApnCredentialSid, PushFcmCredentialSid = pushFcmCredentialSid, TotpIssuer = totpIssuer, TotpTimeStep = totpTimeStep, TotpCodeLength = totpCodeLength, TotpSkew = totpSkew, DefaultTemplateSid = defaultTemplateSid };
+            var options = new CreateServiceOptions(friendlyName) { CodeLength = codeLength, LookupEnabled = lookupEnabled, SkipSmsToLandlines = skipSmsToLandlines, DtmfInputRequired = dtmfInputRequired, TtsName = ttsName, Psd2Enabled = psd2Enabled, DoNotShareWarningEnabled = doNotShareWarningEnabled, CustomCodeEnabled = customCodeEnabled, PushIncludeDate = pushIncludeDate, PushApnCredentialSid = pushApnCredentialSid, PushFcmCredentialSid = pushFcmCredentialSid, TotpIssuer = totpIssuer, TotpTimeStep = totpTimeStep, TotpCodeLength = totpCodeLength, TotpSkew = totpSkew, DefaultTemplateSid = defaultTemplateSid };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Verification Service. </summary>
         /// <param name="friendlyName"> A descriptive string that you create to describe the verification service. It can be up to 32 characters long. **This value should not contain PII.** </param>
         /// <param name="codeLength"> The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive. </param>
@@ -154,24 +154,24 @@ namespace Kandy.Rest.Verify.V2
                                                                                   int? totpCodeLength = null,
                                                                                   int? totpSkew = null,
                                                                                   string defaultTemplateSid = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateServiceOptions(friendlyName){  CodeLength = codeLength, LookupEnabled = lookupEnabled, SkipSmsToLandlines = skipSmsToLandlines, DtmfInputRequired = dtmfInputRequired, TtsName = ttsName, Psd2Enabled = psd2Enabled, DoNotShareWarningEnabled = doNotShareWarningEnabled, CustomCodeEnabled = customCodeEnabled, PushIncludeDate = pushIncludeDate, PushApnCredentialSid = pushApnCredentialSid, PushFcmCredentialSid = pushFcmCredentialSid, TotpIssuer = totpIssuer, TotpTimeStep = totpTimeStep, TotpCodeLength = totpCodeLength, TotpSkew = totpSkew, DefaultTemplateSid = defaultTemplateSid };
+            var options = new CreateServiceOptions(friendlyName) { CodeLength = codeLength, LookupEnabled = lookupEnabled, SkipSmsToLandlines = skipSmsToLandlines, DtmfInputRequired = dtmfInputRequired, TtsName = ttsName, Psd2Enabled = psd2Enabled, DoNotShareWarningEnabled = doNotShareWarningEnabled, CustomCodeEnabled = customCodeEnabled, PushIncludeDate = pushIncludeDate, PushApnCredentialSid = pushApnCredentialSid, PushFcmCredentialSid = pushFcmCredentialSid, TotpIssuer = totpIssuer, TotpTimeStep = totpTimeStep, TotpCodeLength = totpCodeLength, TotpSkew = totpSkew, DefaultTemplateSid = defaultTemplateSid };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Delete a specific Verification Service Instance. </summary>
         /// <param name="options"> Delete Service parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Service </returns>
-        private static Request BuildDeleteRequest(DeleteServiceOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteServiceOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Services/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -186,56 +186,56 @@ namespace Kandy.Rest.Verify.V2
         /// <param name="options"> Delete Service parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Service </returns>
-        public static bool Delete(DeleteServiceOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteServiceOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific Verification Service Instance. </summary>
         /// <param name="options"> Delete Service parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Service </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteServiceOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete a specific Verification Service Instance. </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Verification Service resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Service </returns>
-        public static bool Delete(string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteServiceOptions(pathSid)     ;
+            var options = new DeleteServiceOptions(pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific Verification Service Instance. </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Verification Service resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Service </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteServiceOptions(pathSid) ;
+            var options = new DeleteServiceOptions(pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchServiceOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchServiceOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Services/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -250,53 +250,53 @@ namespace Kandy.Rest.Verify.V2
         /// <param name="options"> Fetch Service parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Service </returns>
-        public static ServiceResource Fetch(FetchServiceOptions options, ITwilioRestClient client = null)
+        public static ServiceResource Fetch(FetchServiceOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch specific Verification Service Instance. </summary>
         /// <param name="options"> Fetch Service parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Service </returns>
         public static async System.Threading.Tasks.Task<ServiceResource> FetchAsync(FetchServiceOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch specific Verification Service Instance. </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Verification Service resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Service </returns>
         public static ServiceResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchServiceOptions(pathSid){  };
+            var options = new FetchServiceOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch specific Verification Service Instance. </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Verification Service resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Service </returns>
-        public static async System.Threading.Tasks.Task<ServiceResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<ServiceResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchServiceOptions(pathSid){  };
+            var options = new FetchServiceOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadServiceOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadServiceOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Services";
 
 
@@ -312,7 +312,7 @@ namespace Kandy.Rest.Verify.V2
         /// <param name="options"> Read Service parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Service </returns>
-        public static ResourceSet<ServiceResource> Read(ReadServiceOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<ServiceResource> Read(ReadServiceOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -320,13 +320,13 @@ namespace Kandy.Rest.Verify.V2
             return new ResourceSet<ServiceResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Verification Services for an account. </summary>
         /// <param name="options"> Read Service parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Service </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<ServiceResource>> ReadAsync(ReadServiceOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -334,7 +334,7 @@ namespace Kandy.Rest.Verify.V2
             var page = Page<ServiceResource>.FromJson("services", response.Content);
             return new ResourceSet<ServiceResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Verification Services for an account. </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -343,13 +343,13 @@ namespace Kandy.Rest.Verify.V2
         public static ResourceSet<ServiceResource> Read(
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadServiceOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadServiceOptions() { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Verification Services for an account. </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -358,19 +358,19 @@ namespace Kandy.Rest.Verify.V2
         public static async System.Threading.Tasks.Task<ResourceSet<ServiceResource>> ReadAsync(
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadServiceOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadServiceOptions() { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<ServiceResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<ServiceResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -387,7 +387,7 @@ namespace Kandy.Rest.Verify.V2
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<ServiceResource> NextPage(Page<ServiceResource> page, ITwilioRestClient client)
+        public static Page<ServiceResource> NextPage(Page<ServiceResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -402,7 +402,7 @@ namespace Kandy.Rest.Verify.V2
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<ServiceResource> PreviousPage(Page<ServiceResource> page, ITwilioRestClient client)
+        public static Page<ServiceResource> PreviousPage(Page<ServiceResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -413,14 +413,14 @@ namespace Kandy.Rest.Verify.V2
             return Page<ServiceResource>.FromJson("services", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateServiceOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateServiceOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Services/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -435,7 +435,7 @@ namespace Kandy.Rest.Verify.V2
         /// <param name="options"> Update Service parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Service </returns>
-        public static ServiceResource Update(UpdateServiceOptions options, ITwilioRestClient client = null)
+        public static ServiceResource Update(UpdateServiceOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -446,15 +446,15 @@ namespace Kandy.Rest.Verify.V2
         /// <param name="options"> Update Service parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Service </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<ServiceResource> UpdateAsync(UpdateServiceOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update a specific Verification Service. </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Service resource to update. </param>
@@ -496,13 +496,13 @@ namespace Kandy.Rest.Verify.V2
                                           int? totpCodeLength = null,
                                           int? totpSkew = null,
                                           string defaultTemplateSid = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateServiceOptions(pathSid){ FriendlyName = friendlyName, CodeLength = codeLength, LookupEnabled = lookupEnabled, SkipSmsToLandlines = skipSmsToLandlines, DtmfInputRequired = dtmfInputRequired, TtsName = ttsName, Psd2Enabled = psd2Enabled, DoNotShareWarningEnabled = doNotShareWarningEnabled, CustomCodeEnabled = customCodeEnabled, PushIncludeDate = pushIncludeDate, PushApnCredentialSid = pushApnCredentialSid, PushFcmCredentialSid = pushFcmCredentialSid, TotpIssuer = totpIssuer, TotpTimeStep = totpTimeStep, TotpCodeLength = totpCodeLength, TotpSkew = totpSkew, DefaultTemplateSid = defaultTemplateSid };
+            var options = new UpdateServiceOptions(pathSid) { FriendlyName = friendlyName, CodeLength = codeLength, LookupEnabled = lookupEnabled, SkipSmsToLandlines = skipSmsToLandlines, DtmfInputRequired = dtmfInputRequired, TtsName = ttsName, Psd2Enabled = psd2Enabled, DoNotShareWarningEnabled = doNotShareWarningEnabled, CustomCodeEnabled = customCodeEnabled, PushIncludeDate = pushIncludeDate, PushApnCredentialSid = pushApnCredentialSid, PushFcmCredentialSid = pushFcmCredentialSid, TotpIssuer = totpIssuer, TotpTimeStep = totpTimeStep, TotpCodeLength = totpCodeLength, TotpSkew = totpSkew, DefaultTemplateSid = defaultTemplateSid };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update a specific Verification Service. </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Service resource to update. </param>
         /// <param name="friendlyName"> A descriptive string that you create to describe the verification service. It can be up to 32 characters long. **This value should not contain PII.** </param>
@@ -543,13 +543,13 @@ namespace Kandy.Rest.Verify.V2
                                                                               int? totpCodeLength = null,
                                                                               int? totpSkew = null,
                                                                               string defaultTemplateSid = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateServiceOptions(pathSid){ FriendlyName = friendlyName, CodeLength = codeLength, LookupEnabled = lookupEnabled, SkipSmsToLandlines = skipSmsToLandlines, DtmfInputRequired = dtmfInputRequired, TtsName = ttsName, Psd2Enabled = psd2Enabled, DoNotShareWarningEnabled = doNotShareWarningEnabled, CustomCodeEnabled = customCodeEnabled, PushIncludeDate = pushIncludeDate, PushApnCredentialSid = pushApnCredentialSid, PushFcmCredentialSid = pushFcmCredentialSid, TotpIssuer = totpIssuer, TotpTimeStep = totpTimeStep, TotpCodeLength = totpCodeLength, TotpSkew = totpSkew, DefaultTemplateSid = defaultTemplateSid };
+            var options = new UpdateServiceOptions(pathSid) { FriendlyName = friendlyName, CodeLength = codeLength, LookupEnabled = lookupEnabled, SkipSmsToLandlines = skipSmsToLandlines, DtmfInputRequired = dtmfInputRequired, TtsName = ttsName, Psd2Enabled = psd2Enabled, DoNotShareWarningEnabled = doNotShareWarningEnabled, CustomCodeEnabled = customCodeEnabled, PushIncludeDate = pushIncludeDate, PushApnCredentialSid = pushApnCredentialSid, PushFcmCredentialSid = pushFcmCredentialSid, TotpIssuer = totpIssuer, TotpTimeStep = totpTimeStep, TotpCodeLength = totpCodeLength, TotpSkew = totpSkew, DefaultTemplateSid = defaultTemplateSid };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a ServiceResource object
         /// </summary>
@@ -567,7 +567,7 @@ namespace Kandy.Rest.Verify.V2
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the Service resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -642,7 +642,8 @@ namespace Kandy.Rest.Verify.V2
 
 
 
-        private ServiceResource() {
+        private ServiceResource()
+        {
 
         }
     }

@@ -28,11 +28,11 @@ namespace Kandy.Rest.FlexApi.V1.Interaction.InteractionChannel
 {
     public class InteractionChannelParticipantResource : Resource
     {
-    
+
         public sealed class StatusEnum : StringEnum
         {
-            private StatusEnum(string value) : base(value) {}
-            public StatusEnum() {}
+            private StatusEnum(string value) : base(value) { }
+            public StatusEnum() { }
             public static implicit operator StatusEnum(string value)
             {
                 return new StatusEnum(value);
@@ -44,8 +44,8 @@ namespace Kandy.Rest.FlexApi.V1.Interaction.InteractionChannel
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class TypeEnum : StringEnum
         {
-            private TypeEnum(string value) : base(value) {}
-            public TypeEnum() {}
+            private TypeEnum(string value) : base(value) { }
+            public TypeEnum() { }
             public static implicit operator TypeEnum(string value)
             {
                 return new TypeEnum(value);
@@ -58,16 +58,16 @@ namespace Kandy.Rest.FlexApi.V1.Interaction.InteractionChannel
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateInteractionChannelParticipantOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateInteractionChannelParticipantOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Participants";
 
             string PathInteractionSid = options.PathInteractionSid;
-            path = path.Replace("{"+"InteractionSid"+"}", PathInteractionSid);
+            path = path.Replace("{" + "InteractionSid" + "}", PathInteractionSid);
             string PathChannelSid = options.PathChannelSid;
-            path = path.Replace("{"+"ChannelSid"+"}", PathChannelSid);
+            path = path.Replace("{" + "ChannelSid" + "}", PathChannelSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -82,26 +82,26 @@ namespace Kandy.Rest.FlexApi.V1.Interaction.InteractionChannel
         /// <param name="options"> Create InteractionChannelParticipant parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of InteractionChannelParticipant </returns>
-        public static InteractionChannelParticipantResource Create(CreateInteractionChannelParticipantOptions options, ITwilioRestClient client = null)
+        public static InteractionChannelParticipantResource Create(CreateInteractionChannelParticipantOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Add a Participant to a Channel. </summary>
         /// <param name="options"> Create InteractionChannelParticipant parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of InteractionChannelParticipant </returns>
         public static async System.Threading.Tasks.Task<InteractionChannelParticipantResource> CreateAsync(CreateInteractionChannelParticipantOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Add a Participant to a Channel. </summary>
         /// <param name="pathInteractionSid"> The Interaction Sid for the new Channel Participant. </param>
@@ -115,13 +115,13 @@ namespace Kandy.Rest.FlexApi.V1.Interaction.InteractionChannel
                                           string pathChannelSid,
                                           InteractionChannelParticipantResource.TypeEnum type,
                                           object mediaProperties,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateInteractionChannelParticipantOptions(pathInteractionSid, pathChannelSid, type, mediaProperties){  };
+            var options = new CreateInteractionChannelParticipantOptions(pathInteractionSid, pathChannelSid, type, mediaProperties) { };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Add a Participant to a Channel. </summary>
         /// <param name="pathInteractionSid"> The Interaction Sid for the new Channel Participant. </param>
         /// <param name="pathChannelSid"> The Channel Sid for the new Channel Participant. </param>
@@ -134,22 +134,22 @@ namespace Kandy.Rest.FlexApi.V1.Interaction.InteractionChannel
                                                                                   string pathChannelSid,
                                                                                   InteractionChannelParticipantResource.TypeEnum type,
                                                                                   object mediaProperties,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateInteractionChannelParticipantOptions(pathInteractionSid, pathChannelSid, type, mediaProperties){  };
+            var options = new CreateInteractionChannelParticipantOptions(pathInteractionSid, pathChannelSid, type, mediaProperties) { };
             return await CreateAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadInteractionChannelParticipantOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadInteractionChannelParticipantOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Participants";
 
             string PathInteractionSid = options.PathInteractionSid;
-            path = path.Replace("{"+"InteractionSid"+"}", PathInteractionSid);
+            path = path.Replace("{" + "InteractionSid" + "}", PathInteractionSid);
             string PathChannelSid = options.PathChannelSid;
-            path = path.Replace("{"+"ChannelSid"+"}", PathChannelSid);
+            path = path.Replace("{" + "ChannelSid" + "}", PathChannelSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -163,7 +163,7 @@ namespace Kandy.Rest.FlexApi.V1.Interaction.InteractionChannel
         /// <param name="options"> Read InteractionChannelParticipant parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of InteractionChannelParticipant </returns>
-        public static ResourceSet<InteractionChannelParticipantResource> Read(ReadInteractionChannelParticipantOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<InteractionChannelParticipantResource> Read(ReadInteractionChannelParticipantOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -171,13 +171,13 @@ namespace Kandy.Rest.FlexApi.V1.Interaction.InteractionChannel
             return new ResourceSet<InteractionChannelParticipantResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> List all Participants for a Channel. </summary>
         /// <param name="options"> Read InteractionChannelParticipant parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of InteractionChannelParticipant </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<InteractionChannelParticipantResource>> ReadAsync(ReadInteractionChannelParticipantOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -185,7 +185,7 @@ namespace Kandy.Rest.FlexApi.V1.Interaction.InteractionChannel
             var page = Page<InteractionChannelParticipantResource>.FromJson("participants", response.Content);
             return new ResourceSet<InteractionChannelParticipantResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> List all Participants for a Channel. </summary>
         /// <param name="pathInteractionSid"> The Interaction Sid for this channel. </param>
         /// <param name="pathChannelSid"> The Channel Sid for this Participant. </param>
@@ -198,13 +198,13 @@ namespace Kandy.Rest.FlexApi.V1.Interaction.InteractionChannel
                                                      string pathChannelSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadInteractionChannelParticipantOptions(pathInteractionSid, pathChannelSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadInteractionChannelParticipantOptions(pathInteractionSid, pathChannelSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> List all Participants for a Channel. </summary>
         /// <param name="pathInteractionSid"> The Interaction Sid for this channel. </param>
         /// <param name="pathChannelSid"> The Channel Sid for this Participant. </param>
@@ -217,19 +217,19 @@ namespace Kandy.Rest.FlexApi.V1.Interaction.InteractionChannel
                                                                                              string pathChannelSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadInteractionChannelParticipantOptions(pathInteractionSid, pathChannelSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadInteractionChannelParticipantOptions(pathInteractionSid, pathChannelSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<InteractionChannelParticipantResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<InteractionChannelParticipantResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -246,7 +246,7 @@ namespace Kandy.Rest.FlexApi.V1.Interaction.InteractionChannel
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<InteractionChannelParticipantResource> NextPage(Page<InteractionChannelParticipantResource> page, ITwilioRestClient client)
+        public static Page<InteractionChannelParticipantResource> NextPage(Page<InteractionChannelParticipantResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -261,7 +261,7 @@ namespace Kandy.Rest.FlexApi.V1.Interaction.InteractionChannel
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<InteractionChannelParticipantResource> PreviousPage(Page<InteractionChannelParticipantResource> page, ITwilioRestClient client)
+        public static Page<InteractionChannelParticipantResource> PreviousPage(Page<InteractionChannelParticipantResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -272,18 +272,18 @@ namespace Kandy.Rest.FlexApi.V1.Interaction.InteractionChannel
             return Page<InteractionChannelParticipantResource>.FromJson("participants", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateInteractionChannelParticipantOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateInteractionChannelParticipantOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Participants/{Sid}";
 
             string PathInteractionSid = options.PathInteractionSid;
-            path = path.Replace("{"+"InteractionSid"+"}", PathInteractionSid);
+            path = path.Replace("{" + "InteractionSid" + "}", PathInteractionSid);
             string PathChannelSid = options.PathChannelSid;
-            path = path.Replace("{"+"ChannelSid"+"}", PathChannelSid);
+            path = path.Replace("{" + "ChannelSid" + "}", PathChannelSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -298,7 +298,7 @@ namespace Kandy.Rest.FlexApi.V1.Interaction.InteractionChannel
         /// <param name="options"> Update InteractionChannelParticipant parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of InteractionChannelParticipant </returns>
-        public static InteractionChannelParticipantResource Update(UpdateInteractionChannelParticipantOptions options, ITwilioRestClient client = null)
+        public static InteractionChannelParticipantResource Update(UpdateInteractionChannelParticipantOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -309,15 +309,15 @@ namespace Kandy.Rest.FlexApi.V1.Interaction.InteractionChannel
         /// <param name="options"> Update InteractionChannelParticipant parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of InteractionChannelParticipant </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<InteractionChannelParticipantResource> UpdateAsync(UpdateInteractionChannelParticipantOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update an existing Channel Participant. </summary>
         /// <param name="pathInteractionSid"> The Interaction Sid for this channel. </param>
@@ -331,13 +331,13 @@ namespace Kandy.Rest.FlexApi.V1.Interaction.InteractionChannel
                                           string pathChannelSid,
                                           string pathSid,
                                           InteractionChannelParticipantResource.StatusEnum status,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateInteractionChannelParticipantOptions(pathInteractionSid, pathChannelSid, pathSid, status){  };
+            var options = new UpdateInteractionChannelParticipantOptions(pathInteractionSid, pathChannelSid, pathSid, status) { };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update an existing Channel Participant. </summary>
         /// <param name="pathInteractionSid"> The Interaction Sid for this channel. </param>
         /// <param name="pathChannelSid"> The Channel Sid for this Participant. </param>
@@ -350,13 +350,13 @@ namespace Kandy.Rest.FlexApi.V1.Interaction.InteractionChannel
                                                                               string pathChannelSid,
                                                                               string pathSid,
                                                                               InteractionChannelParticipantResource.StatusEnum status,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateInteractionChannelParticipantOptions(pathInteractionSid, pathChannelSid, pathSid, status){  };
+            var options = new UpdateInteractionChannelParticipantOptions(pathInteractionSid, pathChannelSid, pathSid, status) { };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a InteractionChannelParticipantResource object
         /// </summary>
@@ -374,12 +374,12 @@ namespace Kandy.Rest.FlexApi.V1.Interaction.InteractionChannel
             }
         }
 
-    
+
         ///<summary> The unique string created by Twilio to identify an Interaction Channel Participant resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
 
-        
+
         [JsonProperty("type")]
         public InteractionChannelParticipantResource.TypeEnum Type { get; private set; }
 
@@ -397,7 +397,8 @@ namespace Kandy.Rest.FlexApi.V1.Interaction.InteractionChannel
 
 
 
-        private InteractionChannelParticipantResource() {
+        private InteractionChannelParticipantResource()
+        {
 
         }
     }

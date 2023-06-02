@@ -28,18 +28,18 @@ namespace Kandy.Rest.Api.V2010.Account.Call
 {
     public class UserDefinedMessageSubscriptionResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateUserDefinedMessageSubscriptionOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateUserDefinedMessageSubscriptionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessageSubscriptions.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathCallSid = options.PathCallSid;
-            path = path.Replace("{"+"CallSid"+"}", PathCallSid);
+            path = path.Replace("{" + "CallSid" + "}", PathCallSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -54,26 +54,26 @@ namespace Kandy.Rest.Api.V2010.Account.Call
         /// <param name="options"> Create UserDefinedMessageSubscription parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of UserDefinedMessageSubscription </returns>
-        public static UserDefinedMessageSubscriptionResource Create(CreateUserDefinedMessageSubscriptionOptions options, ITwilioRestClient client = null)
+        public static UserDefinedMessageSubscriptionResource Create(CreateUserDefinedMessageSubscriptionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Subscribe to User Defined Messages for a given Call SID. </summary>
         /// <param name="options"> Create UserDefinedMessageSubscription parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of UserDefinedMessageSubscription </returns>
         public static async System.Threading.Tasks.Task<UserDefinedMessageSubscriptionResource> CreateAsync(CreateUserDefinedMessageSubscriptionOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Subscribe to User Defined Messages for a given Call SID. </summary>
         /// <param name="pathCallSid"> The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the User Defined Messages subscription is associated with. This refers to the Call SID that is producing the user defined messages. </param>
@@ -89,13 +89,13 @@ namespace Kandy.Rest.Api.V2010.Account.Call
                                           string pathAccountSid = null,
                                           string idempotencyKey = null,
                                           Twilio.Http.HttpMethod method = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateUserDefinedMessageSubscriptionOptions(pathCallSid, callback){  PathAccountSid = pathAccountSid, IdempotencyKey = idempotencyKey, Method = method };
+            var options = new CreateUserDefinedMessageSubscriptionOptions(pathCallSid, callback) { PathAccountSid = pathAccountSid, IdempotencyKey = idempotencyKey, Method = method };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Subscribe to User Defined Messages for a given Call SID. </summary>
         /// <param name="pathCallSid"> The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the User Defined Messages subscription is associated with. This refers to the Call SID that is producing the user defined messages. </param>
         /// <param name="callback"> The URL we should call using the `method` to send user defined events to your application. URLs must contain a valid hostname (underscores are not permitted). </param>
@@ -110,28 +110,28 @@ namespace Kandy.Rest.Api.V2010.Account.Call
                                                                                   string pathAccountSid = null,
                                                                                   string idempotencyKey = null,
                                                                                   Twilio.Http.HttpMethod method = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateUserDefinedMessageSubscriptionOptions(pathCallSid, callback){  PathAccountSid = pathAccountSid, IdempotencyKey = idempotencyKey, Method = method };
+            var options = new CreateUserDefinedMessageSubscriptionOptions(pathCallSid, callback) { PathAccountSid = pathAccountSid, IdempotencyKey = idempotencyKey, Method = method };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Delete a specific User Defined Message Subscription. </summary>
         /// <param name="options"> Delete UserDefinedMessageSubscription parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of UserDefinedMessageSubscription </returns>
-        private static Request BuildDeleteRequest(DeleteUserDefinedMessageSubscriptionOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteUserDefinedMessageSubscriptionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessageSubscriptions/{Sid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathCallSid = options.PathCallSid;
-            path = path.Replace("{"+"CallSid"+"}", PathCallSid);
+            path = path.Replace("{" + "CallSid" + "}", PathCallSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -146,26 +146,26 @@ namespace Kandy.Rest.Api.V2010.Account.Call
         /// <param name="options"> Delete UserDefinedMessageSubscription parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of UserDefinedMessageSubscription </returns>
-        public static bool Delete(DeleteUserDefinedMessageSubscriptionOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteUserDefinedMessageSubscriptionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific User Defined Message Subscription. </summary>
         /// <param name="options"> Delete UserDefinedMessageSubscription parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of UserDefinedMessageSubscription </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteUserDefinedMessageSubscriptionOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete a specific User Defined Message Subscription. </summary>
         /// <param name="pathCallSid"> The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the User Defined Message Subscription is associated with. This refers to the Call SID that is producing the User Defined Messages. </param>
@@ -173,26 +173,26 @@ namespace Kandy.Rest.Api.V2010.Account.Call
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that subscribed to the User Defined Messages. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of UserDefinedMessageSubscription </returns>
-        public static bool Delete(string pathCallSid, string pathSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static bool Delete(string pathCallSid, string pathSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new DeleteUserDefinedMessageSubscriptionOptions(pathCallSid, pathSid)         { PathAccountSid = pathAccountSid }   ;
+            var options = new DeleteUserDefinedMessageSubscriptionOptions(pathCallSid, pathSid) { PathAccountSid = pathAccountSid };
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific User Defined Message Subscription. </summary>
         /// <param name="pathCallSid"> The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the User Defined Message Subscription is associated with. This refers to the Call SID that is producing the User Defined Messages. </param>
         /// <param name="pathSid"> The SID that uniquely identifies this User Defined Message Subscription. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that subscribed to the User Defined Messages. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of UserDefinedMessageSubscription </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathCallSid, string pathSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathCallSid, string pathSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new DeleteUserDefinedMessageSubscriptionOptions(pathCallSid, pathSid)  { PathAccountSid = pathAccountSid };
+            var options = new DeleteUserDefinedMessageSubscriptionOptions(pathCallSid, pathSid) { PathAccountSid = pathAccountSid };
             return await DeleteAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a UserDefinedMessageSubscriptionResource object
         /// </summary>
@@ -210,7 +210,7 @@ namespace Kandy.Rest.Api.V2010.Account.Call
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that subscribed to the User Defined Messages. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -233,7 +233,8 @@ namespace Kandy.Rest.Api.V2010.Account.Call
 
 
 
-        private UserDefinedMessageSubscriptionResource() {
+        private UserDefinedMessageSubscriptionResource()
+        {
 
         }
     }

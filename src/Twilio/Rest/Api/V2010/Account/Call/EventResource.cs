@@ -28,18 +28,18 @@ namespace Kandy.Rest.Api.V2010.Account.Call
 {
     public class EventResource : Resource
     {
-    
 
-        
-        private static Request BuildReadRequest(ReadEventOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildReadRequest(ReadEventOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Events.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathCallSid = options.PathCallSid;
-            path = path.Replace("{"+"CallSid"+"}", PathCallSid);
+            path = path.Replace("{" + "CallSid" + "}", PathCallSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -53,7 +53,7 @@ namespace Kandy.Rest.Api.V2010.Account.Call
         /// <param name="options"> Read Event parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Event </returns>
-        public static ResourceSet<EventResource> Read(ReadEventOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<EventResource> Read(ReadEventOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -61,13 +61,13 @@ namespace Kandy.Rest.Api.V2010.Account.Call
             return new ResourceSet<EventResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all events for a call. </summary>
         /// <param name="options"> Read Event parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Event </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<EventResource>> ReadAsync(ReadEventOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -75,7 +75,7 @@ namespace Kandy.Rest.Api.V2010.Account.Call
             var page = Page<EventResource>.FromJson("events", response.Content);
             return new ResourceSet<EventResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all events for a call. </summary>
         /// <param name="pathCallSid"> The unique SID identifier of the Call. </param>
         /// <param name="pathAccountSid"> The unique SID identifier of the Account. </param>
@@ -88,13 +88,13 @@ namespace Kandy.Rest.Api.V2010.Account.Call
                                                      string pathAccountSid = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadEventOptions(pathCallSid){ PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit};
+            var options = new ReadEventOptions(pathCallSid) { PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all events for a call. </summary>
         /// <param name="pathCallSid"> The unique SID identifier of the Call. </param>
         /// <param name="pathAccountSid"> The unique SID identifier of the Account. </param>
@@ -107,19 +107,19 @@ namespace Kandy.Rest.Api.V2010.Account.Call
                                                                                              string pathAccountSid = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadEventOptions(pathCallSid){ PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit};
+            var options = new ReadEventOptions(pathCallSid) { PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<EventResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<EventResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -136,7 +136,7 @@ namespace Kandy.Rest.Api.V2010.Account.Call
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<EventResource> NextPage(Page<EventResource> page, ITwilioRestClient client)
+        public static Page<EventResource> NextPage(Page<EventResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -151,7 +151,7 @@ namespace Kandy.Rest.Api.V2010.Account.Call
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<EventResource> PreviousPage(Page<EventResource> page, ITwilioRestClient client)
+        public static Page<EventResource> PreviousPage(Page<EventResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -162,7 +162,7 @@ namespace Kandy.Rest.Api.V2010.Account.Call
             return Page<EventResource>.FromJson("events", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a EventResource object
         /// </summary>
@@ -180,7 +180,7 @@ namespace Kandy.Rest.Api.V2010.Account.Call
             }
         }
 
-    
+
         ///<summary> Contains a dictionary representing the request of the call. </summary> 
         [JsonProperty("request")]
         public object Request { get; private set; }
@@ -191,7 +191,8 @@ namespace Kandy.Rest.Api.V2010.Account.Call
 
 
 
-        private EventResource() {
+        private EventResource()
+        {
 
         }
     }

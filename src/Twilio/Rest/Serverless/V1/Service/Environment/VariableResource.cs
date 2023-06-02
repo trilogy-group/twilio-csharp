@@ -28,18 +28,18 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
 {
     public class VariableResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateVariableOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateVariableOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathEnvironmentSid = options.PathEnvironmentSid;
-            path = path.Replace("{"+"EnvironmentSid"+"}", PathEnvironmentSid);
+            path = path.Replace("{" + "EnvironmentSid" + "}", PathEnvironmentSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -54,26 +54,26 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
         /// <param name="options"> Create Variable parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Variable </returns>
-        public static VariableResource Create(CreateVariableOptions options, ITwilioRestClient client = null)
+        public static VariableResource Create(CreateVariableOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Variable. </summary>
         /// <param name="options"> Create Variable parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Variable </returns>
         public static async System.Threading.Tasks.Task<VariableResource> CreateAsync(CreateVariableOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new Variable. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to create the Variable resource under. </param>
@@ -87,13 +87,13 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
                                           string pathEnvironmentSid,
                                           string key,
                                           string value,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateVariableOptions(pathServiceSid, pathEnvironmentSid, key, value){  };
+            var options = new CreateVariableOptions(pathServiceSid, pathEnvironmentSid, key, value) { };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Variable. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to create the Variable resource under. </param>
         /// <param name="pathEnvironmentSid"> The SID of the Environment in which the Variable resource exists. </param>
@@ -106,28 +106,28 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
                                                                                   string pathEnvironmentSid,
                                                                                   string key,
                                                                                   string value,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateVariableOptions(pathServiceSid, pathEnvironmentSid, key, value){  };
+            var options = new CreateVariableOptions(pathServiceSid, pathEnvironmentSid, key, value) { };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Delete a specific Variable. </summary>
         /// <param name="options"> Delete Variable parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Variable </returns>
-        private static Request BuildDeleteRequest(DeleteVariableOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteVariableOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathEnvironmentSid = options.PathEnvironmentSid;
-            path = path.Replace("{"+"EnvironmentSid"+"}", PathEnvironmentSid);
+            path = path.Replace("{" + "EnvironmentSid" + "}", PathEnvironmentSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -142,26 +142,26 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
         /// <param name="options"> Delete Variable parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Variable </returns>
-        public static bool Delete(DeleteVariableOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteVariableOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific Variable. </summary>
         /// <param name="options"> Delete Variable parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Variable </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteVariableOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete a specific Variable. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to delete the Variable resource from. </param>
@@ -169,37 +169,37 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
         /// <param name="pathSid"> The SID of the Variable resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Variable </returns>
-        public static bool Delete(string pathServiceSid, string pathEnvironmentSid, string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathServiceSid, string pathEnvironmentSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteVariableOptions(pathServiceSid, pathEnvironmentSid, pathSid)           ;
+            var options = new DeleteVariableOptions(pathServiceSid, pathEnvironmentSid, pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific Variable. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to delete the Variable resource from. </param>
         /// <param name="pathEnvironmentSid"> The SID of the Environment with the Variables to delete. </param>
         /// <param name="pathSid"> The SID of the Variable resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Variable </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathEnvironmentSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathEnvironmentSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteVariableOptions(pathServiceSid, pathEnvironmentSid, pathSid) ;
+            var options = new DeleteVariableOptions(pathServiceSid, pathEnvironmentSid, pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchVariableOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchVariableOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathEnvironmentSid = options.PathEnvironmentSid;
-            path = path.Replace("{"+"EnvironmentSid"+"}", PathEnvironmentSid);
+            path = path.Replace("{" + "EnvironmentSid" + "}", PathEnvironmentSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -214,26 +214,26 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
         /// <param name="options"> Fetch Variable parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Variable </returns>
-        public static VariableResource Fetch(FetchVariableOptions options, ITwilioRestClient client = null)
+        public static VariableResource Fetch(FetchVariableOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a specific Variable. </summary>
         /// <param name="options"> Fetch Variable parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Variable </returns>
         public static async System.Threading.Tasks.Task<VariableResource> FetchAsync(FetchVariableOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Retrieve a specific Variable. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to fetch the Variable resource from. </param>
         /// <param name="pathEnvironmentSid"> The SID of the Environment with the Variable resource to fetch. </param>
@@ -241,38 +241,38 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Variable </returns>
         public static VariableResource Fetch(
-                                         string pathServiceSid, 
-                                         string pathEnvironmentSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathServiceSid,
+                                         string pathEnvironmentSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchVariableOptions(pathServiceSid, pathEnvironmentSid, pathSid){  };
+            var options = new FetchVariableOptions(pathServiceSid, pathEnvironmentSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a specific Variable. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to fetch the Variable resource from. </param>
         /// <param name="pathEnvironmentSid"> The SID of the Environment with the Variable resource to fetch. </param>
         /// <param name="pathSid"> The SID of the Variable resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Variable </returns>
-        public static async System.Threading.Tasks.Task<VariableResource> FetchAsync(string pathServiceSid, string pathEnvironmentSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<VariableResource> FetchAsync(string pathServiceSid, string pathEnvironmentSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchVariableOptions(pathServiceSid, pathEnvironmentSid, pathSid){  };
+            var options = new FetchVariableOptions(pathServiceSid, pathEnvironmentSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadVariableOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadVariableOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathEnvironmentSid = options.PathEnvironmentSid;
-            path = path.Replace("{"+"EnvironmentSid"+"}", PathEnvironmentSid);
+            path = path.Replace("{" + "EnvironmentSid" + "}", PathEnvironmentSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -286,7 +286,7 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
         /// <param name="options"> Read Variable parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Variable </returns>
-        public static ResourceSet<VariableResource> Read(ReadVariableOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<VariableResource> Read(ReadVariableOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -294,13 +294,13 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
             return new ResourceSet<VariableResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Variables. </summary>
         /// <param name="options"> Read Variable parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Variable </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<VariableResource>> ReadAsync(ReadVariableOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -308,7 +308,7 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
             var page = Page<VariableResource>.FromJson("variables", response.Content);
             return new ResourceSet<VariableResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Variables. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to read the Variable resources from. </param>
         /// <param name="pathEnvironmentSid"> The SID of the Environment with the Variable resources to read. </param>
@@ -321,13 +321,13 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
                                                      string pathEnvironmentSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadVariableOptions(pathServiceSid, pathEnvironmentSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadVariableOptions(pathServiceSid, pathEnvironmentSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Variables. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to read the Variable resources from. </param>
         /// <param name="pathEnvironmentSid"> The SID of the Environment with the Variable resources to read. </param>
@@ -340,19 +340,19 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
                                                                                              string pathEnvironmentSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadVariableOptions(pathServiceSid, pathEnvironmentSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadVariableOptions(pathServiceSid, pathEnvironmentSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<VariableResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<VariableResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -369,7 +369,7 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<VariableResource> NextPage(Page<VariableResource> page, ITwilioRestClient client)
+        public static Page<VariableResource> NextPage(Page<VariableResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -384,7 +384,7 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<VariableResource> PreviousPage(Page<VariableResource> page, ITwilioRestClient client)
+        public static Page<VariableResource> PreviousPage(Page<VariableResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -395,18 +395,18 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
             return Page<VariableResource>.FromJson("variables", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateVariableOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateVariableOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathEnvironmentSid = options.PathEnvironmentSid;
-            path = path.Replace("{"+"EnvironmentSid"+"}", PathEnvironmentSid);
+            path = path.Replace("{" + "EnvironmentSid" + "}", PathEnvironmentSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -421,7 +421,7 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
         /// <param name="options"> Update Variable parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Variable </returns>
-        public static VariableResource Update(UpdateVariableOptions options, ITwilioRestClient client = null)
+        public static VariableResource Update(UpdateVariableOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -432,15 +432,15 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
         /// <param name="options"> Update Variable parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Variable </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<VariableResource> UpdateAsync(UpdateVariableOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update a specific Variable. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to update the Variable resource under. </param>
@@ -456,13 +456,13 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
                                           string pathSid,
                                           string key = null,
                                           string value = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateVariableOptions(pathServiceSid, pathEnvironmentSid, pathSid){ Key = key, Value = value };
+            var options = new UpdateVariableOptions(pathServiceSid, pathEnvironmentSid, pathSid) { Key = key, Value = value };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update a specific Variable. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to update the Variable resource under. </param>
         /// <param name="pathEnvironmentSid"> The SID of the Environment with the Variable resource to update. </param>
@@ -477,13 +477,13 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
                                                                               string pathSid,
                                                                               string key = null,
                                                                               string value = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateVariableOptions(pathServiceSid, pathEnvironmentSid, pathSid){ Key = key, Value = value };
+            var options = new UpdateVariableOptions(pathServiceSid, pathEnvironmentSid, pathSid) { Key = key, Value = value };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a VariableResource object
         /// </summary>
@@ -501,7 +501,7 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the Variable resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -540,7 +540,8 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
 
 
 
-        private VariableResource() {
+        private VariableResource()
+        {
 
         }
     }

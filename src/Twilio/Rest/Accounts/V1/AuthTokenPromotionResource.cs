@@ -28,12 +28,12 @@ namespace Kandy.Rest.Accounts.V1
 {
     public class AuthTokenPromotionResource : Resource
     {
-    
 
-        
-        private static Request BuildUpdateRequest(UpdateAuthTokenPromotionOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildUpdateRequest(UpdateAuthTokenPromotionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/AuthTokens/Promote";
 
 
@@ -50,7 +50,7 @@ namespace Kandy.Rest.Accounts.V1
         /// <param name="options"> Update AuthTokenPromotion parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AuthTokenPromotion </returns>
-        public static AuthTokenPromotionResource Update(UpdateAuthTokenPromotionOptions options, ITwilioRestClient client = null)
+        public static AuthTokenPromotionResource Update(UpdateAuthTokenPromotionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -61,38 +61,38 @@ namespace Kandy.Rest.Accounts.V1
         /// <param name="options"> Update AuthTokenPromotion parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AuthTokenPromotion </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<AuthTokenPromotionResource> UpdateAsync(UpdateAuthTokenPromotionOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Promote the secondary Auth Token to primary. After promoting the new token, all requests to Twilio using your old primary Auth Token will result in an error. </summary>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AuthTokenPromotion </returns>
         public static AuthTokenPromotionResource Update(
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateAuthTokenPromotionOptions(){  };
+            var options = new UpdateAuthTokenPromotionOptions() { };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Promote the secondary Auth Token to primary. After promoting the new token, all requests to Twilio using your old primary Auth Token will result in an error. </summary>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AuthTokenPromotion </returns>
         public static async System.Threading.Tasks.Task<AuthTokenPromotionResource> UpdateAsync(
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateAuthTokenPromotionOptions(){  };
+            var options = new UpdateAuthTokenPromotionOptions() { };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a AuthTokenPromotionResource object
         /// </summary>
@@ -110,7 +110,7 @@ namespace Kandy.Rest.Accounts.V1
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that the secondary Auth Token was created for. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -133,7 +133,8 @@ namespace Kandy.Rest.Accounts.V1
 
 
 
-        private AuthTokenPromotionResource() {
+        private AuthTokenPromotionResource()
+        {
 
         }
     }

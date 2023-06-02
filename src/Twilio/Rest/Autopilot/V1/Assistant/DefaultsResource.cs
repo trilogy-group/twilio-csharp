@@ -28,16 +28,16 @@ namespace Kandy.Rest.Autopilot.V1.Assistant
 {
     public class DefaultsResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchDefaultsOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchDefaultsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Assistants/{AssistantSid}/Defaults";
 
             string PathAssistantSid = options.PathAssistantSid;
-            path = path.Replace("{"+"AssistantSid"+"}", PathAssistantSid);
+            path = path.Replace("{" + "AssistantSid" + "}", PathAssistantSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -52,57 +52,57 @@ namespace Kandy.Rest.Autopilot.V1.Assistant
         /// <param name="options"> Fetch Defaults parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Defaults </returns>
-        public static DefaultsResource Fetch(FetchDefaultsOptions options, ITwilioRestClient client = null)
+        public static DefaultsResource Fetch(FetchDefaultsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch Defaults parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Defaults </returns>
         public static async System.Threading.Tasks.Task<DefaultsResource> FetchAsync(FetchDefaultsOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathAssistantSid"> The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Defaults </returns>
         public static DefaultsResource Fetch(
-                                         string pathAssistantSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathAssistantSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchDefaultsOptions(pathAssistantSid){  };
+            var options = new FetchDefaultsOptions(pathAssistantSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathAssistantSid"> The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Defaults </returns>
-        public static async System.Threading.Tasks.Task<DefaultsResource> FetchAsync(string pathAssistantSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<DefaultsResource> FetchAsync(string pathAssistantSid, IKandyRestClient client = null)
         {
-            var options = new FetchDefaultsOptions(pathAssistantSid){  };
+            var options = new FetchDefaultsOptions(pathAssistantSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildUpdateRequest(UpdateDefaultsOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildUpdateRequest(UpdateDefaultsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Assistants/{AssistantSid}/Defaults";
 
             string PathAssistantSid = options.PathAssistantSid;
-            path = path.Replace("{"+"AssistantSid"+"}", PathAssistantSid);
+            path = path.Replace("{" + "AssistantSid" + "}", PathAssistantSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -117,7 +117,7 @@ namespace Kandy.Rest.Autopilot.V1.Assistant
         /// <param name="options"> Update Defaults parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Defaults </returns>
-        public static DefaultsResource Update(UpdateDefaultsOptions options, ITwilioRestClient client = null)
+        public static DefaultsResource Update(UpdateDefaultsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -128,15 +128,15 @@ namespace Kandy.Rest.Autopilot.V1.Assistant
         /// <param name="options"> Update Defaults parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Defaults </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<DefaultsResource> UpdateAsync(UpdateDefaultsOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> update </summary>
         /// <param name="pathAssistantSid"> The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to update. </param>
@@ -146,13 +146,13 @@ namespace Kandy.Rest.Autopilot.V1.Assistant
         public static DefaultsResource Update(
                                           string pathAssistantSid,
                                           object defaults = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateDefaultsOptions(pathAssistantSid){ Defaults = defaults };
+            var options = new UpdateDefaultsOptions(pathAssistantSid) { Defaults = defaults };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> update </summary>
         /// <param name="pathAssistantSid"> The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to update. </param>
         /// <param name="defaults"> A JSON string that describes the default task links for the `assistant_initiation`, `collect`, and `fallback` situations. </param>
@@ -161,13 +161,13 @@ namespace Kandy.Rest.Autopilot.V1.Assistant
         public static async System.Threading.Tasks.Task<DefaultsResource> UpdateAsync(
                                                                               string pathAssistantSid,
                                                                               object defaults = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateDefaultsOptions(pathAssistantSid){ Defaults = defaults };
+            var options = new UpdateDefaultsOptions(pathAssistantSid) { Defaults = defaults };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a DefaultsResource object
         /// </summary>
@@ -185,7 +185,7 @@ namespace Kandy.Rest.Autopilot.V1.Assistant
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Defaults resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -204,7 +204,8 @@ namespace Kandy.Rest.Autopilot.V1.Assistant
 
 
 
-        private DefaultsResource() {
+        private DefaultsResource()
+        {
 
         }
     }

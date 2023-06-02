@@ -28,16 +28,16 @@ namespace Kandy.Rest.Intelligence.V2.Transcript
 {
     public class SentenceResource : Resource
     {
-    
 
-        
-        private static Request BuildReadRequest(ReadSentenceOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildReadRequest(ReadSentenceOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Transcripts/{TranscriptSid}/Sentences";
 
             string PathTranscriptSid = options.PathTranscriptSid;
-            path = path.Replace("{"+"TranscriptSid"+"}", PathTranscriptSid);
+            path = path.Replace("{" + "TranscriptSid" + "}", PathTranscriptSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -51,7 +51,7 @@ namespace Kandy.Rest.Intelligence.V2.Transcript
         /// <param name="options"> Read Sentence parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Sentence </returns>
-        public static ResourceSet<SentenceResource> Read(ReadSentenceOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<SentenceResource> Read(ReadSentenceOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -59,13 +59,13 @@ namespace Kandy.Rest.Intelligence.V2.Transcript
             return new ResourceSet<SentenceResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Get all Transcript Sentences by TranscriptSid </summary>
         /// <param name="options"> Read Sentence parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Sentence </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<SentenceResource>> ReadAsync(ReadSentenceOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -73,7 +73,7 @@ namespace Kandy.Rest.Intelligence.V2.Transcript
             var page = Page<SentenceResource>.FromJson("sentences", response.Content);
             return new ResourceSet<SentenceResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Get all Transcript Sentences by TranscriptSid </summary>
         /// <param name="pathTranscriptSid"> The unique SID identifier of the Transcript. </param>
         /// <param name="redacted"> Grant access to PII Redacted/Unredacted Sentences. The default is `true` to access redacted sentences. </param>
@@ -86,13 +86,13 @@ namespace Kandy.Rest.Intelligence.V2.Transcript
                                                      bool? redacted = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadSentenceOptions(pathTranscriptSid){ Redacted = redacted, PageSize = pageSize, Limit = limit};
+            var options = new ReadSentenceOptions(pathTranscriptSid) { Redacted = redacted, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Get all Transcript Sentences by TranscriptSid </summary>
         /// <param name="pathTranscriptSid"> The unique SID identifier of the Transcript. </param>
         /// <param name="redacted"> Grant access to PII Redacted/Unredacted Sentences. The default is `true` to access redacted sentences. </param>
@@ -105,19 +105,19 @@ namespace Kandy.Rest.Intelligence.V2.Transcript
                                                                                              bool? redacted = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadSentenceOptions(pathTranscriptSid){ Redacted = redacted, PageSize = pageSize, Limit = limit};
+            var options = new ReadSentenceOptions(pathTranscriptSid) { Redacted = redacted, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<SentenceResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<SentenceResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -134,7 +134,7 @@ namespace Kandy.Rest.Intelligence.V2.Transcript
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<SentenceResource> NextPage(Page<SentenceResource> page, ITwilioRestClient client)
+        public static Page<SentenceResource> NextPage(Page<SentenceResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -149,7 +149,7 @@ namespace Kandy.Rest.Intelligence.V2.Transcript
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<SentenceResource> PreviousPage(Page<SentenceResource> page, ITwilioRestClient client)
+        public static Page<SentenceResource> PreviousPage(Page<SentenceResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -160,7 +160,7 @@ namespace Kandy.Rest.Intelligence.V2.Transcript
             return Page<SentenceResource>.FromJson("sentences", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a SentenceResource object
         /// </summary>
@@ -178,7 +178,7 @@ namespace Kandy.Rest.Intelligence.V2.Transcript
             }
         }
 
-    
+
         ///<summary> The channel number. </summary> 
         [JsonProperty("media_channel")]
         public int? MediaChannel { get; private set; }
@@ -209,7 +209,8 @@ namespace Kandy.Rest.Intelligence.V2.Transcript
 
 
 
-        private SentenceResource() {
+        private SentenceResource()
+        {
 
         }
     }

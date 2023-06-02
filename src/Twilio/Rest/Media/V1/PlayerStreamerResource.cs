@@ -28,12 +28,12 @@ namespace Kandy.Rest.Media.V1
 {
     public class PlayerStreamerResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class StatusEnum : StringEnum
         {
-            private StatusEnum(string value) : base(value) {}
-            public StatusEnum() {}
+            private StatusEnum(string value) : base(value) { }
+            public StatusEnum() { }
             public static implicit operator StatusEnum(string value)
             {
                 return new StatusEnum(value);
@@ -47,8 +47,8 @@ namespace Kandy.Rest.Media.V1
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class EndedReasonEnum : StringEnum
         {
-            private EndedReasonEnum(string value) : base(value) {}
-            public EndedReasonEnum() {}
+            private EndedReasonEnum(string value) : base(value) { }
+            public EndedReasonEnum() { }
             public static implicit operator EndedReasonEnum(string value)
             {
                 return new EndedReasonEnum(value);
@@ -61,8 +61,8 @@ namespace Kandy.Rest.Media.V1
         }
         public sealed class OrderEnum : StringEnum
         {
-            private OrderEnum(string value) : base(value) {}
-            public OrderEnum() {}
+            private OrderEnum(string value) : base(value) { }
+            public OrderEnum() { }
             public static implicit operator OrderEnum(string value)
             {
                 return new OrderEnum(value);
@@ -73,8 +73,8 @@ namespace Kandy.Rest.Media.V1
         }
         public sealed class UpdateStatusEnum : StringEnum
         {
-            private UpdateStatusEnum(string value) : base(value) {}
-            public UpdateStatusEnum() {}
+            private UpdateStatusEnum(string value) : base(value) { }
+            public UpdateStatusEnum() { }
             public static implicit operator UpdateStatusEnum(string value)
             {
                 return new UpdateStatusEnum(value);
@@ -83,10 +83,10 @@ namespace Kandy.Rest.Media.V1
 
         }
 
-        
-        private static Request BuildCreateRequest(CreatePlayerStreamerOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreatePlayerStreamerOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/PlayerStreamers";
 
 
@@ -103,26 +103,26 @@ namespace Kandy.Rest.Media.V1
         /// <param name="options"> Create PlayerStreamer parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of PlayerStreamer </returns>
-        public static PlayerStreamerResource Create(CreatePlayerStreamerOptions options, ITwilioRestClient client = null)
+        public static PlayerStreamerResource Create(CreatePlayerStreamerOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create PlayerStreamer parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of PlayerStreamer </returns>
         public static async System.Threading.Tasks.Task<PlayerStreamerResource> CreateAsync(CreatePlayerStreamerOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="video"> Specifies whether the PlayerStreamer is configured to stream video. Defaults to `true`. </param>
@@ -136,13 +136,13 @@ namespace Kandy.Rest.Media.V1
                                           Uri statusCallback = null,
                                           Twilio.Http.HttpMethod statusCallbackMethod = null,
                                           int? maxDuration = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreatePlayerStreamerOptions(){  Video = video, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, MaxDuration = maxDuration };
+            var options = new CreatePlayerStreamerOptions() { Video = video, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, MaxDuration = maxDuration };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="video"> Specifies whether the PlayerStreamer is configured to stream video. Defaults to `true`. </param>
         /// <param name="statusCallback"> The URL to which Twilio will send asynchronous webhook requests for every PlayerStreamer event. See [Status Callbacks](/docs/live/status-callbacks) for more details. </param>
@@ -155,20 +155,20 @@ namespace Kandy.Rest.Media.V1
                                                                                   Uri statusCallback = null,
                                                                                   Twilio.Http.HttpMethod statusCallbackMethod = null,
                                                                                   int? maxDuration = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreatePlayerStreamerOptions(){  Video = video, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, MaxDuration = maxDuration };
+            var options = new CreatePlayerStreamerOptions() { Video = video, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, MaxDuration = maxDuration };
             return await CreateAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchPlayerStreamerOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchPlayerStreamerOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/PlayerStreamers/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -183,53 +183,53 @@ namespace Kandy.Rest.Media.V1
         /// <param name="options"> Fetch PlayerStreamer parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of PlayerStreamer </returns>
-        public static PlayerStreamerResource Fetch(FetchPlayerStreamerOptions options, ITwilioRestClient client = null)
+        public static PlayerStreamerResource Fetch(FetchPlayerStreamerOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Returns a single PlayerStreamer resource identified by a SID. </summary>
         /// <param name="options"> Fetch PlayerStreamer parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of PlayerStreamer </returns>
         public static async System.Threading.Tasks.Task<PlayerStreamerResource> FetchAsync(FetchPlayerStreamerOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Returns a single PlayerStreamer resource identified by a SID. </summary>
         /// <param name="pathSid"> The SID of the PlayerStreamer resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of PlayerStreamer </returns>
         public static PlayerStreamerResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchPlayerStreamerOptions(pathSid){  };
+            var options = new FetchPlayerStreamerOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Returns a single PlayerStreamer resource identified by a SID. </summary>
         /// <param name="pathSid"> The SID of the PlayerStreamer resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of PlayerStreamer </returns>
-        public static async System.Threading.Tasks.Task<PlayerStreamerResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<PlayerStreamerResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchPlayerStreamerOptions(pathSid){  };
+            var options = new FetchPlayerStreamerOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadPlayerStreamerOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadPlayerStreamerOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/PlayerStreamers";
 
 
@@ -245,7 +245,7 @@ namespace Kandy.Rest.Media.V1
         /// <param name="options"> Read PlayerStreamer parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of PlayerStreamer </returns>
-        public static ResourceSet<PlayerStreamerResource> Read(ReadPlayerStreamerOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<PlayerStreamerResource> Read(ReadPlayerStreamerOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -253,13 +253,13 @@ namespace Kandy.Rest.Media.V1
             return new ResourceSet<PlayerStreamerResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Returns a list of PlayerStreamers. </summary>
         /// <param name="options"> Read PlayerStreamer parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of PlayerStreamer </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<PlayerStreamerResource>> ReadAsync(ReadPlayerStreamerOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -267,7 +267,7 @@ namespace Kandy.Rest.Media.V1
             var page = Page<PlayerStreamerResource>.FromJson("player_streamers", response.Content);
             return new ResourceSet<PlayerStreamerResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Returns a list of PlayerStreamers. </summary>
         /// <param name="order"> The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default. </param>
         /// <param name="status"> Status to filter by, with possible values `created`, `started`, `ended`, or `failed`. </param>
@@ -280,13 +280,13 @@ namespace Kandy.Rest.Media.V1
                                                      PlayerStreamerResource.StatusEnum status = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadPlayerStreamerOptions(){ Order = order, Status = status, PageSize = pageSize, Limit = limit};
+            var options = new ReadPlayerStreamerOptions() { Order = order, Status = status, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Returns a list of PlayerStreamers. </summary>
         /// <param name="order"> The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default. </param>
         /// <param name="status"> Status to filter by, with possible values `created`, `started`, `ended`, or `failed`. </param>
@@ -299,19 +299,19 @@ namespace Kandy.Rest.Media.V1
                                                                                              PlayerStreamerResource.StatusEnum status = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadPlayerStreamerOptions(){ Order = order, Status = status, PageSize = pageSize, Limit = limit};
+            var options = new ReadPlayerStreamerOptions() { Order = order, Status = status, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<PlayerStreamerResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<PlayerStreamerResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -328,7 +328,7 @@ namespace Kandy.Rest.Media.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<PlayerStreamerResource> NextPage(Page<PlayerStreamerResource> page, ITwilioRestClient client)
+        public static Page<PlayerStreamerResource> NextPage(Page<PlayerStreamerResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -343,7 +343,7 @@ namespace Kandy.Rest.Media.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<PlayerStreamerResource> PreviousPage(Page<PlayerStreamerResource> page, ITwilioRestClient client)
+        public static Page<PlayerStreamerResource> PreviousPage(Page<PlayerStreamerResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -354,14 +354,14 @@ namespace Kandy.Rest.Media.V1
             return Page<PlayerStreamerResource>.FromJson("player_streamers", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdatePlayerStreamerOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdatePlayerStreamerOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/PlayerStreamers/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -376,7 +376,7 @@ namespace Kandy.Rest.Media.V1
         /// <param name="options"> Update PlayerStreamer parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of PlayerStreamer </returns>
-        public static PlayerStreamerResource Update(UpdatePlayerStreamerOptions options, ITwilioRestClient client = null)
+        public static PlayerStreamerResource Update(UpdatePlayerStreamerOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -387,15 +387,15 @@ namespace Kandy.Rest.Media.V1
         /// <param name="options"> Update PlayerStreamer parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of PlayerStreamer </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<PlayerStreamerResource> UpdateAsync(UpdatePlayerStreamerOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Updates a PlayerStreamer resource identified by a SID. </summary>
         /// <param name="pathSid"> The SID of the PlayerStreamer resource to update. </param>
@@ -405,13 +405,13 @@ namespace Kandy.Rest.Media.V1
         public static PlayerStreamerResource Update(
                                           string pathSid,
                                           PlayerStreamerResource.UpdateStatusEnum status,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdatePlayerStreamerOptions(pathSid, status){  };
+            var options = new UpdatePlayerStreamerOptions(pathSid, status) { };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Updates a PlayerStreamer resource identified by a SID. </summary>
         /// <param name="pathSid"> The SID of the PlayerStreamer resource to update. </param>
         /// <param name="status">  </param>
@@ -420,13 +420,13 @@ namespace Kandy.Rest.Media.V1
         public static async System.Threading.Tasks.Task<PlayerStreamerResource> UpdateAsync(
                                                                               string pathSid,
                                                                               PlayerStreamerResource.UpdateStatusEnum status,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdatePlayerStreamerOptions(pathSid, status){  };
+            var options = new UpdatePlayerStreamerOptions(pathSid, status) { };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a PlayerStreamerResource object
         /// </summary>
@@ -444,7 +444,7 @@ namespace Kandy.Rest.Media.V1
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the PlayerStreamer resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -469,7 +469,7 @@ namespace Kandy.Rest.Media.V1
         [JsonProperty("sid")]
         public string Sid { get; private set; }
 
-        
+
         [JsonProperty("status")]
         public PlayerStreamerResource.StatusEnum Status { get; private set; }
 
@@ -485,7 +485,7 @@ namespace Kandy.Rest.Media.V1
         [JsonProperty("status_callback_method")]
         public Twilio.Http.HttpMethod StatusCallbackMethod { get; private set; }
 
-        
+
         [JsonProperty("ended_reason")]
         public PlayerStreamerResource.EndedReasonEnum EndedReason { get; private set; }
 
@@ -495,7 +495,8 @@ namespace Kandy.Rest.Media.V1
 
 
 
-        private PlayerStreamerResource() {
+        private PlayerStreamerResource()
+        {
 
         }
     }

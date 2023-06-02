@@ -28,12 +28,12 @@ namespace Kandy.Rest.Accounts.V1.Credential
 {
     public class AwsResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateAwsOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateAwsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Credentials/AWS";
 
 
@@ -50,26 +50,26 @@ namespace Kandy.Rest.Accounts.V1.Credential
         /// <param name="options"> Create Aws parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Aws </returns>
-        public static AwsResource Create(CreateAwsOptions options, ITwilioRestClient client = null)
+        public static AwsResource Create(CreateAwsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new AWS Credential </summary>
         /// <param name="options"> Create Aws parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Aws </returns>
         public static async System.Threading.Tasks.Task<AwsResource> CreateAsync(CreateAwsOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new AWS Credential </summary>
         /// <param name="credentials"> A string that contains the AWS access credentials in the format `<AWS_ACCESS_KEY_ID>:<AWS_SECRET_ACCESS_KEY>`. For example, `AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY` </param>
@@ -81,13 +81,13 @@ namespace Kandy.Rest.Accounts.V1.Credential
                                           string credentials,
                                           string friendlyName = null,
                                           string accountSid = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateAwsOptions(credentials){  FriendlyName = friendlyName, AccountSid = accountSid };
+            var options = new CreateAwsOptions(credentials) { FriendlyName = friendlyName, AccountSid = accountSid };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new AWS Credential </summary>
         /// <param name="credentials"> A string that contains the AWS access credentials in the format `<AWS_ACCESS_KEY_ID>:<AWS_SECRET_ACCESS_KEY>`. For example, `AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY` </param>
         /// <param name="friendlyName"> A descriptive string that you create to describe the resource. It can be up to 64 characters long. </param>
@@ -98,24 +98,24 @@ namespace Kandy.Rest.Accounts.V1.Credential
                                                                                   string credentials,
                                                                                   string friendlyName = null,
                                                                                   string accountSid = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateAwsOptions(credentials){  FriendlyName = friendlyName, AccountSid = accountSid };
+            var options = new CreateAwsOptions(credentials) { FriendlyName = friendlyName, AccountSid = accountSid };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Delete a Credential from your account </summary>
         /// <param name="options"> Delete Aws parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Aws </returns>
-        private static Request BuildDeleteRequest(DeleteAwsOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteAwsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Credentials/AWS/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -130,56 +130,56 @@ namespace Kandy.Rest.Accounts.V1.Credential
         /// <param name="options"> Delete Aws parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Aws </returns>
-        public static bool Delete(DeleteAwsOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteAwsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a Credential from your account </summary>
         /// <param name="options"> Delete Aws parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Aws </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteAwsOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete a Credential from your account </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the AWS resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Aws </returns>
-        public static bool Delete(string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteAwsOptions(pathSid)     ;
+            var options = new DeleteAwsOptions(pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a Credential from your account </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the AWS resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Aws </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteAwsOptions(pathSid) ;
+            var options = new DeleteAwsOptions(pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchAwsOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchAwsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Credentials/AWS/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -194,53 +194,53 @@ namespace Kandy.Rest.Accounts.V1.Credential
         /// <param name="options"> Fetch Aws parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Aws </returns>
-        public static AwsResource Fetch(FetchAwsOptions options, ITwilioRestClient client = null)
+        public static AwsResource Fetch(FetchAwsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch the AWS credentials specified by the provided Credential Sid </summary>
         /// <param name="options"> Fetch Aws parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Aws </returns>
         public static async System.Threading.Tasks.Task<AwsResource> FetchAsync(FetchAwsOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch the AWS credentials specified by the provided Credential Sid </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the AWS resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Aws </returns>
         public static AwsResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchAwsOptions(pathSid){  };
+            var options = new FetchAwsOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch the AWS credentials specified by the provided Credential Sid </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the AWS resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Aws </returns>
-        public static async System.Threading.Tasks.Task<AwsResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<AwsResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchAwsOptions(pathSid){  };
+            var options = new FetchAwsOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadAwsOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadAwsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Credentials/AWS";
 
 
@@ -256,7 +256,7 @@ namespace Kandy.Rest.Accounts.V1.Credential
         /// <param name="options"> Read Aws parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Aws </returns>
-        public static ResourceSet<AwsResource> Read(ReadAwsOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<AwsResource> Read(ReadAwsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -264,13 +264,13 @@ namespace Kandy.Rest.Accounts.V1.Credential
             return new ResourceSet<AwsResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieves a collection of AWS Credentials belonging to the account used to make the request </summary>
         /// <param name="options"> Read Aws parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Aws </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<AwsResource>> ReadAsync(ReadAwsOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -278,7 +278,7 @@ namespace Kandy.Rest.Accounts.V1.Credential
             var page = Page<AwsResource>.FromJson("credentials", response.Content);
             return new ResourceSet<AwsResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieves a collection of AWS Credentials belonging to the account used to make the request </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -287,13 +287,13 @@ namespace Kandy.Rest.Accounts.V1.Credential
         public static ResourceSet<AwsResource> Read(
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadAwsOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadAwsOptions() { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieves a collection of AWS Credentials belonging to the account used to make the request </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -302,19 +302,19 @@ namespace Kandy.Rest.Accounts.V1.Credential
         public static async System.Threading.Tasks.Task<ResourceSet<AwsResource>> ReadAsync(
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadAwsOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadAwsOptions() { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<AwsResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<AwsResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -331,7 +331,7 @@ namespace Kandy.Rest.Accounts.V1.Credential
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<AwsResource> NextPage(Page<AwsResource> page, ITwilioRestClient client)
+        public static Page<AwsResource> NextPage(Page<AwsResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -346,7 +346,7 @@ namespace Kandy.Rest.Accounts.V1.Credential
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<AwsResource> PreviousPage(Page<AwsResource> page, ITwilioRestClient client)
+        public static Page<AwsResource> PreviousPage(Page<AwsResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -357,14 +357,14 @@ namespace Kandy.Rest.Accounts.V1.Credential
             return Page<AwsResource>.FromJson("credentials", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateAwsOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateAwsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Credentials/AWS/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -379,7 +379,7 @@ namespace Kandy.Rest.Accounts.V1.Credential
         /// <param name="options"> Update Aws parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Aws </returns>
-        public static AwsResource Update(UpdateAwsOptions options, ITwilioRestClient client = null)
+        public static AwsResource Update(UpdateAwsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -390,15 +390,15 @@ namespace Kandy.Rest.Accounts.V1.Credential
         /// <param name="options"> Update Aws parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Aws </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<AwsResource> UpdateAsync(UpdateAwsOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Modify the properties of a given Account </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the AWS resource to update. </param>
@@ -408,13 +408,13 @@ namespace Kandy.Rest.Accounts.V1.Credential
         public static AwsResource Update(
                                           string pathSid,
                                           string friendlyName = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateAwsOptions(pathSid){ FriendlyName = friendlyName };
+            var options = new UpdateAwsOptions(pathSid) { FriendlyName = friendlyName };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Modify the properties of a given Account </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the AWS resource to update. </param>
         /// <param name="friendlyName"> A descriptive string that you create to describe the resource. It can be up to 64 characters long. </param>
@@ -423,13 +423,13 @@ namespace Kandy.Rest.Accounts.V1.Credential
         public static async System.Threading.Tasks.Task<AwsResource> UpdateAsync(
                                                                               string pathSid,
                                                                               string friendlyName = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateAwsOptions(pathSid){ FriendlyName = friendlyName };
+            var options = new UpdateAwsOptions(pathSid) { FriendlyName = friendlyName };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a AwsResource object
         /// </summary>
@@ -447,7 +447,7 @@ namespace Kandy.Rest.Accounts.V1.Credential
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the AWS resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -474,7 +474,8 @@ namespace Kandy.Rest.Accounts.V1.Credential
 
 
 
-        private AwsResource() {
+        private AwsResource()
+        {
 
         }
     }

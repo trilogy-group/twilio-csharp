@@ -28,16 +28,16 @@ namespace Kandy.Rest.Pricing.V2
 {
     public class CountryResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchCountryOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchCountryOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Trunking/Countries/{IsoCountry}";
 
             string PathIsoCountry = options.PathIsoCountry.ToString();
-            path = path.Replace("{"+"IsoCountry"+"}", PathIsoCountry);
+            path = path.Replace("{" + "IsoCountry" + "}", PathIsoCountry);
 
             return new Request(
                 HttpMethod.Get,
@@ -52,53 +52,53 @@ namespace Kandy.Rest.Pricing.V2
         /// <param name="options"> Fetch Country parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Country </returns>
-        public static CountryResource Fetch(FetchCountryOptions options, ITwilioRestClient client = null)
+        public static CountryResource Fetch(FetchCountryOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Country. </summary>
         /// <param name="options"> Fetch Country parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Country </returns>
         public static async System.Threading.Tasks.Task<CountryResource> FetchAsync(FetchCountryOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a specific Country. </summary>
         /// <param name="pathIsoCountry"> The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the origin-based voice pricing information to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Country </returns>
         public static CountryResource Fetch(
-                                         string pathIsoCountry, 
-                                         ITwilioRestClient client = null)
+                                         string pathIsoCountry,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchCountryOptions(pathIsoCountry){  };
+            var options = new FetchCountryOptions(pathIsoCountry) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Country. </summary>
         /// <param name="pathIsoCountry"> The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the origin-based voice pricing information to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Country </returns>
-        public static async System.Threading.Tasks.Task<CountryResource> FetchAsync(string pathIsoCountry, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<CountryResource> FetchAsync(string pathIsoCountry, IKandyRestClient client = null)
         {
-            var options = new FetchCountryOptions(pathIsoCountry){  };
+            var options = new FetchCountryOptions(pathIsoCountry) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadCountryOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadCountryOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Trunking/Countries";
 
 
@@ -114,7 +114,7 @@ namespace Kandy.Rest.Pricing.V2
         /// <param name="options"> Read Country parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Country </returns>
-        public static ResourceSet<CountryResource> Read(ReadCountryOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<CountryResource> Read(ReadCountryOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -122,13 +122,13 @@ namespace Kandy.Rest.Pricing.V2
             return new ResourceSet<CountryResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read Country parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Country </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<CountryResource>> ReadAsync(ReadCountryOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -136,7 +136,7 @@ namespace Kandy.Rest.Pricing.V2
             var page = Page<CountryResource>.FromJson("countries", response.Content);
             return new ResourceSet<CountryResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -145,13 +145,13 @@ namespace Kandy.Rest.Pricing.V2
         public static ResourceSet<CountryResource> Read(
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadCountryOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadCountryOptions() { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -160,19 +160,19 @@ namespace Kandy.Rest.Pricing.V2
         public static async System.Threading.Tasks.Task<ResourceSet<CountryResource>> ReadAsync(
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadCountryOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadCountryOptions() { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<CountryResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<CountryResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -189,7 +189,7 @@ namespace Kandy.Rest.Pricing.V2
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<CountryResource> NextPage(Page<CountryResource> page, ITwilioRestClient client)
+        public static Page<CountryResource> NextPage(Page<CountryResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -204,7 +204,7 @@ namespace Kandy.Rest.Pricing.V2
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<CountryResource> PreviousPage(Page<CountryResource> page, ITwilioRestClient client)
+        public static Page<CountryResource> PreviousPage(Page<CountryResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -215,7 +215,7 @@ namespace Kandy.Rest.Pricing.V2
             return Page<CountryResource>.FromJson("countries", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a CountryResource object
         /// </summary>
@@ -233,7 +233,7 @@ namespace Kandy.Rest.Pricing.V2
             }
         }
 
-    
+
         ///<summary> The name of the country. </summary> 
         [JsonProperty("country")]
         public string Country { get; private set; }
@@ -260,7 +260,8 @@ namespace Kandy.Rest.Pricing.V2
 
 
 
-        private CountryResource() {
+        private CountryResource()
+        {
 
         }
     }

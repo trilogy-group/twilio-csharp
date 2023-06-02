@@ -28,12 +28,12 @@ namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
 {
     public class MobileResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class EmergencyStatusEnum : StringEnum
         {
-            private EmergencyStatusEnum(string value) : base(value) {}
-            public EmergencyStatusEnum() {}
+            private EmergencyStatusEnum(string value) : base(value) { }
+            public EmergencyStatusEnum() { }
             public static implicit operator EmergencyStatusEnum(string value)
             {
                 return new EmergencyStatusEnum(value);
@@ -45,8 +45,8 @@ namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class EmergencyAddressStatusEnum : StringEnum
         {
-            private EmergencyAddressStatusEnum(string value) : base(value) {}
-            public EmergencyAddressStatusEnum() {}
+            private EmergencyAddressStatusEnum(string value) : base(value) { }
+            public EmergencyAddressStatusEnum() { }
             public static implicit operator EmergencyAddressStatusEnum(string value)
             {
                 return new EmergencyAddressStatusEnum(value);
@@ -62,8 +62,8 @@ namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class VoiceReceiveModeEnum : StringEnum
         {
-            private VoiceReceiveModeEnum(string value) : base(value) {}
-            public VoiceReceiveModeEnum() {}
+            private VoiceReceiveModeEnum(string value) : base(value) { }
+            public VoiceReceiveModeEnum() { }
             public static implicit operator VoiceReceiveModeEnum(string value)
             {
                 return new VoiceReceiveModeEnum(value);
@@ -75,8 +75,8 @@ namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class AddressRequirementEnum : StringEnum
         {
-            private AddressRequirementEnum(string value) : base(value) {}
-            public AddressRequirementEnum() {}
+            private AddressRequirementEnum(string value) : base(value) { }
+            public AddressRequirementEnum() { }
             public static implicit operator AddressRequirementEnum(string value)
             {
                 return new AddressRequirementEnum(value);
@@ -88,14 +88,14 @@ namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateMobileOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateMobileOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Mobile.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -110,26 +110,26 @@ namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
         /// <param name="options"> Create Mobile parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Mobile </returns>
-        public static MobileResource Create(CreateMobileOptions options, ITwilioRestClient client = null)
+        public static MobileResource Create(CreateMobileOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create Mobile parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Mobile </returns>
         public static async System.Threading.Tasks.Task<MobileResource> CreateAsync(CreateMobileOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="phoneNumber"> The phone number to purchase specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234. </param>
@@ -183,13 +183,13 @@ namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
                                           string trunkSid = null,
                                           MobileResource.VoiceReceiveModeEnum voiceReceiveMode = null,
                                           string bundleSid = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateMobileOptions(phoneNumber){  PathAccountSid = pathAccountSid, ApiVersion = apiVersion, FriendlyName = friendlyName, SmsApplicationSid = smsApplicationSid, SmsFallbackMethod = smsFallbackMethod, SmsFallbackUrl = smsFallbackUrl, SmsMethod = smsMethod, SmsUrl = smsUrl, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, VoiceApplicationSid = voiceApplicationSid, VoiceCallerIdLookup = voiceCallerIdLookup, VoiceFallbackMethod = voiceFallbackMethod, VoiceFallbackUrl = voiceFallbackUrl, VoiceMethod = voiceMethod, VoiceUrl = voiceUrl, IdentitySid = identitySid, AddressSid = addressSid, EmergencyStatus = emergencyStatus, EmergencyAddressSid = emergencyAddressSid, TrunkSid = trunkSid, VoiceReceiveMode = voiceReceiveMode, BundleSid = bundleSid };
+            var options = new CreateMobileOptions(phoneNumber) { PathAccountSid = pathAccountSid, ApiVersion = apiVersion, FriendlyName = friendlyName, SmsApplicationSid = smsApplicationSid, SmsFallbackMethod = smsFallbackMethod, SmsFallbackUrl = smsFallbackUrl, SmsMethod = smsMethod, SmsUrl = smsUrl, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, VoiceApplicationSid = voiceApplicationSid, VoiceCallerIdLookup = voiceCallerIdLookup, VoiceFallbackMethod = voiceFallbackMethod, VoiceFallbackUrl = voiceFallbackUrl, VoiceMethod = voiceMethod, VoiceUrl = voiceUrl, IdentitySid = identitySid, AddressSid = addressSid, EmergencyStatus = emergencyStatus, EmergencyAddressSid = emergencyAddressSid, TrunkSid = trunkSid, VoiceReceiveMode = voiceReceiveMode, BundleSid = bundleSid };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="phoneNumber"> The phone number to purchase specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. </param>
@@ -242,20 +242,20 @@ namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
                                                                                   string trunkSid = null,
                                                                                   MobileResource.VoiceReceiveModeEnum voiceReceiveMode = null,
                                                                                   string bundleSid = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateMobileOptions(phoneNumber){  PathAccountSid = pathAccountSid, ApiVersion = apiVersion, FriendlyName = friendlyName, SmsApplicationSid = smsApplicationSid, SmsFallbackMethod = smsFallbackMethod, SmsFallbackUrl = smsFallbackUrl, SmsMethod = smsMethod, SmsUrl = smsUrl, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, VoiceApplicationSid = voiceApplicationSid, VoiceCallerIdLookup = voiceCallerIdLookup, VoiceFallbackMethod = voiceFallbackMethod, VoiceFallbackUrl = voiceFallbackUrl, VoiceMethod = voiceMethod, VoiceUrl = voiceUrl, IdentitySid = identitySid, AddressSid = addressSid, EmergencyStatus = emergencyStatus, EmergencyAddressSid = emergencyAddressSid, TrunkSid = trunkSid, VoiceReceiveMode = voiceReceiveMode, BundleSid = bundleSid };
+            var options = new CreateMobileOptions(phoneNumber) { PathAccountSid = pathAccountSid, ApiVersion = apiVersion, FriendlyName = friendlyName, SmsApplicationSid = smsApplicationSid, SmsFallbackMethod = smsFallbackMethod, SmsFallbackUrl = smsFallbackUrl, SmsMethod = smsMethod, SmsUrl = smsUrl, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, VoiceApplicationSid = voiceApplicationSid, VoiceCallerIdLookup = voiceCallerIdLookup, VoiceFallbackMethod = voiceFallbackMethod, VoiceFallbackUrl = voiceFallbackUrl, VoiceMethod = voiceMethod, VoiceUrl = voiceUrl, IdentitySid = identitySid, AddressSid = addressSid, EmergencyStatus = emergencyStatus, EmergencyAddressSid = emergencyAddressSid, TrunkSid = trunkSid, VoiceReceiveMode = voiceReceiveMode, BundleSid = bundleSid };
             return await CreateAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadMobileOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadMobileOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Mobile.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -269,7 +269,7 @@ namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
         /// <param name="options"> Read Mobile parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Mobile </returns>
-        public static ResourceSet<MobileResource> Read(ReadMobileOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<MobileResource> Read(ReadMobileOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -277,13 +277,13 @@ namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
             return new ResourceSet<MobileResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read Mobile parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Mobile </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<MobileResource>> ReadAsync(ReadMobileOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -291,7 +291,7 @@ namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
             var page = Page<MobileResource>.FromJson("incoming_phone_numbers", response.Content);
             return new ResourceSet<MobileResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to read. </param>
         /// <param name="beta"> Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`. </param>
@@ -310,13 +310,13 @@ namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
                                                      string origin = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadMobileOptions(){ PathAccountSid = pathAccountSid, Beta = beta, FriendlyName = friendlyName, PhoneNumber = phoneNumber, Origin = origin, PageSize = pageSize, Limit = limit};
+            var options = new ReadMobileOptions() { PathAccountSid = pathAccountSid, Beta = beta, FriendlyName = friendlyName, PhoneNumber = phoneNumber, Origin = origin, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to read. </param>
         /// <param name="beta"> Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`. </param>
@@ -335,19 +335,19 @@ namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
                                                                                              string origin = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadMobileOptions(){ PathAccountSid = pathAccountSid, Beta = beta, FriendlyName = friendlyName, PhoneNumber = phoneNumber, Origin = origin, PageSize = pageSize, Limit = limit};
+            var options = new ReadMobileOptions() { PathAccountSid = pathAccountSid, Beta = beta, FriendlyName = friendlyName, PhoneNumber = phoneNumber, Origin = origin, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<MobileResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<MobileResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -364,7 +364,7 @@ namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<MobileResource> NextPage(Page<MobileResource> page, ITwilioRestClient client)
+        public static Page<MobileResource> NextPage(Page<MobileResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -379,7 +379,7 @@ namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<MobileResource> PreviousPage(Page<MobileResource> page, ITwilioRestClient client)
+        public static Page<MobileResource> PreviousPage(Page<MobileResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -390,7 +390,7 @@ namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
             return Page<MobileResource>.FromJson("incoming_phone_numbers", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a MobileResource object
         /// </summary>
@@ -408,7 +408,7 @@ namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -417,7 +417,7 @@ namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
         [JsonProperty("address_sid")]
         public string AddressSid { get; private set; }
 
-        
+
         [JsonProperty("address_requirements")]
         public MobileResource.AddressRequirementEnum AddressRequirements { get; private set; }
 
@@ -498,7 +498,7 @@ namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
         [JsonProperty("uri")]
         public string Uri { get; private set; }
 
-        
+
         [JsonProperty("voice_receive_mode")]
         public MobileResource.VoiceReceiveModeEnum VoiceReceiveMode { get; private set; }
 
@@ -526,7 +526,7 @@ namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
         [JsonProperty("voice_url")]
         public Uri VoiceUrl { get; private set; }
 
-        
+
         [JsonProperty("emergency_status")]
         public MobileResource.EmergencyStatusEnum EmergencyStatus { get; private set; }
 
@@ -534,7 +534,7 @@ namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
         [JsonProperty("emergency_address_sid")]
         public string EmergencyAddressSid { get; private set; }
 
-        
+
         [JsonProperty("emergency_address_status")]
         public MobileResource.EmergencyAddressStatusEnum EmergencyAddressStatus { get; private set; }
 
@@ -548,7 +548,8 @@ namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
 
 
 
-        private MobileResource() {
+        private MobileResource()
+        {
 
         }
     }

@@ -28,24 +28,24 @@ namespace Kandy.Rest.Preview.Sync.Service.SyncList
 {
     public class SyncListPermissionResource : Resource
     {
-    
 
-        
+
+
         /// <summary> Delete a specific Sync List Permission. </summary>
         /// <param name="options"> Delete SyncListPermission parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SyncListPermission </returns>
-        private static Request BuildDeleteRequest(DeleteSyncListPermissionOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteSyncListPermissionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/Sync/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathListSid = options.PathListSid;
-            path = path.Replace("{"+"ListSid"+"}", PathListSid);
+            path = path.Replace("{" + "ListSid" + "}", PathListSid);
             string PathIdentity = options.PathIdentity;
-            path = path.Replace("{"+"Identity"+"}", PathIdentity);
+            path = path.Replace("{" + "Identity" + "}", PathIdentity);
 
             return new Request(
                 HttpMethod.Delete,
@@ -60,26 +60,26 @@ namespace Kandy.Rest.Preview.Sync.Service.SyncList
         /// <param name="options"> Delete SyncListPermission parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SyncListPermission </returns>
-        public static bool Delete(DeleteSyncListPermissionOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteSyncListPermissionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific Sync List Permission. </summary>
         /// <param name="options"> Delete SyncListPermission parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SyncListPermission </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteSyncListPermissionOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete a specific Sync List Permission. </summary>
         /// <param name="pathServiceSid">  </param>
@@ -87,37 +87,37 @@ namespace Kandy.Rest.Preview.Sync.Service.SyncList
         /// <param name="pathIdentity"> Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SyncListPermission </returns>
-        public static bool Delete(string pathServiceSid, string pathListSid, string pathIdentity, ITwilioRestClient client = null)
+        public static bool Delete(string pathServiceSid, string pathListSid, string pathIdentity, IKandyRestClient client = null)
         {
-            var options = new DeleteSyncListPermissionOptions(pathServiceSid, pathListSid, pathIdentity)           ;
+            var options = new DeleteSyncListPermissionOptions(pathServiceSid, pathListSid, pathIdentity);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific Sync List Permission. </summary>
         /// <param name="pathServiceSid">  </param>
         /// <param name="pathListSid"> Identifier of the Sync List. Either a SID or a unique name. </param>
         /// <param name="pathIdentity"> Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SyncListPermission </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathListSid, string pathIdentity, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathListSid, string pathIdentity, IKandyRestClient client = null)
         {
-            var options = new DeleteSyncListPermissionOptions(pathServiceSid, pathListSid, pathIdentity) ;
+            var options = new DeleteSyncListPermissionOptions(pathServiceSid, pathListSid, pathIdentity);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchSyncListPermissionOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchSyncListPermissionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/Sync/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathListSid = options.PathListSid;
-            path = path.Replace("{"+"ListSid"+"}", PathListSid);
+            path = path.Replace("{" + "ListSid" + "}", PathListSid);
             string PathIdentity = options.PathIdentity;
-            path = path.Replace("{"+"Identity"+"}", PathIdentity);
+            path = path.Replace("{" + "Identity" + "}", PathIdentity);
 
             return new Request(
                 HttpMethod.Get,
@@ -132,26 +132,26 @@ namespace Kandy.Rest.Preview.Sync.Service.SyncList
         /// <param name="options"> Fetch SyncListPermission parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SyncListPermission </returns>
-        public static SyncListPermissionResource Fetch(FetchSyncListPermissionOptions options, ITwilioRestClient client = null)
+        public static SyncListPermissionResource Fetch(FetchSyncListPermissionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Sync List Permission. </summary>
         /// <param name="options"> Fetch SyncListPermission parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SyncListPermission </returns>
         public static async System.Threading.Tasks.Task<SyncListPermissionResource> FetchAsync(FetchSyncListPermissionOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a specific Sync List Permission. </summary>
         /// <param name="pathServiceSid">  </param>
         /// <param name="pathListSid"> Identifier of the Sync List. Either a SID or a unique name. </param>
@@ -159,38 +159,38 @@ namespace Kandy.Rest.Preview.Sync.Service.SyncList
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SyncListPermission </returns>
         public static SyncListPermissionResource Fetch(
-                                         string pathServiceSid, 
-                                         string pathListSid, 
-                                         string pathIdentity, 
-                                         ITwilioRestClient client = null)
+                                         string pathServiceSid,
+                                         string pathListSid,
+                                         string pathIdentity,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchSyncListPermissionOptions(pathServiceSid, pathListSid, pathIdentity){  };
+            var options = new FetchSyncListPermissionOptions(pathServiceSid, pathListSid, pathIdentity) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Sync List Permission. </summary>
         /// <param name="pathServiceSid">  </param>
         /// <param name="pathListSid"> Identifier of the Sync List. Either a SID or a unique name. </param>
         /// <param name="pathIdentity"> Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SyncListPermission </returns>
-        public static async System.Threading.Tasks.Task<SyncListPermissionResource> FetchAsync(string pathServiceSid, string pathListSid, string pathIdentity, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<SyncListPermissionResource> FetchAsync(string pathServiceSid, string pathListSid, string pathIdentity, IKandyRestClient client = null)
         {
-            var options = new FetchSyncListPermissionOptions(pathServiceSid, pathListSid, pathIdentity){  };
+            var options = new FetchSyncListPermissionOptions(pathServiceSid, pathListSid, pathIdentity) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadSyncListPermissionOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadSyncListPermissionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/Sync/Services/{ServiceSid}/Lists/{ListSid}/Permissions";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathListSid = options.PathListSid;
-            path = path.Replace("{"+"ListSid"+"}", PathListSid);
+            path = path.Replace("{" + "ListSid" + "}", PathListSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -204,7 +204,7 @@ namespace Kandy.Rest.Preview.Sync.Service.SyncList
         /// <param name="options"> Read SyncListPermission parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SyncListPermission </returns>
-        public static ResourceSet<SyncListPermissionResource> Read(ReadSyncListPermissionOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<SyncListPermissionResource> Read(ReadSyncListPermissionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -212,13 +212,13 @@ namespace Kandy.Rest.Preview.Sync.Service.SyncList
             return new ResourceSet<SyncListPermissionResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Permissions applying to a Sync List. </summary>
         /// <param name="options"> Read SyncListPermission parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SyncListPermission </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<SyncListPermissionResource>> ReadAsync(ReadSyncListPermissionOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -226,7 +226,7 @@ namespace Kandy.Rest.Preview.Sync.Service.SyncList
             var page = Page<SyncListPermissionResource>.FromJson("permissions", response.Content);
             return new ResourceSet<SyncListPermissionResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Permissions applying to a Sync List. </summary>
         /// <param name="pathServiceSid">  </param>
         /// <param name="pathListSid"> Identifier of the Sync List. Either a SID or a unique name. </param>
@@ -239,13 +239,13 @@ namespace Kandy.Rest.Preview.Sync.Service.SyncList
                                                      string pathListSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadSyncListPermissionOptions(pathServiceSid, pathListSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadSyncListPermissionOptions(pathServiceSid, pathListSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Permissions applying to a Sync List. </summary>
         /// <param name="pathServiceSid">  </param>
         /// <param name="pathListSid"> Identifier of the Sync List. Either a SID or a unique name. </param>
@@ -258,19 +258,19 @@ namespace Kandy.Rest.Preview.Sync.Service.SyncList
                                                                                              string pathListSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadSyncListPermissionOptions(pathServiceSid, pathListSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadSyncListPermissionOptions(pathServiceSid, pathListSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<SyncListPermissionResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<SyncListPermissionResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -287,7 +287,7 @@ namespace Kandy.Rest.Preview.Sync.Service.SyncList
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<SyncListPermissionResource> NextPage(Page<SyncListPermissionResource> page, ITwilioRestClient client)
+        public static Page<SyncListPermissionResource> NextPage(Page<SyncListPermissionResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -302,7 +302,7 @@ namespace Kandy.Rest.Preview.Sync.Service.SyncList
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<SyncListPermissionResource> PreviousPage(Page<SyncListPermissionResource> page, ITwilioRestClient client)
+        public static Page<SyncListPermissionResource> PreviousPage(Page<SyncListPermissionResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -313,18 +313,18 @@ namespace Kandy.Rest.Preview.Sync.Service.SyncList
             return Page<SyncListPermissionResource>.FromJson("permissions", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateSyncListPermissionOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateSyncListPermissionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/Sync/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathListSid = options.PathListSid;
-            path = path.Replace("{"+"ListSid"+"}", PathListSid);
+            path = path.Replace("{" + "ListSid" + "}", PathListSid);
             string PathIdentity = options.PathIdentity;
-            path = path.Replace("{"+"Identity"+"}", PathIdentity);
+            path = path.Replace("{" + "Identity" + "}", PathIdentity);
 
             return new Request(
                 HttpMethod.Post,
@@ -339,7 +339,7 @@ namespace Kandy.Rest.Preview.Sync.Service.SyncList
         /// <param name="options"> Update SyncListPermission parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SyncListPermission </returns>
-        public static SyncListPermissionResource Update(UpdateSyncListPermissionOptions options, ITwilioRestClient client = null)
+        public static SyncListPermissionResource Update(UpdateSyncListPermissionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -350,15 +350,15 @@ namespace Kandy.Rest.Preview.Sync.Service.SyncList
         /// <param name="options"> Update SyncListPermission parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SyncListPermission </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<SyncListPermissionResource> UpdateAsync(UpdateSyncListPermissionOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update an identity's access to a specific Sync List. </summary>
         /// <param name="pathServiceSid"> The unique SID identifier of the Sync Service Instance. </param>
@@ -376,13 +376,13 @@ namespace Kandy.Rest.Preview.Sync.Service.SyncList
                                           bool? read,
                                           bool? write,
                                           bool? manage,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateSyncListPermissionOptions(pathServiceSid, pathListSid, pathIdentity, read, write, manage){  };
+            var options = new UpdateSyncListPermissionOptions(pathServiceSid, pathListSid, pathIdentity, read, write, manage) { };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update an identity's access to a specific Sync List. </summary>
         /// <param name="pathServiceSid"> The unique SID identifier of the Sync Service Instance. </param>
         /// <param name="pathListSid"> Identifier of the Sync List. Either a SID or a unique name. </param>
@@ -399,13 +399,13 @@ namespace Kandy.Rest.Preview.Sync.Service.SyncList
                                                                               bool? read,
                                                                               bool? write,
                                                                               bool? manage,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateSyncListPermissionOptions(pathServiceSid, pathListSid, pathIdentity, read, write, manage){  };
+            var options = new UpdateSyncListPermissionOptions(pathServiceSid, pathListSid, pathIdentity, read, write, manage) { };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a SyncListPermissionResource object
         /// </summary>
@@ -423,7 +423,7 @@ namespace Kandy.Rest.Preview.Sync.Service.SyncList
             }
         }
 
-    
+
         ///<summary> The unique SID identifier of the Twilio Account. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -458,7 +458,8 @@ namespace Kandy.Rest.Preview.Sync.Service.SyncList
 
 
 
-        private SyncListPermissionResource() {
+        private SyncListPermissionResource()
+        {
 
         }
     }

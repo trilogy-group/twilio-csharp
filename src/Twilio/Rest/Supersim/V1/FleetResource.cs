@@ -28,12 +28,12 @@ namespace Kandy.Rest.Supersim.V1
 {
     public class FleetResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class DataMeteringEnum : StringEnum
         {
-            private DataMeteringEnum(string value) : base(value) {}
-            public DataMeteringEnum() {}
+            private DataMeteringEnum(string value) : base(value) { }
+            public DataMeteringEnum() { }
             public static implicit operator DataMeteringEnum(string value)
             {
                 return new DataMeteringEnum(value);
@@ -42,10 +42,10 @@ namespace Kandy.Rest.Supersim.V1
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateFleetOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateFleetOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Fleets";
 
 
@@ -62,26 +62,26 @@ namespace Kandy.Rest.Supersim.V1
         /// <param name="options"> Create Fleet parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Fleet </returns>
-        public static FleetResource Create(CreateFleetOptions options, ITwilioRestClient client = null)
+        public static FleetResource Create(CreateFleetOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a Fleet </summary>
         /// <param name="options"> Create Fleet parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Fleet </returns>
         public static async System.Threading.Tasks.Task<FleetResource> CreateAsync(CreateFleetOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a Fleet </summary>
         /// <param name="networkAccessProfile"> The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet's SIMs can connect to. </param>
@@ -105,13 +105,13 @@ namespace Kandy.Rest.Supersim.V1
                                           bool? smsCommandsEnabled = null,
                                           Uri smsCommandsUrl = null,
                                           Twilio.Http.HttpMethod smsCommandsMethod = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateFleetOptions(networkAccessProfile){  UniqueName = uniqueName, DataEnabled = dataEnabled, DataLimit = dataLimit, IpCommandsUrl = ipCommandsUrl, IpCommandsMethod = ipCommandsMethod, SmsCommandsEnabled = smsCommandsEnabled, SmsCommandsUrl = smsCommandsUrl, SmsCommandsMethod = smsCommandsMethod };
+            var options = new CreateFleetOptions(networkAccessProfile) { UniqueName = uniqueName, DataEnabled = dataEnabled, DataLimit = dataLimit, IpCommandsUrl = ipCommandsUrl, IpCommandsMethod = ipCommandsMethod, SmsCommandsEnabled = smsCommandsEnabled, SmsCommandsUrl = smsCommandsUrl, SmsCommandsMethod = smsCommandsMethod };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a Fleet </summary>
         /// <param name="networkAccessProfile"> The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet's SIMs can connect to. </param>
         /// <param name="uniqueName"> An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource. </param>
@@ -134,20 +134,20 @@ namespace Kandy.Rest.Supersim.V1
                                                                                   bool? smsCommandsEnabled = null,
                                                                                   Uri smsCommandsUrl = null,
                                                                                   Twilio.Http.HttpMethod smsCommandsMethod = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateFleetOptions(networkAccessProfile){  UniqueName = uniqueName, DataEnabled = dataEnabled, DataLimit = dataLimit, IpCommandsUrl = ipCommandsUrl, IpCommandsMethod = ipCommandsMethod, SmsCommandsEnabled = smsCommandsEnabled, SmsCommandsUrl = smsCommandsUrl, SmsCommandsMethod = smsCommandsMethod };
+            var options = new CreateFleetOptions(networkAccessProfile) { UniqueName = uniqueName, DataEnabled = dataEnabled, DataLimit = dataLimit, IpCommandsUrl = ipCommandsUrl, IpCommandsMethod = ipCommandsMethod, SmsCommandsEnabled = smsCommandsEnabled, SmsCommandsUrl = smsCommandsUrl, SmsCommandsMethod = smsCommandsMethod };
             return await CreateAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchFleetOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchFleetOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Fleets/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -162,53 +162,53 @@ namespace Kandy.Rest.Supersim.V1
         /// <param name="options"> Fetch Fleet parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Fleet </returns>
-        public static FleetResource Fetch(FetchFleetOptions options, ITwilioRestClient client = null)
+        public static FleetResource Fetch(FetchFleetOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a Fleet instance from your account. </summary>
         /// <param name="options"> Fetch Fleet parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Fleet </returns>
         public static async System.Threading.Tasks.Task<FleetResource> FetchAsync(FetchFleetOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a Fleet instance from your account. </summary>
         /// <param name="pathSid"> The SID of the Fleet resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Fleet </returns>
         public static FleetResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchFleetOptions(pathSid){  };
+            var options = new FetchFleetOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a Fleet instance from your account. </summary>
         /// <param name="pathSid"> The SID of the Fleet resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Fleet </returns>
-        public static async System.Threading.Tasks.Task<FleetResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<FleetResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchFleetOptions(pathSid){  };
+            var options = new FetchFleetOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadFleetOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadFleetOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Fleets";
 
 
@@ -224,7 +224,7 @@ namespace Kandy.Rest.Supersim.V1
         /// <param name="options"> Read Fleet parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Fleet </returns>
-        public static ResourceSet<FleetResource> Read(ReadFleetOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<FleetResource> Read(ReadFleetOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -232,13 +232,13 @@ namespace Kandy.Rest.Supersim.V1
             return new ResourceSet<FleetResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of Fleets from your account. </summary>
         /// <param name="options"> Read Fleet parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Fleet </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<FleetResource>> ReadAsync(ReadFleetOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -246,7 +246,7 @@ namespace Kandy.Rest.Supersim.V1
             var page = Page<FleetResource>.FromJson("fleets", response.Content);
             return new ResourceSet<FleetResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of Fleets from your account. </summary>
         /// <param name="networkAccessProfile"> The SID or unique name of the Network Access Profile that controls which cellular networks the Fleet's SIMs can connect to. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -257,13 +257,13 @@ namespace Kandy.Rest.Supersim.V1
                                                      string networkAccessProfile = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadFleetOptions(){ NetworkAccessProfile = networkAccessProfile, PageSize = pageSize, Limit = limit};
+            var options = new ReadFleetOptions() { NetworkAccessProfile = networkAccessProfile, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of Fleets from your account. </summary>
         /// <param name="networkAccessProfile"> The SID or unique name of the Network Access Profile that controls which cellular networks the Fleet's SIMs can connect to. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -274,19 +274,19 @@ namespace Kandy.Rest.Supersim.V1
                                                                                              string networkAccessProfile = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadFleetOptions(){ NetworkAccessProfile = networkAccessProfile, PageSize = pageSize, Limit = limit};
+            var options = new ReadFleetOptions() { NetworkAccessProfile = networkAccessProfile, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<FleetResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<FleetResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -303,7 +303,7 @@ namespace Kandy.Rest.Supersim.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<FleetResource> NextPage(Page<FleetResource> page, ITwilioRestClient client)
+        public static Page<FleetResource> NextPage(Page<FleetResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -318,7 +318,7 @@ namespace Kandy.Rest.Supersim.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<FleetResource> PreviousPage(Page<FleetResource> page, ITwilioRestClient client)
+        public static Page<FleetResource> PreviousPage(Page<FleetResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -329,14 +329,14 @@ namespace Kandy.Rest.Supersim.V1
             return Page<FleetResource>.FromJson("fleets", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateFleetOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateFleetOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Fleets/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -351,7 +351,7 @@ namespace Kandy.Rest.Supersim.V1
         /// <param name="options"> Update Fleet parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Fleet </returns>
-        public static FleetResource Update(UpdateFleetOptions options, ITwilioRestClient client = null)
+        public static FleetResource Update(UpdateFleetOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -362,15 +362,15 @@ namespace Kandy.Rest.Supersim.V1
         /// <param name="options"> Update Fleet parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Fleet </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<FleetResource> UpdateAsync(UpdateFleetOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Updates the given properties of a Super SIM Fleet instance from your account. </summary>
         /// <param name="pathSid"> The SID of the Fleet resource to update. </param>
@@ -392,13 +392,13 @@ namespace Kandy.Rest.Supersim.V1
                                           Uri smsCommandsUrl = null,
                                           Twilio.Http.HttpMethod smsCommandsMethod = null,
                                           int? dataLimit = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateFleetOptions(pathSid){ UniqueName = uniqueName, NetworkAccessProfile = networkAccessProfile, IpCommandsUrl = ipCommandsUrl, IpCommandsMethod = ipCommandsMethod, SmsCommandsUrl = smsCommandsUrl, SmsCommandsMethod = smsCommandsMethod, DataLimit = dataLimit };
+            var options = new UpdateFleetOptions(pathSid) { UniqueName = uniqueName, NetworkAccessProfile = networkAccessProfile, IpCommandsUrl = ipCommandsUrl, IpCommandsMethod = ipCommandsMethod, SmsCommandsUrl = smsCommandsUrl, SmsCommandsMethod = smsCommandsMethod, DataLimit = dataLimit };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Updates the given properties of a Super SIM Fleet instance from your account. </summary>
         /// <param name="pathSid"> The SID of the Fleet resource to update. </param>
         /// <param name="uniqueName"> An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource. </param>
@@ -419,13 +419,13 @@ namespace Kandy.Rest.Supersim.V1
                                                                               Uri smsCommandsUrl = null,
                                                                               Twilio.Http.HttpMethod smsCommandsMethod = null,
                                                                               int? dataLimit = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateFleetOptions(pathSid){ UniqueName = uniqueName, NetworkAccessProfile = networkAccessProfile, IpCommandsUrl = ipCommandsUrl, IpCommandsMethod = ipCommandsMethod, SmsCommandsUrl = smsCommandsUrl, SmsCommandsMethod = smsCommandsMethod, DataLimit = dataLimit };
+            var options = new UpdateFleetOptions(pathSid) { UniqueName = uniqueName, NetworkAccessProfile = networkAccessProfile, IpCommandsUrl = ipCommandsUrl, IpCommandsMethod = ipCommandsMethod, SmsCommandsUrl = smsCommandsUrl, SmsCommandsMethod = smsCommandsMethod, DataLimit = dataLimit };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a FleetResource object
         /// </summary>
@@ -443,7 +443,7 @@ namespace Kandy.Rest.Supersim.V1
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Fleet resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -476,7 +476,7 @@ namespace Kandy.Rest.Supersim.V1
         [JsonProperty("data_limit")]
         public int? DataLimit { get; private set; }
 
-        
+
         [JsonProperty("data_metering")]
         public FleetResource.DataMeteringEnum DataMetering { get; private set; }
 
@@ -506,7 +506,8 @@ namespace Kandy.Rest.Supersim.V1
 
 
 
-        private FleetResource() {
+        private FleetResource()
+        {
 
         }
     }

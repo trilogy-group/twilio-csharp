@@ -28,16 +28,16 @@ namespace Kandy.Rest.Intelligence.V2.Transcript
 {
     public class MediaResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchMediaOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchMediaOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Transcripts/{Sid}/Media";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -52,53 +52,53 @@ namespace Kandy.Rest.Intelligence.V2.Transcript
         /// <param name="options"> Fetch Media parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Media </returns>
-        public static MediaResource Fetch(FetchMediaOptions options, ITwilioRestClient client = null)
+        public static MediaResource Fetch(FetchMediaOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Get download URLs for media if possible </summary>
         /// <param name="options"> Fetch Media parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Media </returns>
         public static async System.Threading.Tasks.Task<MediaResource> FetchAsync(FetchMediaOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Get download URLs for media if possible </summary>
         /// <param name="pathSid"> The unique SID identifier of the Transcript. </param>
         /// <param name="redacted"> Grant access to PII Redacted/Unredacted Media. The default is `true` to access redacted media. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Media </returns>
         public static MediaResource Fetch(
-                                         string pathSid, 
-                                         bool? redacted = null, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         bool? redacted = null,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchMediaOptions(pathSid){ Redacted = redacted };
+            var options = new FetchMediaOptions(pathSid) { Redacted = redacted };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Get download URLs for media if possible </summary>
         /// <param name="pathSid"> The unique SID identifier of the Transcript. </param>
         /// <param name="redacted"> Grant access to PII Redacted/Unredacted Media. The default is `true` to access redacted media. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Media </returns>
-        public static async System.Threading.Tasks.Task<MediaResource> FetchAsync(string pathSid, bool? redacted = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<MediaResource> FetchAsync(string pathSid, bool? redacted = null, IKandyRestClient client = null)
         {
-            var options = new FetchMediaOptions(pathSid){ Redacted = redacted };
+            var options = new FetchMediaOptions(pathSid) { Redacted = redacted };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a MediaResource object
         /// </summary>
@@ -116,7 +116,7 @@ namespace Kandy.Rest.Intelligence.V2.Transcript
             }
         }
 
-    
+
         ///<summary> The unique SID identifier of the Account. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -139,7 +139,8 @@ namespace Kandy.Rest.Intelligence.V2.Transcript
 
 
 
-        private MediaResource() {
+        private MediaResource()
+        {
 
         }
     }

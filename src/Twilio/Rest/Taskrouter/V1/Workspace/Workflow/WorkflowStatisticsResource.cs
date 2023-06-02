@@ -28,18 +28,18 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Workflow
 {
     public class WorkflowStatisticsResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchWorkflowStatisticsOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchWorkflowStatisticsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Workspaces/{WorkspaceSid}/Workflows/{WorkflowSid}/Statistics";
 
             string PathWorkspaceSid = options.PathWorkspaceSid;
-            path = path.Replace("{"+"WorkspaceSid"+"}", PathWorkspaceSid);
+            path = path.Replace("{" + "WorkspaceSid" + "}", PathWorkspaceSid);
             string PathWorkflowSid = options.PathWorkflowSid;
-            path = path.Replace("{"+"WorkflowSid"+"}", PathWorkflowSid);
+            path = path.Replace("{" + "WorkflowSid" + "}", PathWorkflowSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -54,26 +54,26 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Workflow
         /// <param name="options"> Fetch WorkflowStatistics parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of WorkflowStatistics </returns>
-        public static WorkflowStatisticsResource Fetch(FetchWorkflowStatisticsOptions options, ITwilioRestClient client = null)
+        public static WorkflowStatisticsResource Fetch(FetchWorkflowStatisticsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch WorkflowStatistics parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of WorkflowStatistics </returns>
         public static async System.Threading.Tasks.Task<WorkflowStatisticsResource> FetchAsync(FetchWorkflowStatisticsOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathWorkspaceSid"> The SID of the Workspace with the Workflow to fetch. </param>
         /// <param name="pathWorkflowSid"> Returns the list of Tasks that are being controlled by the Workflow with the specified SID value. </param>
@@ -85,20 +85,20 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Workflow
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of WorkflowStatistics </returns>
         public static WorkflowStatisticsResource Fetch(
-                                         string pathWorkspaceSid, 
-                                         string pathWorkflowSid, 
-                                         int? minutes = null, 
-                                         DateTime? startDate = null, 
-                                         DateTime? endDate = null, 
-                                         string taskChannel = null, 
-                                         string splitByWaitTime = null, 
-                                         ITwilioRestClient client = null)
+                                         string pathWorkspaceSid,
+                                         string pathWorkflowSid,
+                                         int? minutes = null,
+                                         DateTime? startDate = null,
+                                         DateTime? endDate = null,
+                                         string taskChannel = null,
+                                         string splitByWaitTime = null,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchWorkflowStatisticsOptions(pathWorkspaceSid, pathWorkflowSid){ Minutes = minutes,StartDate = startDate,EndDate = endDate,TaskChannel = taskChannel,SplitByWaitTime = splitByWaitTime };
+            var options = new FetchWorkflowStatisticsOptions(pathWorkspaceSid, pathWorkflowSid) { Minutes = minutes, StartDate = startDate, EndDate = endDate, TaskChannel = taskChannel, SplitByWaitTime = splitByWaitTime };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathWorkspaceSid"> The SID of the Workspace with the Workflow to fetch. </param>
         /// <param name="pathWorkflowSid"> Returns the list of Tasks that are being controlled by the Workflow with the specified SID value. </param>
@@ -109,13 +109,13 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Workflow
         /// <param name="splitByWaitTime"> A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed. For example, `5,30` would show splits of Tasks that were canceled or accepted before and after 5 seconds and before and after 30 seconds. This can be used to show short abandoned Tasks or Tasks that failed to meet an SLA. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of WorkflowStatistics </returns>
-        public static async System.Threading.Tasks.Task<WorkflowStatisticsResource> FetchAsync(string pathWorkspaceSid, string pathWorkflowSid, int? minutes = null, DateTime? startDate = null, DateTime? endDate = null, string taskChannel = null, string splitByWaitTime = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<WorkflowStatisticsResource> FetchAsync(string pathWorkspaceSid, string pathWorkflowSid, int? minutes = null, DateTime? startDate = null, DateTime? endDate = null, string taskChannel = null, string splitByWaitTime = null, IKandyRestClient client = null)
         {
-            var options = new FetchWorkflowStatisticsOptions(pathWorkspaceSid, pathWorkflowSid){ Minutes = minutes,StartDate = startDate,EndDate = endDate,TaskChannel = taskChannel,SplitByWaitTime = splitByWaitTime };
+            var options = new FetchWorkflowStatisticsOptions(pathWorkspaceSid, pathWorkflowSid) { Minutes = minutes, StartDate = startDate, EndDate = endDate, TaskChannel = taskChannel, SplitByWaitTime = splitByWaitTime };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a WorkflowStatisticsResource object
         /// </summary>
@@ -133,7 +133,7 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Workflow
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Workflow resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -160,7 +160,8 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Workflow
 
 
 
-        private WorkflowStatisticsResource() {
+        private WorkflowStatisticsResource()
+        {
 
         }
     }

@@ -28,12 +28,12 @@ namespace Kandy.Rest.Accounts.V1
 {
     public class SecondaryAuthTokenResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateSecondaryAuthTokenOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateSecondaryAuthTokenOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/AuthTokens/Secondary";
 
 
@@ -50,56 +50,56 @@ namespace Kandy.Rest.Accounts.V1
         /// <param name="options"> Create SecondaryAuthToken parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SecondaryAuthToken </returns>
-        public static SecondaryAuthTokenResource Create(CreateSecondaryAuthTokenOptions options, ITwilioRestClient client = null)
+        public static SecondaryAuthTokenResource Create(CreateSecondaryAuthTokenOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new secondary Auth Token </summary>
         /// <param name="options"> Create SecondaryAuthToken parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SecondaryAuthToken </returns>
         public static async System.Threading.Tasks.Task<SecondaryAuthTokenResource> CreateAsync(CreateSecondaryAuthTokenOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new secondary Auth Token </summary>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SecondaryAuthToken </returns>
         public static SecondaryAuthTokenResource Create(
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateSecondaryAuthTokenOptions(){  };
+            var options = new CreateSecondaryAuthTokenOptions() { };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new secondary Auth Token </summary>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SecondaryAuthToken </returns>
         public static async System.Threading.Tasks.Task<SecondaryAuthTokenResource> CreateAsync(
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateSecondaryAuthTokenOptions(){  };
+            var options = new CreateSecondaryAuthTokenOptions() { };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Delete the secondary Auth Token from your account </summary>
         /// <param name="options"> Delete SecondaryAuthToken parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SecondaryAuthToken </returns>
-        private static Request BuildDeleteRequest(DeleteSecondaryAuthTokenOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteSecondaryAuthTokenOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/AuthTokens/Secondary";
 
 
@@ -116,47 +116,47 @@ namespace Kandy.Rest.Accounts.V1
         /// <param name="options"> Delete SecondaryAuthToken parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SecondaryAuthToken </returns>
-        public static bool Delete(DeleteSecondaryAuthTokenOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteSecondaryAuthTokenOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete the secondary Auth Token from your account </summary>
         /// <param name="options"> Delete SecondaryAuthToken parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SecondaryAuthToken </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteSecondaryAuthTokenOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete the secondary Auth Token from your account </summary>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SecondaryAuthToken </returns>
-        public static bool Delete(ITwilioRestClient client = null)
+        public static bool Delete(IKandyRestClient client = null)
         {
-            var options = new DeleteSecondaryAuthTokenOptions()  ;
+            var options = new DeleteSecondaryAuthTokenOptions();
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete the secondary Auth Token from your account </summary>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SecondaryAuthToken </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(IKandyRestClient client = null)
         {
-            var options = new DeleteSecondaryAuthTokenOptions() ;
+            var options = new DeleteSecondaryAuthTokenOptions();
             return await DeleteAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a SecondaryAuthTokenResource object
         /// </summary>
@@ -174,7 +174,7 @@ namespace Kandy.Rest.Accounts.V1
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that the secondary Auth Token was created for. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -197,7 +197,8 @@ namespace Kandy.Rest.Accounts.V1
 
 
 
-        private SecondaryAuthTokenResource() {
+        private SecondaryAuthTokenResource()
+        {
 
         }
     }

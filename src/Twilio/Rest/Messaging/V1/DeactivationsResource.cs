@@ -28,12 +28,12 @@ namespace Kandy.Rest.Messaging.V1
 {
     public class DeactivationsResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchDeactivationsOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchDeactivationsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Deactivations";
 
 
@@ -50,50 +50,50 @@ namespace Kandy.Rest.Messaging.V1
         /// <param name="options"> Fetch Deactivations parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Deactivations </returns>
-        public static DeactivationsResource Fetch(FetchDeactivationsOptions options, ITwilioRestClient client = null)
+        public static DeactivationsResource Fetch(FetchDeactivationsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a list of all United States numbers that have been deactivated on a specific date. </summary>
         /// <param name="options"> Fetch Deactivations parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Deactivations </returns>
         public static async System.Threading.Tasks.Task<DeactivationsResource> FetchAsync(FetchDeactivationsOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a list of all United States numbers that have been deactivated on a specific date. </summary>
         /// <param name="date"> The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Deactivations </returns>
         public static DeactivationsResource Fetch(
-                                         DateTime? date = null, 
-                                         ITwilioRestClient client = null)
+                                         DateTime? date = null,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchDeactivationsOptions(){ Date = date };
+            var options = new FetchDeactivationsOptions() { Date = date };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a list of all United States numbers that have been deactivated on a specific date. </summary>
         /// <param name="date"> The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Deactivations </returns>
-        public static async System.Threading.Tasks.Task<DeactivationsResource> FetchAsync(DateTime? date = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<DeactivationsResource> FetchAsync(DateTime? date = null, IKandyRestClient client = null)
         {
-            var options = new FetchDeactivationsOptions(){ Date = date };
+            var options = new FetchDeactivationsOptions() { Date = date };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a DeactivationsResource object
         /// </summary>
@@ -111,14 +111,15 @@ namespace Kandy.Rest.Messaging.V1
             }
         }
 
-    
+
         ///<summary> Returns an authenticated url that redirects to a file containing the deactivated numbers for the requested day. This url is valid for up to two minutes. </summary> 
         [JsonProperty("redirect_to")]
         public Uri RedirectTo { get; private set; }
 
 
 
-        private DeactivationsResource() {
+        private DeactivationsResource()
+        {
 
         }
     }

@@ -28,12 +28,12 @@ namespace Kandy.Rest.Voice.V1.DialingPermissions
 {
     public class SettingsResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchSettingsOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchSettingsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Settings";
 
 
@@ -50,50 +50,50 @@ namespace Kandy.Rest.Voice.V1.DialingPermissions
         /// <param name="options"> Fetch Settings parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Settings </returns>
-        public static SettingsResource Fetch(FetchSettingsOptions options, ITwilioRestClient client = null)
+        public static SettingsResource Fetch(FetchSettingsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve voice dialing permissions inheritance for the sub-account </summary>
         /// <param name="options"> Fetch Settings parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Settings </returns>
         public static async System.Threading.Tasks.Task<SettingsResource> FetchAsync(FetchSettingsOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Retrieve voice dialing permissions inheritance for the sub-account </summary>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Settings </returns>
         public static SettingsResource Fetch(
-                                         ITwilioRestClient client = null)
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchSettingsOptions(){  };
+            var options = new FetchSettingsOptions() { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve voice dialing permissions inheritance for the sub-account </summary>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Settings </returns>
-        public static async System.Threading.Tasks.Task<SettingsResource> FetchAsync(ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<SettingsResource> FetchAsync(IKandyRestClient client = null)
         {
-            var options = new FetchSettingsOptions(){  };
+            var options = new FetchSettingsOptions() { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildUpdateRequest(UpdateSettingsOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildUpdateRequest(UpdateSettingsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Settings";
 
 
@@ -110,7 +110,7 @@ namespace Kandy.Rest.Voice.V1.DialingPermissions
         /// <param name="options"> Update Settings parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Settings </returns>
-        public static SettingsResource Update(UpdateSettingsOptions options, ITwilioRestClient client = null)
+        public static SettingsResource Update(UpdateSettingsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -121,15 +121,15 @@ namespace Kandy.Rest.Voice.V1.DialingPermissions
         /// <param name="options"> Update Settings parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Settings </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<SettingsResource> UpdateAsync(UpdateSettingsOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update voice dialing permissions inheritance for the sub-account </summary>
         /// <param name="dialingPermissionsInheritance"> `true` for the sub-account to inherit voice dialing permissions from the Master Project; otherwise `false`. </param>
@@ -137,26 +137,26 @@ namespace Kandy.Rest.Voice.V1.DialingPermissions
         /// <returns> A single instance of Settings </returns>
         public static SettingsResource Update(
                                           bool? dialingPermissionsInheritance = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateSettingsOptions(){ DialingPermissionsInheritance = dialingPermissionsInheritance };
+            var options = new UpdateSettingsOptions() { DialingPermissionsInheritance = dialingPermissionsInheritance };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update voice dialing permissions inheritance for the sub-account </summary>
         /// <param name="dialingPermissionsInheritance"> `true` for the sub-account to inherit voice dialing permissions from the Master Project; otherwise `false`. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Settings </returns>
         public static async System.Threading.Tasks.Task<SettingsResource> UpdateAsync(
                                                                               bool? dialingPermissionsInheritance = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateSettingsOptions(){ DialingPermissionsInheritance = dialingPermissionsInheritance };
+            var options = new UpdateSettingsOptions() { DialingPermissionsInheritance = dialingPermissionsInheritance };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a SettingsResource object
         /// </summary>
@@ -174,7 +174,7 @@ namespace Kandy.Rest.Voice.V1.DialingPermissions
             }
         }
 
-    
+
         ///<summary> `true` if the sub-account will inherit voice dialing permissions from the Master Project; otherwise `false`. </summary> 
         [JsonProperty("dialing_permissions_inheritance")]
         public bool? DialingPermissionsInheritance { get; private set; }
@@ -185,7 +185,8 @@ namespace Kandy.Rest.Voice.V1.DialingPermissions
 
 
 
-        private SettingsResource() {
+        private SettingsResource()
+        {
 
         }
     }

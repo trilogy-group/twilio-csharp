@@ -28,18 +28,18 @@ namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
 {
     public class AssignedAddOnResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateAssignedAddOnOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateAssignedAddOnOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathResourceSid = options.PathResourceSid;
-            path = path.Replace("{"+"ResourceSid"+"}", PathResourceSid);
+            path = path.Replace("{" + "ResourceSid" + "}", PathResourceSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -54,26 +54,26 @@ namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
         /// <param name="options"> Create AssignedAddOn parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AssignedAddOn </returns>
-        public static AssignedAddOnResource Create(CreateAssignedAddOnOptions options, ITwilioRestClient client = null)
+        public static AssignedAddOnResource Create(CreateAssignedAddOnOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Assign an Add-on installation to the Number specified. </summary>
         /// <param name="options"> Create AssignedAddOn parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AssignedAddOn </returns>
         public static async System.Threading.Tasks.Task<AssignedAddOnResource> CreateAsync(CreateAssignedAddOnOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Assign an Add-on installation to the Number specified. </summary>
         /// <param name="pathResourceSid"> The SID of the Phone Number to assign the Add-on. </param>
@@ -85,13 +85,13 @@ namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
                                           string pathResourceSid,
                                           string installedAddOnSid,
                                           string pathAccountSid = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateAssignedAddOnOptions(pathResourceSid, installedAddOnSid){  PathAccountSid = pathAccountSid };
+            var options = new CreateAssignedAddOnOptions(pathResourceSid, installedAddOnSid) { PathAccountSid = pathAccountSid };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Assign an Add-on installation to the Number specified. </summary>
         /// <param name="pathResourceSid"> The SID of the Phone Number to assign the Add-on. </param>
         /// <param name="installedAddOnSid"> The SID that identifies the Add-on installation. </param>
@@ -102,28 +102,28 @@ namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
                                                                                   string pathResourceSid,
                                                                                   string installedAddOnSid,
                                                                                   string pathAccountSid = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateAssignedAddOnOptions(pathResourceSid, installedAddOnSid){  PathAccountSid = pathAccountSid };
+            var options = new CreateAssignedAddOnOptions(pathResourceSid, installedAddOnSid) { PathAccountSid = pathAccountSid };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Remove the assignment of an Add-on installation from the Number specified. </summary>
         /// <param name="options"> Delete AssignedAddOn parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AssignedAddOn </returns>
-        private static Request BuildDeleteRequest(DeleteAssignedAddOnOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteAssignedAddOnOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathResourceSid = options.PathResourceSid;
-            path = path.Replace("{"+"ResourceSid"+"}", PathResourceSid);
+            path = path.Replace("{" + "ResourceSid" + "}", PathResourceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -138,26 +138,26 @@ namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
         /// <param name="options"> Delete AssignedAddOn parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AssignedAddOn </returns>
-        public static bool Delete(DeleteAssignedAddOnOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteAssignedAddOnOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Remove the assignment of an Add-on installation from the Number specified. </summary>
         /// <param name="options"> Delete AssignedAddOn parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AssignedAddOn </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteAssignedAddOnOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Remove the assignment of an Add-on installation from the Number specified. </summary>
         /// <param name="pathResourceSid"> The SID of the Phone Number to which the Add-on is assigned. </param>
@@ -165,37 +165,37 @@ namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AssignedAddOn </returns>
-        public static bool Delete(string pathResourceSid, string pathSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static bool Delete(string pathResourceSid, string pathSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new DeleteAssignedAddOnOptions(pathResourceSid, pathSid)         { PathAccountSid = pathAccountSid }   ;
+            var options = new DeleteAssignedAddOnOptions(pathResourceSid, pathSid) { PathAccountSid = pathAccountSid };
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Remove the assignment of an Add-on installation from the Number specified. </summary>
         /// <param name="pathResourceSid"> The SID of the Phone Number to which the Add-on is assigned. </param>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the resource to delete. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AssignedAddOn </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathResourceSid, string pathSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathResourceSid, string pathSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new DeleteAssignedAddOnOptions(pathResourceSid, pathSid)  { PathAccountSid = pathAccountSid };
+            var options = new DeleteAssignedAddOnOptions(pathResourceSid, pathSid) { PathAccountSid = pathAccountSid };
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchAssignedAddOnOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchAssignedAddOnOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathResourceSid = options.PathResourceSid;
-            path = path.Replace("{"+"ResourceSid"+"}", PathResourceSid);
+            path = path.Replace("{" + "ResourceSid" + "}", PathResourceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -210,26 +210,26 @@ namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
         /// <param name="options"> Fetch AssignedAddOn parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AssignedAddOn </returns>
-        public static AssignedAddOnResource Fetch(FetchAssignedAddOnOptions options, ITwilioRestClient client = null)
+        public static AssignedAddOnResource Fetch(FetchAssignedAddOnOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch an instance of an Add-on installation currently assigned to this Number. </summary>
         /// <param name="options"> Fetch AssignedAddOn parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AssignedAddOn </returns>
         public static async System.Threading.Tasks.Task<AssignedAddOnResource> FetchAsync(FetchAssignedAddOnOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch an instance of an Add-on installation currently assigned to this Number. </summary>
         /// <param name="pathResourceSid"> The SID of the Phone Number to which the Add-on is assigned. </param>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the resource to fetch. </param>
@@ -237,38 +237,38 @@ namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AssignedAddOn </returns>
         public static AssignedAddOnResource Fetch(
-                                         string pathResourceSid, 
-                                         string pathSid, 
-                                         string pathAccountSid = null, 
-                                         ITwilioRestClient client = null)
+                                         string pathResourceSid,
+                                         string pathSid,
+                                         string pathAccountSid = null,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchAssignedAddOnOptions(pathResourceSid, pathSid){ PathAccountSid = pathAccountSid };
+            var options = new FetchAssignedAddOnOptions(pathResourceSid, pathSid) { PathAccountSid = pathAccountSid };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch an instance of an Add-on installation currently assigned to this Number. </summary>
         /// <param name="pathResourceSid"> The SID of the Phone Number to which the Add-on is assigned. </param>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the resource to fetch. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AssignedAddOn </returns>
-        public static async System.Threading.Tasks.Task<AssignedAddOnResource> FetchAsync(string pathResourceSid, string pathSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<AssignedAddOnResource> FetchAsync(string pathResourceSid, string pathSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new FetchAssignedAddOnOptions(pathResourceSid, pathSid){ PathAccountSid = pathAccountSid };
+            var options = new FetchAssignedAddOnOptions(pathResourceSid, pathSid) { PathAccountSid = pathAccountSid };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadAssignedAddOnOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadAssignedAddOnOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathResourceSid = options.PathResourceSid;
-            path = path.Replace("{"+"ResourceSid"+"}", PathResourceSid);
+            path = path.Replace("{" + "ResourceSid" + "}", PathResourceSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -282,7 +282,7 @@ namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
         /// <param name="options"> Read AssignedAddOn parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AssignedAddOn </returns>
-        public static ResourceSet<AssignedAddOnResource> Read(ReadAssignedAddOnOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<AssignedAddOnResource> Read(ReadAssignedAddOnOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -290,13 +290,13 @@ namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
             return new ResourceSet<AssignedAddOnResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of Add-on installations currently assigned to this Number. </summary>
         /// <param name="options"> Read AssignedAddOn parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AssignedAddOn </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<AssignedAddOnResource>> ReadAsync(ReadAssignedAddOnOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -304,7 +304,7 @@ namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
             var page = Page<AssignedAddOnResource>.FromJson("assigned_add_ons", response.Content);
             return new ResourceSet<AssignedAddOnResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of Add-on installations currently assigned to this Number. </summary>
         /// <param name="pathResourceSid"> The SID of the Phone Number to which the Add-on is assigned. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to read. </param>
@@ -317,13 +317,13 @@ namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
                                                      string pathAccountSid = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadAssignedAddOnOptions(pathResourceSid){ PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit};
+            var options = new ReadAssignedAddOnOptions(pathResourceSid) { PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of Add-on installations currently assigned to this Number. </summary>
         /// <param name="pathResourceSid"> The SID of the Phone Number to which the Add-on is assigned. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to read. </param>
@@ -336,19 +336,19 @@ namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
                                                                                              string pathAccountSid = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadAssignedAddOnOptions(pathResourceSid){ PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit};
+            var options = new ReadAssignedAddOnOptions(pathResourceSid) { PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<AssignedAddOnResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<AssignedAddOnResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -365,7 +365,7 @@ namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<AssignedAddOnResource> NextPage(Page<AssignedAddOnResource> page, ITwilioRestClient client)
+        public static Page<AssignedAddOnResource> NextPage(Page<AssignedAddOnResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -380,7 +380,7 @@ namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<AssignedAddOnResource> PreviousPage(Page<AssignedAddOnResource> page, ITwilioRestClient client)
+        public static Page<AssignedAddOnResource> PreviousPage(Page<AssignedAddOnResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -391,7 +391,7 @@ namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
             return Page<AssignedAddOnResource>.FromJson("assigned_add_ons", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a AssignedAddOnResource object
         /// </summary>
@@ -409,7 +409,7 @@ namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
             }
         }
 
-    
+
         ///<summary> The unique string that that we created to identify the resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -456,7 +456,8 @@ namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
 
 
 
-        private AssignedAddOnResource() {
+        private AssignedAddOnResource()
+        {
 
         }
     }

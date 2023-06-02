@@ -28,20 +28,20 @@ namespace Kandy.Rest.Studio.V2.Flow.Execution.ExecutionStep
 {
     public class ExecutionStepContextResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchExecutionStepContextOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchExecutionStepContextOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps/{StepSid}/Context";
 
             string PathFlowSid = options.PathFlowSid;
-            path = path.Replace("{"+"FlowSid"+"}", PathFlowSid);
+            path = path.Replace("{" + "FlowSid" + "}", PathFlowSid);
             string PathExecutionSid = options.PathExecutionSid;
-            path = path.Replace("{"+"ExecutionSid"+"}", PathExecutionSid);
+            path = path.Replace("{" + "ExecutionSid" + "}", PathExecutionSid);
             string PathStepSid = options.PathStepSid;
-            path = path.Replace("{"+"StepSid"+"}", PathStepSid);
+            path = path.Replace("{" + "StepSid" + "}", PathStepSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -56,26 +56,26 @@ namespace Kandy.Rest.Studio.V2.Flow.Execution.ExecutionStep
         /// <param name="options"> Fetch ExecutionStepContext parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ExecutionStepContext </returns>
-        public static ExecutionStepContextResource Fetch(FetchExecutionStepContextOptions options, ITwilioRestClient client = null)
+        public static ExecutionStepContextResource Fetch(FetchExecutionStepContextOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve the context for an Execution Step. </summary>
         /// <param name="options"> Fetch ExecutionStepContext parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ExecutionStepContext </returns>
         public static async System.Threading.Tasks.Task<ExecutionStepContextResource> FetchAsync(FetchExecutionStepContextOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Retrieve the context for an Execution Step. </summary>
         /// <param name="pathFlowSid"> The SID of the Flow with the Step to fetch. </param>
         /// <param name="pathExecutionSid"> The SID of the Execution resource with the Step to fetch. </param>
@@ -83,29 +83,29 @@ namespace Kandy.Rest.Studio.V2.Flow.Execution.ExecutionStep
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ExecutionStepContext </returns>
         public static ExecutionStepContextResource Fetch(
-                                         string pathFlowSid, 
-                                         string pathExecutionSid, 
-                                         string pathStepSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathFlowSid,
+                                         string pathExecutionSid,
+                                         string pathStepSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchExecutionStepContextOptions(pathFlowSid, pathExecutionSid, pathStepSid){  };
+            var options = new FetchExecutionStepContextOptions(pathFlowSid, pathExecutionSid, pathStepSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve the context for an Execution Step. </summary>
         /// <param name="pathFlowSid"> The SID of the Flow with the Step to fetch. </param>
         /// <param name="pathExecutionSid"> The SID of the Execution resource with the Step to fetch. </param>
         /// <param name="pathStepSid"> The SID of the Step to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ExecutionStepContext </returns>
-        public static async System.Threading.Tasks.Task<ExecutionStepContextResource> FetchAsync(string pathFlowSid, string pathExecutionSid, string pathStepSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<ExecutionStepContextResource> FetchAsync(string pathFlowSid, string pathExecutionSid, string pathStepSid, IKandyRestClient client = null)
         {
-            var options = new FetchExecutionStepContextOptions(pathFlowSid, pathExecutionSid, pathStepSid){  };
+            var options = new FetchExecutionStepContextOptions(pathFlowSid, pathExecutionSid, pathStepSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a ExecutionStepContextResource object
         /// </summary>
@@ -123,7 +123,7 @@ namespace Kandy.Rest.Studio.V2.Flow.Execution.ExecutionStep
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ExecutionStepContext resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -150,7 +150,8 @@ namespace Kandy.Rest.Studio.V2.Flow.Execution.ExecutionStep
 
 
 
-        private ExecutionStepContextResource() {
+        private ExecutionStepContextResource()
+        {
 
         }
     }

@@ -28,18 +28,18 @@ namespace Kandy.Rest.Api.V2010.Account.AvailablePhoneNumberCountry
 {
     public class LocalResource : Resource
     {
-    
 
-        
-        private static Request BuildReadRequest(ReadLocalOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildReadRequest(ReadLocalOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Local.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathCountryCode = options.PathCountryCode.ToString();
-            path = path.Replace("{"+"CountryCode"+"}", PathCountryCode);
+            path = path.Replace("{" + "CountryCode" + "}", PathCountryCode);
 
             return new Request(
                 HttpMethod.Get,
@@ -53,7 +53,7 @@ namespace Kandy.Rest.Api.V2010.Account.AvailablePhoneNumberCountry
         /// <param name="options"> Read Local parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Local </returns>
-        public static ResourceSet<LocalResource> Read(ReadLocalOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<LocalResource> Read(ReadLocalOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -61,13 +61,13 @@ namespace Kandy.Rest.Api.V2010.Account.AvailablePhoneNumberCountry
             return new ResourceSet<LocalResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read Local parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Local </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<LocalResource>> ReadAsync(ReadLocalOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -75,7 +75,7 @@ namespace Kandy.Rest.Api.V2010.Account.AvailablePhoneNumberCountry
             var page = Page<LocalResource>.FromJson("available_phone_numbers", response.Content);
             return new ResourceSet<LocalResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="pathCountryCode"> The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources. </param>
@@ -124,13 +124,13 @@ namespace Kandy.Rest.Api.V2010.Account.AvailablePhoneNumberCountry
                                                      bool? faxEnabled = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadLocalOptions(pathCountryCode){ PathAccountSid = pathAccountSid, AreaCode = areaCode, Contains = contains, SmsEnabled = smsEnabled, MmsEnabled = mmsEnabled, VoiceEnabled = voiceEnabled, ExcludeAllAddressRequired = excludeAllAddressRequired, ExcludeLocalAddressRequired = excludeLocalAddressRequired, ExcludeForeignAddressRequired = excludeForeignAddressRequired, Beta = beta, NearNumber = nearNumber, NearLatLong = nearLatLong, Distance = distance, InPostalCode = inPostalCode, InRegion = inRegion, InRateCenter = inRateCenter, InLata = inLata, InLocality = inLocality, FaxEnabled = faxEnabled, PageSize = pageSize, Limit = limit};
+            var options = new ReadLocalOptions(pathCountryCode) { PathAccountSid = pathAccountSid, AreaCode = areaCode, Contains = contains, SmsEnabled = smsEnabled, MmsEnabled = mmsEnabled, VoiceEnabled = voiceEnabled, ExcludeAllAddressRequired = excludeAllAddressRequired, ExcludeLocalAddressRequired = excludeLocalAddressRequired, ExcludeForeignAddressRequired = excludeForeignAddressRequired, Beta = beta, NearNumber = nearNumber, NearLatLong = nearLatLong, Distance = distance, InPostalCode = inPostalCode, InRegion = inRegion, InRateCenter = inRateCenter, InLata = inLata, InLocality = inLocality, FaxEnabled = faxEnabled, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="pathCountryCode"> The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources. </param>
@@ -179,19 +179,19 @@ namespace Kandy.Rest.Api.V2010.Account.AvailablePhoneNumberCountry
                                                                                              bool? faxEnabled = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadLocalOptions(pathCountryCode){ PathAccountSid = pathAccountSid, AreaCode = areaCode, Contains = contains, SmsEnabled = smsEnabled, MmsEnabled = mmsEnabled, VoiceEnabled = voiceEnabled, ExcludeAllAddressRequired = excludeAllAddressRequired, ExcludeLocalAddressRequired = excludeLocalAddressRequired, ExcludeForeignAddressRequired = excludeForeignAddressRequired, Beta = beta, NearNumber = nearNumber, NearLatLong = nearLatLong, Distance = distance, InPostalCode = inPostalCode, InRegion = inRegion, InRateCenter = inRateCenter, InLata = inLata, InLocality = inLocality, FaxEnabled = faxEnabled, PageSize = pageSize, Limit = limit};
+            var options = new ReadLocalOptions(pathCountryCode) { PathAccountSid = pathAccountSid, AreaCode = areaCode, Contains = contains, SmsEnabled = smsEnabled, MmsEnabled = mmsEnabled, VoiceEnabled = voiceEnabled, ExcludeAllAddressRequired = excludeAllAddressRequired, ExcludeLocalAddressRequired = excludeLocalAddressRequired, ExcludeForeignAddressRequired = excludeForeignAddressRequired, Beta = beta, NearNumber = nearNumber, NearLatLong = nearLatLong, Distance = distance, InPostalCode = inPostalCode, InRegion = inRegion, InRateCenter = inRateCenter, InLata = inLata, InLocality = inLocality, FaxEnabled = faxEnabled, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<LocalResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<LocalResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -208,7 +208,7 @@ namespace Kandy.Rest.Api.V2010.Account.AvailablePhoneNumberCountry
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<LocalResource> NextPage(Page<LocalResource> page, ITwilioRestClient client)
+        public static Page<LocalResource> NextPage(Page<LocalResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -223,7 +223,7 @@ namespace Kandy.Rest.Api.V2010.Account.AvailablePhoneNumberCountry
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<LocalResource> PreviousPage(Page<LocalResource> page, ITwilioRestClient client)
+        public static Page<LocalResource> PreviousPage(Page<LocalResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -234,7 +234,7 @@ namespace Kandy.Rest.Api.V2010.Account.AvailablePhoneNumberCountry
             return Page<LocalResource>.FromJson("available_phone_numbers", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a LocalResource object
         /// </summary>
@@ -252,7 +252,7 @@ namespace Kandy.Rest.Api.V2010.Account.AvailablePhoneNumberCountry
             }
         }
 
-    
+
         ///<summary> A formatted version of the phone number. </summary> 
         [JsonProperty("friendly_name")]
         [JsonConverter(typeof(PhoneNumberConverter))]
@@ -309,7 +309,8 @@ namespace Kandy.Rest.Api.V2010.Account.AvailablePhoneNumberCountry
 
 
 
-        private LocalResource() {
+        private LocalResource()
+        {
 
         }
     }

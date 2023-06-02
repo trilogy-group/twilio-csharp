@@ -28,16 +28,16 @@ namespace Kandy.Rest.Bulkexports.V1.Export
 {
     public class ExportCustomJobResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateExportCustomJobOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateExportCustomJobOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Exports/{ResourceType}/Jobs";
 
             string PathResourceType = options.PathResourceType;
-            path = path.Replace("{"+"ResourceType"+"}", PathResourceType);
+            path = path.Replace("{" + "ResourceType" + "}", PathResourceType);
 
             return new Request(
                 HttpMethod.Post,
@@ -52,26 +52,26 @@ namespace Kandy.Rest.Bulkexports.V1.Export
         /// <param name="options"> Create ExportCustomJob parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ExportCustomJob </returns>
-        public static ExportCustomJobResource Create(CreateExportCustomJobOptions options, ITwilioRestClient client = null)
+        public static ExportCustomJobResource Create(CreateExportCustomJobOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create ExportCustomJob parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ExportCustomJob </returns>
         public static async System.Threading.Tasks.Task<ExportCustomJobResource> CreateAsync(CreateExportCustomJobOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="pathResourceType"> The type of communication – Messages or Calls, Conferences, and Participants </param>
@@ -91,13 +91,13 @@ namespace Kandy.Rest.Bulkexports.V1.Export
                                           string webhookUrl = null,
                                           string webhookMethod = null,
                                           string email = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateExportCustomJobOptions(pathResourceType, startDay, endDay, friendlyName){  WebhookUrl = webhookUrl, WebhookMethod = webhookMethod, Email = email };
+            var options = new CreateExportCustomJobOptions(pathResourceType, startDay, endDay, friendlyName) { WebhookUrl = webhookUrl, WebhookMethod = webhookMethod, Email = email };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="pathResourceType"> The type of communication – Messages or Calls, Conferences, and Participants </param>
         /// <param name="startDay"> The start day for the custom export specified as a string in the format of yyyy-mm-dd </param>
@@ -116,20 +116,20 @@ namespace Kandy.Rest.Bulkexports.V1.Export
                                                                                   string webhookUrl = null,
                                                                                   string webhookMethod = null,
                                                                                   string email = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateExportCustomJobOptions(pathResourceType, startDay, endDay, friendlyName){  WebhookUrl = webhookUrl, WebhookMethod = webhookMethod, Email = email };
+            var options = new CreateExportCustomJobOptions(pathResourceType, startDay, endDay, friendlyName) { WebhookUrl = webhookUrl, WebhookMethod = webhookMethod, Email = email };
             return await CreateAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadExportCustomJobOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadExportCustomJobOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Exports/{ResourceType}/Jobs";
 
             string PathResourceType = options.PathResourceType;
-            path = path.Replace("{"+"ResourceType"+"}", PathResourceType);
+            path = path.Replace("{" + "ResourceType" + "}", PathResourceType);
 
             return new Request(
                 HttpMethod.Get,
@@ -143,7 +143,7 @@ namespace Kandy.Rest.Bulkexports.V1.Export
         /// <param name="options"> Read ExportCustomJob parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ExportCustomJob </returns>
-        public static ResourceSet<ExportCustomJobResource> Read(ReadExportCustomJobOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<ExportCustomJobResource> Read(ReadExportCustomJobOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -151,13 +151,13 @@ namespace Kandy.Rest.Bulkexports.V1.Export
             return new ResourceSet<ExportCustomJobResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read ExportCustomJob parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ExportCustomJob </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<ExportCustomJobResource>> ReadAsync(ReadExportCustomJobOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -165,7 +165,7 @@ namespace Kandy.Rest.Bulkexports.V1.Export
             var page = Page<ExportCustomJobResource>.FromJson("jobs", response.Content);
             return new ResourceSet<ExportCustomJobResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="pathResourceType"> The type of communication – Messages, Calls, Conferences, and Participants </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -176,13 +176,13 @@ namespace Kandy.Rest.Bulkexports.V1.Export
                                                      string pathResourceType,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadExportCustomJobOptions(pathResourceType){ PageSize = pageSize, Limit = limit};
+            var options = new ReadExportCustomJobOptions(pathResourceType) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="pathResourceType"> The type of communication – Messages, Calls, Conferences, and Participants </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -193,19 +193,19 @@ namespace Kandy.Rest.Bulkexports.V1.Export
                                                                                              string pathResourceType,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadExportCustomJobOptions(pathResourceType){ PageSize = pageSize, Limit = limit};
+            var options = new ReadExportCustomJobOptions(pathResourceType) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<ExportCustomJobResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<ExportCustomJobResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -222,7 +222,7 @@ namespace Kandy.Rest.Bulkexports.V1.Export
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<ExportCustomJobResource> NextPage(Page<ExportCustomJobResource> page, ITwilioRestClient client)
+        public static Page<ExportCustomJobResource> NextPage(Page<ExportCustomJobResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -237,7 +237,7 @@ namespace Kandy.Rest.Bulkexports.V1.Export
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<ExportCustomJobResource> PreviousPage(Page<ExportCustomJobResource> page, ITwilioRestClient client)
+        public static Page<ExportCustomJobResource> PreviousPage(Page<ExportCustomJobResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -248,7 +248,7 @@ namespace Kandy.Rest.Bulkexports.V1.Export
             return Page<ExportCustomJobResource>.FromJson("jobs", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a ExportCustomJobResource object
         /// </summary>
@@ -266,7 +266,7 @@ namespace Kandy.Rest.Bulkexports.V1.Export
             }
         }
 
-    
+
         ///<summary> The friendly name specified when creating the job </summary> 
         [JsonProperty("friendly_name")]
         public string FriendlyName { get; private set; }
@@ -313,7 +313,8 @@ namespace Kandy.Rest.Bulkexports.V1.Export
 
 
 
-        private ExportCustomJobResource() {
+        private ExportCustomJobResource()
+        {
 
         }
     }

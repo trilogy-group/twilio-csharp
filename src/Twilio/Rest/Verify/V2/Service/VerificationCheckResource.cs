@@ -28,12 +28,12 @@ namespace Kandy.Rest.Verify.V2.Service
 {
     public class VerificationCheckResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class ChannelEnum : StringEnum
         {
-            private ChannelEnum(string value) : base(value) {}
-            public ChannelEnum() {}
+            private ChannelEnum(string value) : base(value) { }
+            public ChannelEnum() { }
             public static implicit operator ChannelEnum(string value)
             {
                 return new ChannelEnum(value);
@@ -46,14 +46,14 @@ namespace Kandy.Rest.Verify.V2.Service
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateVerificationCheckOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateVerificationCheckOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Services/{ServiceSid}/VerificationCheck";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -68,26 +68,26 @@ namespace Kandy.Rest.Verify.V2.Service
         /// <param name="options"> Create VerificationCheck parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of VerificationCheck </returns>
-        public static VerificationCheckResource Create(CreateVerificationCheckOptions options, ITwilioRestClient client = null)
+        public static VerificationCheckResource Create(CreateVerificationCheckOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> challenge a specific Verification Check. </summary>
         /// <param name="options"> Create VerificationCheck parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of VerificationCheck </returns>
         public static async System.Threading.Tasks.Task<VerificationCheckResource> CreateAsync(CreateVerificationCheckOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> challenge a specific Verification Check. </summary>
         /// <param name="pathServiceSid"> The SID of the verification [Service](https://www.twilio.com/docs/verify/api/service) to create the resource under. </param>
@@ -105,13 +105,13 @@ namespace Kandy.Rest.Verify.V2.Service
                                           string verificationSid = null,
                                           string amount = null,
                                           string payee = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateVerificationCheckOptions(pathServiceSid){  Code = code, To = to, VerificationSid = verificationSid, Amount = amount, Payee = payee };
+            var options = new CreateVerificationCheckOptions(pathServiceSid) { Code = code, To = to, VerificationSid = verificationSid, Amount = amount, Payee = payee };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> challenge a specific Verification Check. </summary>
         /// <param name="pathServiceSid"> The SID of the verification [Service](https://www.twilio.com/docs/verify/api/service) to create the resource under. </param>
         /// <param name="code"> The 4-10 character string being verified. </param>
@@ -128,13 +128,13 @@ namespace Kandy.Rest.Verify.V2.Service
                                                                                   string verificationSid = null,
                                                                                   string amount = null,
                                                                                   string payee = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateVerificationCheckOptions(pathServiceSid){  Code = code, To = to, VerificationSid = verificationSid, Amount = amount, Payee = payee };
+            var options = new CreateVerificationCheckOptions(pathServiceSid) { Code = code, To = to, VerificationSid = verificationSid, Amount = amount, Payee = payee };
             return await CreateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a VerificationCheckResource object
         /// </summary>
@@ -152,7 +152,7 @@ namespace Kandy.Rest.Verify.V2.Service
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the VerificationCheck resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -169,7 +169,7 @@ namespace Kandy.Rest.Verify.V2.Service
         [JsonProperty("to")]
         public string To { get; private set; }
 
-        
+
         [JsonProperty("channel")]
         public VerificationCheckResource.ChannelEnum Channel { get; private set; }
 
@@ -203,7 +203,8 @@ namespace Kandy.Rest.Verify.V2.Service
 
 
 
-        private VerificationCheckResource() {
+        private VerificationCheckResource()
+        {
 
         }
     }

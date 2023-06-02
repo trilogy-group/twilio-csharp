@@ -28,16 +28,16 @@ namespace Kandy.Rest.Trunking.V1.Trunk
 {
     public class IpAccessControlListResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateIpAccessControlListOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateIpAccessControlListOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Trunks/{TrunkSid}/IpAccessControlLists";
 
             string PathTrunkSid = options.PathTrunkSid;
-            path = path.Replace("{"+"TrunkSid"+"}", PathTrunkSid);
+            path = path.Replace("{" + "TrunkSid" + "}", PathTrunkSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -52,26 +52,26 @@ namespace Kandy.Rest.Trunking.V1.Trunk
         /// <param name="options"> Create IpAccessControlList parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of IpAccessControlList </returns>
-        public static IpAccessControlListResource Create(CreateIpAccessControlListOptions options, ITwilioRestClient client = null)
+        public static IpAccessControlListResource Create(CreateIpAccessControlListOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Associate an IP Access Control List with a Trunk </summary>
         /// <param name="options"> Create IpAccessControlList parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of IpAccessControlList </returns>
         public static async System.Threading.Tasks.Task<IpAccessControlListResource> CreateAsync(CreateIpAccessControlListOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Associate an IP Access Control List with a Trunk </summary>
         /// <param name="pathTrunkSid"> The SID of the Trunk to associate the IP Access Control List with. </param>
@@ -81,13 +81,13 @@ namespace Kandy.Rest.Trunking.V1.Trunk
         public static IpAccessControlListResource Create(
                                           string pathTrunkSid,
                                           string ipAccessControlListSid,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateIpAccessControlListOptions(pathTrunkSid, ipAccessControlListSid){  };
+            var options = new CreateIpAccessControlListOptions(pathTrunkSid, ipAccessControlListSid) { };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Associate an IP Access Control List with a Trunk </summary>
         /// <param name="pathTrunkSid"> The SID of the Trunk to associate the IP Access Control List with. </param>
         /// <param name="ipAccessControlListSid"> The SID of the [IP Access Control List](https://www.twilio.com/docs/voice/sip/api/sip-ipaccesscontrollist-resource) that you want to associate with the trunk. </param>
@@ -96,26 +96,26 @@ namespace Kandy.Rest.Trunking.V1.Trunk
         public static async System.Threading.Tasks.Task<IpAccessControlListResource> CreateAsync(
                                                                                   string pathTrunkSid,
                                                                                   string ipAccessControlListSid,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateIpAccessControlListOptions(pathTrunkSid, ipAccessControlListSid){  };
+            var options = new CreateIpAccessControlListOptions(pathTrunkSid, ipAccessControlListSid) { };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Remove an associated IP Access Control List from a Trunk </summary>
         /// <param name="options"> Delete IpAccessControlList parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of IpAccessControlList </returns>
-        private static Request BuildDeleteRequest(DeleteIpAccessControlListOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteIpAccessControlListOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Trunks/{TrunkSid}/IpAccessControlLists/{Sid}";
 
             string PathTrunkSid = options.PathTrunkSid;
-            path = path.Replace("{"+"TrunkSid"+"}", PathTrunkSid);
+            path = path.Replace("{" + "TrunkSid" + "}", PathTrunkSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -130,60 +130,60 @@ namespace Kandy.Rest.Trunking.V1.Trunk
         /// <param name="options"> Delete IpAccessControlList parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of IpAccessControlList </returns>
-        public static bool Delete(DeleteIpAccessControlListOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteIpAccessControlListOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Remove an associated IP Access Control List from a Trunk </summary>
         /// <param name="options"> Delete IpAccessControlList parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of IpAccessControlList </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteIpAccessControlListOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Remove an associated IP Access Control List from a Trunk </summary>
         /// <param name="pathTrunkSid"> The SID of the Trunk from which to delete the IP Access Control List. </param>
         /// <param name="pathSid"> The unique string that we created to identify the IpAccessControlList resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of IpAccessControlList </returns>
-        public static bool Delete(string pathTrunkSid, string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathTrunkSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteIpAccessControlListOptions(pathTrunkSid, pathSid)        ;
+            var options = new DeleteIpAccessControlListOptions(pathTrunkSid, pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Remove an associated IP Access Control List from a Trunk </summary>
         /// <param name="pathTrunkSid"> The SID of the Trunk from which to delete the IP Access Control List. </param>
         /// <param name="pathSid"> The unique string that we created to identify the IpAccessControlList resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of IpAccessControlList </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathTrunkSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathTrunkSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteIpAccessControlListOptions(pathTrunkSid, pathSid) ;
+            var options = new DeleteIpAccessControlListOptions(pathTrunkSid, pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchIpAccessControlListOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchIpAccessControlListOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Trunks/{TrunkSid}/IpAccessControlLists/{Sid}";
 
             string PathTrunkSid = options.PathTrunkSid;
-            path = path.Replace("{"+"TrunkSid"+"}", PathTrunkSid);
+            path = path.Replace("{" + "TrunkSid" + "}", PathTrunkSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -198,60 +198,60 @@ namespace Kandy.Rest.Trunking.V1.Trunk
         /// <param name="options"> Fetch IpAccessControlList parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of IpAccessControlList </returns>
-        public static IpAccessControlListResource Fetch(FetchIpAccessControlListOptions options, ITwilioRestClient client = null)
+        public static IpAccessControlListResource Fetch(FetchIpAccessControlListOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch IpAccessControlList parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of IpAccessControlList </returns>
         public static async System.Threading.Tasks.Task<IpAccessControlListResource> FetchAsync(FetchIpAccessControlListOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathTrunkSid"> The SID of the Trunk from which to fetch the IP Access Control List. </param>
         /// <param name="pathSid"> The unique string that we created to identify the IpAccessControlList resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of IpAccessControlList </returns>
         public static IpAccessControlListResource Fetch(
-                                         string pathTrunkSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathTrunkSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchIpAccessControlListOptions(pathTrunkSid, pathSid){  };
+            var options = new FetchIpAccessControlListOptions(pathTrunkSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathTrunkSid"> The SID of the Trunk from which to fetch the IP Access Control List. </param>
         /// <param name="pathSid"> The unique string that we created to identify the IpAccessControlList resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of IpAccessControlList </returns>
-        public static async System.Threading.Tasks.Task<IpAccessControlListResource> FetchAsync(string pathTrunkSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<IpAccessControlListResource> FetchAsync(string pathTrunkSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchIpAccessControlListOptions(pathTrunkSid, pathSid){  };
+            var options = new FetchIpAccessControlListOptions(pathTrunkSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadIpAccessControlListOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadIpAccessControlListOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Trunks/{TrunkSid}/IpAccessControlLists";
 
             string PathTrunkSid = options.PathTrunkSid;
-            path = path.Replace("{"+"TrunkSid"+"}", PathTrunkSid);
+            path = path.Replace("{" + "TrunkSid" + "}", PathTrunkSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -265,7 +265,7 @@ namespace Kandy.Rest.Trunking.V1.Trunk
         /// <param name="options"> Read IpAccessControlList parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of IpAccessControlList </returns>
-        public static ResourceSet<IpAccessControlListResource> Read(ReadIpAccessControlListOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<IpAccessControlListResource> Read(ReadIpAccessControlListOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -273,13 +273,13 @@ namespace Kandy.Rest.Trunking.V1.Trunk
             return new ResourceSet<IpAccessControlListResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> List all IP Access Control Lists for a Trunk </summary>
         /// <param name="options"> Read IpAccessControlList parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of IpAccessControlList </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<IpAccessControlListResource>> ReadAsync(ReadIpAccessControlListOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -287,7 +287,7 @@ namespace Kandy.Rest.Trunking.V1.Trunk
             var page = Page<IpAccessControlListResource>.FromJson("ip_access_control_lists", response.Content);
             return new ResourceSet<IpAccessControlListResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> List all IP Access Control Lists for a Trunk </summary>
         /// <param name="pathTrunkSid"> The SID of the Trunk from which to read the IP Access Control Lists. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -298,13 +298,13 @@ namespace Kandy.Rest.Trunking.V1.Trunk
                                                      string pathTrunkSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadIpAccessControlListOptions(pathTrunkSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadIpAccessControlListOptions(pathTrunkSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> List all IP Access Control Lists for a Trunk </summary>
         /// <param name="pathTrunkSid"> The SID of the Trunk from which to read the IP Access Control Lists. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -315,19 +315,19 @@ namespace Kandy.Rest.Trunking.V1.Trunk
                                                                                              string pathTrunkSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadIpAccessControlListOptions(pathTrunkSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadIpAccessControlListOptions(pathTrunkSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<IpAccessControlListResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<IpAccessControlListResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -344,7 +344,7 @@ namespace Kandy.Rest.Trunking.V1.Trunk
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<IpAccessControlListResource> NextPage(Page<IpAccessControlListResource> page, ITwilioRestClient client)
+        public static Page<IpAccessControlListResource> NextPage(Page<IpAccessControlListResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -359,7 +359,7 @@ namespace Kandy.Rest.Trunking.V1.Trunk
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<IpAccessControlListResource> PreviousPage(Page<IpAccessControlListResource> page, ITwilioRestClient client)
+        public static Page<IpAccessControlListResource> PreviousPage(Page<IpAccessControlListResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -370,7 +370,7 @@ namespace Kandy.Rest.Trunking.V1.Trunk
             return Page<IpAccessControlListResource>.FromJson("ip_access_control_lists", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a IpAccessControlListResource object
         /// </summary>
@@ -388,7 +388,7 @@ namespace Kandy.Rest.Trunking.V1.Trunk
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IpAccessControlList resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -419,7 +419,8 @@ namespace Kandy.Rest.Trunking.V1.Trunk
 
 
 
-        private IpAccessControlListResource() {
+        private IpAccessControlListResource()
+        {
 
         }
     }

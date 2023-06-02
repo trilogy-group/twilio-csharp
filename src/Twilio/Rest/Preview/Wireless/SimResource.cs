@@ -28,16 +28,16 @@ namespace Kandy.Rest.Preview.Wireless
 {
     public class SimResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchSimOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchSimOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/wireless/Sims/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -52,53 +52,53 @@ namespace Kandy.Rest.Preview.Wireless
         /// <param name="options"> Fetch Sim parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Sim </returns>
-        public static SimResource Fetch(FetchSimOptions options, ITwilioRestClient client = null)
+        public static SimResource Fetch(FetchSimOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch Sim parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Sim </returns>
         public static async System.Threading.Tasks.Task<SimResource> FetchAsync(FetchSimOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathSid">  </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Sim </returns>
         public static SimResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchSimOptions(pathSid){  };
+            var options = new FetchSimOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathSid">  </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Sim </returns>
-        public static async System.Threading.Tasks.Task<SimResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<SimResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchSimOptions(pathSid){  };
+            var options = new FetchSimOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadSimOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadSimOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/wireless/Sims";
 
 
@@ -114,7 +114,7 @@ namespace Kandy.Rest.Preview.Wireless
         /// <param name="options"> Read Sim parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Sim </returns>
-        public static ResourceSet<SimResource> Read(ReadSimOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<SimResource> Read(ReadSimOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -122,13 +122,13 @@ namespace Kandy.Rest.Preview.Wireless
             return new ResourceSet<SimResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read Sim parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Sim </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<SimResource>> ReadAsync(ReadSimOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -136,7 +136,7 @@ namespace Kandy.Rest.Preview.Wireless
             var page = Page<SimResource>.FromJson("sims", response.Content);
             return new ResourceSet<SimResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="status">  </param>
         /// <param name="iccid">  </param>
@@ -155,13 +155,13 @@ namespace Kandy.Rest.Preview.Wireless
                                                      string simRegistrationCode = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadSimOptions(){ Status = status, Iccid = iccid, RatePlan = ratePlan, EId = eId, SimRegistrationCode = simRegistrationCode, PageSize = pageSize, Limit = limit};
+            var options = new ReadSimOptions() { Status = status, Iccid = iccid, RatePlan = ratePlan, EId = eId, SimRegistrationCode = simRegistrationCode, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="status">  </param>
         /// <param name="iccid">  </param>
@@ -180,19 +180,19 @@ namespace Kandy.Rest.Preview.Wireless
                                                                                              string simRegistrationCode = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadSimOptions(){ Status = status, Iccid = iccid, RatePlan = ratePlan, EId = eId, SimRegistrationCode = simRegistrationCode, PageSize = pageSize, Limit = limit};
+            var options = new ReadSimOptions() { Status = status, Iccid = iccid, RatePlan = ratePlan, EId = eId, SimRegistrationCode = simRegistrationCode, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<SimResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<SimResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -209,7 +209,7 @@ namespace Kandy.Rest.Preview.Wireless
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<SimResource> NextPage(Page<SimResource> page, ITwilioRestClient client)
+        public static Page<SimResource> NextPage(Page<SimResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -224,7 +224,7 @@ namespace Kandy.Rest.Preview.Wireless
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<SimResource> PreviousPage(Page<SimResource> page, ITwilioRestClient client)
+        public static Page<SimResource> PreviousPage(Page<SimResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -235,14 +235,14 @@ namespace Kandy.Rest.Preview.Wireless
             return Page<SimResource>.FromJson("sims", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateSimOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateSimOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/wireless/Sims/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -257,7 +257,7 @@ namespace Kandy.Rest.Preview.Wireless
         /// <param name="options"> Update Sim parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Sim </returns>
-        public static SimResource Update(UpdateSimOptions options, ITwilioRestClient client = null)
+        public static SimResource Update(UpdateSimOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -268,15 +268,15 @@ namespace Kandy.Rest.Preview.Wireless
         /// <param name="options"> Update Sim parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Sim </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<SimResource> UpdateAsync(UpdateSimOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> update </summary>
         /// <param name="pathSid">  </param>
@@ -316,13 +316,13 @@ namespace Kandy.Rest.Preview.Wireless
                                           Uri voiceFallbackUrl = null,
                                           Twilio.Http.HttpMethod voiceMethod = null,
                                           Uri voiceUrl = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateSimOptions(pathSid){ UniqueName = uniqueName, CallbackMethod = callbackMethod, CallbackUrl = callbackUrl, FriendlyName = friendlyName, RatePlan = ratePlan, Status = status, CommandsCallbackMethod = commandsCallbackMethod, CommandsCallbackUrl = commandsCallbackUrl, SmsFallbackMethod = smsFallbackMethod, SmsFallbackUrl = smsFallbackUrl, SmsMethod = smsMethod, SmsUrl = smsUrl, VoiceFallbackMethod = voiceFallbackMethod, VoiceFallbackUrl = voiceFallbackUrl, VoiceMethod = voiceMethod, VoiceUrl = voiceUrl };
+            var options = new UpdateSimOptions(pathSid) { UniqueName = uniqueName, CallbackMethod = callbackMethod, CallbackUrl = callbackUrl, FriendlyName = friendlyName, RatePlan = ratePlan, Status = status, CommandsCallbackMethod = commandsCallbackMethod, CommandsCallbackUrl = commandsCallbackUrl, SmsFallbackMethod = smsFallbackMethod, SmsFallbackUrl = smsFallbackUrl, SmsMethod = smsMethod, SmsUrl = smsUrl, VoiceFallbackMethod = voiceFallbackMethod, VoiceFallbackUrl = voiceFallbackUrl, VoiceMethod = voiceMethod, VoiceUrl = voiceUrl };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> update </summary>
         /// <param name="pathSid">  </param>
         /// <param name="uniqueName">  </param>
@@ -361,13 +361,13 @@ namespace Kandy.Rest.Preview.Wireless
                                                                               Uri voiceFallbackUrl = null,
                                                                               Twilio.Http.HttpMethod voiceMethod = null,
                                                                               Uri voiceUrl = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateSimOptions(pathSid){ UniqueName = uniqueName, CallbackMethod = callbackMethod, CallbackUrl = callbackUrl, FriendlyName = friendlyName, RatePlan = ratePlan, Status = status, CommandsCallbackMethod = commandsCallbackMethod, CommandsCallbackUrl = commandsCallbackUrl, SmsFallbackMethod = smsFallbackMethod, SmsFallbackUrl = smsFallbackUrl, SmsMethod = smsMethod, SmsUrl = smsUrl, VoiceFallbackMethod = voiceFallbackMethod, VoiceFallbackUrl = voiceFallbackUrl, VoiceMethod = voiceMethod, VoiceUrl = voiceUrl };
+            var options = new UpdateSimOptions(pathSid) { UniqueName = uniqueName, CallbackMethod = callbackMethod, CallbackUrl = callbackUrl, FriendlyName = friendlyName, RatePlan = ratePlan, Status = status, CommandsCallbackMethod = commandsCallbackMethod, CommandsCallbackUrl = commandsCallbackUrl, SmsFallbackMethod = smsFallbackMethod, SmsFallbackUrl = smsFallbackUrl, SmsMethod = smsMethod, SmsUrl = smsUrl, VoiceFallbackMethod = voiceFallbackMethod, VoiceFallbackUrl = voiceFallbackUrl, VoiceMethod = voiceMethod, VoiceUrl = voiceUrl };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a SimResource object
         /// </summary>
@@ -385,7 +385,7 @@ namespace Kandy.Rest.Preview.Wireless
             }
         }
 
-    
+
         ///<summary> The sid </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -426,7 +426,7 @@ namespace Kandy.Rest.Preview.Wireless
         [JsonProperty("commands_callback_method")]
         public string CommandsCallbackMethod { get; private set; }
 
-        
+
         [JsonProperty("sms_fallback_method")]
         public Twilio.Http.HttpMethod SmsFallbackMethod { get; private set; }
 
@@ -434,7 +434,7 @@ namespace Kandy.Rest.Preview.Wireless
         [JsonProperty("sms_fallback_url")]
         public Uri SmsFallbackUrl { get; private set; }
 
-        
+
         [JsonProperty("sms_method")]
         public Twilio.Http.HttpMethod SmsMethod { get; private set; }
 
@@ -442,7 +442,7 @@ namespace Kandy.Rest.Preview.Wireless
         [JsonProperty("sms_url")]
         public Uri SmsUrl { get; private set; }
 
-        
+
         [JsonProperty("voice_fallback_method")]
         public Twilio.Http.HttpMethod VoiceFallbackMethod { get; private set; }
 
@@ -450,7 +450,7 @@ namespace Kandy.Rest.Preview.Wireless
         [JsonProperty("voice_fallback_url")]
         public Uri VoiceFallbackUrl { get; private set; }
 
-        
+
         [JsonProperty("voice_method")]
         public Twilio.Http.HttpMethod VoiceMethod { get; private set; }
 
@@ -476,7 +476,8 @@ namespace Kandy.Rest.Preview.Wireless
 
 
 
-        private SimResource() {
+        private SimResource()
+        {
 
         }
     }

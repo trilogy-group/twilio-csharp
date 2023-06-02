@@ -28,16 +28,16 @@ namespace Kandy.Rest.Serverless.V1.Service
 {
     public class FunctionResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateFunctionOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateFunctionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Functions";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -52,26 +52,26 @@ namespace Kandy.Rest.Serverless.V1.Service
         /// <param name="options"> Create Function parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Function </returns>
-        public static FunctionResource Create(CreateFunctionOptions options, ITwilioRestClient client = null)
+        public static FunctionResource Create(CreateFunctionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Function resource. </summary>
         /// <param name="options"> Create Function parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Function </returns>
         public static async System.Threading.Tasks.Task<FunctionResource> CreateAsync(CreateFunctionOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new Function resource. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to create the Function resource under. </param>
@@ -81,13 +81,13 @@ namespace Kandy.Rest.Serverless.V1.Service
         public static FunctionResource Create(
                                           string pathServiceSid,
                                           string friendlyName,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateFunctionOptions(pathServiceSid, friendlyName){  };
+            var options = new CreateFunctionOptions(pathServiceSid, friendlyName) { };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Function resource. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to create the Function resource under. </param>
         /// <param name="friendlyName"> A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters. </param>
@@ -96,26 +96,26 @@ namespace Kandy.Rest.Serverless.V1.Service
         public static async System.Threading.Tasks.Task<FunctionResource> CreateAsync(
                                                                                   string pathServiceSid,
                                                                                   string friendlyName,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateFunctionOptions(pathServiceSid, friendlyName){  };
+            var options = new CreateFunctionOptions(pathServiceSid, friendlyName) { };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Delete a Function resource. </summary>
         /// <param name="options"> Delete Function parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Function </returns>
-        private static Request BuildDeleteRequest(DeleteFunctionOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteFunctionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Functions/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -130,60 +130,60 @@ namespace Kandy.Rest.Serverless.V1.Service
         /// <param name="options"> Delete Function parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Function </returns>
-        public static bool Delete(DeleteFunctionOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteFunctionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a Function resource. </summary>
         /// <param name="options"> Delete Function parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Function </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteFunctionOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete a Function resource. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to delete the Function resource from. </param>
         /// <param name="pathSid"> The SID of the Function resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Function </returns>
-        public static bool Delete(string pathServiceSid, string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathServiceSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteFunctionOptions(pathServiceSid, pathSid)        ;
+            var options = new DeleteFunctionOptions(pathServiceSid, pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a Function resource. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to delete the Function resource from. </param>
         /// <param name="pathSid"> The SID of the Function resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Function </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteFunctionOptions(pathServiceSid, pathSid) ;
+            var options = new DeleteFunctionOptions(pathServiceSid, pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchFunctionOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchFunctionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Functions/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -198,60 +198,60 @@ namespace Kandy.Rest.Serverless.V1.Service
         /// <param name="options"> Fetch Function parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Function </returns>
-        public static FunctionResource Fetch(FetchFunctionOptions options, ITwilioRestClient client = null)
+        public static FunctionResource Fetch(FetchFunctionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a specific Function resource. </summary>
         /// <param name="options"> Fetch Function parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Function </returns>
         public static async System.Threading.Tasks.Task<FunctionResource> FetchAsync(FetchFunctionOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Retrieve a specific Function resource. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to fetch the Function resource from. </param>
         /// <param name="pathSid"> The SID of the Function resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Function </returns>
         public static FunctionResource Fetch(
-                                         string pathServiceSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathServiceSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchFunctionOptions(pathServiceSid, pathSid){  };
+            var options = new FetchFunctionOptions(pathServiceSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a specific Function resource. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to fetch the Function resource from. </param>
         /// <param name="pathSid"> The SID of the Function resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Function </returns>
-        public static async System.Threading.Tasks.Task<FunctionResource> FetchAsync(string pathServiceSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<FunctionResource> FetchAsync(string pathServiceSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchFunctionOptions(pathServiceSid, pathSid){  };
+            var options = new FetchFunctionOptions(pathServiceSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadFunctionOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadFunctionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Functions";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -265,7 +265,7 @@ namespace Kandy.Rest.Serverless.V1.Service
         /// <param name="options"> Read Function parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Function </returns>
-        public static ResourceSet<FunctionResource> Read(ReadFunctionOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<FunctionResource> Read(ReadFunctionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -273,13 +273,13 @@ namespace Kandy.Rest.Serverless.V1.Service
             return new ResourceSet<FunctionResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Functions. </summary>
         /// <param name="options"> Read Function parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Function </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<FunctionResource>> ReadAsync(ReadFunctionOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -287,7 +287,7 @@ namespace Kandy.Rest.Serverless.V1.Service
             var page = Page<FunctionResource>.FromJson("functions", response.Content);
             return new ResourceSet<FunctionResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Functions. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to read the Function resources from. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -298,13 +298,13 @@ namespace Kandy.Rest.Serverless.V1.Service
                                                      string pathServiceSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadFunctionOptions(pathServiceSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadFunctionOptions(pathServiceSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Functions. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to read the Function resources from. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -315,19 +315,19 @@ namespace Kandy.Rest.Serverless.V1.Service
                                                                                              string pathServiceSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadFunctionOptions(pathServiceSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadFunctionOptions(pathServiceSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<FunctionResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<FunctionResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -344,7 +344,7 @@ namespace Kandy.Rest.Serverless.V1.Service
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<FunctionResource> NextPage(Page<FunctionResource> page, ITwilioRestClient client)
+        public static Page<FunctionResource> NextPage(Page<FunctionResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -359,7 +359,7 @@ namespace Kandy.Rest.Serverless.V1.Service
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<FunctionResource> PreviousPage(Page<FunctionResource> page, ITwilioRestClient client)
+        public static Page<FunctionResource> PreviousPage(Page<FunctionResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -370,16 +370,16 @@ namespace Kandy.Rest.Serverless.V1.Service
             return Page<FunctionResource>.FromJson("functions", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateFunctionOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateFunctionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Functions/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -394,7 +394,7 @@ namespace Kandy.Rest.Serverless.V1.Service
         /// <param name="options"> Update Function parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Function </returns>
-        public static FunctionResource Update(UpdateFunctionOptions options, ITwilioRestClient client = null)
+        public static FunctionResource Update(UpdateFunctionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -405,15 +405,15 @@ namespace Kandy.Rest.Serverless.V1.Service
         /// <param name="options"> Update Function parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Function </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<FunctionResource> UpdateAsync(UpdateFunctionOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update a specific Function resource. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to update the Function resource from. </param>
@@ -425,13 +425,13 @@ namespace Kandy.Rest.Serverless.V1.Service
                                           string pathServiceSid,
                                           string pathSid,
                                           string friendlyName,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateFunctionOptions(pathServiceSid, pathSid, friendlyName){  };
+            var options = new UpdateFunctionOptions(pathServiceSid, pathSid, friendlyName) { };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update a specific Function resource. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to update the Function resource from. </param>
         /// <param name="pathSid"> The SID of the Function resource to update. </param>
@@ -442,13 +442,13 @@ namespace Kandy.Rest.Serverless.V1.Service
                                                                               string pathServiceSid,
                                                                               string pathSid,
                                                                               string friendlyName,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateFunctionOptions(pathServiceSid, pathSid, friendlyName){  };
+            var options = new UpdateFunctionOptions(pathServiceSid, pathSid, friendlyName) { };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a FunctionResource object
         /// </summary>
@@ -466,7 +466,7 @@ namespace Kandy.Rest.Serverless.V1.Service
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the Function resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -501,7 +501,8 @@ namespace Kandy.Rest.Serverless.V1.Service
 
 
 
-        private FunctionResource() {
+        private FunctionResource()
+        {
 
         }
     }

@@ -28,12 +28,12 @@ namespace Kandy.Rest.Conversations.V1.Service
 {
     public class BindingResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class BindingTypeEnum : StringEnum
         {
-            private BindingTypeEnum(string value) : base(value) {}
-            public BindingTypeEnum() {}
+            private BindingTypeEnum(string value) : base(value) { }
+            public BindingTypeEnum() { }
             public static implicit operator BindingTypeEnum(string value)
             {
                 return new BindingTypeEnum(value);
@@ -44,20 +44,20 @@ namespace Kandy.Rest.Conversations.V1.Service
 
         }
 
-        
+
         /// <summary> Remove a push notification binding from the conversation service </summary>
         /// <param name="options"> Delete Binding parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Binding </returns>
-        private static Request BuildDeleteRequest(DeleteBindingOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteBindingOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ChatServiceSid}/Bindings/{Sid}";
 
             string PathChatServiceSid = options.PathChatServiceSid;
-            path = path.Replace("{"+"ChatServiceSid"+"}", PathChatServiceSid);
+            path = path.Replace("{" + "ChatServiceSid" + "}", PathChatServiceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -72,60 +72,60 @@ namespace Kandy.Rest.Conversations.V1.Service
         /// <param name="options"> Delete Binding parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Binding </returns>
-        public static bool Delete(DeleteBindingOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteBindingOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Remove a push notification binding from the conversation service </summary>
         /// <param name="options"> Delete Binding parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Binding </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteBindingOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Remove a push notification binding from the conversation service </summary>
         /// <param name="pathChatServiceSid"> The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to delete the Binding resource from. </param>
         /// <param name="pathSid"> The SID of the Binding resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Binding </returns>
-        public static bool Delete(string pathChatServiceSid, string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathChatServiceSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteBindingOptions(pathChatServiceSid, pathSid)        ;
+            var options = new DeleteBindingOptions(pathChatServiceSid, pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Remove a push notification binding from the conversation service </summary>
         /// <param name="pathChatServiceSid"> The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to delete the Binding resource from. </param>
         /// <param name="pathSid"> The SID of the Binding resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Binding </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathChatServiceSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathChatServiceSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteBindingOptions(pathChatServiceSid, pathSid) ;
+            var options = new DeleteBindingOptions(pathChatServiceSid, pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchBindingOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchBindingOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ChatServiceSid}/Bindings/{Sid}";
 
             string PathChatServiceSid = options.PathChatServiceSid;
-            path = path.Replace("{"+"ChatServiceSid"+"}", PathChatServiceSid);
+            path = path.Replace("{" + "ChatServiceSid" + "}", PathChatServiceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -140,60 +140,60 @@ namespace Kandy.Rest.Conversations.V1.Service
         /// <param name="options"> Fetch Binding parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Binding </returns>
-        public static BindingResource Fetch(FetchBindingOptions options, ITwilioRestClient client = null)
+        public static BindingResource Fetch(FetchBindingOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a push notification binding from the conversation service </summary>
         /// <param name="options"> Fetch Binding parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Binding </returns>
         public static async System.Threading.Tasks.Task<BindingResource> FetchAsync(FetchBindingOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a push notification binding from the conversation service </summary>
         /// <param name="pathChatServiceSid"> The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Binding resource is associated with. </param>
         /// <param name="pathSid"> A 34 character string that uniquely identifies this resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Binding </returns>
         public static BindingResource Fetch(
-                                         string pathChatServiceSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathChatServiceSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchBindingOptions(pathChatServiceSid, pathSid){  };
+            var options = new FetchBindingOptions(pathChatServiceSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a push notification binding from the conversation service </summary>
         /// <param name="pathChatServiceSid"> The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Binding resource is associated with. </param>
         /// <param name="pathSid"> A 34 character string that uniquely identifies this resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Binding </returns>
-        public static async System.Threading.Tasks.Task<BindingResource> FetchAsync(string pathChatServiceSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<BindingResource> FetchAsync(string pathChatServiceSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchBindingOptions(pathChatServiceSid, pathSid){  };
+            var options = new FetchBindingOptions(pathChatServiceSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadBindingOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadBindingOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ChatServiceSid}/Bindings";
 
             string PathChatServiceSid = options.PathChatServiceSid;
-            path = path.Replace("{"+"ChatServiceSid"+"}", PathChatServiceSid);
+            path = path.Replace("{" + "ChatServiceSid" + "}", PathChatServiceSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -207,7 +207,7 @@ namespace Kandy.Rest.Conversations.V1.Service
         /// <param name="options"> Read Binding parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Binding </returns>
-        public static ResourceSet<BindingResource> Read(ReadBindingOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<BindingResource> Read(ReadBindingOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -215,13 +215,13 @@ namespace Kandy.Rest.Conversations.V1.Service
             return new ResourceSet<BindingResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all push notification bindings in the conversation service </summary>
         /// <param name="options"> Read Binding parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Binding </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<BindingResource>> ReadAsync(ReadBindingOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -229,7 +229,7 @@ namespace Kandy.Rest.Conversations.V1.Service
             var page = Page<BindingResource>.FromJson("bindings", response.Content);
             return new ResourceSet<BindingResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all push notification bindings in the conversation service </summary>
         /// <param name="pathChatServiceSid"> The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Binding resource is associated with. </param>
         /// <param name="bindingType"> The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info. </param>
@@ -244,13 +244,13 @@ namespace Kandy.Rest.Conversations.V1.Service
                                                      List<string> identity = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadBindingOptions(pathChatServiceSid){ BindingType = bindingType, Identity = identity, PageSize = pageSize, Limit = limit};
+            var options = new ReadBindingOptions(pathChatServiceSid) { BindingType = bindingType, Identity = identity, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all push notification bindings in the conversation service </summary>
         /// <param name="pathChatServiceSid"> The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Binding resource is associated with. </param>
         /// <param name="bindingType"> The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info. </param>
@@ -265,19 +265,19 @@ namespace Kandy.Rest.Conversations.V1.Service
                                                                                              List<string> identity = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadBindingOptions(pathChatServiceSid){ BindingType = bindingType, Identity = identity, PageSize = pageSize, Limit = limit};
+            var options = new ReadBindingOptions(pathChatServiceSid) { BindingType = bindingType, Identity = identity, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<BindingResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<BindingResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -294,7 +294,7 @@ namespace Kandy.Rest.Conversations.V1.Service
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<BindingResource> NextPage(Page<BindingResource> page, ITwilioRestClient client)
+        public static Page<BindingResource> NextPage(Page<BindingResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -309,7 +309,7 @@ namespace Kandy.Rest.Conversations.V1.Service
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<BindingResource> PreviousPage(Page<BindingResource> page, ITwilioRestClient client)
+        public static Page<BindingResource> PreviousPage(Page<BindingResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -320,7 +320,7 @@ namespace Kandy.Rest.Conversations.V1.Service
             return Page<BindingResource>.FromJson("bindings", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a BindingResource object
         /// </summary>
@@ -338,7 +338,7 @@ namespace Kandy.Rest.Conversations.V1.Service
             }
         }
 
-    
+
         ///<summary> A 34 character string that uniquely identifies this resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -371,7 +371,7 @@ namespace Kandy.Rest.Conversations.V1.Service
         [JsonProperty("identity")]
         public string Identity { get; private set; }
 
-        
+
         [JsonProperty("binding_type")]
         public BindingResource.BindingTypeEnum BindingType { get; private set; }
 
@@ -385,7 +385,8 @@ namespace Kandy.Rest.Conversations.V1.Service
 
 
 
-        private BindingResource() {
+        private BindingResource()
+        {
 
         }
     }

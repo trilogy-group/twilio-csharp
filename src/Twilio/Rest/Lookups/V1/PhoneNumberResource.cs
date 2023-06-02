@@ -28,16 +28,16 @@ namespace Kandy.Rest.Lookups.V1
 {
     public class PhoneNumberResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchPhoneNumberOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchPhoneNumberOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/PhoneNumbers/{PhoneNumber}";
 
             string PathPhoneNumber = options.PathPhoneNumber.ToString();
-            path = path.Replace("{"+"PhoneNumber"+"}", PathPhoneNumber);
+            path = path.Replace("{" + "PhoneNumber" + "}", PathPhoneNumber);
 
             return new Request(
                 HttpMethod.Get,
@@ -52,26 +52,26 @@ namespace Kandy.Rest.Lookups.V1
         /// <param name="options"> Fetch PhoneNumber parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of PhoneNumber </returns>
-        public static PhoneNumberResource Fetch(FetchPhoneNumberOptions options, ITwilioRestClient client = null)
+        public static PhoneNumberResource Fetch(FetchPhoneNumberOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch PhoneNumber parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of PhoneNumber </returns>
         public static async System.Threading.Tasks.Task<PhoneNumberResource> FetchAsync(FetchPhoneNumberOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathPhoneNumber"> The phone number to lookup in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number. </param>
         /// <param name="countryCode"> The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the phone number to fetch. This is used to specify the country when the phone number is provided in a national format. </param>
@@ -81,18 +81,18 @@ namespace Kandy.Rest.Lookups.V1
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of PhoneNumber </returns>
         public static PhoneNumberResource Fetch(
-                                         Types.PhoneNumber pathPhoneNumber, 
-                                         string countryCode = null, 
-                                         List<string> type = null, 
-                                         List<string> addOns = null, 
-                                         Dictionary<string, object> addOnsData = null, 
-                                         ITwilioRestClient client = null)
+                                         Types.PhoneNumber pathPhoneNumber,
+                                         string countryCode = null,
+                                         List<string> type = null,
+                                         List<string> addOns = null,
+                                         Dictionary<string, object> addOnsData = null,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchPhoneNumberOptions(pathPhoneNumber){ CountryCode = countryCode,Type = type,AddOns = addOns,AddOnsData = addOnsData };
+            var options = new FetchPhoneNumberOptions(pathPhoneNumber) { CountryCode = countryCode, Type = type, AddOns = addOns, AddOnsData = addOnsData };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathPhoneNumber"> The phone number to lookup in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number. </param>
         /// <param name="countryCode"> The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the phone number to fetch. This is used to specify the country when the phone number is provided in a national format. </param>
@@ -101,13 +101,13 @@ namespace Kandy.Rest.Lookups.V1
         /// <param name="addOnsData"> Data specific to the add-on you would like to invoke. The content and format of this value depends on the add-on. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of PhoneNumber </returns>
-        public static async System.Threading.Tasks.Task<PhoneNumberResource> FetchAsync(Types.PhoneNumber pathPhoneNumber, string countryCode = null, List<string> type = null, List<string> addOns = null, Dictionary<string, object> addOnsData = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<PhoneNumberResource> FetchAsync(Types.PhoneNumber pathPhoneNumber, string countryCode = null, List<string> type = null, List<string> addOns = null, Dictionary<string, object> addOnsData = null, IKandyRestClient client = null)
         {
-            var options = new FetchPhoneNumberOptions(pathPhoneNumber){ CountryCode = countryCode,Type = type,AddOns = addOns,AddOnsData = addOnsData };
+            var options = new FetchPhoneNumberOptions(pathPhoneNumber) { CountryCode = countryCode, Type = type, AddOns = addOns, AddOnsData = addOnsData };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a PhoneNumberResource object
         /// </summary>
@@ -125,7 +125,7 @@ namespace Kandy.Rest.Lookups.V1
             }
         }
 
-    
+
         ///<summary> The name of the phone number's owner. If `null`, that information was not available. </summary> 
         [JsonProperty("caller_name")]
         public object CallerName { get; private set; }
@@ -157,7 +157,8 @@ namespace Kandy.Rest.Lookups.V1
 
 
 
-        private PhoneNumberResource() {
+        private PhoneNumberResource()
+        {
 
         }
     }

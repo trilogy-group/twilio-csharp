@@ -17,7 +17,7 @@ namespace Kandy.Base
         /// </summary>
         public bool AutoPaging { get; set; }
 
-        private readonly ITwilioRestClient _client;
+        private readonly IKandyRestClient _client;
         private readonly ReadOptions<T> _options;
         private readonly long _pageLimit;
 
@@ -33,7 +33,7 @@ namespace Kandy.Base
         /// <param name="page">Page of resources</param>
         /// <param name="options">Read options</param>
         /// <param name="client">Client to make requests</param>
-        public ResourceSet(Page<T> page, ReadOptions<T> options, ITwilioRestClient client)
+        public ResourceSet(Page<T> page, ReadOptions<T> options, IKandyRestClient client)
         {
             _page = page;
             _options = options;
@@ -48,7 +48,7 @@ namespace Kandy.Base
 
             if (_options.Limit != null)
             {
-                _pageLimit = (long) (Math.Ceiling((double) _options.Limit.Value / page.PageSize));
+                _pageLimit = (long)(Math.Ceiling((double)_options.Limit.Value / page.PageSize));
             }
         }
 
@@ -105,16 +105,16 @@ namespace Kandy.Base
             }
 
             _pages++;
-            _page = (Page<T>)GetNextPage().Invoke(null, new object[]{ _page, _client });
+            _page = (Page<T>)GetNextPage().Invoke(null, new object[] { _page, _client });
             _iterator = _page.Records.GetEnumerator();
         }
 
         private static MethodInfo GetNextPage()
         {
 #if !NET35
-            return typeof(T).GetRuntimeMethod("NextPage", new[]{ typeof(Page<T>), typeof(ITwilioRestClient) });
+            return typeof(T).GetRuntimeMethod("NextPage", new[] { typeof(Page<T>), typeof(IKandyRestClient) });
 #else
-            return typeof(T).GetMethod("NextPage", new[]{ typeof(Page<T>), typeof(ITwilioRestClient) });
+            return typeof(T).GetMethod("NextPage", new[]{ typeof(Page<T>), typeof(IKandyRestClient) });
 #endif
         }
     }

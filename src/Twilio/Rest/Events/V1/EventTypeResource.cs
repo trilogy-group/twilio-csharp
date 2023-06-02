@@ -28,16 +28,16 @@ namespace Kandy.Rest.Events.V1
 {
     public class EventTypeResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchEventTypeOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchEventTypeOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Types/{Type}";
 
             string PathType = options.PathType;
-            path = path.Replace("{"+"Type"+"}", PathType);
+            path = path.Replace("{" + "Type" + "}", PathType);
 
             return new Request(
                 HttpMethod.Get,
@@ -52,53 +52,53 @@ namespace Kandy.Rest.Events.V1
         /// <param name="options"> Fetch EventType parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of EventType </returns>
-        public static EventTypeResource Fetch(FetchEventTypeOptions options, ITwilioRestClient client = null)
+        public static EventTypeResource Fetch(FetchEventTypeOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Event Type. </summary>
         /// <param name="options"> Fetch EventType parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of EventType </returns>
         public static async System.Threading.Tasks.Task<EventTypeResource> FetchAsync(FetchEventTypeOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a specific Event Type. </summary>
         /// <param name="pathType"> A string that uniquely identifies this Event Type. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of EventType </returns>
         public static EventTypeResource Fetch(
-                                         string pathType, 
-                                         ITwilioRestClient client = null)
+                                         string pathType,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchEventTypeOptions(pathType){  };
+            var options = new FetchEventTypeOptions(pathType) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Event Type. </summary>
         /// <param name="pathType"> A string that uniquely identifies this Event Type. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of EventType </returns>
-        public static async System.Threading.Tasks.Task<EventTypeResource> FetchAsync(string pathType, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<EventTypeResource> FetchAsync(string pathType, IKandyRestClient client = null)
         {
-            var options = new FetchEventTypeOptions(pathType){  };
+            var options = new FetchEventTypeOptions(pathType) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadEventTypeOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadEventTypeOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Types";
 
 
@@ -114,7 +114,7 @@ namespace Kandy.Rest.Events.V1
         /// <param name="options"> Read EventType parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of EventType </returns>
-        public static ResourceSet<EventTypeResource> Read(ReadEventTypeOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<EventTypeResource> Read(ReadEventTypeOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -122,13 +122,13 @@ namespace Kandy.Rest.Events.V1
             return new ResourceSet<EventTypeResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a paginated list of all the available Event Types. </summary>
         /// <param name="options"> Read EventType parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of EventType </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<EventTypeResource>> ReadAsync(ReadEventTypeOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -136,7 +136,7 @@ namespace Kandy.Rest.Events.V1
             var page = Page<EventTypeResource>.FromJson("types", response.Content);
             return new ResourceSet<EventTypeResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a paginated list of all the available Event Types. </summary>
         /// <param name="schemaId"> A string parameter filtering the results to return only the Event Types using a given schema. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -147,13 +147,13 @@ namespace Kandy.Rest.Events.V1
                                                      string schemaId = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadEventTypeOptions(){ SchemaId = schemaId, PageSize = pageSize, Limit = limit};
+            var options = new ReadEventTypeOptions() { SchemaId = schemaId, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a paginated list of all the available Event Types. </summary>
         /// <param name="schemaId"> A string parameter filtering the results to return only the Event Types using a given schema. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -164,19 +164,19 @@ namespace Kandy.Rest.Events.V1
                                                                                              string schemaId = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadEventTypeOptions(){ SchemaId = schemaId, PageSize = pageSize, Limit = limit};
+            var options = new ReadEventTypeOptions() { SchemaId = schemaId, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<EventTypeResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<EventTypeResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -193,7 +193,7 @@ namespace Kandy.Rest.Events.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<EventTypeResource> NextPage(Page<EventTypeResource> page, ITwilioRestClient client)
+        public static Page<EventTypeResource> NextPage(Page<EventTypeResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -208,7 +208,7 @@ namespace Kandy.Rest.Events.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<EventTypeResource> PreviousPage(Page<EventTypeResource> page, ITwilioRestClient client)
+        public static Page<EventTypeResource> PreviousPage(Page<EventTypeResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -219,7 +219,7 @@ namespace Kandy.Rest.Events.V1
             return Page<EventTypeResource>.FromJson("types", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a EventTypeResource object
         /// </summary>
@@ -237,7 +237,7 @@ namespace Kandy.Rest.Events.V1
             }
         }
 
-    
+
         ///<summary> A string that uniquely identifies this Event Type. </summary> 
         [JsonProperty("type")]
         public string Type { get; private set; }
@@ -268,7 +268,8 @@ namespace Kandy.Rest.Events.V1
 
 
 
-        private EventTypeResource() {
+        private EventTypeResource()
+        {
 
         }
     }

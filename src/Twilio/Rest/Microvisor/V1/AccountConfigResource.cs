@@ -28,12 +28,12 @@ namespace Kandy.Rest.Microvisor.V1
 {
     public class AccountConfigResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateAccountConfigOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateAccountConfigOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Configs";
 
 
@@ -50,26 +50,26 @@ namespace Kandy.Rest.Microvisor.V1
         /// <param name="options"> Create AccountConfig parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AccountConfig </returns>
-        public static AccountConfigResource Create(CreateAccountConfigOptions options, ITwilioRestClient client = null)
+        public static AccountConfigResource Create(CreateAccountConfigOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a config for an Account. </summary>
         /// <param name="options"> Create AccountConfig parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AccountConfig </returns>
         public static async System.Threading.Tasks.Task<AccountConfigResource> CreateAsync(CreateAccountConfigOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a config for an Account. </summary>
         /// <param name="key"> The config key; up to 100 characters. </param>
@@ -79,13 +79,13 @@ namespace Kandy.Rest.Microvisor.V1
         public static AccountConfigResource Create(
                                           string key,
                                           string value,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateAccountConfigOptions(key, value){  };
+            var options = new CreateAccountConfigOptions(key, value) { };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a config for an Account. </summary>
         /// <param name="key"> The config key; up to 100 characters. </param>
         /// <param name="value"> The config value; up to 4096 characters. </param>
@@ -94,24 +94,24 @@ namespace Kandy.Rest.Microvisor.V1
         public static async System.Threading.Tasks.Task<AccountConfigResource> CreateAsync(
                                                                                   string key,
                                                                                   string value,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateAccountConfigOptions(key, value){  };
+            var options = new CreateAccountConfigOptions(key, value) { };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Delete a config for an Account. </summary>
         /// <param name="options"> Delete AccountConfig parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AccountConfig </returns>
-        private static Request BuildDeleteRequest(DeleteAccountConfigOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteAccountConfigOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Configs/{Key}";
 
             string PathKey = options.PathKey;
-            path = path.Replace("{"+"Key"+"}", PathKey);
+            path = path.Replace("{" + "Key" + "}", PathKey);
 
             return new Request(
                 HttpMethod.Delete,
@@ -126,56 +126,56 @@ namespace Kandy.Rest.Microvisor.V1
         /// <param name="options"> Delete AccountConfig parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AccountConfig </returns>
-        public static bool Delete(DeleteAccountConfigOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteAccountConfigOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a config for an Account. </summary>
         /// <param name="options"> Delete AccountConfig parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AccountConfig </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteAccountConfigOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete a config for an Account. </summary>
         /// <param name="pathKey"> The config key; up to 100 characters. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AccountConfig </returns>
-        public static bool Delete(string pathKey, ITwilioRestClient client = null)
+        public static bool Delete(string pathKey, IKandyRestClient client = null)
         {
-            var options = new DeleteAccountConfigOptions(pathKey)     ;
+            var options = new DeleteAccountConfigOptions(pathKey);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a config for an Account. </summary>
         /// <param name="pathKey"> The config key; up to 100 characters. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AccountConfig </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathKey, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathKey, IKandyRestClient client = null)
         {
-            var options = new DeleteAccountConfigOptions(pathKey) ;
+            var options = new DeleteAccountConfigOptions(pathKey);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchAccountConfigOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchAccountConfigOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Configs/{Key}";
 
             string PathKey = options.PathKey;
-            path = path.Replace("{"+"Key"+"}", PathKey);
+            path = path.Replace("{" + "Key" + "}", PathKey);
 
             return new Request(
                 HttpMethod.Get,
@@ -190,53 +190,53 @@ namespace Kandy.Rest.Microvisor.V1
         /// <param name="options"> Fetch AccountConfig parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AccountConfig </returns>
-        public static AccountConfigResource Fetch(FetchAccountConfigOptions options, ITwilioRestClient client = null)
+        public static AccountConfigResource Fetch(FetchAccountConfigOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a Config for an Account. </summary>
         /// <param name="options"> Fetch AccountConfig parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AccountConfig </returns>
         public static async System.Threading.Tasks.Task<AccountConfigResource> FetchAsync(FetchAccountConfigOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Retrieve a Config for an Account. </summary>
         /// <param name="pathKey"> The config key; up to 100 characters. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AccountConfig </returns>
         public static AccountConfigResource Fetch(
-                                         string pathKey, 
-                                         ITwilioRestClient client = null)
+                                         string pathKey,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchAccountConfigOptions(pathKey){  };
+            var options = new FetchAccountConfigOptions(pathKey) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a Config for an Account. </summary>
         /// <param name="pathKey"> The config key; up to 100 characters. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AccountConfig </returns>
-        public static async System.Threading.Tasks.Task<AccountConfigResource> FetchAsync(string pathKey, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<AccountConfigResource> FetchAsync(string pathKey, IKandyRestClient client = null)
         {
-            var options = new FetchAccountConfigOptions(pathKey){  };
+            var options = new FetchAccountConfigOptions(pathKey) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadAccountConfigOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadAccountConfigOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Configs";
 
 
@@ -252,7 +252,7 @@ namespace Kandy.Rest.Microvisor.V1
         /// <param name="options"> Read AccountConfig parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AccountConfig </returns>
-        public static ResourceSet<AccountConfigResource> Read(ReadAccountConfigOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<AccountConfigResource> Read(ReadAccountConfigOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -260,13 +260,13 @@ namespace Kandy.Rest.Microvisor.V1
             return new ResourceSet<AccountConfigResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Configs for an Account. </summary>
         /// <param name="options"> Read AccountConfig parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AccountConfig </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<AccountConfigResource>> ReadAsync(ReadAccountConfigOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -274,7 +274,7 @@ namespace Kandy.Rest.Microvisor.V1
             var page = Page<AccountConfigResource>.FromJson("configs", response.Content);
             return new ResourceSet<AccountConfigResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Configs for an Account. </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -283,13 +283,13 @@ namespace Kandy.Rest.Microvisor.V1
         public static ResourceSet<AccountConfigResource> Read(
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadAccountConfigOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadAccountConfigOptions() { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Configs for an Account. </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -298,19 +298,19 @@ namespace Kandy.Rest.Microvisor.V1
         public static async System.Threading.Tasks.Task<ResourceSet<AccountConfigResource>> ReadAsync(
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadAccountConfigOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadAccountConfigOptions() { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<AccountConfigResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<AccountConfigResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -327,7 +327,7 @@ namespace Kandy.Rest.Microvisor.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<AccountConfigResource> NextPage(Page<AccountConfigResource> page, ITwilioRestClient client)
+        public static Page<AccountConfigResource> NextPage(Page<AccountConfigResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -342,7 +342,7 @@ namespace Kandy.Rest.Microvisor.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<AccountConfigResource> PreviousPage(Page<AccountConfigResource> page, ITwilioRestClient client)
+        public static Page<AccountConfigResource> PreviousPage(Page<AccountConfigResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -353,14 +353,14 @@ namespace Kandy.Rest.Microvisor.V1
             return Page<AccountConfigResource>.FromJson("configs", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateAccountConfigOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateAccountConfigOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Configs/{Key}";
 
             string PathKey = options.PathKey;
-            path = path.Replace("{"+"Key"+"}", PathKey);
+            path = path.Replace("{" + "Key" + "}", PathKey);
 
             return new Request(
                 HttpMethod.Post,
@@ -375,7 +375,7 @@ namespace Kandy.Rest.Microvisor.V1
         /// <param name="options"> Update AccountConfig parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AccountConfig </returns>
-        public static AccountConfigResource Update(UpdateAccountConfigOptions options, ITwilioRestClient client = null)
+        public static AccountConfigResource Update(UpdateAccountConfigOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -386,15 +386,15 @@ namespace Kandy.Rest.Microvisor.V1
         /// <param name="options"> Update AccountConfig parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AccountConfig </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<AccountConfigResource> UpdateAsync(UpdateAccountConfigOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update a config for an Account. </summary>
         /// <param name="pathKey"> The config key; up to 100 characters. </param>
@@ -404,13 +404,13 @@ namespace Kandy.Rest.Microvisor.V1
         public static AccountConfigResource Update(
                                           string pathKey,
                                           string value,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateAccountConfigOptions(pathKey, value){  };
+            var options = new UpdateAccountConfigOptions(pathKey, value) { };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update a config for an Account. </summary>
         /// <param name="pathKey"> The config key; up to 100 characters. </param>
         /// <param name="value"> The config value; up to 4096 characters. </param>
@@ -419,13 +419,13 @@ namespace Kandy.Rest.Microvisor.V1
         public static async System.Threading.Tasks.Task<AccountConfigResource> UpdateAsync(
                                                                               string pathKey,
                                                                               string value,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateAccountConfigOptions(pathKey, value){  };
+            var options = new UpdateAccountConfigOptions(pathKey, value) { };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a AccountConfigResource object
         /// </summary>
@@ -443,7 +443,7 @@ namespace Kandy.Rest.Microvisor.V1
             }
         }
 
-    
+
         ///<summary> The config key; up to 100 characters. </summary> 
         [JsonProperty("key")]
         public string Key { get; private set; }
@@ -462,7 +462,8 @@ namespace Kandy.Rest.Microvisor.V1
 
 
 
-        private AccountConfigResource() {
+        private AccountConfigResource()
+        {
 
         }
     }

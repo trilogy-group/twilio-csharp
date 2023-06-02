@@ -28,12 +28,12 @@ namespace Kandy.Rest.Proxy.V1.Service.Session.Participant
 {
     public class MessageInteractionResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class TypeEnum : StringEnum
         {
-            private TypeEnum(string value) : base(value) {}
-            public TypeEnum() {}
+            private TypeEnum(string value) : base(value) { }
+            public TypeEnum() { }
             public static implicit operator TypeEnum(string value)
             {
                 return new TypeEnum(value);
@@ -46,8 +46,8 @@ namespace Kandy.Rest.Proxy.V1.Service.Session.Participant
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class ResourceStatusEnum : StringEnum
         {
-            private ResourceStatusEnum(string value) : base(value) {}
-            public ResourceStatusEnum() {}
+            private ResourceStatusEnum(string value) : base(value) { }
+            public ResourceStatusEnum() { }
             public static implicit operator ResourceStatusEnum(string value)
             {
                 return new ResourceStatusEnum(value);
@@ -76,18 +76,18 @@ namespace Kandy.Rest.Proxy.V1.Service.Session.Participant
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateMessageInteractionOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateMessageInteractionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathSessionSid = options.PathSessionSid;
-            path = path.Replace("{"+"SessionSid"+"}", PathSessionSid);
+            path = path.Replace("{" + "SessionSid" + "}", PathSessionSid);
             string PathParticipantSid = options.PathParticipantSid;
-            path = path.Replace("{"+"ParticipantSid"+"}", PathParticipantSid);
+            path = path.Replace("{" + "ParticipantSid" + "}", PathParticipantSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -102,26 +102,26 @@ namespace Kandy.Rest.Proxy.V1.Service.Session.Participant
         /// <param name="options"> Create MessageInteraction parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of MessageInteraction </returns>
-        public static MessageInteractionResource Create(CreateMessageInteractionOptions options, ITwilioRestClient client = null)
+        public static MessageInteractionResource Create(CreateMessageInteractionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new message Interaction to send directly from your system to one [Participant](https://www.twilio.com/docs/proxy/api/participant).  The `inbound` properties for the Interaction will always be empty. </summary>
         /// <param name="options"> Create MessageInteraction parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of MessageInteraction </returns>
         public static async System.Threading.Tasks.Task<MessageInteractionResource> CreateAsync(CreateMessageInteractionOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new message Interaction to send directly from your system to one [Participant](https://www.twilio.com/docs/proxy/api/participant).  The `inbound` properties for the Interaction will always be empty. </summary>
         /// <param name="pathServiceSid"> The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) resource. </param>
@@ -137,13 +137,13 @@ namespace Kandy.Rest.Proxy.V1.Service.Session.Participant
                                           string pathParticipantSid,
                                           string body = null,
                                           List<Uri> mediaUrl = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateMessageInteractionOptions(pathServiceSid, pathSessionSid, pathParticipantSid){  Body = body, MediaUrl = mediaUrl };
+            var options = new CreateMessageInteractionOptions(pathServiceSid, pathSessionSid, pathParticipantSid) { Body = body, MediaUrl = mediaUrl };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new message Interaction to send directly from your system to one [Participant](https://www.twilio.com/docs/proxy/api/participant).  The `inbound` properties for the Interaction will always be empty. </summary>
         /// <param name="pathServiceSid"> The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) resource. </param>
         /// <param name="pathSessionSid"> The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) resource. </param>
@@ -158,26 +158,26 @@ namespace Kandy.Rest.Proxy.V1.Service.Session.Participant
                                                                                   string pathParticipantSid,
                                                                                   string body = null,
                                                                                   List<Uri> mediaUrl = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateMessageInteractionOptions(pathServiceSid, pathSessionSid, pathParticipantSid){  Body = body, MediaUrl = mediaUrl };
+            var options = new CreateMessageInteractionOptions(pathServiceSid, pathSessionSid, pathParticipantSid) { Body = body, MediaUrl = mediaUrl };
             return await CreateAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchMessageInteractionOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchMessageInteractionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathSessionSid = options.PathSessionSid;
-            path = path.Replace("{"+"SessionSid"+"}", PathSessionSid);
+            path = path.Replace("{" + "SessionSid" + "}", PathSessionSid);
             string PathParticipantSid = options.PathParticipantSid;
-            path = path.Replace("{"+"ParticipantSid"+"}", PathParticipantSid);
+            path = path.Replace("{" + "ParticipantSid" + "}", PathParticipantSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -192,26 +192,26 @@ namespace Kandy.Rest.Proxy.V1.Service.Session.Participant
         /// <param name="options"> Fetch MessageInteraction parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of MessageInteraction </returns>
-        public static MessageInteractionResource Fetch(FetchMessageInteractionOptions options, ITwilioRestClient client = null)
+        public static MessageInteractionResource Fetch(FetchMessageInteractionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch MessageInteraction parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of MessageInteraction </returns>
         public static async System.Threading.Tasks.Task<MessageInteractionResource> FetchAsync(FetchMessageInteractionOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathServiceSid"> The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to fetch. </param>
         /// <param name="pathSessionSid"> The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to fetch. </param>
@@ -220,17 +220,17 @@ namespace Kandy.Rest.Proxy.V1.Service.Session.Participant
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of MessageInteraction </returns>
         public static MessageInteractionResource Fetch(
-                                         string pathServiceSid, 
-                                         string pathSessionSid, 
-                                         string pathParticipantSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathServiceSid,
+                                         string pathSessionSid,
+                                         string pathParticipantSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchMessageInteractionOptions(pathServiceSid, pathSessionSid, pathParticipantSid, pathSid){  };
+            var options = new FetchMessageInteractionOptions(pathServiceSid, pathSessionSid, pathParticipantSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathServiceSid"> The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to fetch. </param>
         /// <param name="pathSessionSid"> The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to fetch. </param>
@@ -238,24 +238,24 @@ namespace Kandy.Rest.Proxy.V1.Service.Session.Participant
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the MessageInteraction resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of MessageInteraction </returns>
-        public static async System.Threading.Tasks.Task<MessageInteractionResource> FetchAsync(string pathServiceSid, string pathSessionSid, string pathParticipantSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<MessageInteractionResource> FetchAsync(string pathServiceSid, string pathSessionSid, string pathParticipantSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchMessageInteractionOptions(pathServiceSid, pathSessionSid, pathParticipantSid, pathSid){  };
+            var options = new FetchMessageInteractionOptions(pathServiceSid, pathSessionSid, pathParticipantSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadMessageInteractionOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadMessageInteractionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathSessionSid = options.PathSessionSid;
-            path = path.Replace("{"+"SessionSid"+"}", PathSessionSid);
+            path = path.Replace("{" + "SessionSid" + "}", PathSessionSid);
             string PathParticipantSid = options.PathParticipantSid;
-            path = path.Replace("{"+"ParticipantSid"+"}", PathParticipantSid);
+            path = path.Replace("{" + "ParticipantSid" + "}", PathParticipantSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -269,7 +269,7 @@ namespace Kandy.Rest.Proxy.V1.Service.Session.Participant
         /// <param name="options"> Read MessageInteraction parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of MessageInteraction </returns>
-        public static ResourceSet<MessageInteractionResource> Read(ReadMessageInteractionOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<MessageInteractionResource> Read(ReadMessageInteractionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -277,13 +277,13 @@ namespace Kandy.Rest.Proxy.V1.Service.Session.Participant
             return new ResourceSet<MessageInteractionResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read MessageInteraction parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of MessageInteraction </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<MessageInteractionResource>> ReadAsync(ReadMessageInteractionOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -291,7 +291,7 @@ namespace Kandy.Rest.Proxy.V1.Service.Session.Participant
             var page = Page<MessageInteractionResource>.FromJson("interactions", response.Content);
             return new ResourceSet<MessageInteractionResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="pathServiceSid"> The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) to read the resources from. </param>
         /// <param name="pathSessionSid"> The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) to read the resources from. </param>
@@ -306,13 +306,13 @@ namespace Kandy.Rest.Proxy.V1.Service.Session.Participant
                                                      string pathParticipantSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadMessageInteractionOptions(pathServiceSid, pathSessionSid, pathParticipantSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadMessageInteractionOptions(pathServiceSid, pathSessionSid, pathParticipantSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="pathServiceSid"> The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) to read the resources from. </param>
         /// <param name="pathSessionSid"> The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) to read the resources from. </param>
@@ -327,19 +327,19 @@ namespace Kandy.Rest.Proxy.V1.Service.Session.Participant
                                                                                              string pathParticipantSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadMessageInteractionOptions(pathServiceSid, pathSessionSid, pathParticipantSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadMessageInteractionOptions(pathServiceSid, pathSessionSid, pathParticipantSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<MessageInteractionResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<MessageInteractionResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -356,7 +356,7 @@ namespace Kandy.Rest.Proxy.V1.Service.Session.Participant
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<MessageInteractionResource> NextPage(Page<MessageInteractionResource> page, ITwilioRestClient client)
+        public static Page<MessageInteractionResource> NextPage(Page<MessageInteractionResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -371,7 +371,7 @@ namespace Kandy.Rest.Proxy.V1.Service.Session.Participant
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<MessageInteractionResource> PreviousPage(Page<MessageInteractionResource> page, ITwilioRestClient client)
+        public static Page<MessageInteractionResource> PreviousPage(Page<MessageInteractionResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -382,7 +382,7 @@ namespace Kandy.Rest.Proxy.V1.Service.Session.Participant
             return Page<MessageInteractionResource>.FromJson("interactions", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a MessageInteractionResource object
         /// </summary>
@@ -400,7 +400,7 @@ namespace Kandy.Rest.Proxy.V1.Service.Session.Participant
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the MessageInteraction resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -421,7 +421,7 @@ namespace Kandy.Rest.Proxy.V1.Service.Session.Participant
         [JsonProperty("data")]
         public string Data { get; private set; }
 
-        
+
         [JsonProperty("type")]
         public MessageInteractionResource.TypeEnum Type { get; private set; }
 
@@ -437,7 +437,7 @@ namespace Kandy.Rest.Proxy.V1.Service.Session.Participant
         [JsonProperty("inbound_resource_sid")]
         public string InboundResourceSid { get; private set; }
 
-        
+
         [JsonProperty("inbound_resource_status")]
         public MessageInteractionResource.ResourceStatusEnum InboundResourceStatus { get; private set; }
 
@@ -457,7 +457,7 @@ namespace Kandy.Rest.Proxy.V1.Service.Session.Participant
         [JsonProperty("outbound_resource_sid")]
         public string OutboundResourceSid { get; private set; }
 
-        
+
         [JsonProperty("outbound_resource_status")]
         public MessageInteractionResource.ResourceStatusEnum OutboundResourceStatus { get; private set; }
 
@@ -483,7 +483,8 @@ namespace Kandy.Rest.Proxy.V1.Service.Session.Participant
 
 
 
-        private MessageInteractionResource() {
+        private MessageInteractionResource()
+        {
 
         }
     }

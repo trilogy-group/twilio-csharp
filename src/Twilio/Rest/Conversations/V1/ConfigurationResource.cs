@@ -28,12 +28,12 @@ namespace Kandy.Rest.Conversations.V1
 {
     public class ConfigurationResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchConfigurationOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchConfigurationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Configuration";
 
 
@@ -50,50 +50,50 @@ namespace Kandy.Rest.Conversations.V1
         /// <param name="options"> Fetch Configuration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Configuration </returns>
-        public static ConfigurationResource Fetch(FetchConfigurationOptions options, ITwilioRestClient client = null)
+        public static ConfigurationResource Fetch(FetchConfigurationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch the global configuration of conversations on your account </summary>
         /// <param name="options"> Fetch Configuration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Configuration </returns>
         public static async System.Threading.Tasks.Task<ConfigurationResource> FetchAsync(FetchConfigurationOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch the global configuration of conversations on your account </summary>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Configuration </returns>
         public static ConfigurationResource Fetch(
-                                         ITwilioRestClient client = null)
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchConfigurationOptions(){  };
+            var options = new FetchConfigurationOptions() { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch the global configuration of conversations on your account </summary>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Configuration </returns>
-        public static async System.Threading.Tasks.Task<ConfigurationResource> FetchAsync(ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<ConfigurationResource> FetchAsync(IKandyRestClient client = null)
         {
-            var options = new FetchConfigurationOptions(){  };
+            var options = new FetchConfigurationOptions() { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildUpdateRequest(UpdateConfigurationOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildUpdateRequest(UpdateConfigurationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Configuration";
 
 
@@ -110,7 +110,7 @@ namespace Kandy.Rest.Conversations.V1
         /// <param name="options"> Update Configuration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Configuration </returns>
-        public static ConfigurationResource Update(UpdateConfigurationOptions options, ITwilioRestClient client = null)
+        public static ConfigurationResource Update(UpdateConfigurationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -121,15 +121,15 @@ namespace Kandy.Rest.Conversations.V1
         /// <param name="options"> Update Configuration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Configuration </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<ConfigurationResource> UpdateAsync(UpdateConfigurationOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update the global configuration of conversations on your account </summary>
         /// <param name="defaultChatServiceSid"> The SID of the default [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to use when creating a conversation. </param>
@@ -143,13 +143,13 @@ namespace Kandy.Rest.Conversations.V1
                                           string defaultMessagingServiceSid = null,
                                           string defaultInactiveTimer = null,
                                           string defaultClosedTimer = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateConfigurationOptions(){ DefaultChatServiceSid = defaultChatServiceSid, DefaultMessagingServiceSid = defaultMessagingServiceSid, DefaultInactiveTimer = defaultInactiveTimer, DefaultClosedTimer = defaultClosedTimer };
+            var options = new UpdateConfigurationOptions() { DefaultChatServiceSid = defaultChatServiceSid, DefaultMessagingServiceSid = defaultMessagingServiceSid, DefaultInactiveTimer = defaultInactiveTimer, DefaultClosedTimer = defaultClosedTimer };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update the global configuration of conversations on your account </summary>
         /// <param name="defaultChatServiceSid"> The SID of the default [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to use when creating a conversation. </param>
         /// <param name="defaultMessagingServiceSid"> The SID of the default [Messaging Service](https://www.twilio.com/docs/sms/services/api) to use when creating a conversation. </param>
@@ -162,13 +162,13 @@ namespace Kandy.Rest.Conversations.V1
                                                                               string defaultMessagingServiceSid = null,
                                                                               string defaultInactiveTimer = null,
                                                                               string defaultClosedTimer = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateConfigurationOptions(){ DefaultChatServiceSid = defaultChatServiceSid, DefaultMessagingServiceSid = defaultMessagingServiceSid, DefaultInactiveTimer = defaultInactiveTimer, DefaultClosedTimer = defaultClosedTimer };
+            var options = new UpdateConfigurationOptions() { DefaultChatServiceSid = defaultChatServiceSid, DefaultMessagingServiceSid = defaultMessagingServiceSid, DefaultInactiveTimer = defaultInactiveTimer, DefaultClosedTimer = defaultClosedTimer };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a ConfigurationResource object
         /// </summary>
@@ -186,7 +186,7 @@ namespace Kandy.Rest.Conversations.V1
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this configuration. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -217,7 +217,8 @@ namespace Kandy.Rest.Conversations.V1
 
 
 
-        private ConfigurationResource() {
+        private ConfigurationResource()
+        {
 
         }
     }

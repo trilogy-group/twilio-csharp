@@ -28,12 +28,12 @@ namespace Kandy.Rest.Trusthub.V1
 {
     public class SupportingDocumentResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class StatusEnum : StringEnum
         {
-            private StatusEnum(string value) : base(value) {}
-            public StatusEnum() {}
+            private StatusEnum(string value) : base(value) { }
+            public StatusEnum() { }
             public static implicit operator StatusEnum(string value)
             {
                 return new StatusEnum(value);
@@ -47,10 +47,10 @@ namespace Kandy.Rest.Trusthub.V1
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateSupportingDocumentOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateSupportingDocumentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/SupportingDocuments";
 
 
@@ -67,26 +67,26 @@ namespace Kandy.Rest.Trusthub.V1
         /// <param name="options"> Create SupportingDocument parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SupportingDocument </returns>
-        public static SupportingDocumentResource Create(CreateSupportingDocumentOptions options, ITwilioRestClient client = null)
+        public static SupportingDocumentResource Create(CreateSupportingDocumentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Supporting Document. </summary>
         /// <param name="options"> Create SupportingDocument parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SupportingDocument </returns>
         public static async System.Threading.Tasks.Task<SupportingDocumentResource> CreateAsync(CreateSupportingDocumentOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new Supporting Document. </summary>
         /// <param name="friendlyName"> The string that you assigned to describe the resource. </param>
@@ -98,13 +98,13 @@ namespace Kandy.Rest.Trusthub.V1
                                           string friendlyName,
                                           string type,
                                           object attributes = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateSupportingDocumentOptions(friendlyName, type){  Attributes = attributes };
+            var options = new CreateSupportingDocumentOptions(friendlyName, type) { Attributes = attributes };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Supporting Document. </summary>
         /// <param name="friendlyName"> The string that you assigned to describe the resource. </param>
         /// <param name="type"> The type of the Supporting Document. </param>
@@ -115,24 +115,24 @@ namespace Kandy.Rest.Trusthub.V1
                                                                                   string friendlyName,
                                                                                   string type,
                                                                                   object attributes = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateSupportingDocumentOptions(friendlyName, type){  Attributes = attributes };
+            var options = new CreateSupportingDocumentOptions(friendlyName, type) { Attributes = attributes };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Delete a specific Supporting Document. </summary>
         /// <param name="options"> Delete SupportingDocument parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SupportingDocument </returns>
-        private static Request BuildDeleteRequest(DeleteSupportingDocumentOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteSupportingDocumentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/SupportingDocuments/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -147,56 +147,56 @@ namespace Kandy.Rest.Trusthub.V1
         /// <param name="options"> Delete SupportingDocument parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SupportingDocument </returns>
-        public static bool Delete(DeleteSupportingDocumentOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteSupportingDocumentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific Supporting Document. </summary>
         /// <param name="options"> Delete SupportingDocument parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SupportingDocument </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteSupportingDocumentOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete a specific Supporting Document. </summary>
         /// <param name="pathSid"> The unique string created by Twilio to identify the Supporting Document resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SupportingDocument </returns>
-        public static bool Delete(string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteSupportingDocumentOptions(pathSid)     ;
+            var options = new DeleteSupportingDocumentOptions(pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific Supporting Document. </summary>
         /// <param name="pathSid"> The unique string created by Twilio to identify the Supporting Document resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SupportingDocument </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteSupportingDocumentOptions(pathSid) ;
+            var options = new DeleteSupportingDocumentOptions(pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchSupportingDocumentOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchSupportingDocumentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/SupportingDocuments/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -211,53 +211,53 @@ namespace Kandy.Rest.Trusthub.V1
         /// <param name="options"> Fetch SupportingDocument parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SupportingDocument </returns>
-        public static SupportingDocumentResource Fetch(FetchSupportingDocumentOptions options, ITwilioRestClient client = null)
+        public static SupportingDocumentResource Fetch(FetchSupportingDocumentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch specific Supporting Document Instance. </summary>
         /// <param name="options"> Fetch SupportingDocument parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SupportingDocument </returns>
         public static async System.Threading.Tasks.Task<SupportingDocumentResource> FetchAsync(FetchSupportingDocumentOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch specific Supporting Document Instance. </summary>
         /// <param name="pathSid"> The unique string created by Twilio to identify the Supporting Document resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SupportingDocument </returns>
         public static SupportingDocumentResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchSupportingDocumentOptions(pathSid){  };
+            var options = new FetchSupportingDocumentOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch specific Supporting Document Instance. </summary>
         /// <param name="pathSid"> The unique string created by Twilio to identify the Supporting Document resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SupportingDocument </returns>
-        public static async System.Threading.Tasks.Task<SupportingDocumentResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<SupportingDocumentResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchSupportingDocumentOptions(pathSid){  };
+            var options = new FetchSupportingDocumentOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadSupportingDocumentOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadSupportingDocumentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/SupportingDocuments";
 
 
@@ -273,7 +273,7 @@ namespace Kandy.Rest.Trusthub.V1
         /// <param name="options"> Read SupportingDocument parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SupportingDocument </returns>
-        public static ResourceSet<SupportingDocumentResource> Read(ReadSupportingDocumentOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<SupportingDocumentResource> Read(ReadSupportingDocumentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -281,13 +281,13 @@ namespace Kandy.Rest.Trusthub.V1
             return new ResourceSet<SupportingDocumentResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Supporting Document for an account. </summary>
         /// <param name="options"> Read SupportingDocument parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SupportingDocument </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<SupportingDocumentResource>> ReadAsync(ReadSupportingDocumentOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -295,7 +295,7 @@ namespace Kandy.Rest.Trusthub.V1
             var page = Page<SupportingDocumentResource>.FromJson("results", response.Content);
             return new ResourceSet<SupportingDocumentResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Supporting Document for an account. </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -304,13 +304,13 @@ namespace Kandy.Rest.Trusthub.V1
         public static ResourceSet<SupportingDocumentResource> Read(
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadSupportingDocumentOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadSupportingDocumentOptions() { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Supporting Document for an account. </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -319,19 +319,19 @@ namespace Kandy.Rest.Trusthub.V1
         public static async System.Threading.Tasks.Task<ResourceSet<SupportingDocumentResource>> ReadAsync(
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadSupportingDocumentOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadSupportingDocumentOptions() { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<SupportingDocumentResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<SupportingDocumentResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -348,7 +348,7 @@ namespace Kandy.Rest.Trusthub.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<SupportingDocumentResource> NextPage(Page<SupportingDocumentResource> page, ITwilioRestClient client)
+        public static Page<SupportingDocumentResource> NextPage(Page<SupportingDocumentResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -363,7 +363,7 @@ namespace Kandy.Rest.Trusthub.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<SupportingDocumentResource> PreviousPage(Page<SupportingDocumentResource> page, ITwilioRestClient client)
+        public static Page<SupportingDocumentResource> PreviousPage(Page<SupportingDocumentResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -374,14 +374,14 @@ namespace Kandy.Rest.Trusthub.V1
             return Page<SupportingDocumentResource>.FromJson("results", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateSupportingDocumentOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateSupportingDocumentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/SupportingDocuments/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -396,7 +396,7 @@ namespace Kandy.Rest.Trusthub.V1
         /// <param name="options"> Update SupportingDocument parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SupportingDocument </returns>
-        public static SupportingDocumentResource Update(UpdateSupportingDocumentOptions options, ITwilioRestClient client = null)
+        public static SupportingDocumentResource Update(UpdateSupportingDocumentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -407,15 +407,15 @@ namespace Kandy.Rest.Trusthub.V1
         /// <param name="options"> Update SupportingDocument parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SupportingDocument </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<SupportingDocumentResource> UpdateAsync(UpdateSupportingDocumentOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update an existing Supporting Document. </summary>
         /// <param name="pathSid"> The unique string created by Twilio to identify the Supporting Document resource. </param>
@@ -427,13 +427,13 @@ namespace Kandy.Rest.Trusthub.V1
                                           string pathSid,
                                           string friendlyName = null,
                                           object attributes = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateSupportingDocumentOptions(pathSid){ FriendlyName = friendlyName, Attributes = attributes };
+            var options = new UpdateSupportingDocumentOptions(pathSid) { FriendlyName = friendlyName, Attributes = attributes };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update an existing Supporting Document. </summary>
         /// <param name="pathSid"> The unique string created by Twilio to identify the Supporting Document resource. </param>
         /// <param name="friendlyName"> The string that you assigned to describe the resource. </param>
@@ -444,13 +444,13 @@ namespace Kandy.Rest.Trusthub.V1
                                                                               string pathSid,
                                                                               string friendlyName = null,
                                                                               object attributes = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateSupportingDocumentOptions(pathSid){ FriendlyName = friendlyName, Attributes = attributes };
+            var options = new UpdateSupportingDocumentOptions(pathSid) { FriendlyName = friendlyName, Attributes = attributes };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a SupportingDocumentResource object
         /// </summary>
@@ -468,7 +468,7 @@ namespace Kandy.Rest.Trusthub.V1
             }
         }
 
-    
+
         ///<summary> The unique string created by Twilio to identify the Supporting Document resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -485,7 +485,7 @@ namespace Kandy.Rest.Trusthub.V1
         [JsonProperty("mime_type")]
         public string MimeType { get; private set; }
 
-        
+
         [JsonProperty("status")]
         public SupportingDocumentResource.StatusEnum Status { get; private set; }
 
@@ -511,7 +511,8 @@ namespace Kandy.Rest.Trusthub.V1
 
 
 
-        private SupportingDocumentResource() {
+        private SupportingDocumentResource()
+        {
 
         }
     }

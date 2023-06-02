@@ -28,12 +28,12 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
 {
     public class BundleCopyResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class StatusEnum : StringEnum
         {
-            private StatusEnum(string value) : base(value) {}
-            public StatusEnum() {}
+            private StatusEnum(string value) : base(value) { }
+            public StatusEnum() { }
             public static implicit operator StatusEnum(string value)
             {
                 return new StatusEnum(value);
@@ -47,14 +47,14 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateBundleCopyOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateBundleCopyOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Copies";
 
             string PathBundleSid = options.PathBundleSid;
-            path = path.Replace("{"+"BundleSid"+"}", PathBundleSid);
+            path = path.Replace("{" + "BundleSid" + "}", PathBundleSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -69,26 +69,26 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
         /// <param name="options"> Create BundleCopy parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of BundleCopy </returns>
-        public static BundleCopyResource Create(CreateBundleCopyOptions options, ITwilioRestClient client = null)
+        public static BundleCopyResource Create(CreateBundleCopyOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Creates a new copy of a Bundle. It will internally create copies of all the bundle items (identities and documents) of the original bundle </summary>
         /// <param name="options"> Create BundleCopy parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of BundleCopy </returns>
         public static async System.Threading.Tasks.Task<BundleCopyResource> CreateAsync(CreateBundleCopyOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Creates a new copy of a Bundle. It will internally create copies of all the bundle items (identities and documents) of the original bundle </summary>
         /// <param name="pathBundleSid"> The unique string that identifies the Bundle to be copied. </param>
@@ -98,13 +98,13 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
         public static BundleCopyResource Create(
                                           string pathBundleSid,
                                           string friendlyName = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateBundleCopyOptions(pathBundleSid){  FriendlyName = friendlyName };
+            var options = new CreateBundleCopyOptions(pathBundleSid) { FriendlyName = friendlyName };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Creates a new copy of a Bundle. It will internally create copies of all the bundle items (identities and documents) of the original bundle </summary>
         /// <param name="pathBundleSid"> The unique string that identifies the Bundle to be copied. </param>
         /// <param name="friendlyName"> The string that you assigned to describe the copied bundle. </param>
@@ -113,20 +113,20 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
         public static async System.Threading.Tasks.Task<BundleCopyResource> CreateAsync(
                                                                                   string pathBundleSid,
                                                                                   string friendlyName = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateBundleCopyOptions(pathBundleSid){  FriendlyName = friendlyName };
+            var options = new CreateBundleCopyOptions(pathBundleSid) { FriendlyName = friendlyName };
             return await CreateAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadBundleCopyOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadBundleCopyOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Copies";
 
             string PathBundleSid = options.PathBundleSid;
-            path = path.Replace("{"+"BundleSid"+"}", PathBundleSid);
+            path = path.Replace("{" + "BundleSid" + "}", PathBundleSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -140,7 +140,7 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
         /// <param name="options"> Read BundleCopy parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of BundleCopy </returns>
-        public static ResourceSet<BundleCopyResource> Read(ReadBundleCopyOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<BundleCopyResource> Read(ReadBundleCopyOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -148,13 +148,13 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
             return new ResourceSet<BundleCopyResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Bundles Copies for a Bundle. </summary>
         /// <param name="options"> Read BundleCopy parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of BundleCopy </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<BundleCopyResource>> ReadAsync(ReadBundleCopyOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -162,7 +162,7 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
             var page = Page<BundleCopyResource>.FromJson("results", response.Content);
             return new ResourceSet<BundleCopyResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Bundles Copies for a Bundle. </summary>
         /// <param name="pathBundleSid"> The unique string that we created to identify the Bundle resource. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -173,13 +173,13 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
                                                      string pathBundleSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadBundleCopyOptions(pathBundleSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadBundleCopyOptions(pathBundleSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Bundles Copies for a Bundle. </summary>
         /// <param name="pathBundleSid"> The unique string that we created to identify the Bundle resource. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -190,19 +190,19 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
                                                                                              string pathBundleSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadBundleCopyOptions(pathBundleSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadBundleCopyOptions(pathBundleSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<BundleCopyResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<BundleCopyResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -219,7 +219,7 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<BundleCopyResource> NextPage(Page<BundleCopyResource> page, ITwilioRestClient client)
+        public static Page<BundleCopyResource> NextPage(Page<BundleCopyResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -234,7 +234,7 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<BundleCopyResource> PreviousPage(Page<BundleCopyResource> page, ITwilioRestClient client)
+        public static Page<BundleCopyResource> PreviousPage(Page<BundleCopyResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -245,7 +245,7 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
             return Page<BundleCopyResource>.FromJson("results", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a BundleCopyResource object
         /// </summary>
@@ -263,7 +263,7 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the Bundle resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -280,7 +280,7 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
         [JsonProperty("friendly_name")]
         public string FriendlyName { get; private set; }
 
-        
+
         [JsonProperty("status")]
         public BundleCopyResource.StatusEnum Status { get; private set; }
 
@@ -306,7 +306,8 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
 
 
 
-        private BundleCopyResource() {
+        private BundleCopyResource()
+        {
 
         }
     }

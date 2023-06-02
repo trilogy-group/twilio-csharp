@@ -28,12 +28,12 @@ namespace Kandy.Rest.Api.V2010.Account
 {
     public class IncomingPhoneNumberResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class EmergencyStatusEnum : StringEnum
         {
-            private EmergencyStatusEnum(string value) : base(value) {}
-            public EmergencyStatusEnum() {}
+            private EmergencyStatusEnum(string value) : base(value) { }
+            public EmergencyStatusEnum() { }
             public static implicit operator EmergencyStatusEnum(string value)
             {
                 return new EmergencyStatusEnum(value);
@@ -45,8 +45,8 @@ namespace Kandy.Rest.Api.V2010.Account
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class EmergencyAddressStatusEnum : StringEnum
         {
-            private EmergencyAddressStatusEnum(string value) : base(value) {}
-            public EmergencyAddressStatusEnum() {}
+            private EmergencyAddressStatusEnum(string value) : base(value) { }
+            public EmergencyAddressStatusEnum() { }
             public static implicit operator EmergencyAddressStatusEnum(string value)
             {
                 return new EmergencyAddressStatusEnum(value);
@@ -62,8 +62,8 @@ namespace Kandy.Rest.Api.V2010.Account
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class VoiceReceiveModeEnum : StringEnum
         {
-            private VoiceReceiveModeEnum(string value) : base(value) {}
-            public VoiceReceiveModeEnum() {}
+            private VoiceReceiveModeEnum(string value) : base(value) { }
+            public VoiceReceiveModeEnum() { }
             public static implicit operator VoiceReceiveModeEnum(string value)
             {
                 return new VoiceReceiveModeEnum(value);
@@ -75,8 +75,8 @@ namespace Kandy.Rest.Api.V2010.Account
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class AddressRequirementEnum : StringEnum
         {
-            private AddressRequirementEnum(string value) : base(value) {}
-            public AddressRequirementEnum() {}
+            private AddressRequirementEnum(string value) : base(value) { }
+            public AddressRequirementEnum() { }
             public static implicit operator AddressRequirementEnum(string value)
             {
                 return new AddressRequirementEnum(value);
@@ -88,14 +88,14 @@ namespace Kandy.Rest.Api.V2010.Account
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateIncomingPhoneNumberOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateIncomingPhoneNumberOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -110,26 +110,26 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="options"> Create IncomingPhoneNumber parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of IncomingPhoneNumber </returns>
-        public static IncomingPhoneNumberResource Create(CreateIncomingPhoneNumberOptions options, ITwilioRestClient client = null)
+        public static IncomingPhoneNumberResource Create(CreateIncomingPhoneNumberOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Purchase a phone-number for the account. </summary>
         /// <param name="options"> Create IncomingPhoneNumber parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of IncomingPhoneNumber </returns>
         public static async System.Threading.Tasks.Task<IncomingPhoneNumberResource> CreateAsync(CreateIncomingPhoneNumberOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Purchase a phone-number for the account. </summary>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. </param>
@@ -185,13 +185,13 @@ namespace Kandy.Rest.Api.V2010.Account
                                           string addressSid = null,
                                           IncomingPhoneNumberResource.VoiceReceiveModeEnum voiceReceiveMode = null,
                                           string bundleSid = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateIncomingPhoneNumberOptions(){  PathAccountSid = pathAccountSid, PhoneNumber = phoneNumber, AreaCode = areaCode, ApiVersion = apiVersion, FriendlyName = friendlyName, SmsApplicationSid = smsApplicationSid, SmsFallbackMethod = smsFallbackMethod, SmsFallbackUrl = smsFallbackUrl, SmsMethod = smsMethod, SmsUrl = smsUrl, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, VoiceApplicationSid = voiceApplicationSid, VoiceCallerIdLookup = voiceCallerIdLookup, VoiceFallbackMethod = voiceFallbackMethod, VoiceFallbackUrl = voiceFallbackUrl, VoiceMethod = voiceMethod, VoiceUrl = voiceUrl, EmergencyStatus = emergencyStatus, EmergencyAddressSid = emergencyAddressSid, TrunkSid = trunkSid, IdentitySid = identitySid, AddressSid = addressSid, VoiceReceiveMode = voiceReceiveMode, BundleSid = bundleSid };
+            var options = new CreateIncomingPhoneNumberOptions() { PathAccountSid = pathAccountSid, PhoneNumber = phoneNumber, AreaCode = areaCode, ApiVersion = apiVersion, FriendlyName = friendlyName, SmsApplicationSid = smsApplicationSid, SmsFallbackMethod = smsFallbackMethod, SmsFallbackUrl = smsFallbackUrl, SmsMethod = smsMethod, SmsUrl = smsUrl, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, VoiceApplicationSid = voiceApplicationSid, VoiceCallerIdLookup = voiceCallerIdLookup, VoiceFallbackMethod = voiceFallbackMethod, VoiceFallbackUrl = voiceFallbackUrl, VoiceMethod = voiceMethod, VoiceUrl = voiceUrl, EmergencyStatus = emergencyStatus, EmergencyAddressSid = emergencyAddressSid, TrunkSid = trunkSid, IdentitySid = identitySid, AddressSid = addressSid, VoiceReceiveMode = voiceReceiveMode, BundleSid = bundleSid };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Purchase a phone-number for the account. </summary>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. </param>
         /// <param name="phoneNumber"> The phone number to purchase specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234. </param>
@@ -246,26 +246,26 @@ namespace Kandy.Rest.Api.V2010.Account
                                                                                   string addressSid = null,
                                                                                   IncomingPhoneNumberResource.VoiceReceiveModeEnum voiceReceiveMode = null,
                                                                                   string bundleSid = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateIncomingPhoneNumberOptions(){  PathAccountSid = pathAccountSid, PhoneNumber = phoneNumber, AreaCode = areaCode, ApiVersion = apiVersion, FriendlyName = friendlyName, SmsApplicationSid = smsApplicationSid, SmsFallbackMethod = smsFallbackMethod, SmsFallbackUrl = smsFallbackUrl, SmsMethod = smsMethod, SmsUrl = smsUrl, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, VoiceApplicationSid = voiceApplicationSid, VoiceCallerIdLookup = voiceCallerIdLookup, VoiceFallbackMethod = voiceFallbackMethod, VoiceFallbackUrl = voiceFallbackUrl, VoiceMethod = voiceMethod, VoiceUrl = voiceUrl, EmergencyStatus = emergencyStatus, EmergencyAddressSid = emergencyAddressSid, TrunkSid = trunkSid, IdentitySid = identitySid, AddressSid = addressSid, VoiceReceiveMode = voiceReceiveMode, BundleSid = bundleSid };
+            var options = new CreateIncomingPhoneNumberOptions() { PathAccountSid = pathAccountSid, PhoneNumber = phoneNumber, AreaCode = areaCode, ApiVersion = apiVersion, FriendlyName = friendlyName, SmsApplicationSid = smsApplicationSid, SmsFallbackMethod = smsFallbackMethod, SmsFallbackUrl = smsFallbackUrl, SmsMethod = smsMethod, SmsUrl = smsUrl, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, VoiceApplicationSid = voiceApplicationSid, VoiceCallerIdLookup = voiceCallerIdLookup, VoiceFallbackMethod = voiceFallbackMethod, VoiceFallbackUrl = voiceFallbackUrl, VoiceMethod = voiceMethod, VoiceUrl = voiceUrl, EmergencyStatus = emergencyStatus, EmergencyAddressSid = emergencyAddressSid, TrunkSid = trunkSid, IdentitySid = identitySid, AddressSid = addressSid, VoiceReceiveMode = voiceReceiveMode, BundleSid = bundleSid };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Delete a phone-numbers belonging to the account used to make the request. </summary>
         /// <param name="options"> Delete IncomingPhoneNumber parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of IncomingPhoneNumber </returns>
-        private static Request BuildDeleteRequest(DeleteIncomingPhoneNumberOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteIncomingPhoneNumberOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -280,60 +280,60 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="options"> Delete IncomingPhoneNumber parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of IncomingPhoneNumber </returns>
-        public static bool Delete(DeleteIncomingPhoneNumberOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteIncomingPhoneNumberOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a phone-numbers belonging to the account used to make the request. </summary>
         /// <param name="options"> Delete IncomingPhoneNumber parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of IncomingPhoneNumber </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteIncomingPhoneNumberOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete a phone-numbers belonging to the account used to make the request. </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the IncomingPhoneNumber resource to delete. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resources to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of IncomingPhoneNumber </returns>
-        public static bool Delete(string pathSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static bool Delete(string pathSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new DeleteIncomingPhoneNumberOptions(pathSid)      { PathAccountSid = pathAccountSid }   ;
+            var options = new DeleteIncomingPhoneNumberOptions(pathSid) { PathAccountSid = pathAccountSid };
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a phone-numbers belonging to the account used to make the request. </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the IncomingPhoneNumber resource to delete. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resources to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of IncomingPhoneNumber </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new DeleteIncomingPhoneNumberOptions(pathSid)  { PathAccountSid = pathAccountSid };
+            var options = new DeleteIncomingPhoneNumberOptions(pathSid) { PathAccountSid = pathAccountSid };
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchIncomingPhoneNumberOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchIncomingPhoneNumberOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -348,60 +348,60 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="options"> Fetch IncomingPhoneNumber parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of IncomingPhoneNumber </returns>
-        public static IncomingPhoneNumberResource Fetch(FetchIncomingPhoneNumberOptions options, ITwilioRestClient client = null)
+        public static IncomingPhoneNumberResource Fetch(FetchIncomingPhoneNumberOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch an incoming-phone-number belonging to the account used to make the request. </summary>
         /// <param name="options"> Fetch IncomingPhoneNumber parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of IncomingPhoneNumber </returns>
         public static async System.Threading.Tasks.Task<IncomingPhoneNumberResource> FetchAsync(FetchIncomingPhoneNumberOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch an incoming-phone-number belonging to the account used to make the request. </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the IncomingPhoneNumber resource to fetch. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of IncomingPhoneNumber </returns>
         public static IncomingPhoneNumberResource Fetch(
-                                         string pathSid, 
-                                         string pathAccountSid = null, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         string pathAccountSid = null,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchIncomingPhoneNumberOptions(pathSid){ PathAccountSid = pathAccountSid };
+            var options = new FetchIncomingPhoneNumberOptions(pathSid) { PathAccountSid = pathAccountSid };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch an incoming-phone-number belonging to the account used to make the request. </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the IncomingPhoneNumber resource to fetch. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of IncomingPhoneNumber </returns>
-        public static async System.Threading.Tasks.Task<IncomingPhoneNumberResource> FetchAsync(string pathSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<IncomingPhoneNumberResource> FetchAsync(string pathSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new FetchIncomingPhoneNumberOptions(pathSid){ PathAccountSid = pathAccountSid };
+            var options = new FetchIncomingPhoneNumberOptions(pathSid) { PathAccountSid = pathAccountSid };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadIncomingPhoneNumberOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadIncomingPhoneNumberOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -415,7 +415,7 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="options"> Read IncomingPhoneNumber parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of IncomingPhoneNumber </returns>
-        public static ResourceSet<IncomingPhoneNumberResource> Read(ReadIncomingPhoneNumberOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<IncomingPhoneNumberResource> Read(ReadIncomingPhoneNumberOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -423,13 +423,13 @@ namespace Kandy.Rest.Api.V2010.Account
             return new ResourceSet<IncomingPhoneNumberResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of incoming-phone-numbers belonging to the account used to make the request. </summary>
         /// <param name="options"> Read IncomingPhoneNumber parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of IncomingPhoneNumber </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<IncomingPhoneNumberResource>> ReadAsync(ReadIncomingPhoneNumberOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -437,7 +437,7 @@ namespace Kandy.Rest.Api.V2010.Account
             var page = Page<IncomingPhoneNumberResource>.FromJson("incoming_phone_numbers", response.Content);
             return new ResourceSet<IncomingPhoneNumberResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of incoming-phone-numbers belonging to the account used to make the request. </summary>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resources to read. </param>
         /// <param name="beta"> Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`. </param>
@@ -456,13 +456,13 @@ namespace Kandy.Rest.Api.V2010.Account
                                                      string origin = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadIncomingPhoneNumberOptions(){ PathAccountSid = pathAccountSid, Beta = beta, FriendlyName = friendlyName, PhoneNumber = phoneNumber, Origin = origin, PageSize = pageSize, Limit = limit};
+            var options = new ReadIncomingPhoneNumberOptions() { PathAccountSid = pathAccountSid, Beta = beta, FriendlyName = friendlyName, PhoneNumber = phoneNumber, Origin = origin, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of incoming-phone-numbers belonging to the account used to make the request. </summary>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resources to read. </param>
         /// <param name="beta"> Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`. </param>
@@ -481,19 +481,19 @@ namespace Kandy.Rest.Api.V2010.Account
                                                                                              string origin = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadIncomingPhoneNumberOptions(){ PathAccountSid = pathAccountSid, Beta = beta, FriendlyName = friendlyName, PhoneNumber = phoneNumber, Origin = origin, PageSize = pageSize, Limit = limit};
+            var options = new ReadIncomingPhoneNumberOptions() { PathAccountSid = pathAccountSid, Beta = beta, FriendlyName = friendlyName, PhoneNumber = phoneNumber, Origin = origin, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<IncomingPhoneNumberResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<IncomingPhoneNumberResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -510,7 +510,7 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<IncomingPhoneNumberResource> NextPage(Page<IncomingPhoneNumberResource> page, ITwilioRestClient client)
+        public static Page<IncomingPhoneNumberResource> NextPage(Page<IncomingPhoneNumberResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -525,7 +525,7 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<IncomingPhoneNumberResource> PreviousPage(Page<IncomingPhoneNumberResource> page, ITwilioRestClient client)
+        public static Page<IncomingPhoneNumberResource> PreviousPage(Page<IncomingPhoneNumberResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -536,16 +536,16 @@ namespace Kandy.Rest.Api.V2010.Account
             return Page<IncomingPhoneNumberResource>.FromJson("incoming_phone_numbers", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateIncomingPhoneNumberOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateIncomingPhoneNumberOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -560,7 +560,7 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="options"> Update IncomingPhoneNumber parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of IncomingPhoneNumber </returns>
-        public static IncomingPhoneNumberResource Update(UpdateIncomingPhoneNumberOptions options, ITwilioRestClient client = null)
+        public static IncomingPhoneNumberResource Update(UpdateIncomingPhoneNumberOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -571,15 +571,15 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="options"> Update IncomingPhoneNumber parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of IncomingPhoneNumber </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<IncomingPhoneNumberResource> UpdateAsync(UpdateIncomingPhoneNumberOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update an incoming-phone-number instance. </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the IncomingPhoneNumber resource to update. </param>
@@ -635,13 +635,13 @@ namespace Kandy.Rest.Api.V2010.Account
                                           string identitySid = null,
                                           string addressSid = null,
                                           string bundleSid = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateIncomingPhoneNumberOptions(pathSid){ PathAccountSid = pathAccountSid, AccountSid = accountSid, ApiVersion = apiVersion, FriendlyName = friendlyName, SmsApplicationSid = smsApplicationSid, SmsFallbackMethod = smsFallbackMethod, SmsFallbackUrl = smsFallbackUrl, SmsMethod = smsMethod, SmsUrl = smsUrl, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, VoiceApplicationSid = voiceApplicationSid, VoiceCallerIdLookup = voiceCallerIdLookup, VoiceFallbackMethod = voiceFallbackMethod, VoiceFallbackUrl = voiceFallbackUrl, VoiceMethod = voiceMethod, VoiceUrl = voiceUrl, EmergencyStatus = emergencyStatus, EmergencyAddressSid = emergencyAddressSid, TrunkSid = trunkSid, VoiceReceiveMode = voiceReceiveMode, IdentitySid = identitySid, AddressSid = addressSid, BundleSid = bundleSid };
+            var options = new UpdateIncomingPhoneNumberOptions(pathSid) { PathAccountSid = pathAccountSid, AccountSid = accountSid, ApiVersion = apiVersion, FriendlyName = friendlyName, SmsApplicationSid = smsApplicationSid, SmsFallbackMethod = smsFallbackMethod, SmsFallbackUrl = smsFallbackUrl, SmsMethod = smsMethod, SmsUrl = smsUrl, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, VoiceApplicationSid = voiceApplicationSid, VoiceCallerIdLookup = voiceCallerIdLookup, VoiceFallbackMethod = voiceFallbackMethod, VoiceFallbackUrl = voiceFallbackUrl, VoiceMethod = voiceMethod, VoiceUrl = voiceUrl, EmergencyStatus = emergencyStatus, EmergencyAddressSid = emergencyAddressSid, TrunkSid = trunkSid, VoiceReceiveMode = voiceReceiveMode, IdentitySid = identitySid, AddressSid = addressSid, BundleSid = bundleSid };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update an incoming-phone-number instance. </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the IncomingPhoneNumber resource to update. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resource to update.  For more information, see [Exchanging Numbers Between Subaccounts](https://www.twilio.com/docs/iam/api/subaccounts#exchanging-numbers). </param>
@@ -696,13 +696,13 @@ namespace Kandy.Rest.Api.V2010.Account
                                                                               string identitySid = null,
                                                                               string addressSid = null,
                                                                               string bundleSid = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateIncomingPhoneNumberOptions(pathSid){ PathAccountSid = pathAccountSid, AccountSid = accountSid, ApiVersion = apiVersion, FriendlyName = friendlyName, SmsApplicationSid = smsApplicationSid, SmsFallbackMethod = smsFallbackMethod, SmsFallbackUrl = smsFallbackUrl, SmsMethod = smsMethod, SmsUrl = smsUrl, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, VoiceApplicationSid = voiceApplicationSid, VoiceCallerIdLookup = voiceCallerIdLookup, VoiceFallbackMethod = voiceFallbackMethod, VoiceFallbackUrl = voiceFallbackUrl, VoiceMethod = voiceMethod, VoiceUrl = voiceUrl, EmergencyStatus = emergencyStatus, EmergencyAddressSid = emergencyAddressSid, TrunkSid = trunkSid, VoiceReceiveMode = voiceReceiveMode, IdentitySid = identitySid, AddressSid = addressSid, BundleSid = bundleSid };
+            var options = new UpdateIncomingPhoneNumberOptions(pathSid) { PathAccountSid = pathAccountSid, AccountSid = accountSid, ApiVersion = apiVersion, FriendlyName = friendlyName, SmsApplicationSid = smsApplicationSid, SmsFallbackMethod = smsFallbackMethod, SmsFallbackUrl = smsFallbackUrl, SmsMethod = smsMethod, SmsUrl = smsUrl, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, VoiceApplicationSid = voiceApplicationSid, VoiceCallerIdLookup = voiceCallerIdLookup, VoiceFallbackMethod = voiceFallbackMethod, VoiceFallbackUrl = voiceFallbackUrl, VoiceMethod = voiceMethod, VoiceUrl = voiceUrl, EmergencyStatus = emergencyStatus, EmergencyAddressSid = emergencyAddressSid, TrunkSid = trunkSid, VoiceReceiveMode = voiceReceiveMode, IdentitySid = identitySid, AddressSid = addressSid, BundleSid = bundleSid };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a IncomingPhoneNumberResource object
         /// </summary>
@@ -720,7 +720,7 @@ namespace Kandy.Rest.Api.V2010.Account
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this IncomingPhoneNumber resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -729,7 +729,7 @@ namespace Kandy.Rest.Api.V2010.Account
         [JsonProperty("address_sid")]
         public string AddressSid { get; private set; }
 
-        
+
         [JsonProperty("address_requirements")]
         public IncomingPhoneNumberResource.AddressRequirementEnum AddressRequirements { get; private set; }
 
@@ -810,7 +810,7 @@ namespace Kandy.Rest.Api.V2010.Account
         [JsonProperty("uri")]
         public string Uri { get; private set; }
 
-        
+
         [JsonProperty("voice_receive_mode")]
         public IncomingPhoneNumberResource.VoiceReceiveModeEnum VoiceReceiveMode { get; private set; }
 
@@ -838,7 +838,7 @@ namespace Kandy.Rest.Api.V2010.Account
         [JsonProperty("voice_url")]
         public Uri VoiceUrl { get; private set; }
 
-        
+
         [JsonProperty("emergency_status")]
         public IncomingPhoneNumberResource.EmergencyStatusEnum EmergencyStatus { get; private set; }
 
@@ -846,7 +846,7 @@ namespace Kandy.Rest.Api.V2010.Account
         [JsonProperty("emergency_address_sid")]
         public string EmergencyAddressSid { get; private set; }
 
-        
+
         [JsonProperty("emergency_address_status")]
         public IncomingPhoneNumberResource.EmergencyAddressStatusEnum EmergencyAddressStatus { get; private set; }
 
@@ -860,7 +860,8 @@ namespace Kandy.Rest.Api.V2010.Account
 
 
 
-        private IncomingPhoneNumberResource() {
+        private IncomingPhoneNumberResource()
+        {
 
         }
     }

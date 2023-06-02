@@ -28,12 +28,12 @@ namespace Kandy.Rest.Api.V2010.Account.Message
 {
     public class FeedbackResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class OutcomeEnum : StringEnum
         {
-            private OutcomeEnum(string value) : base(value) {}
-            public OutcomeEnum() {}
+            private OutcomeEnum(string value) : base(value) { }
+            public OutcomeEnum() { }
             public static implicit operator OutcomeEnum(string value)
             {
                 return new OutcomeEnum(value);
@@ -43,16 +43,16 @@ namespace Kandy.Rest.Api.V2010.Account.Message
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateFeedbackOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateFeedbackOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Feedback.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathMessageSid = options.PathMessageSid;
-            path = path.Replace("{"+"MessageSid"+"}", PathMessageSid);
+            path = path.Replace("{" + "MessageSid" + "}", PathMessageSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -67,26 +67,26 @@ namespace Kandy.Rest.Api.V2010.Account.Message
         /// <param name="options"> Create Feedback parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Feedback </returns>
-        public static FeedbackResource Create(CreateFeedbackOptions options, ITwilioRestClient client = null)
+        public static FeedbackResource Create(CreateFeedbackOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create Feedback parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Feedback </returns>
         public static async System.Threading.Tasks.Task<FeedbackResource> CreateAsync(CreateFeedbackOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="pathMessageSid"> The SID of the Message resource for which the feedback was provided. </param>
@@ -98,13 +98,13 @@ namespace Kandy.Rest.Api.V2010.Account.Message
                                           string pathMessageSid,
                                           string pathAccountSid = null,
                                           FeedbackResource.OutcomeEnum outcome = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateFeedbackOptions(pathMessageSid){  PathAccountSid = pathAccountSid, Outcome = outcome };
+            var options = new CreateFeedbackOptions(pathMessageSid) { PathAccountSid = pathAccountSid, Outcome = outcome };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="pathMessageSid"> The SID of the Message resource for which the feedback was provided. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. </param>
@@ -115,13 +115,13 @@ namespace Kandy.Rest.Api.V2010.Account.Message
                                                                                   string pathMessageSid,
                                                                                   string pathAccountSid = null,
                                                                                   FeedbackResource.OutcomeEnum outcome = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateFeedbackOptions(pathMessageSid){  PathAccountSid = pathAccountSid, Outcome = outcome };
+            var options = new CreateFeedbackOptions(pathMessageSid) { PathAccountSid = pathAccountSid, Outcome = outcome };
             return await CreateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a FeedbackResource object
         /// </summary>
@@ -139,7 +139,7 @@ namespace Kandy.Rest.Api.V2010.Account.Message
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the MessageFeedback resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -148,7 +148,7 @@ namespace Kandy.Rest.Api.V2010.Account.Message
         [JsonProperty("message_sid")]
         public string MessageSid { get; private set; }
 
-        
+
         [JsonProperty("outcome")]
         public FeedbackResource.OutcomeEnum Outcome { get; private set; }
 
@@ -166,7 +166,8 @@ namespace Kandy.Rest.Api.V2010.Account.Message
 
 
 
-        private FeedbackResource() {
+        private FeedbackResource()
+        {
 
         }
     }

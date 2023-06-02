@@ -28,16 +28,16 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.TaskQueue
 {
     public class TaskQueuesStatisticsResource : Resource
     {
-    
 
-        
-        private static Request BuildReadRequest(ReadTaskQueuesStatisticsOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildReadRequest(ReadTaskQueuesStatisticsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Workspaces/{WorkspaceSid}/TaskQueues/Statistics";
 
             string PathWorkspaceSid = options.PathWorkspaceSid;
-            path = path.Replace("{"+"WorkspaceSid"+"}", PathWorkspaceSid);
+            path = path.Replace("{" + "WorkspaceSid" + "}", PathWorkspaceSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -51,7 +51,7 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.TaskQueue
         /// <param name="options"> Read TaskQueuesStatistics parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of TaskQueuesStatistics </returns>
-        public static ResourceSet<TaskQueuesStatisticsResource> Read(ReadTaskQueuesStatisticsOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<TaskQueuesStatisticsResource> Read(ReadTaskQueuesStatisticsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -59,13 +59,13 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.TaskQueue
             return new ResourceSet<TaskQueuesStatisticsResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read TaskQueuesStatistics parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of TaskQueuesStatistics </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<TaskQueuesStatisticsResource>> ReadAsync(ReadTaskQueuesStatisticsOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -73,7 +73,7 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.TaskQueue
             var page = Page<TaskQueuesStatisticsResource>.FromJson("task_queues_statistics", response.Content);
             return new ResourceSet<TaskQueuesStatisticsResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="pathWorkspaceSid"> The SID of the Workspace with the TaskQueues to read. </param>
         /// <param name="endDate"> Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time. </param>
@@ -96,13 +96,13 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.TaskQueue
                                                      string splitByWaitTime = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadTaskQueuesStatisticsOptions(pathWorkspaceSid){ EndDate = endDate, FriendlyName = friendlyName, Minutes = minutes, StartDate = startDate, TaskChannel = taskChannel, SplitByWaitTime = splitByWaitTime, PageSize = pageSize, Limit = limit};
+            var options = new ReadTaskQueuesStatisticsOptions(pathWorkspaceSid) { EndDate = endDate, FriendlyName = friendlyName, Minutes = minutes, StartDate = startDate, TaskChannel = taskChannel, SplitByWaitTime = splitByWaitTime, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="pathWorkspaceSid"> The SID of the Workspace with the TaskQueues to read. </param>
         /// <param name="endDate"> Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time. </param>
@@ -125,19 +125,19 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.TaskQueue
                                                                                              string splitByWaitTime = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadTaskQueuesStatisticsOptions(pathWorkspaceSid){ EndDate = endDate, FriendlyName = friendlyName, Minutes = minutes, StartDate = startDate, TaskChannel = taskChannel, SplitByWaitTime = splitByWaitTime, PageSize = pageSize, Limit = limit};
+            var options = new ReadTaskQueuesStatisticsOptions(pathWorkspaceSid) { EndDate = endDate, FriendlyName = friendlyName, Minutes = minutes, StartDate = startDate, TaskChannel = taskChannel, SplitByWaitTime = splitByWaitTime, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<TaskQueuesStatisticsResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<TaskQueuesStatisticsResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -154,7 +154,7 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.TaskQueue
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<TaskQueuesStatisticsResource> NextPage(Page<TaskQueuesStatisticsResource> page, ITwilioRestClient client)
+        public static Page<TaskQueuesStatisticsResource> NextPage(Page<TaskQueuesStatisticsResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -169,7 +169,7 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.TaskQueue
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<TaskQueuesStatisticsResource> PreviousPage(Page<TaskQueuesStatisticsResource> page, ITwilioRestClient client)
+        public static Page<TaskQueuesStatisticsResource> PreviousPage(Page<TaskQueuesStatisticsResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -180,7 +180,7 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.TaskQueue
             return Page<TaskQueuesStatisticsResource>.FromJson("task_queues_statistics", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a TaskQueuesStatisticsResource object
         /// </summary>
@@ -198,7 +198,7 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.TaskQueue
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the TaskQueue resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -221,7 +221,8 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.TaskQueue
 
 
 
-        private TaskQueuesStatisticsResource() {
+        private TaskQueuesStatisticsResource()
+        {
 
         }
     }

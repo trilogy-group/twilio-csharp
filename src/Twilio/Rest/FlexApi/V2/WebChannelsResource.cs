@@ -28,12 +28,12 @@ namespace Kandy.Rest.FlexApi.V2
 {
     public class WebChannelsResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateWebChannelsOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateWebChannelsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/WebChats";
 
 
@@ -50,26 +50,26 @@ namespace Kandy.Rest.FlexApi.V2
         /// <param name="options"> Create WebChannels parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of WebChannels </returns>
-        public static WebChannelsResource Create(CreateWebChannelsOptions options, ITwilioRestClient client = null)
+        public static WebChannelsResource Create(CreateWebChannelsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create WebChannels parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of WebChannels </returns>
         public static async System.Threading.Tasks.Task<WebChannelsResource> CreateAsync(CreateWebChannelsOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="addressSid"> The SID of the Conversations Address. See [Address Configuration Resource](https://www.twilio.com/docs/conversations/api/address-configuration-resource) for configuration details. When a conversation is created on the Flex backend, the callback URL will be set to the corresponding Studio Flow SID or webhook URL in your address configuration. </param>
@@ -83,13 +83,13 @@ namespace Kandy.Rest.FlexApi.V2
                                           string chatFriendlyName = null,
                                           string customerFriendlyName = null,
                                           string preEngagementData = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateWebChannelsOptions(addressSid){  ChatFriendlyName = chatFriendlyName, CustomerFriendlyName = customerFriendlyName, PreEngagementData = preEngagementData };
+            var options = new CreateWebChannelsOptions(addressSid) { ChatFriendlyName = chatFriendlyName, CustomerFriendlyName = customerFriendlyName, PreEngagementData = preEngagementData };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="addressSid"> The SID of the Conversations Address. See [Address Configuration Resource](https://www.twilio.com/docs/conversations/api/address-configuration-resource) for configuration details. When a conversation is created on the Flex backend, the callback URL will be set to the corresponding Studio Flow SID or webhook URL in your address configuration. </param>
         /// <param name="chatFriendlyName"> The Conversation's friendly name. See the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource) for an example. </param>
@@ -102,13 +102,13 @@ namespace Kandy.Rest.FlexApi.V2
                                                                                   string chatFriendlyName = null,
                                                                                   string customerFriendlyName = null,
                                                                                   string preEngagementData = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateWebChannelsOptions(addressSid){  ChatFriendlyName = chatFriendlyName, CustomerFriendlyName = customerFriendlyName, PreEngagementData = preEngagementData };
+            var options = new CreateWebChannelsOptions(addressSid) { ChatFriendlyName = chatFriendlyName, CustomerFriendlyName = customerFriendlyName, PreEngagementData = preEngagementData };
             return await CreateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a WebChannelsResource object
         /// </summary>
@@ -126,7 +126,7 @@ namespace Kandy.Rest.FlexApi.V2
             }
         }
 
-    
+
         ///<summary> The unique string representing the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource) created. </summary> 
         [JsonProperty("conversation_sid")]
         public string ConversationSid { get; private set; }
@@ -137,7 +137,8 @@ namespace Kandy.Rest.FlexApi.V2
 
 
 
-        private WebChannelsResource() {
+        private WebChannelsResource()
+        {
 
         }
     }

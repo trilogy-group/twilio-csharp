@@ -28,12 +28,12 @@ namespace Kandy.Rest.Supersim.V1.Sim
 {
     public class BillingPeriodResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class BpTypeEnum : StringEnum
         {
-            private BpTypeEnum(string value) : base(value) {}
-            public BpTypeEnum() {}
+            private BpTypeEnum(string value) : base(value) { }
+            public BpTypeEnum() { }
             public static implicit operator BpTypeEnum(string value)
             {
                 return new BpTypeEnum(value);
@@ -43,14 +43,14 @@ namespace Kandy.Rest.Supersim.V1.Sim
 
         }
 
-        
-        private static Request BuildReadRequest(ReadBillingPeriodOptions options, ITwilioRestClient client)
+
+        private static Request BuildReadRequest(ReadBillingPeriodOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Sims/{SimSid}/BillingPeriods";
 
             string PathSimSid = options.PathSimSid;
-            path = path.Replace("{"+"SimSid"+"}", PathSimSid);
+            path = path.Replace("{" + "SimSid" + "}", PathSimSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -64,7 +64,7 @@ namespace Kandy.Rest.Supersim.V1.Sim
         /// <param name="options"> Read BillingPeriod parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of BillingPeriod </returns>
-        public static ResourceSet<BillingPeriodResource> Read(ReadBillingPeriodOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<BillingPeriodResource> Read(ReadBillingPeriodOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -72,13 +72,13 @@ namespace Kandy.Rest.Supersim.V1.Sim
             return new ResourceSet<BillingPeriodResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of Billing Periods for a Super SIM. </summary>
         /// <param name="options"> Read BillingPeriod parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of BillingPeriod </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<BillingPeriodResource>> ReadAsync(ReadBillingPeriodOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -86,7 +86,7 @@ namespace Kandy.Rest.Supersim.V1.Sim
             var page = Page<BillingPeriodResource>.FromJson("billing_periods", response.Content);
             return new ResourceSet<BillingPeriodResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of Billing Periods for a Super SIM. </summary>
         /// <param name="pathSimSid"> The SID of the Super SIM to list Billing Periods for. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -97,13 +97,13 @@ namespace Kandy.Rest.Supersim.V1.Sim
                                                      string pathSimSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadBillingPeriodOptions(pathSimSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadBillingPeriodOptions(pathSimSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of Billing Periods for a Super SIM. </summary>
         /// <param name="pathSimSid"> The SID of the Super SIM to list Billing Periods for. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -114,19 +114,19 @@ namespace Kandy.Rest.Supersim.V1.Sim
                                                                                              string pathSimSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadBillingPeriodOptions(pathSimSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadBillingPeriodOptions(pathSimSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<BillingPeriodResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<BillingPeriodResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -143,7 +143,7 @@ namespace Kandy.Rest.Supersim.V1.Sim
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<BillingPeriodResource> NextPage(Page<BillingPeriodResource> page, ITwilioRestClient client)
+        public static Page<BillingPeriodResource> NextPage(Page<BillingPeriodResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -158,7 +158,7 @@ namespace Kandy.Rest.Supersim.V1.Sim
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<BillingPeriodResource> PreviousPage(Page<BillingPeriodResource> page, ITwilioRestClient client)
+        public static Page<BillingPeriodResource> PreviousPage(Page<BillingPeriodResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -169,7 +169,7 @@ namespace Kandy.Rest.Supersim.V1.Sim
             return Page<BillingPeriodResource>.FromJson("billing_periods", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a BillingPeriodResource object
         /// </summary>
@@ -187,7 +187,7 @@ namespace Kandy.Rest.Supersim.V1.Sim
             }
         }
 
-    
+
         ///<summary> The SID of the Billing Period. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -208,7 +208,7 @@ namespace Kandy.Rest.Supersim.V1.Sim
         [JsonProperty("end_time")]
         public DateTime? EndTime { get; private set; }
 
-        
+
         [JsonProperty("period_type")]
         public BillingPeriodResource.BpTypeEnum PeriodType { get; private set; }
 
@@ -222,7 +222,8 @@ namespace Kandy.Rest.Supersim.V1.Sim
 
 
 
-        private BillingPeriodResource() {
+        private BillingPeriodResource()
+        {
 
         }
     }

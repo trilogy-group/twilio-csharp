@@ -28,20 +28,20 @@ namespace Kandy.Rest.Studio.V1.Flow.Engagement.Step
 {
     public class StepContextResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchStepContextOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchStepContextOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Steps/{StepSid}/Context";
 
             string PathFlowSid = options.PathFlowSid;
-            path = path.Replace("{"+"FlowSid"+"}", PathFlowSid);
+            path = path.Replace("{" + "FlowSid" + "}", PathFlowSid);
             string PathEngagementSid = options.PathEngagementSid;
-            path = path.Replace("{"+"EngagementSid"+"}", PathEngagementSid);
+            path = path.Replace("{" + "EngagementSid" + "}", PathEngagementSid);
             string PathStepSid = options.PathStepSid;
-            path = path.Replace("{"+"StepSid"+"}", PathStepSid);
+            path = path.Replace("{" + "StepSid" + "}", PathStepSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -56,26 +56,26 @@ namespace Kandy.Rest.Studio.V1.Flow.Engagement.Step
         /// <param name="options"> Fetch StepContext parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of StepContext </returns>
-        public static StepContextResource Fetch(FetchStepContextOptions options, ITwilioRestClient client = null)
+        public static StepContextResource Fetch(FetchStepContextOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve the context for an Engagement Step. </summary>
         /// <param name="options"> Fetch StepContext parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of StepContext </returns>
         public static async System.Threading.Tasks.Task<StepContextResource> FetchAsync(FetchStepContextOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Retrieve the context for an Engagement Step. </summary>
         /// <param name="pathFlowSid"> The SID of the Flow with the Step to fetch. </param>
         /// <param name="pathEngagementSid"> The SID of the Engagement with the Step to fetch. </param>
@@ -83,29 +83,29 @@ namespace Kandy.Rest.Studio.V1.Flow.Engagement.Step
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of StepContext </returns>
         public static StepContextResource Fetch(
-                                         string pathFlowSid, 
-                                         string pathEngagementSid, 
-                                         string pathStepSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathFlowSid,
+                                         string pathEngagementSid,
+                                         string pathStepSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchStepContextOptions(pathFlowSid, pathEngagementSid, pathStepSid){  };
+            var options = new FetchStepContextOptions(pathFlowSid, pathEngagementSid, pathStepSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve the context for an Engagement Step. </summary>
         /// <param name="pathFlowSid"> The SID of the Flow with the Step to fetch. </param>
         /// <param name="pathEngagementSid"> The SID of the Engagement with the Step to fetch. </param>
         /// <param name="pathStepSid"> The SID of the Step to fetch </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of StepContext </returns>
-        public static async System.Threading.Tasks.Task<StepContextResource> FetchAsync(string pathFlowSid, string pathEngagementSid, string pathStepSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<StepContextResource> FetchAsync(string pathFlowSid, string pathEngagementSid, string pathStepSid, IKandyRestClient client = null)
         {
-            var options = new FetchStepContextOptions(pathFlowSid, pathEngagementSid, pathStepSid){  };
+            var options = new FetchStepContextOptions(pathFlowSid, pathEngagementSid, pathStepSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a StepContextResource object
         /// </summary>
@@ -123,7 +123,7 @@ namespace Kandy.Rest.Studio.V1.Flow.Engagement.Step
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the StepContext resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -150,7 +150,8 @@ namespace Kandy.Rest.Studio.V1.Flow.Engagement.Step
 
 
 
-        private StepContextResource() {
+        private StepContextResource()
+        {
 
         }
     }

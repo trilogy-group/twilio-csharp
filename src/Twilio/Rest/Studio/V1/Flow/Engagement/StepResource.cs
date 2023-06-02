@@ -28,20 +28,20 @@ namespace Kandy.Rest.Studio.V1.Flow.Engagement
 {
     public class StepResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchStepOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchStepOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Steps/{Sid}";
 
             string PathFlowSid = options.PathFlowSid;
-            path = path.Replace("{"+"FlowSid"+"}", PathFlowSid);
+            path = path.Replace("{" + "FlowSid" + "}", PathFlowSid);
             string PathEngagementSid = options.PathEngagementSid;
-            path = path.Replace("{"+"EngagementSid"+"}", PathEngagementSid);
+            path = path.Replace("{" + "EngagementSid" + "}", PathEngagementSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -56,26 +56,26 @@ namespace Kandy.Rest.Studio.V1.Flow.Engagement
         /// <param name="options"> Fetch Step parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Step </returns>
-        public static StepResource Fetch(FetchStepOptions options, ITwilioRestClient client = null)
+        public static StepResource Fetch(FetchStepOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a Step. </summary>
         /// <param name="options"> Fetch Step parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Step </returns>
         public static async System.Threading.Tasks.Task<StepResource> FetchAsync(FetchStepOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Retrieve a Step. </summary>
         /// <param name="pathFlowSid"> The SID of the Flow with the Step to fetch. </param>
         /// <param name="pathEngagementSid"> The SID of the Engagement with the Step to fetch. </param>
@@ -83,38 +83,38 @@ namespace Kandy.Rest.Studio.V1.Flow.Engagement
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Step </returns>
         public static StepResource Fetch(
-                                         string pathFlowSid, 
-                                         string pathEngagementSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathFlowSid,
+                                         string pathEngagementSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchStepOptions(pathFlowSid, pathEngagementSid, pathSid){  };
+            var options = new FetchStepOptions(pathFlowSid, pathEngagementSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a Step. </summary>
         /// <param name="pathFlowSid"> The SID of the Flow with the Step to fetch. </param>
         /// <param name="pathEngagementSid"> The SID of the Engagement with the Step to fetch. </param>
         /// <param name="pathSid"> The SID of the Step resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Step </returns>
-        public static async System.Threading.Tasks.Task<StepResource> FetchAsync(string pathFlowSid, string pathEngagementSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<StepResource> FetchAsync(string pathFlowSid, string pathEngagementSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchStepOptions(pathFlowSid, pathEngagementSid, pathSid){  };
+            var options = new FetchStepOptions(pathFlowSid, pathEngagementSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadStepOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadStepOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Steps";
 
             string PathFlowSid = options.PathFlowSid;
-            path = path.Replace("{"+"FlowSid"+"}", PathFlowSid);
+            path = path.Replace("{" + "FlowSid" + "}", PathFlowSid);
             string PathEngagementSid = options.PathEngagementSid;
-            path = path.Replace("{"+"EngagementSid"+"}", PathEngagementSid);
+            path = path.Replace("{" + "EngagementSid" + "}", PathEngagementSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -128,7 +128,7 @@ namespace Kandy.Rest.Studio.V1.Flow.Engagement
         /// <param name="options"> Read Step parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Step </returns>
-        public static ResourceSet<StepResource> Read(ReadStepOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<StepResource> Read(ReadStepOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -136,13 +136,13 @@ namespace Kandy.Rest.Studio.V1.Flow.Engagement
             return new ResourceSet<StepResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Steps for an Engagement. </summary>
         /// <param name="options"> Read Step parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Step </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<StepResource>> ReadAsync(ReadStepOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -150,7 +150,7 @@ namespace Kandy.Rest.Studio.V1.Flow.Engagement
             var page = Page<StepResource>.FromJson("steps", response.Content);
             return new ResourceSet<StepResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Steps for an Engagement. </summary>
         /// <param name="pathFlowSid"> The SID of the Flow with the Step to read. </param>
         /// <param name="pathEngagementSid"> The SID of the Engagement with the Step to read. </param>
@@ -163,13 +163,13 @@ namespace Kandy.Rest.Studio.V1.Flow.Engagement
                                                      string pathEngagementSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadStepOptions(pathFlowSid, pathEngagementSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadStepOptions(pathFlowSid, pathEngagementSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Steps for an Engagement. </summary>
         /// <param name="pathFlowSid"> The SID of the Flow with the Step to read. </param>
         /// <param name="pathEngagementSid"> The SID of the Engagement with the Step to read. </param>
@@ -182,19 +182,19 @@ namespace Kandy.Rest.Studio.V1.Flow.Engagement
                                                                                              string pathEngagementSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadStepOptions(pathFlowSid, pathEngagementSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadStepOptions(pathFlowSid, pathEngagementSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<StepResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<StepResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -211,7 +211,7 @@ namespace Kandy.Rest.Studio.V1.Flow.Engagement
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<StepResource> NextPage(Page<StepResource> page, ITwilioRestClient client)
+        public static Page<StepResource> NextPage(Page<StepResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -226,7 +226,7 @@ namespace Kandy.Rest.Studio.V1.Flow.Engagement
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<StepResource> PreviousPage(Page<StepResource> page, ITwilioRestClient client)
+        public static Page<StepResource> PreviousPage(Page<StepResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -237,7 +237,7 @@ namespace Kandy.Rest.Studio.V1.Flow.Engagement
             return Page<StepResource>.FromJson("steps", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a StepResource object
         /// </summary>
@@ -255,7 +255,7 @@ namespace Kandy.Rest.Studio.V1.Flow.Engagement
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the Step resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -306,7 +306,8 @@ namespace Kandy.Rest.Studio.V1.Flow.Engagement
 
 
 
-        private StepResource() {
+        private StepResource()
+        {
 
         }
     }

@@ -28,12 +28,12 @@ namespace Kandy.Rest.Trusthub.V1
 {
     public class TrustProductsResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class StatusEnum : StringEnum
         {
-            private StatusEnum(string value) : base(value) {}
-            public StatusEnum() {}
+            private StatusEnum(string value) : base(value) { }
+            public StatusEnum() { }
             public static implicit operator StatusEnum(string value)
             {
                 return new StatusEnum(value);
@@ -46,10 +46,10 @@ namespace Kandy.Rest.Trusthub.V1
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateTrustProductsOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateTrustProductsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/TrustProducts";
 
 
@@ -66,26 +66,26 @@ namespace Kandy.Rest.Trusthub.V1
         /// <param name="options"> Create TrustProducts parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of TrustProducts </returns>
-        public static TrustProductsResource Create(CreateTrustProductsOptions options, ITwilioRestClient client = null)
+        public static TrustProductsResource Create(CreateTrustProductsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Customer-Profile. </summary>
         /// <param name="options"> Create TrustProducts parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of TrustProducts </returns>
         public static async System.Threading.Tasks.Task<TrustProductsResource> CreateAsync(CreateTrustProductsOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new Customer-Profile. </summary>
         /// <param name="friendlyName"> The string that you assigned to describe the resource. </param>
@@ -99,13 +99,13 @@ namespace Kandy.Rest.Trusthub.V1
                                           string email,
                                           string policySid,
                                           Uri statusCallback = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateTrustProductsOptions(friendlyName, email, policySid){  StatusCallback = statusCallback };
+            var options = new CreateTrustProductsOptions(friendlyName, email, policySid) { StatusCallback = statusCallback };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Customer-Profile. </summary>
         /// <param name="friendlyName"> The string that you assigned to describe the resource. </param>
         /// <param name="email"> The email address that will receive updates when the Customer-Profile resource changes status. </param>
@@ -118,24 +118,24 @@ namespace Kandy.Rest.Trusthub.V1
                                                                                   string email,
                                                                                   string policySid,
                                                                                   Uri statusCallback = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateTrustProductsOptions(friendlyName, email, policySid){  StatusCallback = statusCallback };
+            var options = new CreateTrustProductsOptions(friendlyName, email, policySid) { StatusCallback = statusCallback };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Delete a specific Customer-Profile. </summary>
         /// <param name="options"> Delete TrustProducts parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of TrustProducts </returns>
-        private static Request BuildDeleteRequest(DeleteTrustProductsOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteTrustProductsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/TrustProducts/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -150,56 +150,56 @@ namespace Kandy.Rest.Trusthub.V1
         /// <param name="options"> Delete TrustProducts parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of TrustProducts </returns>
-        public static bool Delete(DeleteTrustProductsOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteTrustProductsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific Customer-Profile. </summary>
         /// <param name="options"> Delete TrustProducts parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of TrustProducts </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteTrustProductsOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete a specific Customer-Profile. </summary>
         /// <param name="pathSid"> The unique string that we created to identify the Customer-Profile resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of TrustProducts </returns>
-        public static bool Delete(string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteTrustProductsOptions(pathSid)     ;
+            var options = new DeleteTrustProductsOptions(pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific Customer-Profile. </summary>
         /// <param name="pathSid"> The unique string that we created to identify the Customer-Profile resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of TrustProducts </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteTrustProductsOptions(pathSid) ;
+            var options = new DeleteTrustProductsOptions(pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchTrustProductsOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchTrustProductsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/TrustProducts/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -214,53 +214,53 @@ namespace Kandy.Rest.Trusthub.V1
         /// <param name="options"> Fetch TrustProducts parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of TrustProducts </returns>
-        public static TrustProductsResource Fetch(FetchTrustProductsOptions options, ITwilioRestClient client = null)
+        public static TrustProductsResource Fetch(FetchTrustProductsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Customer-Profile instance. </summary>
         /// <param name="options"> Fetch TrustProducts parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of TrustProducts </returns>
         public static async System.Threading.Tasks.Task<TrustProductsResource> FetchAsync(FetchTrustProductsOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a specific Customer-Profile instance. </summary>
         /// <param name="pathSid"> The unique string that we created to identify the Customer-Profile resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of TrustProducts </returns>
         public static TrustProductsResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchTrustProductsOptions(pathSid){  };
+            var options = new FetchTrustProductsOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Customer-Profile instance. </summary>
         /// <param name="pathSid"> The unique string that we created to identify the Customer-Profile resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of TrustProducts </returns>
-        public static async System.Threading.Tasks.Task<TrustProductsResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<TrustProductsResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchTrustProductsOptions(pathSid){  };
+            var options = new FetchTrustProductsOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadTrustProductsOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadTrustProductsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/TrustProducts";
 
 
@@ -276,7 +276,7 @@ namespace Kandy.Rest.Trusthub.V1
         /// <param name="options"> Read TrustProducts parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of TrustProducts </returns>
-        public static ResourceSet<TrustProductsResource> Read(ReadTrustProductsOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<TrustProductsResource> Read(ReadTrustProductsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -284,13 +284,13 @@ namespace Kandy.Rest.Trusthub.V1
             return new ResourceSet<TrustProductsResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Customer-Profiles for an account. </summary>
         /// <param name="options"> Read TrustProducts parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of TrustProducts </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<TrustProductsResource>> ReadAsync(ReadTrustProductsOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -298,7 +298,7 @@ namespace Kandy.Rest.Trusthub.V1
             var page = Page<TrustProductsResource>.FromJson("results", response.Content);
             return new ResourceSet<TrustProductsResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Customer-Profiles for an account. </summary>
         /// <param name="status"> The verification status of the Customer-Profile resource. </param>
         /// <param name="friendlyName"> The string that you assigned to describe the resource. </param>
@@ -313,13 +313,13 @@ namespace Kandy.Rest.Trusthub.V1
                                                      string policySid = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadTrustProductsOptions(){ Status = status, FriendlyName = friendlyName, PolicySid = policySid, PageSize = pageSize, Limit = limit};
+            var options = new ReadTrustProductsOptions() { Status = status, FriendlyName = friendlyName, PolicySid = policySid, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Customer-Profiles for an account. </summary>
         /// <param name="status"> The verification status of the Customer-Profile resource. </param>
         /// <param name="friendlyName"> The string that you assigned to describe the resource. </param>
@@ -334,19 +334,19 @@ namespace Kandy.Rest.Trusthub.V1
                                                                                              string policySid = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadTrustProductsOptions(){ Status = status, FriendlyName = friendlyName, PolicySid = policySid, PageSize = pageSize, Limit = limit};
+            var options = new ReadTrustProductsOptions() { Status = status, FriendlyName = friendlyName, PolicySid = policySid, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<TrustProductsResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<TrustProductsResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -363,7 +363,7 @@ namespace Kandy.Rest.Trusthub.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<TrustProductsResource> NextPage(Page<TrustProductsResource> page, ITwilioRestClient client)
+        public static Page<TrustProductsResource> NextPage(Page<TrustProductsResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -378,7 +378,7 @@ namespace Kandy.Rest.Trusthub.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<TrustProductsResource> PreviousPage(Page<TrustProductsResource> page, ITwilioRestClient client)
+        public static Page<TrustProductsResource> PreviousPage(Page<TrustProductsResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -389,14 +389,14 @@ namespace Kandy.Rest.Trusthub.V1
             return Page<TrustProductsResource>.FromJson("results", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateTrustProductsOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateTrustProductsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/TrustProducts/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -411,7 +411,7 @@ namespace Kandy.Rest.Trusthub.V1
         /// <param name="options"> Update TrustProducts parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of TrustProducts </returns>
-        public static TrustProductsResource Update(UpdateTrustProductsOptions options, ITwilioRestClient client = null)
+        public static TrustProductsResource Update(UpdateTrustProductsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -422,15 +422,15 @@ namespace Kandy.Rest.Trusthub.V1
         /// <param name="options"> Update TrustProducts parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of TrustProducts </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<TrustProductsResource> UpdateAsync(UpdateTrustProductsOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Updates a Customer-Profile in an account. </summary>
         /// <param name="pathSid"> The unique string that we created to identify the Customer-Profile resource. </param>
@@ -446,13 +446,13 @@ namespace Kandy.Rest.Trusthub.V1
                                           Uri statusCallback = null,
                                           string friendlyName = null,
                                           string email = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateTrustProductsOptions(pathSid){ Status = status, StatusCallback = statusCallback, FriendlyName = friendlyName, Email = email };
+            var options = new UpdateTrustProductsOptions(pathSid) { Status = status, StatusCallback = statusCallback, FriendlyName = friendlyName, Email = email };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Updates a Customer-Profile in an account. </summary>
         /// <param name="pathSid"> The unique string that we created to identify the Customer-Profile resource. </param>
         /// <param name="status">  </param>
@@ -467,13 +467,13 @@ namespace Kandy.Rest.Trusthub.V1
                                                                               Uri statusCallback = null,
                                                                               string friendlyName = null,
                                                                               string email = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateTrustProductsOptions(pathSid){ Status = status, StatusCallback = statusCallback, FriendlyName = friendlyName, Email = email };
+            var options = new UpdateTrustProductsOptions(pathSid) { Status = status, StatusCallback = statusCallback, FriendlyName = friendlyName, Email = email };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a TrustProductsResource object
         /// </summary>
@@ -491,7 +491,7 @@ namespace Kandy.Rest.Trusthub.V1
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the Customer-Profile resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -508,7 +508,7 @@ namespace Kandy.Rest.Trusthub.V1
         [JsonProperty("friendly_name")]
         public string FriendlyName { get; private set; }
 
-        
+
         [JsonProperty("status")]
         public TrustProductsResource.StatusEnum Status { get; private set; }
 
@@ -542,7 +542,8 @@ namespace Kandy.Rest.Trusthub.V1
 
 
 
-        private TrustProductsResource() {
+        private TrustProductsResource()
+        {
 
         }
     }

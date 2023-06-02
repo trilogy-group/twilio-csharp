@@ -28,16 +28,16 @@ namespace Kandy.Rest.Video.V1.Room
 {
     public class RecordingRulesResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchRecordingRulesOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchRecordingRulesOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Rooms/{RoomSid}/RecordingRules";
 
             string PathRoomSid = options.PathRoomSid;
-            path = path.Replace("{"+"RoomSid"+"}", PathRoomSid);
+            path = path.Replace("{" + "RoomSid" + "}", PathRoomSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -52,57 +52,57 @@ namespace Kandy.Rest.Video.V1.Room
         /// <param name="options"> Fetch RecordingRules parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of RecordingRules </returns>
-        public static RecordingRulesResource Fetch(FetchRecordingRulesOptions options, ITwilioRestClient client = null)
+        public static RecordingRulesResource Fetch(FetchRecordingRulesOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Returns a list of Recording Rules for the Room. </summary>
         /// <param name="options"> Fetch RecordingRules parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of RecordingRules </returns>
         public static async System.Threading.Tasks.Task<RecordingRulesResource> FetchAsync(FetchRecordingRulesOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Returns a list of Recording Rules for the Room. </summary>
         /// <param name="pathRoomSid"> The SID of the Room resource where the recording rules to fetch apply. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of RecordingRules </returns>
         public static RecordingRulesResource Fetch(
-                                         string pathRoomSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathRoomSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchRecordingRulesOptions(pathRoomSid){  };
+            var options = new FetchRecordingRulesOptions(pathRoomSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Returns a list of Recording Rules for the Room. </summary>
         /// <param name="pathRoomSid"> The SID of the Room resource where the recording rules to fetch apply. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of RecordingRules </returns>
-        public static async System.Threading.Tasks.Task<RecordingRulesResource> FetchAsync(string pathRoomSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<RecordingRulesResource> FetchAsync(string pathRoomSid, IKandyRestClient client = null)
         {
-            var options = new FetchRecordingRulesOptions(pathRoomSid){  };
+            var options = new FetchRecordingRulesOptions(pathRoomSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildUpdateRequest(UpdateRecordingRulesOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildUpdateRequest(UpdateRecordingRulesOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Rooms/{RoomSid}/RecordingRules";
 
             string PathRoomSid = options.PathRoomSid;
-            path = path.Replace("{"+"RoomSid"+"}", PathRoomSid);
+            path = path.Replace("{" + "RoomSid" + "}", PathRoomSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -117,7 +117,7 @@ namespace Kandy.Rest.Video.V1.Room
         /// <param name="options"> Update RecordingRules parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of RecordingRules </returns>
-        public static RecordingRulesResource Update(UpdateRecordingRulesOptions options, ITwilioRestClient client = null)
+        public static RecordingRulesResource Update(UpdateRecordingRulesOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -128,15 +128,15 @@ namespace Kandy.Rest.Video.V1.Room
         /// <param name="options"> Update RecordingRules parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of RecordingRules </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<RecordingRulesResource> UpdateAsync(UpdateRecordingRulesOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update the Recording Rules for the Room </summary>
         /// <param name="pathRoomSid"> The SID of the Room resource where the recording rules to update apply. </param>
@@ -146,13 +146,13 @@ namespace Kandy.Rest.Video.V1.Room
         public static RecordingRulesResource Update(
                                           string pathRoomSid,
                                           object rules = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateRecordingRulesOptions(pathRoomSid){ Rules = rules };
+            var options = new UpdateRecordingRulesOptions(pathRoomSid) { Rules = rules };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update the Recording Rules for the Room </summary>
         /// <param name="pathRoomSid"> The SID of the Room resource where the recording rules to update apply. </param>
         /// <param name="rules"> A JSON-encoded array of recording rules. </param>
@@ -161,13 +161,13 @@ namespace Kandy.Rest.Video.V1.Room
         public static async System.Threading.Tasks.Task<RecordingRulesResource> UpdateAsync(
                                                                               string pathRoomSid,
                                                                               object rules = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateRecordingRulesOptions(pathRoomSid){ Rules = rules };
+            var options = new UpdateRecordingRulesOptions(pathRoomSid) { Rules = rules };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a RecordingRulesResource object
         /// </summary>
@@ -185,7 +185,7 @@ namespace Kandy.Rest.Video.V1.Room
             }
         }
 
-    
+
         ///<summary> The SID of the Room resource for the Recording Rules </summary> 
         [JsonProperty("room_sid")]
         public string RoomSid { get; private set; }
@@ -204,7 +204,8 @@ namespace Kandy.Rest.Video.V1.Room
 
 
 
-        private RecordingRulesResource() {
+        private RecordingRulesResource()
+        {
 
         }
     }

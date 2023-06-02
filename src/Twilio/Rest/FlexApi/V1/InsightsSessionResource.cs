@@ -28,12 +28,12 @@ namespace Kandy.Rest.FlexApi.V1
 {
     public class InsightsSessionResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateInsightsSessionOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateInsightsSessionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Insights/Session";
 
 
@@ -50,26 +50,26 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="options"> Create InsightsSession parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of InsightsSession </returns>
-        public static InsightsSessionResource Create(CreateInsightsSessionOptions options, ITwilioRestClient client = null)
+        public static InsightsSessionResource Create(CreateInsightsSessionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> To obtain session details for fetching reports and dashboards </summary>
         /// <param name="options"> Create InsightsSession parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of InsightsSession </returns>
         public static async System.Threading.Tasks.Task<InsightsSessionResource> CreateAsync(CreateInsightsSessionOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> To obtain session details for fetching reports and dashboards </summary>
         /// <param name="authorization"> The Authorization HTTP request header </param>
@@ -77,26 +77,26 @@ namespace Kandy.Rest.FlexApi.V1
         /// <returns> A single instance of InsightsSession </returns>
         public static InsightsSessionResource Create(
                                           string authorization = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateInsightsSessionOptions(){  Authorization = authorization };
+            var options = new CreateInsightsSessionOptions() { Authorization = authorization };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> To obtain session details for fetching reports and dashboards </summary>
         /// <param name="authorization"> The Authorization HTTP request header </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of InsightsSession </returns>
         public static async System.Threading.Tasks.Task<InsightsSessionResource> CreateAsync(
                                                                                   string authorization = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateInsightsSessionOptions(){  Authorization = authorization };
+            var options = new CreateInsightsSessionOptions() { Authorization = authorization };
             return await CreateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a InsightsSessionResource object
         /// </summary>
@@ -114,7 +114,7 @@ namespace Kandy.Rest.FlexApi.V1
             }
         }
 
-    
+
         ///<summary> Unique ID to identify the user's workspace </summary> 
         [JsonProperty("workspace_id")]
         public string WorkspaceId { get; private set; }
@@ -137,7 +137,8 @@ namespace Kandy.Rest.FlexApi.V1
 
 
 
-        private InsightsSessionResource() {
+        private InsightsSessionResource()
+        {
 
         }
     }

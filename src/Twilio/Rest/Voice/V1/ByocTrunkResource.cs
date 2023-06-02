@@ -28,12 +28,12 @@ namespace Kandy.Rest.Voice.V1
 {
     public class ByocTrunkResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateByocTrunkOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateByocTrunkOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/ByocTrunks";
 
 
@@ -50,26 +50,26 @@ namespace Kandy.Rest.Voice.V1
         /// <param name="options"> Create ByocTrunk parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ByocTrunk </returns>
-        public static ByocTrunkResource Create(CreateByocTrunkOptions options, ITwilioRestClient client = null)
+        public static ByocTrunkResource Create(CreateByocTrunkOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create ByocTrunk parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ByocTrunk </returns>
         public static async System.Threading.Tasks.Task<ByocTrunkResource> CreateAsync(CreateByocTrunkOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="friendlyName"> A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long. </param>
@@ -95,13 +95,13 @@ namespace Kandy.Rest.Voice.V1
                                           bool? cnamLookupEnabled = null,
                                           string connectionPolicySid = null,
                                           string fromDomainSid = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateByocTrunkOptions(){  FriendlyName = friendlyName, VoiceUrl = voiceUrl, VoiceMethod = voiceMethod, VoiceFallbackUrl = voiceFallbackUrl, VoiceFallbackMethod = voiceFallbackMethod, StatusCallbackUrl = statusCallbackUrl, StatusCallbackMethod = statusCallbackMethod, CnamLookupEnabled = cnamLookupEnabled, ConnectionPolicySid = connectionPolicySid, FromDomainSid = fromDomainSid };
+            var options = new CreateByocTrunkOptions() { FriendlyName = friendlyName, VoiceUrl = voiceUrl, VoiceMethod = voiceMethod, VoiceFallbackUrl = voiceFallbackUrl, VoiceFallbackMethod = voiceFallbackMethod, StatusCallbackUrl = statusCallbackUrl, StatusCallbackMethod = statusCallbackMethod, CnamLookupEnabled = cnamLookupEnabled, ConnectionPolicySid = connectionPolicySid, FromDomainSid = fromDomainSid };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="friendlyName"> A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long. </param>
         /// <param name="voiceUrl"> The URL we should call when the BYOC Trunk receives a call. </param>
@@ -126,24 +126,24 @@ namespace Kandy.Rest.Voice.V1
                                                                                   bool? cnamLookupEnabled = null,
                                                                                   string connectionPolicySid = null,
                                                                                   string fromDomainSid = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateByocTrunkOptions(){  FriendlyName = friendlyName, VoiceUrl = voiceUrl, VoiceMethod = voiceMethod, VoiceFallbackUrl = voiceFallbackUrl, VoiceFallbackMethod = voiceFallbackMethod, StatusCallbackUrl = statusCallbackUrl, StatusCallbackMethod = statusCallbackMethod, CnamLookupEnabled = cnamLookupEnabled, ConnectionPolicySid = connectionPolicySid, FromDomainSid = fromDomainSid };
+            var options = new CreateByocTrunkOptions() { FriendlyName = friendlyName, VoiceUrl = voiceUrl, VoiceMethod = voiceMethod, VoiceFallbackUrl = voiceFallbackUrl, VoiceFallbackMethod = voiceFallbackMethod, StatusCallbackUrl = statusCallbackUrl, StatusCallbackMethod = statusCallbackMethod, CnamLookupEnabled = cnamLookupEnabled, ConnectionPolicySid = connectionPolicySid, FromDomainSid = fromDomainSid };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> delete </summary>
         /// <param name="options"> Delete ByocTrunk parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ByocTrunk </returns>
-        private static Request BuildDeleteRequest(DeleteByocTrunkOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteByocTrunkOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/ByocTrunks/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -158,56 +158,56 @@ namespace Kandy.Rest.Voice.V1
         /// <param name="options"> Delete ByocTrunk parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ByocTrunk </returns>
-        public static bool Delete(DeleteByocTrunkOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteByocTrunkOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="options"> Delete ByocTrunk parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ByocTrunk </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteByocTrunkOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> delete </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the BYOC Trunk resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ByocTrunk </returns>
-        public static bool Delete(string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteByocTrunkOptions(pathSid)     ;
+            var options = new DeleteByocTrunkOptions(pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the BYOC Trunk resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ByocTrunk </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteByocTrunkOptions(pathSid) ;
+            var options = new DeleteByocTrunkOptions(pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchByocTrunkOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchByocTrunkOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/ByocTrunks/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -222,53 +222,53 @@ namespace Kandy.Rest.Voice.V1
         /// <param name="options"> Fetch ByocTrunk parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ByocTrunk </returns>
-        public static ByocTrunkResource Fetch(FetchByocTrunkOptions options, ITwilioRestClient client = null)
+        public static ByocTrunkResource Fetch(FetchByocTrunkOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch ByocTrunk parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ByocTrunk </returns>
         public static async System.Threading.Tasks.Task<ByocTrunkResource> FetchAsync(FetchByocTrunkOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the BYOC Trunk resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ByocTrunk </returns>
         public static ByocTrunkResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchByocTrunkOptions(pathSid){  };
+            var options = new FetchByocTrunkOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the BYOC Trunk resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ByocTrunk </returns>
-        public static async System.Threading.Tasks.Task<ByocTrunkResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<ByocTrunkResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchByocTrunkOptions(pathSid){  };
+            var options = new FetchByocTrunkOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadByocTrunkOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadByocTrunkOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/ByocTrunks";
 
 
@@ -284,7 +284,7 @@ namespace Kandy.Rest.Voice.V1
         /// <param name="options"> Read ByocTrunk parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ByocTrunk </returns>
-        public static ResourceSet<ByocTrunkResource> Read(ReadByocTrunkOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<ByocTrunkResource> Read(ReadByocTrunkOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -292,13 +292,13 @@ namespace Kandy.Rest.Voice.V1
             return new ResourceSet<ByocTrunkResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read ByocTrunk parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ByocTrunk </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<ByocTrunkResource>> ReadAsync(ReadByocTrunkOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -306,7 +306,7 @@ namespace Kandy.Rest.Voice.V1
             var page = Page<ByocTrunkResource>.FromJson("byoc_trunks", response.Content);
             return new ResourceSet<ByocTrunkResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -315,13 +315,13 @@ namespace Kandy.Rest.Voice.V1
         public static ResourceSet<ByocTrunkResource> Read(
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadByocTrunkOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadByocTrunkOptions() { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -330,19 +330,19 @@ namespace Kandy.Rest.Voice.V1
         public static async System.Threading.Tasks.Task<ResourceSet<ByocTrunkResource>> ReadAsync(
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadByocTrunkOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadByocTrunkOptions() { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<ByocTrunkResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<ByocTrunkResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -359,7 +359,7 @@ namespace Kandy.Rest.Voice.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<ByocTrunkResource> NextPage(Page<ByocTrunkResource> page, ITwilioRestClient client)
+        public static Page<ByocTrunkResource> NextPage(Page<ByocTrunkResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -374,7 +374,7 @@ namespace Kandy.Rest.Voice.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<ByocTrunkResource> PreviousPage(Page<ByocTrunkResource> page, ITwilioRestClient client)
+        public static Page<ByocTrunkResource> PreviousPage(Page<ByocTrunkResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -385,14 +385,14 @@ namespace Kandy.Rest.Voice.V1
             return Page<ByocTrunkResource>.FromJson("byoc_trunks", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateByocTrunkOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateByocTrunkOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/ByocTrunks/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -407,7 +407,7 @@ namespace Kandy.Rest.Voice.V1
         /// <param name="options"> Update ByocTrunk parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ByocTrunk </returns>
-        public static ByocTrunkResource Update(UpdateByocTrunkOptions options, ITwilioRestClient client = null)
+        public static ByocTrunkResource Update(UpdateByocTrunkOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -418,15 +418,15 @@ namespace Kandy.Rest.Voice.V1
         /// <param name="options"> Update ByocTrunk parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ByocTrunk </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<ByocTrunkResource> UpdateAsync(UpdateByocTrunkOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> update </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the BYOC Trunk resource to update. </param>
@@ -454,13 +454,13 @@ namespace Kandy.Rest.Voice.V1
                                           bool? cnamLookupEnabled = null,
                                           string connectionPolicySid = null,
                                           string fromDomainSid = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateByocTrunkOptions(pathSid){ FriendlyName = friendlyName, VoiceUrl = voiceUrl, VoiceMethod = voiceMethod, VoiceFallbackUrl = voiceFallbackUrl, VoiceFallbackMethod = voiceFallbackMethod, StatusCallbackUrl = statusCallbackUrl, StatusCallbackMethod = statusCallbackMethod, CnamLookupEnabled = cnamLookupEnabled, ConnectionPolicySid = connectionPolicySid, FromDomainSid = fromDomainSid };
+            var options = new UpdateByocTrunkOptions(pathSid) { FriendlyName = friendlyName, VoiceUrl = voiceUrl, VoiceMethod = voiceMethod, VoiceFallbackUrl = voiceFallbackUrl, VoiceFallbackMethod = voiceFallbackMethod, StatusCallbackUrl = statusCallbackUrl, StatusCallbackMethod = statusCallbackMethod, CnamLookupEnabled = cnamLookupEnabled, ConnectionPolicySid = connectionPolicySid, FromDomainSid = fromDomainSid };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> update </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the BYOC Trunk resource to update. </param>
         /// <param name="friendlyName"> A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long. </param>
@@ -487,13 +487,13 @@ namespace Kandy.Rest.Voice.V1
                                                                               bool? cnamLookupEnabled = null,
                                                                               string connectionPolicySid = null,
                                                                               string fromDomainSid = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateByocTrunkOptions(pathSid){ FriendlyName = friendlyName, VoiceUrl = voiceUrl, VoiceMethod = voiceMethod, VoiceFallbackUrl = voiceFallbackUrl, VoiceFallbackMethod = voiceFallbackMethod, StatusCallbackUrl = statusCallbackUrl, StatusCallbackMethod = statusCallbackMethod, CnamLookupEnabled = cnamLookupEnabled, ConnectionPolicySid = connectionPolicySid, FromDomainSid = fromDomainSid };
+            var options = new UpdateByocTrunkOptions(pathSid) { FriendlyName = friendlyName, VoiceUrl = voiceUrl, VoiceMethod = voiceMethod, VoiceFallbackUrl = voiceFallbackUrl, VoiceFallbackMethod = voiceFallbackMethod, StatusCallbackUrl = statusCallbackUrl, StatusCallbackMethod = statusCallbackMethod, CnamLookupEnabled = cnamLookupEnabled, ConnectionPolicySid = connectionPolicySid, FromDomainSid = fromDomainSid };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a ByocTrunkResource object
         /// </summary>
@@ -511,7 +511,7 @@ namespace Kandy.Rest.Voice.V1
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the BYOC Trunk resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -574,7 +574,8 @@ namespace Kandy.Rest.Voice.V1
 
 
 
-        private ByocTrunkResource() {
+        private ByocTrunkResource()
+        {
 
         }
     }

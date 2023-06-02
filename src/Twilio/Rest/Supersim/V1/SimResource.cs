@@ -28,12 +28,12 @@ namespace Kandy.Rest.Supersim.V1
 {
     public class SimResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class StatusEnum : StringEnum
         {
-            private StatusEnum(string value) : base(value) {}
-            public StatusEnum() {}
+            private StatusEnum(string value) : base(value) { }
+            public StatusEnum() { }
             public static implicit operator StatusEnum(string value)
             {
                 return new StatusEnum(value);
@@ -47,8 +47,8 @@ namespace Kandy.Rest.Supersim.V1
         }
         public sealed class StatusUpdateEnum : StringEnum
         {
-            private StatusUpdateEnum(string value) : base(value) {}
-            public StatusUpdateEnum() {}
+            private StatusUpdateEnum(string value) : base(value) { }
+            public StatusUpdateEnum() { }
             public static implicit operator StatusUpdateEnum(string value)
             {
                 return new StatusUpdateEnum(value);
@@ -59,10 +59,10 @@ namespace Kandy.Rest.Supersim.V1
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateSimOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateSimOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Sims";
 
 
@@ -79,26 +79,26 @@ namespace Kandy.Rest.Supersim.V1
         /// <param name="options"> Create Sim parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Sim </returns>
-        public static SimResource Create(CreateSimOptions options, ITwilioRestClient client = null)
+        public static SimResource Create(CreateSimOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Register a Super SIM to your Account </summary>
         /// <param name="options"> Create Sim parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Sim </returns>
         public static async System.Threading.Tasks.Task<SimResource> CreateAsync(CreateSimOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Register a Super SIM to your Account </summary>
         /// <param name="iccid"> The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) of the Super SIM to be added to your Account. </param>
@@ -108,13 +108,13 @@ namespace Kandy.Rest.Supersim.V1
         public static SimResource Create(
                                           string iccid,
                                           string registrationCode,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateSimOptions(iccid, registrationCode){  };
+            var options = new CreateSimOptions(iccid, registrationCode) { };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Register a Super SIM to your Account </summary>
         /// <param name="iccid"> The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) of the Super SIM to be added to your Account. </param>
         /// <param name="registrationCode"> The 10-digit code required to claim the Super SIM for your Account. </param>
@@ -123,20 +123,20 @@ namespace Kandy.Rest.Supersim.V1
         public static async System.Threading.Tasks.Task<SimResource> CreateAsync(
                                                                                   string iccid,
                                                                                   string registrationCode,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateSimOptions(iccid, registrationCode){  };
+            var options = new CreateSimOptions(iccid, registrationCode) { };
             return await CreateAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchSimOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchSimOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Sims/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -151,53 +151,53 @@ namespace Kandy.Rest.Supersim.V1
         /// <param name="options"> Fetch Sim parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Sim </returns>
-        public static SimResource Fetch(FetchSimOptions options, ITwilioRestClient client = null)
+        public static SimResource Fetch(FetchSimOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a Super SIM instance from your account. </summary>
         /// <param name="options"> Fetch Sim parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Sim </returns>
         public static async System.Threading.Tasks.Task<SimResource> FetchAsync(FetchSimOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a Super SIM instance from your account. </summary>
         /// <param name="pathSid"> The SID of the Sim resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Sim </returns>
         public static SimResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchSimOptions(pathSid){  };
+            var options = new FetchSimOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a Super SIM instance from your account. </summary>
         /// <param name="pathSid"> The SID of the Sim resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Sim </returns>
-        public static async System.Threading.Tasks.Task<SimResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<SimResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchSimOptions(pathSid){  };
+            var options = new FetchSimOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadSimOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadSimOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Sims";
 
 
@@ -213,7 +213,7 @@ namespace Kandy.Rest.Supersim.V1
         /// <param name="options"> Read Sim parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Sim </returns>
-        public static ResourceSet<SimResource> Read(ReadSimOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<SimResource> Read(ReadSimOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -221,13 +221,13 @@ namespace Kandy.Rest.Supersim.V1
             return new ResourceSet<SimResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of Super SIMs from your account. </summary>
         /// <param name="options"> Read Sim parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Sim </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<SimResource>> ReadAsync(ReadSimOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -235,7 +235,7 @@ namespace Kandy.Rest.Supersim.V1
             var page = Page<SimResource>.FromJson("sims", response.Content);
             return new ResourceSet<SimResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of Super SIMs from your account. </summary>
         /// <param name="status"> The status of the Sim resources to read. Can be `new`, `ready`, `active`, `inactive`, or `scheduled`. </param>
         /// <param name="fleet"> The SID or unique name of the Fleet to which a list of Sims are assigned. </param>
@@ -250,13 +250,13 @@ namespace Kandy.Rest.Supersim.V1
                                                      string iccid = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadSimOptions(){ Status = status, Fleet = fleet, Iccid = iccid, PageSize = pageSize, Limit = limit};
+            var options = new ReadSimOptions() { Status = status, Fleet = fleet, Iccid = iccid, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of Super SIMs from your account. </summary>
         /// <param name="status"> The status of the Sim resources to read. Can be `new`, `ready`, `active`, `inactive`, or `scheduled`. </param>
         /// <param name="fleet"> The SID or unique name of the Fleet to which a list of Sims are assigned. </param>
@@ -271,19 +271,19 @@ namespace Kandy.Rest.Supersim.V1
                                                                                              string iccid = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadSimOptions(){ Status = status, Fleet = fleet, Iccid = iccid, PageSize = pageSize, Limit = limit};
+            var options = new ReadSimOptions() { Status = status, Fleet = fleet, Iccid = iccid, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<SimResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<SimResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -300,7 +300,7 @@ namespace Kandy.Rest.Supersim.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<SimResource> NextPage(Page<SimResource> page, ITwilioRestClient client)
+        public static Page<SimResource> NextPage(Page<SimResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -315,7 +315,7 @@ namespace Kandy.Rest.Supersim.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<SimResource> PreviousPage(Page<SimResource> page, ITwilioRestClient client)
+        public static Page<SimResource> PreviousPage(Page<SimResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -326,14 +326,14 @@ namespace Kandy.Rest.Supersim.V1
             return Page<SimResource>.FromJson("sims", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateSimOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateSimOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Sims/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -348,7 +348,7 @@ namespace Kandy.Rest.Supersim.V1
         /// <param name="options"> Update Sim parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Sim </returns>
-        public static SimResource Update(UpdateSimOptions options, ITwilioRestClient client = null)
+        public static SimResource Update(UpdateSimOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -359,15 +359,15 @@ namespace Kandy.Rest.Supersim.V1
         /// <param name="options"> Update Sim parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Sim </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<SimResource> UpdateAsync(UpdateSimOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Updates the given properties of a Super SIM instance from your account. </summary>
         /// <param name="pathSid"> The SID of the Sim resource to update. </param>
@@ -387,13 +387,13 @@ namespace Kandy.Rest.Supersim.V1
                                           Uri callbackUrl = null,
                                           Twilio.Http.HttpMethod callbackMethod = null,
                                           string accountSid = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateSimOptions(pathSid){ UniqueName = uniqueName, Status = status, Fleet = fleet, CallbackUrl = callbackUrl, CallbackMethod = callbackMethod, AccountSid = accountSid };
+            var options = new UpdateSimOptions(pathSid) { UniqueName = uniqueName, Status = status, Fleet = fleet, CallbackUrl = callbackUrl, CallbackMethod = callbackMethod, AccountSid = accountSid };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Updates the given properties of a Super SIM instance from your account. </summary>
         /// <param name="pathSid"> The SID of the Sim resource to update. </param>
         /// <param name="uniqueName"> An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource. </param>
@@ -412,13 +412,13 @@ namespace Kandy.Rest.Supersim.V1
                                                                               Uri callbackUrl = null,
                                                                               Twilio.Http.HttpMethod callbackMethod = null,
                                                                               string accountSid = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateSimOptions(pathSid){ UniqueName = uniqueName, Status = status, Fleet = fleet, CallbackUrl = callbackUrl, CallbackMethod = callbackMethod, AccountSid = accountSid };
+            var options = new UpdateSimOptions(pathSid) { UniqueName = uniqueName, Status = status, Fleet = fleet, CallbackUrl = callbackUrl, CallbackMethod = callbackMethod, AccountSid = accountSid };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a SimResource object
         /// </summary>
@@ -436,7 +436,7 @@ namespace Kandy.Rest.Supersim.V1
             }
         }
 
-    
+
         ///<summary> The unique string that identifies the Sim resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -453,7 +453,7 @@ namespace Kandy.Rest.Supersim.V1
         [JsonProperty("iccid")]
         public string Iccid { get; private set; }
 
-        
+
         [JsonProperty("status")]
         public SimResource.StatusEnum Status { get; private set; }
 
@@ -479,7 +479,8 @@ namespace Kandy.Rest.Supersim.V1
 
 
 
-        private SimResource() {
+        private SimResource()
+        {
 
         }
     }

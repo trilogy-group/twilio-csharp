@@ -28,16 +28,16 @@ namespace Kandy.Rest.Pricing.V2
 {
     public class NumberResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchNumberOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchNumberOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Trunking/Numbers/{DestinationNumber}";
 
             string PathDestinationNumber = options.PathDestinationNumber.ToString();
-            path = path.Replace("{"+"DestinationNumber"+"}", PathDestinationNumber);
+            path = path.Replace("{" + "DestinationNumber" + "}", PathDestinationNumber);
 
             return new Request(
                 HttpMethod.Get,
@@ -52,53 +52,53 @@ namespace Kandy.Rest.Pricing.V2
         /// <param name="options"> Fetch Number parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Number </returns>
-        public static NumberResource Fetch(FetchNumberOptions options, ITwilioRestClient client = null)
+        public static NumberResource Fetch(FetchNumberOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch pricing information for a specific destination and, optionally, origination phone number. </summary>
         /// <param name="options"> Fetch Number parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Number </returns>
         public static async System.Threading.Tasks.Task<NumberResource> FetchAsync(FetchNumberOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch pricing information for a specific destination and, optionally, origination phone number. </summary>
         /// <param name="pathDestinationNumber"> The destination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number. </param>
         /// <param name="originationNumber"> The origination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Number </returns>
         public static NumberResource Fetch(
-                                         Types.PhoneNumber pathDestinationNumber, 
-                                         Types.PhoneNumber originationNumber = null, 
-                                         ITwilioRestClient client = null)
+                                         Types.PhoneNumber pathDestinationNumber,
+                                         Types.PhoneNumber originationNumber = null,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchNumberOptions(pathDestinationNumber){ OriginationNumber = originationNumber };
+            var options = new FetchNumberOptions(pathDestinationNumber) { OriginationNumber = originationNumber };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch pricing information for a specific destination and, optionally, origination phone number. </summary>
         /// <param name="pathDestinationNumber"> The destination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number. </param>
         /// <param name="originationNumber"> The origination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Number </returns>
-        public static async System.Threading.Tasks.Task<NumberResource> FetchAsync(Types.PhoneNumber pathDestinationNumber, Types.PhoneNumber originationNumber = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<NumberResource> FetchAsync(Types.PhoneNumber pathDestinationNumber, Types.PhoneNumber originationNumber = null, IKandyRestClient client = null)
         {
-            var options = new FetchNumberOptions(pathDestinationNumber){ OriginationNumber = originationNumber };
+            var options = new FetchNumberOptions(pathDestinationNumber) { OriginationNumber = originationNumber };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a NumberResource object
         /// </summary>
@@ -116,7 +116,7 @@ namespace Kandy.Rest.Pricing.V2
             }
         }
 
-    
+
         ///<summary> The destination phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number. </summary> 
         [JsonProperty("destination_number")]
         [JsonConverter(typeof(PhoneNumberConverter))]
@@ -153,7 +153,8 @@ namespace Kandy.Rest.Pricing.V2
 
 
 
-        private NumberResource() {
+        private NumberResource()
+        {
 
         }
     }

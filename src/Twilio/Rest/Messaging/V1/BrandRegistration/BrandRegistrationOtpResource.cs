@@ -28,16 +28,16 @@ namespace Kandy.Rest.Messaging.V1.BrandRegistration
 {
     public class BrandRegistrationOtpResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateBrandRegistrationOtpOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateBrandRegistrationOtpOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/a2p/BrandRegistrations/{BrandRegistrationSid}/SmsOtp";
 
             string PathBrandRegistrationSid = options.PathBrandRegistrationSid;
-            path = path.Replace("{"+"BrandRegistrationSid"+"}", PathBrandRegistrationSid);
+            path = path.Replace("{" + "BrandRegistrationSid" + "}", PathBrandRegistrationSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -52,26 +52,26 @@ namespace Kandy.Rest.Messaging.V1.BrandRegistration
         /// <param name="options"> Create BrandRegistrationOtp parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of BrandRegistrationOtp </returns>
-        public static BrandRegistrationOtpResource Create(CreateBrandRegistrationOtpOptions options, ITwilioRestClient client = null)
+        public static BrandRegistrationOtpResource Create(CreateBrandRegistrationOtpOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create BrandRegistrationOtp parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of BrandRegistrationOtp </returns>
         public static async System.Threading.Tasks.Task<BrandRegistrationOtpResource> CreateAsync(CreateBrandRegistrationOtpOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="pathBrandRegistrationSid"> Brand Registration Sid of Sole Proprietor Brand. </param>
@@ -79,26 +79,26 @@ namespace Kandy.Rest.Messaging.V1.BrandRegistration
         /// <returns> A single instance of BrandRegistrationOtp </returns>
         public static BrandRegistrationOtpResource Create(
                                           string pathBrandRegistrationSid,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateBrandRegistrationOtpOptions(pathBrandRegistrationSid){  };
+            var options = new CreateBrandRegistrationOtpOptions(pathBrandRegistrationSid) { };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="pathBrandRegistrationSid"> Brand Registration Sid of Sole Proprietor Brand. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of BrandRegistrationOtp </returns>
         public static async System.Threading.Tasks.Task<BrandRegistrationOtpResource> CreateAsync(
                                                                                   string pathBrandRegistrationSid,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateBrandRegistrationOtpOptions(pathBrandRegistrationSid){  };
+            var options = new CreateBrandRegistrationOtpOptions(pathBrandRegistrationSid) { };
             return await CreateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a BrandRegistrationOtpResource object
         /// </summary>
@@ -116,7 +116,7 @@ namespace Kandy.Rest.Messaging.V1.BrandRegistration
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Brand Registration resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -127,7 +127,8 @@ namespace Kandy.Rest.Messaging.V1.BrandRegistration
 
 
 
-        private BrandRegistrationOtpResource() {
+        private BrandRegistrationOtpResource()
+        {
 
         }
     }

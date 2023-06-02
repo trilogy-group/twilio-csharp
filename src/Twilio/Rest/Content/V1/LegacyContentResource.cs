@@ -28,12 +28,12 @@ namespace Kandy.Rest.Content.V1
 {
     public class LegacyContentResource : Resource
     {
-    
 
-        
-        private static Request BuildReadRequest(ReadLegacyContentOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildReadRequest(ReadLegacyContentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/LegacyContent";
 
 
@@ -49,7 +49,7 @@ namespace Kandy.Rest.Content.V1
         /// <param name="options"> Read LegacyContent parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of LegacyContent </returns>
-        public static ResourceSet<LegacyContentResource> Read(ReadLegacyContentOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<LegacyContentResource> Read(ReadLegacyContentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -57,13 +57,13 @@ namespace Kandy.Rest.Content.V1
             return new ResourceSet<LegacyContentResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of Legacy Contents belonging to the account used to make the request </summary>
         /// <param name="options"> Read LegacyContent parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of LegacyContent </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<LegacyContentResource>> ReadAsync(ReadLegacyContentOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -71,7 +71,7 @@ namespace Kandy.Rest.Content.V1
             var page = Page<LegacyContentResource>.FromJson("contents", response.Content);
             return new ResourceSet<LegacyContentResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of Legacy Contents belonging to the account used to make the request </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -80,13 +80,13 @@ namespace Kandy.Rest.Content.V1
         public static ResourceSet<LegacyContentResource> Read(
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadLegacyContentOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadLegacyContentOptions() { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of Legacy Contents belonging to the account used to make the request </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -95,19 +95,19 @@ namespace Kandy.Rest.Content.V1
         public static async System.Threading.Tasks.Task<ResourceSet<LegacyContentResource>> ReadAsync(
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadLegacyContentOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadLegacyContentOptions() { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<LegacyContentResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<LegacyContentResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -124,7 +124,7 @@ namespace Kandy.Rest.Content.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<LegacyContentResource> NextPage(Page<LegacyContentResource> page, ITwilioRestClient client)
+        public static Page<LegacyContentResource> NextPage(Page<LegacyContentResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -139,7 +139,7 @@ namespace Kandy.Rest.Content.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<LegacyContentResource> PreviousPage(Page<LegacyContentResource> page, ITwilioRestClient client)
+        public static Page<LegacyContentResource> PreviousPage(Page<LegacyContentResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -150,7 +150,7 @@ namespace Kandy.Rest.Content.V1
             return Page<LegacyContentResource>.FromJson("contents", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a LegacyContentResource object
         /// </summary>
@@ -168,7 +168,7 @@ namespace Kandy.Rest.Content.V1
             }
         }
 
-    
+
         ///<summary> The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format. </summary> 
         [JsonProperty("date_created")]
         public DateTime? DateCreated { get; private set; }
@@ -215,7 +215,8 @@ namespace Kandy.Rest.Content.V1
 
 
 
-        private LegacyContentResource() {
+        private LegacyContentResource()
+        {
 
         }
     }

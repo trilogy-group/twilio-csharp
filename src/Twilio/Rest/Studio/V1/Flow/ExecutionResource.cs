@@ -28,12 +28,12 @@ namespace Kandy.Rest.Studio.V1.Flow
 {
     public class ExecutionResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class StatusEnum : StringEnum
         {
-            private StatusEnum(string value) : base(value) {}
-            public StatusEnum() {}
+            private StatusEnum(string value) : base(value) { }
+            public StatusEnum() { }
             public static implicit operator StatusEnum(string value)
             {
                 return new StatusEnum(value);
@@ -43,14 +43,14 @@ namespace Kandy.Rest.Studio.V1.Flow
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateExecutionOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateExecutionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Flows/{FlowSid}/Executions";
 
             string PathFlowSid = options.PathFlowSid;
-            path = path.Replace("{"+"FlowSid"+"}", PathFlowSid);
+            path = path.Replace("{" + "FlowSid" + "}", PathFlowSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -65,26 +65,26 @@ namespace Kandy.Rest.Studio.V1.Flow
         /// <param name="options"> Create Execution parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Execution </returns>
-        public static ExecutionResource Create(CreateExecutionOptions options, ITwilioRestClient client = null)
+        public static ExecutionResource Create(CreateExecutionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Triggers a new Execution for the Flow </summary>
         /// <param name="options"> Create Execution parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Execution </returns>
         public static async System.Threading.Tasks.Task<ExecutionResource> CreateAsync(CreateExecutionOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Triggers a new Execution for the Flow </summary>
         /// <param name="pathFlowSid"> The SID of the Excecution's Flow. </param>
@@ -98,13 +98,13 @@ namespace Kandy.Rest.Studio.V1.Flow
                                           Types.PhoneNumber to,
                                           Types.PhoneNumber from,
                                           object parameters = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateExecutionOptions(pathFlowSid, to, from){  Parameters = parameters };
+            var options = new CreateExecutionOptions(pathFlowSid, to, from) { Parameters = parameters };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Triggers a new Execution for the Flow </summary>
         /// <param name="pathFlowSid"> The SID of the Excecution's Flow. </param>
         /// <param name="to"> The Contact phone number to start a Studio Flow Execution, available as variable `{{contact.channel.address}}`. </param>
@@ -117,26 +117,26 @@ namespace Kandy.Rest.Studio.V1.Flow
                                                                                   Types.PhoneNumber to,
                                                                                   Types.PhoneNumber from,
                                                                                   object parameters = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateExecutionOptions(pathFlowSid, to, from){  Parameters = parameters };
+            var options = new CreateExecutionOptions(pathFlowSid, to, from) { Parameters = parameters };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Delete the Execution and all Steps relating to it. </summary>
         /// <param name="options"> Delete Execution parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Execution </returns>
-        private static Request BuildDeleteRequest(DeleteExecutionOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteExecutionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Flows/{FlowSid}/Executions/{Sid}";
 
             string PathFlowSid = options.PathFlowSid;
-            path = path.Replace("{"+"FlowSid"+"}", PathFlowSid);
+            path = path.Replace("{" + "FlowSid" + "}", PathFlowSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -151,60 +151,60 @@ namespace Kandy.Rest.Studio.V1.Flow
         /// <param name="options"> Delete Execution parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Execution </returns>
-        public static bool Delete(DeleteExecutionOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteExecutionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete the Execution and all Steps relating to it. </summary>
         /// <param name="options"> Delete Execution parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Execution </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteExecutionOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete the Execution and all Steps relating to it. </summary>
         /// <param name="pathFlowSid"> The SID of the Flow with the Execution resources to delete. </param>
         /// <param name="pathSid"> The SID of the Execution resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Execution </returns>
-        public static bool Delete(string pathFlowSid, string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathFlowSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteExecutionOptions(pathFlowSid, pathSid)        ;
+            var options = new DeleteExecutionOptions(pathFlowSid, pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete the Execution and all Steps relating to it. </summary>
         /// <param name="pathFlowSid"> The SID of the Flow with the Execution resources to delete. </param>
         /// <param name="pathSid"> The SID of the Execution resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Execution </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathFlowSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathFlowSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteExecutionOptions(pathFlowSid, pathSid) ;
+            var options = new DeleteExecutionOptions(pathFlowSid, pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchExecutionOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchExecutionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Flows/{FlowSid}/Executions/{Sid}";
 
             string PathFlowSid = options.PathFlowSid;
-            path = path.Replace("{"+"FlowSid"+"}", PathFlowSid);
+            path = path.Replace("{" + "FlowSid" + "}", PathFlowSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -219,60 +219,60 @@ namespace Kandy.Rest.Studio.V1.Flow
         /// <param name="options"> Fetch Execution parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Execution </returns>
-        public static ExecutionResource Fetch(FetchExecutionOptions options, ITwilioRestClient client = null)
+        public static ExecutionResource Fetch(FetchExecutionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve an Execution </summary>
         /// <param name="options"> Fetch Execution parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Execution </returns>
         public static async System.Threading.Tasks.Task<ExecutionResource> FetchAsync(FetchExecutionOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Retrieve an Execution </summary>
         /// <param name="pathFlowSid"> The SID of the Flow with the Execution resource to fetch </param>
         /// <param name="pathSid"> The SID of the Execution resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Execution </returns>
         public static ExecutionResource Fetch(
-                                         string pathFlowSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathFlowSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchExecutionOptions(pathFlowSid, pathSid){  };
+            var options = new FetchExecutionOptions(pathFlowSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve an Execution </summary>
         /// <param name="pathFlowSid"> The SID of the Flow with the Execution resource to fetch </param>
         /// <param name="pathSid"> The SID of the Execution resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Execution </returns>
-        public static async System.Threading.Tasks.Task<ExecutionResource> FetchAsync(string pathFlowSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<ExecutionResource> FetchAsync(string pathFlowSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchExecutionOptions(pathFlowSid, pathSid){  };
+            var options = new FetchExecutionOptions(pathFlowSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadExecutionOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadExecutionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Flows/{FlowSid}/Executions";
 
             string PathFlowSid = options.PathFlowSid;
-            path = path.Replace("{"+"FlowSid"+"}", PathFlowSid);
+            path = path.Replace("{" + "FlowSid" + "}", PathFlowSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -286,7 +286,7 @@ namespace Kandy.Rest.Studio.V1.Flow
         /// <param name="options"> Read Execution parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Execution </returns>
-        public static ResourceSet<ExecutionResource> Read(ReadExecutionOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<ExecutionResource> Read(ReadExecutionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -294,13 +294,13 @@ namespace Kandy.Rest.Studio.V1.Flow
             return new ResourceSet<ExecutionResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Executions for the Flow. </summary>
         /// <param name="options"> Read Execution parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Execution </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<ExecutionResource>> ReadAsync(ReadExecutionOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -308,7 +308,7 @@ namespace Kandy.Rest.Studio.V1.Flow
             var page = Page<ExecutionResource>.FromJson("executions", response.Content);
             return new ResourceSet<ExecutionResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Executions for the Flow. </summary>
         /// <param name="pathFlowSid"> The SID of the Flow with the Execution resources to read. </param>
         /// <param name="dateCreatedFrom"> Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`. </param>
@@ -323,13 +323,13 @@ namespace Kandy.Rest.Studio.V1.Flow
                                                      DateTime? dateCreatedTo = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadExecutionOptions(pathFlowSid){ DateCreatedFrom = dateCreatedFrom, DateCreatedTo = dateCreatedTo, PageSize = pageSize, Limit = limit};
+            var options = new ReadExecutionOptions(pathFlowSid) { DateCreatedFrom = dateCreatedFrom, DateCreatedTo = dateCreatedTo, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Executions for the Flow. </summary>
         /// <param name="pathFlowSid"> The SID of the Flow with the Execution resources to read. </param>
         /// <param name="dateCreatedFrom"> Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`. </param>
@@ -344,19 +344,19 @@ namespace Kandy.Rest.Studio.V1.Flow
                                                                                              DateTime? dateCreatedTo = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadExecutionOptions(pathFlowSid){ DateCreatedFrom = dateCreatedFrom, DateCreatedTo = dateCreatedTo, PageSize = pageSize, Limit = limit};
+            var options = new ReadExecutionOptions(pathFlowSid) { DateCreatedFrom = dateCreatedFrom, DateCreatedTo = dateCreatedTo, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<ExecutionResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<ExecutionResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -373,7 +373,7 @@ namespace Kandy.Rest.Studio.V1.Flow
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<ExecutionResource> NextPage(Page<ExecutionResource> page, ITwilioRestClient client)
+        public static Page<ExecutionResource> NextPage(Page<ExecutionResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -388,7 +388,7 @@ namespace Kandy.Rest.Studio.V1.Flow
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<ExecutionResource> PreviousPage(Page<ExecutionResource> page, ITwilioRestClient client)
+        public static Page<ExecutionResource> PreviousPage(Page<ExecutionResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -399,16 +399,16 @@ namespace Kandy.Rest.Studio.V1.Flow
             return Page<ExecutionResource>.FromJson("executions", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateExecutionOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateExecutionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Flows/{FlowSid}/Executions/{Sid}";
 
             string PathFlowSid = options.PathFlowSid;
-            path = path.Replace("{"+"FlowSid"+"}", PathFlowSid);
+            path = path.Replace("{" + "FlowSid" + "}", PathFlowSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -423,7 +423,7 @@ namespace Kandy.Rest.Studio.V1.Flow
         /// <param name="options"> Update Execution parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Execution </returns>
-        public static ExecutionResource Update(UpdateExecutionOptions options, ITwilioRestClient client = null)
+        public static ExecutionResource Update(UpdateExecutionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -434,15 +434,15 @@ namespace Kandy.Rest.Studio.V1.Flow
         /// <param name="options"> Update Execution parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Execution </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<ExecutionResource> UpdateAsync(UpdateExecutionOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update the status of an Execution to `ended`. </summary>
         /// <param name="pathFlowSid"> The SID of the Flow with the Execution resources to update. </param>
@@ -454,13 +454,13 @@ namespace Kandy.Rest.Studio.V1.Flow
                                           string pathFlowSid,
                                           string pathSid,
                                           ExecutionResource.StatusEnum status,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateExecutionOptions(pathFlowSid, pathSid, status){  };
+            var options = new UpdateExecutionOptions(pathFlowSid, pathSid, status) { };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update the status of an Execution to `ended`. </summary>
         /// <param name="pathFlowSid"> The SID of the Flow with the Execution resources to update. </param>
         /// <param name="pathSid"> The SID of the Execution resource to update. </param>
@@ -471,13 +471,13 @@ namespace Kandy.Rest.Studio.V1.Flow
                                                                               string pathFlowSid,
                                                                               string pathSid,
                                                                               ExecutionResource.StatusEnum status,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateExecutionOptions(pathFlowSid, pathSid, status){  };
+            var options = new UpdateExecutionOptions(pathFlowSid, pathSid, status) { };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a ExecutionResource object
         /// </summary>
@@ -495,7 +495,7 @@ namespace Kandy.Rest.Studio.V1.Flow
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the Execution resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -520,7 +520,7 @@ namespace Kandy.Rest.Studio.V1.Flow
         [JsonProperty("context")]
         public object Context { get; private set; }
 
-        
+
         [JsonProperty("status")]
         public ExecutionResource.StatusEnum Status { get; private set; }
 
@@ -542,7 +542,8 @@ namespace Kandy.Rest.Studio.V1.Flow
 
 
 
-        private ExecutionResource() {
+        private ExecutionResource()
+        {
 
         }
     }

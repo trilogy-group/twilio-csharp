@@ -28,12 +28,12 @@ namespace Kandy.Rest.Chat.V1.Service.User
 {
     public class UserChannelResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class ChannelStatusEnum : StringEnum
         {
-            private ChannelStatusEnum(string value) : base(value) {}
-            public ChannelStatusEnum() {}
+            private ChannelStatusEnum(string value) : base(value) { }
+            public ChannelStatusEnum() { }
             public static implicit operator ChannelStatusEnum(string value)
             {
                 return new ChannelStatusEnum(value);
@@ -44,16 +44,16 @@ namespace Kandy.Rest.Chat.V1.Service.User
 
         }
 
-        
-        private static Request BuildReadRequest(ReadUserChannelOptions options, ITwilioRestClient client)
+
+        private static Request BuildReadRequest(ReadUserChannelOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Users/{UserSid}/Channels";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathUserSid = options.PathUserSid;
-            path = path.Replace("{"+"UserSid"+"}", PathUserSid);
+            path = path.Replace("{" + "UserSid" + "}", PathUserSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -67,7 +67,7 @@ namespace Kandy.Rest.Chat.V1.Service.User
         /// <param name="options"> Read UserChannel parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of UserChannel </returns>
-        public static ResourceSet<UserChannelResource> Read(ReadUserChannelOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<UserChannelResource> Read(ReadUserChannelOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -75,13 +75,13 @@ namespace Kandy.Rest.Chat.V1.Service.User
             return new ResourceSet<UserChannelResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> List all Channels for a given User. </summary>
         /// <param name="options"> Read UserChannel parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of UserChannel </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<UserChannelResource>> ReadAsync(ReadUserChannelOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -89,7 +89,7 @@ namespace Kandy.Rest.Chat.V1.Service.User
             var page = Page<UserChannelResource>.FromJson("channels", response.Content);
             return new ResourceSet<UserChannelResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> List all Channels for a given User. </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to read the resources from. </param>
         /// <param name="pathUserSid"> The SID of the [User](https://www.twilio.com/docs/api/chat/rest/users) to read the User Channel resources from. </param>
@@ -102,13 +102,13 @@ namespace Kandy.Rest.Chat.V1.Service.User
                                                      string pathUserSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadUserChannelOptions(pathServiceSid, pathUserSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadUserChannelOptions(pathServiceSid, pathUserSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> List all Channels for a given User. </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to read the resources from. </param>
         /// <param name="pathUserSid"> The SID of the [User](https://www.twilio.com/docs/api/chat/rest/users) to read the User Channel resources from. </param>
@@ -121,19 +121,19 @@ namespace Kandy.Rest.Chat.V1.Service.User
                                                                                              string pathUserSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadUserChannelOptions(pathServiceSid, pathUserSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadUserChannelOptions(pathServiceSid, pathUserSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<UserChannelResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<UserChannelResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -150,7 +150,7 @@ namespace Kandy.Rest.Chat.V1.Service.User
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<UserChannelResource> NextPage(Page<UserChannelResource> page, ITwilioRestClient client)
+        public static Page<UserChannelResource> NextPage(Page<UserChannelResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -165,7 +165,7 @@ namespace Kandy.Rest.Chat.V1.Service.User
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<UserChannelResource> PreviousPage(Page<UserChannelResource> page, ITwilioRestClient client)
+        public static Page<UserChannelResource> PreviousPage(Page<UserChannelResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -176,7 +176,7 @@ namespace Kandy.Rest.Chat.V1.Service.User
             return Page<UserChannelResource>.FromJson("channels", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a UserChannelResource object
         /// </summary>
@@ -194,7 +194,7 @@ namespace Kandy.Rest.Chat.V1.Service.User
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/api/rest/account) that created the User Channel resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -211,7 +211,7 @@ namespace Kandy.Rest.Chat.V1.Service.User
         [JsonProperty("member_sid")]
         public string MemberSid { get; private set; }
 
-        
+
         [JsonProperty("status")]
         public UserChannelResource.ChannelStatusEnum Status { get; private set; }
 
@@ -229,7 +229,8 @@ namespace Kandy.Rest.Chat.V1.Service.User
 
 
 
-        private UserChannelResource() {
+        private UserChannelResource()
+        {
 
         }
     }

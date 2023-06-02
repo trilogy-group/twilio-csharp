@@ -28,12 +28,12 @@ namespace Kandy.Rest.Wireless.V1
 {
     public class RatePlanResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateRatePlanOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateRatePlanOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/RatePlans";
 
 
@@ -50,26 +50,26 @@ namespace Kandy.Rest.Wireless.V1
         /// <param name="options"> Create RatePlan parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of RatePlan </returns>
-        public static RatePlanResource Create(CreateRatePlanOptions options, ITwilioRestClient client = null)
+        public static RatePlanResource Create(CreateRatePlanOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create RatePlan parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of RatePlan </returns>
         public static async System.Threading.Tasks.Task<RatePlanResource> CreateAsync(CreateRatePlanOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="uniqueName"> An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource. </param>
@@ -97,13 +97,13 @@ namespace Kandy.Rest.Wireless.V1
                                           List<string> internationalRoaming = null,
                                           int? nationalRoamingDataLimit = null,
                                           int? internationalRoamingDataLimit = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateRatePlanOptions(){  UniqueName = uniqueName, FriendlyName = friendlyName, DataEnabled = dataEnabled, DataLimit = dataLimit, DataMetering = dataMetering, MessagingEnabled = messagingEnabled, VoiceEnabled = voiceEnabled, NationalRoamingEnabled = nationalRoamingEnabled, InternationalRoaming = internationalRoaming, NationalRoamingDataLimit = nationalRoamingDataLimit, InternationalRoamingDataLimit = internationalRoamingDataLimit };
+            var options = new CreateRatePlanOptions() { UniqueName = uniqueName, FriendlyName = friendlyName, DataEnabled = dataEnabled, DataLimit = dataLimit, DataMetering = dataMetering, MessagingEnabled = messagingEnabled, VoiceEnabled = voiceEnabled, NationalRoamingEnabled = nationalRoamingEnabled, InternationalRoaming = internationalRoaming, NationalRoamingDataLimit = nationalRoamingDataLimit, InternationalRoamingDataLimit = internationalRoamingDataLimit };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="uniqueName"> An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource. </param>
         /// <param name="friendlyName"> A descriptive string that you create to describe the resource. It does not have to be unique. </param>
@@ -130,24 +130,24 @@ namespace Kandy.Rest.Wireless.V1
                                                                                   List<string> internationalRoaming = null,
                                                                                   int? nationalRoamingDataLimit = null,
                                                                                   int? internationalRoamingDataLimit = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateRatePlanOptions(){  UniqueName = uniqueName, FriendlyName = friendlyName, DataEnabled = dataEnabled, DataLimit = dataLimit, DataMetering = dataMetering, MessagingEnabled = messagingEnabled, VoiceEnabled = voiceEnabled, NationalRoamingEnabled = nationalRoamingEnabled, InternationalRoaming = internationalRoaming, NationalRoamingDataLimit = nationalRoamingDataLimit, InternationalRoamingDataLimit = internationalRoamingDataLimit };
+            var options = new CreateRatePlanOptions() { UniqueName = uniqueName, FriendlyName = friendlyName, DataEnabled = dataEnabled, DataLimit = dataLimit, DataMetering = dataMetering, MessagingEnabled = messagingEnabled, VoiceEnabled = voiceEnabled, NationalRoamingEnabled = nationalRoamingEnabled, InternationalRoaming = internationalRoaming, NationalRoamingDataLimit = nationalRoamingDataLimit, InternationalRoamingDataLimit = internationalRoamingDataLimit };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> delete </summary>
         /// <param name="options"> Delete RatePlan parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of RatePlan </returns>
-        private static Request BuildDeleteRequest(DeleteRatePlanOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteRatePlanOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/RatePlans/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -162,56 +162,56 @@ namespace Kandy.Rest.Wireless.V1
         /// <param name="options"> Delete RatePlan parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of RatePlan </returns>
-        public static bool Delete(DeleteRatePlanOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteRatePlanOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="options"> Delete RatePlan parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of RatePlan </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteRatePlanOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> delete </summary>
         /// <param name="pathSid"> The SID of the RatePlan resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of RatePlan </returns>
-        public static bool Delete(string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteRatePlanOptions(pathSid)     ;
+            var options = new DeleteRatePlanOptions(pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="pathSid"> The SID of the RatePlan resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of RatePlan </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteRatePlanOptions(pathSid) ;
+            var options = new DeleteRatePlanOptions(pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchRatePlanOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchRatePlanOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/RatePlans/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -226,53 +226,53 @@ namespace Kandy.Rest.Wireless.V1
         /// <param name="options"> Fetch RatePlan parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of RatePlan </returns>
-        public static RatePlanResource Fetch(FetchRatePlanOptions options, ITwilioRestClient client = null)
+        public static RatePlanResource Fetch(FetchRatePlanOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch RatePlan parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of RatePlan </returns>
         public static async System.Threading.Tasks.Task<RatePlanResource> FetchAsync(FetchRatePlanOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathSid"> The SID of the RatePlan resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of RatePlan </returns>
         public static RatePlanResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchRatePlanOptions(pathSid){  };
+            var options = new FetchRatePlanOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathSid"> The SID of the RatePlan resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of RatePlan </returns>
-        public static async System.Threading.Tasks.Task<RatePlanResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<RatePlanResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchRatePlanOptions(pathSid){  };
+            var options = new FetchRatePlanOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadRatePlanOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadRatePlanOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/RatePlans";
 
 
@@ -288,7 +288,7 @@ namespace Kandy.Rest.Wireless.V1
         /// <param name="options"> Read RatePlan parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of RatePlan </returns>
-        public static ResourceSet<RatePlanResource> Read(ReadRatePlanOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<RatePlanResource> Read(ReadRatePlanOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -296,13 +296,13 @@ namespace Kandy.Rest.Wireless.V1
             return new ResourceSet<RatePlanResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read RatePlan parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of RatePlan </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<RatePlanResource>> ReadAsync(ReadRatePlanOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -310,7 +310,7 @@ namespace Kandy.Rest.Wireless.V1
             var page = Page<RatePlanResource>.FromJson("rate_plans", response.Content);
             return new ResourceSet<RatePlanResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -319,13 +319,13 @@ namespace Kandy.Rest.Wireless.V1
         public static ResourceSet<RatePlanResource> Read(
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadRatePlanOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadRatePlanOptions() { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -334,19 +334,19 @@ namespace Kandy.Rest.Wireless.V1
         public static async System.Threading.Tasks.Task<ResourceSet<RatePlanResource>> ReadAsync(
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadRatePlanOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadRatePlanOptions() { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<RatePlanResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<RatePlanResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -363,7 +363,7 @@ namespace Kandy.Rest.Wireless.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<RatePlanResource> NextPage(Page<RatePlanResource> page, ITwilioRestClient client)
+        public static Page<RatePlanResource> NextPage(Page<RatePlanResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -378,7 +378,7 @@ namespace Kandy.Rest.Wireless.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<RatePlanResource> PreviousPage(Page<RatePlanResource> page, ITwilioRestClient client)
+        public static Page<RatePlanResource> PreviousPage(Page<RatePlanResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -389,14 +389,14 @@ namespace Kandy.Rest.Wireless.V1
             return Page<RatePlanResource>.FromJson("rate_plans", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateRatePlanOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateRatePlanOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/RatePlans/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -411,7 +411,7 @@ namespace Kandy.Rest.Wireless.V1
         /// <param name="options"> Update RatePlan parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of RatePlan </returns>
-        public static RatePlanResource Update(UpdateRatePlanOptions options, ITwilioRestClient client = null)
+        public static RatePlanResource Update(UpdateRatePlanOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -422,15 +422,15 @@ namespace Kandy.Rest.Wireless.V1
         /// <param name="options"> Update RatePlan parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of RatePlan </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<RatePlanResource> UpdateAsync(UpdateRatePlanOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> update </summary>
         /// <param name="pathSid"> The SID of the RatePlan resource to update. </param>
@@ -442,13 +442,13 @@ namespace Kandy.Rest.Wireless.V1
                                           string pathSid,
                                           string uniqueName = null,
                                           string friendlyName = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateRatePlanOptions(pathSid){ UniqueName = uniqueName, FriendlyName = friendlyName };
+            var options = new UpdateRatePlanOptions(pathSid) { UniqueName = uniqueName, FriendlyName = friendlyName };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> update </summary>
         /// <param name="pathSid"> The SID of the RatePlan resource to update. </param>
         /// <param name="uniqueName"> An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource. </param>
@@ -459,13 +459,13 @@ namespace Kandy.Rest.Wireless.V1
                                                                               string pathSid,
                                                                               string uniqueName = null,
                                                                               string friendlyName = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateRatePlanOptions(pathSid){ UniqueName = uniqueName, FriendlyName = friendlyName };
+            var options = new UpdateRatePlanOptions(pathSid) { UniqueName = uniqueName, FriendlyName = friendlyName };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a RatePlanResource object
         /// </summary>
@@ -483,7 +483,7 @@ namespace Kandy.Rest.Wireless.V1
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the RatePlan resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -550,7 +550,8 @@ namespace Kandy.Rest.Wireless.V1
 
 
 
-        private RatePlanResource() {
+        private RatePlanResource()
+        {
 
         }
     }

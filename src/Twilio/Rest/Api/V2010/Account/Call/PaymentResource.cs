@@ -28,11 +28,11 @@ namespace Kandy.Rest.Api.V2010.Account.Call
 {
     public class PaymentResource : Resource
     {
-    
+
         public sealed class StatusEnum : StringEnum
         {
-            private StatusEnum(string value) : base(value) {}
-            public StatusEnum() {}
+            private StatusEnum(string value) : base(value) { }
+            public StatusEnum() { }
             public static implicit operator StatusEnum(string value)
             {
                 return new StatusEnum(value);
@@ -43,8 +43,8 @@ namespace Kandy.Rest.Api.V2010.Account.Call
         }
         public sealed class PaymentMethodEnum : StringEnum
         {
-            private PaymentMethodEnum(string value) : base(value) {}
-            public PaymentMethodEnum() {}
+            private PaymentMethodEnum(string value) : base(value) { }
+            public PaymentMethodEnum() { }
             public static implicit operator PaymentMethodEnum(string value)
             {
                 return new PaymentMethodEnum(value);
@@ -55,8 +55,8 @@ namespace Kandy.Rest.Api.V2010.Account.Call
         }
         public sealed class TokenTypeEnum : StringEnum
         {
-            private TokenTypeEnum(string value) : base(value) {}
-            public TokenTypeEnum() {}
+            private TokenTypeEnum(string value) : base(value) { }
+            public TokenTypeEnum() { }
             public static implicit operator TokenTypeEnum(string value)
             {
                 return new TokenTypeEnum(value);
@@ -67,8 +67,8 @@ namespace Kandy.Rest.Api.V2010.Account.Call
         }
         public sealed class BankAccountTypeEnum : StringEnum
         {
-            private BankAccountTypeEnum(string value) : base(value) {}
-            public BankAccountTypeEnum() {}
+            private BankAccountTypeEnum(string value) : base(value) { }
+            public BankAccountTypeEnum() { }
             public static implicit operator BankAccountTypeEnum(string value)
             {
                 return new BankAccountTypeEnum(value);
@@ -80,8 +80,8 @@ namespace Kandy.Rest.Api.V2010.Account.Call
         }
         public sealed class CaptureEnum : StringEnum
         {
-            private CaptureEnum(string value) : base(value) {}
-            public CaptureEnum() {}
+            private CaptureEnum(string value) : base(value) { }
+            public CaptureEnum() { }
             public static implicit operator CaptureEnum(string value)
             {
                 return new CaptureEnum(value);
@@ -95,16 +95,16 @@ namespace Kandy.Rest.Api.V2010.Account.Call
 
         }
 
-        
-        private static Request BuildCreateRequest(CreatePaymentOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreatePaymentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathCallSid = options.PathCallSid;
-            path = path.Replace("{"+"CallSid"+"}", PathCallSid);
+            path = path.Replace("{" + "CallSid" + "}", PathCallSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -119,26 +119,26 @@ namespace Kandy.Rest.Api.V2010.Account.Call
         /// <param name="options"> Create Payment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Payment </returns>
-        public static PaymentResource Create(CreatePaymentOptions options, ITwilioRestClient client = null)
+        public static PaymentResource Create(CreatePaymentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create an instance of payments. This will start a new payments session </summary>
         /// <param name="options"> Create Payment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Payment </returns>
         public static async System.Threading.Tasks.Task<PaymentResource> CreateAsync(CreatePaymentOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create an instance of payments. This will start a new payments session </summary>
         /// <param name="pathCallSid"> The SID of the call that will create the resource. Call leg associated with this sid is expected to provide payment information thru DTMF. </param>
@@ -180,13 +180,13 @@ namespace Kandy.Rest.Api.V2010.Account.Call
                                           int? timeout = null,
                                           PaymentResource.TokenTypeEnum tokenType = null,
                                           string validCardTypes = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreatePaymentOptions(pathCallSid, idempotencyKey, statusCallback){  PathAccountSid = pathAccountSid, BankAccountType = bankAccountType, ChargeAmount = chargeAmount, Currency = currency, Description = description, Input = input, MinPostalCodeLength = minPostalCodeLength, Parameter = parameter, PaymentConnector = paymentConnector, PaymentMethod = paymentMethod, PostalCode = postalCode, SecurityCode = securityCode, Timeout = timeout, TokenType = tokenType, ValidCardTypes = validCardTypes };
+            var options = new CreatePaymentOptions(pathCallSid, idempotencyKey, statusCallback) { PathAccountSid = pathAccountSid, BankAccountType = bankAccountType, ChargeAmount = chargeAmount, Currency = currency, Description = description, Input = input, MinPostalCodeLength = minPostalCodeLength, Parameter = parameter, PaymentConnector = paymentConnector, PaymentMethod = paymentMethod, PostalCode = postalCode, SecurityCode = securityCode, Timeout = timeout, TokenType = tokenType, ValidCardTypes = validCardTypes };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create an instance of payments. This will start a new payments session </summary>
         /// <param name="pathCallSid"> The SID of the call that will create the resource. Call leg associated with this sid is expected to provide payment information thru DTMF. </param>
         /// <param name="idempotencyKey"> A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated. </param>
@@ -227,24 +227,24 @@ namespace Kandy.Rest.Api.V2010.Account.Call
                                                                                   int? timeout = null,
                                                                                   PaymentResource.TokenTypeEnum tokenType = null,
                                                                                   string validCardTypes = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreatePaymentOptions(pathCallSid, idempotencyKey, statusCallback){  PathAccountSid = pathAccountSid, BankAccountType = bankAccountType, ChargeAmount = chargeAmount, Currency = currency, Description = description, Input = input, MinPostalCodeLength = minPostalCodeLength, Parameter = parameter, PaymentConnector = paymentConnector, PaymentMethod = paymentMethod, PostalCode = postalCode, SecurityCode = securityCode, Timeout = timeout, TokenType = tokenType, ValidCardTypes = validCardTypes };
+            var options = new CreatePaymentOptions(pathCallSid, idempotencyKey, statusCallback) { PathAccountSid = pathAccountSid, BankAccountType = bankAccountType, ChargeAmount = chargeAmount, Currency = currency, Description = description, Input = input, MinPostalCodeLength = minPostalCodeLength, Parameter = parameter, PaymentConnector = paymentConnector, PaymentMethod = paymentMethod, PostalCode = postalCode, SecurityCode = securityCode, Timeout = timeout, TokenType = tokenType, ValidCardTypes = validCardTypes };
             return await CreateAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildUpdateRequest(UpdatePaymentOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildUpdateRequest(UpdatePaymentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments/{Sid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathCallSid = options.PathCallSid;
-            path = path.Replace("{"+"CallSid"+"}", PathCallSid);
+            path = path.Replace("{" + "CallSid" + "}", PathCallSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -259,7 +259,7 @@ namespace Kandy.Rest.Api.V2010.Account.Call
         /// <param name="options"> Update Payment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Payment </returns>
-        public static PaymentResource Update(UpdatePaymentOptions options, ITwilioRestClient client = null)
+        public static PaymentResource Update(UpdatePaymentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -270,15 +270,15 @@ namespace Kandy.Rest.Api.V2010.Account.Call
         /// <param name="options"> Update Payment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Payment </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<PaymentResource> UpdateAsync(UpdatePaymentOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> update an instance of payments with different phases of payment flows. </summary>
         /// <param name="pathCallSid"> The SID of the call that will update the resource. This should be the same call sid that was used to create payments resource. </param>
@@ -298,13 +298,13 @@ namespace Kandy.Rest.Api.V2010.Account.Call
                                           string pathAccountSid = null,
                                           PaymentResource.CaptureEnum capture = null,
                                           PaymentResource.StatusEnum status = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdatePaymentOptions(pathCallSid, pathSid, idempotencyKey, statusCallback){ PathAccountSid = pathAccountSid, Capture = capture, Status = status };
+            var options = new UpdatePaymentOptions(pathCallSid, pathSid, idempotencyKey, statusCallback) { PathAccountSid = pathAccountSid, Capture = capture, Status = status };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> update an instance of payments with different phases of payment flows. </summary>
         /// <param name="pathCallSid"> The SID of the call that will update the resource. This should be the same call sid that was used to create payments resource. </param>
         /// <param name="pathSid"> The SID of Payments session that needs to be updated. </param>
@@ -323,13 +323,13 @@ namespace Kandy.Rest.Api.V2010.Account.Call
                                                                               string pathAccountSid = null,
                                                                               PaymentResource.CaptureEnum capture = null,
                                                                               PaymentResource.StatusEnum status = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdatePaymentOptions(pathCallSid, pathSid, idempotencyKey, statusCallback){ PathAccountSid = pathAccountSid, Capture = capture, Status = status };
+            var options = new UpdatePaymentOptions(pathCallSid, pathSid, idempotencyKey, statusCallback) { PathAccountSid = pathAccountSid, Capture = capture, Status = status };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a PaymentResource object
         /// </summary>
@@ -347,7 +347,7 @@ namespace Kandy.Rest.Api.V2010.Account.Call
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Payments resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -374,7 +374,8 @@ namespace Kandy.Rest.Api.V2010.Account.Call
 
 
 
-        private PaymentResource() {
+        private PaymentResource()
+        {
 
         }
     }

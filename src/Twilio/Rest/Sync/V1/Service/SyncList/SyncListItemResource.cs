@@ -28,11 +28,11 @@ namespace Kandy.Rest.Sync.V1.Service.SyncList
 {
     public class SyncListItemResource : Resource
     {
-    
+
         public sealed class QueryFromBoundTypeEnum : StringEnum
         {
-            private QueryFromBoundTypeEnum(string value) : base(value) {}
-            public QueryFromBoundTypeEnum() {}
+            private QueryFromBoundTypeEnum(string value) : base(value) { }
+            public QueryFromBoundTypeEnum() { }
             public static implicit operator QueryFromBoundTypeEnum(string value)
             {
                 return new QueryFromBoundTypeEnum(value);
@@ -43,8 +43,8 @@ namespace Kandy.Rest.Sync.V1.Service.SyncList
         }
         public sealed class QueryResultOrderEnum : StringEnum
         {
-            private QueryResultOrderEnum(string value) : base(value) {}
-            public QueryResultOrderEnum() {}
+            private QueryResultOrderEnum(string value) : base(value) { }
+            public QueryResultOrderEnum() { }
             public static implicit operator QueryResultOrderEnum(string value)
             {
                 return new QueryResultOrderEnum(value);
@@ -54,16 +54,16 @@ namespace Kandy.Rest.Sync.V1.Service.SyncList
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateSyncListItemOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateSyncListItemOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathListSid = options.PathListSid;
-            path = path.Replace("{"+"ListSid"+"}", PathListSid);
+            path = path.Replace("{" + "ListSid" + "}", PathListSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -78,26 +78,26 @@ namespace Kandy.Rest.Sync.V1.Service.SyncList
         /// <param name="options"> Create SyncListItem parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SyncListItem </returns>
-        public static SyncListItemResource Create(CreateSyncListItemOptions options, ITwilioRestClient client = null)
+        public static SyncListItemResource Create(CreateSyncListItemOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create SyncListItem parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SyncListItem </returns>
         public static async System.Threading.Tasks.Task<SyncListItemResource> CreateAsync(CreateSyncListItemOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="pathServiceSid"> The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) to create the new List Item in. </param>
@@ -115,13 +115,13 @@ namespace Kandy.Rest.Sync.V1.Service.SyncList
                                           int? ttl = null,
                                           int? itemTtl = null,
                                           int? collectionTtl = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateSyncListItemOptions(pathServiceSid, pathListSid, data){  Ttl = ttl, ItemTtl = itemTtl, CollectionTtl = collectionTtl };
+            var options = new CreateSyncListItemOptions(pathServiceSid, pathListSid, data) { Ttl = ttl, ItemTtl = itemTtl, CollectionTtl = collectionTtl };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="pathServiceSid"> The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) to create the new List Item in. </param>
         /// <param name="pathListSid"> The SID of the Sync List to add the new List Item to. Can be the Sync List resource's `sid` or its `unique_name`. </param>
@@ -138,28 +138,28 @@ namespace Kandy.Rest.Sync.V1.Service.SyncList
                                                                                   int? ttl = null,
                                                                                   int? itemTtl = null,
                                                                                   int? collectionTtl = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateSyncListItemOptions(pathServiceSid, pathListSid, data){  Ttl = ttl, ItemTtl = itemTtl, CollectionTtl = collectionTtl };
+            var options = new CreateSyncListItemOptions(pathServiceSid, pathListSid, data) { Ttl = ttl, ItemTtl = itemTtl, CollectionTtl = collectionTtl };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> delete </summary>
         /// <param name="options"> Delete SyncListItem parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SyncListItem </returns>
-        private static Request BuildDeleteRequest(DeleteSyncListItemOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteSyncListItemOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathListSid = options.PathListSid;
-            path = path.Replace("{"+"ListSid"+"}", PathListSid);
+            path = path.Replace("{" + "ListSid" + "}", PathListSid);
             string PathIndex = options.PathIndex.ToString();
-            path = path.Replace("{"+"Index"+"}", PathIndex);
+            path = path.Replace("{" + "Index" + "}", PathIndex);
 
             return new Request(
                 HttpMethod.Delete,
@@ -174,26 +174,26 @@ namespace Kandy.Rest.Sync.V1.Service.SyncList
         /// <param name="options"> Delete SyncListItem parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SyncListItem </returns>
-        public static bool Delete(DeleteSyncListItemOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteSyncListItemOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="options"> Delete SyncListItem parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SyncListItem </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteSyncListItemOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> delete </summary>
         /// <param name="pathServiceSid"> The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List Item resource to delete. </param>
@@ -202,13 +202,13 @@ namespace Kandy.Rest.Sync.V1.Service.SyncList
         /// <param name="ifMatch"> If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match). </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SyncListItem </returns>
-        public static bool Delete(string pathServiceSid, string pathListSid, int? pathIndex, string ifMatch = null, ITwilioRestClient client = null)
+        public static bool Delete(string pathServiceSid, string pathListSid, int? pathIndex, string ifMatch = null, IKandyRestClient client = null)
         {
-            var options = new DeleteSyncListItemOptions(pathServiceSid, pathListSid, pathIndex)            { IfMatch = ifMatch }   ;
+            var options = new DeleteSyncListItemOptions(pathServiceSid, pathListSid, pathIndex) { IfMatch = ifMatch };
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="pathServiceSid"> The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List Item resource to delete. </param>
         /// <param name="pathListSid"> The SID of the Sync List with the Sync List Item resource to delete. Can be the Sync List resource's `sid` or its `unique_name`. </param>
@@ -216,24 +216,24 @@ namespace Kandy.Rest.Sync.V1.Service.SyncList
         /// <param name="ifMatch"> If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match). </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SyncListItem </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathListSid, int? pathIndex, string ifMatch = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathListSid, int? pathIndex, string ifMatch = null, IKandyRestClient client = null)
         {
-            var options = new DeleteSyncListItemOptions(pathServiceSid, pathListSid, pathIndex)  { IfMatch = ifMatch };
+            var options = new DeleteSyncListItemOptions(pathServiceSid, pathListSid, pathIndex) { IfMatch = ifMatch };
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchSyncListItemOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchSyncListItemOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathListSid = options.PathListSid;
-            path = path.Replace("{"+"ListSid"+"}", PathListSid);
+            path = path.Replace("{" + "ListSid" + "}", PathListSid);
             string PathIndex = options.PathIndex.ToString();
-            path = path.Replace("{"+"Index"+"}", PathIndex);
+            path = path.Replace("{" + "Index" + "}", PathIndex);
 
             return new Request(
                 HttpMethod.Get,
@@ -248,26 +248,26 @@ namespace Kandy.Rest.Sync.V1.Service.SyncList
         /// <param name="options"> Fetch SyncListItem parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SyncListItem </returns>
-        public static SyncListItemResource Fetch(FetchSyncListItemOptions options, ITwilioRestClient client = null)
+        public static SyncListItemResource Fetch(FetchSyncListItemOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch SyncListItem parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SyncListItem </returns>
         public static async System.Threading.Tasks.Task<SyncListItemResource> FetchAsync(FetchSyncListItemOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathServiceSid"> The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List Item resource to fetch. </param>
         /// <param name="pathListSid"> The SID of the Sync List with the Sync List Item resource to fetch. Can be the Sync List resource's `sid` or its `unique_name`. </param>
@@ -275,38 +275,38 @@ namespace Kandy.Rest.Sync.V1.Service.SyncList
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SyncListItem </returns>
         public static SyncListItemResource Fetch(
-                                         string pathServiceSid, 
-                                         string pathListSid, 
-                                         int? pathIndex, 
-                                         ITwilioRestClient client = null)
+                                         string pathServiceSid,
+                                         string pathListSid,
+                                         int? pathIndex,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchSyncListItemOptions(pathServiceSid, pathListSid, pathIndex){  };
+            var options = new FetchSyncListItemOptions(pathServiceSid, pathListSid, pathIndex) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathServiceSid"> The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List Item resource to fetch. </param>
         /// <param name="pathListSid"> The SID of the Sync List with the Sync List Item resource to fetch. Can be the Sync List resource's `sid` or its `unique_name`. </param>
         /// <param name="pathIndex"> The index of the Sync List Item resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SyncListItem </returns>
-        public static async System.Threading.Tasks.Task<SyncListItemResource> FetchAsync(string pathServiceSid, string pathListSid, int? pathIndex, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<SyncListItemResource> FetchAsync(string pathServiceSid, string pathListSid, int? pathIndex, IKandyRestClient client = null)
         {
-            var options = new FetchSyncListItemOptions(pathServiceSid, pathListSid, pathIndex){  };
+            var options = new FetchSyncListItemOptions(pathServiceSid, pathListSid, pathIndex) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadSyncListItemOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadSyncListItemOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathListSid = options.PathListSid;
-            path = path.Replace("{"+"ListSid"+"}", PathListSid);
+            path = path.Replace("{" + "ListSid" + "}", PathListSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -320,7 +320,7 @@ namespace Kandy.Rest.Sync.V1.Service.SyncList
         /// <param name="options"> Read SyncListItem parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SyncListItem </returns>
-        public static ResourceSet<SyncListItemResource> Read(ReadSyncListItemOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<SyncListItemResource> Read(ReadSyncListItemOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -328,13 +328,13 @@ namespace Kandy.Rest.Sync.V1.Service.SyncList
             return new ResourceSet<SyncListItemResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read SyncListItem parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SyncListItem </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<SyncListItemResource>> ReadAsync(ReadSyncListItemOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -342,7 +342,7 @@ namespace Kandy.Rest.Sync.V1.Service.SyncList
             var page = Page<SyncListItemResource>.FromJson("items", response.Content);
             return new ResourceSet<SyncListItemResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="pathServiceSid"> The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the List Item resources to read. </param>
         /// <param name="pathListSid"> The SID of the Sync List with the List Items to read. Can be the Sync List resource's `sid` or its `unique_name`. </param>
@@ -361,13 +361,13 @@ namespace Kandy.Rest.Sync.V1.Service.SyncList
                                                      SyncListItemResource.QueryFromBoundTypeEnum bounds = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadSyncListItemOptions(pathServiceSid, pathListSid){ Order = order, From = from, Bounds = bounds, PageSize = pageSize, Limit = limit};
+            var options = new ReadSyncListItemOptions(pathServiceSid, pathListSid) { Order = order, From = from, Bounds = bounds, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="pathServiceSid"> The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the List Item resources to read. </param>
         /// <param name="pathListSid"> The SID of the Sync List with the List Items to read. Can be the Sync List resource's `sid` or its `unique_name`. </param>
@@ -386,19 +386,19 @@ namespace Kandy.Rest.Sync.V1.Service.SyncList
                                                                                              SyncListItemResource.QueryFromBoundTypeEnum bounds = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadSyncListItemOptions(pathServiceSid, pathListSid){ Order = order, From = from, Bounds = bounds, PageSize = pageSize, Limit = limit};
+            var options = new ReadSyncListItemOptions(pathServiceSid, pathListSid) { Order = order, From = from, Bounds = bounds, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<SyncListItemResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<SyncListItemResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -415,7 +415,7 @@ namespace Kandy.Rest.Sync.V1.Service.SyncList
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<SyncListItemResource> NextPage(Page<SyncListItemResource> page, ITwilioRestClient client)
+        public static Page<SyncListItemResource> NextPage(Page<SyncListItemResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -430,7 +430,7 @@ namespace Kandy.Rest.Sync.V1.Service.SyncList
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<SyncListItemResource> PreviousPage(Page<SyncListItemResource> page, ITwilioRestClient client)
+        public static Page<SyncListItemResource> PreviousPage(Page<SyncListItemResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -441,18 +441,18 @@ namespace Kandy.Rest.Sync.V1.Service.SyncList
             return Page<SyncListItemResource>.FromJson("items", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateSyncListItemOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateSyncListItemOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathListSid = options.PathListSid;
-            path = path.Replace("{"+"ListSid"+"}", PathListSid);
+            path = path.Replace("{" + "ListSid" + "}", PathListSid);
             string PathIndex = options.PathIndex.ToString();
-            path = path.Replace("{"+"Index"+"}", PathIndex);
+            path = path.Replace("{" + "Index" + "}", PathIndex);
 
             return new Request(
                 HttpMethod.Post,
@@ -467,7 +467,7 @@ namespace Kandy.Rest.Sync.V1.Service.SyncList
         /// <param name="options"> Update SyncListItem parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SyncListItem </returns>
-        public static SyncListItemResource Update(UpdateSyncListItemOptions options, ITwilioRestClient client = null)
+        public static SyncListItemResource Update(UpdateSyncListItemOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -478,15 +478,15 @@ namespace Kandy.Rest.Sync.V1.Service.SyncList
         /// <param name="options"> Update SyncListItem parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SyncListItem </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<SyncListItemResource> UpdateAsync(UpdateSyncListItemOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> update </summary>
         /// <param name="pathServiceSid"> The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List Item resource to update. </param>
@@ -508,13 +508,13 @@ namespace Kandy.Rest.Sync.V1.Service.SyncList
                                           int? itemTtl = null,
                                           int? collectionTtl = null,
                                           string ifMatch = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateSyncListItemOptions(pathServiceSid, pathListSid, pathIndex){ Data = data, Ttl = ttl, ItemTtl = itemTtl, CollectionTtl = collectionTtl, IfMatch = ifMatch };
+            var options = new UpdateSyncListItemOptions(pathServiceSid, pathListSid, pathIndex) { Data = data, Ttl = ttl, ItemTtl = itemTtl, CollectionTtl = collectionTtl, IfMatch = ifMatch };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> update </summary>
         /// <param name="pathServiceSid"> The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List Item resource to update. </param>
         /// <param name="pathListSid"> The SID of the Sync List with the Sync List Item resource to update. Can be the Sync List resource's `sid` or its `unique_name`. </param>
@@ -535,13 +535,13 @@ namespace Kandy.Rest.Sync.V1.Service.SyncList
                                                                               int? itemTtl = null,
                                                                               int? collectionTtl = null,
                                                                               string ifMatch = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateSyncListItemOptions(pathServiceSid, pathListSid, pathIndex){ Data = data, Ttl = ttl, ItemTtl = itemTtl, CollectionTtl = collectionTtl, IfMatch = ifMatch };
+            var options = new UpdateSyncListItemOptions(pathServiceSid, pathListSid, pathIndex) { Data = data, Ttl = ttl, ItemTtl = itemTtl, CollectionTtl = collectionTtl, IfMatch = ifMatch };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a SyncListItemResource object
         /// </summary>
@@ -559,7 +559,7 @@ namespace Kandy.Rest.Sync.V1.Service.SyncList
             }
         }
 
-    
+
         ///<summary> The automatically generated index of the List Item. The `index` values of the List Items in a Sync List can have gaps in their sequence. </summary> 
         [JsonProperty("index")]
         public int? Index { get; private set; }
@@ -606,7 +606,8 @@ namespace Kandy.Rest.Sync.V1.Service.SyncList
 
 
 
-        private SyncListItemResource() {
+        private SyncListItemResource()
+        {
 
         }
     }

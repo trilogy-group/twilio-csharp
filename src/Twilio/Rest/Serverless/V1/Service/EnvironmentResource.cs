@@ -28,16 +28,16 @@ namespace Kandy.Rest.Serverless.V1.Service
 {
     public class EnvironmentResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateEnvironmentOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateEnvironmentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Environments";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -52,26 +52,26 @@ namespace Kandy.Rest.Serverless.V1.Service
         /// <param name="options"> Create Environment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Environment </returns>
-        public static EnvironmentResource Create(CreateEnvironmentOptions options, ITwilioRestClient client = null)
+        public static EnvironmentResource Create(CreateEnvironmentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new environment. </summary>
         /// <param name="options"> Create Environment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Environment </returns>
         public static async System.Threading.Tasks.Task<EnvironmentResource> CreateAsync(CreateEnvironmentOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new environment. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to create the Environment resource under. </param>
@@ -83,13 +83,13 @@ namespace Kandy.Rest.Serverless.V1.Service
                                           string pathServiceSid,
                                           string uniqueName,
                                           string domainSuffix = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateEnvironmentOptions(pathServiceSid, uniqueName){  DomainSuffix = domainSuffix };
+            var options = new CreateEnvironmentOptions(pathServiceSid, uniqueName) { DomainSuffix = domainSuffix };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new environment. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to create the Environment resource under. </param>
         /// <param name="uniqueName"> A user-defined string that uniquely identifies the Environment resource. It can be a maximum of 100 characters. </param>
@@ -100,26 +100,26 @@ namespace Kandy.Rest.Serverless.V1.Service
                                                                                   string pathServiceSid,
                                                                                   string uniqueName,
                                                                                   string domainSuffix = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateEnvironmentOptions(pathServiceSid, uniqueName){  DomainSuffix = domainSuffix };
+            var options = new CreateEnvironmentOptions(pathServiceSid, uniqueName) { DomainSuffix = domainSuffix };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Delete a specific environment. </summary>
         /// <param name="options"> Delete Environment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Environment </returns>
-        private static Request BuildDeleteRequest(DeleteEnvironmentOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteEnvironmentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Environments/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -134,60 +134,60 @@ namespace Kandy.Rest.Serverless.V1.Service
         /// <param name="options"> Delete Environment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Environment </returns>
-        public static bool Delete(DeleteEnvironmentOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteEnvironmentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific environment. </summary>
         /// <param name="options"> Delete Environment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Environment </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteEnvironmentOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete a specific environment. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to delete the Environment resource from. </param>
         /// <param name="pathSid"> The SID of the Environment resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Environment </returns>
-        public static bool Delete(string pathServiceSid, string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathServiceSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteEnvironmentOptions(pathServiceSid, pathSid)        ;
+            var options = new DeleteEnvironmentOptions(pathServiceSid, pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific environment. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to delete the Environment resource from. </param>
         /// <param name="pathSid"> The SID of the Environment resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Environment </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteEnvironmentOptions(pathServiceSid, pathSid) ;
+            var options = new DeleteEnvironmentOptions(pathServiceSid, pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchEnvironmentOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchEnvironmentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Environments/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -202,60 +202,60 @@ namespace Kandy.Rest.Serverless.V1.Service
         /// <param name="options"> Fetch Environment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Environment </returns>
-        public static EnvironmentResource Fetch(FetchEnvironmentOptions options, ITwilioRestClient client = null)
+        public static EnvironmentResource Fetch(FetchEnvironmentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a specific environment. </summary>
         /// <param name="options"> Fetch Environment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Environment </returns>
         public static async System.Threading.Tasks.Task<EnvironmentResource> FetchAsync(FetchEnvironmentOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Retrieve a specific environment. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to fetch the Environment resource from. </param>
         /// <param name="pathSid"> The SID of the Environment resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Environment </returns>
         public static EnvironmentResource Fetch(
-                                         string pathServiceSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathServiceSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchEnvironmentOptions(pathServiceSid, pathSid){  };
+            var options = new FetchEnvironmentOptions(pathServiceSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a specific environment. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to fetch the Environment resource from. </param>
         /// <param name="pathSid"> The SID of the Environment resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Environment </returns>
-        public static async System.Threading.Tasks.Task<EnvironmentResource> FetchAsync(string pathServiceSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<EnvironmentResource> FetchAsync(string pathServiceSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchEnvironmentOptions(pathServiceSid, pathSid){  };
+            var options = new FetchEnvironmentOptions(pathServiceSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadEnvironmentOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadEnvironmentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Environments";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -269,7 +269,7 @@ namespace Kandy.Rest.Serverless.V1.Service
         /// <param name="options"> Read Environment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Environment </returns>
-        public static ResourceSet<EnvironmentResource> Read(ReadEnvironmentOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<EnvironmentResource> Read(ReadEnvironmentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -277,13 +277,13 @@ namespace Kandy.Rest.Serverless.V1.Service
             return new ResourceSet<EnvironmentResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all environments. </summary>
         /// <param name="options"> Read Environment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Environment </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<EnvironmentResource>> ReadAsync(ReadEnvironmentOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -291,7 +291,7 @@ namespace Kandy.Rest.Serverless.V1.Service
             var page = Page<EnvironmentResource>.FromJson("environments", response.Content);
             return new ResourceSet<EnvironmentResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all environments. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to read the Environment resources from. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -302,13 +302,13 @@ namespace Kandy.Rest.Serverless.V1.Service
                                                      string pathServiceSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadEnvironmentOptions(pathServiceSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadEnvironmentOptions(pathServiceSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all environments. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to read the Environment resources from. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -319,19 +319,19 @@ namespace Kandy.Rest.Serverless.V1.Service
                                                                                              string pathServiceSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadEnvironmentOptions(pathServiceSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadEnvironmentOptions(pathServiceSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<EnvironmentResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<EnvironmentResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -348,7 +348,7 @@ namespace Kandy.Rest.Serverless.V1.Service
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<EnvironmentResource> NextPage(Page<EnvironmentResource> page, ITwilioRestClient client)
+        public static Page<EnvironmentResource> NextPage(Page<EnvironmentResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -363,7 +363,7 @@ namespace Kandy.Rest.Serverless.V1.Service
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<EnvironmentResource> PreviousPage(Page<EnvironmentResource> page, ITwilioRestClient client)
+        public static Page<EnvironmentResource> PreviousPage(Page<EnvironmentResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -374,7 +374,7 @@ namespace Kandy.Rest.Serverless.V1.Service
             return Page<EnvironmentResource>.FromJson("environments", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a EnvironmentResource object
         /// </summary>
@@ -392,7 +392,7 @@ namespace Kandy.Rest.Serverless.V1.Service
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the Environment resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -439,7 +439,8 @@ namespace Kandy.Rest.Serverless.V1.Service
 
 
 
-        private EnvironmentResource() {
+        private EnvironmentResource()
+        {
 
         }
     }

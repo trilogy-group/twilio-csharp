@@ -28,16 +28,16 @@ namespace Kandy.Rest.Messaging.V1
 {
     public class DomainConfigMessagingServiceResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchDomainConfigMessagingServiceOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchDomainConfigMessagingServiceOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/LinkShortening/MessagingService/{MessagingServiceSid}/DomainConfig";
 
             string PathMessagingServiceSid = options.PathMessagingServiceSid;
-            path = path.Replace("{"+"MessagingServiceSid"+"}", PathMessagingServiceSid);
+            path = path.Replace("{" + "MessagingServiceSid" + "}", PathMessagingServiceSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -52,50 +52,50 @@ namespace Kandy.Rest.Messaging.V1
         /// <param name="options"> Fetch DomainConfigMessagingService parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of DomainConfigMessagingService </returns>
-        public static DomainConfigMessagingServiceResource Fetch(FetchDomainConfigMessagingServiceOptions options, ITwilioRestClient client = null)
+        public static DomainConfigMessagingServiceResource Fetch(FetchDomainConfigMessagingServiceOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch DomainConfigMessagingService parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of DomainConfigMessagingService </returns>
         public static async System.Threading.Tasks.Task<DomainConfigMessagingServiceResource> FetchAsync(FetchDomainConfigMessagingServiceOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathMessagingServiceSid"> Unique string used to identify the Messaging service that this domain should be associated with. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of DomainConfigMessagingService </returns>
         public static DomainConfigMessagingServiceResource Fetch(
-                                         string pathMessagingServiceSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathMessagingServiceSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchDomainConfigMessagingServiceOptions(pathMessagingServiceSid){  };
+            var options = new FetchDomainConfigMessagingServiceOptions(pathMessagingServiceSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathMessagingServiceSid"> Unique string used to identify the Messaging service that this domain should be associated with. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of DomainConfigMessagingService </returns>
-        public static async System.Threading.Tasks.Task<DomainConfigMessagingServiceResource> FetchAsync(string pathMessagingServiceSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<DomainConfigMessagingServiceResource> FetchAsync(string pathMessagingServiceSid, IKandyRestClient client = null)
         {
-            var options = new FetchDomainConfigMessagingServiceOptions(pathMessagingServiceSid){  };
+            var options = new FetchDomainConfigMessagingServiceOptions(pathMessagingServiceSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a DomainConfigMessagingServiceResource object
         /// </summary>
@@ -113,7 +113,7 @@ namespace Kandy.Rest.Messaging.V1
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the Domain resource. </summary> 
         [JsonProperty("domain_sid")]
         public string DomainSid { get; private set; }
@@ -152,7 +152,8 @@ namespace Kandy.Rest.Messaging.V1
 
 
 
-        private DomainConfigMessagingServiceResource() {
+        private DomainConfigMessagingServiceResource()
+        {
 
         }
     }

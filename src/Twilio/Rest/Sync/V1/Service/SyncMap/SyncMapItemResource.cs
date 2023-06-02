@@ -28,11 +28,11 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
 {
     public class SyncMapItemResource : Resource
     {
-    
+
         public sealed class QueryFromBoundTypeEnum : StringEnum
         {
-            private QueryFromBoundTypeEnum(string value) : base(value) {}
-            public QueryFromBoundTypeEnum() {}
+            private QueryFromBoundTypeEnum(string value) : base(value) { }
+            public QueryFromBoundTypeEnum() { }
             public static implicit operator QueryFromBoundTypeEnum(string value)
             {
                 return new QueryFromBoundTypeEnum(value);
@@ -43,8 +43,8 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
         }
         public sealed class QueryResultOrderEnum : StringEnum
         {
-            private QueryResultOrderEnum(string value) : base(value) {}
-            public QueryResultOrderEnum() {}
+            private QueryResultOrderEnum(string value) : base(value) { }
+            public QueryResultOrderEnum() { }
             public static implicit operator QueryResultOrderEnum(string value)
             {
                 return new QueryResultOrderEnum(value);
@@ -54,16 +54,16 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateSyncMapItemOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateSyncMapItemOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathMapSid = options.PathMapSid;
-            path = path.Replace("{"+"MapSid"+"}", PathMapSid);
+            path = path.Replace("{" + "MapSid" + "}", PathMapSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -78,26 +78,26 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
         /// <param name="options"> Create SyncMapItem parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SyncMapItem </returns>
-        public static SyncMapItemResource Create(CreateSyncMapItemOptions options, ITwilioRestClient client = null)
+        public static SyncMapItemResource Create(CreateSyncMapItemOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create SyncMapItem parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SyncMapItem </returns>
         public static async System.Threading.Tasks.Task<SyncMapItemResource> CreateAsync(CreateSyncMapItemOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="pathServiceSid"> The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) to create the Map Item in. </param>
@@ -117,13 +117,13 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
                                           int? ttl = null,
                                           int? itemTtl = null,
                                           int? collectionTtl = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateSyncMapItemOptions(pathServiceSid, pathMapSid, key, data){  Ttl = ttl, ItemTtl = itemTtl, CollectionTtl = collectionTtl };
+            var options = new CreateSyncMapItemOptions(pathServiceSid, pathMapSid, key, data) { Ttl = ttl, ItemTtl = itemTtl, CollectionTtl = collectionTtl };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="pathServiceSid"> The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) to create the Map Item in. </param>
         /// <param name="pathMapSid"> The SID of the Sync Map to add the new Map Item to. Can be the Sync Map resource's `sid` or its `unique_name`. </param>
@@ -142,28 +142,28 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
                                                                                   int? ttl = null,
                                                                                   int? itemTtl = null,
                                                                                   int? collectionTtl = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateSyncMapItemOptions(pathServiceSid, pathMapSid, key, data){  Ttl = ttl, ItemTtl = itemTtl, CollectionTtl = collectionTtl };
+            var options = new CreateSyncMapItemOptions(pathServiceSid, pathMapSid, key, data) { Ttl = ttl, ItemTtl = itemTtl, CollectionTtl = collectionTtl };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> delete </summary>
         /// <param name="options"> Delete SyncMapItem parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SyncMapItem </returns>
-        private static Request BuildDeleteRequest(DeleteSyncMapItemOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteSyncMapItemOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathMapSid = options.PathMapSid;
-            path = path.Replace("{"+"MapSid"+"}", PathMapSid);
+            path = path.Replace("{" + "MapSid" + "}", PathMapSid);
             string PathKey = options.PathKey;
-            path = path.Replace("{"+"Key"+"}", PathKey);
+            path = path.Replace("{" + "Key" + "}", PathKey);
 
             return new Request(
                 HttpMethod.Delete,
@@ -178,26 +178,26 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
         /// <param name="options"> Delete SyncMapItem parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SyncMapItem </returns>
-        public static bool Delete(DeleteSyncMapItemOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteSyncMapItemOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="options"> Delete SyncMapItem parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SyncMapItem </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteSyncMapItemOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> delete </summary>
         /// <param name="pathServiceSid"> The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map Item resource to delete. </param>
@@ -206,13 +206,13 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
         /// <param name="ifMatch"> If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match). </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SyncMapItem </returns>
-        public static bool Delete(string pathServiceSid, string pathMapSid, string pathKey, string ifMatch = null, ITwilioRestClient client = null)
+        public static bool Delete(string pathServiceSid, string pathMapSid, string pathKey, string ifMatch = null, IKandyRestClient client = null)
         {
-            var options = new DeleteSyncMapItemOptions(pathServiceSid, pathMapSid, pathKey)            { IfMatch = ifMatch }   ;
+            var options = new DeleteSyncMapItemOptions(pathServiceSid, pathMapSid, pathKey) { IfMatch = ifMatch };
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="pathServiceSid"> The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map Item resource to delete. </param>
         /// <param name="pathMapSid"> The SID of the Sync Map with the Sync Map Item resource to delete. Can be the Sync Map resource's `sid` or its `unique_name`. </param>
@@ -220,24 +220,24 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
         /// <param name="ifMatch"> If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match). </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SyncMapItem </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathMapSid, string pathKey, string ifMatch = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathMapSid, string pathKey, string ifMatch = null, IKandyRestClient client = null)
         {
-            var options = new DeleteSyncMapItemOptions(pathServiceSid, pathMapSid, pathKey)  { IfMatch = ifMatch };
+            var options = new DeleteSyncMapItemOptions(pathServiceSid, pathMapSid, pathKey) { IfMatch = ifMatch };
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchSyncMapItemOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchSyncMapItemOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathMapSid = options.PathMapSid;
-            path = path.Replace("{"+"MapSid"+"}", PathMapSid);
+            path = path.Replace("{" + "MapSid" + "}", PathMapSid);
             string PathKey = options.PathKey;
-            path = path.Replace("{"+"Key"+"}", PathKey);
+            path = path.Replace("{" + "Key" + "}", PathKey);
 
             return new Request(
                 HttpMethod.Get,
@@ -252,26 +252,26 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
         /// <param name="options"> Fetch SyncMapItem parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SyncMapItem </returns>
-        public static SyncMapItemResource Fetch(FetchSyncMapItemOptions options, ITwilioRestClient client = null)
+        public static SyncMapItemResource Fetch(FetchSyncMapItemOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch SyncMapItem parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SyncMapItem </returns>
         public static async System.Threading.Tasks.Task<SyncMapItemResource> FetchAsync(FetchSyncMapItemOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathServiceSid"> The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map Item resource to fetch. </param>
         /// <param name="pathMapSid"> The SID of the Sync Map with the Sync Map Item resource to fetch. Can be the Sync Map resource's `sid` or its `unique_name`. </param>
@@ -279,38 +279,38 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SyncMapItem </returns>
         public static SyncMapItemResource Fetch(
-                                         string pathServiceSid, 
-                                         string pathMapSid, 
-                                         string pathKey, 
-                                         ITwilioRestClient client = null)
+                                         string pathServiceSid,
+                                         string pathMapSid,
+                                         string pathKey,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchSyncMapItemOptions(pathServiceSid, pathMapSid, pathKey){  };
+            var options = new FetchSyncMapItemOptions(pathServiceSid, pathMapSid, pathKey) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathServiceSid"> The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map Item resource to fetch. </param>
         /// <param name="pathMapSid"> The SID of the Sync Map with the Sync Map Item resource to fetch. Can be the Sync Map resource's `sid` or its `unique_name`. </param>
         /// <param name="pathKey"> The `key` value of the Sync Map Item resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SyncMapItem </returns>
-        public static async System.Threading.Tasks.Task<SyncMapItemResource> FetchAsync(string pathServiceSid, string pathMapSid, string pathKey, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<SyncMapItemResource> FetchAsync(string pathServiceSid, string pathMapSid, string pathKey, IKandyRestClient client = null)
         {
-            var options = new FetchSyncMapItemOptions(pathServiceSid, pathMapSid, pathKey){  };
+            var options = new FetchSyncMapItemOptions(pathServiceSid, pathMapSid, pathKey) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadSyncMapItemOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadSyncMapItemOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathMapSid = options.PathMapSid;
-            path = path.Replace("{"+"MapSid"+"}", PathMapSid);
+            path = path.Replace("{" + "MapSid" + "}", PathMapSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -324,7 +324,7 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
         /// <param name="options"> Read SyncMapItem parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SyncMapItem </returns>
-        public static ResourceSet<SyncMapItemResource> Read(ReadSyncMapItemOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<SyncMapItemResource> Read(ReadSyncMapItemOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -332,13 +332,13 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
             return new ResourceSet<SyncMapItemResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read SyncMapItem parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SyncMapItem </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<SyncMapItemResource>> ReadAsync(ReadSyncMapItemOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -346,7 +346,7 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
             var page = Page<SyncMapItemResource>.FromJson("items", response.Content);
             return new ResourceSet<SyncMapItemResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="pathServiceSid"> The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Map Item resources to read. </param>
         /// <param name="pathMapSid"> The SID of the Sync Map with the Sync Map Item resource to fetch. Can be the Sync Map resource's `sid` or its `unique_name`. </param>
@@ -365,13 +365,13 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
                                                      SyncMapItemResource.QueryFromBoundTypeEnum bounds = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadSyncMapItemOptions(pathServiceSid, pathMapSid){ Order = order, From = from, Bounds = bounds, PageSize = pageSize, Limit = limit};
+            var options = new ReadSyncMapItemOptions(pathServiceSid, pathMapSid) { Order = order, From = from, Bounds = bounds, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="pathServiceSid"> The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Map Item resources to read. </param>
         /// <param name="pathMapSid"> The SID of the Sync Map with the Sync Map Item resource to fetch. Can be the Sync Map resource's `sid` or its `unique_name`. </param>
@@ -390,19 +390,19 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
                                                                                              SyncMapItemResource.QueryFromBoundTypeEnum bounds = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadSyncMapItemOptions(pathServiceSid, pathMapSid){ Order = order, From = from, Bounds = bounds, PageSize = pageSize, Limit = limit};
+            var options = new ReadSyncMapItemOptions(pathServiceSid, pathMapSid) { Order = order, From = from, Bounds = bounds, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<SyncMapItemResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<SyncMapItemResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -419,7 +419,7 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<SyncMapItemResource> NextPage(Page<SyncMapItemResource> page, ITwilioRestClient client)
+        public static Page<SyncMapItemResource> NextPage(Page<SyncMapItemResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -434,7 +434,7 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<SyncMapItemResource> PreviousPage(Page<SyncMapItemResource> page, ITwilioRestClient client)
+        public static Page<SyncMapItemResource> PreviousPage(Page<SyncMapItemResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -445,18 +445,18 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
             return Page<SyncMapItemResource>.FromJson("items", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateSyncMapItemOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateSyncMapItemOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathMapSid = options.PathMapSid;
-            path = path.Replace("{"+"MapSid"+"}", PathMapSid);
+            path = path.Replace("{" + "MapSid" + "}", PathMapSid);
             string PathKey = options.PathKey;
-            path = path.Replace("{"+"Key"+"}", PathKey);
+            path = path.Replace("{" + "Key" + "}", PathKey);
 
             return new Request(
                 HttpMethod.Post,
@@ -471,7 +471,7 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
         /// <param name="options"> Update SyncMapItem parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SyncMapItem </returns>
-        public static SyncMapItemResource Update(UpdateSyncMapItemOptions options, ITwilioRestClient client = null)
+        public static SyncMapItemResource Update(UpdateSyncMapItemOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -482,15 +482,15 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
         /// <param name="options"> Update SyncMapItem parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SyncMapItem </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<SyncMapItemResource> UpdateAsync(UpdateSyncMapItemOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> update </summary>
         /// <param name="pathServiceSid"> The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map Item resource to update. </param>
@@ -512,13 +512,13 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
                                           int? itemTtl = null,
                                           int? collectionTtl = null,
                                           string ifMatch = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateSyncMapItemOptions(pathServiceSid, pathMapSid, pathKey){ Data = data, Ttl = ttl, ItemTtl = itemTtl, CollectionTtl = collectionTtl, IfMatch = ifMatch };
+            var options = new UpdateSyncMapItemOptions(pathServiceSid, pathMapSid, pathKey) { Data = data, Ttl = ttl, ItemTtl = itemTtl, CollectionTtl = collectionTtl, IfMatch = ifMatch };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> update </summary>
         /// <param name="pathServiceSid"> The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map Item resource to update. </param>
         /// <param name="pathMapSid"> The SID of the Sync Map with the Sync Map Item resource to update. Can be the Sync Map resource's `sid` or its `unique_name`. </param>
@@ -539,13 +539,13 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
                                                                               int? itemTtl = null,
                                                                               int? collectionTtl = null,
                                                                               string ifMatch = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateSyncMapItemOptions(pathServiceSid, pathMapSid, pathKey){ Data = data, Ttl = ttl, ItemTtl = itemTtl, CollectionTtl = collectionTtl, IfMatch = ifMatch };
+            var options = new UpdateSyncMapItemOptions(pathServiceSid, pathMapSid, pathKey) { Data = data, Ttl = ttl, ItemTtl = itemTtl, CollectionTtl = collectionTtl, IfMatch = ifMatch };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a SyncMapItemResource object
         /// </summary>
@@ -563,7 +563,7 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
             }
         }
 
-    
+
         ///<summary> The unique, user-defined key for the Map Item. </summary> 
         [JsonProperty("key")]
         public string Key { get; private set; }
@@ -610,7 +610,8 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
 
 
 
-        private SyncMapItemResource() {
+        private SyncMapItemResource()
+        {
 
         }
     }

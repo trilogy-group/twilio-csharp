@@ -28,11 +28,11 @@ namespace Kandy.Rest.Studio.V2
 {
     public class FlowValidateResource : Resource
     {
-    
+
         public sealed class StatusEnum : StringEnum
         {
-            private StatusEnum(string value) : base(value) {}
-            public StatusEnum() {}
+            private StatusEnum(string value) : base(value) { }
+            public StatusEnum() { }
             public static implicit operator StatusEnum(string value)
             {
                 return new StatusEnum(value);
@@ -42,10 +42,10 @@ namespace Kandy.Rest.Studio.V2
 
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateFlowValidateOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateFlowValidateOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Flows/Validate";
 
 
@@ -62,7 +62,7 @@ namespace Kandy.Rest.Studio.V2
         /// <param name="options"> Update FlowValidate parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of FlowValidate </returns>
-        public static FlowValidateResource Update(UpdateFlowValidateOptions options, ITwilioRestClient client = null)
+        public static FlowValidateResource Update(UpdateFlowValidateOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -73,15 +73,15 @@ namespace Kandy.Rest.Studio.V2
         /// <param name="options"> Update FlowValidate parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of FlowValidate </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<FlowValidateResource> UpdateAsync(UpdateFlowValidateOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Validate flow JSON definition </summary>
         /// <param name="friendlyName"> The string that you assigned to describe the Flow. </param>
@@ -95,13 +95,13 @@ namespace Kandy.Rest.Studio.V2
                                           FlowValidateResource.StatusEnum status,
                                           object definition,
                                           string commitMessage = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateFlowValidateOptions(friendlyName, status, definition){ CommitMessage = commitMessage };
+            var options = new UpdateFlowValidateOptions(friendlyName, status, definition) { CommitMessage = commitMessage };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Validate flow JSON definition </summary>
         /// <param name="friendlyName"> The string that you assigned to describe the Flow. </param>
         /// <param name="status">  </param>
@@ -114,13 +114,13 @@ namespace Kandy.Rest.Studio.V2
                                                                               FlowValidateResource.StatusEnum status,
                                                                               object definition,
                                                                               string commitMessage = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateFlowValidateOptions(friendlyName, status, definition){ CommitMessage = commitMessage };
+            var options = new UpdateFlowValidateOptions(friendlyName, status, definition) { CommitMessage = commitMessage };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a FlowValidateResource object
         /// </summary>
@@ -138,14 +138,15 @@ namespace Kandy.Rest.Studio.V2
             }
         }
 
-    
+
         ///<summary> Boolean if the flow definition is valid. </summary> 
         [JsonProperty("valid")]
         public bool? Valid { get; private set; }
 
 
 
-        private FlowValidateResource() {
+        private FlowValidateResource()
+        {
 
         }
     }

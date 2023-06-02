@@ -28,12 +28,12 @@ namespace Kandy.Rest.Supersim.V1
 {
     public class NetworkAccessProfileResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateNetworkAccessProfileOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateNetworkAccessProfileOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/NetworkAccessProfiles";
 
 
@@ -50,26 +50,26 @@ namespace Kandy.Rest.Supersim.V1
         /// <param name="options"> Create NetworkAccessProfile parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of NetworkAccessProfile </returns>
-        public static NetworkAccessProfileResource Create(CreateNetworkAccessProfileOptions options, ITwilioRestClient client = null)
+        public static NetworkAccessProfileResource Create(CreateNetworkAccessProfileOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Network Access Profile </summary>
         /// <param name="options"> Create NetworkAccessProfile parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of NetworkAccessProfile </returns>
         public static async System.Threading.Tasks.Task<NetworkAccessProfileResource> CreateAsync(CreateNetworkAccessProfileOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new Network Access Profile </summary>
         /// <param name="uniqueName"> An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource. </param>
@@ -79,13 +79,13 @@ namespace Kandy.Rest.Supersim.V1
         public static NetworkAccessProfileResource Create(
                                           string uniqueName = null,
                                           List<string> networks = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateNetworkAccessProfileOptions(){  UniqueName = uniqueName, Networks = networks };
+            var options = new CreateNetworkAccessProfileOptions() { UniqueName = uniqueName, Networks = networks };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Network Access Profile </summary>
         /// <param name="uniqueName"> An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource. </param>
         /// <param name="networks"> List of Network SIDs that this Network Access Profile will allow connections to. </param>
@@ -94,20 +94,20 @@ namespace Kandy.Rest.Supersim.V1
         public static async System.Threading.Tasks.Task<NetworkAccessProfileResource> CreateAsync(
                                                                                   string uniqueName = null,
                                                                                   List<string> networks = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateNetworkAccessProfileOptions(){  UniqueName = uniqueName, Networks = networks };
+            var options = new CreateNetworkAccessProfileOptions() { UniqueName = uniqueName, Networks = networks };
             return await CreateAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchNetworkAccessProfileOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchNetworkAccessProfileOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/NetworkAccessProfiles/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -122,53 +122,53 @@ namespace Kandy.Rest.Supersim.V1
         /// <param name="options"> Fetch NetworkAccessProfile parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of NetworkAccessProfile </returns>
-        public static NetworkAccessProfileResource Fetch(FetchNetworkAccessProfileOptions options, ITwilioRestClient client = null)
+        public static NetworkAccessProfileResource Fetch(FetchNetworkAccessProfileOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a Network Access Profile instance from your account. </summary>
         /// <param name="options"> Fetch NetworkAccessProfile parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of NetworkAccessProfile </returns>
         public static async System.Threading.Tasks.Task<NetworkAccessProfileResource> FetchAsync(FetchNetworkAccessProfileOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a Network Access Profile instance from your account. </summary>
         /// <param name="pathSid"> The SID of the Network Access Profile resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of NetworkAccessProfile </returns>
         public static NetworkAccessProfileResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchNetworkAccessProfileOptions(pathSid){  };
+            var options = new FetchNetworkAccessProfileOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a Network Access Profile instance from your account. </summary>
         /// <param name="pathSid"> The SID of the Network Access Profile resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of NetworkAccessProfile </returns>
-        public static async System.Threading.Tasks.Task<NetworkAccessProfileResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<NetworkAccessProfileResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchNetworkAccessProfileOptions(pathSid){  };
+            var options = new FetchNetworkAccessProfileOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadNetworkAccessProfileOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadNetworkAccessProfileOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/NetworkAccessProfiles";
 
 
@@ -184,7 +184,7 @@ namespace Kandy.Rest.Supersim.V1
         /// <param name="options"> Read NetworkAccessProfile parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of NetworkAccessProfile </returns>
-        public static ResourceSet<NetworkAccessProfileResource> Read(ReadNetworkAccessProfileOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<NetworkAccessProfileResource> Read(ReadNetworkAccessProfileOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -192,13 +192,13 @@ namespace Kandy.Rest.Supersim.V1
             return new ResourceSet<NetworkAccessProfileResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of Network Access Profiles from your account. </summary>
         /// <param name="options"> Read NetworkAccessProfile parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of NetworkAccessProfile </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<NetworkAccessProfileResource>> ReadAsync(ReadNetworkAccessProfileOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -206,7 +206,7 @@ namespace Kandy.Rest.Supersim.V1
             var page = Page<NetworkAccessProfileResource>.FromJson("network_access_profiles", response.Content);
             return new ResourceSet<NetworkAccessProfileResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of Network Access Profiles from your account. </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -215,13 +215,13 @@ namespace Kandy.Rest.Supersim.V1
         public static ResourceSet<NetworkAccessProfileResource> Read(
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadNetworkAccessProfileOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadNetworkAccessProfileOptions() { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of Network Access Profiles from your account. </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -230,19 +230,19 @@ namespace Kandy.Rest.Supersim.V1
         public static async System.Threading.Tasks.Task<ResourceSet<NetworkAccessProfileResource>> ReadAsync(
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadNetworkAccessProfileOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadNetworkAccessProfileOptions() { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<NetworkAccessProfileResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<NetworkAccessProfileResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -259,7 +259,7 @@ namespace Kandy.Rest.Supersim.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<NetworkAccessProfileResource> NextPage(Page<NetworkAccessProfileResource> page, ITwilioRestClient client)
+        public static Page<NetworkAccessProfileResource> NextPage(Page<NetworkAccessProfileResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -274,7 +274,7 @@ namespace Kandy.Rest.Supersim.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<NetworkAccessProfileResource> PreviousPage(Page<NetworkAccessProfileResource> page, ITwilioRestClient client)
+        public static Page<NetworkAccessProfileResource> PreviousPage(Page<NetworkAccessProfileResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -285,14 +285,14 @@ namespace Kandy.Rest.Supersim.V1
             return Page<NetworkAccessProfileResource>.FromJson("network_access_profiles", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateNetworkAccessProfileOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateNetworkAccessProfileOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/NetworkAccessProfiles/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -307,7 +307,7 @@ namespace Kandy.Rest.Supersim.V1
         /// <param name="options"> Update NetworkAccessProfile parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of NetworkAccessProfile </returns>
-        public static NetworkAccessProfileResource Update(UpdateNetworkAccessProfileOptions options, ITwilioRestClient client = null)
+        public static NetworkAccessProfileResource Update(UpdateNetworkAccessProfileOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -318,15 +318,15 @@ namespace Kandy.Rest.Supersim.V1
         /// <param name="options"> Update NetworkAccessProfile parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of NetworkAccessProfile </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<NetworkAccessProfileResource> UpdateAsync(UpdateNetworkAccessProfileOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Updates the given properties of a Network Access Profile in your account. </summary>
         /// <param name="pathSid"> The SID of the Network Access Profile to update. </param>
@@ -336,13 +336,13 @@ namespace Kandy.Rest.Supersim.V1
         public static NetworkAccessProfileResource Update(
                                           string pathSid,
                                           string uniqueName = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateNetworkAccessProfileOptions(pathSid){ UniqueName = uniqueName };
+            var options = new UpdateNetworkAccessProfileOptions(pathSid) { UniqueName = uniqueName };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Updates the given properties of a Network Access Profile in your account. </summary>
         /// <param name="pathSid"> The SID of the Network Access Profile to update. </param>
         /// <param name="uniqueName"> The new unique name of the Network Access Profile. </param>
@@ -351,13 +351,13 @@ namespace Kandy.Rest.Supersim.V1
         public static async System.Threading.Tasks.Task<NetworkAccessProfileResource> UpdateAsync(
                                                                               string pathSid,
                                                                               string uniqueName = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateNetworkAccessProfileOptions(pathSid){ UniqueName = uniqueName };
+            var options = new UpdateNetworkAccessProfileOptions(pathSid) { UniqueName = uniqueName };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a NetworkAccessProfileResource object
         /// </summary>
@@ -375,7 +375,7 @@ namespace Kandy.Rest.Supersim.V1
             }
         }
 
-    
+
         ///<summary> The unique string that identifies the Network Access Profile resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -406,7 +406,8 @@ namespace Kandy.Rest.Supersim.V1
 
 
 
-        private NetworkAccessProfileResource() {
+        private NetworkAccessProfileResource()
+        {
 
         }
     }

@@ -28,12 +28,12 @@ namespace Kandy.Rest.Api.V2010.Account.Usage.Record
 {
     public class YearlyResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class CategoryEnum : StringEnum
         {
-            private CategoryEnum(string value) : base(value) {}
-            public CategoryEnum() {}
+            private CategoryEnum(string value) : base(value) { }
+            public CategoryEnum() { }
             public static implicit operator CategoryEnum(string value)
             {
                 return new CategoryEnum(value);
@@ -286,14 +286,14 @@ namespace Kandy.Rest.Api.V2010.Account.Usage.Record
 
         }
 
-        
-        private static Request BuildReadRequest(ReadYearlyOptions options, ITwilioRestClient client)
+
+        private static Request BuildReadRequest(ReadYearlyOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Yearly.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -307,7 +307,7 @@ namespace Kandy.Rest.Api.V2010.Account.Usage.Record
         /// <param name="options"> Read Yearly parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Yearly </returns>
-        public static ResourceSet<YearlyResource> Read(ReadYearlyOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<YearlyResource> Read(ReadYearlyOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -315,13 +315,13 @@ namespace Kandy.Rest.Api.V2010.Account.Usage.Record
             return new ResourceSet<YearlyResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read Yearly parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Yearly </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<YearlyResource>> ReadAsync(ReadYearlyOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -329,7 +329,7 @@ namespace Kandy.Rest.Api.V2010.Account.Usage.Record
             var page = Page<YearlyResource>.FromJson("usage_records", response.Content);
             return new ResourceSet<YearlyResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read. </param>
         /// <param name="category"> The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved. </param>
@@ -348,13 +348,13 @@ namespace Kandy.Rest.Api.V2010.Account.Usage.Record
                                                      bool? includeSubaccounts = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadYearlyOptions(){ PathAccountSid = pathAccountSid, Category = category, StartDate = startDate, EndDate = endDate, IncludeSubaccounts = includeSubaccounts, PageSize = pageSize, Limit = limit};
+            var options = new ReadYearlyOptions() { PathAccountSid = pathAccountSid, Category = category, StartDate = startDate, EndDate = endDate, IncludeSubaccounts = includeSubaccounts, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read. </param>
         /// <param name="category"> The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved. </param>
@@ -373,19 +373,19 @@ namespace Kandy.Rest.Api.V2010.Account.Usage.Record
                                                                                              bool? includeSubaccounts = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadYearlyOptions(){ PathAccountSid = pathAccountSid, Category = category, StartDate = startDate, EndDate = endDate, IncludeSubaccounts = includeSubaccounts, PageSize = pageSize, Limit = limit};
+            var options = new ReadYearlyOptions() { PathAccountSid = pathAccountSid, Category = category, StartDate = startDate, EndDate = endDate, IncludeSubaccounts = includeSubaccounts, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<YearlyResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<YearlyResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -402,7 +402,7 @@ namespace Kandy.Rest.Api.V2010.Account.Usage.Record
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<YearlyResource> NextPage(Page<YearlyResource> page, ITwilioRestClient client)
+        public static Page<YearlyResource> NextPage(Page<YearlyResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -417,7 +417,7 @@ namespace Kandy.Rest.Api.V2010.Account.Usage.Record
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<YearlyResource> PreviousPage(Page<YearlyResource> page, ITwilioRestClient client)
+        public static Page<YearlyResource> PreviousPage(Page<YearlyResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -428,7 +428,7 @@ namespace Kandy.Rest.Api.V2010.Account.Usage.Record
             return Page<YearlyResource>.FromJson("usage_records", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a YearlyResource object
         /// </summary>
@@ -446,7 +446,7 @@ namespace Kandy.Rest.Api.V2010.Account.Usage.Record
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that accrued the usage. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -459,7 +459,7 @@ namespace Kandy.Rest.Api.V2010.Account.Usage.Record
         [JsonProperty("as_of")]
         public string AsOf { get; private set; }
 
-        
+
         [JsonProperty("category")]
         public YearlyResource.CategoryEnum Category { get; private set; }
 
@@ -509,7 +509,8 @@ namespace Kandy.Rest.Api.V2010.Account.Usage.Record
 
 
 
-        private YearlyResource() {
+        private YearlyResource()
+        {
 
         }
     }

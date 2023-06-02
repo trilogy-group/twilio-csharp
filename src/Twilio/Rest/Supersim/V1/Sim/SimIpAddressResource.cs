@@ -28,12 +28,12 @@ namespace Kandy.Rest.Supersim.V1.Sim
 {
     public class SimIpAddressResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class IpAddressVersionEnum : StringEnum
         {
-            private IpAddressVersionEnum(string value) : base(value) {}
-            public IpAddressVersionEnum() {}
+            private IpAddressVersionEnum(string value) : base(value) { }
+            public IpAddressVersionEnum() { }
             public static implicit operator IpAddressVersionEnum(string value)
             {
                 return new IpAddressVersionEnum(value);
@@ -43,14 +43,14 @@ namespace Kandy.Rest.Supersim.V1.Sim
 
         }
 
-        
-        private static Request BuildReadRequest(ReadSimIpAddressOptions options, ITwilioRestClient client)
+
+        private static Request BuildReadRequest(ReadSimIpAddressOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Sims/{SimSid}/IpAddresses";
 
             string PathSimSid = options.PathSimSid;
-            path = path.Replace("{"+"SimSid"+"}", PathSimSid);
+            path = path.Replace("{" + "SimSid" + "}", PathSimSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -64,7 +64,7 @@ namespace Kandy.Rest.Supersim.V1.Sim
         /// <param name="options"> Read SimIpAddress parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SimIpAddress </returns>
-        public static ResourceSet<SimIpAddressResource> Read(ReadSimIpAddressOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<SimIpAddressResource> Read(ReadSimIpAddressOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -72,13 +72,13 @@ namespace Kandy.Rest.Supersim.V1.Sim
             return new ResourceSet<SimIpAddressResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of IP Addresses for the given Super SIM. </summary>
         /// <param name="options"> Read SimIpAddress parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SimIpAddress </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<SimIpAddressResource>> ReadAsync(ReadSimIpAddressOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -86,7 +86,7 @@ namespace Kandy.Rest.Supersim.V1.Sim
             var page = Page<SimIpAddressResource>.FromJson("ip_addresses", response.Content);
             return new ResourceSet<SimIpAddressResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of IP Addresses for the given Super SIM. </summary>
         /// <param name="pathSimSid"> The SID of the Super SIM to list IP Addresses for. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -97,13 +97,13 @@ namespace Kandy.Rest.Supersim.V1.Sim
                                                      string pathSimSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadSimIpAddressOptions(pathSimSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadSimIpAddressOptions(pathSimSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of IP Addresses for the given Super SIM. </summary>
         /// <param name="pathSimSid"> The SID of the Super SIM to list IP Addresses for. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -114,19 +114,19 @@ namespace Kandy.Rest.Supersim.V1.Sim
                                                                                              string pathSimSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadSimIpAddressOptions(pathSimSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadSimIpAddressOptions(pathSimSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<SimIpAddressResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<SimIpAddressResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -143,7 +143,7 @@ namespace Kandy.Rest.Supersim.V1.Sim
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<SimIpAddressResource> NextPage(Page<SimIpAddressResource> page, ITwilioRestClient client)
+        public static Page<SimIpAddressResource> NextPage(Page<SimIpAddressResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -158,7 +158,7 @@ namespace Kandy.Rest.Supersim.V1.Sim
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<SimIpAddressResource> PreviousPage(Page<SimIpAddressResource> page, ITwilioRestClient client)
+        public static Page<SimIpAddressResource> PreviousPage(Page<SimIpAddressResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -169,7 +169,7 @@ namespace Kandy.Rest.Supersim.V1.Sim
             return Page<SimIpAddressResource>.FromJson("ip_addresses", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a SimIpAddressResource object
         /// </summary>
@@ -187,18 +187,19 @@ namespace Kandy.Rest.Supersim.V1.Sim
             }
         }
 
-    
+
         ///<summary> IP address assigned to the given Super SIM </summary> 
         [JsonProperty("ip_address")]
         public string IpAddress { get; private set; }
 
-        
+
         [JsonProperty("ip_address_version")]
         public SimIpAddressResource.IpAddressVersionEnum IpAddressVersion { get; private set; }
 
 
 
-        private SimIpAddressResource() {
+        private SimIpAddressResource()
+        {
 
         }
     }

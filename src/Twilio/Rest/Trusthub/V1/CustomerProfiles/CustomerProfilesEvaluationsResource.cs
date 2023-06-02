@@ -28,12 +28,12 @@ namespace Kandy.Rest.Trusthub.V1.CustomerProfiles
 {
     public class CustomerProfilesEvaluationsResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class StatusEnum : StringEnum
         {
-            private StatusEnum(string value) : base(value) {}
-            public StatusEnum() {}
+            private StatusEnum(string value) : base(value) { }
+            public StatusEnum() { }
             public static implicit operator StatusEnum(string value)
             {
                 return new StatusEnum(value);
@@ -43,14 +43,14 @@ namespace Kandy.Rest.Trusthub.V1.CustomerProfiles
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateCustomerProfilesEvaluationsOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateCustomerProfilesEvaluationsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/CustomerProfiles/{CustomerProfileSid}/Evaluations";
 
             string PathCustomerProfileSid = options.PathCustomerProfileSid;
-            path = path.Replace("{"+"CustomerProfileSid"+"}", PathCustomerProfileSid);
+            path = path.Replace("{" + "CustomerProfileSid" + "}", PathCustomerProfileSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -65,26 +65,26 @@ namespace Kandy.Rest.Trusthub.V1.CustomerProfiles
         /// <param name="options"> Create CustomerProfilesEvaluations parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of CustomerProfilesEvaluations </returns>
-        public static CustomerProfilesEvaluationsResource Create(CreateCustomerProfilesEvaluationsOptions options, ITwilioRestClient client = null)
+        public static CustomerProfilesEvaluationsResource Create(CreateCustomerProfilesEvaluationsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Evaluation </summary>
         /// <param name="options"> Create CustomerProfilesEvaluations parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of CustomerProfilesEvaluations </returns>
         public static async System.Threading.Tasks.Task<CustomerProfilesEvaluationsResource> CreateAsync(CreateCustomerProfilesEvaluationsOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new Evaluation </summary>
         /// <param name="pathCustomerProfileSid"> The unique string that we created to identify the CustomerProfile resource. </param>
@@ -94,13 +94,13 @@ namespace Kandy.Rest.Trusthub.V1.CustomerProfiles
         public static CustomerProfilesEvaluationsResource Create(
                                           string pathCustomerProfileSid,
                                           string policySid,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateCustomerProfilesEvaluationsOptions(pathCustomerProfileSid, policySid){  };
+            var options = new CreateCustomerProfilesEvaluationsOptions(pathCustomerProfileSid, policySid) { };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Evaluation </summary>
         /// <param name="pathCustomerProfileSid"> The unique string that we created to identify the CustomerProfile resource. </param>
         /// <param name="policySid"> The unique string of a policy that is associated to the customer_profile resource. </param>
@@ -109,22 +109,22 @@ namespace Kandy.Rest.Trusthub.V1.CustomerProfiles
         public static async System.Threading.Tasks.Task<CustomerProfilesEvaluationsResource> CreateAsync(
                                                                                   string pathCustomerProfileSid,
                                                                                   string policySid,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateCustomerProfilesEvaluationsOptions(pathCustomerProfileSid, policySid){  };
+            var options = new CreateCustomerProfilesEvaluationsOptions(pathCustomerProfileSid, policySid) { };
             return await CreateAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchCustomerProfilesEvaluationsOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchCustomerProfilesEvaluationsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/CustomerProfiles/{CustomerProfileSid}/Evaluations/{Sid}";
 
             string PathCustomerProfileSid = options.PathCustomerProfileSid;
-            path = path.Replace("{"+"CustomerProfileSid"+"}", PathCustomerProfileSid);
+            path = path.Replace("{" + "CustomerProfileSid" + "}", PathCustomerProfileSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -139,60 +139,60 @@ namespace Kandy.Rest.Trusthub.V1.CustomerProfiles
         /// <param name="options"> Fetch CustomerProfilesEvaluations parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of CustomerProfilesEvaluations </returns>
-        public static CustomerProfilesEvaluationsResource Fetch(FetchCustomerProfilesEvaluationsOptions options, ITwilioRestClient client = null)
+        public static CustomerProfilesEvaluationsResource Fetch(FetchCustomerProfilesEvaluationsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch specific Evaluation Instance. </summary>
         /// <param name="options"> Fetch CustomerProfilesEvaluations parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of CustomerProfilesEvaluations </returns>
         public static async System.Threading.Tasks.Task<CustomerProfilesEvaluationsResource> FetchAsync(FetchCustomerProfilesEvaluationsOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch specific Evaluation Instance. </summary>
         /// <param name="pathCustomerProfileSid"> The unique string that we created to identify the customer_profile resource. </param>
         /// <param name="pathSid"> The unique string that identifies the Evaluation resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of CustomerProfilesEvaluations </returns>
         public static CustomerProfilesEvaluationsResource Fetch(
-                                         string pathCustomerProfileSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathCustomerProfileSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchCustomerProfilesEvaluationsOptions(pathCustomerProfileSid, pathSid){  };
+            var options = new FetchCustomerProfilesEvaluationsOptions(pathCustomerProfileSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch specific Evaluation Instance. </summary>
         /// <param name="pathCustomerProfileSid"> The unique string that we created to identify the customer_profile resource. </param>
         /// <param name="pathSid"> The unique string that identifies the Evaluation resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of CustomerProfilesEvaluations </returns>
-        public static async System.Threading.Tasks.Task<CustomerProfilesEvaluationsResource> FetchAsync(string pathCustomerProfileSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<CustomerProfilesEvaluationsResource> FetchAsync(string pathCustomerProfileSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchCustomerProfilesEvaluationsOptions(pathCustomerProfileSid, pathSid){  };
+            var options = new FetchCustomerProfilesEvaluationsOptions(pathCustomerProfileSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadCustomerProfilesEvaluationsOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadCustomerProfilesEvaluationsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/CustomerProfiles/{CustomerProfileSid}/Evaluations";
 
             string PathCustomerProfileSid = options.PathCustomerProfileSid;
-            path = path.Replace("{"+"CustomerProfileSid"+"}", PathCustomerProfileSid);
+            path = path.Replace("{" + "CustomerProfileSid" + "}", PathCustomerProfileSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -206,7 +206,7 @@ namespace Kandy.Rest.Trusthub.V1.CustomerProfiles
         /// <param name="options"> Read CustomerProfilesEvaluations parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of CustomerProfilesEvaluations </returns>
-        public static ResourceSet<CustomerProfilesEvaluationsResource> Read(ReadCustomerProfilesEvaluationsOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<CustomerProfilesEvaluationsResource> Read(ReadCustomerProfilesEvaluationsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -214,13 +214,13 @@ namespace Kandy.Rest.Trusthub.V1.CustomerProfiles
             return new ResourceSet<CustomerProfilesEvaluationsResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of Evaluations associated to the customer_profile resource. </summary>
         /// <param name="options"> Read CustomerProfilesEvaluations parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of CustomerProfilesEvaluations </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<CustomerProfilesEvaluationsResource>> ReadAsync(ReadCustomerProfilesEvaluationsOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -228,7 +228,7 @@ namespace Kandy.Rest.Trusthub.V1.CustomerProfiles
             var page = Page<CustomerProfilesEvaluationsResource>.FromJson("results", response.Content);
             return new ResourceSet<CustomerProfilesEvaluationsResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of Evaluations associated to the customer_profile resource. </summary>
         /// <param name="pathCustomerProfileSid"> The unique string that we created to identify the CustomerProfile resource. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -239,13 +239,13 @@ namespace Kandy.Rest.Trusthub.V1.CustomerProfiles
                                                      string pathCustomerProfileSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadCustomerProfilesEvaluationsOptions(pathCustomerProfileSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadCustomerProfilesEvaluationsOptions(pathCustomerProfileSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of Evaluations associated to the customer_profile resource. </summary>
         /// <param name="pathCustomerProfileSid"> The unique string that we created to identify the CustomerProfile resource. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -256,19 +256,19 @@ namespace Kandy.Rest.Trusthub.V1.CustomerProfiles
                                                                                              string pathCustomerProfileSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadCustomerProfilesEvaluationsOptions(pathCustomerProfileSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadCustomerProfilesEvaluationsOptions(pathCustomerProfileSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<CustomerProfilesEvaluationsResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<CustomerProfilesEvaluationsResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -285,7 +285,7 @@ namespace Kandy.Rest.Trusthub.V1.CustomerProfiles
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<CustomerProfilesEvaluationsResource> NextPage(Page<CustomerProfilesEvaluationsResource> page, ITwilioRestClient client)
+        public static Page<CustomerProfilesEvaluationsResource> NextPage(Page<CustomerProfilesEvaluationsResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -300,7 +300,7 @@ namespace Kandy.Rest.Trusthub.V1.CustomerProfiles
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<CustomerProfilesEvaluationsResource> PreviousPage(Page<CustomerProfilesEvaluationsResource> page, ITwilioRestClient client)
+        public static Page<CustomerProfilesEvaluationsResource> PreviousPage(Page<CustomerProfilesEvaluationsResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -311,7 +311,7 @@ namespace Kandy.Rest.Trusthub.V1.CustomerProfiles
             return Page<CustomerProfilesEvaluationsResource>.FromJson("results", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a CustomerProfilesEvaluationsResource object
         /// </summary>
@@ -329,7 +329,7 @@ namespace Kandy.Rest.Trusthub.V1.CustomerProfiles
             }
         }
 
-    
+
         ///<summary> The unique string that identifies the Evaluation resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -346,7 +346,7 @@ namespace Kandy.Rest.Trusthub.V1.CustomerProfiles
         [JsonProperty("customer_profile_sid")]
         public string CustomerProfileSid { get; private set; }
 
-        
+
         [JsonProperty("status")]
         public CustomerProfilesEvaluationsResource.StatusEnum Status { get; private set; }
 
@@ -364,7 +364,8 @@ namespace Kandy.Rest.Trusthub.V1.CustomerProfiles
 
 
 
-        private CustomerProfilesEvaluationsResource() {
+        private CustomerProfilesEvaluationsResource()
+        {
 
         }
     }

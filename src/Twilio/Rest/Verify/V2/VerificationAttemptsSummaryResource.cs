@@ -28,11 +28,11 @@ namespace Kandy.Rest.Verify.V2
 {
     public class VerificationAttemptsSummaryResource : Resource
     {
-    
+
         public sealed class ChannelsEnum : StringEnum
         {
-            private ChannelsEnum(string value) : base(value) {}
-            public ChannelsEnum() {}
+            private ChannelsEnum(string value) : base(value) { }
+            public ChannelsEnum() { }
             public static implicit operator ChannelsEnum(string value)
             {
                 return new ChannelsEnum(value);
@@ -44,10 +44,10 @@ namespace Kandy.Rest.Verify.V2
 
         }
 
-        
-        private static Request BuildFetchRequest(FetchVerificationAttemptsSummaryOptions options, ITwilioRestClient client)
+
+        private static Request BuildFetchRequest(FetchVerificationAttemptsSummaryOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Attempts/Summary";
 
 
@@ -64,26 +64,26 @@ namespace Kandy.Rest.Verify.V2
         /// <param name="options"> Fetch VerificationAttemptsSummary parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of VerificationAttemptsSummary </returns>
-        public static VerificationAttemptsSummaryResource Fetch(FetchVerificationAttemptsSummaryOptions options, ITwilioRestClient client = null)
+        public static VerificationAttemptsSummaryResource Fetch(FetchVerificationAttemptsSummaryOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Get a summary of how many attempts were made and how many were converted. </summary>
         /// <param name="options"> Fetch VerificationAttemptsSummary parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of VerificationAttemptsSummary </returns>
         public static async System.Threading.Tasks.Task<VerificationAttemptsSummaryResource> FetchAsync(FetchVerificationAttemptsSummaryOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Get a summary of how many attempts were made and how many were converted. </summary>
         /// <param name="verifyServiceSid"> Filter used to consider only Verification Attempts of the given verify service on the summary aggregation. </param>
         /// <param name="dateCreatedAfter"> Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in RFC 2822 format. </param>
@@ -94,19 +94,19 @@ namespace Kandy.Rest.Verify.V2
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of VerificationAttemptsSummary </returns>
         public static VerificationAttemptsSummaryResource Fetch(
-                                         string verifyServiceSid = null, 
-                                         DateTime? dateCreatedAfter = null, 
-                                         DateTime? dateCreatedBefore = null, 
-                                         string country = null, 
-                                         VerificationAttemptsSummaryResource.ChannelsEnum channel = null, 
-                                         string destinationPrefix = null, 
-                                         ITwilioRestClient client = null)
+                                         string verifyServiceSid = null,
+                                         DateTime? dateCreatedAfter = null,
+                                         DateTime? dateCreatedBefore = null,
+                                         string country = null,
+                                         VerificationAttemptsSummaryResource.ChannelsEnum channel = null,
+                                         string destinationPrefix = null,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchVerificationAttemptsSummaryOptions(){ VerifyServiceSid = verifyServiceSid,DateCreatedAfter = dateCreatedAfter,DateCreatedBefore = dateCreatedBefore,Country = country,Channel = channel,DestinationPrefix = destinationPrefix };
+            var options = new FetchVerificationAttemptsSummaryOptions() { VerifyServiceSid = verifyServiceSid, DateCreatedAfter = dateCreatedAfter, DateCreatedBefore = dateCreatedBefore, Country = country, Channel = channel, DestinationPrefix = destinationPrefix };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Get a summary of how many attempts were made and how many were converted. </summary>
         /// <param name="verifyServiceSid"> Filter used to consider only Verification Attempts of the given verify service on the summary aggregation. </param>
         /// <param name="dateCreatedAfter"> Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in RFC 2822 format. </param>
@@ -116,13 +116,13 @@ namespace Kandy.Rest.Verify.V2
         /// <param name="destinationPrefix"> Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of VerificationAttemptsSummary </returns>
-        public static async System.Threading.Tasks.Task<VerificationAttemptsSummaryResource> FetchAsync(string verifyServiceSid = null, DateTime? dateCreatedAfter = null, DateTime? dateCreatedBefore = null, string country = null, VerificationAttemptsSummaryResource.ChannelsEnum channel = null, string destinationPrefix = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<VerificationAttemptsSummaryResource> FetchAsync(string verifyServiceSid = null, DateTime? dateCreatedAfter = null, DateTime? dateCreatedBefore = null, string country = null, VerificationAttemptsSummaryResource.ChannelsEnum channel = null, string destinationPrefix = null, IKandyRestClient client = null)
         {
-            var options = new FetchVerificationAttemptsSummaryOptions(){ VerifyServiceSid = verifyServiceSid,DateCreatedAfter = dateCreatedAfter,DateCreatedBefore = dateCreatedBefore,Country = country,Channel = channel,DestinationPrefix = destinationPrefix };
+            var options = new FetchVerificationAttemptsSummaryOptions() { VerifyServiceSid = verifyServiceSid, DateCreatedAfter = dateCreatedAfter, DateCreatedBefore = dateCreatedBefore, Country = country, Channel = channel, DestinationPrefix = destinationPrefix };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a VerificationAttemptsSummaryResource object
         /// </summary>
@@ -140,7 +140,7 @@ namespace Kandy.Rest.Verify.V2
             }
         }
 
-    
+
         ///<summary> Total of attempts made according to the provided filters </summary> 
         [JsonProperty("total_attempts")]
         public int? TotalAttempts { get; private set; }
@@ -163,7 +163,8 @@ namespace Kandy.Rest.Verify.V2
 
 
 
-        private VerificationAttemptsSummaryResource() {
+        private VerificationAttemptsSummaryResource()
+        {
 
         }
     }

@@ -28,12 +28,12 @@ namespace Kandy.Rest.Preview.HostedNumbers
 {
     public class HostedNumberOrderResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class StatusEnum : StringEnum
         {
-            private StatusEnum(string value) : base(value) {}
-            public StatusEnum() {}
+            private StatusEnum(string value) : base(value) { }
+            public StatusEnum() { }
             public static implicit operator StatusEnum(string value)
             {
                 return new StatusEnum(value);
@@ -52,8 +52,8 @@ namespace Kandy.Rest.Preview.HostedNumbers
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class VerificationTypeEnum : StringEnum
         {
-            private VerificationTypeEnum(string value) : base(value) {}
-            public VerificationTypeEnum() {}
+            private VerificationTypeEnum(string value) : base(value) { }
+            public VerificationTypeEnum() { }
             public static implicit operator VerificationTypeEnum(string value)
             {
                 return new VerificationTypeEnum(value);
@@ -63,10 +63,10 @@ namespace Kandy.Rest.Preview.HostedNumbers
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateHostedNumberOrderOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateHostedNumberOrderOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/HostedNumbers/HostedNumberOrders";
 
 
@@ -83,26 +83,26 @@ namespace Kandy.Rest.Preview.HostedNumbers
         /// <param name="options"> Create HostedNumberOrder parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of HostedNumberOrder </returns>
-        public static HostedNumberOrderResource Create(CreateHostedNumberOrderOptions options, ITwilioRestClient client = null)
+        public static HostedNumberOrderResource Create(CreateHostedNumberOrderOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Host a phone number's capability on Twilio's platform. </summary>
         /// <param name="options"> Create HostedNumberOrder parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of HostedNumberOrder </returns>
         public static async System.Threading.Tasks.Task<HostedNumberOrderResource> CreateAsync(CreateHostedNumberOrderOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Host a phone number's capability on Twilio's platform. </summary>
         /// <param name="phoneNumber"> The number to host in [+E.164](https://en.wikipedia.org/wiki/E.164) format </param>
@@ -142,13 +142,13 @@ namespace Kandy.Rest.Preview.HostedNumbers
                                           string email = null,
                                           HostedNumberOrderResource.VerificationTypeEnum verificationType = null,
                                           string verificationDocumentSid = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateHostedNumberOrderOptions(phoneNumber, smsCapability){  AccountSid = accountSid, FriendlyName = friendlyName, UniqueName = uniqueName, CcEmails = ccEmails, SmsUrl = smsUrl, SmsMethod = smsMethod, SmsFallbackUrl = smsFallbackUrl, SmsFallbackMethod = smsFallbackMethod, StatusCallbackUrl = statusCallbackUrl, StatusCallbackMethod = statusCallbackMethod, SmsApplicationSid = smsApplicationSid, AddressSid = addressSid, Email = email, VerificationType = verificationType, VerificationDocumentSid = verificationDocumentSid };
+            var options = new CreateHostedNumberOrderOptions(phoneNumber, smsCapability) { AccountSid = accountSid, FriendlyName = friendlyName, UniqueName = uniqueName, CcEmails = ccEmails, SmsUrl = smsUrl, SmsMethod = smsMethod, SmsFallbackUrl = smsFallbackUrl, SmsFallbackMethod = smsFallbackMethod, StatusCallbackUrl = statusCallbackUrl, StatusCallbackMethod = statusCallbackMethod, SmsApplicationSid = smsApplicationSid, AddressSid = addressSid, Email = email, VerificationType = verificationType, VerificationDocumentSid = verificationDocumentSid };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Host a phone number's capability on Twilio's platform. </summary>
         /// <param name="phoneNumber"> The number to host in [+E.164](https://en.wikipedia.org/wiki/E.164) format </param>
         /// <param name="smsCapability"> Used to specify that the SMS capability will be hosted on Twilio's platform. </param>
@@ -187,24 +187,24 @@ namespace Kandy.Rest.Preview.HostedNumbers
                                                                                   string email = null,
                                                                                   HostedNumberOrderResource.VerificationTypeEnum verificationType = null,
                                                                                   string verificationDocumentSid = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateHostedNumberOrderOptions(phoneNumber, smsCapability){  AccountSid = accountSid, FriendlyName = friendlyName, UniqueName = uniqueName, CcEmails = ccEmails, SmsUrl = smsUrl, SmsMethod = smsMethod, SmsFallbackUrl = smsFallbackUrl, SmsFallbackMethod = smsFallbackMethod, StatusCallbackUrl = statusCallbackUrl, StatusCallbackMethod = statusCallbackMethod, SmsApplicationSid = smsApplicationSid, AddressSid = addressSid, Email = email, VerificationType = verificationType, VerificationDocumentSid = verificationDocumentSid };
+            var options = new CreateHostedNumberOrderOptions(phoneNumber, smsCapability) { AccountSid = accountSid, FriendlyName = friendlyName, UniqueName = uniqueName, CcEmails = ccEmails, SmsUrl = smsUrl, SmsMethod = smsMethod, SmsFallbackUrl = smsFallbackUrl, SmsFallbackMethod = smsFallbackMethod, StatusCallbackUrl = statusCallbackUrl, StatusCallbackMethod = statusCallbackMethod, SmsApplicationSid = smsApplicationSid, AddressSid = addressSid, Email = email, VerificationType = verificationType, VerificationDocumentSid = verificationDocumentSid };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Cancel the HostedNumberOrder (only available when the status is in `received`). </summary>
         /// <param name="options"> Delete HostedNumberOrder parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of HostedNumberOrder </returns>
-        private static Request BuildDeleteRequest(DeleteHostedNumberOrderOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteHostedNumberOrderOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/HostedNumbers/HostedNumberOrders/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -219,56 +219,56 @@ namespace Kandy.Rest.Preview.HostedNumbers
         /// <param name="options"> Delete HostedNumberOrder parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of HostedNumberOrder </returns>
-        public static bool Delete(DeleteHostedNumberOrderOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteHostedNumberOrderOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Cancel the HostedNumberOrder (only available when the status is in `received`). </summary>
         /// <param name="options"> Delete HostedNumberOrder parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of HostedNumberOrder </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteHostedNumberOrderOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Cancel the HostedNumberOrder (only available when the status is in `received`). </summary>
         /// <param name="pathSid"> A 34 character string that uniquely identifies this HostedNumberOrder. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of HostedNumberOrder </returns>
-        public static bool Delete(string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteHostedNumberOrderOptions(pathSid)     ;
+            var options = new DeleteHostedNumberOrderOptions(pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Cancel the HostedNumberOrder (only available when the status is in `received`). </summary>
         /// <param name="pathSid"> A 34 character string that uniquely identifies this HostedNumberOrder. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of HostedNumberOrder </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteHostedNumberOrderOptions(pathSid) ;
+            var options = new DeleteHostedNumberOrderOptions(pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchHostedNumberOrderOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchHostedNumberOrderOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/HostedNumbers/HostedNumberOrders/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -283,53 +283,53 @@ namespace Kandy.Rest.Preview.HostedNumbers
         /// <param name="options"> Fetch HostedNumberOrder parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of HostedNumberOrder </returns>
-        public static HostedNumberOrderResource Fetch(FetchHostedNumberOrderOptions options, ITwilioRestClient client = null)
+        public static HostedNumberOrderResource Fetch(FetchHostedNumberOrderOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific HostedNumberOrder. </summary>
         /// <param name="options"> Fetch HostedNumberOrder parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of HostedNumberOrder </returns>
         public static async System.Threading.Tasks.Task<HostedNumberOrderResource> FetchAsync(FetchHostedNumberOrderOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a specific HostedNumberOrder. </summary>
         /// <param name="pathSid"> A 34 character string that uniquely identifies this HostedNumberOrder. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of HostedNumberOrder </returns>
         public static HostedNumberOrderResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchHostedNumberOrderOptions(pathSid){  };
+            var options = new FetchHostedNumberOrderOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific HostedNumberOrder. </summary>
         /// <param name="pathSid"> A 34 character string that uniquely identifies this HostedNumberOrder. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of HostedNumberOrder </returns>
-        public static async System.Threading.Tasks.Task<HostedNumberOrderResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<HostedNumberOrderResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchHostedNumberOrderOptions(pathSid){  };
+            var options = new FetchHostedNumberOrderOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadHostedNumberOrderOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadHostedNumberOrderOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/HostedNumbers/HostedNumberOrders";
 
 
@@ -345,7 +345,7 @@ namespace Kandy.Rest.Preview.HostedNumbers
         /// <param name="options"> Read HostedNumberOrder parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of HostedNumberOrder </returns>
-        public static ResourceSet<HostedNumberOrderResource> Read(ReadHostedNumberOrderOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<HostedNumberOrderResource> Read(ReadHostedNumberOrderOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -353,13 +353,13 @@ namespace Kandy.Rest.Preview.HostedNumbers
             return new ResourceSet<HostedNumberOrderResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of HostedNumberOrders belonging to the account initiating the request. </summary>
         /// <param name="options"> Read HostedNumberOrder parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of HostedNumberOrder </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<HostedNumberOrderResource>> ReadAsync(ReadHostedNumberOrderOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -367,7 +367,7 @@ namespace Kandy.Rest.Preview.HostedNumbers
             var page = Page<HostedNumberOrderResource>.FromJson("items", response.Content);
             return new ResourceSet<HostedNumberOrderResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of HostedNumberOrders belonging to the account initiating the request. </summary>
         /// <param name="status"> The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`. </param>
         /// <param name="phoneNumber"> An E164 formatted phone number hosted by this HostedNumberOrder. </param>
@@ -386,13 +386,13 @@ namespace Kandy.Rest.Preview.HostedNumbers
                                                      string uniqueName = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadHostedNumberOrderOptions(){ Status = status, PhoneNumber = phoneNumber, IncomingPhoneNumberSid = incomingPhoneNumberSid, FriendlyName = friendlyName, UniqueName = uniqueName, PageSize = pageSize, Limit = limit};
+            var options = new ReadHostedNumberOrderOptions() { Status = status, PhoneNumber = phoneNumber, IncomingPhoneNumberSid = incomingPhoneNumberSid, FriendlyName = friendlyName, UniqueName = uniqueName, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of HostedNumberOrders belonging to the account initiating the request. </summary>
         /// <param name="status"> The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`. </param>
         /// <param name="phoneNumber"> An E164 formatted phone number hosted by this HostedNumberOrder. </param>
@@ -411,19 +411,19 @@ namespace Kandy.Rest.Preview.HostedNumbers
                                                                                              string uniqueName = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadHostedNumberOrderOptions(){ Status = status, PhoneNumber = phoneNumber, IncomingPhoneNumberSid = incomingPhoneNumberSid, FriendlyName = friendlyName, UniqueName = uniqueName, PageSize = pageSize, Limit = limit};
+            var options = new ReadHostedNumberOrderOptions() { Status = status, PhoneNumber = phoneNumber, IncomingPhoneNumberSid = incomingPhoneNumberSid, FriendlyName = friendlyName, UniqueName = uniqueName, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<HostedNumberOrderResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<HostedNumberOrderResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -440,7 +440,7 @@ namespace Kandy.Rest.Preview.HostedNumbers
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<HostedNumberOrderResource> NextPage(Page<HostedNumberOrderResource> page, ITwilioRestClient client)
+        public static Page<HostedNumberOrderResource> NextPage(Page<HostedNumberOrderResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -455,7 +455,7 @@ namespace Kandy.Rest.Preview.HostedNumbers
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<HostedNumberOrderResource> PreviousPage(Page<HostedNumberOrderResource> page, ITwilioRestClient client)
+        public static Page<HostedNumberOrderResource> PreviousPage(Page<HostedNumberOrderResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -466,14 +466,14 @@ namespace Kandy.Rest.Preview.HostedNumbers
             return Page<HostedNumberOrderResource>.FromJson("items", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateHostedNumberOrderOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateHostedNumberOrderOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/HostedNumbers/HostedNumberOrders/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -488,7 +488,7 @@ namespace Kandy.Rest.Preview.HostedNumbers
         /// <param name="options"> Update HostedNumberOrder parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of HostedNumberOrder </returns>
-        public static HostedNumberOrderResource Update(UpdateHostedNumberOrderOptions options, ITwilioRestClient client = null)
+        public static HostedNumberOrderResource Update(UpdateHostedNumberOrderOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -499,15 +499,15 @@ namespace Kandy.Rest.Preview.HostedNumbers
         /// <param name="options"> Update HostedNumberOrder parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of HostedNumberOrder </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<HostedNumberOrderResource> UpdateAsync(UpdateHostedNumberOrderOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Updates a specific HostedNumberOrder. </summary>
         /// <param name="pathSid">  </param>
@@ -535,13 +535,13 @@ namespace Kandy.Rest.Preview.HostedNumbers
                                           string verificationDocumentSid = null,
                                           string extension = null,
                                           int? callDelay = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateHostedNumberOrderOptions(pathSid){ FriendlyName = friendlyName, UniqueName = uniqueName, Email = email, CcEmails = ccEmails, Status = status, VerificationCode = verificationCode, VerificationType = verificationType, VerificationDocumentSid = verificationDocumentSid, Extension = extension, CallDelay = callDelay };
+            var options = new UpdateHostedNumberOrderOptions(pathSid) { FriendlyName = friendlyName, UniqueName = uniqueName, Email = email, CcEmails = ccEmails, Status = status, VerificationCode = verificationCode, VerificationType = verificationType, VerificationDocumentSid = verificationDocumentSid, Extension = extension, CallDelay = callDelay };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Updates a specific HostedNumberOrder. </summary>
         /// <param name="pathSid">  </param>
         /// <param name="friendlyName"> A 64 character string that is a human readable text that describes this resource. </param>
@@ -568,13 +568,13 @@ namespace Kandy.Rest.Preview.HostedNumbers
                                                                               string verificationDocumentSid = null,
                                                                               string extension = null,
                                                                               int? callDelay = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateHostedNumberOrderOptions(pathSid){ FriendlyName = friendlyName, UniqueName = uniqueName, Email = email, CcEmails = ccEmails, Status = status, VerificationCode = verificationCode, VerificationType = verificationType, VerificationDocumentSid = verificationDocumentSid, Extension = extension, CallDelay = callDelay };
+            var options = new UpdateHostedNumberOrderOptions(pathSid) { FriendlyName = friendlyName, UniqueName = uniqueName, Email = email, CcEmails = ccEmails, Status = status, VerificationCode = verificationCode, VerificationType = verificationType, VerificationDocumentSid = verificationDocumentSid, Extension = extension, CallDelay = callDelay };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a HostedNumberOrderResource object
         /// </summary>
@@ -592,7 +592,7 @@ namespace Kandy.Rest.Preview.HostedNumbers
             }
         }
 
-    
+
         ///<summary> A 34 character string that uniquely identifies this HostedNumberOrder. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -630,7 +630,7 @@ namespace Kandy.Rest.Preview.HostedNumbers
         [JsonProperty("unique_name")]
         public string UniqueName { get; private set; }
 
-        
+
         [JsonProperty("status")]
         public HostedNumberOrderResource.StatusEnum Status { get; private set; }
 
@@ -662,7 +662,7 @@ namespace Kandy.Rest.Preview.HostedNumbers
         [JsonProperty("url")]
         public Uri Url { get; private set; }
 
-        
+
         [JsonProperty("verification_type")]
         public HostedNumberOrderResource.VerificationTypeEnum VerificationType { get; private set; }
 
@@ -688,7 +688,8 @@ namespace Kandy.Rest.Preview.HostedNumbers
 
 
 
-        private HostedNumberOrderResource() {
+        private HostedNumberOrderResource()
+        {
 
         }
     }

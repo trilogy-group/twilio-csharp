@@ -28,18 +28,18 @@ namespace Kandy.Rest.Autopilot.V1.Assistant.FieldType
 {
     public class FieldValueResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateFieldValueOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateFieldValueOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues";
 
             string PathAssistantSid = options.PathAssistantSid;
-            path = path.Replace("{"+"AssistantSid"+"}", PathAssistantSid);
+            path = path.Replace("{" + "AssistantSid" + "}", PathAssistantSid);
             string PathFieldTypeSid = options.PathFieldTypeSid;
-            path = path.Replace("{"+"FieldTypeSid"+"}", PathFieldTypeSid);
+            path = path.Replace("{" + "FieldTypeSid" + "}", PathFieldTypeSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -54,26 +54,26 @@ namespace Kandy.Rest.Autopilot.V1.Assistant.FieldType
         /// <param name="options"> Create FieldValue parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of FieldValue </returns>
-        public static FieldValueResource Create(CreateFieldValueOptions options, ITwilioRestClient client = null)
+        public static FieldValueResource Create(CreateFieldValueOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create FieldValue parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of FieldValue </returns>
         public static async System.Threading.Tasks.Task<FieldValueResource> CreateAsync(CreateFieldValueOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="pathAssistantSid"> The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the FieldType associated with the new resource. </param>
@@ -89,13 +89,13 @@ namespace Kandy.Rest.Autopilot.V1.Assistant.FieldType
                                           string language,
                                           string value,
                                           string synonymOf = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateFieldValueOptions(pathAssistantSid, pathFieldTypeSid, language, value){  SynonymOf = synonymOf };
+            var options = new CreateFieldValueOptions(pathAssistantSid, pathFieldTypeSid, language, value) { SynonymOf = synonymOf };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="pathAssistantSid"> The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the FieldType associated with the new resource. </param>
         /// <param name="pathFieldTypeSid"> The SID of the Field Type associated with the Field Value. </param>
@@ -110,28 +110,28 @@ namespace Kandy.Rest.Autopilot.V1.Assistant.FieldType
                                                                                   string language,
                                                                                   string value,
                                                                                   string synonymOf = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateFieldValueOptions(pathAssistantSid, pathFieldTypeSid, language, value){  SynonymOf = synonymOf };
+            var options = new CreateFieldValueOptions(pathAssistantSid, pathFieldTypeSid, language, value) { SynonymOf = synonymOf };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> delete </summary>
         /// <param name="options"> Delete FieldValue parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of FieldValue </returns>
-        private static Request BuildDeleteRequest(DeleteFieldValueOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteFieldValueOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues/{Sid}";
 
             string PathAssistantSid = options.PathAssistantSid;
-            path = path.Replace("{"+"AssistantSid"+"}", PathAssistantSid);
+            path = path.Replace("{" + "AssistantSid" + "}", PathAssistantSid);
             string PathFieldTypeSid = options.PathFieldTypeSid;
-            path = path.Replace("{"+"FieldTypeSid"+"}", PathFieldTypeSid);
+            path = path.Replace("{" + "FieldTypeSid" + "}", PathFieldTypeSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -146,26 +146,26 @@ namespace Kandy.Rest.Autopilot.V1.Assistant.FieldType
         /// <param name="options"> Delete FieldValue parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of FieldValue </returns>
-        public static bool Delete(DeleteFieldValueOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteFieldValueOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="options"> Delete FieldValue parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of FieldValue </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteFieldValueOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> delete </summary>
         /// <param name="pathAssistantSid"> The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the FieldType associated with the resources to delete. </param>
@@ -173,37 +173,37 @@ namespace Kandy.Rest.Autopilot.V1.Assistant.FieldType
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the FieldValue resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of FieldValue </returns>
-        public static bool Delete(string pathAssistantSid, string pathFieldTypeSid, string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathAssistantSid, string pathFieldTypeSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteFieldValueOptions(pathAssistantSid, pathFieldTypeSid, pathSid)           ;
+            var options = new DeleteFieldValueOptions(pathAssistantSid, pathFieldTypeSid, pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="pathAssistantSid"> The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the FieldType associated with the resources to delete. </param>
         /// <param name="pathFieldTypeSid"> The SID of the Field Type associated with the Field Value to delete. </param>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the FieldValue resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of FieldValue </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathAssistantSid, string pathFieldTypeSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathAssistantSid, string pathFieldTypeSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteFieldValueOptions(pathAssistantSid, pathFieldTypeSid, pathSid) ;
+            var options = new DeleteFieldValueOptions(pathAssistantSid, pathFieldTypeSid, pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchFieldValueOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchFieldValueOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues/{Sid}";
 
             string PathAssistantSid = options.PathAssistantSid;
-            path = path.Replace("{"+"AssistantSid"+"}", PathAssistantSid);
+            path = path.Replace("{" + "AssistantSid" + "}", PathAssistantSid);
             string PathFieldTypeSid = options.PathFieldTypeSid;
-            path = path.Replace("{"+"FieldTypeSid"+"}", PathFieldTypeSid);
+            path = path.Replace("{" + "FieldTypeSid" + "}", PathFieldTypeSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -218,26 +218,26 @@ namespace Kandy.Rest.Autopilot.V1.Assistant.FieldType
         /// <param name="options"> Fetch FieldValue parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of FieldValue </returns>
-        public static FieldValueResource Fetch(FetchFieldValueOptions options, ITwilioRestClient client = null)
+        public static FieldValueResource Fetch(FetchFieldValueOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch FieldValue parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of FieldValue </returns>
         public static async System.Threading.Tasks.Task<FieldValueResource> FetchAsync(FetchFieldValueOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathAssistantSid"> The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the FieldType associated with the resource to fetch. </param>
         /// <param name="pathFieldTypeSid"> The SID of the Field Type associated with the Field Value to fetch. </param>
@@ -245,38 +245,38 @@ namespace Kandy.Rest.Autopilot.V1.Assistant.FieldType
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of FieldValue </returns>
         public static FieldValueResource Fetch(
-                                         string pathAssistantSid, 
-                                         string pathFieldTypeSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathAssistantSid,
+                                         string pathFieldTypeSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchFieldValueOptions(pathAssistantSid, pathFieldTypeSid, pathSid){  };
+            var options = new FetchFieldValueOptions(pathAssistantSid, pathFieldTypeSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathAssistantSid"> The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the FieldType associated with the resource to fetch. </param>
         /// <param name="pathFieldTypeSid"> The SID of the Field Type associated with the Field Value to fetch. </param>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the FieldValue resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of FieldValue </returns>
-        public static async System.Threading.Tasks.Task<FieldValueResource> FetchAsync(string pathAssistantSid, string pathFieldTypeSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<FieldValueResource> FetchAsync(string pathAssistantSid, string pathFieldTypeSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchFieldValueOptions(pathAssistantSid, pathFieldTypeSid, pathSid){  };
+            var options = new FetchFieldValueOptions(pathAssistantSid, pathFieldTypeSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadFieldValueOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadFieldValueOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues";
 
             string PathAssistantSid = options.PathAssistantSid;
-            path = path.Replace("{"+"AssistantSid"+"}", PathAssistantSid);
+            path = path.Replace("{" + "AssistantSid" + "}", PathAssistantSid);
             string PathFieldTypeSid = options.PathFieldTypeSid;
-            path = path.Replace("{"+"FieldTypeSid"+"}", PathFieldTypeSid);
+            path = path.Replace("{" + "FieldTypeSid" + "}", PathFieldTypeSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -290,7 +290,7 @@ namespace Kandy.Rest.Autopilot.V1.Assistant.FieldType
         /// <param name="options"> Read FieldValue parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of FieldValue </returns>
-        public static ResourceSet<FieldValueResource> Read(ReadFieldValueOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<FieldValueResource> Read(ReadFieldValueOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -298,13 +298,13 @@ namespace Kandy.Rest.Autopilot.V1.Assistant.FieldType
             return new ResourceSet<FieldValueResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read FieldValue parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of FieldValue </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<FieldValueResource>> ReadAsync(ReadFieldValueOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -312,7 +312,7 @@ namespace Kandy.Rest.Autopilot.V1.Assistant.FieldType
             var page = Page<FieldValueResource>.FromJson("field_values", response.Content);
             return new ResourceSet<FieldValueResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="pathAssistantSid"> The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the FieldType associated with the resources to read. </param>
         /// <param name="pathFieldTypeSid"> The SID of the Field Type associated with the Field Value to read. </param>
@@ -327,13 +327,13 @@ namespace Kandy.Rest.Autopilot.V1.Assistant.FieldType
                                                      string language = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadFieldValueOptions(pathAssistantSid, pathFieldTypeSid){ Language = language, PageSize = pageSize, Limit = limit};
+            var options = new ReadFieldValueOptions(pathAssistantSid, pathFieldTypeSid) { Language = language, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="pathAssistantSid"> The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the FieldType associated with the resources to read. </param>
         /// <param name="pathFieldTypeSid"> The SID of the Field Type associated with the Field Value to read. </param>
@@ -348,19 +348,19 @@ namespace Kandy.Rest.Autopilot.V1.Assistant.FieldType
                                                                                              string language = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadFieldValueOptions(pathAssistantSid, pathFieldTypeSid){ Language = language, PageSize = pageSize, Limit = limit};
+            var options = new ReadFieldValueOptions(pathAssistantSid, pathFieldTypeSid) { Language = language, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<FieldValueResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<FieldValueResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -377,7 +377,7 @@ namespace Kandy.Rest.Autopilot.V1.Assistant.FieldType
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<FieldValueResource> NextPage(Page<FieldValueResource> page, ITwilioRestClient client)
+        public static Page<FieldValueResource> NextPage(Page<FieldValueResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -392,7 +392,7 @@ namespace Kandy.Rest.Autopilot.V1.Assistant.FieldType
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<FieldValueResource> PreviousPage(Page<FieldValueResource> page, ITwilioRestClient client)
+        public static Page<FieldValueResource> PreviousPage(Page<FieldValueResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -403,7 +403,7 @@ namespace Kandy.Rest.Autopilot.V1.Assistant.FieldType
             return Page<FieldValueResource>.FromJson("field_values", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a FieldValueResource object
         /// </summary>
@@ -421,7 +421,7 @@ namespace Kandy.Rest.Autopilot.V1.Assistant.FieldType
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the FieldValue resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -464,7 +464,8 @@ namespace Kandy.Rest.Autopilot.V1.Assistant.FieldType
 
 
 
-        private FieldValueResource() {
+        private FieldValueResource()
+        {
 
         }
     }

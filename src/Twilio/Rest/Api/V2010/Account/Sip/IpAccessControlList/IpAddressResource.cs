@@ -28,18 +28,18 @@ namespace Kandy.Rest.Api.V2010.Account.Sip.IpAccessControlList
 {
     public class IpAddressResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateIpAddressOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateIpAddressOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathIpAccessControlListSid = options.PathIpAccessControlListSid;
-            path = path.Replace("{"+"IpAccessControlListSid"+"}", PathIpAccessControlListSid);
+            path = path.Replace("{" + "IpAccessControlListSid" + "}", PathIpAccessControlListSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -54,26 +54,26 @@ namespace Kandy.Rest.Api.V2010.Account.Sip.IpAccessControlList
         /// <param name="options"> Create IpAddress parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of IpAddress </returns>
-        public static IpAddressResource Create(CreateIpAddressOptions options, ITwilioRestClient client = null)
+        public static IpAddressResource Create(CreateIpAddressOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new IpAddress resource. </summary>
         /// <param name="options"> Create IpAddress parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of IpAddress </returns>
         public static async System.Threading.Tasks.Task<IpAddressResource> CreateAsync(CreateIpAddressOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new IpAddress resource. </summary>
         /// <param name="pathIpAccessControlListSid"> The IpAccessControlList Sid with which to associate the created IpAddress resource. </param>
@@ -89,13 +89,13 @@ namespace Kandy.Rest.Api.V2010.Account.Sip.IpAccessControlList
                                           string ipAddress,
                                           string pathAccountSid = null,
                                           int? cidrPrefixLength = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateIpAddressOptions(pathIpAccessControlListSid, friendlyName, ipAddress){  PathAccountSid = pathAccountSid, CidrPrefixLength = cidrPrefixLength };
+            var options = new CreateIpAddressOptions(pathIpAccessControlListSid, friendlyName, ipAddress) { PathAccountSid = pathAccountSid, CidrPrefixLength = cidrPrefixLength };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new IpAddress resource. </summary>
         /// <param name="pathIpAccessControlListSid"> The IpAccessControlList Sid with which to associate the created IpAddress resource. </param>
         /// <param name="friendlyName"> A human readable descriptive text for this resource, up to 255 characters long. </param>
@@ -110,28 +110,28 @@ namespace Kandy.Rest.Api.V2010.Account.Sip.IpAccessControlList
                                                                                   string ipAddress,
                                                                                   string pathAccountSid = null,
                                                                                   int? cidrPrefixLength = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateIpAddressOptions(pathIpAccessControlListSid, friendlyName, ipAddress){  PathAccountSid = pathAccountSid, CidrPrefixLength = cidrPrefixLength };
+            var options = new CreateIpAddressOptions(pathIpAccessControlListSid, friendlyName, ipAddress) { PathAccountSid = pathAccountSid, CidrPrefixLength = cidrPrefixLength };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Delete an IpAddress resource. </summary>
         /// <param name="options"> Delete IpAddress parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of IpAddress </returns>
-        private static Request BuildDeleteRequest(DeleteIpAddressOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteIpAddressOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathIpAccessControlListSid = options.PathIpAccessControlListSid;
-            path = path.Replace("{"+"IpAccessControlListSid"+"}", PathIpAccessControlListSid);
+            path = path.Replace("{" + "IpAccessControlListSid" + "}", PathIpAccessControlListSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -146,26 +146,26 @@ namespace Kandy.Rest.Api.V2010.Account.Sip.IpAccessControlList
         /// <param name="options"> Delete IpAddress parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of IpAddress </returns>
-        public static bool Delete(DeleteIpAddressOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteIpAddressOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete an IpAddress resource. </summary>
         /// <param name="options"> Delete IpAddress parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of IpAddress </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteIpAddressOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete an IpAddress resource. </summary>
         /// <param name="pathIpAccessControlListSid"> The IpAccessControlList Sid that identifies the IpAddress resources to delete. </param>
@@ -173,37 +173,37 @@ namespace Kandy.Rest.Api.V2010.Account.Sip.IpAccessControlList
         /// <param name="pathAccountSid"> The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of IpAddress </returns>
-        public static bool Delete(string pathIpAccessControlListSid, string pathSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static bool Delete(string pathIpAccessControlListSid, string pathSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new DeleteIpAddressOptions(pathIpAccessControlListSid, pathSid)         { PathAccountSid = pathAccountSid }   ;
+            var options = new DeleteIpAddressOptions(pathIpAccessControlListSid, pathSid) { PathAccountSid = pathAccountSid };
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete an IpAddress resource. </summary>
         /// <param name="pathIpAccessControlListSid"> The IpAccessControlList Sid that identifies the IpAddress resources to delete. </param>
         /// <param name="pathSid"> A 34 character string that uniquely identifies the resource to delete. </param>
         /// <param name="pathAccountSid"> The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of IpAddress </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathIpAccessControlListSid, string pathSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathIpAccessControlListSid, string pathSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new DeleteIpAddressOptions(pathIpAccessControlListSid, pathSid)  { PathAccountSid = pathAccountSid };
+            var options = new DeleteIpAddressOptions(pathIpAccessControlListSid, pathSid) { PathAccountSid = pathAccountSid };
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchIpAddressOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchIpAddressOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathIpAccessControlListSid = options.PathIpAccessControlListSid;
-            path = path.Replace("{"+"IpAccessControlListSid"+"}", PathIpAccessControlListSid);
+            path = path.Replace("{" + "IpAccessControlListSid" + "}", PathIpAccessControlListSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -218,26 +218,26 @@ namespace Kandy.Rest.Api.V2010.Account.Sip.IpAccessControlList
         /// <param name="options"> Fetch IpAddress parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of IpAddress </returns>
-        public static IpAddressResource Fetch(FetchIpAddressOptions options, ITwilioRestClient client = null)
+        public static IpAddressResource Fetch(FetchIpAddressOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Read one IpAddress resource. </summary>
         /// <param name="options"> Fetch IpAddress parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of IpAddress </returns>
         public static async System.Threading.Tasks.Task<IpAddressResource> FetchAsync(FetchIpAddressOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Read one IpAddress resource. </summary>
         /// <param name="pathIpAccessControlListSid"> The IpAccessControlList Sid that identifies the IpAddress resources to fetch. </param>
         /// <param name="pathSid"> A 34 character string that uniquely identifies the IpAddress resource to fetch. </param>
@@ -245,38 +245,38 @@ namespace Kandy.Rest.Api.V2010.Account.Sip.IpAccessControlList
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of IpAddress </returns>
         public static IpAddressResource Fetch(
-                                         string pathIpAccessControlListSid, 
-                                         string pathSid, 
-                                         string pathAccountSid = null, 
-                                         ITwilioRestClient client = null)
+                                         string pathIpAccessControlListSid,
+                                         string pathSid,
+                                         string pathAccountSid = null,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchIpAddressOptions(pathIpAccessControlListSid, pathSid){ PathAccountSid = pathAccountSid };
+            var options = new FetchIpAddressOptions(pathIpAccessControlListSid, pathSid) { PathAccountSid = pathAccountSid };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Read one IpAddress resource. </summary>
         /// <param name="pathIpAccessControlListSid"> The IpAccessControlList Sid that identifies the IpAddress resources to fetch. </param>
         /// <param name="pathSid"> A 34 character string that uniquely identifies the IpAddress resource to fetch. </param>
         /// <param name="pathAccountSid"> The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of IpAddress </returns>
-        public static async System.Threading.Tasks.Task<IpAddressResource> FetchAsync(string pathIpAccessControlListSid, string pathSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<IpAddressResource> FetchAsync(string pathIpAccessControlListSid, string pathSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new FetchIpAddressOptions(pathIpAccessControlListSid, pathSid){ PathAccountSid = pathAccountSid };
+            var options = new FetchIpAddressOptions(pathIpAccessControlListSid, pathSid) { PathAccountSid = pathAccountSid };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadIpAddressOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadIpAddressOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathIpAccessControlListSid = options.PathIpAccessControlListSid;
-            path = path.Replace("{"+"IpAccessControlListSid"+"}", PathIpAccessControlListSid);
+            path = path.Replace("{" + "IpAccessControlListSid" + "}", PathIpAccessControlListSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -290,7 +290,7 @@ namespace Kandy.Rest.Api.V2010.Account.Sip.IpAccessControlList
         /// <param name="options"> Read IpAddress parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of IpAddress </returns>
-        public static ResourceSet<IpAddressResource> Read(ReadIpAddressOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<IpAddressResource> Read(ReadIpAddressOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -298,13 +298,13 @@ namespace Kandy.Rest.Api.V2010.Account.Sip.IpAccessControlList
             return new ResourceSet<IpAddressResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Read multiple IpAddress resources. </summary>
         /// <param name="options"> Read IpAddress parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of IpAddress </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<IpAddressResource>> ReadAsync(ReadIpAddressOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -312,7 +312,7 @@ namespace Kandy.Rest.Api.V2010.Account.Sip.IpAccessControlList
             var page = Page<IpAddressResource>.FromJson("ip_addresses", response.Content);
             return new ResourceSet<IpAddressResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Read multiple IpAddress resources. </summary>
         /// <param name="pathIpAccessControlListSid"> The IpAccessControlList Sid that identifies the IpAddress resources to read. </param>
         /// <param name="pathAccountSid"> The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. </param>
@@ -325,13 +325,13 @@ namespace Kandy.Rest.Api.V2010.Account.Sip.IpAccessControlList
                                                      string pathAccountSid = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadIpAddressOptions(pathIpAccessControlListSid){ PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit};
+            var options = new ReadIpAddressOptions(pathIpAccessControlListSid) { PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Read multiple IpAddress resources. </summary>
         /// <param name="pathIpAccessControlListSid"> The IpAccessControlList Sid that identifies the IpAddress resources to read. </param>
         /// <param name="pathAccountSid"> The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. </param>
@@ -344,19 +344,19 @@ namespace Kandy.Rest.Api.V2010.Account.Sip.IpAccessControlList
                                                                                              string pathAccountSid = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadIpAddressOptions(pathIpAccessControlListSid){ PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit};
+            var options = new ReadIpAddressOptions(pathIpAccessControlListSid) { PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<IpAddressResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<IpAddressResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -373,7 +373,7 @@ namespace Kandy.Rest.Api.V2010.Account.Sip.IpAccessControlList
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<IpAddressResource> NextPage(Page<IpAddressResource> page, ITwilioRestClient client)
+        public static Page<IpAddressResource> NextPage(Page<IpAddressResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -388,7 +388,7 @@ namespace Kandy.Rest.Api.V2010.Account.Sip.IpAccessControlList
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<IpAddressResource> PreviousPage(Page<IpAddressResource> page, ITwilioRestClient client)
+        public static Page<IpAddressResource> PreviousPage(Page<IpAddressResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -399,18 +399,18 @@ namespace Kandy.Rest.Api.V2010.Account.Sip.IpAccessControlList
             return Page<IpAddressResource>.FromJson("ip_addresses", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateIpAddressOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateIpAddressOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathIpAccessControlListSid = options.PathIpAccessControlListSid;
-            path = path.Replace("{"+"IpAccessControlListSid"+"}", PathIpAccessControlListSid);
+            path = path.Replace("{" + "IpAccessControlListSid" + "}", PathIpAccessControlListSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -425,7 +425,7 @@ namespace Kandy.Rest.Api.V2010.Account.Sip.IpAccessControlList
         /// <param name="options"> Update IpAddress parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of IpAddress </returns>
-        public static IpAddressResource Update(UpdateIpAddressOptions options, ITwilioRestClient client = null)
+        public static IpAddressResource Update(UpdateIpAddressOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -436,15 +436,15 @@ namespace Kandy.Rest.Api.V2010.Account.Sip.IpAccessControlList
         /// <param name="options"> Update IpAddress parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of IpAddress </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<IpAddressResource> UpdateAsync(UpdateIpAddressOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update an IpAddress resource. </summary>
         /// <param name="pathIpAccessControlListSid"> The IpAccessControlList Sid that identifies the IpAddress resources to update. </param>
@@ -462,13 +462,13 @@ namespace Kandy.Rest.Api.V2010.Account.Sip.IpAccessControlList
                                           string ipAddress = null,
                                           string friendlyName = null,
                                           int? cidrPrefixLength = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateIpAddressOptions(pathIpAccessControlListSid, pathSid){ PathAccountSid = pathAccountSid, IpAddress = ipAddress, FriendlyName = friendlyName, CidrPrefixLength = cidrPrefixLength };
+            var options = new UpdateIpAddressOptions(pathIpAccessControlListSid, pathSid) { PathAccountSid = pathAccountSid, IpAddress = ipAddress, FriendlyName = friendlyName, CidrPrefixLength = cidrPrefixLength };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update an IpAddress resource. </summary>
         /// <param name="pathIpAccessControlListSid"> The IpAccessControlList Sid that identifies the IpAddress resources to update. </param>
         /// <param name="pathSid"> A 34 character string that identifies the IpAddress resource to update. </param>
@@ -485,13 +485,13 @@ namespace Kandy.Rest.Api.V2010.Account.Sip.IpAccessControlList
                                                                               string ipAddress = null,
                                                                               string friendlyName = null,
                                                                               int? cidrPrefixLength = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateIpAddressOptions(pathIpAccessControlListSid, pathSid){ PathAccountSid = pathAccountSid, IpAddress = ipAddress, FriendlyName = friendlyName, CidrPrefixLength = cidrPrefixLength };
+            var options = new UpdateIpAddressOptions(pathIpAccessControlListSid, pathSid) { PathAccountSid = pathAccountSid, IpAddress = ipAddress, FriendlyName = friendlyName, CidrPrefixLength = cidrPrefixLength };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a IpAddressResource object
         /// </summary>
@@ -509,7 +509,7 @@ namespace Kandy.Rest.Api.V2010.Account.Sip.IpAccessControlList
             }
         }
 
-    
+
         ///<summary> A 34 character string that uniquely identifies this resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -548,7 +548,8 @@ namespace Kandy.Rest.Api.V2010.Account.Sip.IpAccessControlList
 
 
 
-        private IpAddressResource() {
+        private IpAddressResource()
+        {
 
         }
     }

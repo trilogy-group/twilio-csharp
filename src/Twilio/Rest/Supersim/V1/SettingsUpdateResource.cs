@@ -28,12 +28,12 @@ namespace Kandy.Rest.Supersim.V1
 {
     public class SettingsUpdateResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class StatusEnum : StringEnum
         {
-            private StatusEnum(string value) : base(value) {}
-            public StatusEnum() {}
+            private StatusEnum(string value) : base(value) { }
+            public StatusEnum() { }
             public static implicit operator StatusEnum(string value)
             {
                 return new StatusEnum(value);
@@ -45,10 +45,10 @@ namespace Kandy.Rest.Supersim.V1
 
         }
 
-        
-        private static Request BuildReadRequest(ReadSettingsUpdateOptions options, ITwilioRestClient client)
+
+        private static Request BuildReadRequest(ReadSettingsUpdateOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/SettingsUpdates";
 
 
@@ -64,7 +64,7 @@ namespace Kandy.Rest.Supersim.V1
         /// <param name="options"> Read SettingsUpdate parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SettingsUpdate </returns>
-        public static ResourceSet<SettingsUpdateResource> Read(ReadSettingsUpdateOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<SettingsUpdateResource> Read(ReadSettingsUpdateOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -72,13 +72,13 @@ namespace Kandy.Rest.Supersim.V1
             return new ResourceSet<SettingsUpdateResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of Settings Updates. </summary>
         /// <param name="options"> Read SettingsUpdate parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SettingsUpdate </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<SettingsUpdateResource>> ReadAsync(ReadSettingsUpdateOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -86,7 +86,7 @@ namespace Kandy.Rest.Supersim.V1
             var page = Page<SettingsUpdateResource>.FromJson("settings_updates", response.Content);
             return new ResourceSet<SettingsUpdateResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of Settings Updates. </summary>
         /// <param name="sim"> Filter the Settings Updates by a Super SIM's SID or UniqueName. </param>
         /// <param name="status"> Filter the Settings Updates by status. Can be `scheduled`, `in-progress`, `successful`, or `failed`. </param>
@@ -99,13 +99,13 @@ namespace Kandy.Rest.Supersim.V1
                                                      SettingsUpdateResource.StatusEnum status = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadSettingsUpdateOptions(){ Sim = sim, Status = status, PageSize = pageSize, Limit = limit};
+            var options = new ReadSettingsUpdateOptions() { Sim = sim, Status = status, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of Settings Updates. </summary>
         /// <param name="sim"> Filter the Settings Updates by a Super SIM's SID or UniqueName. </param>
         /// <param name="status"> Filter the Settings Updates by status. Can be `scheduled`, `in-progress`, `successful`, or `failed`. </param>
@@ -118,19 +118,19 @@ namespace Kandy.Rest.Supersim.V1
                                                                                              SettingsUpdateResource.StatusEnum status = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadSettingsUpdateOptions(){ Sim = sim, Status = status, PageSize = pageSize, Limit = limit};
+            var options = new ReadSettingsUpdateOptions() { Sim = sim, Status = status, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<SettingsUpdateResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<SettingsUpdateResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -147,7 +147,7 @@ namespace Kandy.Rest.Supersim.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<SettingsUpdateResource> NextPage(Page<SettingsUpdateResource> page, ITwilioRestClient client)
+        public static Page<SettingsUpdateResource> NextPage(Page<SettingsUpdateResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -162,7 +162,7 @@ namespace Kandy.Rest.Supersim.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<SettingsUpdateResource> PreviousPage(Page<SettingsUpdateResource> page, ITwilioRestClient client)
+        public static Page<SettingsUpdateResource> PreviousPage(Page<SettingsUpdateResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -173,7 +173,7 @@ namespace Kandy.Rest.Supersim.V1
             return Page<SettingsUpdateResource>.FromJson("settings_updates", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a SettingsUpdateResource object
         /// </summary>
@@ -191,7 +191,7 @@ namespace Kandy.Rest.Supersim.V1
             }
         }
 
-    
+
         ///<summary> The unique identifier of this Settings Update. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -204,7 +204,7 @@ namespace Kandy.Rest.Supersim.V1
         [JsonProperty("sim_sid")]
         public string SimSid { get; private set; }
 
-        
+
         [JsonProperty("status")]
         public SettingsUpdateResource.StatusEnum Status { get; private set; }
 
@@ -226,7 +226,8 @@ namespace Kandy.Rest.Supersim.V1
 
 
 
-        private SettingsUpdateResource() {
+        private SettingsUpdateResource()
+        {
 
         }
     }

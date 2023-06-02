@@ -28,20 +28,20 @@ namespace Kandy.Rest.Content.V1
 {
     public class ContentResource : Resource
     {
-    
 
-        
+
+
         /// <summary> Deletes a Content resource </summary>
         /// <param name="options"> Delete Content parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Content </returns>
-        private static Request BuildDeleteRequest(DeleteContentOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteContentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Content/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -56,56 +56,56 @@ namespace Kandy.Rest.Content.V1
         /// <param name="options"> Delete Content parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Content </returns>
-        public static bool Delete(DeleteContentOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteContentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Deletes a Content resource </summary>
         /// <param name="options"> Delete Content parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Content </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteContentOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Deletes a Content resource </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Content resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Content </returns>
-        public static bool Delete(string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteContentOptions(pathSid)     ;
+            var options = new DeleteContentOptions(pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Deletes a Content resource </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Content resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Content </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteContentOptions(pathSid) ;
+            var options = new DeleteContentOptions(pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchContentOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchContentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Content/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -120,53 +120,53 @@ namespace Kandy.Rest.Content.V1
         /// <param name="options"> Fetch Content parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Content </returns>
-        public static ContentResource Fetch(FetchContentOptions options, ITwilioRestClient client = null)
+        public static ContentResource Fetch(FetchContentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a Content resource by its unique Content Sid </summary>
         /// <param name="options"> Fetch Content parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Content </returns>
         public static async System.Threading.Tasks.Task<ContentResource> FetchAsync(FetchContentOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a Content resource by its unique Content Sid </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Content resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Content </returns>
         public static ContentResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchContentOptions(pathSid){  };
+            var options = new FetchContentOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a Content resource by its unique Content Sid </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Content resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Content </returns>
-        public static async System.Threading.Tasks.Task<ContentResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<ContentResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchContentOptions(pathSid){  };
+            var options = new FetchContentOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadContentOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadContentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Content";
 
 
@@ -182,7 +182,7 @@ namespace Kandy.Rest.Content.V1
         /// <param name="options"> Read Content parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Content </returns>
-        public static ResourceSet<ContentResource> Read(ReadContentOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<ContentResource> Read(ReadContentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -190,13 +190,13 @@ namespace Kandy.Rest.Content.V1
             return new ResourceSet<ContentResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of Contents belonging to the account used to make the request </summary>
         /// <param name="options"> Read Content parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Content </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<ContentResource>> ReadAsync(ReadContentOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -204,7 +204,7 @@ namespace Kandy.Rest.Content.V1
             var page = Page<ContentResource>.FromJson("contents", response.Content);
             return new ResourceSet<ContentResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of Contents belonging to the account used to make the request </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -213,13 +213,13 @@ namespace Kandy.Rest.Content.V1
         public static ResourceSet<ContentResource> Read(
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadContentOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadContentOptions() { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of Contents belonging to the account used to make the request </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -228,19 +228,19 @@ namespace Kandy.Rest.Content.V1
         public static async System.Threading.Tasks.Task<ResourceSet<ContentResource>> ReadAsync(
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadContentOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadContentOptions() { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<ContentResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<ContentResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -257,7 +257,7 @@ namespace Kandy.Rest.Content.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<ContentResource> NextPage(Page<ContentResource> page, ITwilioRestClient client)
+        public static Page<ContentResource> NextPage(Page<ContentResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -272,7 +272,7 @@ namespace Kandy.Rest.Content.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<ContentResource> PreviousPage(Page<ContentResource> page, ITwilioRestClient client)
+        public static Page<ContentResource> PreviousPage(Page<ContentResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -283,7 +283,7 @@ namespace Kandy.Rest.Content.V1
             return Page<ContentResource>.FromJson("contents", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a ContentResource object
         /// </summary>
@@ -301,7 +301,7 @@ namespace Kandy.Rest.Content.V1
             }
         }
 
-    
+
         ///<summary> The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format. </summary> 
         [JsonProperty("date_created")]
         public DateTime? DateCreated { get; private set; }
@@ -344,7 +344,8 @@ namespace Kandy.Rest.Content.V1
 
 
 
-        private ContentResource() {
+        private ContentResource()
+        {
 
         }
     }

@@ -28,20 +28,20 @@ namespace Kandy.Rest.Bulkexports.V1.Export
 {
     public class JobResource : Resource
     {
-    
 
-        
+
+
         /// <summary> delete </summary>
         /// <param name="options"> Delete Job parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Job </returns>
-        private static Request BuildDeleteRequest(DeleteJobOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteJobOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Exports/Jobs/{JobSid}";
 
             string PathJobSid = options.PathJobSid;
-            path = path.Replace("{"+"JobSid"+"}", PathJobSid);
+            path = path.Replace("{" + "JobSid" + "}", PathJobSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -56,56 +56,56 @@ namespace Kandy.Rest.Bulkexports.V1.Export
         /// <param name="options"> Delete Job parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Job </returns>
-        public static bool Delete(DeleteJobOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteJobOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="options"> Delete Job parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Job </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteJobOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> delete </summary>
         /// <param name="pathJobSid"> The unique string that that we created to identify the Bulk Export job </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Job </returns>
-        public static bool Delete(string pathJobSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathJobSid, IKandyRestClient client = null)
         {
-            var options = new DeleteJobOptions(pathJobSid)     ;
+            var options = new DeleteJobOptions(pathJobSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="pathJobSid"> The unique string that that we created to identify the Bulk Export job </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Job </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathJobSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathJobSid, IKandyRestClient client = null)
         {
-            var options = new DeleteJobOptions(pathJobSid) ;
+            var options = new DeleteJobOptions(pathJobSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchJobOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchJobOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Exports/Jobs/{JobSid}";
 
             string PathJobSid = options.PathJobSid;
-            path = path.Replace("{"+"JobSid"+"}", PathJobSid);
+            path = path.Replace("{" + "JobSid" + "}", PathJobSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -120,50 +120,50 @@ namespace Kandy.Rest.Bulkexports.V1.Export
         /// <param name="options"> Fetch Job parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Job </returns>
-        public static JobResource Fetch(FetchJobOptions options, ITwilioRestClient client = null)
+        public static JobResource Fetch(FetchJobOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch Job parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Job </returns>
         public static async System.Threading.Tasks.Task<JobResource> FetchAsync(FetchJobOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathJobSid"> The unique string that that we created to identify the Bulk Export job </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Job </returns>
         public static JobResource Fetch(
-                                         string pathJobSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathJobSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchJobOptions(pathJobSid){  };
+            var options = new FetchJobOptions(pathJobSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathJobSid"> The unique string that that we created to identify the Bulk Export job </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Job </returns>
-        public static async System.Threading.Tasks.Task<JobResource> FetchAsync(string pathJobSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<JobResource> FetchAsync(string pathJobSid, IKandyRestClient client = null)
         {
-            var options = new FetchJobOptions(pathJobSid){  };
+            var options = new FetchJobOptions(pathJobSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a JobResource object
         /// </summary>
@@ -181,7 +181,7 @@ namespace Kandy.Rest.Bulkexports.V1.Export
             }
         }
 
-    
+
         ///<summary> The type of communication – Messages, Calls, Conferences, and Participants </summary> 
         [JsonProperty("resource_type")]
         public string ResourceType { get; private set; }
@@ -232,7 +232,8 @@ namespace Kandy.Rest.Bulkexports.V1.Export
 
 
 
-        private JobResource() {
+        private JobResource()
+        {
 
         }
     }

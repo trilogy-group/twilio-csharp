@@ -28,16 +28,16 @@ namespace Kandy.Rest.Proxy.V1.Service
 {
     public class ShortCodeResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateShortCodeOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateShortCodeOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/ShortCodes";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -52,26 +52,26 @@ namespace Kandy.Rest.Proxy.V1.Service
         /// <param name="options"> Create ShortCode parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ShortCode </returns>
-        public static ShortCodeResource Create(CreateShortCodeOptions options, ITwilioRestClient client = null)
+        public static ShortCodeResource Create(CreateShortCodeOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Add a Short Code to the Proxy Number Pool for the Service. </summary>
         /// <param name="options"> Create ShortCode parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ShortCode </returns>
         public static async System.Threading.Tasks.Task<ShortCodeResource> CreateAsync(CreateShortCodeOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Add a Short Code to the Proxy Number Pool for the Service. </summary>
         /// <param name="pathServiceSid"> The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) resource. </param>
@@ -81,13 +81,13 @@ namespace Kandy.Rest.Proxy.V1.Service
         public static ShortCodeResource Create(
                                           string pathServiceSid,
                                           string sid,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateShortCodeOptions(pathServiceSid, sid){  };
+            var options = new CreateShortCodeOptions(pathServiceSid, sid) { };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Add a Short Code to the Proxy Number Pool for the Service. </summary>
         /// <param name="pathServiceSid"> The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) resource. </param>
         /// <param name="sid"> The SID of a Twilio [ShortCode](https://www.twilio.com/docs/sms/api/short-code) resource that represents the short code you would like to assign to your Proxy Service. </param>
@@ -96,26 +96,26 @@ namespace Kandy.Rest.Proxy.V1.Service
         public static async System.Threading.Tasks.Task<ShortCodeResource> CreateAsync(
                                                                                   string pathServiceSid,
                                                                                   string sid,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateShortCodeOptions(pathServiceSid, sid){  };
+            var options = new CreateShortCodeOptions(pathServiceSid, sid) { };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Delete a specific Short Code from a Service. </summary>
         /// <param name="options"> Delete ShortCode parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ShortCode </returns>
-        private static Request BuildDeleteRequest(DeleteShortCodeOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteShortCodeOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/ShortCodes/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -130,60 +130,60 @@ namespace Kandy.Rest.Proxy.V1.Service
         /// <param name="options"> Delete ShortCode parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ShortCode </returns>
-        public static bool Delete(DeleteShortCodeOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteShortCodeOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific Short Code from a Service. </summary>
         /// <param name="options"> Delete ShortCode parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ShortCode </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteShortCodeOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete a specific Short Code from a Service. </summary>
         /// <param name="pathServiceSid"> The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) resource to delete the ShortCode resource from. </param>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the ShortCode resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ShortCode </returns>
-        public static bool Delete(string pathServiceSid, string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathServiceSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteShortCodeOptions(pathServiceSid, pathSid)        ;
+            var options = new DeleteShortCodeOptions(pathServiceSid, pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific Short Code from a Service. </summary>
         /// <param name="pathServiceSid"> The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) resource to delete the ShortCode resource from. </param>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the ShortCode resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ShortCode </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteShortCodeOptions(pathServiceSid, pathSid) ;
+            var options = new DeleteShortCodeOptions(pathServiceSid, pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchShortCodeOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchShortCodeOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/ShortCodes/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -198,60 +198,60 @@ namespace Kandy.Rest.Proxy.V1.Service
         /// <param name="options"> Fetch ShortCode parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ShortCode </returns>
-        public static ShortCodeResource Fetch(FetchShortCodeOptions options, ITwilioRestClient client = null)
+        public static ShortCodeResource Fetch(FetchShortCodeOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Short Code. </summary>
         /// <param name="options"> Fetch ShortCode parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ShortCode </returns>
         public static async System.Threading.Tasks.Task<ShortCodeResource> FetchAsync(FetchShortCodeOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a specific Short Code. </summary>
         /// <param name="pathServiceSid"> The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) to fetch the resource from. </param>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the ShortCode resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ShortCode </returns>
         public static ShortCodeResource Fetch(
-                                         string pathServiceSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathServiceSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchShortCodeOptions(pathServiceSid, pathSid){  };
+            var options = new FetchShortCodeOptions(pathServiceSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Short Code. </summary>
         /// <param name="pathServiceSid"> The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) to fetch the resource from. </param>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the ShortCode resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ShortCode </returns>
-        public static async System.Threading.Tasks.Task<ShortCodeResource> FetchAsync(string pathServiceSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<ShortCodeResource> FetchAsync(string pathServiceSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchShortCodeOptions(pathServiceSid, pathSid){  };
+            var options = new FetchShortCodeOptions(pathServiceSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadShortCodeOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadShortCodeOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/ShortCodes";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -265,7 +265,7 @@ namespace Kandy.Rest.Proxy.V1.Service
         /// <param name="options"> Read ShortCode parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ShortCode </returns>
-        public static ResourceSet<ShortCodeResource> Read(ReadShortCodeOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<ShortCodeResource> Read(ReadShortCodeOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -273,13 +273,13 @@ namespace Kandy.Rest.Proxy.V1.Service
             return new ResourceSet<ShortCodeResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Short Codes in the Proxy Number Pool for the Service. A maximum of 100 records will be returned per page. </summary>
         /// <param name="options"> Read ShortCode parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ShortCode </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<ShortCodeResource>> ReadAsync(ReadShortCodeOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -287,7 +287,7 @@ namespace Kandy.Rest.Proxy.V1.Service
             var page = Page<ShortCodeResource>.FromJson("short_codes", response.Content);
             return new ResourceSet<ShortCodeResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Short Codes in the Proxy Number Pool for the Service. A maximum of 100 records will be returned per page. </summary>
         /// <param name="pathServiceSid"> The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) to read the resources from. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -298,13 +298,13 @@ namespace Kandy.Rest.Proxy.V1.Service
                                                      string pathServiceSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadShortCodeOptions(pathServiceSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadShortCodeOptions(pathServiceSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Short Codes in the Proxy Number Pool for the Service. A maximum of 100 records will be returned per page. </summary>
         /// <param name="pathServiceSid"> The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) to read the resources from. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -315,19 +315,19 @@ namespace Kandy.Rest.Proxy.V1.Service
                                                                                              string pathServiceSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadShortCodeOptions(pathServiceSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadShortCodeOptions(pathServiceSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<ShortCodeResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<ShortCodeResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -344,7 +344,7 @@ namespace Kandy.Rest.Proxy.V1.Service
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<ShortCodeResource> NextPage(Page<ShortCodeResource> page, ITwilioRestClient client)
+        public static Page<ShortCodeResource> NextPage(Page<ShortCodeResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -359,7 +359,7 @@ namespace Kandy.Rest.Proxy.V1.Service
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<ShortCodeResource> PreviousPage(Page<ShortCodeResource> page, ITwilioRestClient client)
+        public static Page<ShortCodeResource> PreviousPage(Page<ShortCodeResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -370,16 +370,16 @@ namespace Kandy.Rest.Proxy.V1.Service
             return Page<ShortCodeResource>.FromJson("short_codes", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateShortCodeOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateShortCodeOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/ShortCodes/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -394,7 +394,7 @@ namespace Kandy.Rest.Proxy.V1.Service
         /// <param name="options"> Update ShortCode parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ShortCode </returns>
-        public static ShortCodeResource Update(UpdateShortCodeOptions options, ITwilioRestClient client = null)
+        public static ShortCodeResource Update(UpdateShortCodeOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -405,15 +405,15 @@ namespace Kandy.Rest.Proxy.V1.Service
         /// <param name="options"> Update ShortCode parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ShortCode </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<ShortCodeResource> UpdateAsync(UpdateShortCodeOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update a specific Short Code. </summary>
         /// <param name="pathServiceSid"> The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to update. </param>
@@ -425,13 +425,13 @@ namespace Kandy.Rest.Proxy.V1.Service
                                           string pathServiceSid,
                                           string pathSid,
                                           bool? isReserved = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateShortCodeOptions(pathServiceSid, pathSid){ IsReserved = isReserved };
+            var options = new UpdateShortCodeOptions(pathServiceSid, pathSid) { IsReserved = isReserved };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update a specific Short Code. </summary>
         /// <param name="pathServiceSid"> The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to update. </param>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the ShortCode resource to update. </param>
@@ -442,13 +442,13 @@ namespace Kandy.Rest.Proxy.V1.Service
                                                                               string pathServiceSid,
                                                                               string pathSid,
                                                                               bool? isReserved = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateShortCodeOptions(pathServiceSid, pathSid){ IsReserved = isReserved };
+            var options = new UpdateShortCodeOptions(pathServiceSid, pathSid) { IsReserved = isReserved };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a ShortCodeResource object
         /// </summary>
@@ -466,7 +466,7 @@ namespace Kandy.Rest.Proxy.V1.Service
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the ShortCode resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -509,7 +509,8 @@ namespace Kandy.Rest.Proxy.V1.Service
 
 
 
-        private ShortCodeResource() {
+        private ShortCodeResource()
+        {
 
         }
     }

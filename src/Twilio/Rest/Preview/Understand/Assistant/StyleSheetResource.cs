@@ -28,16 +28,16 @@ namespace Kandy.Rest.Preview.Understand.Assistant
 {
     public class StyleSheetResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchStyleSheetOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchStyleSheetOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/understand/Assistants/{AssistantSid}/StyleSheet";
 
             string PathAssistantSid = options.PathAssistantSid;
-            path = path.Replace("{"+"AssistantSid"+"}", PathAssistantSid);
+            path = path.Replace("{" + "AssistantSid" + "}", PathAssistantSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -52,57 +52,57 @@ namespace Kandy.Rest.Preview.Understand.Assistant
         /// <param name="options"> Fetch StyleSheet parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of StyleSheet </returns>
-        public static StyleSheetResource Fetch(FetchStyleSheetOptions options, ITwilioRestClient client = null)
+        public static StyleSheetResource Fetch(FetchStyleSheetOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Returns Style sheet JSON object for this Assistant </summary>
         /// <param name="options"> Fetch StyleSheet parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of StyleSheet </returns>
         public static async System.Threading.Tasks.Task<StyleSheetResource> FetchAsync(FetchStyleSheetOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Returns Style sheet JSON object for this Assistant </summary>
         /// <param name="pathAssistantSid"> The unique ID of the Assistant </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of StyleSheet </returns>
         public static StyleSheetResource Fetch(
-                                         string pathAssistantSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathAssistantSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchStyleSheetOptions(pathAssistantSid){  };
+            var options = new FetchStyleSheetOptions(pathAssistantSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Returns Style sheet JSON object for this Assistant </summary>
         /// <param name="pathAssistantSid"> The unique ID of the Assistant </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of StyleSheet </returns>
-        public static async System.Threading.Tasks.Task<StyleSheetResource> FetchAsync(string pathAssistantSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<StyleSheetResource> FetchAsync(string pathAssistantSid, IKandyRestClient client = null)
         {
-            var options = new FetchStyleSheetOptions(pathAssistantSid){  };
+            var options = new FetchStyleSheetOptions(pathAssistantSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildUpdateRequest(UpdateStyleSheetOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildUpdateRequest(UpdateStyleSheetOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/understand/Assistants/{AssistantSid}/StyleSheet";
 
             string PathAssistantSid = options.PathAssistantSid;
-            path = path.Replace("{"+"AssistantSid"+"}", PathAssistantSid);
+            path = path.Replace("{" + "AssistantSid" + "}", PathAssistantSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -117,7 +117,7 @@ namespace Kandy.Rest.Preview.Understand.Assistant
         /// <param name="options"> Update StyleSheet parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of StyleSheet </returns>
-        public static StyleSheetResource Update(UpdateStyleSheetOptions options, ITwilioRestClient client = null)
+        public static StyleSheetResource Update(UpdateStyleSheetOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -128,15 +128,15 @@ namespace Kandy.Rest.Preview.Understand.Assistant
         /// <param name="options"> Update StyleSheet parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of StyleSheet </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<StyleSheetResource> UpdateAsync(UpdateStyleSheetOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Updates the style sheet for an assistant identified by {AssistantSid} or {AssistantUniqueName}. </summary>
         /// <param name="pathAssistantSid"> The unique ID of the Assistant </param>
@@ -146,13 +146,13 @@ namespace Kandy.Rest.Preview.Understand.Assistant
         public static StyleSheetResource Update(
                                           string pathAssistantSid,
                                           object styleSheet = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateStyleSheetOptions(pathAssistantSid){ StyleSheet = styleSheet };
+            var options = new UpdateStyleSheetOptions(pathAssistantSid) { StyleSheet = styleSheet };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Updates the style sheet for an assistant identified by {AssistantSid} or {AssistantUniqueName}. </summary>
         /// <param name="pathAssistantSid"> The unique ID of the Assistant </param>
         /// <param name="styleSheet"> The JSON Style sheet string </param>
@@ -161,13 +161,13 @@ namespace Kandy.Rest.Preview.Understand.Assistant
         public static async System.Threading.Tasks.Task<StyleSheetResource> UpdateAsync(
                                                                               string pathAssistantSid,
                                                                               object styleSheet = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateStyleSheetOptions(pathAssistantSid){ StyleSheet = styleSheet };
+            var options = new UpdateStyleSheetOptions(pathAssistantSid) { StyleSheet = styleSheet };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a StyleSheetResource object
         /// </summary>
@@ -185,7 +185,7 @@ namespace Kandy.Rest.Preview.Understand.Assistant
             }
         }
 
-    
+
         ///<summary> The unique ID of the Account that created this Assistant </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -204,7 +204,8 @@ namespace Kandy.Rest.Preview.Understand.Assistant
 
 
 
-        private StyleSheetResource() {
+        private StyleSheetResource()
+        {
 
         }
     }

@@ -28,16 +28,16 @@ namespace Kandy.Rest.Voice.V1.DialingPermissions.Country
 {
     public class HighriskSpecialPrefixResource : Resource
     {
-    
 
-        
-        private static Request BuildReadRequest(ReadHighriskSpecialPrefixOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildReadRequest(ReadHighriskSpecialPrefixOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/DialingPermissions/Countries/{IsoCode}/HighRiskSpecialPrefixes";
 
             string PathIsoCode = options.PathIsoCode.ToString();
-            path = path.Replace("{"+"IsoCode"+"}", PathIsoCode);
+            path = path.Replace("{" + "IsoCode" + "}", PathIsoCode);
 
             return new Request(
                 HttpMethod.Get,
@@ -51,7 +51,7 @@ namespace Kandy.Rest.Voice.V1.DialingPermissions.Country
         /// <param name="options"> Read HighriskSpecialPrefix parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of HighriskSpecialPrefix </returns>
-        public static ResourceSet<HighriskSpecialPrefixResource> Read(ReadHighriskSpecialPrefixOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<HighriskSpecialPrefixResource> Read(ReadHighriskSpecialPrefixOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -59,13 +59,13 @@ namespace Kandy.Rest.Voice.V1.DialingPermissions.Country
             return new ResourceSet<HighriskSpecialPrefixResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch the high-risk special services prefixes from the country resource corresponding to the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) </summary>
         /// <param name="options"> Read HighriskSpecialPrefix parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of HighriskSpecialPrefix </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<HighriskSpecialPrefixResource>> ReadAsync(ReadHighriskSpecialPrefixOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -73,7 +73,7 @@ namespace Kandy.Rest.Voice.V1.DialingPermissions.Country
             var page = Page<HighriskSpecialPrefixResource>.FromJson("content", response.Content);
             return new ResourceSet<HighriskSpecialPrefixResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Fetch the high-risk special services prefixes from the country resource corresponding to the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) </summary>
         /// <param name="pathIsoCode"> The [ISO 3166-1 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) to identify the country permissions from which high-risk special service number prefixes are fetched </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -84,13 +84,13 @@ namespace Kandy.Rest.Voice.V1.DialingPermissions.Country
                                                      string pathIsoCode,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadHighriskSpecialPrefixOptions(pathIsoCode){ PageSize = pageSize, Limit = limit};
+            var options = new ReadHighriskSpecialPrefixOptions(pathIsoCode) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch the high-risk special services prefixes from the country resource corresponding to the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) </summary>
         /// <param name="pathIsoCode"> The [ISO 3166-1 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) to identify the country permissions from which high-risk special service number prefixes are fetched </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -101,19 +101,19 @@ namespace Kandy.Rest.Voice.V1.DialingPermissions.Country
                                                                                              string pathIsoCode,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadHighriskSpecialPrefixOptions(pathIsoCode){ PageSize = pageSize, Limit = limit};
+            var options = new ReadHighriskSpecialPrefixOptions(pathIsoCode) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<HighriskSpecialPrefixResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<HighriskSpecialPrefixResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -130,7 +130,7 @@ namespace Kandy.Rest.Voice.V1.DialingPermissions.Country
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<HighriskSpecialPrefixResource> NextPage(Page<HighriskSpecialPrefixResource> page, ITwilioRestClient client)
+        public static Page<HighriskSpecialPrefixResource> NextPage(Page<HighriskSpecialPrefixResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -145,7 +145,7 @@ namespace Kandy.Rest.Voice.V1.DialingPermissions.Country
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<HighriskSpecialPrefixResource> PreviousPage(Page<HighriskSpecialPrefixResource> page, ITwilioRestClient client)
+        public static Page<HighriskSpecialPrefixResource> PreviousPage(Page<HighriskSpecialPrefixResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -156,7 +156,7 @@ namespace Kandy.Rest.Voice.V1.DialingPermissions.Country
             return Page<HighriskSpecialPrefixResource>.FromJson("content", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a HighriskSpecialPrefixResource object
         /// </summary>
@@ -174,14 +174,15 @@ namespace Kandy.Rest.Voice.V1.DialingPermissions.Country
             }
         }
 
-    
+
         ///<summary> A prefix is a contiguous number range for a block of E.164 numbers that includes the E.164 assigned country code. For example, a North American Numbering Plan prefix like `+1510720` written like `+1(510) 720` matches all numbers inclusive from `+1(510) 720-0000` to `+1(510) 720-9999`. </summary> 
         [JsonProperty("prefix")]
         public string Prefix { get; private set; }
 
 
 
-        private HighriskSpecialPrefixResource() {
+        private HighriskSpecialPrefixResource()
+        {
 
         }
     }

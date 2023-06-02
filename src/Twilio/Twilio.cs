@@ -13,7 +13,7 @@ namespace Kandy
         private static string _accountSid;
         private static string _region;
         private static string _edge;
-        private static ITwilioRestClient _restClient;
+        private static IKandyRestClient _restClient;
         private static string _logLevel;
 
         private TwilioClient() { }
@@ -145,7 +145,7 @@ namespace Kandy
         /// Get the rest client
         /// </summary>
         /// <returns>The rest client</returns>
-        public static ITwilioRestClient GetRestClient()
+        public static IKandyRestClient GetRestClient()
         {
             if (_restClient != null)
             {
@@ -155,11 +155,11 @@ namespace Kandy
             if (_username == null || _password == null)
             {
                 throw new AuthenticationException(
-                    "TwilioRestClient was used before AccountSid and AuthToken were set, please call TwilioClient.init()"
+                    "KandyRestClient was used before AccountSid and AuthToken were set, please call TwilioClient.init()"
                 );
             }
 
-            _restClient = new TwilioRestClient(_username, _password, accountSid: _accountSid, region: _region, edge: _edge)
+            _restClient = new KandyRestClient(_username, _password, accountSid: _accountSid, region: _region, edge: _edge)
             {
                 LogLevel = _logLevel
             };
@@ -170,7 +170,7 @@ namespace Kandy
         /// Set the rest client
         /// </summary>
         /// <param name="restClient">Rest Client to use</param>
-        public static void SetRestClient(ITwilioRestClient restClient)
+        public static void SetRestClient(IKandyRestClient restClient)
         {
             _restClient = restClient;
         }
@@ -189,7 +189,7 @@ namespace Kandy
         /// </summary>
         public static void ValidateSslCertificate()
         {
-            TwilioRestClient.ValidateSslCertificate();
+            KandyRestClient.ValidateSslCertificate();
         }
     }
 }

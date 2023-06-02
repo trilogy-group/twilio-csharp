@@ -28,18 +28,18 @@ namespace Kandy.Rest.Preview.Understand.Assistant.Task
 {
     public class SampleResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateSampleOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateSampleOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples";
 
             string PathAssistantSid = options.PathAssistantSid;
-            path = path.Replace("{"+"AssistantSid"+"}", PathAssistantSid);
+            path = path.Replace("{" + "AssistantSid" + "}", PathAssistantSid);
             string PathTaskSid = options.PathTaskSid;
-            path = path.Replace("{"+"TaskSid"+"}", PathTaskSid);
+            path = path.Replace("{" + "TaskSid" + "}", PathTaskSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -54,26 +54,26 @@ namespace Kandy.Rest.Preview.Understand.Assistant.Task
         /// <param name="options"> Create Sample parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Sample </returns>
-        public static SampleResource Create(CreateSampleOptions options, ITwilioRestClient client = null)
+        public static SampleResource Create(CreateSampleOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create Sample parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Sample </returns>
         public static async System.Threading.Tasks.Task<SampleResource> CreateAsync(CreateSampleOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="pathAssistantSid"> The unique ID of the Assistant. </param>
@@ -89,13 +89,13 @@ namespace Kandy.Rest.Preview.Understand.Assistant.Task
                                           string language,
                                           string taggedText,
                                           string sourceChannel = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateSampleOptions(pathAssistantSid, pathTaskSid, language, taggedText){  SourceChannel = sourceChannel };
+            var options = new CreateSampleOptions(pathAssistantSid, pathTaskSid, language, taggedText) { SourceChannel = sourceChannel };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="pathAssistantSid"> The unique ID of the Assistant. </param>
         /// <param name="pathTaskSid"> The unique ID of the Task associated with this Sample. </param>
@@ -110,28 +110,28 @@ namespace Kandy.Rest.Preview.Understand.Assistant.Task
                                                                                   string language,
                                                                                   string taggedText,
                                                                                   string sourceChannel = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateSampleOptions(pathAssistantSid, pathTaskSid, language, taggedText){  SourceChannel = sourceChannel };
+            var options = new CreateSampleOptions(pathAssistantSid, pathTaskSid, language, taggedText) { SourceChannel = sourceChannel };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> delete </summary>
         /// <param name="options"> Delete Sample parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Sample </returns>
-        private static Request BuildDeleteRequest(DeleteSampleOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteSampleOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples/{Sid}";
 
             string PathAssistantSid = options.PathAssistantSid;
-            path = path.Replace("{"+"AssistantSid"+"}", PathAssistantSid);
+            path = path.Replace("{" + "AssistantSid" + "}", PathAssistantSid);
             string PathTaskSid = options.PathTaskSid;
-            path = path.Replace("{"+"TaskSid"+"}", PathTaskSid);
+            path = path.Replace("{" + "TaskSid" + "}", PathTaskSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -146,26 +146,26 @@ namespace Kandy.Rest.Preview.Understand.Assistant.Task
         /// <param name="options"> Delete Sample parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Sample </returns>
-        public static bool Delete(DeleteSampleOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteSampleOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="options"> Delete Sample parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Sample </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteSampleOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> delete </summary>
         /// <param name="pathAssistantSid"> The unique ID of the Assistant. </param>
@@ -173,37 +173,37 @@ namespace Kandy.Rest.Preview.Understand.Assistant.Task
         /// <param name="pathSid"> A 34 character string that uniquely identifies this resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Sample </returns>
-        public static bool Delete(string pathAssistantSid, string pathTaskSid, string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathAssistantSid, string pathTaskSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteSampleOptions(pathAssistantSid, pathTaskSid, pathSid)           ;
+            var options = new DeleteSampleOptions(pathAssistantSid, pathTaskSid, pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="pathAssistantSid"> The unique ID of the Assistant. </param>
         /// <param name="pathTaskSid"> The unique ID of the Task associated with this Sample. </param>
         /// <param name="pathSid"> A 34 character string that uniquely identifies this resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Sample </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathAssistantSid, string pathTaskSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathAssistantSid, string pathTaskSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteSampleOptions(pathAssistantSid, pathTaskSid, pathSid) ;
+            var options = new DeleteSampleOptions(pathAssistantSid, pathTaskSid, pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchSampleOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchSampleOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples/{Sid}";
 
             string PathAssistantSid = options.PathAssistantSid;
-            path = path.Replace("{"+"AssistantSid"+"}", PathAssistantSid);
+            path = path.Replace("{" + "AssistantSid" + "}", PathAssistantSid);
             string PathTaskSid = options.PathTaskSid;
-            path = path.Replace("{"+"TaskSid"+"}", PathTaskSid);
+            path = path.Replace("{" + "TaskSid" + "}", PathTaskSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -218,26 +218,26 @@ namespace Kandy.Rest.Preview.Understand.Assistant.Task
         /// <param name="options"> Fetch Sample parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Sample </returns>
-        public static SampleResource Fetch(FetchSampleOptions options, ITwilioRestClient client = null)
+        public static SampleResource Fetch(FetchSampleOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch Sample parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Sample </returns>
         public static async System.Threading.Tasks.Task<SampleResource> FetchAsync(FetchSampleOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathAssistantSid"> The unique ID of the Assistant. </param>
         /// <param name="pathTaskSid"> The unique ID of the Task associated with this Sample. </param>
@@ -245,38 +245,38 @@ namespace Kandy.Rest.Preview.Understand.Assistant.Task
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Sample </returns>
         public static SampleResource Fetch(
-                                         string pathAssistantSid, 
-                                         string pathTaskSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathAssistantSid,
+                                         string pathTaskSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchSampleOptions(pathAssistantSid, pathTaskSid, pathSid){  };
+            var options = new FetchSampleOptions(pathAssistantSid, pathTaskSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathAssistantSid"> The unique ID of the Assistant. </param>
         /// <param name="pathTaskSid"> The unique ID of the Task associated with this Sample. </param>
         /// <param name="pathSid"> A 34 character string that uniquely identifies this resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Sample </returns>
-        public static async System.Threading.Tasks.Task<SampleResource> FetchAsync(string pathAssistantSid, string pathTaskSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<SampleResource> FetchAsync(string pathAssistantSid, string pathTaskSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchSampleOptions(pathAssistantSid, pathTaskSid, pathSid){  };
+            var options = new FetchSampleOptions(pathAssistantSid, pathTaskSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadSampleOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadSampleOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples";
 
             string PathAssistantSid = options.PathAssistantSid;
-            path = path.Replace("{"+"AssistantSid"+"}", PathAssistantSid);
+            path = path.Replace("{" + "AssistantSid" + "}", PathAssistantSid);
             string PathTaskSid = options.PathTaskSid;
-            path = path.Replace("{"+"TaskSid"+"}", PathTaskSid);
+            path = path.Replace("{" + "TaskSid" + "}", PathTaskSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -290,7 +290,7 @@ namespace Kandy.Rest.Preview.Understand.Assistant.Task
         /// <param name="options"> Read Sample parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Sample </returns>
-        public static ResourceSet<SampleResource> Read(ReadSampleOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<SampleResource> Read(ReadSampleOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -298,13 +298,13 @@ namespace Kandy.Rest.Preview.Understand.Assistant.Task
             return new ResourceSet<SampleResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read Sample parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Sample </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<SampleResource>> ReadAsync(ReadSampleOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -312,7 +312,7 @@ namespace Kandy.Rest.Preview.Understand.Assistant.Task
             var page = Page<SampleResource>.FromJson("samples", response.Content);
             return new ResourceSet<SampleResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="pathAssistantSid"> The unique ID of the Assistant. </param>
         /// <param name="pathTaskSid"> The unique ID of the Task associated with this Sample. </param>
@@ -327,13 +327,13 @@ namespace Kandy.Rest.Preview.Understand.Assistant.Task
                                                      string language = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadSampleOptions(pathAssistantSid, pathTaskSid){ Language = language, PageSize = pageSize, Limit = limit};
+            var options = new ReadSampleOptions(pathAssistantSid, pathTaskSid) { Language = language, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="pathAssistantSid"> The unique ID of the Assistant. </param>
         /// <param name="pathTaskSid"> The unique ID of the Task associated with this Sample. </param>
@@ -348,19 +348,19 @@ namespace Kandy.Rest.Preview.Understand.Assistant.Task
                                                                                              string language = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadSampleOptions(pathAssistantSid, pathTaskSid){ Language = language, PageSize = pageSize, Limit = limit};
+            var options = new ReadSampleOptions(pathAssistantSid, pathTaskSid) { Language = language, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<SampleResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<SampleResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -377,7 +377,7 @@ namespace Kandy.Rest.Preview.Understand.Assistant.Task
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<SampleResource> NextPage(Page<SampleResource> page, ITwilioRestClient client)
+        public static Page<SampleResource> NextPage(Page<SampleResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -392,7 +392,7 @@ namespace Kandy.Rest.Preview.Understand.Assistant.Task
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<SampleResource> PreviousPage(Page<SampleResource> page, ITwilioRestClient client)
+        public static Page<SampleResource> PreviousPage(Page<SampleResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -403,18 +403,18 @@ namespace Kandy.Rest.Preview.Understand.Assistant.Task
             return Page<SampleResource>.FromJson("samples", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateSampleOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateSampleOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples/{Sid}";
 
             string PathAssistantSid = options.PathAssistantSid;
-            path = path.Replace("{"+"AssistantSid"+"}", PathAssistantSid);
+            path = path.Replace("{" + "AssistantSid" + "}", PathAssistantSid);
             string PathTaskSid = options.PathTaskSid;
-            path = path.Replace("{"+"TaskSid"+"}", PathTaskSid);
+            path = path.Replace("{" + "TaskSid" + "}", PathTaskSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -429,7 +429,7 @@ namespace Kandy.Rest.Preview.Understand.Assistant.Task
         /// <param name="options"> Update Sample parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Sample </returns>
-        public static SampleResource Update(UpdateSampleOptions options, ITwilioRestClient client = null)
+        public static SampleResource Update(UpdateSampleOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -440,15 +440,15 @@ namespace Kandy.Rest.Preview.Understand.Assistant.Task
         /// <param name="options"> Update Sample parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Sample </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<SampleResource> UpdateAsync(UpdateSampleOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> update </summary>
         /// <param name="pathAssistantSid"> The unique ID of the Assistant. </param>
@@ -466,13 +466,13 @@ namespace Kandy.Rest.Preview.Understand.Assistant.Task
                                           string language = null,
                                           string taggedText = null,
                                           string sourceChannel = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateSampleOptions(pathAssistantSid, pathTaskSid, pathSid){ Language = language, TaggedText = taggedText, SourceChannel = sourceChannel };
+            var options = new UpdateSampleOptions(pathAssistantSid, pathTaskSid, pathSid) { Language = language, TaggedText = taggedText, SourceChannel = sourceChannel };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> update </summary>
         /// <param name="pathAssistantSid"> The unique ID of the Assistant. </param>
         /// <param name="pathTaskSid"> The unique ID of the Task associated with this Sample. </param>
@@ -489,13 +489,13 @@ namespace Kandy.Rest.Preview.Understand.Assistant.Task
                                                                               string language = null,
                                                                               string taggedText = null,
                                                                               string sourceChannel = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateSampleOptions(pathAssistantSid, pathTaskSid, pathSid){ Language = language, TaggedText = taggedText, SourceChannel = sourceChannel };
+            var options = new UpdateSampleOptions(pathAssistantSid, pathTaskSid, pathSid) { Language = language, TaggedText = taggedText, SourceChannel = sourceChannel };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a SampleResource object
         /// </summary>
@@ -513,7 +513,7 @@ namespace Kandy.Rest.Preview.Understand.Assistant.Task
             }
         }
 
-    
+
         ///<summary> The unique ID of the Account that created this Sample. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -556,7 +556,8 @@ namespace Kandy.Rest.Preview.Understand.Assistant.Task
 
 
 
-        private SampleResource() {
+        private SampleResource()
+        {
 
         }
     }

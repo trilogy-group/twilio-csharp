@@ -28,12 +28,12 @@ namespace Kandy.Rest.Voice.V1
 {
     public class SourceIpMappingResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateSourceIpMappingOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateSourceIpMappingOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/SourceIpMappings";
 
 
@@ -50,26 +50,26 @@ namespace Kandy.Rest.Voice.V1
         /// <param name="options"> Create SourceIpMapping parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SourceIpMapping </returns>
-        public static SourceIpMappingResource Create(CreateSourceIpMappingOptions options, ITwilioRestClient client = null)
+        public static SourceIpMappingResource Create(CreateSourceIpMappingOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create SourceIpMapping parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SourceIpMapping </returns>
         public static async System.Threading.Tasks.Task<SourceIpMappingResource> CreateAsync(CreateSourceIpMappingOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="ipRecordSid"> The Twilio-provided string that uniquely identifies the IP Record resource to map from. </param>
@@ -79,13 +79,13 @@ namespace Kandy.Rest.Voice.V1
         public static SourceIpMappingResource Create(
                                           string ipRecordSid,
                                           string sipDomainSid,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateSourceIpMappingOptions(ipRecordSid, sipDomainSid){  };
+            var options = new CreateSourceIpMappingOptions(ipRecordSid, sipDomainSid) { };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="ipRecordSid"> The Twilio-provided string that uniquely identifies the IP Record resource to map from. </param>
         /// <param name="sipDomainSid"> The SID of the SIP Domain that the IP Record should be mapped to. </param>
@@ -94,24 +94,24 @@ namespace Kandy.Rest.Voice.V1
         public static async System.Threading.Tasks.Task<SourceIpMappingResource> CreateAsync(
                                                                                   string ipRecordSid,
                                                                                   string sipDomainSid,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateSourceIpMappingOptions(ipRecordSid, sipDomainSid){  };
+            var options = new CreateSourceIpMappingOptions(ipRecordSid, sipDomainSid) { };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> delete </summary>
         /// <param name="options"> Delete SourceIpMapping parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SourceIpMapping </returns>
-        private static Request BuildDeleteRequest(DeleteSourceIpMappingOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteSourceIpMappingOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/SourceIpMappings/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -126,56 +126,56 @@ namespace Kandy.Rest.Voice.V1
         /// <param name="options"> Delete SourceIpMapping parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SourceIpMapping </returns>
-        public static bool Delete(DeleteSourceIpMappingOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteSourceIpMappingOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="options"> Delete SourceIpMapping parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SourceIpMapping </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteSourceIpMappingOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> delete </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the IP Record resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SourceIpMapping </returns>
-        public static bool Delete(string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteSourceIpMappingOptions(pathSid)     ;
+            var options = new DeleteSourceIpMappingOptions(pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the IP Record resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SourceIpMapping </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteSourceIpMappingOptions(pathSid) ;
+            var options = new DeleteSourceIpMappingOptions(pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchSourceIpMappingOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchSourceIpMappingOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/SourceIpMappings/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -190,53 +190,53 @@ namespace Kandy.Rest.Voice.V1
         /// <param name="options"> Fetch SourceIpMapping parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SourceIpMapping </returns>
-        public static SourceIpMappingResource Fetch(FetchSourceIpMappingOptions options, ITwilioRestClient client = null)
+        public static SourceIpMappingResource Fetch(FetchSourceIpMappingOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch SourceIpMapping parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SourceIpMapping </returns>
         public static async System.Threading.Tasks.Task<SourceIpMappingResource> FetchAsync(FetchSourceIpMappingOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the IP Record resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SourceIpMapping </returns>
         public static SourceIpMappingResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchSourceIpMappingOptions(pathSid){  };
+            var options = new FetchSourceIpMappingOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the IP Record resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SourceIpMapping </returns>
-        public static async System.Threading.Tasks.Task<SourceIpMappingResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<SourceIpMappingResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchSourceIpMappingOptions(pathSid){  };
+            var options = new FetchSourceIpMappingOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadSourceIpMappingOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadSourceIpMappingOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/SourceIpMappings";
 
 
@@ -252,7 +252,7 @@ namespace Kandy.Rest.Voice.V1
         /// <param name="options"> Read SourceIpMapping parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SourceIpMapping </returns>
-        public static ResourceSet<SourceIpMappingResource> Read(ReadSourceIpMappingOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<SourceIpMappingResource> Read(ReadSourceIpMappingOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -260,13 +260,13 @@ namespace Kandy.Rest.Voice.V1
             return new ResourceSet<SourceIpMappingResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read SourceIpMapping parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SourceIpMapping </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<SourceIpMappingResource>> ReadAsync(ReadSourceIpMappingOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -274,7 +274,7 @@ namespace Kandy.Rest.Voice.V1
             var page = Page<SourceIpMappingResource>.FromJson("source_ip_mappings", response.Content);
             return new ResourceSet<SourceIpMappingResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -283,13 +283,13 @@ namespace Kandy.Rest.Voice.V1
         public static ResourceSet<SourceIpMappingResource> Read(
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadSourceIpMappingOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadSourceIpMappingOptions() { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -298,19 +298,19 @@ namespace Kandy.Rest.Voice.V1
         public static async System.Threading.Tasks.Task<ResourceSet<SourceIpMappingResource>> ReadAsync(
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadSourceIpMappingOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadSourceIpMappingOptions() { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<SourceIpMappingResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<SourceIpMappingResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -327,7 +327,7 @@ namespace Kandy.Rest.Voice.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<SourceIpMappingResource> NextPage(Page<SourceIpMappingResource> page, ITwilioRestClient client)
+        public static Page<SourceIpMappingResource> NextPage(Page<SourceIpMappingResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -342,7 +342,7 @@ namespace Kandy.Rest.Voice.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<SourceIpMappingResource> PreviousPage(Page<SourceIpMappingResource> page, ITwilioRestClient client)
+        public static Page<SourceIpMappingResource> PreviousPage(Page<SourceIpMappingResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -353,14 +353,14 @@ namespace Kandy.Rest.Voice.V1
             return Page<SourceIpMappingResource>.FromJson("source_ip_mappings", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateSourceIpMappingOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateSourceIpMappingOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/SourceIpMappings/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -375,7 +375,7 @@ namespace Kandy.Rest.Voice.V1
         /// <param name="options"> Update SourceIpMapping parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SourceIpMapping </returns>
-        public static SourceIpMappingResource Update(UpdateSourceIpMappingOptions options, ITwilioRestClient client = null)
+        public static SourceIpMappingResource Update(UpdateSourceIpMappingOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -386,15 +386,15 @@ namespace Kandy.Rest.Voice.V1
         /// <param name="options"> Update SourceIpMapping parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SourceIpMapping </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<SourceIpMappingResource> UpdateAsync(UpdateSourceIpMappingOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> update </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the IP Record resource to update. </param>
@@ -404,13 +404,13 @@ namespace Kandy.Rest.Voice.V1
         public static SourceIpMappingResource Update(
                                           string pathSid,
                                           string sipDomainSid,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateSourceIpMappingOptions(pathSid, sipDomainSid){  };
+            var options = new UpdateSourceIpMappingOptions(pathSid, sipDomainSid) { };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> update </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the IP Record resource to update. </param>
         /// <param name="sipDomainSid"> The SID of the SIP Domain that the IP Record should be mapped to. </param>
@@ -419,13 +419,13 @@ namespace Kandy.Rest.Voice.V1
         public static async System.Threading.Tasks.Task<SourceIpMappingResource> UpdateAsync(
                                                                               string pathSid,
                                                                               string sipDomainSid,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateSourceIpMappingOptions(pathSid, sipDomainSid){  };
+            var options = new UpdateSourceIpMappingOptions(pathSid, sipDomainSid) { };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a SourceIpMappingResource object
         /// </summary>
@@ -443,7 +443,7 @@ namespace Kandy.Rest.Voice.V1
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the IP Record resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -470,7 +470,8 @@ namespace Kandy.Rest.Voice.V1
 
 
 
-        private SourceIpMappingResource() {
+        private SourceIpMappingResource()
+        {
 
         }
     }

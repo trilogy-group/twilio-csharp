@@ -28,24 +28,24 @@ namespace Kandy.Rest.Preview.Sync.Service.Document
 {
     public class DocumentPermissionResource : Resource
     {
-    
 
-        
+
+
         /// <summary> Delete a specific Sync Document Permission. </summary>
         /// <param name="options"> Delete DocumentPermission parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of DocumentPermission </returns>
-        private static Request BuildDeleteRequest(DeleteDocumentPermissionOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteDocumentPermissionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/Sync/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathDocumentSid = options.PathDocumentSid;
-            path = path.Replace("{"+"DocumentSid"+"}", PathDocumentSid);
+            path = path.Replace("{" + "DocumentSid" + "}", PathDocumentSid);
             string PathIdentity = options.PathIdentity;
-            path = path.Replace("{"+"Identity"+"}", PathIdentity);
+            path = path.Replace("{" + "Identity" + "}", PathIdentity);
 
             return new Request(
                 HttpMethod.Delete,
@@ -60,26 +60,26 @@ namespace Kandy.Rest.Preview.Sync.Service.Document
         /// <param name="options"> Delete DocumentPermission parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of DocumentPermission </returns>
-        public static bool Delete(DeleteDocumentPermissionOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteDocumentPermissionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific Sync Document Permission. </summary>
         /// <param name="options"> Delete DocumentPermission parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of DocumentPermission </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteDocumentPermissionOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete a specific Sync Document Permission. </summary>
         /// <param name="pathServiceSid">  </param>
@@ -87,37 +87,37 @@ namespace Kandy.Rest.Preview.Sync.Service.Document
         /// <param name="pathIdentity"> Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of DocumentPermission </returns>
-        public static bool Delete(string pathServiceSid, string pathDocumentSid, string pathIdentity, ITwilioRestClient client = null)
+        public static bool Delete(string pathServiceSid, string pathDocumentSid, string pathIdentity, IKandyRestClient client = null)
         {
-            var options = new DeleteDocumentPermissionOptions(pathServiceSid, pathDocumentSid, pathIdentity)           ;
+            var options = new DeleteDocumentPermissionOptions(pathServiceSid, pathDocumentSid, pathIdentity);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific Sync Document Permission. </summary>
         /// <param name="pathServiceSid">  </param>
         /// <param name="pathDocumentSid"> Identifier of the Sync Document. Either a SID or a unique name. </param>
         /// <param name="pathIdentity"> Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of DocumentPermission </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathDocumentSid, string pathIdentity, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathDocumentSid, string pathIdentity, IKandyRestClient client = null)
         {
-            var options = new DeleteDocumentPermissionOptions(pathServiceSid, pathDocumentSid, pathIdentity) ;
+            var options = new DeleteDocumentPermissionOptions(pathServiceSid, pathDocumentSid, pathIdentity);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchDocumentPermissionOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchDocumentPermissionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/Sync/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathDocumentSid = options.PathDocumentSid;
-            path = path.Replace("{"+"DocumentSid"+"}", PathDocumentSid);
+            path = path.Replace("{" + "DocumentSid" + "}", PathDocumentSid);
             string PathIdentity = options.PathIdentity;
-            path = path.Replace("{"+"Identity"+"}", PathIdentity);
+            path = path.Replace("{" + "Identity" + "}", PathIdentity);
 
             return new Request(
                 HttpMethod.Get,
@@ -132,26 +132,26 @@ namespace Kandy.Rest.Preview.Sync.Service.Document
         /// <param name="options"> Fetch DocumentPermission parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of DocumentPermission </returns>
-        public static DocumentPermissionResource Fetch(FetchDocumentPermissionOptions options, ITwilioRestClient client = null)
+        public static DocumentPermissionResource Fetch(FetchDocumentPermissionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Sync Document Permission. </summary>
         /// <param name="options"> Fetch DocumentPermission parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of DocumentPermission </returns>
         public static async System.Threading.Tasks.Task<DocumentPermissionResource> FetchAsync(FetchDocumentPermissionOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a specific Sync Document Permission. </summary>
         /// <param name="pathServiceSid">  </param>
         /// <param name="pathDocumentSid"> Identifier of the Sync Document. Either a SID or a unique name. </param>
@@ -159,38 +159,38 @@ namespace Kandy.Rest.Preview.Sync.Service.Document
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of DocumentPermission </returns>
         public static DocumentPermissionResource Fetch(
-                                         string pathServiceSid, 
-                                         string pathDocumentSid, 
-                                         string pathIdentity, 
-                                         ITwilioRestClient client = null)
+                                         string pathServiceSid,
+                                         string pathDocumentSid,
+                                         string pathIdentity,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchDocumentPermissionOptions(pathServiceSid, pathDocumentSid, pathIdentity){  };
+            var options = new FetchDocumentPermissionOptions(pathServiceSid, pathDocumentSid, pathIdentity) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Sync Document Permission. </summary>
         /// <param name="pathServiceSid">  </param>
         /// <param name="pathDocumentSid"> Identifier of the Sync Document. Either a SID or a unique name. </param>
         /// <param name="pathIdentity"> Arbitrary string identifier representing a user associated with an FPA token, assigned by the developer. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of DocumentPermission </returns>
-        public static async System.Threading.Tasks.Task<DocumentPermissionResource> FetchAsync(string pathServiceSid, string pathDocumentSid, string pathIdentity, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<DocumentPermissionResource> FetchAsync(string pathServiceSid, string pathDocumentSid, string pathIdentity, IKandyRestClient client = null)
         {
-            var options = new FetchDocumentPermissionOptions(pathServiceSid, pathDocumentSid, pathIdentity){  };
+            var options = new FetchDocumentPermissionOptions(pathServiceSid, pathDocumentSid, pathIdentity) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadDocumentPermissionOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadDocumentPermissionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/Sync/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathDocumentSid = options.PathDocumentSid;
-            path = path.Replace("{"+"DocumentSid"+"}", PathDocumentSid);
+            path = path.Replace("{" + "DocumentSid" + "}", PathDocumentSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -204,7 +204,7 @@ namespace Kandy.Rest.Preview.Sync.Service.Document
         /// <param name="options"> Read DocumentPermission parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of DocumentPermission </returns>
-        public static ResourceSet<DocumentPermissionResource> Read(ReadDocumentPermissionOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<DocumentPermissionResource> Read(ReadDocumentPermissionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -212,13 +212,13 @@ namespace Kandy.Rest.Preview.Sync.Service.Document
             return new ResourceSet<DocumentPermissionResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Permissions applying to a Sync Document. </summary>
         /// <param name="options"> Read DocumentPermission parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of DocumentPermission </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<DocumentPermissionResource>> ReadAsync(ReadDocumentPermissionOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -226,7 +226,7 @@ namespace Kandy.Rest.Preview.Sync.Service.Document
             var page = Page<DocumentPermissionResource>.FromJson("permissions", response.Content);
             return new ResourceSet<DocumentPermissionResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Permissions applying to a Sync Document. </summary>
         /// <param name="pathServiceSid">  </param>
         /// <param name="pathDocumentSid"> Identifier of the Sync Document. Either a SID or a unique name. </param>
@@ -239,13 +239,13 @@ namespace Kandy.Rest.Preview.Sync.Service.Document
                                                      string pathDocumentSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadDocumentPermissionOptions(pathServiceSid, pathDocumentSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadDocumentPermissionOptions(pathServiceSid, pathDocumentSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Permissions applying to a Sync Document. </summary>
         /// <param name="pathServiceSid">  </param>
         /// <param name="pathDocumentSid"> Identifier of the Sync Document. Either a SID or a unique name. </param>
@@ -258,19 +258,19 @@ namespace Kandy.Rest.Preview.Sync.Service.Document
                                                                                              string pathDocumentSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadDocumentPermissionOptions(pathServiceSid, pathDocumentSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadDocumentPermissionOptions(pathServiceSid, pathDocumentSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<DocumentPermissionResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<DocumentPermissionResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -287,7 +287,7 @@ namespace Kandy.Rest.Preview.Sync.Service.Document
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<DocumentPermissionResource> NextPage(Page<DocumentPermissionResource> page, ITwilioRestClient client)
+        public static Page<DocumentPermissionResource> NextPage(Page<DocumentPermissionResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -302,7 +302,7 @@ namespace Kandy.Rest.Preview.Sync.Service.Document
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<DocumentPermissionResource> PreviousPage(Page<DocumentPermissionResource> page, ITwilioRestClient client)
+        public static Page<DocumentPermissionResource> PreviousPage(Page<DocumentPermissionResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -313,18 +313,18 @@ namespace Kandy.Rest.Preview.Sync.Service.Document
             return Page<DocumentPermissionResource>.FromJson("permissions", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateDocumentPermissionOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateDocumentPermissionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/Sync/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathDocumentSid = options.PathDocumentSid;
-            path = path.Replace("{"+"DocumentSid"+"}", PathDocumentSid);
+            path = path.Replace("{" + "DocumentSid" + "}", PathDocumentSid);
             string PathIdentity = options.PathIdentity;
-            path = path.Replace("{"+"Identity"+"}", PathIdentity);
+            path = path.Replace("{" + "Identity" + "}", PathIdentity);
 
             return new Request(
                 HttpMethod.Post,
@@ -339,7 +339,7 @@ namespace Kandy.Rest.Preview.Sync.Service.Document
         /// <param name="options"> Update DocumentPermission parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of DocumentPermission </returns>
-        public static DocumentPermissionResource Update(UpdateDocumentPermissionOptions options, ITwilioRestClient client = null)
+        public static DocumentPermissionResource Update(UpdateDocumentPermissionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -350,15 +350,15 @@ namespace Kandy.Rest.Preview.Sync.Service.Document
         /// <param name="options"> Update DocumentPermission parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of DocumentPermission </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<DocumentPermissionResource> UpdateAsync(UpdateDocumentPermissionOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update an identity's access to a specific Sync Document. </summary>
         /// <param name="pathServiceSid"> The unique SID identifier of the Sync Service Instance. </param>
@@ -376,13 +376,13 @@ namespace Kandy.Rest.Preview.Sync.Service.Document
                                           bool? read,
                                           bool? write,
                                           bool? manage,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateDocumentPermissionOptions(pathServiceSid, pathDocumentSid, pathIdentity, read, write, manage){  };
+            var options = new UpdateDocumentPermissionOptions(pathServiceSid, pathDocumentSid, pathIdentity, read, write, manage) { };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update an identity's access to a specific Sync Document. </summary>
         /// <param name="pathServiceSid"> The unique SID identifier of the Sync Service Instance. </param>
         /// <param name="pathDocumentSid"> Identifier of the Sync Document. Either a SID or a unique name. </param>
@@ -399,13 +399,13 @@ namespace Kandy.Rest.Preview.Sync.Service.Document
                                                                               bool? read,
                                                                               bool? write,
                                                                               bool? manage,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateDocumentPermissionOptions(pathServiceSid, pathDocumentSid, pathIdentity, read, write, manage){  };
+            var options = new UpdateDocumentPermissionOptions(pathServiceSid, pathDocumentSid, pathIdentity, read, write, manage) { };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a DocumentPermissionResource object
         /// </summary>
@@ -423,7 +423,7 @@ namespace Kandy.Rest.Preview.Sync.Service.Document
             }
         }
 
-    
+
         ///<summary> The unique SID identifier of the Twilio Account. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -458,7 +458,8 @@ namespace Kandy.Rest.Preview.Sync.Service.Document
 
 
 
-        private DocumentPermissionResource() {
+        private DocumentPermissionResource()
+        {
 
         }
     }

@@ -28,16 +28,16 @@ namespace Kandy.Rest.Serverless.V1.Service
 {
     public class AssetResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateAssetOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateAssetOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Assets";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -52,26 +52,26 @@ namespace Kandy.Rest.Serverless.V1.Service
         /// <param name="options"> Create Asset parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Asset </returns>
-        public static AssetResource Create(CreateAssetOptions options, ITwilioRestClient client = null)
+        public static AssetResource Create(CreateAssetOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Asset resource. </summary>
         /// <param name="options"> Create Asset parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Asset </returns>
         public static async System.Threading.Tasks.Task<AssetResource> CreateAsync(CreateAssetOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new Asset resource. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to create the Asset resource under. </param>
@@ -81,13 +81,13 @@ namespace Kandy.Rest.Serverless.V1.Service
         public static AssetResource Create(
                                           string pathServiceSid,
                                           string friendlyName,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateAssetOptions(pathServiceSid, friendlyName){  };
+            var options = new CreateAssetOptions(pathServiceSid, friendlyName) { };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Asset resource. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to create the Asset resource under. </param>
         /// <param name="friendlyName"> A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters. </param>
@@ -96,26 +96,26 @@ namespace Kandy.Rest.Serverless.V1.Service
         public static async System.Threading.Tasks.Task<AssetResource> CreateAsync(
                                                                                   string pathServiceSid,
                                                                                   string friendlyName,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateAssetOptions(pathServiceSid, friendlyName){  };
+            var options = new CreateAssetOptions(pathServiceSid, friendlyName) { };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Delete an Asset resource. </summary>
         /// <param name="options"> Delete Asset parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Asset </returns>
-        private static Request BuildDeleteRequest(DeleteAssetOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteAssetOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Assets/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -130,60 +130,60 @@ namespace Kandy.Rest.Serverless.V1.Service
         /// <param name="options"> Delete Asset parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Asset </returns>
-        public static bool Delete(DeleteAssetOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteAssetOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete an Asset resource. </summary>
         /// <param name="options"> Delete Asset parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Asset </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteAssetOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete an Asset resource. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to delete the Asset resource from. </param>
         /// <param name="pathSid"> The SID that identifies the Asset resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Asset </returns>
-        public static bool Delete(string pathServiceSid, string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathServiceSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteAssetOptions(pathServiceSid, pathSid)        ;
+            var options = new DeleteAssetOptions(pathServiceSid, pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete an Asset resource. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to delete the Asset resource from. </param>
         /// <param name="pathSid"> The SID that identifies the Asset resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Asset </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteAssetOptions(pathServiceSid, pathSid) ;
+            var options = new DeleteAssetOptions(pathServiceSid, pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchAssetOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchAssetOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Assets/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -198,60 +198,60 @@ namespace Kandy.Rest.Serverless.V1.Service
         /// <param name="options"> Fetch Asset parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Asset </returns>
-        public static AssetResource Fetch(FetchAssetOptions options, ITwilioRestClient client = null)
+        public static AssetResource Fetch(FetchAssetOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a specific Asset resource. </summary>
         /// <param name="options"> Fetch Asset parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Asset </returns>
         public static async System.Threading.Tasks.Task<AssetResource> FetchAsync(FetchAssetOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Retrieve a specific Asset resource. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to fetch the Asset resource from. </param>
         /// <param name="pathSid"> The SID that identifies the Asset resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Asset </returns>
         public static AssetResource Fetch(
-                                         string pathServiceSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathServiceSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchAssetOptions(pathServiceSid, pathSid){  };
+            var options = new FetchAssetOptions(pathServiceSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a specific Asset resource. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to fetch the Asset resource from. </param>
         /// <param name="pathSid"> The SID that identifies the Asset resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Asset </returns>
-        public static async System.Threading.Tasks.Task<AssetResource> FetchAsync(string pathServiceSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<AssetResource> FetchAsync(string pathServiceSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchAssetOptions(pathServiceSid, pathSid){  };
+            var options = new FetchAssetOptions(pathServiceSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadAssetOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadAssetOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Assets";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -265,7 +265,7 @@ namespace Kandy.Rest.Serverless.V1.Service
         /// <param name="options"> Read Asset parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Asset </returns>
-        public static ResourceSet<AssetResource> Read(ReadAssetOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<AssetResource> Read(ReadAssetOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -273,13 +273,13 @@ namespace Kandy.Rest.Serverless.V1.Service
             return new ResourceSet<AssetResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Assets. </summary>
         /// <param name="options"> Read Asset parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Asset </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<AssetResource>> ReadAsync(ReadAssetOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -287,7 +287,7 @@ namespace Kandy.Rest.Serverless.V1.Service
             var page = Page<AssetResource>.FromJson("assets", response.Content);
             return new ResourceSet<AssetResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Assets. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to read the Asset resources from. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -298,13 +298,13 @@ namespace Kandy.Rest.Serverless.V1.Service
                                                      string pathServiceSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadAssetOptions(pathServiceSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadAssetOptions(pathServiceSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Assets. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to read the Asset resources from. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -315,19 +315,19 @@ namespace Kandy.Rest.Serverless.V1.Service
                                                                                              string pathServiceSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadAssetOptions(pathServiceSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadAssetOptions(pathServiceSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<AssetResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<AssetResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -344,7 +344,7 @@ namespace Kandy.Rest.Serverless.V1.Service
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<AssetResource> NextPage(Page<AssetResource> page, ITwilioRestClient client)
+        public static Page<AssetResource> NextPage(Page<AssetResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -359,7 +359,7 @@ namespace Kandy.Rest.Serverless.V1.Service
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<AssetResource> PreviousPage(Page<AssetResource> page, ITwilioRestClient client)
+        public static Page<AssetResource> PreviousPage(Page<AssetResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -370,16 +370,16 @@ namespace Kandy.Rest.Serverless.V1.Service
             return Page<AssetResource>.FromJson("assets", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateAssetOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateAssetOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Assets/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -394,7 +394,7 @@ namespace Kandy.Rest.Serverless.V1.Service
         /// <param name="options"> Update Asset parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Asset </returns>
-        public static AssetResource Update(UpdateAssetOptions options, ITwilioRestClient client = null)
+        public static AssetResource Update(UpdateAssetOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -405,15 +405,15 @@ namespace Kandy.Rest.Serverless.V1.Service
         /// <param name="options"> Update Asset parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Asset </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<AssetResource> UpdateAsync(UpdateAssetOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update a specific Asset resource. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to update the Asset resource from. </param>
@@ -425,13 +425,13 @@ namespace Kandy.Rest.Serverless.V1.Service
                                           string pathServiceSid,
                                           string pathSid,
                                           string friendlyName,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateAssetOptions(pathServiceSid, pathSid, friendlyName){  };
+            var options = new UpdateAssetOptions(pathServiceSid, pathSid, friendlyName) { };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update a specific Asset resource. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to update the Asset resource from. </param>
         /// <param name="pathSid"> The SID that identifies the Asset resource to update. </param>
@@ -442,13 +442,13 @@ namespace Kandy.Rest.Serverless.V1.Service
                                                                               string pathServiceSid,
                                                                               string pathSid,
                                                                               string friendlyName,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateAssetOptions(pathServiceSid, pathSid, friendlyName){  };
+            var options = new UpdateAssetOptions(pathServiceSid, pathSid, friendlyName) { };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a AssetResource object
         /// </summary>
@@ -466,7 +466,7 @@ namespace Kandy.Rest.Serverless.V1.Service
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the Asset resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -501,7 +501,8 @@ namespace Kandy.Rest.Serverless.V1.Service
 
 
 
-        private AssetResource() {
+        private AssetResource()
+        {
 
         }
     }

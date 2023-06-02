@@ -28,18 +28,18 @@ namespace Kandy.Rest.Studio.V1.Flow.Engagement
 {
     public class EngagementContextResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchEngagementContextOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchEngagementContextOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Context";
 
             string PathFlowSid = options.PathFlowSid;
-            path = path.Replace("{"+"FlowSid"+"}", PathFlowSid);
+            path = path.Replace("{" + "FlowSid" + "}", PathFlowSid);
             string PathEngagementSid = options.PathEngagementSid;
-            path = path.Replace("{"+"EngagementSid"+"}", PathEngagementSid);
+            path = path.Replace("{" + "EngagementSid" + "}", PathEngagementSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -54,53 +54,53 @@ namespace Kandy.Rest.Studio.V1.Flow.Engagement
         /// <param name="options"> Fetch EngagementContext parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of EngagementContext </returns>
-        public static EngagementContextResource Fetch(FetchEngagementContextOptions options, ITwilioRestClient client = null)
+        public static EngagementContextResource Fetch(FetchEngagementContextOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve the most recent context for an Engagement. </summary>
         /// <param name="options"> Fetch EngagementContext parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of EngagementContext </returns>
         public static async System.Threading.Tasks.Task<EngagementContextResource> FetchAsync(FetchEngagementContextOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Retrieve the most recent context for an Engagement. </summary>
         /// <param name="pathFlowSid"> The SID of the Flow. </param>
         /// <param name="pathEngagementSid"> The SID of the Engagement. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of EngagementContext </returns>
         public static EngagementContextResource Fetch(
-                                         string pathFlowSid, 
-                                         string pathEngagementSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathFlowSid,
+                                         string pathEngagementSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchEngagementContextOptions(pathFlowSid, pathEngagementSid){  };
+            var options = new FetchEngagementContextOptions(pathFlowSid, pathEngagementSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve the most recent context for an Engagement. </summary>
         /// <param name="pathFlowSid"> The SID of the Flow. </param>
         /// <param name="pathEngagementSid"> The SID of the Engagement. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of EngagementContext </returns>
-        public static async System.Threading.Tasks.Task<EngagementContextResource> FetchAsync(string pathFlowSid, string pathEngagementSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<EngagementContextResource> FetchAsync(string pathFlowSid, string pathEngagementSid, IKandyRestClient client = null)
         {
-            var options = new FetchEngagementContextOptions(pathFlowSid, pathEngagementSid){  };
+            var options = new FetchEngagementContextOptions(pathFlowSid, pathEngagementSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a EngagementContextResource object
         /// </summary>
@@ -118,7 +118,7 @@ namespace Kandy.Rest.Studio.V1.Flow.Engagement
             }
         }
 
-    
+
         ///<summary> The SID of the Account. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -141,7 +141,8 @@ namespace Kandy.Rest.Studio.V1.Flow.Engagement
 
 
 
-        private EngagementContextResource() {
+        private EngagementContextResource()
+        {
 
         }
     }

@@ -28,12 +28,12 @@ namespace Kandy.Rest.Intelligence.V2.Transcript
 {
     public class OperatorResultResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class OperatorTypeEnum : StringEnum
         {
-            private OperatorTypeEnum(string value) : base(value) {}
-            public OperatorTypeEnum() {}
+            private OperatorTypeEnum(string value) : base(value) { }
+            public OperatorTypeEnum() { }
             public static implicit operator OperatorTypeEnum(string value)
             {
                 return new OperatorTypeEnum(value);
@@ -46,16 +46,16 @@ namespace Kandy.Rest.Intelligence.V2.Transcript
 
         }
 
-        
-        private static Request BuildFetchRequest(FetchOperatorResultOptions options, ITwilioRestClient client)
+
+        private static Request BuildFetchRequest(FetchOperatorResultOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Transcripts/{TranscriptSid}/OperatorResults/{OperatorSid}";
 
             string PathTranscriptSid = options.PathTranscriptSid;
-            path = path.Replace("{"+"TranscriptSid"+"}", PathTranscriptSid);
+            path = path.Replace("{" + "TranscriptSid" + "}", PathTranscriptSid);
             string PathOperatorSid = options.PathOperatorSid;
-            path = path.Replace("{"+"OperatorSid"+"}", PathOperatorSid);
+            path = path.Replace("{" + "OperatorSid" + "}", PathOperatorSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -70,26 +70,26 @@ namespace Kandy.Rest.Intelligence.V2.Transcript
         /// <param name="options"> Fetch OperatorResult parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of OperatorResult </returns>
-        public static OperatorResultResource Fetch(FetchOperatorResultOptions options, ITwilioRestClient client = null)
+        public static OperatorResultResource Fetch(FetchOperatorResultOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Operator Result for the given Transcript. </summary>
         /// <param name="options"> Fetch OperatorResult parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of OperatorResult </returns>
         public static async System.Threading.Tasks.Task<OperatorResultResource> FetchAsync(FetchOperatorResultOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a specific Operator Result for the given Transcript. </summary>
         /// <param name="pathTranscriptSid"> A 34 character string that uniquely identifies this Transcript. </param>
         /// <param name="pathOperatorSid"> A 34 character string that identifies this Language Understanding operator sid. </param>
@@ -97,36 +97,36 @@ namespace Kandy.Rest.Intelligence.V2.Transcript
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of OperatorResult </returns>
         public static OperatorResultResource Fetch(
-                                         string pathTranscriptSid, 
-                                         string pathOperatorSid, 
-                                         bool? redacted = null, 
-                                         ITwilioRestClient client = null)
+                                         string pathTranscriptSid,
+                                         string pathOperatorSid,
+                                         bool? redacted = null,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchOperatorResultOptions(pathTranscriptSid, pathOperatorSid){ Redacted = redacted };
+            var options = new FetchOperatorResultOptions(pathTranscriptSid, pathOperatorSid) { Redacted = redacted };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Operator Result for the given Transcript. </summary>
         /// <param name="pathTranscriptSid"> A 34 character string that uniquely identifies this Transcript. </param>
         /// <param name="pathOperatorSid"> A 34 character string that identifies this Language Understanding operator sid. </param>
         /// <param name="redacted"> Grant access to PII redacted/unredacted Language Understanding operator. The default is True. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of OperatorResult </returns>
-        public static async System.Threading.Tasks.Task<OperatorResultResource> FetchAsync(string pathTranscriptSid, string pathOperatorSid, bool? redacted = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<OperatorResultResource> FetchAsync(string pathTranscriptSid, string pathOperatorSid, bool? redacted = null, IKandyRestClient client = null)
         {
-            var options = new FetchOperatorResultOptions(pathTranscriptSid, pathOperatorSid){ Redacted = redacted };
+            var options = new FetchOperatorResultOptions(pathTranscriptSid, pathOperatorSid) { Redacted = redacted };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadOperatorResultOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadOperatorResultOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Transcripts/{TranscriptSid}/OperatorResults";
 
             string PathTranscriptSid = options.PathTranscriptSid;
-            path = path.Replace("{"+"TranscriptSid"+"}", PathTranscriptSid);
+            path = path.Replace("{" + "TranscriptSid" + "}", PathTranscriptSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -140,7 +140,7 @@ namespace Kandy.Rest.Intelligence.V2.Transcript
         /// <param name="options"> Read OperatorResult parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of OperatorResult </returns>
-        public static ResourceSet<OperatorResultResource> Read(ReadOperatorResultOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<OperatorResultResource> Read(ReadOperatorResultOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -148,13 +148,13 @@ namespace Kandy.Rest.Intelligence.V2.Transcript
             return new ResourceSet<OperatorResultResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of Operator Results for the given Transcript. </summary>
         /// <param name="options"> Read OperatorResult parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of OperatorResult </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<OperatorResultResource>> ReadAsync(ReadOperatorResultOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -162,7 +162,7 @@ namespace Kandy.Rest.Intelligence.V2.Transcript
             var page = Page<OperatorResultResource>.FromJson("operator_results", response.Content);
             return new ResourceSet<OperatorResultResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of Operator Results for the given Transcript. </summary>
         /// <param name="pathTranscriptSid"> A 34 character string that uniquely identifies this Transcript. </param>
         /// <param name="redacted"> Grant access to PII redacted/unredacted Language Understanding operator. The default is True. </param>
@@ -175,13 +175,13 @@ namespace Kandy.Rest.Intelligence.V2.Transcript
                                                      bool? redacted = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadOperatorResultOptions(pathTranscriptSid){ Redacted = redacted, PageSize = pageSize, Limit = limit};
+            var options = new ReadOperatorResultOptions(pathTranscriptSid) { Redacted = redacted, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of Operator Results for the given Transcript. </summary>
         /// <param name="pathTranscriptSid"> A 34 character string that uniquely identifies this Transcript. </param>
         /// <param name="redacted"> Grant access to PII redacted/unredacted Language Understanding operator. The default is True. </param>
@@ -194,19 +194,19 @@ namespace Kandy.Rest.Intelligence.V2.Transcript
                                                                                              bool? redacted = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadOperatorResultOptions(pathTranscriptSid){ Redacted = redacted, PageSize = pageSize, Limit = limit};
+            var options = new ReadOperatorResultOptions(pathTranscriptSid) { Redacted = redacted, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<OperatorResultResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<OperatorResultResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -223,7 +223,7 @@ namespace Kandy.Rest.Intelligence.V2.Transcript
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<OperatorResultResource> NextPage(Page<OperatorResultResource> page, ITwilioRestClient client)
+        public static Page<OperatorResultResource> NextPage(Page<OperatorResultResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -238,7 +238,7 @@ namespace Kandy.Rest.Intelligence.V2.Transcript
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<OperatorResultResource> PreviousPage(Page<OperatorResultResource> page, ITwilioRestClient client)
+        public static Page<OperatorResultResource> PreviousPage(Page<OperatorResultResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -249,7 +249,7 @@ namespace Kandy.Rest.Intelligence.V2.Transcript
             return Page<OperatorResultResource>.FromJson("operator_results", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a OperatorResultResource object
         /// </summary>
@@ -267,8 +267,8 @@ namespace Kandy.Rest.Intelligence.V2.Transcript
             }
         }
 
-    
-        
+
+
         [JsonProperty("operator_type")]
         public OperatorResultResource.OperatorTypeEnum OperatorType { get; private set; }
 
@@ -326,7 +326,8 @@ namespace Kandy.Rest.Intelligence.V2.Transcript
 
 
 
-        private OperatorResultResource() {
+        private OperatorResultResource()
+        {
 
         }
     }

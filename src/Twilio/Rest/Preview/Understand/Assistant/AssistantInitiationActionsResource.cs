@@ -28,16 +28,16 @@ namespace Kandy.Rest.Preview.Understand.Assistant
 {
     public class AssistantInitiationActionsResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchAssistantInitiationActionsOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchAssistantInitiationActionsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/understand/Assistants/{AssistantSid}/InitiationActions";
 
             string PathAssistantSid = options.PathAssistantSid;
-            path = path.Replace("{"+"AssistantSid"+"}", PathAssistantSid);
+            path = path.Replace("{" + "AssistantSid" + "}", PathAssistantSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -52,57 +52,57 @@ namespace Kandy.Rest.Preview.Understand.Assistant
         /// <param name="options"> Fetch AssistantInitiationActions parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AssistantInitiationActions </returns>
-        public static AssistantInitiationActionsResource Fetch(FetchAssistantInitiationActionsOptions options, ITwilioRestClient client = null)
+        public static AssistantInitiationActionsResource Fetch(FetchAssistantInitiationActionsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch AssistantInitiationActions parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AssistantInitiationActions </returns>
         public static async System.Threading.Tasks.Task<AssistantInitiationActionsResource> FetchAsync(FetchAssistantInitiationActionsOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathAssistantSid">  </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AssistantInitiationActions </returns>
         public static AssistantInitiationActionsResource Fetch(
-                                         string pathAssistantSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathAssistantSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchAssistantInitiationActionsOptions(pathAssistantSid){  };
+            var options = new FetchAssistantInitiationActionsOptions(pathAssistantSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathAssistantSid">  </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AssistantInitiationActions </returns>
-        public static async System.Threading.Tasks.Task<AssistantInitiationActionsResource> FetchAsync(string pathAssistantSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<AssistantInitiationActionsResource> FetchAsync(string pathAssistantSid, IKandyRestClient client = null)
         {
-            var options = new FetchAssistantInitiationActionsOptions(pathAssistantSid){  };
+            var options = new FetchAssistantInitiationActionsOptions(pathAssistantSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildUpdateRequest(UpdateAssistantInitiationActionsOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildUpdateRequest(UpdateAssistantInitiationActionsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/understand/Assistants/{AssistantSid}/InitiationActions";
 
             string PathAssistantSid = options.PathAssistantSid;
-            path = path.Replace("{"+"AssistantSid"+"}", PathAssistantSid);
+            path = path.Replace("{" + "AssistantSid" + "}", PathAssistantSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -117,7 +117,7 @@ namespace Kandy.Rest.Preview.Understand.Assistant
         /// <param name="options"> Update AssistantInitiationActions parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AssistantInitiationActions </returns>
-        public static AssistantInitiationActionsResource Update(UpdateAssistantInitiationActionsOptions options, ITwilioRestClient client = null)
+        public static AssistantInitiationActionsResource Update(UpdateAssistantInitiationActionsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -128,15 +128,15 @@ namespace Kandy.Rest.Preview.Understand.Assistant
         /// <param name="options"> Update AssistantInitiationActions parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AssistantInitiationActions </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<AssistantInitiationActionsResource> UpdateAsync(UpdateAssistantInitiationActionsOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> update </summary>
         /// <param name="pathAssistantSid">  </param>
@@ -146,13 +146,13 @@ namespace Kandy.Rest.Preview.Understand.Assistant
         public static AssistantInitiationActionsResource Update(
                                           string pathAssistantSid,
                                           object initiationActions = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateAssistantInitiationActionsOptions(pathAssistantSid){ InitiationActions = initiationActions };
+            var options = new UpdateAssistantInitiationActionsOptions(pathAssistantSid) { InitiationActions = initiationActions };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> update </summary>
         /// <param name="pathAssistantSid">  </param>
         /// <param name="initiationActions">  </param>
@@ -161,13 +161,13 @@ namespace Kandy.Rest.Preview.Understand.Assistant
         public static async System.Threading.Tasks.Task<AssistantInitiationActionsResource> UpdateAsync(
                                                                               string pathAssistantSid,
                                                                               object initiationActions = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateAssistantInitiationActionsOptions(pathAssistantSid){ InitiationActions = initiationActions };
+            var options = new UpdateAssistantInitiationActionsOptions(pathAssistantSid) { InitiationActions = initiationActions };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a AssistantInitiationActionsResource object
         /// </summary>
@@ -185,7 +185,7 @@ namespace Kandy.Rest.Preview.Understand.Assistant
             }
         }
 
-    
+
         ///<summary> The account_sid </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -204,7 +204,8 @@ namespace Kandy.Rest.Preview.Understand.Assistant
 
 
 
-        private AssistantInitiationActionsResource() {
+        private AssistantInitiationActionsResource()
+        {
 
         }
     }

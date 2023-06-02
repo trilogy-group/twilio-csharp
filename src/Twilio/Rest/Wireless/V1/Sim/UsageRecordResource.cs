@@ -28,11 +28,11 @@ namespace Kandy.Rest.Wireless.V1.Sim
 {
     public class UsageRecordResource : Resource
     {
-    
+
         public sealed class GranularityEnum : StringEnum
         {
-            private GranularityEnum(string value) : base(value) {}
-            public GranularityEnum() {}
+            private GranularityEnum(string value) : base(value) { }
+            public GranularityEnum() { }
             public static implicit operator GranularityEnum(string value)
             {
                 return new GranularityEnum(value);
@@ -43,14 +43,14 @@ namespace Kandy.Rest.Wireless.V1.Sim
 
         }
 
-        
-        private static Request BuildReadRequest(ReadUsageRecordOptions options, ITwilioRestClient client)
+
+        private static Request BuildReadRequest(ReadUsageRecordOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Sims/{SimSid}/UsageRecords";
 
             string PathSimSid = options.PathSimSid;
-            path = path.Replace("{"+"SimSid"+"}", PathSimSid);
+            path = path.Replace("{" + "SimSid" + "}", PathSimSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -64,7 +64,7 @@ namespace Kandy.Rest.Wireless.V1.Sim
         /// <param name="options"> Read UsageRecord parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of UsageRecord </returns>
-        public static ResourceSet<UsageRecordResource> Read(ReadUsageRecordOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<UsageRecordResource> Read(ReadUsageRecordOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -72,13 +72,13 @@ namespace Kandy.Rest.Wireless.V1.Sim
             return new ResourceSet<UsageRecordResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read UsageRecord parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of UsageRecord </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<UsageRecordResource>> ReadAsync(ReadUsageRecordOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -86,7 +86,7 @@ namespace Kandy.Rest.Wireless.V1.Sim
             var page = Page<UsageRecordResource>.FromJson("usage_records", response.Content);
             return new ResourceSet<UsageRecordResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="pathSimSid"> The SID of the [Sim resource](https://www.twilio.com/docs/wireless/api/sim-resource)  to read the usage from. </param>
         /// <param name="end"> Only include usage that occurred on or before this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is the current time. </param>
@@ -103,13 +103,13 @@ namespace Kandy.Rest.Wireless.V1.Sim
                                                      UsageRecordResource.GranularityEnum granularity = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadUsageRecordOptions(pathSimSid){ End = end, Start = start, Granularity = granularity, PageSize = pageSize, Limit = limit};
+            var options = new ReadUsageRecordOptions(pathSimSid) { End = end, Start = start, Granularity = granularity, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="pathSimSid"> The SID of the [Sim resource](https://www.twilio.com/docs/wireless/api/sim-resource)  to read the usage from. </param>
         /// <param name="end"> Only include usage that occurred on or before this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is the current time. </param>
@@ -126,19 +126,19 @@ namespace Kandy.Rest.Wireless.V1.Sim
                                                                                              UsageRecordResource.GranularityEnum granularity = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadUsageRecordOptions(pathSimSid){ End = end, Start = start, Granularity = granularity, PageSize = pageSize, Limit = limit};
+            var options = new ReadUsageRecordOptions(pathSimSid) { End = end, Start = start, Granularity = granularity, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<UsageRecordResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<UsageRecordResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -155,7 +155,7 @@ namespace Kandy.Rest.Wireless.V1.Sim
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<UsageRecordResource> NextPage(Page<UsageRecordResource> page, ITwilioRestClient client)
+        public static Page<UsageRecordResource> NextPage(Page<UsageRecordResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -170,7 +170,7 @@ namespace Kandy.Rest.Wireless.V1.Sim
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<UsageRecordResource> PreviousPage(Page<UsageRecordResource> page, ITwilioRestClient client)
+        public static Page<UsageRecordResource> PreviousPage(Page<UsageRecordResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -181,7 +181,7 @@ namespace Kandy.Rest.Wireless.V1.Sim
             return Page<UsageRecordResource>.FromJson("usage_records", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a UsageRecordResource object
         /// </summary>
@@ -199,7 +199,7 @@ namespace Kandy.Rest.Wireless.V1.Sim
             }
         }
 
-    
+
         ///<summary> The SID of the [Sim resource](https://www.twilio.com/docs/wireless/api/sim-resource) that this Usage Record is for. </summary> 
         [JsonProperty("sim_sid")]
         public string SimSid { get; private set; }
@@ -222,7 +222,8 @@ namespace Kandy.Rest.Wireless.V1.Sim
 
 
 
-        private UsageRecordResource() {
+        private UsageRecordResource()
+        {
 
         }
     }

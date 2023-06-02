@@ -28,16 +28,16 @@ namespace Kandy.Rest.Api.V2010.Account
 {
     public class TokenResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateTokenOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateTokenOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Tokens.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -52,26 +52,26 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="options"> Create Token parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Token </returns>
-        public static TokenResource Create(CreateTokenOptions options, ITwilioRestClient client = null)
+        public static TokenResource Create(CreateTokenOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new token for ICE servers </summary>
         /// <param name="options"> Create Token parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Token </returns>
         public static async System.Threading.Tasks.Task<TokenResource> CreateAsync(CreateTokenOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new token for ICE servers </summary>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. </param>
@@ -81,13 +81,13 @@ namespace Kandy.Rest.Api.V2010.Account
         public static TokenResource Create(
                                           string pathAccountSid = null,
                                           int? ttl = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateTokenOptions(){  PathAccountSid = pathAccountSid, Ttl = ttl };
+            var options = new CreateTokenOptions() { PathAccountSid = pathAccountSid, Ttl = ttl };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new token for ICE servers </summary>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. </param>
         /// <param name="ttl"> The duration in seconds for which the generated credentials are valid. The default value is 86400 (24 hours). </param>
@@ -96,13 +96,13 @@ namespace Kandy.Rest.Api.V2010.Account
         public static async System.Threading.Tasks.Task<TokenResource> CreateAsync(
                                                                                   string pathAccountSid = null,
                                                                                   int? ttl = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateTokenOptions(){  PathAccountSid = pathAccountSid, Ttl = ttl };
+            var options = new CreateTokenOptions() { PathAccountSid = pathAccountSid, Ttl = ttl };
             return await CreateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a TokenResource object
         /// </summary>
@@ -120,7 +120,7 @@ namespace Kandy.Rest.Api.V2010.Account
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Token resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -151,7 +151,8 @@ namespace Kandy.Rest.Api.V2010.Account
 
 
 
-        private TokenResource() {
+        private TokenResource()
+        {
 
         }
     }

@@ -28,12 +28,12 @@ namespace Kandy.Rest.Notify.V1
 {
     public class ServiceResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateServiceOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateServiceOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services";
 
 
@@ -50,26 +50,26 @@ namespace Kandy.Rest.Notify.V1
         /// <param name="options"> Create Service parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Service </returns>
-        public static ServiceResource Create(CreateServiceOptions options, ITwilioRestClient client = null)
+        public static ServiceResource Create(CreateServiceOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create Service parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Service </returns>
         public static async System.Threading.Tasks.Task<ServiceResource> CreateAsync(CreateServiceOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="friendlyName"> A descriptive string that you create to describe the resource. It can be up to 64 characters long. </param>
@@ -103,13 +103,13 @@ namespace Kandy.Rest.Notify.V1
                                           string defaultAlexaNotificationProtocolVersion = null,
                                           string deliveryCallbackUrl = null,
                                           bool? deliveryCallbackEnabled = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateServiceOptions(){  FriendlyName = friendlyName, ApnCredentialSid = apnCredentialSid, GcmCredentialSid = gcmCredentialSid, MessagingServiceSid = messagingServiceSid, FacebookMessengerPageId = facebookMessengerPageId, DefaultApnNotificationProtocolVersion = defaultApnNotificationProtocolVersion, DefaultGcmNotificationProtocolVersion = defaultGcmNotificationProtocolVersion, FcmCredentialSid = fcmCredentialSid, DefaultFcmNotificationProtocolVersion = defaultFcmNotificationProtocolVersion, LogEnabled = logEnabled, AlexaSkillId = alexaSkillId, DefaultAlexaNotificationProtocolVersion = defaultAlexaNotificationProtocolVersion, DeliveryCallbackUrl = deliveryCallbackUrl, DeliveryCallbackEnabled = deliveryCallbackEnabled };
+            var options = new CreateServiceOptions() { FriendlyName = friendlyName, ApnCredentialSid = apnCredentialSid, GcmCredentialSid = gcmCredentialSid, MessagingServiceSid = messagingServiceSid, FacebookMessengerPageId = facebookMessengerPageId, DefaultApnNotificationProtocolVersion = defaultApnNotificationProtocolVersion, DefaultGcmNotificationProtocolVersion = defaultGcmNotificationProtocolVersion, FcmCredentialSid = fcmCredentialSid, DefaultFcmNotificationProtocolVersion = defaultFcmNotificationProtocolVersion, LogEnabled = logEnabled, AlexaSkillId = alexaSkillId, DefaultAlexaNotificationProtocolVersion = defaultAlexaNotificationProtocolVersion, DeliveryCallbackUrl = deliveryCallbackUrl, DeliveryCallbackEnabled = deliveryCallbackEnabled };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="friendlyName"> A descriptive string that you create to describe the resource. It can be up to 64 characters long. </param>
         /// <param name="apnCredentialSid"> The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings. </param>
@@ -142,24 +142,24 @@ namespace Kandy.Rest.Notify.V1
                                                                                   string defaultAlexaNotificationProtocolVersion = null,
                                                                                   string deliveryCallbackUrl = null,
                                                                                   bool? deliveryCallbackEnabled = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateServiceOptions(){  FriendlyName = friendlyName, ApnCredentialSid = apnCredentialSid, GcmCredentialSid = gcmCredentialSid, MessagingServiceSid = messagingServiceSid, FacebookMessengerPageId = facebookMessengerPageId, DefaultApnNotificationProtocolVersion = defaultApnNotificationProtocolVersion, DefaultGcmNotificationProtocolVersion = defaultGcmNotificationProtocolVersion, FcmCredentialSid = fcmCredentialSid, DefaultFcmNotificationProtocolVersion = defaultFcmNotificationProtocolVersion, LogEnabled = logEnabled, AlexaSkillId = alexaSkillId, DefaultAlexaNotificationProtocolVersion = defaultAlexaNotificationProtocolVersion, DeliveryCallbackUrl = deliveryCallbackUrl, DeliveryCallbackEnabled = deliveryCallbackEnabled };
+            var options = new CreateServiceOptions() { FriendlyName = friendlyName, ApnCredentialSid = apnCredentialSid, GcmCredentialSid = gcmCredentialSid, MessagingServiceSid = messagingServiceSid, FacebookMessengerPageId = facebookMessengerPageId, DefaultApnNotificationProtocolVersion = defaultApnNotificationProtocolVersion, DefaultGcmNotificationProtocolVersion = defaultGcmNotificationProtocolVersion, FcmCredentialSid = fcmCredentialSid, DefaultFcmNotificationProtocolVersion = defaultFcmNotificationProtocolVersion, LogEnabled = logEnabled, AlexaSkillId = alexaSkillId, DefaultAlexaNotificationProtocolVersion = defaultAlexaNotificationProtocolVersion, DeliveryCallbackUrl = deliveryCallbackUrl, DeliveryCallbackEnabled = deliveryCallbackEnabled };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> delete </summary>
         /// <param name="options"> Delete Service parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Service </returns>
-        private static Request BuildDeleteRequest(DeleteServiceOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteServiceOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -174,56 +174,56 @@ namespace Kandy.Rest.Notify.V1
         /// <param name="options"> Delete Service parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Service </returns>
-        public static bool Delete(DeleteServiceOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteServiceOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="options"> Delete Service parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Service </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteServiceOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> delete </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Service resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Service </returns>
-        public static bool Delete(string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteServiceOptions(pathSid)     ;
+            var options = new DeleteServiceOptions(pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Service resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Service </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteServiceOptions(pathSid) ;
+            var options = new DeleteServiceOptions(pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchServiceOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchServiceOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -238,53 +238,53 @@ namespace Kandy.Rest.Notify.V1
         /// <param name="options"> Fetch Service parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Service </returns>
-        public static ServiceResource Fetch(FetchServiceOptions options, ITwilioRestClient client = null)
+        public static ServiceResource Fetch(FetchServiceOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch Service parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Service </returns>
         public static async System.Threading.Tasks.Task<ServiceResource> FetchAsync(FetchServiceOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Service resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Service </returns>
         public static ServiceResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchServiceOptions(pathSid){  };
+            var options = new FetchServiceOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Service resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Service </returns>
-        public static async System.Threading.Tasks.Task<ServiceResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<ServiceResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchServiceOptions(pathSid){  };
+            var options = new FetchServiceOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadServiceOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadServiceOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services";
 
 
@@ -300,7 +300,7 @@ namespace Kandy.Rest.Notify.V1
         /// <param name="options"> Read Service parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Service </returns>
-        public static ResourceSet<ServiceResource> Read(ReadServiceOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<ServiceResource> Read(ReadServiceOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -308,13 +308,13 @@ namespace Kandy.Rest.Notify.V1
             return new ResourceSet<ServiceResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read Service parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Service </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<ServiceResource>> ReadAsync(ReadServiceOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -322,7 +322,7 @@ namespace Kandy.Rest.Notify.V1
             var page = Page<ServiceResource>.FromJson("services", response.Content);
             return new ResourceSet<ServiceResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="friendlyName"> The string that identifies the Service resources to read. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -333,13 +333,13 @@ namespace Kandy.Rest.Notify.V1
                                                      string friendlyName = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadServiceOptions(){ FriendlyName = friendlyName, PageSize = pageSize, Limit = limit};
+            var options = new ReadServiceOptions() { FriendlyName = friendlyName, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="friendlyName"> The string that identifies the Service resources to read. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -350,19 +350,19 @@ namespace Kandy.Rest.Notify.V1
                                                                                              string friendlyName = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadServiceOptions(){ FriendlyName = friendlyName, PageSize = pageSize, Limit = limit};
+            var options = new ReadServiceOptions() { FriendlyName = friendlyName, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<ServiceResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<ServiceResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -379,7 +379,7 @@ namespace Kandy.Rest.Notify.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<ServiceResource> NextPage(Page<ServiceResource> page, ITwilioRestClient client)
+        public static Page<ServiceResource> NextPage(Page<ServiceResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -394,7 +394,7 @@ namespace Kandy.Rest.Notify.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<ServiceResource> PreviousPage(Page<ServiceResource> page, ITwilioRestClient client)
+        public static Page<ServiceResource> PreviousPage(Page<ServiceResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -405,14 +405,14 @@ namespace Kandy.Rest.Notify.V1
             return Page<ServiceResource>.FromJson("services", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateServiceOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateServiceOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -427,7 +427,7 @@ namespace Kandy.Rest.Notify.V1
         /// <param name="options"> Update Service parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Service </returns>
-        public static ServiceResource Update(UpdateServiceOptions options, ITwilioRestClient client = null)
+        public static ServiceResource Update(UpdateServiceOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -438,15 +438,15 @@ namespace Kandy.Rest.Notify.V1
         /// <param name="options"> Update Service parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Service </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<ServiceResource> UpdateAsync(UpdateServiceOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> update </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Service resource to update. </param>
@@ -482,13 +482,13 @@ namespace Kandy.Rest.Notify.V1
                                           string defaultAlexaNotificationProtocolVersion = null,
                                           string deliveryCallbackUrl = null,
                                           bool? deliveryCallbackEnabled = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateServiceOptions(pathSid){ FriendlyName = friendlyName, ApnCredentialSid = apnCredentialSid, GcmCredentialSid = gcmCredentialSid, MessagingServiceSid = messagingServiceSid, FacebookMessengerPageId = facebookMessengerPageId, DefaultApnNotificationProtocolVersion = defaultApnNotificationProtocolVersion, DefaultGcmNotificationProtocolVersion = defaultGcmNotificationProtocolVersion, FcmCredentialSid = fcmCredentialSid, DefaultFcmNotificationProtocolVersion = defaultFcmNotificationProtocolVersion, LogEnabled = logEnabled, AlexaSkillId = alexaSkillId, DefaultAlexaNotificationProtocolVersion = defaultAlexaNotificationProtocolVersion, DeliveryCallbackUrl = deliveryCallbackUrl, DeliveryCallbackEnabled = deliveryCallbackEnabled };
+            var options = new UpdateServiceOptions(pathSid) { FriendlyName = friendlyName, ApnCredentialSid = apnCredentialSid, GcmCredentialSid = gcmCredentialSid, MessagingServiceSid = messagingServiceSid, FacebookMessengerPageId = facebookMessengerPageId, DefaultApnNotificationProtocolVersion = defaultApnNotificationProtocolVersion, DefaultGcmNotificationProtocolVersion = defaultGcmNotificationProtocolVersion, FcmCredentialSid = fcmCredentialSid, DefaultFcmNotificationProtocolVersion = defaultFcmNotificationProtocolVersion, LogEnabled = logEnabled, AlexaSkillId = alexaSkillId, DefaultAlexaNotificationProtocolVersion = defaultAlexaNotificationProtocolVersion, DeliveryCallbackUrl = deliveryCallbackUrl, DeliveryCallbackEnabled = deliveryCallbackEnabled };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> update </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Service resource to update. </param>
         /// <param name="friendlyName"> A descriptive string that you create to describe the resource. It can be up to 64 characters long. </param>
@@ -523,13 +523,13 @@ namespace Kandy.Rest.Notify.V1
                                                                               string defaultAlexaNotificationProtocolVersion = null,
                                                                               string deliveryCallbackUrl = null,
                                                                               bool? deliveryCallbackEnabled = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateServiceOptions(pathSid){ FriendlyName = friendlyName, ApnCredentialSid = apnCredentialSid, GcmCredentialSid = gcmCredentialSid, MessagingServiceSid = messagingServiceSid, FacebookMessengerPageId = facebookMessengerPageId, DefaultApnNotificationProtocolVersion = defaultApnNotificationProtocolVersion, DefaultGcmNotificationProtocolVersion = defaultGcmNotificationProtocolVersion, FcmCredentialSid = fcmCredentialSid, DefaultFcmNotificationProtocolVersion = defaultFcmNotificationProtocolVersion, LogEnabled = logEnabled, AlexaSkillId = alexaSkillId, DefaultAlexaNotificationProtocolVersion = defaultAlexaNotificationProtocolVersion, DeliveryCallbackUrl = deliveryCallbackUrl, DeliveryCallbackEnabled = deliveryCallbackEnabled };
+            var options = new UpdateServiceOptions(pathSid) { FriendlyName = friendlyName, ApnCredentialSid = apnCredentialSid, GcmCredentialSid = gcmCredentialSid, MessagingServiceSid = messagingServiceSid, FacebookMessengerPageId = facebookMessengerPageId, DefaultApnNotificationProtocolVersion = defaultApnNotificationProtocolVersion, DefaultGcmNotificationProtocolVersion = defaultGcmNotificationProtocolVersion, FcmCredentialSid = fcmCredentialSid, DefaultFcmNotificationProtocolVersion = defaultFcmNotificationProtocolVersion, LogEnabled = logEnabled, AlexaSkillId = alexaSkillId, DefaultAlexaNotificationProtocolVersion = defaultAlexaNotificationProtocolVersion, DeliveryCallbackUrl = deliveryCallbackUrl, DeliveryCallbackEnabled = deliveryCallbackEnabled };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a ServiceResource object
         /// </summary>
@@ -547,7 +547,7 @@ namespace Kandy.Rest.Notify.V1
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the Service resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -630,7 +630,8 @@ namespace Kandy.Rest.Notify.V1
 
 
 
-        private ServiceResource() {
+        private ServiceResource()
+        {
 
         }
     }

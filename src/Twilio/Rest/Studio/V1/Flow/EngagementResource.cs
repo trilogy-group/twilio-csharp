@@ -28,12 +28,12 @@ namespace Kandy.Rest.Studio.V1.Flow
 {
     public class EngagementResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class StatusEnum : StringEnum
         {
-            private StatusEnum(string value) : base(value) {}
-            public StatusEnum() {}
+            private StatusEnum(string value) : base(value) { }
+            public StatusEnum() { }
             public static implicit operator StatusEnum(string value)
             {
                 return new StatusEnum(value);
@@ -43,14 +43,14 @@ namespace Kandy.Rest.Studio.V1.Flow
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateEngagementOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateEngagementOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Flows/{FlowSid}/Engagements";
 
             string PathFlowSid = options.PathFlowSid;
-            path = path.Replace("{"+"FlowSid"+"}", PathFlowSid);
+            path = path.Replace("{" + "FlowSid" + "}", PathFlowSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -65,26 +65,26 @@ namespace Kandy.Rest.Studio.V1.Flow
         /// <param name="options"> Create Engagement parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Engagement </returns>
-        public static EngagementResource Create(CreateEngagementOptions options, ITwilioRestClient client = null)
+        public static EngagementResource Create(CreateEngagementOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Triggers a new Engagement for the Flow </summary>
         /// <param name="options"> Create Engagement parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Engagement </returns>
         public static async System.Threading.Tasks.Task<EngagementResource> CreateAsync(CreateEngagementOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Triggers a new Engagement for the Flow </summary>
         /// <param name="pathFlowSid"> The SID of the Flow. </param>
@@ -98,13 +98,13 @@ namespace Kandy.Rest.Studio.V1.Flow
                                           Types.PhoneNumber to,
                                           Types.PhoneNumber from,
                                           object parameters = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateEngagementOptions(pathFlowSid, to, from){  Parameters = parameters };
+            var options = new CreateEngagementOptions(pathFlowSid, to, from) { Parameters = parameters };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Triggers a new Engagement for the Flow </summary>
         /// <param name="pathFlowSid"> The SID of the Flow. </param>
         /// <param name="to"> The Contact phone number to start a Studio Flow Engagement, available as variable `{{contact.channel.address}}`. </param>
@@ -117,26 +117,26 @@ namespace Kandy.Rest.Studio.V1.Flow
                                                                                   Types.PhoneNumber to,
                                                                                   Types.PhoneNumber from,
                                                                                   object parameters = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateEngagementOptions(pathFlowSid, to, from){  Parameters = parameters };
+            var options = new CreateEngagementOptions(pathFlowSid, to, from) { Parameters = parameters };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Delete this Engagement and all Steps relating to it. </summary>
         /// <param name="options"> Delete Engagement parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Engagement </returns>
-        private static Request BuildDeleteRequest(DeleteEngagementOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteEngagementOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Flows/{FlowSid}/Engagements/{Sid}";
 
             string PathFlowSid = options.PathFlowSid;
-            path = path.Replace("{"+"FlowSid"+"}", PathFlowSid);
+            path = path.Replace("{" + "FlowSid" + "}", PathFlowSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -151,60 +151,60 @@ namespace Kandy.Rest.Studio.V1.Flow
         /// <param name="options"> Delete Engagement parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Engagement </returns>
-        public static bool Delete(DeleteEngagementOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteEngagementOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete this Engagement and all Steps relating to it. </summary>
         /// <param name="options"> Delete Engagement parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Engagement </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteEngagementOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete this Engagement and all Steps relating to it. </summary>
         /// <param name="pathFlowSid"> The SID of the Flow to delete Engagements from. </param>
         /// <param name="pathSid"> The SID of the Engagement resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Engagement </returns>
-        public static bool Delete(string pathFlowSid, string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathFlowSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteEngagementOptions(pathFlowSid, pathSid)        ;
+            var options = new DeleteEngagementOptions(pathFlowSid, pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete this Engagement and all Steps relating to it. </summary>
         /// <param name="pathFlowSid"> The SID of the Flow to delete Engagements from. </param>
         /// <param name="pathSid"> The SID of the Engagement resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Engagement </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathFlowSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathFlowSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteEngagementOptions(pathFlowSid, pathSid) ;
+            var options = new DeleteEngagementOptions(pathFlowSid, pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchEngagementOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchEngagementOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Flows/{FlowSid}/Engagements/{Sid}";
 
             string PathFlowSid = options.PathFlowSid;
-            path = path.Replace("{"+"FlowSid"+"}", PathFlowSid);
+            path = path.Replace("{" + "FlowSid" + "}", PathFlowSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -219,60 +219,60 @@ namespace Kandy.Rest.Studio.V1.Flow
         /// <param name="options"> Fetch Engagement parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Engagement </returns>
-        public static EngagementResource Fetch(FetchEngagementOptions options, ITwilioRestClient client = null)
+        public static EngagementResource Fetch(FetchEngagementOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve an Engagement </summary>
         /// <param name="options"> Fetch Engagement parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Engagement </returns>
         public static async System.Threading.Tasks.Task<EngagementResource> FetchAsync(FetchEngagementOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Retrieve an Engagement </summary>
         /// <param name="pathFlowSid"> The SID of the Flow. </param>
         /// <param name="pathSid"> The SID of the Engagement resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Engagement </returns>
         public static EngagementResource Fetch(
-                                         string pathFlowSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathFlowSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchEngagementOptions(pathFlowSid, pathSid){  };
+            var options = new FetchEngagementOptions(pathFlowSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve an Engagement </summary>
         /// <param name="pathFlowSid"> The SID of the Flow. </param>
         /// <param name="pathSid"> The SID of the Engagement resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Engagement </returns>
-        public static async System.Threading.Tasks.Task<EngagementResource> FetchAsync(string pathFlowSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<EngagementResource> FetchAsync(string pathFlowSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchEngagementOptions(pathFlowSid, pathSid){  };
+            var options = new FetchEngagementOptions(pathFlowSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadEngagementOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadEngagementOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Flows/{FlowSid}/Engagements";
 
             string PathFlowSid = options.PathFlowSid;
-            path = path.Replace("{"+"FlowSid"+"}", PathFlowSid);
+            path = path.Replace("{" + "FlowSid" + "}", PathFlowSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -286,7 +286,7 @@ namespace Kandy.Rest.Studio.V1.Flow
         /// <param name="options"> Read Engagement parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Engagement </returns>
-        public static ResourceSet<EngagementResource> Read(ReadEngagementOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<EngagementResource> Read(ReadEngagementOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -294,13 +294,13 @@ namespace Kandy.Rest.Studio.V1.Flow
             return new ResourceSet<EngagementResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Engagements for the Flow. </summary>
         /// <param name="options"> Read Engagement parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Engagement </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<EngagementResource>> ReadAsync(ReadEngagementOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -308,7 +308,7 @@ namespace Kandy.Rest.Studio.V1.Flow
             var page = Page<EngagementResource>.FromJson("engagements", response.Content);
             return new ResourceSet<EngagementResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Engagements for the Flow. </summary>
         /// <param name="pathFlowSid"> The SID of the Flow to read Engagements from. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -319,13 +319,13 @@ namespace Kandy.Rest.Studio.V1.Flow
                                                      string pathFlowSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadEngagementOptions(pathFlowSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadEngagementOptions(pathFlowSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Engagements for the Flow. </summary>
         /// <param name="pathFlowSid"> The SID of the Flow to read Engagements from. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -336,19 +336,19 @@ namespace Kandy.Rest.Studio.V1.Flow
                                                                                              string pathFlowSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadEngagementOptions(pathFlowSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadEngagementOptions(pathFlowSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<EngagementResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<EngagementResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -365,7 +365,7 @@ namespace Kandy.Rest.Studio.V1.Flow
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<EngagementResource> NextPage(Page<EngagementResource> page, ITwilioRestClient client)
+        public static Page<EngagementResource> NextPage(Page<EngagementResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -380,7 +380,7 @@ namespace Kandy.Rest.Studio.V1.Flow
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<EngagementResource> PreviousPage(Page<EngagementResource> page, ITwilioRestClient client)
+        public static Page<EngagementResource> PreviousPage(Page<EngagementResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -391,7 +391,7 @@ namespace Kandy.Rest.Studio.V1.Flow
             return Page<EngagementResource>.FromJson("engagements", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a EngagementResource object
         /// </summary>
@@ -409,7 +409,7 @@ namespace Kandy.Rest.Studio.V1.Flow
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the Engagement resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -434,7 +434,7 @@ namespace Kandy.Rest.Studio.V1.Flow
         [JsonProperty("context")]
         public object Context { get; private set; }
 
-        
+
         [JsonProperty("status")]
         public EngagementResource.StatusEnum Status { get; private set; }
 
@@ -456,7 +456,8 @@ namespace Kandy.Rest.Studio.V1.Flow
 
 
 
-        private EngagementResource() {
+        private EngagementResource()
+        {
 
         }
     }

@@ -28,16 +28,16 @@ namespace Kandy.Rest.Pricing.V1.Voice
 {
     public class NumberResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchNumberOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchNumberOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Voice/Numbers/{Number}";
 
             string PathNumber = options.PathNumber.ToString();
-            path = path.Replace("{"+"Number"+"}", PathNumber);
+            path = path.Replace("{" + "Number" + "}", PathNumber);
 
             return new Request(
                 HttpMethod.Get,
@@ -52,50 +52,50 @@ namespace Kandy.Rest.Pricing.V1.Voice
         /// <param name="options"> Fetch Number parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Number </returns>
-        public static NumberResource Fetch(FetchNumberOptions options, ITwilioRestClient client = null)
+        public static NumberResource Fetch(FetchNumberOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch Number parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Number </returns>
         public static async System.Threading.Tasks.Task<NumberResource> FetchAsync(FetchNumberOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathNumber"> The phone number to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Number </returns>
         public static NumberResource Fetch(
-                                         Types.PhoneNumber pathNumber, 
-                                         ITwilioRestClient client = null)
+                                         Types.PhoneNumber pathNumber,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchNumberOptions(pathNumber){  };
+            var options = new FetchNumberOptions(pathNumber) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathNumber"> The phone number to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Number </returns>
-        public static async System.Threading.Tasks.Task<NumberResource> FetchAsync(Types.PhoneNumber pathNumber, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<NumberResource> FetchAsync(Types.PhoneNumber pathNumber, IKandyRestClient client = null)
         {
-            var options = new FetchNumberOptions(pathNumber){  };
+            var options = new FetchNumberOptions(pathNumber) { };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a NumberResource object
         /// </summary>
@@ -113,7 +113,7 @@ namespace Kandy.Rest.Pricing.V1.Voice
             }
         }
 
-    
+
         ///<summary> The phone number. </summary> 
         [JsonProperty("number")]
         [JsonConverter(typeof(PhoneNumberConverter))]
@@ -145,7 +145,8 @@ namespace Kandy.Rest.Pricing.V1.Voice
 
 
 
-        private NumberResource() {
+        private NumberResource()
+        {
 
         }
     }

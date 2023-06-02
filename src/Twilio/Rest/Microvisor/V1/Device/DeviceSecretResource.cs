@@ -28,16 +28,16 @@ namespace Kandy.Rest.Microvisor.V1.Device
 {
     public class DeviceSecretResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateDeviceSecretOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateDeviceSecretOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Devices/{DeviceSid}/Secrets";
 
             string PathDeviceSid = options.PathDeviceSid;
-            path = path.Replace("{"+"DeviceSid"+"}", PathDeviceSid);
+            path = path.Replace("{" + "DeviceSid" + "}", PathDeviceSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -52,26 +52,26 @@ namespace Kandy.Rest.Microvisor.V1.Device
         /// <param name="options"> Create DeviceSecret parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of DeviceSecret </returns>
-        public static DeviceSecretResource Create(CreateDeviceSecretOptions options, ITwilioRestClient client = null)
+        public static DeviceSecretResource Create(CreateDeviceSecretOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a secret for a Microvisor Device. </summary>
         /// <param name="options"> Create DeviceSecret parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of DeviceSecret </returns>
         public static async System.Threading.Tasks.Task<DeviceSecretResource> CreateAsync(CreateDeviceSecretOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a secret for a Microvisor Device. </summary>
         /// <param name="pathDeviceSid"> A 34-character string that uniquely identifies the Device. </param>
@@ -83,13 +83,13 @@ namespace Kandy.Rest.Microvisor.V1.Device
                                           string pathDeviceSid,
                                           string key,
                                           string value,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateDeviceSecretOptions(pathDeviceSid, key, value){  };
+            var options = new CreateDeviceSecretOptions(pathDeviceSid, key, value) { };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a secret for a Microvisor Device. </summary>
         /// <param name="pathDeviceSid"> A 34-character string that uniquely identifies the Device. </param>
         /// <param name="key"> The secret key; up to 100 characters. </param>
@@ -100,26 +100,26 @@ namespace Kandy.Rest.Microvisor.V1.Device
                                                                                   string pathDeviceSid,
                                                                                   string key,
                                                                                   string value,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateDeviceSecretOptions(pathDeviceSid, key, value){  };
+            var options = new CreateDeviceSecretOptions(pathDeviceSid, key, value) { };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Delete a secret for a Microvisor Device. </summary>
         /// <param name="options"> Delete DeviceSecret parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of DeviceSecret </returns>
-        private static Request BuildDeleteRequest(DeleteDeviceSecretOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteDeviceSecretOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Devices/{DeviceSid}/Secrets/{Key}";
 
             string PathDeviceSid = options.PathDeviceSid;
-            path = path.Replace("{"+"DeviceSid"+"}", PathDeviceSid);
+            path = path.Replace("{" + "DeviceSid" + "}", PathDeviceSid);
             string PathKey = options.PathKey;
-            path = path.Replace("{"+"Key"+"}", PathKey);
+            path = path.Replace("{" + "Key" + "}", PathKey);
 
             return new Request(
                 HttpMethod.Delete,
@@ -134,60 +134,60 @@ namespace Kandy.Rest.Microvisor.V1.Device
         /// <param name="options"> Delete DeviceSecret parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of DeviceSecret </returns>
-        public static bool Delete(DeleteDeviceSecretOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteDeviceSecretOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a secret for a Microvisor Device. </summary>
         /// <param name="options"> Delete DeviceSecret parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of DeviceSecret </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteDeviceSecretOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete a secret for a Microvisor Device. </summary>
         /// <param name="pathDeviceSid"> A 34-character string that uniquely identifies the Device. </param>
         /// <param name="pathKey"> The secret key; up to 100 characters. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of DeviceSecret </returns>
-        public static bool Delete(string pathDeviceSid, string pathKey, ITwilioRestClient client = null)
+        public static bool Delete(string pathDeviceSid, string pathKey, IKandyRestClient client = null)
         {
-            var options = new DeleteDeviceSecretOptions(pathDeviceSid, pathKey)        ;
+            var options = new DeleteDeviceSecretOptions(pathDeviceSid, pathKey);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a secret for a Microvisor Device. </summary>
         /// <param name="pathDeviceSid"> A 34-character string that uniquely identifies the Device. </param>
         /// <param name="pathKey"> The secret key; up to 100 characters. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of DeviceSecret </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathDeviceSid, string pathKey, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathDeviceSid, string pathKey, IKandyRestClient client = null)
         {
-            var options = new DeleteDeviceSecretOptions(pathDeviceSid, pathKey) ;
+            var options = new DeleteDeviceSecretOptions(pathDeviceSid, pathKey);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchDeviceSecretOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchDeviceSecretOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Devices/{DeviceSid}/Secrets/{Key}";
 
             string PathDeviceSid = options.PathDeviceSid;
-            path = path.Replace("{"+"DeviceSid"+"}", PathDeviceSid);
+            path = path.Replace("{" + "DeviceSid" + "}", PathDeviceSid);
             string PathKey = options.PathKey;
-            path = path.Replace("{"+"Key"+"}", PathKey);
+            path = path.Replace("{" + "Key" + "}", PathKey);
 
             return new Request(
                 HttpMethod.Get,
@@ -202,60 +202,60 @@ namespace Kandy.Rest.Microvisor.V1.Device
         /// <param name="options"> Fetch DeviceSecret parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of DeviceSecret </returns>
-        public static DeviceSecretResource Fetch(FetchDeviceSecretOptions options, ITwilioRestClient client = null)
+        public static DeviceSecretResource Fetch(FetchDeviceSecretOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a Secret for a Device. </summary>
         /// <param name="options"> Fetch DeviceSecret parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of DeviceSecret </returns>
         public static async System.Threading.Tasks.Task<DeviceSecretResource> FetchAsync(FetchDeviceSecretOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Retrieve a Secret for a Device. </summary>
         /// <param name="pathDeviceSid"> A 34-character string that uniquely identifies the Device. </param>
         /// <param name="pathKey"> The secret key; up to 100 characters. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of DeviceSecret </returns>
         public static DeviceSecretResource Fetch(
-                                         string pathDeviceSid, 
-                                         string pathKey, 
-                                         ITwilioRestClient client = null)
+                                         string pathDeviceSid,
+                                         string pathKey,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchDeviceSecretOptions(pathDeviceSid, pathKey){  };
+            var options = new FetchDeviceSecretOptions(pathDeviceSid, pathKey) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a Secret for a Device. </summary>
         /// <param name="pathDeviceSid"> A 34-character string that uniquely identifies the Device. </param>
         /// <param name="pathKey"> The secret key; up to 100 characters. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of DeviceSecret </returns>
-        public static async System.Threading.Tasks.Task<DeviceSecretResource> FetchAsync(string pathDeviceSid, string pathKey, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<DeviceSecretResource> FetchAsync(string pathDeviceSid, string pathKey, IKandyRestClient client = null)
         {
-            var options = new FetchDeviceSecretOptions(pathDeviceSid, pathKey){  };
+            var options = new FetchDeviceSecretOptions(pathDeviceSid, pathKey) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadDeviceSecretOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadDeviceSecretOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Devices/{DeviceSid}/Secrets";
 
             string PathDeviceSid = options.PathDeviceSid;
-            path = path.Replace("{"+"DeviceSid"+"}", PathDeviceSid);
+            path = path.Replace("{" + "DeviceSid" + "}", PathDeviceSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -269,7 +269,7 @@ namespace Kandy.Rest.Microvisor.V1.Device
         /// <param name="options"> Read DeviceSecret parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of DeviceSecret </returns>
-        public static ResourceSet<DeviceSecretResource> Read(ReadDeviceSecretOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<DeviceSecretResource> Read(ReadDeviceSecretOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -277,13 +277,13 @@ namespace Kandy.Rest.Microvisor.V1.Device
             return new ResourceSet<DeviceSecretResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Secrets for a Device. </summary>
         /// <param name="options"> Read DeviceSecret parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of DeviceSecret </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<DeviceSecretResource>> ReadAsync(ReadDeviceSecretOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -291,7 +291,7 @@ namespace Kandy.Rest.Microvisor.V1.Device
             var page = Page<DeviceSecretResource>.FromJson("secrets", response.Content);
             return new ResourceSet<DeviceSecretResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Secrets for a Device. </summary>
         /// <param name="pathDeviceSid"> A 34-character string that uniquely identifies the Device. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -302,13 +302,13 @@ namespace Kandy.Rest.Microvisor.V1.Device
                                                      string pathDeviceSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadDeviceSecretOptions(pathDeviceSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadDeviceSecretOptions(pathDeviceSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Secrets for a Device. </summary>
         /// <param name="pathDeviceSid"> A 34-character string that uniquely identifies the Device. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -319,19 +319,19 @@ namespace Kandy.Rest.Microvisor.V1.Device
                                                                                              string pathDeviceSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadDeviceSecretOptions(pathDeviceSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadDeviceSecretOptions(pathDeviceSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<DeviceSecretResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<DeviceSecretResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -348,7 +348,7 @@ namespace Kandy.Rest.Microvisor.V1.Device
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<DeviceSecretResource> NextPage(Page<DeviceSecretResource> page, ITwilioRestClient client)
+        public static Page<DeviceSecretResource> NextPage(Page<DeviceSecretResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -363,7 +363,7 @@ namespace Kandy.Rest.Microvisor.V1.Device
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<DeviceSecretResource> PreviousPage(Page<DeviceSecretResource> page, ITwilioRestClient client)
+        public static Page<DeviceSecretResource> PreviousPage(Page<DeviceSecretResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -374,16 +374,16 @@ namespace Kandy.Rest.Microvisor.V1.Device
             return Page<DeviceSecretResource>.FromJson("secrets", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateDeviceSecretOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateDeviceSecretOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Devices/{DeviceSid}/Secrets/{Key}";
 
             string PathDeviceSid = options.PathDeviceSid;
-            path = path.Replace("{"+"DeviceSid"+"}", PathDeviceSid);
+            path = path.Replace("{" + "DeviceSid" + "}", PathDeviceSid);
             string PathKey = options.PathKey;
-            path = path.Replace("{"+"Key"+"}", PathKey);
+            path = path.Replace("{" + "Key" + "}", PathKey);
 
             return new Request(
                 HttpMethod.Post,
@@ -398,7 +398,7 @@ namespace Kandy.Rest.Microvisor.V1.Device
         /// <param name="options"> Update DeviceSecret parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of DeviceSecret </returns>
-        public static DeviceSecretResource Update(UpdateDeviceSecretOptions options, ITwilioRestClient client = null)
+        public static DeviceSecretResource Update(UpdateDeviceSecretOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -409,15 +409,15 @@ namespace Kandy.Rest.Microvisor.V1.Device
         /// <param name="options"> Update DeviceSecret parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of DeviceSecret </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<DeviceSecretResource> UpdateAsync(UpdateDeviceSecretOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update a secret for a Microvisor Device. </summary>
         /// <param name="pathDeviceSid"> A 34-character string that uniquely identifies the Device. </param>
@@ -429,13 +429,13 @@ namespace Kandy.Rest.Microvisor.V1.Device
                                           string pathDeviceSid,
                                           string pathKey,
                                           string value,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateDeviceSecretOptions(pathDeviceSid, pathKey, value){  };
+            var options = new UpdateDeviceSecretOptions(pathDeviceSid, pathKey, value) { };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update a secret for a Microvisor Device. </summary>
         /// <param name="pathDeviceSid"> A 34-character string that uniquely identifies the Device. </param>
         /// <param name="pathKey"> The secret key; up to 100 characters. </param>
@@ -446,13 +446,13 @@ namespace Kandy.Rest.Microvisor.V1.Device
                                                                               string pathDeviceSid,
                                                                               string pathKey,
                                                                               string value,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateDeviceSecretOptions(pathDeviceSid, pathKey, value){  };
+            var options = new UpdateDeviceSecretOptions(pathDeviceSid, pathKey, value) { };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a DeviceSecretResource object
         /// </summary>
@@ -470,7 +470,7 @@ namespace Kandy.Rest.Microvisor.V1.Device
             }
         }
 
-    
+
         ///<summary> A 34-character string that uniquely identifies the parent Device. </summary> 
         [JsonProperty("device_sid")]
         public string DeviceSid { get; private set; }
@@ -489,7 +489,8 @@ namespace Kandy.Rest.Microvisor.V1.Device
 
 
 
-        private DeviceSecretResource() {
+        private DeviceSecretResource()
+        {
 
         }
     }

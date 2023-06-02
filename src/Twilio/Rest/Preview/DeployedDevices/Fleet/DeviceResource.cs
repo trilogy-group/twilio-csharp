@@ -28,16 +28,16 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
 {
     public class DeviceResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateDeviceOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateDeviceOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/DeployedDevices/Fleets/{FleetSid}/Devices";
 
             string PathFleetSid = options.PathFleetSid;
-            path = path.Replace("{"+"FleetSid"+"}", PathFleetSid);
+            path = path.Replace("{" + "FleetSid" + "}", PathFleetSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -52,26 +52,26 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
         /// <param name="options"> Create Device parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Device </returns>
-        public static DeviceResource Create(CreateDeviceOptions options, ITwilioRestClient client = null)
+        public static DeviceResource Create(CreateDeviceOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Device in the Fleet, optionally giving it a unique name, friendly name, and assigning to a Deployment and/or human identity. </summary>
         /// <param name="options"> Create Device parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Device </returns>
         public static async System.Threading.Tasks.Task<DeviceResource> CreateAsync(CreateDeviceOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new Device in the Fleet, optionally giving it a unique name, friendly name, and assigning to a Deployment and/or human identity. </summary>
         /// <param name="pathFleetSid">  </param>
@@ -89,13 +89,13 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
                                           string identity = null,
                                           string deploymentSid = null,
                                           bool? enabled = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateDeviceOptions(pathFleetSid){  UniqueName = uniqueName, FriendlyName = friendlyName, Identity = identity, DeploymentSid = deploymentSid, Enabled = enabled };
+            var options = new CreateDeviceOptions(pathFleetSid) { UniqueName = uniqueName, FriendlyName = friendlyName, Identity = identity, DeploymentSid = deploymentSid, Enabled = enabled };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Device in the Fleet, optionally giving it a unique name, friendly name, and assigning to a Deployment and/or human identity. </summary>
         /// <param name="pathFleetSid">  </param>
         /// <param name="uniqueName"> Provides a unique and addressable name to be assigned to this Device, to be used in addition to SID, up to 128 characters long. </param>
@@ -112,26 +112,26 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
                                                                                   string identity = null,
                                                                                   string deploymentSid = null,
                                                                                   bool? enabled = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateDeviceOptions(pathFleetSid){  UniqueName = uniqueName, FriendlyName = friendlyName, Identity = identity, DeploymentSid = deploymentSid, Enabled = enabled };
+            var options = new CreateDeviceOptions(pathFleetSid) { UniqueName = uniqueName, FriendlyName = friendlyName, Identity = identity, DeploymentSid = deploymentSid, Enabled = enabled };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Delete a specific Device from the Fleet, also removing it from associated Deployments. </summary>
         /// <param name="options"> Delete Device parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Device </returns>
-        private static Request BuildDeleteRequest(DeleteDeviceOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteDeviceOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/DeployedDevices/Fleets/{FleetSid}/Devices/{Sid}";
 
             string PathFleetSid = options.PathFleetSid;
-            path = path.Replace("{"+"FleetSid"+"}", PathFleetSid);
+            path = path.Replace("{" + "FleetSid" + "}", PathFleetSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -146,60 +146,60 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
         /// <param name="options"> Delete Device parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Device </returns>
-        public static bool Delete(DeleteDeviceOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteDeviceOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific Device from the Fleet, also removing it from associated Deployments. </summary>
         /// <param name="options"> Delete Device parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Device </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteDeviceOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete a specific Device from the Fleet, also removing it from associated Deployments. </summary>
         /// <param name="pathFleetSid">  </param>
         /// <param name="pathSid"> Provides a 34 character string that uniquely identifies the requested Device resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Device </returns>
-        public static bool Delete(string pathFleetSid, string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathFleetSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteDeviceOptions(pathFleetSid, pathSid)        ;
+            var options = new DeleteDeviceOptions(pathFleetSid, pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific Device from the Fleet, also removing it from associated Deployments. </summary>
         /// <param name="pathFleetSid">  </param>
         /// <param name="pathSid"> Provides a 34 character string that uniquely identifies the requested Device resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Device </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathFleetSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathFleetSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteDeviceOptions(pathFleetSid, pathSid) ;
+            var options = new DeleteDeviceOptions(pathFleetSid, pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchDeviceOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchDeviceOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/DeployedDevices/Fleets/{FleetSid}/Devices/{Sid}";
 
             string PathFleetSid = options.PathFleetSid;
-            path = path.Replace("{"+"FleetSid"+"}", PathFleetSid);
+            path = path.Replace("{" + "FleetSid" + "}", PathFleetSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -214,60 +214,60 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
         /// <param name="options"> Fetch Device parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Device </returns>
-        public static DeviceResource Fetch(FetchDeviceOptions options, ITwilioRestClient client = null)
+        public static DeviceResource Fetch(FetchDeviceOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch information about a specific Device in the Fleet. </summary>
         /// <param name="options"> Fetch Device parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Device </returns>
         public static async System.Threading.Tasks.Task<DeviceResource> FetchAsync(FetchDeviceOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch information about a specific Device in the Fleet. </summary>
         /// <param name="pathFleetSid">  </param>
         /// <param name="pathSid"> Provides a 34 character string that uniquely identifies the requested Device resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Device </returns>
         public static DeviceResource Fetch(
-                                         string pathFleetSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathFleetSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchDeviceOptions(pathFleetSid, pathSid){  };
+            var options = new FetchDeviceOptions(pathFleetSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch information about a specific Device in the Fleet. </summary>
         /// <param name="pathFleetSid">  </param>
         /// <param name="pathSid"> Provides a 34 character string that uniquely identifies the requested Device resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Device </returns>
-        public static async System.Threading.Tasks.Task<DeviceResource> FetchAsync(string pathFleetSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<DeviceResource> FetchAsync(string pathFleetSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchDeviceOptions(pathFleetSid, pathSid){  };
+            var options = new FetchDeviceOptions(pathFleetSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadDeviceOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadDeviceOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/DeployedDevices/Fleets/{FleetSid}/Devices";
 
             string PathFleetSid = options.PathFleetSid;
-            path = path.Replace("{"+"FleetSid"+"}", PathFleetSid);
+            path = path.Replace("{" + "FleetSid" + "}", PathFleetSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -281,7 +281,7 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
         /// <param name="options"> Read Device parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Device </returns>
-        public static ResourceSet<DeviceResource> Read(ReadDeviceOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<DeviceResource> Read(ReadDeviceOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -289,13 +289,13 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
             return new ResourceSet<DeviceResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Devices belonging to the Fleet. </summary>
         /// <param name="options"> Read Device parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Device </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<DeviceResource>> ReadAsync(ReadDeviceOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -303,7 +303,7 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
             var page = Page<DeviceResource>.FromJson("devices", response.Content);
             return new ResourceSet<DeviceResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Devices belonging to the Fleet. </summary>
         /// <param name="pathFleetSid">  </param>
         /// <param name="deploymentSid"> Filters the resulting list of Devices by a unique string identifier of the Deployment they are associated with. </param>
@@ -316,13 +316,13 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
                                                      string deploymentSid = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadDeviceOptions(pathFleetSid){ DeploymentSid = deploymentSid, PageSize = pageSize, Limit = limit};
+            var options = new ReadDeviceOptions(pathFleetSid) { DeploymentSid = deploymentSid, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Devices belonging to the Fleet. </summary>
         /// <param name="pathFleetSid">  </param>
         /// <param name="deploymentSid"> Filters the resulting list of Devices by a unique string identifier of the Deployment they are associated with. </param>
@@ -335,19 +335,19 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
                                                                                              string deploymentSid = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadDeviceOptions(pathFleetSid){ DeploymentSid = deploymentSid, PageSize = pageSize, Limit = limit};
+            var options = new ReadDeviceOptions(pathFleetSid) { DeploymentSid = deploymentSid, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<DeviceResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<DeviceResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -364,7 +364,7 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<DeviceResource> NextPage(Page<DeviceResource> page, ITwilioRestClient client)
+        public static Page<DeviceResource> NextPage(Page<DeviceResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -379,7 +379,7 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<DeviceResource> PreviousPage(Page<DeviceResource> page, ITwilioRestClient client)
+        public static Page<DeviceResource> PreviousPage(Page<DeviceResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -390,16 +390,16 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
             return Page<DeviceResource>.FromJson("devices", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateDeviceOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateDeviceOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/DeployedDevices/Fleets/{FleetSid}/Devices/{Sid}";
 
             string PathFleetSid = options.PathFleetSid;
-            path = path.Replace("{"+"FleetSid"+"}", PathFleetSid);
+            path = path.Replace("{" + "FleetSid" + "}", PathFleetSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -414,7 +414,7 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
         /// <param name="options"> Update Device parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Device </returns>
-        public static DeviceResource Update(UpdateDeviceOptions options, ITwilioRestClient client = null)
+        public static DeviceResource Update(UpdateDeviceOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -425,15 +425,15 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
         /// <param name="options"> Update Device parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Device </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<DeviceResource> UpdateAsync(UpdateDeviceOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update the given properties of a specific Device in the Fleet, giving it a friendly name, assigning to a Deployment, or a human identity. </summary>
         /// <param name="pathFleetSid">  </param>
@@ -451,13 +451,13 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
                                           string identity = null,
                                           string deploymentSid = null,
                                           bool? enabled = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateDeviceOptions(pathFleetSid, pathSid){ FriendlyName = friendlyName, Identity = identity, DeploymentSid = deploymentSid, Enabled = enabled };
+            var options = new UpdateDeviceOptions(pathFleetSid, pathSid) { FriendlyName = friendlyName, Identity = identity, DeploymentSid = deploymentSid, Enabled = enabled };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update the given properties of a specific Device in the Fleet, giving it a friendly name, assigning to a Deployment, or a human identity. </summary>
         /// <param name="pathFleetSid">  </param>
         /// <param name="pathSid"> Provides a 34 character string that uniquely identifies the requested Device resource. </param>
@@ -474,13 +474,13 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
                                                                               string identity = null,
                                                                               string deploymentSid = null,
                                                                               bool? enabled = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateDeviceOptions(pathFleetSid, pathSid){ FriendlyName = friendlyName, Identity = identity, DeploymentSid = deploymentSid, Enabled = enabled };
+            var options = new UpdateDeviceOptions(pathFleetSid, pathSid) { FriendlyName = friendlyName, Identity = identity, DeploymentSid = deploymentSid, Enabled = enabled };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a DeviceResource object
         /// </summary>
@@ -498,7 +498,7 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
             }
         }
 
-    
+
         ///<summary> Contains a 34 character string that uniquely identifies this Device resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -549,7 +549,8 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
 
 
 
-        private DeviceResource() {
+        private DeviceResource()
+        {
 
         }
     }

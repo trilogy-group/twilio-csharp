@@ -28,12 +28,12 @@ namespace Kandy.Rest.Oauth.V1
 {
     public class OpenidDiscoveryResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchOpenidDiscoveryOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchOpenidDiscoveryOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/.well-known/openid-configuration";
 
 
@@ -50,47 +50,47 @@ namespace Kandy.Rest.Oauth.V1
         /// <param name="options"> Fetch OpenidDiscovery parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of OpenidDiscovery </returns>
-        public static OpenidDiscoveryResource Fetch(FetchOpenidDiscoveryOptions options, ITwilioRestClient client = null)
+        public static OpenidDiscoveryResource Fetch(FetchOpenidDiscoveryOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch configuration details about the OpenID Connect Authorization Server </summary>
         /// <param name="options"> Fetch OpenidDiscovery parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of OpenidDiscovery </returns>
         public static async System.Threading.Tasks.Task<OpenidDiscoveryResource> FetchAsync(FetchOpenidDiscoveryOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch configuration details about the OpenID Connect Authorization Server </summary>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of OpenidDiscovery </returns>
         public static OpenidDiscoveryResource Fetch(
-                                         ITwilioRestClient client = null)
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchOpenidDiscoveryOptions(){  };
+            var options = new FetchOpenidDiscoveryOptions() { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch configuration details about the OpenID Connect Authorization Server </summary>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of OpenidDiscovery </returns>
-        public static async System.Threading.Tasks.Task<OpenidDiscoveryResource> FetchAsync(ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<OpenidDiscoveryResource> FetchAsync(IKandyRestClient client = null)
         {
-            var options = new FetchOpenidDiscoveryOptions(){  };
+            var options = new FetchOpenidDiscoveryOptions() { };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a OpenidDiscoveryResource object
         /// </summary>
@@ -108,7 +108,7 @@ namespace Kandy.Rest.Oauth.V1
             }
         }
 
-    
+
         ///<summary> The URL of the party that will create the token and sign it with its private key. </summary> 
         [JsonProperty("issuer")]
         public Uri Issuer { get; private set; }
@@ -163,7 +163,8 @@ namespace Kandy.Rest.Oauth.V1
 
 
 
-        private OpenidDiscoveryResource() {
+        private OpenidDiscoveryResource()
+        {
 
         }
     }

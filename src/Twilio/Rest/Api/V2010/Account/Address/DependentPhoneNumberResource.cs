@@ -28,12 +28,12 @@ namespace Kandy.Rest.Api.V2010.Account.Address
 {
     public class DependentPhoneNumberResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class EmergencyStatusEnum : StringEnum
         {
-            private EmergencyStatusEnum(string value) : base(value) {}
-            public EmergencyStatusEnum() {}
+            private EmergencyStatusEnum(string value) : base(value) { }
+            public EmergencyStatusEnum() { }
             public static implicit operator EmergencyStatusEnum(string value)
             {
                 return new EmergencyStatusEnum(value);
@@ -45,8 +45,8 @@ namespace Kandy.Rest.Api.V2010.Account.Address
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class AddressRequirementEnum : StringEnum
         {
-            private AddressRequirementEnum(string value) : base(value) {}
-            public AddressRequirementEnum() {}
+            private AddressRequirementEnum(string value) : base(value) { }
+            public AddressRequirementEnum() { }
             public static implicit operator AddressRequirementEnum(string value)
             {
                 return new AddressRequirementEnum(value);
@@ -58,16 +58,16 @@ namespace Kandy.Rest.Api.V2010.Account.Address
 
         }
 
-        
-        private static Request BuildReadRequest(ReadDependentPhoneNumberOptions options, ITwilioRestClient client)
+
+        private static Request BuildReadRequest(ReadDependentPhoneNumberOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Addresses/{AddressSid}/DependentPhoneNumbers.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathAddressSid = options.PathAddressSid;
-            path = path.Replace("{"+"AddressSid"+"}", PathAddressSid);
+            path = path.Replace("{" + "AddressSid" + "}", PathAddressSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -81,7 +81,7 @@ namespace Kandy.Rest.Api.V2010.Account.Address
         /// <param name="options"> Read DependentPhoneNumber parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of DependentPhoneNumber </returns>
-        public static ResourceSet<DependentPhoneNumberResource> Read(ReadDependentPhoneNumberOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<DependentPhoneNumberResource> Read(ReadDependentPhoneNumberOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -89,13 +89,13 @@ namespace Kandy.Rest.Api.V2010.Account.Address
             return new ResourceSet<DependentPhoneNumberResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read DependentPhoneNumber parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of DependentPhoneNumber </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<DependentPhoneNumberResource>> ReadAsync(ReadDependentPhoneNumberOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -103,7 +103,7 @@ namespace Kandy.Rest.Api.V2010.Account.Address
             var page = Page<DependentPhoneNumberResource>.FromJson("dependent_phone_numbers", response.Content);
             return new ResourceSet<DependentPhoneNumberResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="pathAddressSid"> The SID of the Address resource associated with the phone number. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the DependentPhoneNumber resources to read. </param>
@@ -116,13 +116,13 @@ namespace Kandy.Rest.Api.V2010.Account.Address
                                                      string pathAccountSid = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadDependentPhoneNumberOptions(pathAddressSid){ PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit};
+            var options = new ReadDependentPhoneNumberOptions(pathAddressSid) { PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="pathAddressSid"> The SID of the Address resource associated with the phone number. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the DependentPhoneNumber resources to read. </param>
@@ -135,19 +135,19 @@ namespace Kandy.Rest.Api.V2010.Account.Address
                                                                                              string pathAccountSid = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadDependentPhoneNumberOptions(pathAddressSid){ PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit};
+            var options = new ReadDependentPhoneNumberOptions(pathAddressSid) { PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<DependentPhoneNumberResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<DependentPhoneNumberResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -164,7 +164,7 @@ namespace Kandy.Rest.Api.V2010.Account.Address
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<DependentPhoneNumberResource> NextPage(Page<DependentPhoneNumberResource> page, ITwilioRestClient client)
+        public static Page<DependentPhoneNumberResource> NextPage(Page<DependentPhoneNumberResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -179,7 +179,7 @@ namespace Kandy.Rest.Api.V2010.Account.Address
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<DependentPhoneNumberResource> PreviousPage(Page<DependentPhoneNumberResource> page, ITwilioRestClient client)
+        public static Page<DependentPhoneNumberResource> PreviousPage(Page<DependentPhoneNumberResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -190,7 +190,7 @@ namespace Kandy.Rest.Api.V2010.Account.Address
             return Page<DependentPhoneNumberResource>.FromJson("dependent_phone_numbers", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a DependentPhoneNumberResource object
         /// </summary>
@@ -208,7 +208,7 @@ namespace Kandy.Rest.Api.V2010.Account.Address
             }
         }
 
-    
+
         ///<summary> The unique string that that we created to identify the DependentPhoneNumber resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -271,7 +271,7 @@ namespace Kandy.Rest.Api.V2010.Account.Address
         [JsonProperty("sms_url")]
         public Uri SmsUrl { get; private set; }
 
-        
+
         [JsonProperty("address_requirements")]
         public DependentPhoneNumberResource.AddressRequirementEnum AddressRequirements { get; private set; }
 
@@ -303,7 +303,7 @@ namespace Kandy.Rest.Api.V2010.Account.Address
         [JsonProperty("trunk_sid")]
         public string TrunkSid { get; private set; }
 
-        
+
         [JsonProperty("emergency_status")]
         public DependentPhoneNumberResource.EmergencyStatusEnum EmergencyStatus { get; private set; }
 
@@ -317,7 +317,8 @@ namespace Kandy.Rest.Api.V2010.Account.Address
 
 
 
-        private DependentPhoneNumberResource() {
+        private DependentPhoneNumberResource()
+        {
 
         }
     }

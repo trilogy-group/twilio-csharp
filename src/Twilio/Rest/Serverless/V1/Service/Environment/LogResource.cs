@@ -28,12 +28,12 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
 {
     public class LogResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class LevelEnum : StringEnum
         {
-            private LevelEnum(string value) : base(value) {}
-            public LevelEnum() {}
+            private LevelEnum(string value) : base(value) { }
+            public LevelEnum() { }
             public static implicit operator LevelEnum(string value)
             {
                 return new LevelEnum(value);
@@ -44,18 +44,18 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
 
         }
 
-        
-        private static Request BuildFetchRequest(FetchLogOptions options, ITwilioRestClient client)
+
+        private static Request BuildFetchRequest(FetchLogOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Logs/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathEnvironmentSid = options.PathEnvironmentSid;
-            path = path.Replace("{"+"EnvironmentSid"+"}", PathEnvironmentSid);
+            path = path.Replace("{" + "EnvironmentSid" + "}", PathEnvironmentSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -70,26 +70,26 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
         /// <param name="options"> Fetch Log parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Log </returns>
-        public static LogResource Fetch(FetchLogOptions options, ITwilioRestClient client = null)
+        public static LogResource Fetch(FetchLogOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a specific log. </summary>
         /// <param name="options"> Fetch Log parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Log </returns>
         public static async System.Threading.Tasks.Task<LogResource> FetchAsync(FetchLogOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Retrieve a specific log. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to fetch the Log resource from. </param>
         /// <param name="pathEnvironmentSid"> The SID of the environment with the Log resource to fetch. </param>
@@ -97,38 +97,38 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Log </returns>
         public static LogResource Fetch(
-                                         string pathServiceSid, 
-                                         string pathEnvironmentSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathServiceSid,
+                                         string pathEnvironmentSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchLogOptions(pathServiceSid, pathEnvironmentSid, pathSid){  };
+            var options = new FetchLogOptions(pathServiceSid, pathEnvironmentSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a specific log. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to fetch the Log resource from. </param>
         /// <param name="pathEnvironmentSid"> The SID of the environment with the Log resource to fetch. </param>
         /// <param name="pathSid"> The SID of the Log resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Log </returns>
-        public static async System.Threading.Tasks.Task<LogResource> FetchAsync(string pathServiceSid, string pathEnvironmentSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<LogResource> FetchAsync(string pathServiceSid, string pathEnvironmentSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchLogOptions(pathServiceSid, pathEnvironmentSid, pathSid){  };
+            var options = new FetchLogOptions(pathServiceSid, pathEnvironmentSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadLogOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadLogOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Logs";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathEnvironmentSid = options.PathEnvironmentSid;
-            path = path.Replace("{"+"EnvironmentSid"+"}", PathEnvironmentSid);
+            path = path.Replace("{" + "EnvironmentSid" + "}", PathEnvironmentSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -142,7 +142,7 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
         /// <param name="options"> Read Log parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Log </returns>
-        public static ResourceSet<LogResource> Read(ReadLogOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<LogResource> Read(ReadLogOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -150,13 +150,13 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
             return new ResourceSet<LogResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all logs. </summary>
         /// <param name="options"> Read Log parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Log </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<LogResource>> ReadAsync(ReadLogOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -164,7 +164,7 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
             var page = Page<LogResource>.FromJson("logs", response.Content);
             return new ResourceSet<LogResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all logs. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to read the Log resource from. </param>
         /// <param name="pathEnvironmentSid"> The SID of the environment with the Log resources to read. </param>
@@ -183,13 +183,13 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
                                                      DateTime? endDate = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadLogOptions(pathServiceSid, pathEnvironmentSid){ FunctionSid = functionSid, StartDate = startDate, EndDate = endDate, PageSize = pageSize, Limit = limit};
+            var options = new ReadLogOptions(pathServiceSid, pathEnvironmentSid) { FunctionSid = functionSid, StartDate = startDate, EndDate = endDate, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all logs. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to read the Log resource from. </param>
         /// <param name="pathEnvironmentSid"> The SID of the environment with the Log resources to read. </param>
@@ -208,19 +208,19 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
                                                                                              DateTime? endDate = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadLogOptions(pathServiceSid, pathEnvironmentSid){ FunctionSid = functionSid, StartDate = startDate, EndDate = endDate, PageSize = pageSize, Limit = limit};
+            var options = new ReadLogOptions(pathServiceSid, pathEnvironmentSid) { FunctionSid = functionSid, StartDate = startDate, EndDate = endDate, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<LogResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<LogResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -237,7 +237,7 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<LogResource> NextPage(Page<LogResource> page, ITwilioRestClient client)
+        public static Page<LogResource> NextPage(Page<LogResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -252,7 +252,7 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<LogResource> PreviousPage(Page<LogResource> page, ITwilioRestClient client)
+        public static Page<LogResource> PreviousPage(Page<LogResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -263,7 +263,7 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
             return Page<LogResource>.FromJson("logs", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a LogResource object
         /// </summary>
@@ -281,7 +281,7 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the Log resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -314,7 +314,7 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
         [JsonProperty("request_sid")]
         public string RequestSid { get; private set; }
 
-        
+
         [JsonProperty("level")]
         public LogResource.LevelEnum Level { get; private set; }
 
@@ -332,7 +332,8 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
 
 
 
-        private LogResource() {
+        private LogResource()
+        {
 
         }
     }

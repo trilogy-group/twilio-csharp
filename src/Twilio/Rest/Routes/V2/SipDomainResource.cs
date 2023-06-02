@@ -28,16 +28,16 @@ namespace Kandy.Rest.Routes.V2
 {
     public class SipDomainResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchSipDomainOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchSipDomainOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/SipDomains/{SipDomain}";
 
             string PathSipDomain = options.PathSipDomain;
-            path = path.Replace("{"+"SipDomain"+"}", PathSipDomain);
+            path = path.Replace("{" + "SipDomain" + "}", PathSipDomain);
 
             return new Request(
                 HttpMethod.Get,
@@ -52,57 +52,57 @@ namespace Kandy.Rest.Routes.V2
         /// <param name="options"> Fetch SipDomain parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SipDomain </returns>
-        public static SipDomainResource Fetch(FetchSipDomainOptions options, ITwilioRestClient client = null)
+        public static SipDomainResource Fetch(FetchSipDomainOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch SipDomain parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SipDomain </returns>
         public static async System.Threading.Tasks.Task<SipDomainResource> FetchAsync(FetchSipDomainOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathSipDomain">  </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SipDomain </returns>
         public static SipDomainResource Fetch(
-                                         string pathSipDomain, 
-                                         ITwilioRestClient client = null)
+                                         string pathSipDomain,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchSipDomainOptions(pathSipDomain){  };
+            var options = new FetchSipDomainOptions(pathSipDomain) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathSipDomain">  </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SipDomain </returns>
-        public static async System.Threading.Tasks.Task<SipDomainResource> FetchAsync(string pathSipDomain, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<SipDomainResource> FetchAsync(string pathSipDomain, IKandyRestClient client = null)
         {
-            var options = new FetchSipDomainOptions(pathSipDomain){  };
+            var options = new FetchSipDomainOptions(pathSipDomain) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildUpdateRequest(UpdateSipDomainOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildUpdateRequest(UpdateSipDomainOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/SipDomains/{SipDomain}";
 
             string PathSipDomain = options.PathSipDomain;
-            path = path.Replace("{"+"SipDomain"+"}", PathSipDomain);
+            path = path.Replace("{" + "SipDomain" + "}", PathSipDomain);
 
             return new Request(
                 HttpMethod.Post,
@@ -117,7 +117,7 @@ namespace Kandy.Rest.Routes.V2
         /// <param name="options"> Update SipDomain parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SipDomain </returns>
-        public static SipDomainResource Update(UpdateSipDomainOptions options, ITwilioRestClient client = null)
+        public static SipDomainResource Update(UpdateSipDomainOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -128,15 +128,15 @@ namespace Kandy.Rest.Routes.V2
         /// <param name="options"> Update SipDomain parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SipDomain </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<SipDomainResource> UpdateAsync(UpdateSipDomainOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> update </summary>
         /// <param name="pathSipDomain">  </param>
@@ -148,13 +148,13 @@ namespace Kandy.Rest.Routes.V2
                                           string pathSipDomain,
                                           string voiceRegion = null,
                                           string friendlyName = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateSipDomainOptions(pathSipDomain){ VoiceRegion = voiceRegion, FriendlyName = friendlyName };
+            var options = new UpdateSipDomainOptions(pathSipDomain) { VoiceRegion = voiceRegion, FriendlyName = friendlyName };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> update </summary>
         /// <param name="pathSipDomain">  </param>
         /// <param name="voiceRegion">  </param>
@@ -165,13 +165,13 @@ namespace Kandy.Rest.Routes.V2
                                                                               string pathSipDomain,
                                                                               string voiceRegion = null,
                                                                               string friendlyName = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateSipDomainOptions(pathSipDomain){ VoiceRegion = voiceRegion, FriendlyName = friendlyName };
+            var options = new UpdateSipDomainOptions(pathSipDomain) { VoiceRegion = voiceRegion, FriendlyName = friendlyName };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a SipDomainResource object
         /// </summary>
@@ -189,7 +189,7 @@ namespace Kandy.Rest.Routes.V2
             }
         }
 
-    
+
         ///<summary> The sip_domain </summary> 
         [JsonProperty("sip_domain")]
         public string SipDomain { get; private set; }
@@ -224,7 +224,8 @@ namespace Kandy.Rest.Routes.V2
 
 
 
-        private SipDomainResource() {
+        private SipDomainResource()
+        {
 
         }
     }

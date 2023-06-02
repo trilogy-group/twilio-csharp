@@ -28,12 +28,12 @@ namespace Kandy.Rest.Insights.V1.Conference
 {
     public class ConferenceParticipantResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class CallStatusEnum : StringEnum
         {
-            private CallStatusEnum(string value) : base(value) {}
-            public CallStatusEnum() {}
+            private CallStatusEnum(string value) : base(value) { }
+            public CallStatusEnum() { }
             public static implicit operator CallStatusEnum(string value)
             {
                 return new CallStatusEnum(value);
@@ -50,8 +50,8 @@ namespace Kandy.Rest.Insights.V1.Conference
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class RegionEnum : StringEnum
         {
-            private RegionEnum(string value) : base(value) {}
-            public RegionEnum() {}
+            private RegionEnum(string value) : base(value) { }
+            public RegionEnum() { }
             public static implicit operator RegionEnum(string value)
             {
                 return new RegionEnum(value);
@@ -69,8 +69,8 @@ namespace Kandy.Rest.Insights.V1.Conference
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class JitterBufferSizeEnum : StringEnum
         {
-            private JitterBufferSizeEnum(string value) : base(value) {}
-            public JitterBufferSizeEnum() {}
+            private JitterBufferSizeEnum(string value) : base(value) { }
+            public JitterBufferSizeEnum() { }
             public static implicit operator JitterBufferSizeEnum(string value)
             {
                 return new JitterBufferSizeEnum(value);
@@ -84,8 +84,8 @@ namespace Kandy.Rest.Insights.V1.Conference
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class ProcessingStateEnum : StringEnum
         {
-            private ProcessingStateEnum(string value) : base(value) {}
-            public ProcessingStateEnum() {}
+            private ProcessingStateEnum(string value) : base(value) { }
+            public ProcessingStateEnum() { }
             public static implicit operator ProcessingStateEnum(string value)
             {
                 return new ProcessingStateEnum(value);
@@ -98,8 +98,8 @@ namespace Kandy.Rest.Insights.V1.Conference
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class CallDirectionEnum : StringEnum
         {
-            private CallDirectionEnum(string value) : base(value) {}
-            public CallDirectionEnum() {}
+            private CallDirectionEnum(string value) : base(value) { }
+            public CallDirectionEnum() { }
             public static implicit operator CallDirectionEnum(string value)
             {
                 return new CallDirectionEnum(value);
@@ -111,8 +111,8 @@ namespace Kandy.Rest.Insights.V1.Conference
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class CallTypeEnum : StringEnum
         {
-            private CallTypeEnum(string value) : base(value) {}
-            public CallTypeEnum() {}
+            private CallTypeEnum(string value) : base(value) { }
+            public CallTypeEnum() { }
             public static implicit operator CallTypeEnum(string value)
             {
                 return new CallTypeEnum(value);
@@ -123,16 +123,16 @@ namespace Kandy.Rest.Insights.V1.Conference
 
         }
 
-        
-        private static Request BuildFetchRequest(FetchConferenceParticipantOptions options, ITwilioRestClient client)
+
+        private static Request BuildFetchRequest(FetchConferenceParticipantOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Conferences/{ConferenceSid}/Participants/{ParticipantSid}";
 
             string PathConferenceSid = options.PathConferenceSid;
-            path = path.Replace("{"+"ConferenceSid"+"}", PathConferenceSid);
+            path = path.Replace("{" + "ConferenceSid" + "}", PathConferenceSid);
             string PathParticipantSid = options.PathParticipantSid;
-            path = path.Replace("{"+"ParticipantSid"+"}", PathParticipantSid);
+            path = path.Replace("{" + "ParticipantSid" + "}", PathParticipantSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -147,26 +147,26 @@ namespace Kandy.Rest.Insights.V1.Conference
         /// <param name="options"> Fetch ConferenceParticipant parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ConferenceParticipant </returns>
-        public static ConferenceParticipantResource Fetch(FetchConferenceParticipantOptions options, ITwilioRestClient client = null)
+        public static ConferenceParticipantResource Fetch(FetchConferenceParticipantOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Conference Participant Summary. </summary>
         /// <param name="options"> Fetch ConferenceParticipant parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ConferenceParticipant </returns>
         public static async System.Threading.Tasks.Task<ConferenceParticipantResource> FetchAsync(FetchConferenceParticipantOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a specific Conference Participant Summary. </summary>
         /// <param name="pathConferenceSid"> The unique SID identifier of the Conference. </param>
         /// <param name="pathParticipantSid"> The unique SID identifier of the Participant. </param>
@@ -175,17 +175,17 @@ namespace Kandy.Rest.Insights.V1.Conference
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ConferenceParticipant </returns>
         public static ConferenceParticipantResource Fetch(
-                                         string pathConferenceSid, 
-                                         string pathParticipantSid, 
-                                         string events = null, 
-                                         string metrics = null, 
-                                         ITwilioRestClient client = null)
+                                         string pathConferenceSid,
+                                         string pathParticipantSid,
+                                         string events = null,
+                                         string metrics = null,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchConferenceParticipantOptions(pathConferenceSid, pathParticipantSid){ Events = events,Metrics = metrics };
+            var options = new FetchConferenceParticipantOptions(pathConferenceSid, pathParticipantSid) { Events = events, Metrics = metrics };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Conference Participant Summary. </summary>
         /// <param name="pathConferenceSid"> The unique SID identifier of the Conference. </param>
         /// <param name="pathParticipantSid"> The unique SID identifier of the Participant. </param>
@@ -193,20 +193,20 @@ namespace Kandy.Rest.Insights.V1.Conference
         /// <param name="metrics"> Object. Contains participant call quality metrics. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ConferenceParticipant </returns>
-        public static async System.Threading.Tasks.Task<ConferenceParticipantResource> FetchAsync(string pathConferenceSid, string pathParticipantSid, string events = null, string metrics = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<ConferenceParticipantResource> FetchAsync(string pathConferenceSid, string pathParticipantSid, string events = null, string metrics = null, IKandyRestClient client = null)
         {
-            var options = new FetchConferenceParticipantOptions(pathConferenceSid, pathParticipantSid){ Events = events,Metrics = metrics };
+            var options = new FetchConferenceParticipantOptions(pathConferenceSid, pathParticipantSid) { Events = events, Metrics = metrics };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadConferenceParticipantOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadConferenceParticipantOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Conferences/{ConferenceSid}/Participants";
 
             string PathConferenceSid = options.PathConferenceSid;
-            path = path.Replace("{"+"ConferenceSid"+"}", PathConferenceSid);
+            path = path.Replace("{" + "ConferenceSid" + "}", PathConferenceSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -220,7 +220,7 @@ namespace Kandy.Rest.Insights.V1.Conference
         /// <param name="options"> Read ConferenceParticipant parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ConferenceParticipant </returns>
-        public static ResourceSet<ConferenceParticipantResource> Read(ReadConferenceParticipantOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<ConferenceParticipantResource> Read(ReadConferenceParticipantOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -228,13 +228,13 @@ namespace Kandy.Rest.Insights.V1.Conference
             return new ResourceSet<ConferenceParticipantResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> List Conference Participants. </summary>
         /// <param name="options"> Read ConferenceParticipant parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ConferenceParticipant </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<ConferenceParticipantResource>> ReadAsync(ReadConferenceParticipantOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -242,7 +242,7 @@ namespace Kandy.Rest.Insights.V1.Conference
             var page = Page<ConferenceParticipantResource>.FromJson("participants", response.Content);
             return new ResourceSet<ConferenceParticipantResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> List Conference Participants. </summary>
         /// <param name="pathConferenceSid"> The unique SID identifier of the Conference. </param>
         /// <param name="participantSid"> The unique SID identifier of the Participant. </param>
@@ -259,13 +259,13 @@ namespace Kandy.Rest.Insights.V1.Conference
                                                      string events = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadConferenceParticipantOptions(pathConferenceSid){ ParticipantSid = participantSid, Label = label, Events = events, PageSize = pageSize, Limit = limit};
+            var options = new ReadConferenceParticipantOptions(pathConferenceSid) { ParticipantSid = participantSid, Label = label, Events = events, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> List Conference Participants. </summary>
         /// <param name="pathConferenceSid"> The unique SID identifier of the Conference. </param>
         /// <param name="participantSid"> The unique SID identifier of the Participant. </param>
@@ -282,19 +282,19 @@ namespace Kandy.Rest.Insights.V1.Conference
                                                                                              string events = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadConferenceParticipantOptions(pathConferenceSid){ ParticipantSid = participantSid, Label = label, Events = events, PageSize = pageSize, Limit = limit};
+            var options = new ReadConferenceParticipantOptions(pathConferenceSid) { ParticipantSid = participantSid, Label = label, Events = events, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<ConferenceParticipantResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<ConferenceParticipantResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -311,7 +311,7 @@ namespace Kandy.Rest.Insights.V1.Conference
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<ConferenceParticipantResource> NextPage(Page<ConferenceParticipantResource> page, ITwilioRestClient client)
+        public static Page<ConferenceParticipantResource> NextPage(Page<ConferenceParticipantResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -326,7 +326,7 @@ namespace Kandy.Rest.Insights.V1.Conference
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<ConferenceParticipantResource> PreviousPage(Page<ConferenceParticipantResource> page, ITwilioRestClient client)
+        public static Page<ConferenceParticipantResource> PreviousPage(Page<ConferenceParticipantResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -337,7 +337,7 @@ namespace Kandy.Rest.Insights.V1.Conference
             return Page<ConferenceParticipantResource>.FromJson("participants", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a ConferenceParticipantResource object
         /// </summary>
@@ -355,7 +355,7 @@ namespace Kandy.Rest.Insights.V1.Conference
             }
         }
 
-    
+
         ///<summary> SID for this participant. </summary> 
         [JsonProperty("participant_sid")]
         public string ParticipantSid { get; private set; }
@@ -376,7 +376,7 @@ namespace Kandy.Rest.Insights.V1.Conference
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
 
-        
+
         [JsonProperty("call_direction")]
         public ConferenceParticipantResource.CallDirectionEnum CallDirection { get; private set; }
 
@@ -388,7 +388,7 @@ namespace Kandy.Rest.Insights.V1.Conference
         [JsonProperty("to")]
         public string To { get; private set; }
 
-        
+
         [JsonProperty("call_status")]
         public ConferenceParticipantResource.CallStatusEnum CallStatus { get; private set; }
 
@@ -420,7 +420,7 @@ namespace Kandy.Rest.Insights.V1.Conference
         [JsonProperty("outbound_time_in_queue")]
         public int? OutboundTimeInQueue { get; private set; }
 
-        
+
         [JsonProperty("jitter_buffer_size")]
         public ConferenceParticipantResource.JitterBufferSizeEnum JitterBufferSize { get; private set; }
 
@@ -432,19 +432,19 @@ namespace Kandy.Rest.Insights.V1.Conference
         [JsonProperty("coached_participants")]
         public List<string> CoachedParticipants { get; private set; }
 
-        
+
         [JsonProperty("participant_region")]
         public ConferenceParticipantResource.RegionEnum ParticipantRegion { get; private set; }
 
-        
+
         [JsonProperty("conference_region")]
         public ConferenceParticipantResource.RegionEnum ConferenceRegion { get; private set; }
 
-        
+
         [JsonProperty("call_type")]
         public ConferenceParticipantResource.CallTypeEnum CallType { get; private set; }
 
-        
+
         [JsonProperty("processing_state")]
         public ConferenceParticipantResource.ProcessingStateEnum ProcessingState { get; private set; }
 
@@ -466,7 +466,8 @@ namespace Kandy.Rest.Insights.V1.Conference
 
 
 
-        private ConferenceParticipantResource() {
+        private ConferenceParticipantResource()
+        {
 
         }
     }

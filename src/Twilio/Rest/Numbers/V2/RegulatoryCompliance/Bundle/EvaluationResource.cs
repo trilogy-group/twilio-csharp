@@ -28,12 +28,12 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
 {
     public class EvaluationResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class StatusEnum : StringEnum
         {
-            private StatusEnum(string value) : base(value) {}
-            public StatusEnum() {}
+            private StatusEnum(string value) : base(value) { }
+            public StatusEnum() { }
             public static implicit operator StatusEnum(string value)
             {
                 return new StatusEnum(value);
@@ -43,14 +43,14 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateEvaluationOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateEvaluationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations";
 
             string PathBundleSid = options.PathBundleSid;
-            path = path.Replace("{"+"BundleSid"+"}", PathBundleSid);
+            path = path.Replace("{" + "BundleSid" + "}", PathBundleSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -65,26 +65,26 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
         /// <param name="options"> Create Evaluation parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Evaluation </returns>
-        public static EvaluationResource Create(CreateEvaluationOptions options, ITwilioRestClient client = null)
+        public static EvaluationResource Create(CreateEvaluationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Creates an evaluation for a bundle </summary>
         /// <param name="options"> Create Evaluation parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Evaluation </returns>
         public static async System.Threading.Tasks.Task<EvaluationResource> CreateAsync(CreateEvaluationOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Creates an evaluation for a bundle </summary>
         /// <param name="pathBundleSid"> The unique string that identifies the Bundle resource. </param>
@@ -92,35 +92,35 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
         /// <returns> A single instance of Evaluation </returns>
         public static EvaluationResource Create(
                                           string pathBundleSid,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateEvaluationOptions(pathBundleSid){  };
+            var options = new CreateEvaluationOptions(pathBundleSid) { };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Creates an evaluation for a bundle </summary>
         /// <param name="pathBundleSid"> The unique string that identifies the Bundle resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Evaluation </returns>
         public static async System.Threading.Tasks.Task<EvaluationResource> CreateAsync(
                                                                                   string pathBundleSid,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateEvaluationOptions(pathBundleSid){  };
+            var options = new CreateEvaluationOptions(pathBundleSid) { };
             return await CreateAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchEvaluationOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchEvaluationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations/{Sid}";
 
             string PathBundleSid = options.PathBundleSid;
-            path = path.Replace("{"+"BundleSid"+"}", PathBundleSid);
+            path = path.Replace("{" + "BundleSid" + "}", PathBundleSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -135,60 +135,60 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
         /// <param name="options"> Fetch Evaluation parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Evaluation </returns>
-        public static EvaluationResource Fetch(FetchEvaluationOptions options, ITwilioRestClient client = null)
+        public static EvaluationResource Fetch(FetchEvaluationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch specific Evaluation Instance. </summary>
         /// <param name="options"> Fetch Evaluation parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Evaluation </returns>
         public static async System.Threading.Tasks.Task<EvaluationResource> FetchAsync(FetchEvaluationOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch specific Evaluation Instance. </summary>
         /// <param name="pathBundleSid"> The unique string that we created to identify the Bundle resource. </param>
         /// <param name="pathSid"> The unique string that identifies the Evaluation resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Evaluation </returns>
         public static EvaluationResource Fetch(
-                                         string pathBundleSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathBundleSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchEvaluationOptions(pathBundleSid, pathSid){  };
+            var options = new FetchEvaluationOptions(pathBundleSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch specific Evaluation Instance. </summary>
         /// <param name="pathBundleSid"> The unique string that we created to identify the Bundle resource. </param>
         /// <param name="pathSid"> The unique string that identifies the Evaluation resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Evaluation </returns>
-        public static async System.Threading.Tasks.Task<EvaluationResource> FetchAsync(string pathBundleSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<EvaluationResource> FetchAsync(string pathBundleSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchEvaluationOptions(pathBundleSid, pathSid){  };
+            var options = new FetchEvaluationOptions(pathBundleSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadEvaluationOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadEvaluationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations";
 
             string PathBundleSid = options.PathBundleSid;
-            path = path.Replace("{"+"BundleSid"+"}", PathBundleSid);
+            path = path.Replace("{" + "BundleSid" + "}", PathBundleSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -202,7 +202,7 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
         /// <param name="options"> Read Evaluation parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Evaluation </returns>
-        public static ResourceSet<EvaluationResource> Read(ReadEvaluationOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<EvaluationResource> Read(ReadEvaluationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -210,13 +210,13 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
             return new ResourceSet<EvaluationResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of Evaluations associated to the Bundle resource. </summary>
         /// <param name="options"> Read Evaluation parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Evaluation </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<EvaluationResource>> ReadAsync(ReadEvaluationOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -224,7 +224,7 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
             var page = Page<EvaluationResource>.FromJson("results", response.Content);
             return new ResourceSet<EvaluationResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of Evaluations associated to the Bundle resource. </summary>
         /// <param name="pathBundleSid"> The unique string that identifies the Bundle resource. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -235,13 +235,13 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
                                                      string pathBundleSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadEvaluationOptions(pathBundleSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadEvaluationOptions(pathBundleSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of Evaluations associated to the Bundle resource. </summary>
         /// <param name="pathBundleSid"> The unique string that identifies the Bundle resource. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -252,19 +252,19 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
                                                                                              string pathBundleSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadEvaluationOptions(pathBundleSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadEvaluationOptions(pathBundleSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<EvaluationResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<EvaluationResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -281,7 +281,7 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<EvaluationResource> NextPage(Page<EvaluationResource> page, ITwilioRestClient client)
+        public static Page<EvaluationResource> NextPage(Page<EvaluationResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -296,7 +296,7 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<EvaluationResource> PreviousPage(Page<EvaluationResource> page, ITwilioRestClient client)
+        public static Page<EvaluationResource> PreviousPage(Page<EvaluationResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -307,7 +307,7 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
             return Page<EvaluationResource>.FromJson("results", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a EvaluationResource object
         /// </summary>
@@ -325,7 +325,7 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
             }
         }
 
-    
+
         ///<summary> The unique string that identifies the Evaluation resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -342,7 +342,7 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
         [JsonProperty("bundle_sid")]
         public string BundleSid { get; private set; }
 
-        
+
         [JsonProperty("status")]
         public EvaluationResource.StatusEnum Status { get; private set; }
 
@@ -360,7 +360,8 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
 
 
 
-        private EvaluationResource() {
+        private EvaluationResource()
+        {
 
         }
     }

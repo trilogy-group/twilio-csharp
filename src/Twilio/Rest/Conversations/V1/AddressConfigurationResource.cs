@@ -28,11 +28,11 @@ namespace Kandy.Rest.Conversations.V1
 {
     public class AddressConfigurationResource : Resource
     {
-    
+
         public sealed class MethodEnum : StringEnum
         {
-            private MethodEnum(string value) : base(value) {}
-            public MethodEnum() {}
+            private MethodEnum(string value) : base(value) { }
+            public MethodEnum() { }
             public static implicit operator MethodEnum(string value)
             {
                 return new MethodEnum(value);
@@ -43,8 +43,8 @@ namespace Kandy.Rest.Conversations.V1
         }
         public sealed class TypeEnum : StringEnum
         {
-            private TypeEnum(string value) : base(value) {}
-            public TypeEnum() {}
+            private TypeEnum(string value) : base(value) { }
+            public TypeEnum() { }
             public static implicit operator TypeEnum(string value)
             {
                 return new TypeEnum(value);
@@ -57,8 +57,8 @@ namespace Kandy.Rest.Conversations.V1
         }
         public sealed class AutoCreationTypeEnum : StringEnum
         {
-            private AutoCreationTypeEnum(string value) : base(value) {}
-            public AutoCreationTypeEnum() {}
+            private AutoCreationTypeEnum(string value) : base(value) { }
+            public AutoCreationTypeEnum() { }
             public static implicit operator AutoCreationTypeEnum(string value)
             {
                 return new AutoCreationTypeEnum(value);
@@ -69,10 +69,10 @@ namespace Kandy.Rest.Conversations.V1
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateAddressConfigurationOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateAddressConfigurationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Configuration/Addresses";
 
 
@@ -89,26 +89,26 @@ namespace Kandy.Rest.Conversations.V1
         /// <param name="options"> Create AddressConfiguration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AddressConfiguration </returns>
-        public static AddressConfigurationResource Create(CreateAddressConfigurationOptions options, ITwilioRestClient client = null)
+        public static AddressConfigurationResource Create(CreateAddressConfigurationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new address configuration </summary>
         /// <param name="options"> Create AddressConfiguration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AddressConfiguration </returns>
         public static async System.Threading.Tasks.Task<AddressConfigurationResource> CreateAsync(CreateAddressConfigurationOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new address configuration </summary>
         /// <param name="type">  </param>
@@ -138,13 +138,13 @@ namespace Kandy.Rest.Conversations.V1
                                           string autoCreationStudioFlowSid = null,
                                           int? autoCreationStudioRetryCount = null,
                                           string addressCountry = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateAddressConfigurationOptions(type, address){  FriendlyName = friendlyName, AutoCreationEnabled = autoCreationEnabled, AutoCreationType = autoCreationType, AutoCreationConversationServiceSid = autoCreationConversationServiceSid, AutoCreationWebhookUrl = autoCreationWebhookUrl, AutoCreationWebhookMethod = autoCreationWebhookMethod, AutoCreationWebhookFilters = autoCreationWebhookFilters, AutoCreationStudioFlowSid = autoCreationStudioFlowSid, AutoCreationStudioRetryCount = autoCreationStudioRetryCount, AddressCountry = addressCountry };
+            var options = new CreateAddressConfigurationOptions(type, address) { FriendlyName = friendlyName, AutoCreationEnabled = autoCreationEnabled, AutoCreationType = autoCreationType, AutoCreationConversationServiceSid = autoCreationConversationServiceSid, AutoCreationWebhookUrl = autoCreationWebhookUrl, AutoCreationWebhookMethod = autoCreationWebhookMethod, AutoCreationWebhookFilters = autoCreationWebhookFilters, AutoCreationStudioFlowSid = autoCreationStudioFlowSid, AutoCreationStudioRetryCount = autoCreationStudioRetryCount, AddressCountry = addressCountry };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new address configuration </summary>
         /// <param name="type">  </param>
         /// <param name="address"> The unique address to be configured. The address can be a whatsapp address or phone number </param>
@@ -173,24 +173,24 @@ namespace Kandy.Rest.Conversations.V1
                                                                                   string autoCreationStudioFlowSid = null,
                                                                                   int? autoCreationStudioRetryCount = null,
                                                                                   string addressCountry = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateAddressConfigurationOptions(type, address){  FriendlyName = friendlyName, AutoCreationEnabled = autoCreationEnabled, AutoCreationType = autoCreationType, AutoCreationConversationServiceSid = autoCreationConversationServiceSid, AutoCreationWebhookUrl = autoCreationWebhookUrl, AutoCreationWebhookMethod = autoCreationWebhookMethod, AutoCreationWebhookFilters = autoCreationWebhookFilters, AutoCreationStudioFlowSid = autoCreationStudioFlowSid, AutoCreationStudioRetryCount = autoCreationStudioRetryCount, AddressCountry = addressCountry };
+            var options = new CreateAddressConfigurationOptions(type, address) { FriendlyName = friendlyName, AutoCreationEnabled = autoCreationEnabled, AutoCreationType = autoCreationType, AutoCreationConversationServiceSid = autoCreationConversationServiceSid, AutoCreationWebhookUrl = autoCreationWebhookUrl, AutoCreationWebhookMethod = autoCreationWebhookMethod, AutoCreationWebhookFilters = autoCreationWebhookFilters, AutoCreationStudioFlowSid = autoCreationStudioFlowSid, AutoCreationStudioRetryCount = autoCreationStudioRetryCount, AddressCountry = addressCountry };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Remove an existing address configuration </summary>
         /// <param name="options"> Delete AddressConfiguration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AddressConfiguration </returns>
-        private static Request BuildDeleteRequest(DeleteAddressConfigurationOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteAddressConfigurationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Configuration/Addresses/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -205,56 +205,56 @@ namespace Kandy.Rest.Conversations.V1
         /// <param name="options"> Delete AddressConfiguration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AddressConfiguration </returns>
-        public static bool Delete(DeleteAddressConfigurationOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteAddressConfigurationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Remove an existing address configuration </summary>
         /// <param name="options"> Delete AddressConfiguration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AddressConfiguration </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteAddressConfigurationOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Remove an existing address configuration </summary>
         /// <param name="pathSid"> The SID of the Address Configuration resource. This value can be either the `sid` or the `address` of the configuration </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AddressConfiguration </returns>
-        public static bool Delete(string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteAddressConfigurationOptions(pathSid)     ;
+            var options = new DeleteAddressConfigurationOptions(pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Remove an existing address configuration </summary>
         /// <param name="pathSid"> The SID of the Address Configuration resource. This value can be either the `sid` or the `address` of the configuration </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AddressConfiguration </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteAddressConfigurationOptions(pathSid) ;
+            var options = new DeleteAddressConfigurationOptions(pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchAddressConfigurationOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchAddressConfigurationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Configuration/Addresses/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -269,53 +269,53 @@ namespace Kandy.Rest.Conversations.V1
         /// <param name="options"> Fetch AddressConfiguration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AddressConfiguration </returns>
-        public static AddressConfigurationResource Fetch(FetchAddressConfigurationOptions options, ITwilioRestClient client = null)
+        public static AddressConfigurationResource Fetch(FetchAddressConfigurationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch an address configuration  </summary>
         /// <param name="options"> Fetch AddressConfiguration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AddressConfiguration </returns>
         public static async System.Threading.Tasks.Task<AddressConfigurationResource> FetchAsync(FetchAddressConfigurationOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch an address configuration  </summary>
         /// <param name="pathSid"> The SID of the Address Configuration resource. This value can be either the `sid` or the `address` of the configuration </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AddressConfiguration </returns>
         public static AddressConfigurationResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchAddressConfigurationOptions(pathSid){  };
+            var options = new FetchAddressConfigurationOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch an address configuration  </summary>
         /// <param name="pathSid"> The SID of the Address Configuration resource. This value can be either the `sid` or the `address` of the configuration </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AddressConfiguration </returns>
-        public static async System.Threading.Tasks.Task<AddressConfigurationResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<AddressConfigurationResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchAddressConfigurationOptions(pathSid){  };
+            var options = new FetchAddressConfigurationOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadAddressConfigurationOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadAddressConfigurationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Configuration/Addresses";
 
 
@@ -331,7 +331,7 @@ namespace Kandy.Rest.Conversations.V1
         /// <param name="options"> Read AddressConfiguration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AddressConfiguration </returns>
-        public static ResourceSet<AddressConfigurationResource> Read(ReadAddressConfigurationOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<AddressConfigurationResource> Read(ReadAddressConfigurationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -339,13 +339,13 @@ namespace Kandy.Rest.Conversations.V1
             return new ResourceSet<AddressConfigurationResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of address configurations for an account </summary>
         /// <param name="options"> Read AddressConfiguration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AddressConfiguration </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<AddressConfigurationResource>> ReadAsync(ReadAddressConfigurationOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -353,7 +353,7 @@ namespace Kandy.Rest.Conversations.V1
             var page = Page<AddressConfigurationResource>.FromJson("address_configurations", response.Content);
             return new ResourceSet<AddressConfigurationResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of address configurations for an account </summary>
         /// <param name="type"> Filter the address configurations by its type. This value can be one of: `whatsapp`, `sms`. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -364,13 +364,13 @@ namespace Kandy.Rest.Conversations.V1
                                                      string type = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadAddressConfigurationOptions(){ Type = type, PageSize = pageSize, Limit = limit};
+            var options = new ReadAddressConfigurationOptions() { Type = type, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of address configurations for an account </summary>
         /// <param name="type"> Filter the address configurations by its type. This value can be one of: `whatsapp`, `sms`. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -381,19 +381,19 @@ namespace Kandy.Rest.Conversations.V1
                                                                                              string type = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadAddressConfigurationOptions(){ Type = type, PageSize = pageSize, Limit = limit};
+            var options = new ReadAddressConfigurationOptions() { Type = type, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<AddressConfigurationResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<AddressConfigurationResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -410,7 +410,7 @@ namespace Kandy.Rest.Conversations.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<AddressConfigurationResource> NextPage(Page<AddressConfigurationResource> page, ITwilioRestClient client)
+        public static Page<AddressConfigurationResource> NextPage(Page<AddressConfigurationResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -425,7 +425,7 @@ namespace Kandy.Rest.Conversations.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<AddressConfigurationResource> PreviousPage(Page<AddressConfigurationResource> page, ITwilioRestClient client)
+        public static Page<AddressConfigurationResource> PreviousPage(Page<AddressConfigurationResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -436,14 +436,14 @@ namespace Kandy.Rest.Conversations.V1
             return Page<AddressConfigurationResource>.FromJson("address_configurations", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateAddressConfigurationOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateAddressConfigurationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Configuration/Addresses/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -458,7 +458,7 @@ namespace Kandy.Rest.Conversations.V1
         /// <param name="options"> Update AddressConfiguration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AddressConfiguration </returns>
-        public static AddressConfigurationResource Update(UpdateAddressConfigurationOptions options, ITwilioRestClient client = null)
+        public static AddressConfigurationResource Update(UpdateAddressConfigurationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -469,15 +469,15 @@ namespace Kandy.Rest.Conversations.V1
         /// <param name="options"> Update AddressConfiguration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AddressConfiguration </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<AddressConfigurationResource> UpdateAsync(UpdateAddressConfigurationOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update an existing address configuration </summary>
         /// <param name="pathSid"> The SID of the Address Configuration resource. This value can be either the `sid` or the `address` of the configuration </param>
@@ -503,13 +503,13 @@ namespace Kandy.Rest.Conversations.V1
                                           List<string> autoCreationWebhookFilters = null,
                                           string autoCreationStudioFlowSid = null,
                                           int? autoCreationStudioRetryCount = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateAddressConfigurationOptions(pathSid){ FriendlyName = friendlyName, AutoCreationEnabled = autoCreationEnabled, AutoCreationType = autoCreationType, AutoCreationConversationServiceSid = autoCreationConversationServiceSid, AutoCreationWebhookUrl = autoCreationWebhookUrl, AutoCreationWebhookMethod = autoCreationWebhookMethod, AutoCreationWebhookFilters = autoCreationWebhookFilters, AutoCreationStudioFlowSid = autoCreationStudioFlowSid, AutoCreationStudioRetryCount = autoCreationStudioRetryCount };
+            var options = new UpdateAddressConfigurationOptions(pathSid) { FriendlyName = friendlyName, AutoCreationEnabled = autoCreationEnabled, AutoCreationType = autoCreationType, AutoCreationConversationServiceSid = autoCreationConversationServiceSid, AutoCreationWebhookUrl = autoCreationWebhookUrl, AutoCreationWebhookMethod = autoCreationWebhookMethod, AutoCreationWebhookFilters = autoCreationWebhookFilters, AutoCreationStudioFlowSid = autoCreationStudioFlowSid, AutoCreationStudioRetryCount = autoCreationStudioRetryCount };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update an existing address configuration </summary>
         /// <param name="pathSid"> The SID of the Address Configuration resource. This value can be either the `sid` or the `address` of the configuration </param>
         /// <param name="friendlyName"> The human-readable name of this configuration, limited to 256 characters. Optional. </param>
@@ -534,13 +534,13 @@ namespace Kandy.Rest.Conversations.V1
                                                                               List<string> autoCreationWebhookFilters = null,
                                                                               string autoCreationStudioFlowSid = null,
                                                                               int? autoCreationStudioRetryCount = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateAddressConfigurationOptions(pathSid){ FriendlyName = friendlyName, AutoCreationEnabled = autoCreationEnabled, AutoCreationType = autoCreationType, AutoCreationConversationServiceSid = autoCreationConversationServiceSid, AutoCreationWebhookUrl = autoCreationWebhookUrl, AutoCreationWebhookMethod = autoCreationWebhookMethod, AutoCreationWebhookFilters = autoCreationWebhookFilters, AutoCreationStudioFlowSid = autoCreationStudioFlowSid, AutoCreationStudioRetryCount = autoCreationStudioRetryCount };
+            var options = new UpdateAddressConfigurationOptions(pathSid) { FriendlyName = friendlyName, AutoCreationEnabled = autoCreationEnabled, AutoCreationType = autoCreationType, AutoCreationConversationServiceSid = autoCreationConversationServiceSid, AutoCreationWebhookUrl = autoCreationWebhookUrl, AutoCreationWebhookMethod = autoCreationWebhookMethod, AutoCreationWebhookFilters = autoCreationWebhookFilters, AutoCreationStudioFlowSid = autoCreationStudioFlowSid, AutoCreationStudioRetryCount = autoCreationStudioRetryCount };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a AddressConfigurationResource object
         /// </summary>
@@ -558,7 +558,7 @@ namespace Kandy.Rest.Conversations.V1
             }
         }
 
-    
+
         ///<summary> A 34 character string that uniquely identifies this resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -601,7 +601,8 @@ namespace Kandy.Rest.Conversations.V1
 
 
 
-        private AddressConfigurationResource() {
+        private AddressConfigurationResource()
+        {
 
         }
     }

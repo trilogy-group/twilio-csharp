@@ -28,18 +28,18 @@ namespace Kandy.Rest.Bulkexports.V1.Export
 {
     public class DayResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchDayOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchDayOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Exports/{ResourceType}/Days/{Day}";
 
             string PathResourceType = options.PathResourceType;
-            path = path.Replace("{"+"ResourceType"+"}", PathResourceType);
+            path = path.Replace("{" + "ResourceType" + "}", PathResourceType);
             string PathDay = options.PathDay;
-            path = path.Replace("{"+"Day"+"}", PathDay);
+            path = path.Replace("{" + "Day" + "}", PathDay);
 
             return new Request(
                 HttpMethod.Get,
@@ -54,60 +54,60 @@ namespace Kandy.Rest.Bulkexports.V1.Export
         /// <param name="options"> Fetch Day parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Day </returns>
-        public static DayResource Fetch(FetchDayOptions options, ITwilioRestClient client = null)
+        public static DayResource Fetch(FetchDayOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Day. </summary>
         /// <param name="options"> Fetch Day parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Day </returns>
         public static async System.Threading.Tasks.Task<DayResource> FetchAsync(FetchDayOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a specific Day. </summary>
         /// <param name="pathResourceType"> The type of communication – Messages, Calls, Conferences, and Participants </param>
         /// <param name="pathDay"> The ISO 8601 format date of the resources in the file, for a UTC day </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Day </returns>
         public static DayResource Fetch(
-                                         string pathResourceType, 
-                                         string pathDay, 
-                                         ITwilioRestClient client = null)
+                                         string pathResourceType,
+                                         string pathDay,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchDayOptions(pathResourceType, pathDay){  };
+            var options = new FetchDayOptions(pathResourceType, pathDay) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Day. </summary>
         /// <param name="pathResourceType"> The type of communication – Messages, Calls, Conferences, and Participants </param>
         /// <param name="pathDay"> The ISO 8601 format date of the resources in the file, for a UTC day </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Day </returns>
-        public static async System.Threading.Tasks.Task<DayResource> FetchAsync(string pathResourceType, string pathDay, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<DayResource> FetchAsync(string pathResourceType, string pathDay, IKandyRestClient client = null)
         {
-            var options = new FetchDayOptions(pathResourceType, pathDay){  };
+            var options = new FetchDayOptions(pathResourceType, pathDay) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadDayOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadDayOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Exports/{ResourceType}/Days";
 
             string PathResourceType = options.PathResourceType;
-            path = path.Replace("{"+"ResourceType"+"}", PathResourceType);
+            path = path.Replace("{" + "ResourceType" + "}", PathResourceType);
 
             return new Request(
                 HttpMethod.Get,
@@ -121,7 +121,7 @@ namespace Kandy.Rest.Bulkexports.V1.Export
         /// <param name="options"> Read Day parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Day </returns>
-        public static ResourceSet<DayResource> Read(ReadDayOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<DayResource> Read(ReadDayOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -129,13 +129,13 @@ namespace Kandy.Rest.Bulkexports.V1.Export
             return new ResourceSet<DayResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Days for a resource. </summary>
         /// <param name="options"> Read Day parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Day </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<DayResource>> ReadAsync(ReadDayOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -143,7 +143,7 @@ namespace Kandy.Rest.Bulkexports.V1.Export
             var page = Page<DayResource>.FromJson("days", response.Content);
             return new ResourceSet<DayResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Days for a resource. </summary>
         /// <param name="pathResourceType"> The type of communication – Messages, Calls, Conferences, and Participants </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -154,13 +154,13 @@ namespace Kandy.Rest.Bulkexports.V1.Export
                                                      string pathResourceType,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadDayOptions(pathResourceType){ PageSize = pageSize, Limit = limit};
+            var options = new ReadDayOptions(pathResourceType) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Days for a resource. </summary>
         /// <param name="pathResourceType"> The type of communication – Messages, Calls, Conferences, and Participants </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -171,19 +171,19 @@ namespace Kandy.Rest.Bulkexports.V1.Export
                                                                                              string pathResourceType,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadDayOptions(pathResourceType){ PageSize = pageSize, Limit = limit};
+            var options = new ReadDayOptions(pathResourceType) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<DayResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<DayResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -200,7 +200,7 @@ namespace Kandy.Rest.Bulkexports.V1.Export
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<DayResource> NextPage(Page<DayResource> page, ITwilioRestClient client)
+        public static Page<DayResource> NextPage(Page<DayResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -215,7 +215,7 @@ namespace Kandy.Rest.Bulkexports.V1.Export
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<DayResource> PreviousPage(Page<DayResource> page, ITwilioRestClient client)
+        public static Page<DayResource> PreviousPage(Page<DayResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -226,7 +226,7 @@ namespace Kandy.Rest.Bulkexports.V1.Export
             return Page<DayResource>.FromJson("days", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a DayResource object
         /// </summary>
@@ -244,7 +244,7 @@ namespace Kandy.Rest.Bulkexports.V1.Export
             }
         }
 
-    
+
         ///<summary> The redirect_to </summary> 
         [JsonProperty("redirect_to")]
         public Uri RedirectTo { get; private set; }
@@ -271,7 +271,8 @@ namespace Kandy.Rest.Bulkexports.V1.Export
 
 
 
-        private DayResource() {
+        private DayResource()
+        {
 
         }
     }

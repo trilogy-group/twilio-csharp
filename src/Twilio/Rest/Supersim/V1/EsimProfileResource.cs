@@ -28,12 +28,12 @@ namespace Kandy.Rest.Supersim.V1
 {
     public class EsimProfileResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class StatusEnum : StringEnum
         {
-            private StatusEnum(string value) : base(value) {}
-            public StatusEnum() {}
+            private StatusEnum(string value) : base(value) { }
+            public StatusEnum() { }
             public static implicit operator StatusEnum(string value)
             {
                 return new StatusEnum(value);
@@ -47,10 +47,10 @@ namespace Kandy.Rest.Supersim.V1
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateEsimProfileOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateEsimProfileOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/ESimProfiles";
 
 
@@ -67,26 +67,26 @@ namespace Kandy.Rest.Supersim.V1
         /// <param name="options"> Create EsimProfile parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of EsimProfile </returns>
-        public static EsimProfileResource Create(CreateEsimProfileOptions options, ITwilioRestClient client = null)
+        public static EsimProfileResource Create(CreateEsimProfileOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Order an eSIM Profile. </summary>
         /// <param name="options"> Create EsimProfile parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of EsimProfile </returns>
         public static async System.Threading.Tasks.Task<EsimProfileResource> CreateAsync(CreateEsimProfileOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Order an eSIM Profile. </summary>
         /// <param name="callbackUrl"> The URL we should call using the `callback_method` when the status of the eSIM Profile changes. At this stage of the eSIM Profile pilot, the a request to the URL will only be called when the ESimProfile resource changes from `reserving` to `available`. </param>
@@ -100,13 +100,13 @@ namespace Kandy.Rest.Supersim.V1
                                           Twilio.Http.HttpMethod callbackMethod = null,
                                           bool? generateMatchingId = null,
                                           string eid = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateEsimProfileOptions(){  CallbackUrl = callbackUrl, CallbackMethod = callbackMethod, GenerateMatchingId = generateMatchingId, Eid = eid };
+            var options = new CreateEsimProfileOptions() { CallbackUrl = callbackUrl, CallbackMethod = callbackMethod, GenerateMatchingId = generateMatchingId, Eid = eid };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Order an eSIM Profile. </summary>
         /// <param name="callbackUrl"> The URL we should call using the `callback_method` when the status of the eSIM Profile changes. At this stage of the eSIM Profile pilot, the a request to the URL will only be called when the ESimProfile resource changes from `reserving` to `available`. </param>
         /// <param name="callbackMethod"> The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST. </param>
@@ -119,20 +119,20 @@ namespace Kandy.Rest.Supersim.V1
                                                                                   Twilio.Http.HttpMethod callbackMethod = null,
                                                                                   bool? generateMatchingId = null,
                                                                                   string eid = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateEsimProfileOptions(){  CallbackUrl = callbackUrl, CallbackMethod = callbackMethod, GenerateMatchingId = generateMatchingId, Eid = eid };
+            var options = new CreateEsimProfileOptions() { CallbackUrl = callbackUrl, CallbackMethod = callbackMethod, GenerateMatchingId = generateMatchingId, Eid = eid };
             return await CreateAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchEsimProfileOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchEsimProfileOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/ESimProfiles/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -147,53 +147,53 @@ namespace Kandy.Rest.Supersim.V1
         /// <param name="options"> Fetch EsimProfile parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of EsimProfile </returns>
-        public static EsimProfileResource Fetch(FetchEsimProfileOptions options, ITwilioRestClient client = null)
+        public static EsimProfileResource Fetch(FetchEsimProfileOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch an eSIM Profile. </summary>
         /// <param name="options"> Fetch EsimProfile parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of EsimProfile </returns>
         public static async System.Threading.Tasks.Task<EsimProfileResource> FetchAsync(FetchEsimProfileOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch an eSIM Profile. </summary>
         /// <param name="pathSid"> The SID of the eSIM Profile resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of EsimProfile </returns>
         public static EsimProfileResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchEsimProfileOptions(pathSid){  };
+            var options = new FetchEsimProfileOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch an eSIM Profile. </summary>
         /// <param name="pathSid"> The SID of the eSIM Profile resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of EsimProfile </returns>
-        public static async System.Threading.Tasks.Task<EsimProfileResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<EsimProfileResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchEsimProfileOptions(pathSid){  };
+            var options = new FetchEsimProfileOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadEsimProfileOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadEsimProfileOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/ESimProfiles";
 
 
@@ -209,7 +209,7 @@ namespace Kandy.Rest.Supersim.V1
         /// <param name="options"> Read EsimProfile parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of EsimProfile </returns>
-        public static ResourceSet<EsimProfileResource> Read(ReadEsimProfileOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<EsimProfileResource> Read(ReadEsimProfileOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -217,13 +217,13 @@ namespace Kandy.Rest.Supersim.V1
             return new ResourceSet<EsimProfileResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of eSIM Profiles. </summary>
         /// <param name="options"> Read EsimProfile parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of EsimProfile </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<EsimProfileResource>> ReadAsync(ReadEsimProfileOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -231,7 +231,7 @@ namespace Kandy.Rest.Supersim.V1
             var page = Page<EsimProfileResource>.FromJson("esim_profiles", response.Content);
             return new ResourceSet<EsimProfileResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of eSIM Profiles. </summary>
         /// <param name="eid"> List the eSIM Profiles that have been associated with an EId. </param>
         /// <param name="simSid"> Find the eSIM Profile resource related to a [Sim](https://www.twilio.com/docs/wireless/api/sim-resource) resource by providing the SIM SID. Will always return an array with either 1 or 0 records. </param>
@@ -246,13 +246,13 @@ namespace Kandy.Rest.Supersim.V1
                                                      EsimProfileResource.StatusEnum status = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadEsimProfileOptions(){ Eid = eid, SimSid = simSid, Status = status, PageSize = pageSize, Limit = limit};
+            var options = new ReadEsimProfileOptions() { Eid = eid, SimSid = simSid, Status = status, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of eSIM Profiles. </summary>
         /// <param name="eid"> List the eSIM Profiles that have been associated with an EId. </param>
         /// <param name="simSid"> Find the eSIM Profile resource related to a [Sim](https://www.twilio.com/docs/wireless/api/sim-resource) resource by providing the SIM SID. Will always return an array with either 1 or 0 records. </param>
@@ -267,19 +267,19 @@ namespace Kandy.Rest.Supersim.V1
                                                                                              EsimProfileResource.StatusEnum status = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadEsimProfileOptions(){ Eid = eid, SimSid = simSid, Status = status, PageSize = pageSize, Limit = limit};
+            var options = new ReadEsimProfileOptions() { Eid = eid, SimSid = simSid, Status = status, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<EsimProfileResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<EsimProfileResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -296,7 +296,7 @@ namespace Kandy.Rest.Supersim.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<EsimProfileResource> NextPage(Page<EsimProfileResource> page, ITwilioRestClient client)
+        public static Page<EsimProfileResource> NextPage(Page<EsimProfileResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -311,7 +311,7 @@ namespace Kandy.Rest.Supersim.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<EsimProfileResource> PreviousPage(Page<EsimProfileResource> page, ITwilioRestClient client)
+        public static Page<EsimProfileResource> PreviousPage(Page<EsimProfileResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -322,7 +322,7 @@ namespace Kandy.Rest.Supersim.V1
             return Page<EsimProfileResource>.FromJson("esim_profiles", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a EsimProfileResource object
         /// </summary>
@@ -340,7 +340,7 @@ namespace Kandy.Rest.Supersim.V1
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the eSIM Profile resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -357,7 +357,7 @@ namespace Kandy.Rest.Supersim.V1
         [JsonProperty("sim_sid")]
         public string SimSid { get; private set; }
 
-        
+
         [JsonProperty("status")]
         public EsimProfileResource.StatusEnum Status { get; private set; }
 
@@ -399,7 +399,8 @@ namespace Kandy.Rest.Supersim.V1
 
 
 
-        private EsimProfileResource() {
+        private EsimProfileResource()
+        {
 
         }
     }

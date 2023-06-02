@@ -28,16 +28,16 @@ namespace Kandy.Rest.Events.V1.Sink
 {
     public class SinkValidateResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateSinkValidateOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateSinkValidateOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Sinks/{Sid}/Validate";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -52,26 +52,26 @@ namespace Kandy.Rest.Events.V1.Sink
         /// <param name="options"> Create SinkValidate parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SinkValidate </returns>
-        public static SinkValidateResource Create(CreateSinkValidateOptions options, ITwilioRestClient client = null)
+        public static SinkValidateResource Create(CreateSinkValidateOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Validate that a test event for a Sink was received. </summary>
         /// <param name="options"> Create SinkValidate parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SinkValidate </returns>
         public static async System.Threading.Tasks.Task<SinkValidateResource> CreateAsync(CreateSinkValidateOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Validate that a test event for a Sink was received. </summary>
         /// <param name="pathSid"> A 34 character string that uniquely identifies the Sink being validated. </param>
@@ -81,13 +81,13 @@ namespace Kandy.Rest.Events.V1.Sink
         public static SinkValidateResource Create(
                                           string pathSid,
                                           string testId,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateSinkValidateOptions(pathSid, testId){  };
+            var options = new CreateSinkValidateOptions(pathSid, testId) { };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Validate that a test event for a Sink was received. </summary>
         /// <param name="pathSid"> A 34 character string that uniquely identifies the Sink being validated. </param>
         /// <param name="testId"> A 34 character string that uniquely identifies the test event for a Sink being validated. </param>
@@ -96,13 +96,13 @@ namespace Kandy.Rest.Events.V1.Sink
         public static async System.Threading.Tasks.Task<SinkValidateResource> CreateAsync(
                                                                                   string pathSid,
                                                                                   string testId,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateSinkValidateOptions(pathSid, testId){  };
+            var options = new CreateSinkValidateOptions(pathSid, testId) { };
             return await CreateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a SinkValidateResource object
         /// </summary>
@@ -120,14 +120,15 @@ namespace Kandy.Rest.Events.V1.Sink
             }
         }
 
-    
+
         ///<summary> Feedback indicating whether the given Sink was validated. </summary> 
         [JsonProperty("result")]
         public string Result { get; private set; }
 
 
 
-        private SinkValidateResource() {
+        private SinkValidateResource()
+        {
 
         }
     }

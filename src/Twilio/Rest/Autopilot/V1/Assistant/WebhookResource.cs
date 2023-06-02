@@ -28,16 +28,16 @@ namespace Kandy.Rest.Autopilot.V1.Assistant
 {
     public class WebhookResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateWebhookOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateWebhookOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Assistants/{AssistantSid}/Webhooks";
 
             string PathAssistantSid = options.PathAssistantSid;
-            path = path.Replace("{"+"AssistantSid"+"}", PathAssistantSid);
+            path = path.Replace("{" + "AssistantSid" + "}", PathAssistantSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -52,26 +52,26 @@ namespace Kandy.Rest.Autopilot.V1.Assistant
         /// <param name="options"> Create Webhook parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Webhook </returns>
-        public static WebhookResource Create(CreateWebhookOptions options, ITwilioRestClient client = null)
+        public static WebhookResource Create(CreateWebhookOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create Webhook parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Webhook </returns>
         public static async System.Threading.Tasks.Task<WebhookResource> CreateAsync(CreateWebhookOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="pathAssistantSid"> The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the new resource. </param>
@@ -87,13 +87,13 @@ namespace Kandy.Rest.Autopilot.V1.Assistant
                                           string events,
                                           Uri webhookUrl,
                                           string webhookMethod = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateWebhookOptions(pathAssistantSid, uniqueName, events, webhookUrl){  WebhookMethod = webhookMethod };
+            var options = new CreateWebhookOptions(pathAssistantSid, uniqueName, events, webhookUrl) { WebhookMethod = webhookMethod };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="pathAssistantSid"> The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the new resource. </param>
         /// <param name="uniqueName"> An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. This value must be unique and 64 characters or less in length. </param>
@@ -108,26 +108,26 @@ namespace Kandy.Rest.Autopilot.V1.Assistant
                                                                                   string events,
                                                                                   Uri webhookUrl,
                                                                                   string webhookMethod = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateWebhookOptions(pathAssistantSid, uniqueName, events, webhookUrl){  WebhookMethod = webhookMethod };
+            var options = new CreateWebhookOptions(pathAssistantSid, uniqueName, events, webhookUrl) { WebhookMethod = webhookMethod };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> delete </summary>
         /// <param name="options"> Delete Webhook parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Webhook </returns>
-        private static Request BuildDeleteRequest(DeleteWebhookOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteWebhookOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Assistants/{AssistantSid}/Webhooks/{Sid}";
 
             string PathAssistantSid = options.PathAssistantSid;
-            path = path.Replace("{"+"AssistantSid"+"}", PathAssistantSid);
+            path = path.Replace("{" + "AssistantSid" + "}", PathAssistantSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -142,60 +142,60 @@ namespace Kandy.Rest.Autopilot.V1.Assistant
         /// <param name="options"> Delete Webhook parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Webhook </returns>
-        public static bool Delete(DeleteWebhookOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteWebhookOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="options"> Delete Webhook parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Webhook </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteWebhookOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> delete </summary>
         /// <param name="pathAssistantSid"> The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resources to delete. </param>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Webhook resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Webhook </returns>
-        public static bool Delete(string pathAssistantSid, string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathAssistantSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteWebhookOptions(pathAssistantSid, pathSid)        ;
+            var options = new DeleteWebhookOptions(pathAssistantSid, pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="pathAssistantSid"> The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resources to delete. </param>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Webhook resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Webhook </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathAssistantSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathAssistantSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteWebhookOptions(pathAssistantSid, pathSid) ;
+            var options = new DeleteWebhookOptions(pathAssistantSid, pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchWebhookOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchWebhookOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Assistants/{AssistantSid}/Webhooks/{Sid}";
 
             string PathAssistantSid = options.PathAssistantSid;
-            path = path.Replace("{"+"AssistantSid"+"}", PathAssistantSid);
+            path = path.Replace("{" + "AssistantSid" + "}", PathAssistantSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -210,60 +210,60 @@ namespace Kandy.Rest.Autopilot.V1.Assistant
         /// <param name="options"> Fetch Webhook parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Webhook </returns>
-        public static WebhookResource Fetch(FetchWebhookOptions options, ITwilioRestClient client = null)
+        public static WebhookResource Fetch(FetchWebhookOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch Webhook parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Webhook </returns>
         public static async System.Threading.Tasks.Task<WebhookResource> FetchAsync(FetchWebhookOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathAssistantSid"> The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to fetch. </param>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Webhook resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Webhook </returns>
         public static WebhookResource Fetch(
-                                         string pathAssistantSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathAssistantSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchWebhookOptions(pathAssistantSid, pathSid){  };
+            var options = new FetchWebhookOptions(pathAssistantSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathAssistantSid"> The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to fetch. </param>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Webhook resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Webhook </returns>
-        public static async System.Threading.Tasks.Task<WebhookResource> FetchAsync(string pathAssistantSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<WebhookResource> FetchAsync(string pathAssistantSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchWebhookOptions(pathAssistantSid, pathSid){  };
+            var options = new FetchWebhookOptions(pathAssistantSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadWebhookOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadWebhookOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Assistants/{AssistantSid}/Webhooks";
 
             string PathAssistantSid = options.PathAssistantSid;
-            path = path.Replace("{"+"AssistantSid"+"}", PathAssistantSid);
+            path = path.Replace("{" + "AssistantSid" + "}", PathAssistantSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -277,7 +277,7 @@ namespace Kandy.Rest.Autopilot.V1.Assistant
         /// <param name="options"> Read Webhook parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Webhook </returns>
-        public static ResourceSet<WebhookResource> Read(ReadWebhookOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<WebhookResource> Read(ReadWebhookOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -285,13 +285,13 @@ namespace Kandy.Rest.Autopilot.V1.Assistant
             return new ResourceSet<WebhookResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read Webhook parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Webhook </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<WebhookResource>> ReadAsync(ReadWebhookOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -299,7 +299,7 @@ namespace Kandy.Rest.Autopilot.V1.Assistant
             var page = Page<WebhookResource>.FromJson("webhooks", response.Content);
             return new ResourceSet<WebhookResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="pathAssistantSid"> The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resources to read. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -310,13 +310,13 @@ namespace Kandy.Rest.Autopilot.V1.Assistant
                                                      string pathAssistantSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadWebhookOptions(pathAssistantSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadWebhookOptions(pathAssistantSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="pathAssistantSid"> The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resources to read. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -327,19 +327,19 @@ namespace Kandy.Rest.Autopilot.V1.Assistant
                                                                                              string pathAssistantSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadWebhookOptions(pathAssistantSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadWebhookOptions(pathAssistantSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<WebhookResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<WebhookResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -356,7 +356,7 @@ namespace Kandy.Rest.Autopilot.V1.Assistant
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<WebhookResource> NextPage(Page<WebhookResource> page, ITwilioRestClient client)
+        public static Page<WebhookResource> NextPage(Page<WebhookResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -371,7 +371,7 @@ namespace Kandy.Rest.Autopilot.V1.Assistant
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<WebhookResource> PreviousPage(Page<WebhookResource> page, ITwilioRestClient client)
+        public static Page<WebhookResource> PreviousPage(Page<WebhookResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -382,16 +382,16 @@ namespace Kandy.Rest.Autopilot.V1.Assistant
             return Page<WebhookResource>.FromJson("webhooks", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateWebhookOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateWebhookOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Assistants/{AssistantSid}/Webhooks/{Sid}";
 
             string PathAssistantSid = options.PathAssistantSid;
-            path = path.Replace("{"+"AssistantSid"+"}", PathAssistantSid);
+            path = path.Replace("{" + "AssistantSid" + "}", PathAssistantSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -406,7 +406,7 @@ namespace Kandy.Rest.Autopilot.V1.Assistant
         /// <param name="options"> Update Webhook parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Webhook </returns>
-        public static WebhookResource Update(UpdateWebhookOptions options, ITwilioRestClient client = null)
+        public static WebhookResource Update(UpdateWebhookOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -417,15 +417,15 @@ namespace Kandy.Rest.Autopilot.V1.Assistant
         /// <param name="options"> Update Webhook parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Webhook </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<WebhookResource> UpdateAsync(UpdateWebhookOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> update </summary>
         /// <param name="pathAssistantSid"> The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to update. </param>
@@ -443,13 +443,13 @@ namespace Kandy.Rest.Autopilot.V1.Assistant
                                           string events = null,
                                           Uri webhookUrl = null,
                                           string webhookMethod = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateWebhookOptions(pathAssistantSid, pathSid){ UniqueName = uniqueName, Events = events, WebhookUrl = webhookUrl, WebhookMethod = webhookMethod };
+            var options = new UpdateWebhookOptions(pathAssistantSid, pathSid) { UniqueName = uniqueName, Events = events, WebhookUrl = webhookUrl, WebhookMethod = webhookMethod };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> update </summary>
         /// <param name="pathAssistantSid"> The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to update. </param>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Webhook resource to update. </param>
@@ -466,13 +466,13 @@ namespace Kandy.Rest.Autopilot.V1.Assistant
                                                                               string events = null,
                                                                               Uri webhookUrl = null,
                                                                               string webhookMethod = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateWebhookOptions(pathAssistantSid, pathSid){ UniqueName = uniqueName, Events = events, WebhookUrl = webhookUrl, WebhookMethod = webhookMethod };
+            var options = new UpdateWebhookOptions(pathAssistantSid, pathSid) { UniqueName = uniqueName, Events = events, WebhookUrl = webhookUrl, WebhookMethod = webhookMethod };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a WebhookResource object
         /// </summary>
@@ -490,7 +490,7 @@ namespace Kandy.Rest.Autopilot.V1.Assistant
             }
         }
 
-    
+
         ///<summary> The absolute URL of the Webhook resource. </summary> 
         [JsonProperty("url")]
         public Uri Url { get; private set; }
@@ -533,7 +533,8 @@ namespace Kandy.Rest.Autopilot.V1.Assistant
 
 
 
-        private WebhookResource() {
+        private WebhookResource()
+        {
 
         }
     }

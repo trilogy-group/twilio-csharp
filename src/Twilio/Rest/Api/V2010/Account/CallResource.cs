@@ -28,12 +28,12 @@ namespace Kandy.Rest.Api.V2010.Account
 {
     public class CallResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class StatusEnum : StringEnum
         {
-            private StatusEnum(string value) : base(value) {}
-            public StatusEnum() {}
+            private StatusEnum(string value) : base(value) { }
+            public StatusEnum() { }
             public static implicit operator StatusEnum(string value)
             {
                 return new StatusEnum(value);
@@ -50,8 +50,8 @@ namespace Kandy.Rest.Api.V2010.Account
         }
         public sealed class UpdateStatusEnum : StringEnum
         {
-            private UpdateStatusEnum(string value) : base(value) {}
-            public UpdateStatusEnum() {}
+            private UpdateStatusEnum(string value) : base(value) { }
+            public UpdateStatusEnum() { }
             public static implicit operator UpdateStatusEnum(string value)
             {
                 return new UpdateStatusEnum(value);
@@ -61,14 +61,14 @@ namespace Kandy.Rest.Api.V2010.Account
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateCallOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateCallOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Calls.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -83,26 +83,26 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="options"> Create Call parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Call </returns>
-        public static CallResource Create(CreateCallOptions options, ITwilioRestClient client = null)
+        public static CallResource Create(CreateCallOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new outgoing call to phones, SIP-enabled endpoints or Twilio Client connections </summary>
         /// <param name="options"> Create Call parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Call </returns>
         public static async System.Threading.Tasks.Task<CallResource> CreateAsync(CreateCallOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new outgoing call to phones, SIP-enabled endpoints or Twilio Client connections </summary>
         /// <param name="to"> The phone number, SIP address, or client identifier to call. </param>
@@ -180,13 +180,13 @@ namespace Kandy.Rest.Api.V2010.Account
                                           string callToken = null,
                                           string recordingTrack = null,
                                           int? timeLimit = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateCallOptions(to, from){  PathAccountSid = pathAccountSid, Url = url, Twiml = twiml, ApplicationSid = applicationSid, Method = method, FallbackUrl = fallbackUrl, FallbackMethod = fallbackMethod, StatusCallback = statusCallback, StatusCallbackEvent = statusCallbackEvent, StatusCallbackMethod = statusCallbackMethod, SendDigits = sendDigits, Timeout = timeout, Record = record, RecordingChannels = recordingChannels, RecordingStatusCallback = recordingStatusCallback, RecordingStatusCallbackMethod = recordingStatusCallbackMethod, SipAuthUsername = sipAuthUsername, SipAuthPassword = sipAuthPassword, MachineDetection = machineDetection, MachineDetectionTimeout = machineDetectionTimeout, RecordingStatusCallbackEvent = recordingStatusCallbackEvent, Trim = trim, CallerId = callerId, MachineDetectionSpeechThreshold = machineDetectionSpeechThreshold, MachineDetectionSpeechEndThreshold = machineDetectionSpeechEndThreshold, MachineDetectionSilenceTimeout = machineDetectionSilenceTimeout, AsyncAmd = asyncAmd, AsyncAmdStatusCallback = asyncAmdStatusCallback, AsyncAmdStatusCallbackMethod = asyncAmdStatusCallbackMethod, Byoc = byoc, CallReason = callReason, CallToken = callToken, RecordingTrack = recordingTrack, TimeLimit = timeLimit };
+            var options = new CreateCallOptions(to, from) { PathAccountSid = pathAccountSid, Url = url, Twiml = twiml, ApplicationSid = applicationSid, Method = method, FallbackUrl = fallbackUrl, FallbackMethod = fallbackMethod, StatusCallback = statusCallback, StatusCallbackEvent = statusCallbackEvent, StatusCallbackMethod = statusCallbackMethod, SendDigits = sendDigits, Timeout = timeout, Record = record, RecordingChannels = recordingChannels, RecordingStatusCallback = recordingStatusCallback, RecordingStatusCallbackMethod = recordingStatusCallbackMethod, SipAuthUsername = sipAuthUsername, SipAuthPassword = sipAuthPassword, MachineDetection = machineDetection, MachineDetectionTimeout = machineDetectionTimeout, RecordingStatusCallbackEvent = recordingStatusCallbackEvent, Trim = trim, CallerId = callerId, MachineDetectionSpeechThreshold = machineDetectionSpeechThreshold, MachineDetectionSpeechEndThreshold = machineDetectionSpeechEndThreshold, MachineDetectionSilenceTimeout = machineDetectionSilenceTimeout, AsyncAmd = asyncAmd, AsyncAmdStatusCallback = asyncAmdStatusCallback, AsyncAmdStatusCallbackMethod = asyncAmdStatusCallbackMethod, Byoc = byoc, CallReason = callReason, CallToken = callToken, RecordingTrack = recordingTrack, TimeLimit = timeLimit };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new outgoing call to phones, SIP-enabled endpoints or Twilio Client connections </summary>
         /// <param name="to"> The phone number, SIP address, or client identifier to call. </param>
         /// <param name="from"> The phone number or client identifier to use as the caller id. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `From` must also be a phone number. </param>
@@ -263,26 +263,26 @@ namespace Kandy.Rest.Api.V2010.Account
                                                                                   string callToken = null,
                                                                                   string recordingTrack = null,
                                                                                   int? timeLimit = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateCallOptions(to, from){  PathAccountSid = pathAccountSid, Url = url, Twiml = twiml, ApplicationSid = applicationSid, Method = method, FallbackUrl = fallbackUrl, FallbackMethod = fallbackMethod, StatusCallback = statusCallback, StatusCallbackEvent = statusCallbackEvent, StatusCallbackMethod = statusCallbackMethod, SendDigits = sendDigits, Timeout = timeout, Record = record, RecordingChannels = recordingChannels, RecordingStatusCallback = recordingStatusCallback, RecordingStatusCallbackMethod = recordingStatusCallbackMethod, SipAuthUsername = sipAuthUsername, SipAuthPassword = sipAuthPassword, MachineDetection = machineDetection, MachineDetectionTimeout = machineDetectionTimeout, RecordingStatusCallbackEvent = recordingStatusCallbackEvent, Trim = trim, CallerId = callerId, MachineDetectionSpeechThreshold = machineDetectionSpeechThreshold, MachineDetectionSpeechEndThreshold = machineDetectionSpeechEndThreshold, MachineDetectionSilenceTimeout = machineDetectionSilenceTimeout, AsyncAmd = asyncAmd, AsyncAmdStatusCallback = asyncAmdStatusCallback, AsyncAmdStatusCallbackMethod = asyncAmdStatusCallbackMethod, Byoc = byoc, CallReason = callReason, CallToken = callToken, RecordingTrack = recordingTrack, TimeLimit = timeLimit };
+            var options = new CreateCallOptions(to, from) { PathAccountSid = pathAccountSid, Url = url, Twiml = twiml, ApplicationSid = applicationSid, Method = method, FallbackUrl = fallbackUrl, FallbackMethod = fallbackMethod, StatusCallback = statusCallback, StatusCallbackEvent = statusCallbackEvent, StatusCallbackMethod = statusCallbackMethod, SendDigits = sendDigits, Timeout = timeout, Record = record, RecordingChannels = recordingChannels, RecordingStatusCallback = recordingStatusCallback, RecordingStatusCallbackMethod = recordingStatusCallbackMethod, SipAuthUsername = sipAuthUsername, SipAuthPassword = sipAuthPassword, MachineDetection = machineDetection, MachineDetectionTimeout = machineDetectionTimeout, RecordingStatusCallbackEvent = recordingStatusCallbackEvent, Trim = trim, CallerId = callerId, MachineDetectionSpeechThreshold = machineDetectionSpeechThreshold, MachineDetectionSpeechEndThreshold = machineDetectionSpeechEndThreshold, MachineDetectionSilenceTimeout = machineDetectionSilenceTimeout, AsyncAmd = asyncAmd, AsyncAmdStatusCallback = asyncAmdStatusCallback, AsyncAmdStatusCallbackMethod = asyncAmdStatusCallbackMethod, Byoc = byoc, CallReason = callReason, CallToken = callToken, RecordingTrack = recordingTrack, TimeLimit = timeLimit };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Delete a Call record from your account. Once the record is deleted, it will no longer appear in the API and Account Portal logs. </summary>
         /// <param name="options"> Delete Call parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Call </returns>
-        private static Request BuildDeleteRequest(DeleteCallOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteCallOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -297,60 +297,60 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="options"> Delete Call parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Call </returns>
-        public static bool Delete(DeleteCallOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteCallOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a Call record from your account. Once the record is deleted, it will no longer appear in the API and Account Portal logs. </summary>
         /// <param name="options"> Delete Call parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Call </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteCallOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete a Call record from your account. Once the record is deleted, it will no longer appear in the API and Account Portal logs. </summary>
         /// <param name="pathSid"> The Twilio-provided Call SID that uniquely identifies the Call resource to delete </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call resource(s) to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Call </returns>
-        public static bool Delete(string pathSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static bool Delete(string pathSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new DeleteCallOptions(pathSid)      { PathAccountSid = pathAccountSid }   ;
+            var options = new DeleteCallOptions(pathSid) { PathAccountSid = pathAccountSid };
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a Call record from your account. Once the record is deleted, it will no longer appear in the API and Account Portal logs. </summary>
         /// <param name="pathSid"> The Twilio-provided Call SID that uniquely identifies the Call resource to delete </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call resource(s) to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Call </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new DeleteCallOptions(pathSid)  { PathAccountSid = pathAccountSid };
+            var options = new DeleteCallOptions(pathSid) { PathAccountSid = pathAccountSid };
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchCallOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchCallOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -365,60 +365,60 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="options"> Fetch Call parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Call </returns>
-        public static CallResource Fetch(FetchCallOptions options, ITwilioRestClient client = null)
+        public static CallResource Fetch(FetchCallOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch the call specified by the provided Call SID </summary>
         /// <param name="options"> Fetch Call parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Call </returns>
         public static async System.Threading.Tasks.Task<CallResource> FetchAsync(FetchCallOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch the call specified by the provided Call SID </summary>
         /// <param name="pathSid"> The SID of the Call resource to fetch. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call resource(s) to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Call </returns>
         public static CallResource Fetch(
-                                         string pathSid, 
-                                         string pathAccountSid = null, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         string pathAccountSid = null,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchCallOptions(pathSid){ PathAccountSid = pathAccountSid };
+            var options = new FetchCallOptions(pathSid) { PathAccountSid = pathAccountSid };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch the call specified by the provided Call SID </summary>
         /// <param name="pathSid"> The SID of the Call resource to fetch. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call resource(s) to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Call </returns>
-        public static async System.Threading.Tasks.Task<CallResource> FetchAsync(string pathSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<CallResource> FetchAsync(string pathSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new FetchCallOptions(pathSid){ PathAccountSid = pathAccountSid };
+            var options = new FetchCallOptions(pathSid) { PathAccountSid = pathAccountSid };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadCallOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadCallOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Calls.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -432,7 +432,7 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="options"> Read Call parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Call </returns>
-        public static ResourceSet<CallResource> Read(ReadCallOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<CallResource> Read(ReadCallOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -440,13 +440,13 @@ namespace Kandy.Rest.Api.V2010.Account
             return new ResourceSet<CallResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieves a collection of calls made to and from your account </summary>
         /// <param name="options"> Read Call parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Call </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<CallResource>> ReadAsync(ReadCallOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -454,7 +454,7 @@ namespace Kandy.Rest.Api.V2010.Account
             var page = Page<CallResource>.FromJson("calls", response.Content);
             return new ResourceSet<CallResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieves a collection of calls made to and from your account </summary>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call resource(s) to read. </param>
         /// <param name="to"> Only show calls made to this phone number, SIP address, Client identifier or SIM SID. </param>
@@ -485,13 +485,13 @@ namespace Kandy.Rest.Api.V2010.Account
                                                      DateTime? endTimeAfter = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadCallOptions(){ PathAccountSid = pathAccountSid, To = to, From = from, ParentCallSid = parentCallSid, Status = status, StartTimeBefore = startTimeBefore, StartTime = startTime, StartTimeAfter = startTimeAfter, EndTimeBefore = endTimeBefore, EndTime = endTime, EndTimeAfter = endTimeAfter, PageSize = pageSize, Limit = limit};
+            var options = new ReadCallOptions() { PathAccountSid = pathAccountSid, To = to, From = from, ParentCallSid = parentCallSid, Status = status, StartTimeBefore = startTimeBefore, StartTime = startTime, StartTimeAfter = startTimeAfter, EndTimeBefore = endTimeBefore, EndTime = endTime, EndTimeAfter = endTimeAfter, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieves a collection of calls made to and from your account </summary>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call resource(s) to read. </param>
         /// <param name="to"> Only show calls made to this phone number, SIP address, Client identifier or SIM SID. </param>
@@ -522,19 +522,19 @@ namespace Kandy.Rest.Api.V2010.Account
                                                                                              DateTime? endTimeAfter = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadCallOptions(){ PathAccountSid = pathAccountSid, To = to, From = from, ParentCallSid = parentCallSid, Status = status, StartTimeBefore = startTimeBefore, StartTime = startTime, StartTimeAfter = startTimeAfter, EndTimeBefore = endTimeBefore, EndTime = endTime, EndTimeAfter = endTimeAfter, PageSize = pageSize, Limit = limit};
+            var options = new ReadCallOptions() { PathAccountSid = pathAccountSid, To = to, From = from, ParentCallSid = parentCallSid, Status = status, StartTimeBefore = startTimeBefore, StartTime = startTime, StartTimeAfter = startTimeAfter, EndTimeBefore = endTimeBefore, EndTime = endTime, EndTimeAfter = endTimeAfter, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<CallResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<CallResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -551,7 +551,7 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<CallResource> NextPage(Page<CallResource> page, ITwilioRestClient client)
+        public static Page<CallResource> NextPage(Page<CallResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -566,7 +566,7 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<CallResource> PreviousPage(Page<CallResource> page, ITwilioRestClient client)
+        public static Page<CallResource> PreviousPage(Page<CallResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -577,16 +577,16 @@ namespace Kandy.Rest.Api.V2010.Account
             return Page<CallResource>.FromJson("calls", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateCallOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateCallOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -601,7 +601,7 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="options"> Update Call parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Call </returns>
-        public static CallResource Update(UpdateCallOptions options, ITwilioRestClient client = null)
+        public static CallResource Update(UpdateCallOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -612,15 +612,15 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="options"> Update Call parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Call </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<CallResource> UpdateAsync(UpdateCallOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Initiates a call redirect or terminates a call </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Call resource to update </param>
@@ -648,13 +648,13 @@ namespace Kandy.Rest.Api.V2010.Account
                                           Twilio.Http.HttpMethod statusCallbackMethod = null,
                                           Types.Twiml twiml = null,
                                           int? timeLimit = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateCallOptions(pathSid){ PathAccountSid = pathAccountSid, Url = url, Method = method, Status = status, FallbackUrl = fallbackUrl, FallbackMethod = fallbackMethod, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, Twiml = twiml, TimeLimit = timeLimit };
+            var options = new UpdateCallOptions(pathSid) { PathAccountSid = pathAccountSid, Url = url, Method = method, Status = status, FallbackUrl = fallbackUrl, FallbackMethod = fallbackMethod, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, Twiml = twiml, TimeLimit = timeLimit };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Initiates a call redirect or terminates a call </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Call resource to update </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call resource(s) to update. </param>
@@ -681,13 +681,13 @@ namespace Kandy.Rest.Api.V2010.Account
                                                                               Twilio.Http.HttpMethod statusCallbackMethod = null,
                                                                               Types.Twiml twiml = null,
                                                                               int? timeLimit = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateCallOptions(pathSid){ PathAccountSid = pathAccountSid, Url = url, Method = method, Status = status, FallbackUrl = fallbackUrl, FallbackMethod = fallbackMethod, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, Twiml = twiml, TimeLimit = timeLimit };
+            var options = new UpdateCallOptions(pathSid) { PathAccountSid = pathAccountSid, Url = url, Method = method, Status = status, FallbackUrl = fallbackUrl, FallbackMethod = fallbackMethod, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, Twiml = twiml, TimeLimit = timeLimit };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a CallResource object
         /// </summary>
@@ -705,7 +705,7 @@ namespace Kandy.Rest.Api.V2010.Account
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify this Call resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -746,7 +746,7 @@ namespace Kandy.Rest.Api.V2010.Account
         [JsonProperty("phone_number_sid")]
         public string PhoneNumberSid { get; private set; }
 
-        
+
         [JsonProperty("status")]
         public CallResource.StatusEnum Status { get; private set; }
 
@@ -812,7 +812,8 @@ namespace Kandy.Rest.Api.V2010.Account
 
 
 
-        private CallResource() {
+        private CallResource()
+        {
 
         }
     }

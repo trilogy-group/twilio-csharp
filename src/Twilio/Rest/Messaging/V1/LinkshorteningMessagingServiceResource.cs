@@ -28,18 +28,18 @@ namespace Kandy.Rest.Messaging.V1
 {
     public class LinkshorteningMessagingServiceResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateLinkshorteningMessagingServiceOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateLinkshorteningMessagingServiceOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/LinkShortening/Domains/{DomainSid}/MessagingServices/{MessagingServiceSid}";
 
             string PathDomainSid = options.PathDomainSid;
-            path = path.Replace("{"+"DomainSid"+"}", PathDomainSid);
+            path = path.Replace("{" + "DomainSid" + "}", PathDomainSid);
             string PathMessagingServiceSid = options.PathMessagingServiceSid;
-            path = path.Replace("{"+"MessagingServiceSid"+"}", PathMessagingServiceSid);
+            path = path.Replace("{" + "MessagingServiceSid" + "}", PathMessagingServiceSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -54,26 +54,26 @@ namespace Kandy.Rest.Messaging.V1
         /// <param name="options"> Create LinkshorteningMessagingService parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of LinkshorteningMessagingService </returns>
-        public static LinkshorteningMessagingServiceResource Create(CreateLinkshorteningMessagingServiceOptions options, ITwilioRestClient client = null)
+        public static LinkshorteningMessagingServiceResource Create(CreateLinkshorteningMessagingServiceOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create LinkshorteningMessagingService parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of LinkshorteningMessagingService </returns>
         public static async System.Threading.Tasks.Task<LinkshorteningMessagingServiceResource> CreateAsync(CreateLinkshorteningMessagingServiceOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="pathDomainSid"> The domain SID to associate with a messaging service. With URL shortening enabled, links in messages sent with the associated messaging service will be shortened to the provided domain </param>
@@ -83,13 +83,13 @@ namespace Kandy.Rest.Messaging.V1
         public static LinkshorteningMessagingServiceResource Create(
                                           string pathDomainSid,
                                           string pathMessagingServiceSid,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateLinkshorteningMessagingServiceOptions(pathDomainSid, pathMessagingServiceSid){  };
+            var options = new CreateLinkshorteningMessagingServiceOptions(pathDomainSid, pathMessagingServiceSid) { };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="pathDomainSid"> The domain SID to associate with a messaging service. With URL shortening enabled, links in messages sent with the associated messaging service will be shortened to the provided domain </param>
         /// <param name="pathMessagingServiceSid"> A messaging service SID to associate with a domain. With URL shortening enabled, links in messages sent with the provided messaging service will be shortened to the associated domain </param>
@@ -98,26 +98,26 @@ namespace Kandy.Rest.Messaging.V1
         public static async System.Threading.Tasks.Task<LinkshorteningMessagingServiceResource> CreateAsync(
                                                                                   string pathDomainSid,
                                                                                   string pathMessagingServiceSid,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateLinkshorteningMessagingServiceOptions(pathDomainSid, pathMessagingServiceSid){  };
+            var options = new CreateLinkshorteningMessagingServiceOptions(pathDomainSid, pathMessagingServiceSid) { };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> delete </summary>
         /// <param name="options"> Delete LinkshorteningMessagingService parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of LinkshorteningMessagingService </returns>
-        private static Request BuildDeleteRequest(DeleteLinkshorteningMessagingServiceOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteLinkshorteningMessagingServiceOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/LinkShortening/Domains/{DomainSid}/MessagingServices/{MessagingServiceSid}";
 
             string PathDomainSid = options.PathDomainSid;
-            path = path.Replace("{"+"DomainSid"+"}", PathDomainSid);
+            path = path.Replace("{" + "DomainSid" + "}", PathDomainSid);
             string PathMessagingServiceSid = options.PathMessagingServiceSid;
-            path = path.Replace("{"+"MessagingServiceSid"+"}", PathMessagingServiceSid);
+            path = path.Replace("{" + "MessagingServiceSid" + "}", PathMessagingServiceSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -132,51 +132,51 @@ namespace Kandy.Rest.Messaging.V1
         /// <param name="options"> Delete LinkshorteningMessagingService parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of LinkshorteningMessagingService </returns>
-        public static bool Delete(DeleteLinkshorteningMessagingServiceOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteLinkshorteningMessagingServiceOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="options"> Delete LinkshorteningMessagingService parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of LinkshorteningMessagingService </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteLinkshorteningMessagingServiceOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> delete </summary>
         /// <param name="pathDomainSid"> The domain SID to dissociate from a messaging service. With URL shortening enabled, links in messages sent with the associated messaging service will be shortened to the provided domain </param>
         /// <param name="pathMessagingServiceSid"> A messaging service SID to dissociate from a domain. With URL shortening enabled, links in messages sent with the provided messaging service will be shortened to the associated domain </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of LinkshorteningMessagingService </returns>
-        public static bool Delete(string pathDomainSid, string pathMessagingServiceSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathDomainSid, string pathMessagingServiceSid, IKandyRestClient client = null)
         {
-            var options = new DeleteLinkshorteningMessagingServiceOptions(pathDomainSid, pathMessagingServiceSid)        ;
+            var options = new DeleteLinkshorteningMessagingServiceOptions(pathDomainSid, pathMessagingServiceSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="pathDomainSid"> The domain SID to dissociate from a messaging service. With URL shortening enabled, links in messages sent with the associated messaging service will be shortened to the provided domain </param>
         /// <param name="pathMessagingServiceSid"> A messaging service SID to dissociate from a domain. With URL shortening enabled, links in messages sent with the provided messaging service will be shortened to the associated domain </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of LinkshorteningMessagingService </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathDomainSid, string pathMessagingServiceSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathDomainSid, string pathMessagingServiceSid, IKandyRestClient client = null)
         {
-            var options = new DeleteLinkshorteningMessagingServiceOptions(pathDomainSid, pathMessagingServiceSid) ;
+            var options = new DeleteLinkshorteningMessagingServiceOptions(pathDomainSid, pathMessagingServiceSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a LinkshorteningMessagingServiceResource object
         /// </summary>
@@ -194,7 +194,7 @@ namespace Kandy.Rest.Messaging.V1
             }
         }
 
-    
+
         ///<summary> The unique string identifies the domain resource </summary> 
         [JsonProperty("domain_sid")]
         public string DomainSid { get; private set; }
@@ -209,7 +209,8 @@ namespace Kandy.Rest.Messaging.V1
 
 
 
-        private LinkshorteningMessagingServiceResource() {
+        private LinkshorteningMessagingServiceResource()
+        {
 
         }
     }

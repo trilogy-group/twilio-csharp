@@ -28,16 +28,16 @@ namespace Kandy.Rest.Voice.V1.DialingPermissions
 {
     public class CountryResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchCountryOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchCountryOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/DialingPermissions/Countries/{IsoCode}";
 
             string PathIsoCode = options.PathIsoCode.ToString();
-            path = path.Replace("{"+"IsoCode"+"}", PathIsoCode);
+            path = path.Replace("{" + "IsoCode" + "}", PathIsoCode);
 
             return new Request(
                 HttpMethod.Get,
@@ -52,53 +52,53 @@ namespace Kandy.Rest.Voice.V1.DialingPermissions
         /// <param name="options"> Fetch Country parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Country </returns>
-        public static CountryResource Fetch(FetchCountryOptions options, ITwilioRestClient client = null)
+        public static CountryResource Fetch(FetchCountryOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve voice dialing country permissions identified by the given ISO country code </summary>
         /// <param name="options"> Fetch Country parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Country </returns>
         public static async System.Threading.Tasks.Task<CountryResource> FetchAsync(FetchCountryOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Retrieve voice dialing country permissions identified by the given ISO country code </summary>
         /// <param name="pathIsoCode"> The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the DialingPermissions Country resource to fetch </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Country </returns>
         public static CountryResource Fetch(
-                                         string pathIsoCode, 
-                                         ITwilioRestClient client = null)
+                                         string pathIsoCode,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchCountryOptions(pathIsoCode){  };
+            var options = new FetchCountryOptions(pathIsoCode) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve voice dialing country permissions identified by the given ISO country code </summary>
         /// <param name="pathIsoCode"> The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the DialingPermissions Country resource to fetch </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Country </returns>
-        public static async System.Threading.Tasks.Task<CountryResource> FetchAsync(string pathIsoCode, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<CountryResource> FetchAsync(string pathIsoCode, IKandyRestClient client = null)
         {
-            var options = new FetchCountryOptions(pathIsoCode){  };
+            var options = new FetchCountryOptions(pathIsoCode) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadCountryOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadCountryOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/DialingPermissions/Countries";
 
 
@@ -114,7 +114,7 @@ namespace Kandy.Rest.Voice.V1.DialingPermissions
         /// <param name="options"> Read Country parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Country </returns>
-        public static ResourceSet<CountryResource> Read(ReadCountryOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<CountryResource> Read(ReadCountryOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -122,13 +122,13 @@ namespace Kandy.Rest.Voice.V1.DialingPermissions
             return new ResourceSet<CountryResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve all voice dialing country permissions for this account </summary>
         /// <param name="options"> Read Country parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Country </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<CountryResource>> ReadAsync(ReadCountryOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -136,7 +136,7 @@ namespace Kandy.Rest.Voice.V1.DialingPermissions
             var page = Page<CountryResource>.FromJson("content", response.Content);
             return new ResourceSet<CountryResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve all voice dialing country permissions for this account </summary>
         /// <param name="isoCode"> Filter to retrieve the country permissions by specifying the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) </param>
         /// <param name="continent"> Filter to retrieve the country permissions by specifying the continent </param>
@@ -157,13 +157,13 @@ namespace Kandy.Rest.Voice.V1.DialingPermissions
                                                      bool? highRiskTollfraudNumbersEnabled = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadCountryOptions(){ IsoCode = isoCode, Continent = continent, CountryCode = countryCode, LowRiskNumbersEnabled = lowRiskNumbersEnabled, HighRiskSpecialNumbersEnabled = highRiskSpecialNumbersEnabled, HighRiskTollfraudNumbersEnabled = highRiskTollfraudNumbersEnabled, PageSize = pageSize, Limit = limit};
+            var options = new ReadCountryOptions() { IsoCode = isoCode, Continent = continent, CountryCode = countryCode, LowRiskNumbersEnabled = lowRiskNumbersEnabled, HighRiskSpecialNumbersEnabled = highRiskSpecialNumbersEnabled, HighRiskTollfraudNumbersEnabled = highRiskTollfraudNumbersEnabled, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve all voice dialing country permissions for this account </summary>
         /// <param name="isoCode"> Filter to retrieve the country permissions by specifying the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) </param>
         /// <param name="continent"> Filter to retrieve the country permissions by specifying the continent </param>
@@ -184,19 +184,19 @@ namespace Kandy.Rest.Voice.V1.DialingPermissions
                                                                                              bool? highRiskTollfraudNumbersEnabled = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadCountryOptions(){ IsoCode = isoCode, Continent = continent, CountryCode = countryCode, LowRiskNumbersEnabled = lowRiskNumbersEnabled, HighRiskSpecialNumbersEnabled = highRiskSpecialNumbersEnabled, HighRiskTollfraudNumbersEnabled = highRiskTollfraudNumbersEnabled, PageSize = pageSize, Limit = limit};
+            var options = new ReadCountryOptions() { IsoCode = isoCode, Continent = continent, CountryCode = countryCode, LowRiskNumbersEnabled = lowRiskNumbersEnabled, HighRiskSpecialNumbersEnabled = highRiskSpecialNumbersEnabled, HighRiskTollfraudNumbersEnabled = highRiskTollfraudNumbersEnabled, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<CountryResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<CountryResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -213,7 +213,7 @@ namespace Kandy.Rest.Voice.V1.DialingPermissions
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<CountryResource> NextPage(Page<CountryResource> page, ITwilioRestClient client)
+        public static Page<CountryResource> NextPage(Page<CountryResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -228,7 +228,7 @@ namespace Kandy.Rest.Voice.V1.DialingPermissions
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<CountryResource> PreviousPage(Page<CountryResource> page, ITwilioRestClient client)
+        public static Page<CountryResource> PreviousPage(Page<CountryResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -239,7 +239,7 @@ namespace Kandy.Rest.Voice.V1.DialingPermissions
             return Page<CountryResource>.FromJson("content", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a CountryResource object
         /// </summary>
@@ -257,7 +257,7 @@ namespace Kandy.Rest.Voice.V1.DialingPermissions
             }
         }
 
-    
+
         ///<summary> The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). </summary> 
         [JsonProperty("iso_code")]
         public string IsoCode { get; private set; }
@@ -296,7 +296,8 @@ namespace Kandy.Rest.Voice.V1.DialingPermissions
 
 
 
-        private CountryResource() {
+        private CountryResource()
+        {
 
         }
     }

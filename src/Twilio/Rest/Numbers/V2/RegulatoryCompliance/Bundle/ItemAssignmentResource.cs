@@ -28,16 +28,16 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
 {
     public class ItemAssignmentResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateItemAssignmentOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateItemAssignmentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments";
 
             string PathBundleSid = options.PathBundleSid;
-            path = path.Replace("{"+"BundleSid"+"}", PathBundleSid);
+            path = path.Replace("{" + "BundleSid" + "}", PathBundleSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -52,26 +52,26 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
         /// <param name="options"> Create ItemAssignment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ItemAssignment </returns>
-        public static ItemAssignmentResource Create(CreateItemAssignmentOptions options, ITwilioRestClient client = null)
+        public static ItemAssignmentResource Create(CreateItemAssignmentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Assigned Item. </summary>
         /// <param name="options"> Create ItemAssignment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ItemAssignment </returns>
         public static async System.Threading.Tasks.Task<ItemAssignmentResource> CreateAsync(CreateItemAssignmentOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new Assigned Item. </summary>
         /// <param name="pathBundleSid"> The unique string that we created to identify the Bundle resource. </param>
@@ -81,13 +81,13 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
         public static ItemAssignmentResource Create(
                                           string pathBundleSid,
                                           string objectSid,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateItemAssignmentOptions(pathBundleSid, objectSid){  };
+            var options = new CreateItemAssignmentOptions(pathBundleSid, objectSid) { };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Assigned Item. </summary>
         /// <param name="pathBundleSid"> The unique string that we created to identify the Bundle resource. </param>
         /// <param name="objectSid"> The SID of an object bag that holds information of the different items. </param>
@@ -96,26 +96,26 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
         public static async System.Threading.Tasks.Task<ItemAssignmentResource> CreateAsync(
                                                                                   string pathBundleSid,
                                                                                   string objectSid,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateItemAssignmentOptions(pathBundleSid, objectSid){  };
+            var options = new CreateItemAssignmentOptions(pathBundleSid, objectSid) { };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Remove an Assignment Item Instance. </summary>
         /// <param name="options"> Delete ItemAssignment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ItemAssignment </returns>
-        private static Request BuildDeleteRequest(DeleteItemAssignmentOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteItemAssignmentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments/{Sid}";
 
             string PathBundleSid = options.PathBundleSid;
-            path = path.Replace("{"+"BundleSid"+"}", PathBundleSid);
+            path = path.Replace("{" + "BundleSid" + "}", PathBundleSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -130,60 +130,60 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
         /// <param name="options"> Delete ItemAssignment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ItemAssignment </returns>
-        public static bool Delete(DeleteItemAssignmentOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteItemAssignmentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Remove an Assignment Item Instance. </summary>
         /// <param name="options"> Delete ItemAssignment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ItemAssignment </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteItemAssignmentOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Remove an Assignment Item Instance. </summary>
         /// <param name="pathBundleSid"> The unique string that we created to identify the Bundle resource. </param>
         /// <param name="pathSid"> The unique string that we created to identify the Identity resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ItemAssignment </returns>
-        public static bool Delete(string pathBundleSid, string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathBundleSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteItemAssignmentOptions(pathBundleSid, pathSid)        ;
+            var options = new DeleteItemAssignmentOptions(pathBundleSid, pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Remove an Assignment Item Instance. </summary>
         /// <param name="pathBundleSid"> The unique string that we created to identify the Bundle resource. </param>
         /// <param name="pathSid"> The unique string that we created to identify the Identity resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ItemAssignment </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathBundleSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathBundleSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteItemAssignmentOptions(pathBundleSid, pathSid) ;
+            var options = new DeleteItemAssignmentOptions(pathBundleSid, pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchItemAssignmentOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchItemAssignmentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments/{Sid}";
 
             string PathBundleSid = options.PathBundleSid;
-            path = path.Replace("{"+"BundleSid"+"}", PathBundleSid);
+            path = path.Replace("{" + "BundleSid" + "}", PathBundleSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -198,60 +198,60 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
         /// <param name="options"> Fetch ItemAssignment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ItemAssignment </returns>
-        public static ItemAssignmentResource Fetch(FetchItemAssignmentOptions options, ITwilioRestClient client = null)
+        public static ItemAssignmentResource Fetch(FetchItemAssignmentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch specific Assigned Item Instance. </summary>
         /// <param name="options"> Fetch ItemAssignment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ItemAssignment </returns>
         public static async System.Threading.Tasks.Task<ItemAssignmentResource> FetchAsync(FetchItemAssignmentOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch specific Assigned Item Instance. </summary>
         /// <param name="pathBundleSid"> The unique string that we created to identify the Bundle resource. </param>
         /// <param name="pathSid"> The unique string that we created to identify the Identity resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ItemAssignment </returns>
         public static ItemAssignmentResource Fetch(
-                                         string pathBundleSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathBundleSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchItemAssignmentOptions(pathBundleSid, pathSid){  };
+            var options = new FetchItemAssignmentOptions(pathBundleSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch specific Assigned Item Instance. </summary>
         /// <param name="pathBundleSid"> The unique string that we created to identify the Bundle resource. </param>
         /// <param name="pathSid"> The unique string that we created to identify the Identity resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ItemAssignment </returns>
-        public static async System.Threading.Tasks.Task<ItemAssignmentResource> FetchAsync(string pathBundleSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<ItemAssignmentResource> FetchAsync(string pathBundleSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchItemAssignmentOptions(pathBundleSid, pathSid){  };
+            var options = new FetchItemAssignmentOptions(pathBundleSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadItemAssignmentOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadItemAssignmentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments";
 
             string PathBundleSid = options.PathBundleSid;
-            path = path.Replace("{"+"BundleSid"+"}", PathBundleSid);
+            path = path.Replace("{" + "BundleSid" + "}", PathBundleSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -265,7 +265,7 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
         /// <param name="options"> Read ItemAssignment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ItemAssignment </returns>
-        public static ResourceSet<ItemAssignmentResource> Read(ReadItemAssignmentOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<ItemAssignmentResource> Read(ReadItemAssignmentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -273,13 +273,13 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
             return new ResourceSet<ItemAssignmentResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Assigned Items for an account. </summary>
         /// <param name="options"> Read ItemAssignment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ItemAssignment </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<ItemAssignmentResource>> ReadAsync(ReadItemAssignmentOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -287,7 +287,7 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
             var page = Page<ItemAssignmentResource>.FromJson("results", response.Content);
             return new ResourceSet<ItemAssignmentResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Assigned Items for an account. </summary>
         /// <param name="pathBundleSid"> The unique string that we created to identify the Bundle resource. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -298,13 +298,13 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
                                                      string pathBundleSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadItemAssignmentOptions(pathBundleSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadItemAssignmentOptions(pathBundleSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Assigned Items for an account. </summary>
         /// <param name="pathBundleSid"> The unique string that we created to identify the Bundle resource. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -315,19 +315,19 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
                                                                                              string pathBundleSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadItemAssignmentOptions(pathBundleSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadItemAssignmentOptions(pathBundleSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<ItemAssignmentResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<ItemAssignmentResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -344,7 +344,7 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<ItemAssignmentResource> NextPage(Page<ItemAssignmentResource> page, ITwilioRestClient client)
+        public static Page<ItemAssignmentResource> NextPage(Page<ItemAssignmentResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -359,7 +359,7 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<ItemAssignmentResource> PreviousPage(Page<ItemAssignmentResource> page, ITwilioRestClient client)
+        public static Page<ItemAssignmentResource> PreviousPage(Page<ItemAssignmentResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -370,7 +370,7 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
             return Page<ItemAssignmentResource>.FromJson("results", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a ItemAssignmentResource object
         /// </summary>
@@ -388,7 +388,7 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the Item Assignment resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -415,7 +415,8 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
 
 
 
-        private ItemAssignmentResource() {
+        private ItemAssignmentResource()
+        {
 
         }
     }

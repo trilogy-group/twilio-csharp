@@ -28,12 +28,12 @@ namespace Kandy.Rest.Serverless.V1.Service.Asset
 {
     public class AssetVersionResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class VisibilityEnum : StringEnum
         {
-            private VisibilityEnum(string value) : base(value) {}
-            public VisibilityEnum() {}
+            private VisibilityEnum(string value) : base(value) { }
+            public VisibilityEnum() { }
             public static implicit operator VisibilityEnum(string value)
             {
                 return new VisibilityEnum(value);
@@ -44,18 +44,18 @@ namespace Kandy.Rest.Serverless.V1.Service.Asset
 
         }
 
-        
-        private static Request BuildFetchRequest(FetchAssetVersionOptions options, ITwilioRestClient client)
+
+        private static Request BuildFetchRequest(FetchAssetVersionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Assets/{AssetSid}/Versions/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathAssetSid = options.PathAssetSid;
-            path = path.Replace("{"+"AssetSid"+"}", PathAssetSid);
+            path = path.Replace("{" + "AssetSid" + "}", PathAssetSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -70,26 +70,26 @@ namespace Kandy.Rest.Serverless.V1.Service.Asset
         /// <param name="options"> Fetch AssetVersion parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AssetVersion </returns>
-        public static AssetVersionResource Fetch(FetchAssetVersionOptions options, ITwilioRestClient client = null)
+        public static AssetVersionResource Fetch(FetchAssetVersionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a specific Asset Version. </summary>
         /// <param name="options"> Fetch AssetVersion parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AssetVersion </returns>
         public static async System.Threading.Tasks.Task<AssetVersionResource> FetchAsync(FetchAssetVersionOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Retrieve a specific Asset Version. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to fetch the Asset Version resource from. </param>
         /// <param name="pathAssetSid"> The SID of the Asset resource that is the parent of the Asset Version resource to fetch. </param>
@@ -97,38 +97,38 @@ namespace Kandy.Rest.Serverless.V1.Service.Asset
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AssetVersion </returns>
         public static AssetVersionResource Fetch(
-                                         string pathServiceSid, 
-                                         string pathAssetSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathServiceSid,
+                                         string pathAssetSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchAssetVersionOptions(pathServiceSid, pathAssetSid, pathSid){  };
+            var options = new FetchAssetVersionOptions(pathServiceSid, pathAssetSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a specific Asset Version. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to fetch the Asset Version resource from. </param>
         /// <param name="pathAssetSid"> The SID of the Asset resource that is the parent of the Asset Version resource to fetch. </param>
         /// <param name="pathSid"> The SID of the Asset Version resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AssetVersion </returns>
-        public static async System.Threading.Tasks.Task<AssetVersionResource> FetchAsync(string pathServiceSid, string pathAssetSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<AssetVersionResource> FetchAsync(string pathServiceSid, string pathAssetSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchAssetVersionOptions(pathServiceSid, pathAssetSid, pathSid){  };
+            var options = new FetchAssetVersionOptions(pathServiceSid, pathAssetSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadAssetVersionOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadAssetVersionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Assets/{AssetSid}/Versions";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathAssetSid = options.PathAssetSid;
-            path = path.Replace("{"+"AssetSid"+"}", PathAssetSid);
+            path = path.Replace("{" + "AssetSid" + "}", PathAssetSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -142,7 +142,7 @@ namespace Kandy.Rest.Serverless.V1.Service.Asset
         /// <param name="options"> Read AssetVersion parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AssetVersion </returns>
-        public static ResourceSet<AssetVersionResource> Read(ReadAssetVersionOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<AssetVersionResource> Read(ReadAssetVersionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -150,13 +150,13 @@ namespace Kandy.Rest.Serverless.V1.Service.Asset
             return new ResourceSet<AssetVersionResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Asset Versions. </summary>
         /// <param name="options"> Read AssetVersion parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AssetVersion </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<AssetVersionResource>> ReadAsync(ReadAssetVersionOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -164,7 +164,7 @@ namespace Kandy.Rest.Serverless.V1.Service.Asset
             var page = Page<AssetVersionResource>.FromJson("asset_versions", response.Content);
             return new ResourceSet<AssetVersionResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Asset Versions. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to read the Asset Version resource from. </param>
         /// <param name="pathAssetSid"> The SID of the Asset resource that is the parent of the Asset Version resources to read. </param>
@@ -177,13 +177,13 @@ namespace Kandy.Rest.Serverless.V1.Service.Asset
                                                      string pathAssetSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadAssetVersionOptions(pathServiceSid, pathAssetSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadAssetVersionOptions(pathServiceSid, pathAssetSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Asset Versions. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to read the Asset Version resource from. </param>
         /// <param name="pathAssetSid"> The SID of the Asset resource that is the parent of the Asset Version resources to read. </param>
@@ -196,19 +196,19 @@ namespace Kandy.Rest.Serverless.V1.Service.Asset
                                                                                              string pathAssetSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadAssetVersionOptions(pathServiceSid, pathAssetSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadAssetVersionOptions(pathServiceSid, pathAssetSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<AssetVersionResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<AssetVersionResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -225,7 +225,7 @@ namespace Kandy.Rest.Serverless.V1.Service.Asset
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<AssetVersionResource> NextPage(Page<AssetVersionResource> page, ITwilioRestClient client)
+        public static Page<AssetVersionResource> NextPage(Page<AssetVersionResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -240,7 +240,7 @@ namespace Kandy.Rest.Serverless.V1.Service.Asset
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<AssetVersionResource> PreviousPage(Page<AssetVersionResource> page, ITwilioRestClient client)
+        public static Page<AssetVersionResource> PreviousPage(Page<AssetVersionResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -251,7 +251,7 @@ namespace Kandy.Rest.Serverless.V1.Service.Asset
             return Page<AssetVersionResource>.FromJson("asset_versions", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a AssetVersionResource object
         /// </summary>
@@ -269,7 +269,7 @@ namespace Kandy.Rest.Serverless.V1.Service.Asset
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the Asset Version resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -290,7 +290,7 @@ namespace Kandy.Rest.Serverless.V1.Service.Asset
         [JsonProperty("path")]
         public string Path { get; private set; }
 
-        
+
         [JsonProperty("visibility")]
         public AssetVersionResource.VisibilityEnum Visibility { get; private set; }
 
@@ -304,7 +304,8 @@ namespace Kandy.Rest.Serverless.V1.Service.Asset
 
 
 
-        private AssetVersionResource() {
+        private AssetVersionResource()
+        {
 
         }
     }

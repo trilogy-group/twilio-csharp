@@ -28,16 +28,16 @@ namespace Kandy.Rest.Preview.Sync.Service
 {
     public class DocumentResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateDocumentOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateDocumentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/Sync/Services/{ServiceSid}/Documents";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -52,26 +52,26 @@ namespace Kandy.Rest.Preview.Sync.Service
         /// <param name="options"> Create Document parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Document </returns>
-        public static DocumentResource Create(CreateDocumentOptions options, ITwilioRestClient client = null)
+        public static DocumentResource Create(CreateDocumentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create Document parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Document </returns>
         public static async System.Threading.Tasks.Task<DocumentResource> CreateAsync(CreateDocumentOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="pathServiceSid">  </param>
@@ -83,13 +83,13 @@ namespace Kandy.Rest.Preview.Sync.Service
                                           string pathServiceSid,
                                           string uniqueName = null,
                                           object data = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateDocumentOptions(pathServiceSid){  UniqueName = uniqueName, Data = data };
+            var options = new CreateDocumentOptions(pathServiceSid) { UniqueName = uniqueName, Data = data };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="pathServiceSid">  </param>
         /// <param name="uniqueName">  </param>
@@ -100,26 +100,26 @@ namespace Kandy.Rest.Preview.Sync.Service
                                                                                   string pathServiceSid,
                                                                                   string uniqueName = null,
                                                                                   object data = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateDocumentOptions(pathServiceSid){  UniqueName = uniqueName, Data = data };
+            var options = new CreateDocumentOptions(pathServiceSid) { UniqueName = uniqueName, Data = data };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> delete </summary>
         /// <param name="options"> Delete Document parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Document </returns>
-        private static Request BuildDeleteRequest(DeleteDocumentOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteDocumentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/Sync/Services/{ServiceSid}/Documents/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -134,60 +134,60 @@ namespace Kandy.Rest.Preview.Sync.Service
         /// <param name="options"> Delete Document parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Document </returns>
-        public static bool Delete(DeleteDocumentOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteDocumentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="options"> Delete Document parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Document </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteDocumentOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> delete </summary>
         /// <param name="pathServiceSid">  </param>
         /// <param name="pathSid">  </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Document </returns>
-        public static bool Delete(string pathServiceSid, string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathServiceSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteDocumentOptions(pathServiceSid, pathSid)        ;
+            var options = new DeleteDocumentOptions(pathServiceSid, pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="pathServiceSid">  </param>
         /// <param name="pathSid">  </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Document </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteDocumentOptions(pathServiceSid, pathSid) ;
+            var options = new DeleteDocumentOptions(pathServiceSid, pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchDocumentOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchDocumentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/Sync/Services/{ServiceSid}/Documents/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -202,60 +202,60 @@ namespace Kandy.Rest.Preview.Sync.Service
         /// <param name="options"> Fetch Document parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Document </returns>
-        public static DocumentResource Fetch(FetchDocumentOptions options, ITwilioRestClient client = null)
+        public static DocumentResource Fetch(FetchDocumentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch Document parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Document </returns>
         public static async System.Threading.Tasks.Task<DocumentResource> FetchAsync(FetchDocumentOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathServiceSid">  </param>
         /// <param name="pathSid">  </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Document </returns>
         public static DocumentResource Fetch(
-                                         string pathServiceSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathServiceSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchDocumentOptions(pathServiceSid, pathSid){  };
+            var options = new FetchDocumentOptions(pathServiceSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathServiceSid">  </param>
         /// <param name="pathSid">  </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Document </returns>
-        public static async System.Threading.Tasks.Task<DocumentResource> FetchAsync(string pathServiceSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<DocumentResource> FetchAsync(string pathServiceSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchDocumentOptions(pathServiceSid, pathSid){  };
+            var options = new FetchDocumentOptions(pathServiceSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadDocumentOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadDocumentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/Sync/Services/{ServiceSid}/Documents";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -269,7 +269,7 @@ namespace Kandy.Rest.Preview.Sync.Service
         /// <param name="options"> Read Document parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Document </returns>
-        public static ResourceSet<DocumentResource> Read(ReadDocumentOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<DocumentResource> Read(ReadDocumentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -277,13 +277,13 @@ namespace Kandy.Rest.Preview.Sync.Service
             return new ResourceSet<DocumentResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read Document parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Document </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<DocumentResource>> ReadAsync(ReadDocumentOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -291,7 +291,7 @@ namespace Kandy.Rest.Preview.Sync.Service
             var page = Page<DocumentResource>.FromJson("documents", response.Content);
             return new ResourceSet<DocumentResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="pathServiceSid">  </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -302,13 +302,13 @@ namespace Kandy.Rest.Preview.Sync.Service
                                                      string pathServiceSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadDocumentOptions(pathServiceSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadDocumentOptions(pathServiceSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="pathServiceSid">  </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -319,19 +319,19 @@ namespace Kandy.Rest.Preview.Sync.Service
                                                                                              string pathServiceSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadDocumentOptions(pathServiceSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadDocumentOptions(pathServiceSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<DocumentResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<DocumentResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -348,7 +348,7 @@ namespace Kandy.Rest.Preview.Sync.Service
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<DocumentResource> NextPage(Page<DocumentResource> page, ITwilioRestClient client)
+        public static Page<DocumentResource> NextPage(Page<DocumentResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -363,7 +363,7 @@ namespace Kandy.Rest.Preview.Sync.Service
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<DocumentResource> PreviousPage(Page<DocumentResource> page, ITwilioRestClient client)
+        public static Page<DocumentResource> PreviousPage(Page<DocumentResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -374,16 +374,16 @@ namespace Kandy.Rest.Preview.Sync.Service
             return Page<DocumentResource>.FromJson("documents", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateDocumentOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateDocumentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/Sync/Services/{ServiceSid}/Documents/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -398,7 +398,7 @@ namespace Kandy.Rest.Preview.Sync.Service
         /// <param name="options"> Update Document parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Document </returns>
-        public static DocumentResource Update(UpdateDocumentOptions options, ITwilioRestClient client = null)
+        public static DocumentResource Update(UpdateDocumentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -409,15 +409,15 @@ namespace Kandy.Rest.Preview.Sync.Service
         /// <param name="options"> Update Document parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Document </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<DocumentResource> UpdateAsync(UpdateDocumentOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> update </summary>
         /// <param name="pathServiceSid">  </param>
@@ -431,13 +431,13 @@ namespace Kandy.Rest.Preview.Sync.Service
                                           string pathSid,
                                           object data,
                                           string ifMatch = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateDocumentOptions(pathServiceSid, pathSid, data){ IfMatch = ifMatch };
+            var options = new UpdateDocumentOptions(pathServiceSid, pathSid, data) { IfMatch = ifMatch };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> update </summary>
         /// <param name="pathServiceSid">  </param>
         /// <param name="pathSid">  </param>
@@ -450,13 +450,13 @@ namespace Kandy.Rest.Preview.Sync.Service
                                                                               string pathSid,
                                                                               object data,
                                                                               string ifMatch = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateDocumentOptions(pathServiceSid, pathSid, data){ IfMatch = ifMatch };
+            var options = new UpdateDocumentOptions(pathServiceSid, pathSid, data) { IfMatch = ifMatch };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a DocumentResource object
         /// </summary>
@@ -474,7 +474,7 @@ namespace Kandy.Rest.Preview.Sync.Service
             }
         }
 
-    
+
         ///<summary> The sid </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -521,7 +521,8 @@ namespace Kandy.Rest.Preview.Sync.Service
 
 
 
-        private DocumentResource() {
+        private DocumentResource()
+        {
 
         }
     }

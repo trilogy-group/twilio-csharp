@@ -28,16 +28,16 @@ namespace Kandy.Rest.Messaging.V1.Service
 {
     public class UsAppToPersonUsecaseResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchUsAppToPersonUsecaseOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchUsAppToPersonUsecaseOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/Usecases";
 
             string PathMessagingServiceSid = options.PathMessagingServiceSid;
-            path = path.Replace("{"+"MessagingServiceSid"+"}", PathMessagingServiceSid);
+            path = path.Replace("{" + "MessagingServiceSid" + "}", PathMessagingServiceSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -52,53 +52,53 @@ namespace Kandy.Rest.Messaging.V1.Service
         /// <param name="options"> Fetch UsAppToPersonUsecase parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of UsAppToPersonUsecase </returns>
-        public static UsAppToPersonUsecaseResource Fetch(FetchUsAppToPersonUsecaseOptions options, ITwilioRestClient client = null)
+        public static UsAppToPersonUsecaseResource Fetch(FetchUsAppToPersonUsecaseOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch UsAppToPersonUsecase parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of UsAppToPersonUsecase </returns>
         public static async System.Threading.Tasks.Task<UsAppToPersonUsecaseResource> FetchAsync(FetchUsAppToPersonUsecaseOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathMessagingServiceSid"> The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) to fetch the resource from. </param>
         /// <param name="brandRegistrationSid"> The unique string to identify the A2P brand. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of UsAppToPersonUsecase </returns>
         public static UsAppToPersonUsecaseResource Fetch(
-                                         string pathMessagingServiceSid, 
-                                         string brandRegistrationSid = null, 
-                                         ITwilioRestClient client = null)
+                                         string pathMessagingServiceSid,
+                                         string brandRegistrationSid = null,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchUsAppToPersonUsecaseOptions(pathMessagingServiceSid){ BrandRegistrationSid = brandRegistrationSid };
+            var options = new FetchUsAppToPersonUsecaseOptions(pathMessagingServiceSid) { BrandRegistrationSid = brandRegistrationSid };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathMessagingServiceSid"> The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) to fetch the resource from. </param>
         /// <param name="brandRegistrationSid"> The unique string to identify the A2P brand. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of UsAppToPersonUsecase </returns>
-        public static async System.Threading.Tasks.Task<UsAppToPersonUsecaseResource> FetchAsync(string pathMessagingServiceSid, string brandRegistrationSid = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<UsAppToPersonUsecaseResource> FetchAsync(string pathMessagingServiceSid, string brandRegistrationSid = null, IKandyRestClient client = null)
         {
-            var options = new FetchUsAppToPersonUsecaseOptions(pathMessagingServiceSid){ BrandRegistrationSid = brandRegistrationSid };
+            var options = new FetchUsAppToPersonUsecaseOptions(pathMessagingServiceSid) { BrandRegistrationSid = brandRegistrationSid };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a UsAppToPersonUsecaseResource object
         /// </summary>
@@ -116,14 +116,15 @@ namespace Kandy.Rest.Messaging.V1.Service
             }
         }
 
-    
+
         ///<summary> Human readable name, code, description and post_approval_required (indicates whether or not post approval is required for this Use Case) of A2P Campaign Use Cases. </summary> 
         [JsonProperty("us_app_to_person_usecases")]
         public List<object> UsAppToPersonUsecases { get; private set; }
 
 
 
-        private UsAppToPersonUsecaseResource() {
+        private UsAppToPersonUsecaseResource()
+        {
 
         }
     }

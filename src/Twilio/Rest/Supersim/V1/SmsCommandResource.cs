@@ -28,12 +28,12 @@ namespace Kandy.Rest.Supersim.V1
 {
     public class SmsCommandResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class StatusEnum : StringEnum
         {
-            private StatusEnum(string value) : base(value) {}
-            public StatusEnum() {}
+            private StatusEnum(string value) : base(value) { }
+            public StatusEnum() { }
             public static implicit operator StatusEnum(string value)
             {
                 return new StatusEnum(value);
@@ -48,8 +48,8 @@ namespace Kandy.Rest.Supersim.V1
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class DirectionEnum : StringEnum
         {
-            private DirectionEnum(string value) : base(value) {}
-            public DirectionEnum() {}
+            private DirectionEnum(string value) : base(value) { }
+            public DirectionEnum() { }
             public static implicit operator DirectionEnum(string value)
             {
                 return new DirectionEnum(value);
@@ -59,10 +59,10 @@ namespace Kandy.Rest.Supersim.V1
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateSmsCommandOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateSmsCommandOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/SmsCommands";
 
 
@@ -79,26 +79,26 @@ namespace Kandy.Rest.Supersim.V1
         /// <param name="options"> Create SmsCommand parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SmsCommand </returns>
-        public static SmsCommandResource Create(CreateSmsCommandOptions options, ITwilioRestClient client = null)
+        public static SmsCommandResource Create(CreateSmsCommandOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Send SMS Command to a Sim. </summary>
         /// <param name="options"> Create SmsCommand parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SmsCommand </returns>
         public static async System.Threading.Tasks.Task<SmsCommandResource> CreateAsync(CreateSmsCommandOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Send SMS Command to a Sim. </summary>
         /// <param name="sim"> The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the SMS Command to. </param>
@@ -112,13 +112,13 @@ namespace Kandy.Rest.Supersim.V1
                                           string payload,
                                           Twilio.Http.HttpMethod callbackMethod = null,
                                           Uri callbackUrl = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateSmsCommandOptions(sim, payload){  CallbackMethod = callbackMethod, CallbackUrl = callbackUrl };
+            var options = new CreateSmsCommandOptions(sim, payload) { CallbackMethod = callbackMethod, CallbackUrl = callbackUrl };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Send SMS Command to a Sim. </summary>
         /// <param name="sim"> The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the SMS Command to. </param>
         /// <param name="payload"> The message body of the SMS Command. </param>
@@ -131,20 +131,20 @@ namespace Kandy.Rest.Supersim.V1
                                                                                   string payload,
                                                                                   Twilio.Http.HttpMethod callbackMethod = null,
                                                                                   Uri callbackUrl = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateSmsCommandOptions(sim, payload){  CallbackMethod = callbackMethod, CallbackUrl = callbackUrl };
+            var options = new CreateSmsCommandOptions(sim, payload) { CallbackMethod = callbackMethod, CallbackUrl = callbackUrl };
             return await CreateAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchSmsCommandOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchSmsCommandOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/SmsCommands/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -159,53 +159,53 @@ namespace Kandy.Rest.Supersim.V1
         /// <param name="options"> Fetch SmsCommand parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SmsCommand </returns>
-        public static SmsCommandResource Fetch(FetchSmsCommandOptions options, ITwilioRestClient client = null)
+        public static SmsCommandResource Fetch(FetchSmsCommandOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch SMS Command instance from your account. </summary>
         /// <param name="options"> Fetch SmsCommand parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SmsCommand </returns>
         public static async System.Threading.Tasks.Task<SmsCommandResource> FetchAsync(FetchSmsCommandOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch SMS Command instance from your account. </summary>
         /// <param name="pathSid"> The SID of the SMS Command resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SmsCommand </returns>
         public static SmsCommandResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchSmsCommandOptions(pathSid){  };
+            var options = new FetchSmsCommandOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch SMS Command instance from your account. </summary>
         /// <param name="pathSid"> The SID of the SMS Command resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SmsCommand </returns>
-        public static async System.Threading.Tasks.Task<SmsCommandResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<SmsCommandResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchSmsCommandOptions(pathSid){  };
+            var options = new FetchSmsCommandOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadSmsCommandOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadSmsCommandOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/SmsCommands";
 
 
@@ -221,7 +221,7 @@ namespace Kandy.Rest.Supersim.V1
         /// <param name="options"> Read SmsCommand parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SmsCommand </returns>
-        public static ResourceSet<SmsCommandResource> Read(ReadSmsCommandOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<SmsCommandResource> Read(ReadSmsCommandOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -229,13 +229,13 @@ namespace Kandy.Rest.Supersim.V1
             return new ResourceSet<SmsCommandResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of SMS Commands from your account. </summary>
         /// <param name="options"> Read SmsCommand parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SmsCommand </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<SmsCommandResource>> ReadAsync(ReadSmsCommandOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -243,7 +243,7 @@ namespace Kandy.Rest.Supersim.V1
             var page = Page<SmsCommandResource>.FromJson("sms_commands", response.Content);
             return new ResourceSet<SmsCommandResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of SMS Commands from your account. </summary>
         /// <param name="sim"> The SID or unique name of the Sim resource that SMS Command was sent to or from. </param>
         /// <param name="status"> The status of the SMS Command. Can be: `queued`, `sent`, `delivered`, `received` or `failed`. See the [SMS Command Status Values](https://www.twilio.com/docs/iot/supersim/api/smscommand-resource#status-values) for a description of each. </param>
@@ -258,13 +258,13 @@ namespace Kandy.Rest.Supersim.V1
                                                      SmsCommandResource.DirectionEnum direction = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadSmsCommandOptions(){ Sim = sim, Status = status, Direction = direction, PageSize = pageSize, Limit = limit};
+            var options = new ReadSmsCommandOptions() { Sim = sim, Status = status, Direction = direction, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of SMS Commands from your account. </summary>
         /// <param name="sim"> The SID or unique name of the Sim resource that SMS Command was sent to or from. </param>
         /// <param name="status"> The status of the SMS Command. Can be: `queued`, `sent`, `delivered`, `received` or `failed`. See the [SMS Command Status Values](https://www.twilio.com/docs/iot/supersim/api/smscommand-resource#status-values) for a description of each. </param>
@@ -279,19 +279,19 @@ namespace Kandy.Rest.Supersim.V1
                                                                                              SmsCommandResource.DirectionEnum direction = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadSmsCommandOptions(){ Sim = sim, Status = status, Direction = direction, PageSize = pageSize, Limit = limit};
+            var options = new ReadSmsCommandOptions() { Sim = sim, Status = status, Direction = direction, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<SmsCommandResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<SmsCommandResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -308,7 +308,7 @@ namespace Kandy.Rest.Supersim.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<SmsCommandResource> NextPage(Page<SmsCommandResource> page, ITwilioRestClient client)
+        public static Page<SmsCommandResource> NextPage(Page<SmsCommandResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -323,7 +323,7 @@ namespace Kandy.Rest.Supersim.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<SmsCommandResource> PreviousPage(Page<SmsCommandResource> page, ITwilioRestClient client)
+        public static Page<SmsCommandResource> PreviousPage(Page<SmsCommandResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -334,7 +334,7 @@ namespace Kandy.Rest.Supersim.V1
             return Page<SmsCommandResource>.FromJson("sms_commands", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a SmsCommandResource object
         /// </summary>
@@ -352,7 +352,7 @@ namespace Kandy.Rest.Supersim.V1
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the SMS Command resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -369,11 +369,11 @@ namespace Kandy.Rest.Supersim.V1
         [JsonProperty("payload")]
         public string Payload { get; private set; }
 
-        
+
         [JsonProperty("status")]
         public SmsCommandResource.StatusEnum Status { get; private set; }
 
-        
+
         [JsonProperty("direction")]
         public SmsCommandResource.DirectionEnum Direction { get; private set; }
 
@@ -391,7 +391,8 @@ namespace Kandy.Rest.Supersim.V1
 
 
 
-        private SmsCommandResource() {
+        private SmsCommandResource()
+        {
 
         }
     }

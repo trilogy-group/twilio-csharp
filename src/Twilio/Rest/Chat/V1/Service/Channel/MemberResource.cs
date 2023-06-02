@@ -28,18 +28,18 @@ namespace Kandy.Rest.Chat.V1.Service.Channel
 {
     public class MemberResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateMemberOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateMemberOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathChannelSid = options.PathChannelSid;
-            path = path.Replace("{"+"ChannelSid"+"}", PathChannelSid);
+            path = path.Replace("{" + "ChannelSid" + "}", PathChannelSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -54,26 +54,26 @@ namespace Kandy.Rest.Chat.V1.Service.Channel
         /// <param name="options"> Create Member parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Member </returns>
-        public static MemberResource Create(CreateMemberOptions options, ITwilioRestClient client = null)
+        public static MemberResource Create(CreateMemberOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create Member parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Member </returns>
         public static async System.Threading.Tasks.Task<MemberResource> CreateAsync(CreateMemberOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to create the resource under. </param>
@@ -87,13 +87,13 @@ namespace Kandy.Rest.Chat.V1.Service.Channel
                                           string pathChannelSid,
                                           string identity,
                                           string roleSid = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateMemberOptions(pathServiceSid, pathChannelSid, identity){  RoleSid = roleSid };
+            var options = new CreateMemberOptions(pathServiceSid, pathChannelSid, identity) { RoleSid = roleSid };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to create the resource under. </param>
         /// <param name="pathChannelSid"> The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the new member belongs to. Can be the Channel resource's `sid` or `unique_name`. </param>
@@ -106,28 +106,28 @@ namespace Kandy.Rest.Chat.V1.Service.Channel
                                                                                   string pathChannelSid,
                                                                                   string identity,
                                                                                   string roleSid = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateMemberOptions(pathServiceSid, pathChannelSid, identity){  RoleSid = roleSid };
+            var options = new CreateMemberOptions(pathServiceSid, pathChannelSid, identity) { RoleSid = roleSid };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> delete </summary>
         /// <param name="options"> Delete Member parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Member </returns>
-        private static Request BuildDeleteRequest(DeleteMemberOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteMemberOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathChannelSid = options.PathChannelSid;
-            path = path.Replace("{"+"ChannelSid"+"}", PathChannelSid);
+            path = path.Replace("{" + "ChannelSid" + "}", PathChannelSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -142,26 +142,26 @@ namespace Kandy.Rest.Chat.V1.Service.Channel
         /// <param name="options"> Delete Member parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Member </returns>
-        public static bool Delete(DeleteMemberOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteMemberOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="options"> Delete Member parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Member </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteMemberOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> delete </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to delete the resource from. </param>
@@ -169,37 +169,37 @@ namespace Kandy.Rest.Chat.V1.Service.Channel
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Member resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Member </returns>
-        public static bool Delete(string pathServiceSid, string pathChannelSid, string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathServiceSid, string pathChannelSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteMemberOptions(pathServiceSid, pathChannelSid, pathSid)           ;
+            var options = new DeleteMemberOptions(pathServiceSid, pathChannelSid, pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to delete the resource from. </param>
         /// <param name="pathChannelSid"> The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the message belongs to.  Can be the Channel's `sid` or `unique_name`. </param>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Member resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Member </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathChannelSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathChannelSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteMemberOptions(pathServiceSid, pathChannelSid, pathSid) ;
+            var options = new DeleteMemberOptions(pathServiceSid, pathChannelSid, pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchMemberOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchMemberOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathChannelSid = options.PathChannelSid;
-            path = path.Replace("{"+"ChannelSid"+"}", PathChannelSid);
+            path = path.Replace("{" + "ChannelSid" + "}", PathChannelSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -214,26 +214,26 @@ namespace Kandy.Rest.Chat.V1.Service.Channel
         /// <param name="options"> Fetch Member parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Member </returns>
-        public static MemberResource Fetch(FetchMemberOptions options, ITwilioRestClient client = null)
+        public static MemberResource Fetch(FetchMemberOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch Member parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Member </returns>
         public static async System.Threading.Tasks.Task<MemberResource> FetchAsync(FetchMemberOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to fetch the resource from. </param>
         /// <param name="pathChannelSid"> The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the member to fetch belongs to. Can be the Channel resource's `sid` or `unique_name` value. </param>
@@ -241,38 +241,38 @@ namespace Kandy.Rest.Chat.V1.Service.Channel
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Member </returns>
         public static MemberResource Fetch(
-                                         string pathServiceSid, 
-                                         string pathChannelSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathServiceSid,
+                                         string pathChannelSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchMemberOptions(pathServiceSid, pathChannelSid, pathSid){  };
+            var options = new FetchMemberOptions(pathServiceSid, pathChannelSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to fetch the resource from. </param>
         /// <param name="pathChannelSid"> The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the member to fetch belongs to. Can be the Channel resource's `sid` or `unique_name` value. </param>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Member resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Member </returns>
-        public static async System.Threading.Tasks.Task<MemberResource> FetchAsync(string pathServiceSid, string pathChannelSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<MemberResource> FetchAsync(string pathServiceSid, string pathChannelSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchMemberOptions(pathServiceSid, pathChannelSid, pathSid){  };
+            var options = new FetchMemberOptions(pathServiceSid, pathChannelSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadMemberOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadMemberOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathChannelSid = options.PathChannelSid;
-            path = path.Replace("{"+"ChannelSid"+"}", PathChannelSid);
+            path = path.Replace("{" + "ChannelSid" + "}", PathChannelSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -286,7 +286,7 @@ namespace Kandy.Rest.Chat.V1.Service.Channel
         /// <param name="options"> Read Member parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Member </returns>
-        public static ResourceSet<MemberResource> Read(ReadMemberOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<MemberResource> Read(ReadMemberOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -294,13 +294,13 @@ namespace Kandy.Rest.Chat.V1.Service.Channel
             return new ResourceSet<MemberResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read Member parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Member </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<MemberResource>> ReadAsync(ReadMemberOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -308,7 +308,7 @@ namespace Kandy.Rest.Chat.V1.Service.Channel
             var page = Page<MemberResource>.FromJson("members", response.Content);
             return new ResourceSet<MemberResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to read the resources from. </param>
         /// <param name="pathChannelSid"> The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the members to read belong to. Can be the Channel resource's `sid` or `unique_name` value. </param>
@@ -323,13 +323,13 @@ namespace Kandy.Rest.Chat.V1.Service.Channel
                                                      List<string> identity = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadMemberOptions(pathServiceSid, pathChannelSid){ Identity = identity, PageSize = pageSize, Limit = limit};
+            var options = new ReadMemberOptions(pathServiceSid, pathChannelSid) { Identity = identity, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to read the resources from. </param>
         /// <param name="pathChannelSid"> The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the members to read belong to. Can be the Channel resource's `sid` or `unique_name` value. </param>
@@ -344,19 +344,19 @@ namespace Kandy.Rest.Chat.V1.Service.Channel
                                                                                              List<string> identity = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadMemberOptions(pathServiceSid, pathChannelSid){ Identity = identity, PageSize = pageSize, Limit = limit};
+            var options = new ReadMemberOptions(pathServiceSid, pathChannelSid) { Identity = identity, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<MemberResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<MemberResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -373,7 +373,7 @@ namespace Kandy.Rest.Chat.V1.Service.Channel
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<MemberResource> NextPage(Page<MemberResource> page, ITwilioRestClient client)
+        public static Page<MemberResource> NextPage(Page<MemberResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -388,7 +388,7 @@ namespace Kandy.Rest.Chat.V1.Service.Channel
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<MemberResource> PreviousPage(Page<MemberResource> page, ITwilioRestClient client)
+        public static Page<MemberResource> PreviousPage(Page<MemberResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -399,18 +399,18 @@ namespace Kandy.Rest.Chat.V1.Service.Channel
             return Page<MemberResource>.FromJson("members", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateMemberOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateMemberOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathChannelSid = options.PathChannelSid;
-            path = path.Replace("{"+"ChannelSid"+"}", PathChannelSid);
+            path = path.Replace("{" + "ChannelSid" + "}", PathChannelSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -425,7 +425,7 @@ namespace Kandy.Rest.Chat.V1.Service.Channel
         /// <param name="options"> Update Member parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Member </returns>
-        public static MemberResource Update(UpdateMemberOptions options, ITwilioRestClient client = null)
+        public static MemberResource Update(UpdateMemberOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -436,15 +436,15 @@ namespace Kandy.Rest.Chat.V1.Service.Channel
         /// <param name="options"> Update Member parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Member </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<MemberResource> UpdateAsync(UpdateMemberOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> update </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to update the resource from. </param>
@@ -460,13 +460,13 @@ namespace Kandy.Rest.Chat.V1.Service.Channel
                                           string pathSid,
                                           string roleSid = null,
                                           int? lastConsumedMessageIndex = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateMemberOptions(pathServiceSid, pathChannelSid, pathSid){ RoleSid = roleSid, LastConsumedMessageIndex = lastConsumedMessageIndex };
+            var options = new UpdateMemberOptions(pathServiceSid, pathChannelSid, pathSid) { RoleSid = roleSid, LastConsumedMessageIndex = lastConsumedMessageIndex };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> update </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to update the resource from. </param>
         /// <param name="pathChannelSid"> The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the member to update belongs to. Can be the Channel resource's `sid` or `unique_name`. </param>
@@ -481,13 +481,13 @@ namespace Kandy.Rest.Chat.V1.Service.Channel
                                                                               string pathSid,
                                                                               string roleSid = null,
                                                                               int? lastConsumedMessageIndex = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateMemberOptions(pathServiceSid, pathChannelSid, pathSid){ RoleSid = roleSid, LastConsumedMessageIndex = lastConsumedMessageIndex };
+            var options = new UpdateMemberOptions(pathServiceSid, pathChannelSid, pathSid) { RoleSid = roleSid, LastConsumedMessageIndex = lastConsumedMessageIndex };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a MemberResource object
         /// </summary>
@@ -505,7 +505,7 @@ namespace Kandy.Rest.Chat.V1.Service.Channel
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the Member resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -552,7 +552,8 @@ namespace Kandy.Rest.Chat.V1.Service.Channel
 
 
 
-        private MemberResource() {
+        private MemberResource()
+        {
 
         }
     }

@@ -28,20 +28,20 @@ namespace Kandy.Rest.Messaging.V1
 {
     public class DomainCertsResource : Resource
     {
-    
 
-        
+
+
         /// <summary> delete </summary>
         /// <param name="options"> Delete DomainCerts parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of DomainCerts </returns>
-        private static Request BuildDeleteRequest(DeleteDomainCertsOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteDomainCertsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/LinkShortening/Domains/{DomainSid}/Certificate";
 
             string PathDomainSid = options.PathDomainSid;
-            path = path.Replace("{"+"DomainSid"+"}", PathDomainSid);
+            path = path.Replace("{" + "DomainSid" + "}", PathDomainSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -56,56 +56,56 @@ namespace Kandy.Rest.Messaging.V1
         /// <param name="options"> Delete DomainCerts parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of DomainCerts </returns>
-        public static bool Delete(DeleteDomainCertsOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteDomainCertsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="options"> Delete DomainCerts parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of DomainCerts </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteDomainCertsOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> delete </summary>
         /// <param name="pathDomainSid"> Unique string used to identify the domain that this certificate should be associated with. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of DomainCerts </returns>
-        public static bool Delete(string pathDomainSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathDomainSid, IKandyRestClient client = null)
         {
-            var options = new DeleteDomainCertsOptions(pathDomainSid)     ;
+            var options = new DeleteDomainCertsOptions(pathDomainSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="pathDomainSid"> Unique string used to identify the domain that this certificate should be associated with. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of DomainCerts </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathDomainSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathDomainSid, IKandyRestClient client = null)
         {
-            var options = new DeleteDomainCertsOptions(pathDomainSid) ;
+            var options = new DeleteDomainCertsOptions(pathDomainSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchDomainCertsOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchDomainCertsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/LinkShortening/Domains/{DomainSid}/Certificate";
 
             string PathDomainSid = options.PathDomainSid;
-            path = path.Replace("{"+"DomainSid"+"}", PathDomainSid);
+            path = path.Replace("{" + "DomainSid" + "}", PathDomainSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -120,57 +120,57 @@ namespace Kandy.Rest.Messaging.V1
         /// <param name="options"> Fetch DomainCerts parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of DomainCerts </returns>
-        public static DomainCertsResource Fetch(FetchDomainCertsOptions options, ITwilioRestClient client = null)
+        public static DomainCertsResource Fetch(FetchDomainCertsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch DomainCerts parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of DomainCerts </returns>
         public static async System.Threading.Tasks.Task<DomainCertsResource> FetchAsync(FetchDomainCertsOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathDomainSid"> Unique string used to identify the domain that this certificate should be associated with. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of DomainCerts </returns>
         public static DomainCertsResource Fetch(
-                                         string pathDomainSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathDomainSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchDomainCertsOptions(pathDomainSid){  };
+            var options = new FetchDomainCertsOptions(pathDomainSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathDomainSid"> Unique string used to identify the domain that this certificate should be associated with. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of DomainCerts </returns>
-        public static async System.Threading.Tasks.Task<DomainCertsResource> FetchAsync(string pathDomainSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<DomainCertsResource> FetchAsync(string pathDomainSid, IKandyRestClient client = null)
         {
-            var options = new FetchDomainCertsOptions(pathDomainSid){  };
+            var options = new FetchDomainCertsOptions(pathDomainSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildUpdateRequest(UpdateDomainCertsOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildUpdateRequest(UpdateDomainCertsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/LinkShortening/Domains/{DomainSid}/Certificate";
 
             string PathDomainSid = options.PathDomainSid;
-            path = path.Replace("{"+"DomainSid"+"}", PathDomainSid);
+            path = path.Replace("{" + "DomainSid" + "}", PathDomainSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -185,7 +185,7 @@ namespace Kandy.Rest.Messaging.V1
         /// <param name="options"> Update DomainCerts parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of DomainCerts </returns>
-        public static DomainCertsResource Update(UpdateDomainCertsOptions options, ITwilioRestClient client = null)
+        public static DomainCertsResource Update(UpdateDomainCertsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -196,15 +196,15 @@ namespace Kandy.Rest.Messaging.V1
         /// <param name="options"> Update DomainCerts parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of DomainCerts </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<DomainCertsResource> UpdateAsync(UpdateDomainCertsOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> update </summary>
         /// <param name="pathDomainSid"> Unique string used to identify the domain that this certificate should be associated with. </param>
@@ -214,13 +214,13 @@ namespace Kandy.Rest.Messaging.V1
         public static DomainCertsResource Update(
                                           string pathDomainSid,
                                           string tlsCert,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateDomainCertsOptions(pathDomainSid, tlsCert){  };
+            var options = new UpdateDomainCertsOptions(pathDomainSid, tlsCert) { };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> update </summary>
         /// <param name="pathDomainSid"> Unique string used to identify the domain that this certificate should be associated with. </param>
         /// <param name="tlsCert"> Contains the full TLS certificate and private for this domain in PEM format: https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail. Twilio uses this information to process HTTPS traffic sent to your domain. </param>
@@ -229,13 +229,13 @@ namespace Kandy.Rest.Messaging.V1
         public static async System.Threading.Tasks.Task<DomainCertsResource> UpdateAsync(
                                                                               string pathDomainSid,
                                                                               string tlsCert,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateDomainCertsOptions(pathDomainSid, tlsCert){  };
+            var options = new UpdateDomainCertsOptions(pathDomainSid, tlsCert) { };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a DomainCertsResource object
         /// </summary>
@@ -253,7 +253,7 @@ namespace Kandy.Rest.Messaging.V1
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the Domain resource. </summary> 
         [JsonProperty("domain_sid")]
         public string DomainSid { get; private set; }
@@ -288,7 +288,8 @@ namespace Kandy.Rest.Messaging.V1
 
 
 
-        private DomainCertsResource() {
+        private DomainCertsResource()
+        {
 
         }
     }

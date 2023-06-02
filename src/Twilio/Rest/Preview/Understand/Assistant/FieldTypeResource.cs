@@ -28,16 +28,16 @@ namespace Kandy.Rest.Preview.Understand.Assistant
 {
     public class FieldTypeResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateFieldTypeOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateFieldTypeOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/understand/Assistants/{AssistantSid}/FieldTypes";
 
             string PathAssistantSid = options.PathAssistantSid;
-            path = path.Replace("{"+"AssistantSid"+"}", PathAssistantSid);
+            path = path.Replace("{" + "AssistantSid" + "}", PathAssistantSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -52,26 +52,26 @@ namespace Kandy.Rest.Preview.Understand.Assistant
         /// <param name="options"> Create FieldType parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of FieldType </returns>
-        public static FieldTypeResource Create(CreateFieldTypeOptions options, ITwilioRestClient client = null)
+        public static FieldTypeResource Create(CreateFieldTypeOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create FieldType parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of FieldType </returns>
         public static async System.Threading.Tasks.Task<FieldTypeResource> CreateAsync(CreateFieldTypeOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="pathAssistantSid">  </param>
@@ -83,13 +83,13 @@ namespace Kandy.Rest.Preview.Understand.Assistant
                                           string pathAssistantSid,
                                           string uniqueName,
                                           string friendlyName = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateFieldTypeOptions(pathAssistantSid, uniqueName){  FriendlyName = friendlyName };
+            var options = new CreateFieldTypeOptions(pathAssistantSid, uniqueName) { FriendlyName = friendlyName };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="pathAssistantSid">  </param>
         /// <param name="uniqueName"> A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. </param>
@@ -100,26 +100,26 @@ namespace Kandy.Rest.Preview.Understand.Assistant
                                                                                   string pathAssistantSid,
                                                                                   string uniqueName,
                                                                                   string friendlyName = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateFieldTypeOptions(pathAssistantSid, uniqueName){  FriendlyName = friendlyName };
+            var options = new CreateFieldTypeOptions(pathAssistantSid, uniqueName) { FriendlyName = friendlyName };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> delete </summary>
         /// <param name="options"> Delete FieldType parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of FieldType </returns>
-        private static Request BuildDeleteRequest(DeleteFieldTypeOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteFieldTypeOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/understand/Assistants/{AssistantSid}/FieldTypes/{Sid}";
 
             string PathAssistantSid = options.PathAssistantSid;
-            path = path.Replace("{"+"AssistantSid"+"}", PathAssistantSid);
+            path = path.Replace("{" + "AssistantSid" + "}", PathAssistantSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -134,60 +134,60 @@ namespace Kandy.Rest.Preview.Understand.Assistant
         /// <param name="options"> Delete FieldType parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of FieldType </returns>
-        public static bool Delete(DeleteFieldTypeOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteFieldTypeOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="options"> Delete FieldType parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of FieldType </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteFieldTypeOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> delete </summary>
         /// <param name="pathAssistantSid">  </param>
         /// <param name="pathSid">  </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of FieldType </returns>
-        public static bool Delete(string pathAssistantSid, string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathAssistantSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteFieldTypeOptions(pathAssistantSid, pathSid)        ;
+            var options = new DeleteFieldTypeOptions(pathAssistantSid, pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="pathAssistantSid">  </param>
         /// <param name="pathSid">  </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of FieldType </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathAssistantSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathAssistantSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteFieldTypeOptions(pathAssistantSid, pathSid) ;
+            var options = new DeleteFieldTypeOptions(pathAssistantSid, pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchFieldTypeOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchFieldTypeOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/understand/Assistants/{AssistantSid}/FieldTypes/{Sid}";
 
             string PathAssistantSid = options.PathAssistantSid;
-            path = path.Replace("{"+"AssistantSid"+"}", PathAssistantSid);
+            path = path.Replace("{" + "AssistantSid" + "}", PathAssistantSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -202,60 +202,60 @@ namespace Kandy.Rest.Preview.Understand.Assistant
         /// <param name="options"> Fetch FieldType parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of FieldType </returns>
-        public static FieldTypeResource Fetch(FetchFieldTypeOptions options, ITwilioRestClient client = null)
+        public static FieldTypeResource Fetch(FetchFieldTypeOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch FieldType parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of FieldType </returns>
         public static async System.Threading.Tasks.Task<FieldTypeResource> FetchAsync(FetchFieldTypeOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathAssistantSid">  </param>
         /// <param name="pathSid">  </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of FieldType </returns>
         public static FieldTypeResource Fetch(
-                                         string pathAssistantSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathAssistantSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchFieldTypeOptions(pathAssistantSid, pathSid){  };
+            var options = new FetchFieldTypeOptions(pathAssistantSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathAssistantSid">  </param>
         /// <param name="pathSid">  </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of FieldType </returns>
-        public static async System.Threading.Tasks.Task<FieldTypeResource> FetchAsync(string pathAssistantSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<FieldTypeResource> FetchAsync(string pathAssistantSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchFieldTypeOptions(pathAssistantSid, pathSid){  };
+            var options = new FetchFieldTypeOptions(pathAssistantSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadFieldTypeOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadFieldTypeOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/understand/Assistants/{AssistantSid}/FieldTypes";
 
             string PathAssistantSid = options.PathAssistantSid;
-            path = path.Replace("{"+"AssistantSid"+"}", PathAssistantSid);
+            path = path.Replace("{" + "AssistantSid" + "}", PathAssistantSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -269,7 +269,7 @@ namespace Kandy.Rest.Preview.Understand.Assistant
         /// <param name="options"> Read FieldType parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of FieldType </returns>
-        public static ResourceSet<FieldTypeResource> Read(ReadFieldTypeOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<FieldTypeResource> Read(ReadFieldTypeOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -277,13 +277,13 @@ namespace Kandy.Rest.Preview.Understand.Assistant
             return new ResourceSet<FieldTypeResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read FieldType parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of FieldType </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<FieldTypeResource>> ReadAsync(ReadFieldTypeOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -291,7 +291,7 @@ namespace Kandy.Rest.Preview.Understand.Assistant
             var page = Page<FieldTypeResource>.FromJson("field_types", response.Content);
             return new ResourceSet<FieldTypeResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="pathAssistantSid">  </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -302,13 +302,13 @@ namespace Kandy.Rest.Preview.Understand.Assistant
                                                      string pathAssistantSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadFieldTypeOptions(pathAssistantSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadFieldTypeOptions(pathAssistantSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="pathAssistantSid">  </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -319,19 +319,19 @@ namespace Kandy.Rest.Preview.Understand.Assistant
                                                                                              string pathAssistantSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadFieldTypeOptions(pathAssistantSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadFieldTypeOptions(pathAssistantSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<FieldTypeResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<FieldTypeResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -348,7 +348,7 @@ namespace Kandy.Rest.Preview.Understand.Assistant
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<FieldTypeResource> NextPage(Page<FieldTypeResource> page, ITwilioRestClient client)
+        public static Page<FieldTypeResource> NextPage(Page<FieldTypeResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -363,7 +363,7 @@ namespace Kandy.Rest.Preview.Understand.Assistant
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<FieldTypeResource> PreviousPage(Page<FieldTypeResource> page, ITwilioRestClient client)
+        public static Page<FieldTypeResource> PreviousPage(Page<FieldTypeResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -374,16 +374,16 @@ namespace Kandy.Rest.Preview.Understand.Assistant
             return Page<FieldTypeResource>.FromJson("field_types", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateFieldTypeOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateFieldTypeOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/understand/Assistants/{AssistantSid}/FieldTypes/{Sid}";
 
             string PathAssistantSid = options.PathAssistantSid;
-            path = path.Replace("{"+"AssistantSid"+"}", PathAssistantSid);
+            path = path.Replace("{" + "AssistantSid" + "}", PathAssistantSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -398,7 +398,7 @@ namespace Kandy.Rest.Preview.Understand.Assistant
         /// <param name="options"> Update FieldType parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of FieldType </returns>
-        public static FieldTypeResource Update(UpdateFieldTypeOptions options, ITwilioRestClient client = null)
+        public static FieldTypeResource Update(UpdateFieldTypeOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -409,15 +409,15 @@ namespace Kandy.Rest.Preview.Understand.Assistant
         /// <param name="options"> Update FieldType parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of FieldType </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<FieldTypeResource> UpdateAsync(UpdateFieldTypeOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> update </summary>
         /// <param name="pathAssistantSid">  </param>
@@ -431,13 +431,13 @@ namespace Kandy.Rest.Preview.Understand.Assistant
                                           string pathSid,
                                           string friendlyName = null,
                                           string uniqueName = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateFieldTypeOptions(pathAssistantSid, pathSid){ FriendlyName = friendlyName, UniqueName = uniqueName };
+            var options = new UpdateFieldTypeOptions(pathAssistantSid, pathSid) { FriendlyName = friendlyName, UniqueName = uniqueName };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> update </summary>
         /// <param name="pathAssistantSid">  </param>
         /// <param name="pathSid">  </param>
@@ -450,13 +450,13 @@ namespace Kandy.Rest.Preview.Understand.Assistant
                                                                               string pathSid,
                                                                               string friendlyName = null,
                                                                               string uniqueName = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateFieldTypeOptions(pathAssistantSid, pathSid){ FriendlyName = friendlyName, UniqueName = uniqueName };
+            var options = new UpdateFieldTypeOptions(pathAssistantSid, pathSid) { FriendlyName = friendlyName, UniqueName = uniqueName };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a FieldTypeResource object
         /// </summary>
@@ -474,7 +474,7 @@ namespace Kandy.Rest.Preview.Understand.Assistant
             }
         }
 
-    
+
         ///<summary> The unique ID of the Account that created this Field Type. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -513,7 +513,8 @@ namespace Kandy.Rest.Preview.Understand.Assistant
 
 
 
-        private FieldTypeResource() {
+        private FieldTypeResource()
+        {
 
         }
     }

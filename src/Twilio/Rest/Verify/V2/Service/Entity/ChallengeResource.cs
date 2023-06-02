@@ -28,11 +28,11 @@ namespace Kandy.Rest.Verify.V2.Service.Entity
 {
     public class ChallengeResource : Resource
     {
-    
+
         public sealed class ListOrdersEnum : StringEnum
         {
-            private ListOrdersEnum(string value) : base(value) {}
-            public ListOrdersEnum() {}
+            private ListOrdersEnum(string value) : base(value) { }
+            public ListOrdersEnum() { }
             public static implicit operator ListOrdersEnum(string value)
             {
                 return new ListOrdersEnum(value);
@@ -44,8 +44,8 @@ namespace Kandy.Rest.Verify.V2.Service.Entity
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class ChallengeStatusesEnum : StringEnum
         {
-            private ChallengeStatusesEnum(string value) : base(value) {}
-            public ChallengeStatusesEnum() {}
+            private ChallengeStatusesEnum(string value) : base(value) { }
+            public ChallengeStatusesEnum() { }
             public static implicit operator ChallengeStatusesEnum(string value)
             {
                 return new ChallengeStatusesEnum(value);
@@ -59,8 +59,8 @@ namespace Kandy.Rest.Verify.V2.Service.Entity
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class FactorTypesEnum : StringEnum
         {
-            private FactorTypesEnum(string value) : base(value) {}
-            public FactorTypesEnum() {}
+            private FactorTypesEnum(string value) : base(value) { }
+            public FactorTypesEnum() { }
             public static implicit operator FactorTypesEnum(string value)
             {
                 return new FactorTypesEnum(value);
@@ -72,8 +72,8 @@ namespace Kandy.Rest.Verify.V2.Service.Entity
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class ChallengeReasonsEnum : StringEnum
         {
-            private ChallengeReasonsEnum(string value) : base(value) {}
-            public ChallengeReasonsEnum() {}
+            private ChallengeReasonsEnum(string value) : base(value) { }
+            public ChallengeReasonsEnum() { }
             public static implicit operator ChallengeReasonsEnum(string value)
             {
                 return new ChallengeReasonsEnum(value);
@@ -84,16 +84,16 @@ namespace Kandy.Rest.Verify.V2.Service.Entity
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateChallengeOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateChallengeOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathIdentity = options.PathIdentity;
-            path = path.Replace("{"+"Identity"+"}", PathIdentity);
+            path = path.Replace("{" + "Identity" + "}", PathIdentity);
 
             return new Request(
                 HttpMethod.Post,
@@ -108,26 +108,26 @@ namespace Kandy.Rest.Verify.V2.Service.Entity
         /// <param name="options"> Create Challenge parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Challenge </returns>
-        public static ChallengeResource Create(CreateChallengeOptions options, ITwilioRestClient client = null)
+        public static ChallengeResource Create(CreateChallengeOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Challenge for the Factor </summary>
         /// <param name="options"> Create Challenge parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Challenge </returns>
         public static async System.Threading.Tasks.Task<ChallengeResource> CreateAsync(CreateChallengeOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new Challenge for the Factor </summary>
         /// <param name="pathServiceSid"> The unique SID identifier of the Service. </param>
@@ -149,13 +149,13 @@ namespace Kandy.Rest.Verify.V2.Service.Entity
                                           List<object> detailsFields = null,
                                           object hiddenDetails = null,
                                           string authPayload = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateChallengeOptions(pathServiceSid, pathIdentity, factorSid){  ExpirationDate = expirationDate, DetailsMessage = detailsMessage, DetailsFields = detailsFields, HiddenDetails = hiddenDetails, AuthPayload = authPayload };
+            var options = new CreateChallengeOptions(pathServiceSid, pathIdentity, factorSid) { ExpirationDate = expirationDate, DetailsMessage = detailsMessage, DetailsFields = detailsFields, HiddenDetails = hiddenDetails, AuthPayload = authPayload };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Challenge for the Factor </summary>
         /// <param name="pathServiceSid"> The unique SID identifier of the Service. </param>
         /// <param name="pathIdentity"> Customer unique identity for the Entity owner of the Challenge. This identifier should be immutable, not PII, length between 8 and 64 characters, and generated by your external system, such as your user's UUID, GUID, or SID. It can only contain dash (-) separated alphanumeric characters. </param>
@@ -176,24 +176,24 @@ namespace Kandy.Rest.Verify.V2.Service.Entity
                                                                                   List<object> detailsFields = null,
                                                                                   object hiddenDetails = null,
                                                                                   string authPayload = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateChallengeOptions(pathServiceSid, pathIdentity, factorSid){  ExpirationDate = expirationDate, DetailsMessage = detailsMessage, DetailsFields = detailsFields, HiddenDetails = hiddenDetails, AuthPayload = authPayload };
+            var options = new CreateChallengeOptions(pathServiceSid, pathIdentity, factorSid) { ExpirationDate = expirationDate, DetailsMessage = detailsMessage, DetailsFields = detailsFields, HiddenDetails = hiddenDetails, AuthPayload = authPayload };
             return await CreateAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchChallengeOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchChallengeOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathIdentity = options.PathIdentity;
-            path = path.Replace("{"+"Identity"+"}", PathIdentity);
+            path = path.Replace("{" + "Identity" + "}", PathIdentity);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -208,26 +208,26 @@ namespace Kandy.Rest.Verify.V2.Service.Entity
         /// <param name="options"> Fetch Challenge parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Challenge </returns>
-        public static ChallengeResource Fetch(FetchChallengeOptions options, ITwilioRestClient client = null)
+        public static ChallengeResource Fetch(FetchChallengeOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Challenge. </summary>
         /// <param name="options"> Fetch Challenge parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Challenge </returns>
         public static async System.Threading.Tasks.Task<ChallengeResource> FetchAsync(FetchChallengeOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a specific Challenge. </summary>
         /// <param name="pathServiceSid"> The unique SID identifier of the Service. </param>
         /// <param name="pathIdentity"> Customer unique identity for the Entity owner of the Challenges. This identifier should be immutable, not PII, length between 8 and 64 characters, and generated by your external system, such as your user's UUID, GUID, or SID. It can only contain dash (-) separated alphanumeric characters. </param>
@@ -235,38 +235,38 @@ namespace Kandy.Rest.Verify.V2.Service.Entity
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Challenge </returns>
         public static ChallengeResource Fetch(
-                                         string pathServiceSid, 
-                                         string pathIdentity, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathServiceSid,
+                                         string pathIdentity,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchChallengeOptions(pathServiceSid, pathIdentity, pathSid){  };
+            var options = new FetchChallengeOptions(pathServiceSid, pathIdentity, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Challenge. </summary>
         /// <param name="pathServiceSid"> The unique SID identifier of the Service. </param>
         /// <param name="pathIdentity"> Customer unique identity for the Entity owner of the Challenges. This identifier should be immutable, not PII, length between 8 and 64 characters, and generated by your external system, such as your user's UUID, GUID, or SID. It can only contain dash (-) separated alphanumeric characters. </param>
         /// <param name="pathSid"> A 34 character string that uniquely identifies this Challenge. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Challenge </returns>
-        public static async System.Threading.Tasks.Task<ChallengeResource> FetchAsync(string pathServiceSid, string pathIdentity, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<ChallengeResource> FetchAsync(string pathServiceSid, string pathIdentity, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchChallengeOptions(pathServiceSid, pathIdentity, pathSid){  };
+            var options = new FetchChallengeOptions(pathServiceSid, pathIdentity, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadChallengeOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadChallengeOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathIdentity = options.PathIdentity;
-            path = path.Replace("{"+"Identity"+"}", PathIdentity);
+            path = path.Replace("{" + "Identity" + "}", PathIdentity);
 
             return new Request(
                 HttpMethod.Get,
@@ -280,7 +280,7 @@ namespace Kandy.Rest.Verify.V2.Service.Entity
         /// <param name="options"> Read Challenge parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Challenge </returns>
-        public static ResourceSet<ChallengeResource> Read(ReadChallengeOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<ChallengeResource> Read(ReadChallengeOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -288,13 +288,13 @@ namespace Kandy.Rest.Verify.V2.Service.Entity
             return new ResourceSet<ChallengeResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Challenges for a Factor. </summary>
         /// <param name="options"> Read Challenge parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Challenge </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<ChallengeResource>> ReadAsync(ReadChallengeOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -302,7 +302,7 @@ namespace Kandy.Rest.Verify.V2.Service.Entity
             var page = Page<ChallengeResource>.FromJson("challenges", response.Content);
             return new ResourceSet<ChallengeResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Challenges for a Factor. </summary>
         /// <param name="pathServiceSid"> The unique SID identifier of the Service. </param>
         /// <param name="pathIdentity"> Customer unique identity for the Entity owner of the Challenge. This identifier should be immutable, not PII, length between 8 and 64 characters, and generated by your external system, such as your user's UUID, GUID, or SID. It can only contain dash (-) separated alphanumeric characters. </param>
@@ -321,13 +321,13 @@ namespace Kandy.Rest.Verify.V2.Service.Entity
                                                      ChallengeResource.ListOrdersEnum order = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadChallengeOptions(pathServiceSid, pathIdentity){ FactorSid = factorSid, Status = status, Order = order, PageSize = pageSize, Limit = limit};
+            var options = new ReadChallengeOptions(pathServiceSid, pathIdentity) { FactorSid = factorSid, Status = status, Order = order, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Challenges for a Factor. </summary>
         /// <param name="pathServiceSid"> The unique SID identifier of the Service. </param>
         /// <param name="pathIdentity"> Customer unique identity for the Entity owner of the Challenge. This identifier should be immutable, not PII, length between 8 and 64 characters, and generated by your external system, such as your user's UUID, GUID, or SID. It can only contain dash (-) separated alphanumeric characters. </param>
@@ -346,19 +346,19 @@ namespace Kandy.Rest.Verify.V2.Service.Entity
                                                                                              ChallengeResource.ListOrdersEnum order = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadChallengeOptions(pathServiceSid, pathIdentity){ FactorSid = factorSid, Status = status, Order = order, PageSize = pageSize, Limit = limit};
+            var options = new ReadChallengeOptions(pathServiceSid, pathIdentity) { FactorSid = factorSid, Status = status, Order = order, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<ChallengeResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<ChallengeResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -375,7 +375,7 @@ namespace Kandy.Rest.Verify.V2.Service.Entity
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<ChallengeResource> NextPage(Page<ChallengeResource> page, ITwilioRestClient client)
+        public static Page<ChallengeResource> NextPage(Page<ChallengeResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -390,7 +390,7 @@ namespace Kandy.Rest.Verify.V2.Service.Entity
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<ChallengeResource> PreviousPage(Page<ChallengeResource> page, ITwilioRestClient client)
+        public static Page<ChallengeResource> PreviousPage(Page<ChallengeResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -401,18 +401,18 @@ namespace Kandy.Rest.Verify.V2.Service.Entity
             return Page<ChallengeResource>.FromJson("challenges", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateChallengeOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateChallengeOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathIdentity = options.PathIdentity;
-            path = path.Replace("{"+"Identity"+"}", PathIdentity);
+            path = path.Replace("{" + "Identity" + "}", PathIdentity);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -427,7 +427,7 @@ namespace Kandy.Rest.Verify.V2.Service.Entity
         /// <param name="options"> Update Challenge parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Challenge </returns>
-        public static ChallengeResource Update(UpdateChallengeOptions options, ITwilioRestClient client = null)
+        public static ChallengeResource Update(UpdateChallengeOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -438,15 +438,15 @@ namespace Kandy.Rest.Verify.V2.Service.Entity
         /// <param name="options"> Update Challenge parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Challenge </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<ChallengeResource> UpdateAsync(UpdateChallengeOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Verify a specific Challenge. </summary>
         /// <param name="pathServiceSid"> The unique SID identifier of the Service. </param>
@@ -462,13 +462,13 @@ namespace Kandy.Rest.Verify.V2.Service.Entity
                                           string pathSid,
                                           string authPayload = null,
                                           object metadata = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateChallengeOptions(pathServiceSid, pathIdentity, pathSid){ AuthPayload = authPayload, Metadata = metadata };
+            var options = new UpdateChallengeOptions(pathServiceSid, pathIdentity, pathSid) { AuthPayload = authPayload, Metadata = metadata };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Verify a specific Challenge. </summary>
         /// <param name="pathServiceSid"> The unique SID identifier of the Service. </param>
         /// <param name="pathIdentity"> Customer unique identity for the Entity owner of the Challenge. This identifier should be immutable, not PII, length between 8 and 64 characters, and generated by your external system, such as your user's UUID, GUID, or SID. It can only contain dash (-) separated alphanumeric characters. </param>
@@ -483,13 +483,13 @@ namespace Kandy.Rest.Verify.V2.Service.Entity
                                                                               string pathSid,
                                                                               string authPayload = null,
                                                                               object metadata = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateChallengeOptions(pathServiceSid, pathIdentity, pathSid){ AuthPayload = authPayload, Metadata = metadata };
+            var options = new UpdateChallengeOptions(pathServiceSid, pathIdentity, pathSid) { AuthPayload = authPayload, Metadata = metadata };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a ChallengeResource object
         /// </summary>
@@ -507,7 +507,7 @@ namespace Kandy.Rest.Verify.V2.Service.Entity
             }
         }
 
-    
+
         ///<summary> A 34 character string that uniquely identifies this Challenge. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -548,11 +548,11 @@ namespace Kandy.Rest.Verify.V2.Service.Entity
         [JsonProperty("expiration_date")]
         public DateTime? ExpirationDate { get; private set; }
 
-        
+
         [JsonProperty("status")]
         public ChallengeResource.ChallengeStatusesEnum Status { get; private set; }
 
-        
+
         [JsonProperty("responded_reason")]
         public ChallengeResource.ChallengeReasonsEnum RespondedReason { get; private set; }
 
@@ -568,7 +568,7 @@ namespace Kandy.Rest.Verify.V2.Service.Entity
         [JsonProperty("metadata")]
         public object Metadata { get; private set; }
 
-        
+
         [JsonProperty("factor_type")]
         public ChallengeResource.FactorTypesEnum FactorType { get; private set; }
 
@@ -582,7 +582,8 @@ namespace Kandy.Rest.Verify.V2.Service.Entity
 
 
 
-        private ChallengeResource() {
+        private ChallengeResource()
+        {
 
         }
     }

@@ -28,16 +28,16 @@ namespace Kandy.Rest.Api.V2010.Account
 {
     public class NewKeyResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateNewKeyOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateNewKeyOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Keys.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -52,26 +52,26 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="options"> Create NewKey parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of NewKey </returns>
-        public static NewKeyResource Create(CreateNewKeyOptions options, ITwilioRestClient client = null)
+        public static NewKeyResource Create(CreateNewKeyOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create NewKey parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of NewKey </returns>
         public static async System.Threading.Tasks.Task<NewKeyResource> CreateAsync(CreateNewKeyOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will be responsible for the new Key resource. </param>
@@ -81,13 +81,13 @@ namespace Kandy.Rest.Api.V2010.Account
         public static NewKeyResource Create(
                                           string pathAccountSid = null,
                                           string friendlyName = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateNewKeyOptions(){  PathAccountSid = pathAccountSid, FriendlyName = friendlyName };
+            var options = new CreateNewKeyOptions() { PathAccountSid = pathAccountSid, FriendlyName = friendlyName };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will be responsible for the new Key resource. </param>
         /// <param name="friendlyName"> A descriptive string that you create to describe the resource. It can be up to 64 characters long. </param>
@@ -96,13 +96,13 @@ namespace Kandy.Rest.Api.V2010.Account
         public static async System.Threading.Tasks.Task<NewKeyResource> CreateAsync(
                                                                                   string pathAccountSid = null,
                                                                                   string friendlyName = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateNewKeyOptions(){  PathAccountSid = pathAccountSid, FriendlyName = friendlyName };
+            var options = new CreateNewKeyOptions() { PathAccountSid = pathAccountSid, FriendlyName = friendlyName };
             return await CreateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a NewKeyResource object
         /// </summary>
@@ -120,7 +120,7 @@ namespace Kandy.Rest.Api.V2010.Account
             }
         }
 
-    
+
         ///<summary> The unique string that that we created to identify the NewKey resource. You will use this as the basic-auth `user` when authenticating to the API. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -143,7 +143,8 @@ namespace Kandy.Rest.Api.V2010.Account
 
 
 
-        private NewKeyResource() {
+        private NewKeyResource()
+        {
 
         }
     }

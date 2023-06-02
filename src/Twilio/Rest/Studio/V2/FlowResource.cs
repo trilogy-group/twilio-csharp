@@ -28,12 +28,12 @@ namespace Kandy.Rest.Studio.V2
 {
     public class FlowResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class StatusEnum : StringEnum
         {
-            private StatusEnum(string value) : base(value) {}
-            public StatusEnum() {}
+            private StatusEnum(string value) : base(value) { }
+            public StatusEnum() { }
             public static implicit operator StatusEnum(string value)
             {
                 return new StatusEnum(value);
@@ -43,10 +43,10 @@ namespace Kandy.Rest.Studio.V2
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateFlowOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateFlowOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Flows";
 
 
@@ -63,26 +63,26 @@ namespace Kandy.Rest.Studio.V2
         /// <param name="options"> Create Flow parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Flow </returns>
-        public static FlowResource Create(CreateFlowOptions options, ITwilioRestClient client = null)
+        public static FlowResource Create(CreateFlowOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a Flow. </summary>
         /// <param name="options"> Create Flow parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Flow </returns>
         public static async System.Threading.Tasks.Task<FlowResource> CreateAsync(CreateFlowOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a Flow. </summary>
         /// <param name="friendlyName"> The string that you assigned to describe the Flow. </param>
@@ -96,13 +96,13 @@ namespace Kandy.Rest.Studio.V2
                                           FlowResource.StatusEnum status,
                                           object definition,
                                           string commitMessage = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateFlowOptions(friendlyName, status, definition){  CommitMessage = commitMessage };
+            var options = new CreateFlowOptions(friendlyName, status, definition) { CommitMessage = commitMessage };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a Flow. </summary>
         /// <param name="friendlyName"> The string that you assigned to describe the Flow. </param>
         /// <param name="status">  </param>
@@ -115,24 +115,24 @@ namespace Kandy.Rest.Studio.V2
                                                                                   FlowResource.StatusEnum status,
                                                                                   object definition,
                                                                                   string commitMessage = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateFlowOptions(friendlyName, status, definition){  CommitMessage = commitMessage };
+            var options = new CreateFlowOptions(friendlyName, status, definition) { CommitMessage = commitMessage };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Delete a specific Flow. </summary>
         /// <param name="options"> Delete Flow parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Flow </returns>
-        private static Request BuildDeleteRequest(DeleteFlowOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteFlowOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Flows/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -147,56 +147,56 @@ namespace Kandy.Rest.Studio.V2
         /// <param name="options"> Delete Flow parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Flow </returns>
-        public static bool Delete(DeleteFlowOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteFlowOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific Flow. </summary>
         /// <param name="options"> Delete Flow parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Flow </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteFlowOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete a specific Flow. </summary>
         /// <param name="pathSid"> The SID of the Flow resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Flow </returns>
-        public static bool Delete(string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteFlowOptions(pathSid)     ;
+            var options = new DeleteFlowOptions(pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific Flow. </summary>
         /// <param name="pathSid"> The SID of the Flow resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Flow </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteFlowOptions(pathSid) ;
+            var options = new DeleteFlowOptions(pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchFlowOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchFlowOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Flows/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -211,53 +211,53 @@ namespace Kandy.Rest.Studio.V2
         /// <param name="options"> Fetch Flow parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Flow </returns>
-        public static FlowResource Fetch(FetchFlowOptions options, ITwilioRestClient client = null)
+        public static FlowResource Fetch(FetchFlowOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a specific Flow. </summary>
         /// <param name="options"> Fetch Flow parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Flow </returns>
         public static async System.Threading.Tasks.Task<FlowResource> FetchAsync(FetchFlowOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Retrieve a specific Flow. </summary>
         /// <param name="pathSid"> The SID of the Flow resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Flow </returns>
         public static FlowResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchFlowOptions(pathSid){  };
+            var options = new FetchFlowOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a specific Flow. </summary>
         /// <param name="pathSid"> The SID of the Flow resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Flow </returns>
-        public static async System.Threading.Tasks.Task<FlowResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<FlowResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchFlowOptions(pathSid){  };
+            var options = new FetchFlowOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadFlowOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadFlowOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Flows";
 
 
@@ -273,7 +273,7 @@ namespace Kandy.Rest.Studio.V2
         /// <param name="options"> Read Flow parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Flow </returns>
-        public static ResourceSet<FlowResource> Read(ReadFlowOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<FlowResource> Read(ReadFlowOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -281,13 +281,13 @@ namespace Kandy.Rest.Studio.V2
             return new ResourceSet<FlowResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Flows. </summary>
         /// <param name="options"> Read Flow parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Flow </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<FlowResource>> ReadAsync(ReadFlowOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -295,7 +295,7 @@ namespace Kandy.Rest.Studio.V2
             var page = Page<FlowResource>.FromJson("flows", response.Content);
             return new ResourceSet<FlowResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Flows. </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -304,13 +304,13 @@ namespace Kandy.Rest.Studio.V2
         public static ResourceSet<FlowResource> Read(
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadFlowOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadFlowOptions() { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Flows. </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -319,19 +319,19 @@ namespace Kandy.Rest.Studio.V2
         public static async System.Threading.Tasks.Task<ResourceSet<FlowResource>> ReadAsync(
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadFlowOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadFlowOptions() { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<FlowResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<FlowResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -348,7 +348,7 @@ namespace Kandy.Rest.Studio.V2
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<FlowResource> NextPage(Page<FlowResource> page, ITwilioRestClient client)
+        public static Page<FlowResource> NextPage(Page<FlowResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -363,7 +363,7 @@ namespace Kandy.Rest.Studio.V2
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<FlowResource> PreviousPage(Page<FlowResource> page, ITwilioRestClient client)
+        public static Page<FlowResource> PreviousPage(Page<FlowResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -374,14 +374,14 @@ namespace Kandy.Rest.Studio.V2
             return Page<FlowResource>.FromJson("flows", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateFlowOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateFlowOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Flows/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -396,7 +396,7 @@ namespace Kandy.Rest.Studio.V2
         /// <param name="options"> Update Flow parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Flow </returns>
-        public static FlowResource Update(UpdateFlowOptions options, ITwilioRestClient client = null)
+        public static FlowResource Update(UpdateFlowOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -407,15 +407,15 @@ namespace Kandy.Rest.Studio.V2
         /// <param name="options"> Update Flow parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Flow </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<FlowResource> UpdateAsync(UpdateFlowOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update a Flow. </summary>
         /// <param name="pathSid"> The SID of the Flow resource to fetch. </param>
@@ -431,13 +431,13 @@ namespace Kandy.Rest.Studio.V2
                                           string friendlyName = null,
                                           object definition = null,
                                           string commitMessage = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateFlowOptions(pathSid, status){ FriendlyName = friendlyName, Definition = definition, CommitMessage = commitMessage };
+            var options = new UpdateFlowOptions(pathSid, status) { FriendlyName = friendlyName, Definition = definition, CommitMessage = commitMessage };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update a Flow. </summary>
         /// <param name="pathSid"> The SID of the Flow resource to fetch. </param>
         /// <param name="status">  </param>
@@ -452,13 +452,13 @@ namespace Kandy.Rest.Studio.V2
                                                                               string friendlyName = null,
                                                                               object definition = null,
                                                                               string commitMessage = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateFlowOptions(pathSid, status){ FriendlyName = friendlyName, Definition = definition, CommitMessage = commitMessage };
+            var options = new UpdateFlowOptions(pathSid, status) { FriendlyName = friendlyName, Definition = definition, CommitMessage = commitMessage };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a FlowResource object
         /// </summary>
@@ -476,7 +476,7 @@ namespace Kandy.Rest.Studio.V2
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the Flow resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -493,7 +493,7 @@ namespace Kandy.Rest.Studio.V2
         [JsonProperty("definition")]
         public object Definition { get; private set; }
 
-        
+
         [JsonProperty("status")]
         public FlowResource.StatusEnum Status { get; private set; }
 
@@ -539,7 +539,8 @@ namespace Kandy.Rest.Studio.V2
 
 
 
-        private FlowResource() {
+        private FlowResource()
+        {
 
         }
     }

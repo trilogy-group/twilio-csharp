@@ -28,16 +28,16 @@ namespace Kandy.Rest.Verify.V2.Service
 {
     public class RateLimitResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateRateLimitOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateRateLimitOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Services/{ServiceSid}/RateLimits";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -52,26 +52,26 @@ namespace Kandy.Rest.Verify.V2.Service
         /// <param name="options"> Create RateLimit parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of RateLimit </returns>
-        public static RateLimitResource Create(CreateRateLimitOptions options, ITwilioRestClient client = null)
+        public static RateLimitResource Create(CreateRateLimitOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Rate Limit for a Service </summary>
         /// <param name="options"> Create RateLimit parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of RateLimit </returns>
         public static async System.Threading.Tasks.Task<RateLimitResource> CreateAsync(CreateRateLimitOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new Rate Limit for a Service </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with. </param>
@@ -83,13 +83,13 @@ namespace Kandy.Rest.Verify.V2.Service
                                           string pathServiceSid,
                                           string uniqueName,
                                           string description = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateRateLimitOptions(pathServiceSid, uniqueName){  Description = description };
+            var options = new CreateRateLimitOptions(pathServiceSid, uniqueName) { Description = description };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Rate Limit for a Service </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with. </param>
         /// <param name="uniqueName"> Provides a unique and addressable name to be assigned to this Rate Limit, assigned by the developer, to be optionally used in addition to SID. **This value should not contain PII.** </param>
@@ -100,26 +100,26 @@ namespace Kandy.Rest.Verify.V2.Service
                                                                                   string pathServiceSid,
                                                                                   string uniqueName,
                                                                                   string description = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateRateLimitOptions(pathServiceSid, uniqueName){  Description = description };
+            var options = new CreateRateLimitOptions(pathServiceSid, uniqueName) { Description = description };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Delete a specific Rate Limit. </summary>
         /// <param name="options"> Delete RateLimit parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of RateLimit </returns>
-        private static Request BuildDeleteRequest(DeleteRateLimitOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteRateLimitOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Services/{ServiceSid}/RateLimits/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -134,60 +134,60 @@ namespace Kandy.Rest.Verify.V2.Service
         /// <param name="options"> Delete RateLimit parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of RateLimit </returns>
-        public static bool Delete(DeleteRateLimitOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteRateLimitOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific Rate Limit. </summary>
         /// <param name="options"> Delete RateLimit parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of RateLimit </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteRateLimitOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete a specific Rate Limit. </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with. </param>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Rate Limit resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of RateLimit </returns>
-        public static bool Delete(string pathServiceSid, string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathServiceSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteRateLimitOptions(pathServiceSid, pathSid)        ;
+            var options = new DeleteRateLimitOptions(pathServiceSid, pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific Rate Limit. </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with. </param>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Rate Limit resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of RateLimit </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteRateLimitOptions(pathServiceSid, pathSid) ;
+            var options = new DeleteRateLimitOptions(pathServiceSid, pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchRateLimitOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchRateLimitOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Services/{ServiceSid}/RateLimits/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -202,60 +202,60 @@ namespace Kandy.Rest.Verify.V2.Service
         /// <param name="options"> Fetch RateLimit parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of RateLimit </returns>
-        public static RateLimitResource Fetch(FetchRateLimitOptions options, ITwilioRestClient client = null)
+        public static RateLimitResource Fetch(FetchRateLimitOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Rate Limit. </summary>
         /// <param name="options"> Fetch RateLimit parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of RateLimit </returns>
         public static async System.Threading.Tasks.Task<RateLimitResource> FetchAsync(FetchRateLimitOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a specific Rate Limit. </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with. </param>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Rate Limit resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of RateLimit </returns>
         public static RateLimitResource Fetch(
-                                         string pathServiceSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathServiceSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchRateLimitOptions(pathServiceSid, pathSid){  };
+            var options = new FetchRateLimitOptions(pathServiceSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Rate Limit. </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with. </param>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Rate Limit resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of RateLimit </returns>
-        public static async System.Threading.Tasks.Task<RateLimitResource> FetchAsync(string pathServiceSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<RateLimitResource> FetchAsync(string pathServiceSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchRateLimitOptions(pathServiceSid, pathSid){  };
+            var options = new FetchRateLimitOptions(pathServiceSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadRateLimitOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadRateLimitOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Services/{ServiceSid}/RateLimits";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -269,7 +269,7 @@ namespace Kandy.Rest.Verify.V2.Service
         /// <param name="options"> Read RateLimit parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of RateLimit </returns>
-        public static ResourceSet<RateLimitResource> Read(ReadRateLimitOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<RateLimitResource> Read(ReadRateLimitOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -277,13 +277,13 @@ namespace Kandy.Rest.Verify.V2.Service
             return new ResourceSet<RateLimitResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Rate Limits for a service. </summary>
         /// <param name="options"> Read RateLimit parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of RateLimit </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<RateLimitResource>> ReadAsync(ReadRateLimitOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -291,7 +291,7 @@ namespace Kandy.Rest.Verify.V2.Service
             var page = Page<RateLimitResource>.FromJson("rate_limits", response.Content);
             return new ResourceSet<RateLimitResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Rate Limits for a service. </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -302,13 +302,13 @@ namespace Kandy.Rest.Verify.V2.Service
                                                      string pathServiceSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadRateLimitOptions(pathServiceSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadRateLimitOptions(pathServiceSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Rate Limits for a service. </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -319,19 +319,19 @@ namespace Kandy.Rest.Verify.V2.Service
                                                                                              string pathServiceSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadRateLimitOptions(pathServiceSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadRateLimitOptions(pathServiceSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<RateLimitResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<RateLimitResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -348,7 +348,7 @@ namespace Kandy.Rest.Verify.V2.Service
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<RateLimitResource> NextPage(Page<RateLimitResource> page, ITwilioRestClient client)
+        public static Page<RateLimitResource> NextPage(Page<RateLimitResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -363,7 +363,7 @@ namespace Kandy.Rest.Verify.V2.Service
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<RateLimitResource> PreviousPage(Page<RateLimitResource> page, ITwilioRestClient client)
+        public static Page<RateLimitResource> PreviousPage(Page<RateLimitResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -374,16 +374,16 @@ namespace Kandy.Rest.Verify.V2.Service
             return Page<RateLimitResource>.FromJson("rate_limits", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateRateLimitOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateRateLimitOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Services/{ServiceSid}/RateLimits/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -398,7 +398,7 @@ namespace Kandy.Rest.Verify.V2.Service
         /// <param name="options"> Update RateLimit parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of RateLimit </returns>
-        public static RateLimitResource Update(UpdateRateLimitOptions options, ITwilioRestClient client = null)
+        public static RateLimitResource Update(UpdateRateLimitOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -409,15 +409,15 @@ namespace Kandy.Rest.Verify.V2.Service
         /// <param name="options"> Update RateLimit parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of RateLimit </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<RateLimitResource> UpdateAsync(UpdateRateLimitOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update a specific Rate Limit. </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with. </param>
@@ -429,13 +429,13 @@ namespace Kandy.Rest.Verify.V2.Service
                                           string pathServiceSid,
                                           string pathSid,
                                           string description = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateRateLimitOptions(pathServiceSid, pathSid){ Description = description };
+            var options = new UpdateRateLimitOptions(pathServiceSid, pathSid) { Description = description };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update a specific Rate Limit. </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with. </param>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Rate Limit resource to fetch. </param>
@@ -446,13 +446,13 @@ namespace Kandy.Rest.Verify.V2.Service
                                                                               string pathServiceSid,
                                                                               string pathSid,
                                                                               string description = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateRateLimitOptions(pathServiceSid, pathSid){ Description = description };
+            var options = new UpdateRateLimitOptions(pathServiceSid, pathSid) { Description = description };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a RateLimitResource object
         /// </summary>
@@ -470,7 +470,7 @@ namespace Kandy.Rest.Verify.V2.Service
             }
         }
 
-    
+
         ///<summary> A 34 character string that uniquely identifies this Rate Limit. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -509,7 +509,8 @@ namespace Kandy.Rest.Verify.V2.Service
 
 
 
-        private RateLimitResource() {
+        private RateLimitResource()
+        {
 
         }
     }

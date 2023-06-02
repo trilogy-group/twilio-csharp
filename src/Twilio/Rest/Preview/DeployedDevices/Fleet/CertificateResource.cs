@@ -28,16 +28,16 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
 {
     public class CertificateResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateCertificateOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateCertificateOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/DeployedDevices/Fleets/{FleetSid}/Certificates";
 
             string PathFleetSid = options.PathFleetSid;
-            path = path.Replace("{"+"FleetSid"+"}", PathFleetSid);
+            path = path.Replace("{" + "FleetSid" + "}", PathFleetSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -52,26 +52,26 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
         /// <param name="options"> Create Certificate parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Certificate </returns>
-        public static CertificateResource Create(CreateCertificateOptions options, ITwilioRestClient client = null)
+        public static CertificateResource Create(CreateCertificateOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Enroll a new Certificate credential to the Fleet, optionally giving it a friendly name and assigning to a Device. </summary>
         /// <param name="options"> Create Certificate parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Certificate </returns>
         public static async System.Threading.Tasks.Task<CertificateResource> CreateAsync(CreateCertificateOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Enroll a new Certificate credential to the Fleet, optionally giving it a friendly name and assigning to a Device. </summary>
         /// <param name="pathFleetSid">  </param>
@@ -85,13 +85,13 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
                                           string certificateData,
                                           string friendlyName = null,
                                           string deviceSid = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateCertificateOptions(pathFleetSid, certificateData){  FriendlyName = friendlyName, DeviceSid = deviceSid };
+            var options = new CreateCertificateOptions(pathFleetSid, certificateData) { FriendlyName = friendlyName, DeviceSid = deviceSid };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Enroll a new Certificate credential to the Fleet, optionally giving it a friendly name and assigning to a Device. </summary>
         /// <param name="pathFleetSid">  </param>
         /// <param name="certificateData"> Provides a URL encoded representation of the public certificate in PEM format. </param>
@@ -104,26 +104,26 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
                                                                                   string certificateData,
                                                                                   string friendlyName = null,
                                                                                   string deviceSid = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateCertificateOptions(pathFleetSid, certificateData){  FriendlyName = friendlyName, DeviceSid = deviceSid };
+            var options = new CreateCertificateOptions(pathFleetSid, certificateData) { FriendlyName = friendlyName, DeviceSid = deviceSid };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Unregister a specific Certificate credential from the Fleet, effectively disallowing any inbound client connections that are presenting it. </summary>
         /// <param name="options"> Delete Certificate parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Certificate </returns>
-        private static Request BuildDeleteRequest(DeleteCertificateOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteCertificateOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/DeployedDevices/Fleets/{FleetSid}/Certificates/{Sid}";
 
             string PathFleetSid = options.PathFleetSid;
-            path = path.Replace("{"+"FleetSid"+"}", PathFleetSid);
+            path = path.Replace("{" + "FleetSid" + "}", PathFleetSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -138,60 +138,60 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
         /// <param name="options"> Delete Certificate parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Certificate </returns>
-        public static bool Delete(DeleteCertificateOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteCertificateOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Unregister a specific Certificate credential from the Fleet, effectively disallowing any inbound client connections that are presenting it. </summary>
         /// <param name="options"> Delete Certificate parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Certificate </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteCertificateOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Unregister a specific Certificate credential from the Fleet, effectively disallowing any inbound client connections that are presenting it. </summary>
         /// <param name="pathFleetSid">  </param>
         /// <param name="pathSid"> Provides a 34 character string that uniquely identifies the requested Certificate credential resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Certificate </returns>
-        public static bool Delete(string pathFleetSid, string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathFleetSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteCertificateOptions(pathFleetSid, pathSid)        ;
+            var options = new DeleteCertificateOptions(pathFleetSid, pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Unregister a specific Certificate credential from the Fleet, effectively disallowing any inbound client connections that are presenting it. </summary>
         /// <param name="pathFleetSid">  </param>
         /// <param name="pathSid"> Provides a 34 character string that uniquely identifies the requested Certificate credential resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Certificate </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathFleetSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathFleetSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteCertificateOptions(pathFleetSid, pathSid) ;
+            var options = new DeleteCertificateOptions(pathFleetSid, pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchCertificateOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchCertificateOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/DeployedDevices/Fleets/{FleetSid}/Certificates/{Sid}";
 
             string PathFleetSid = options.PathFleetSid;
-            path = path.Replace("{"+"FleetSid"+"}", PathFleetSid);
+            path = path.Replace("{" + "FleetSid" + "}", PathFleetSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -206,60 +206,60 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
         /// <param name="options"> Fetch Certificate parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Certificate </returns>
-        public static CertificateResource Fetch(FetchCertificateOptions options, ITwilioRestClient client = null)
+        public static CertificateResource Fetch(FetchCertificateOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch information about a specific Certificate credential in the Fleet. </summary>
         /// <param name="options"> Fetch Certificate parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Certificate </returns>
         public static async System.Threading.Tasks.Task<CertificateResource> FetchAsync(FetchCertificateOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch information about a specific Certificate credential in the Fleet. </summary>
         /// <param name="pathFleetSid">  </param>
         /// <param name="pathSid"> Provides a 34 character string that uniquely identifies the requested Certificate credential resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Certificate </returns>
         public static CertificateResource Fetch(
-                                         string pathFleetSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathFleetSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchCertificateOptions(pathFleetSid, pathSid){  };
+            var options = new FetchCertificateOptions(pathFleetSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch information about a specific Certificate credential in the Fleet. </summary>
         /// <param name="pathFleetSid">  </param>
         /// <param name="pathSid"> Provides a 34 character string that uniquely identifies the requested Certificate credential resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Certificate </returns>
-        public static async System.Threading.Tasks.Task<CertificateResource> FetchAsync(string pathFleetSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<CertificateResource> FetchAsync(string pathFleetSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchCertificateOptions(pathFleetSid, pathSid){  };
+            var options = new FetchCertificateOptions(pathFleetSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadCertificateOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadCertificateOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/DeployedDevices/Fleets/{FleetSid}/Certificates";
 
             string PathFleetSid = options.PathFleetSid;
-            path = path.Replace("{"+"FleetSid"+"}", PathFleetSid);
+            path = path.Replace("{" + "FleetSid" + "}", PathFleetSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -273,7 +273,7 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
         /// <param name="options"> Read Certificate parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Certificate </returns>
-        public static ResourceSet<CertificateResource> Read(ReadCertificateOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<CertificateResource> Read(ReadCertificateOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -281,13 +281,13 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
             return new ResourceSet<CertificateResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Certificate credentials belonging to the Fleet. </summary>
         /// <param name="options"> Read Certificate parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Certificate </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<CertificateResource>> ReadAsync(ReadCertificateOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -295,7 +295,7 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
             var page = Page<CertificateResource>.FromJson("certificates", response.Content);
             return new ResourceSet<CertificateResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Certificate credentials belonging to the Fleet. </summary>
         /// <param name="pathFleetSid">  </param>
         /// <param name="deviceSid"> Filters the resulting list of Certificates by a unique string identifier of an authenticated Device. </param>
@@ -308,13 +308,13 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
                                                      string deviceSid = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadCertificateOptions(pathFleetSid){ DeviceSid = deviceSid, PageSize = pageSize, Limit = limit};
+            var options = new ReadCertificateOptions(pathFleetSid) { DeviceSid = deviceSid, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Certificate credentials belonging to the Fleet. </summary>
         /// <param name="pathFleetSid">  </param>
         /// <param name="deviceSid"> Filters the resulting list of Certificates by a unique string identifier of an authenticated Device. </param>
@@ -327,19 +327,19 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
                                                                                              string deviceSid = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadCertificateOptions(pathFleetSid){ DeviceSid = deviceSid, PageSize = pageSize, Limit = limit};
+            var options = new ReadCertificateOptions(pathFleetSid) { DeviceSid = deviceSid, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<CertificateResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<CertificateResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -356,7 +356,7 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<CertificateResource> NextPage(Page<CertificateResource> page, ITwilioRestClient client)
+        public static Page<CertificateResource> NextPage(Page<CertificateResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -371,7 +371,7 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<CertificateResource> PreviousPage(Page<CertificateResource> page, ITwilioRestClient client)
+        public static Page<CertificateResource> PreviousPage(Page<CertificateResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -382,16 +382,16 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
             return Page<CertificateResource>.FromJson("certificates", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateCertificateOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateCertificateOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/DeployedDevices/Fleets/{FleetSid}/Certificates/{Sid}";
 
             string PathFleetSid = options.PathFleetSid;
-            path = path.Replace("{"+"FleetSid"+"}", PathFleetSid);
+            path = path.Replace("{" + "FleetSid" + "}", PathFleetSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -406,7 +406,7 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
         /// <param name="options"> Update Certificate parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Certificate </returns>
-        public static CertificateResource Update(UpdateCertificateOptions options, ITwilioRestClient client = null)
+        public static CertificateResource Update(UpdateCertificateOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -417,15 +417,15 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
         /// <param name="options"> Update Certificate parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Certificate </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<CertificateResource> UpdateAsync(UpdateCertificateOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update the given properties of a specific Certificate credential in the Fleet, giving it a friendly name or assigning to a Device. </summary>
         /// <param name="pathFleetSid">  </param>
@@ -439,13 +439,13 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
                                           string pathSid,
                                           string friendlyName = null,
                                           string deviceSid = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateCertificateOptions(pathFleetSid, pathSid){ FriendlyName = friendlyName, DeviceSid = deviceSid };
+            var options = new UpdateCertificateOptions(pathFleetSid, pathSid) { FriendlyName = friendlyName, DeviceSid = deviceSid };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update the given properties of a specific Certificate credential in the Fleet, giving it a friendly name or assigning to a Device. </summary>
         /// <param name="pathFleetSid">  </param>
         /// <param name="pathSid"> Provides a 34 character string that uniquely identifies the requested Certificate credential resource. </param>
@@ -458,13 +458,13 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
                                                                               string pathSid,
                                                                               string friendlyName = null,
                                                                               string deviceSid = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateCertificateOptions(pathFleetSid, pathSid){ FriendlyName = friendlyName, DeviceSid = deviceSid };
+            var options = new UpdateCertificateOptions(pathFleetSid, pathSid) { FriendlyName = friendlyName, DeviceSid = deviceSid };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a CertificateResource object
         /// </summary>
@@ -482,7 +482,7 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
             }
         }
 
-    
+
         ///<summary> Contains a 34 character string that uniquely identifies this Certificate credential resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -521,7 +521,8 @@ namespace Kandy.Rest.Preview.DeployedDevices.Fleet
 
 
 
-        private CertificateResource() {
+        private CertificateResource()
+        {
 
         }
     }

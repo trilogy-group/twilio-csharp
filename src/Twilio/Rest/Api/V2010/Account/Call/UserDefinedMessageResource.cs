@@ -28,18 +28,18 @@ namespace Kandy.Rest.Api.V2010.Account.Call
 {
     public class UserDefinedMessageResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateUserDefinedMessageOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateUserDefinedMessageOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessages.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathCallSid = options.PathCallSid;
-            path = path.Replace("{"+"CallSid"+"}", PathCallSid);
+            path = path.Replace("{" + "CallSid" + "}", PathCallSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -54,26 +54,26 @@ namespace Kandy.Rest.Api.V2010.Account.Call
         /// <param name="options"> Create UserDefinedMessage parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of UserDefinedMessage </returns>
-        public static UserDefinedMessageResource Create(CreateUserDefinedMessageOptions options, ITwilioRestClient client = null)
+        public static UserDefinedMessageResource Create(CreateUserDefinedMessageOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new User Defined Message for the given Call SID. </summary>
         /// <param name="options"> Create UserDefinedMessage parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of UserDefinedMessage </returns>
         public static async System.Threading.Tasks.Task<UserDefinedMessageResource> CreateAsync(CreateUserDefinedMessageOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new User Defined Message for the given Call SID. </summary>
         /// <param name="pathCallSid"> The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the User Defined Message is associated with. </param>
@@ -87,13 +87,13 @@ namespace Kandy.Rest.Api.V2010.Account.Call
                                           string content,
                                           string pathAccountSid = null,
                                           string idempotencyKey = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateUserDefinedMessageOptions(pathCallSid, content){  PathAccountSid = pathAccountSid, IdempotencyKey = idempotencyKey };
+            var options = new CreateUserDefinedMessageOptions(pathCallSid, content) { PathAccountSid = pathAccountSid, IdempotencyKey = idempotencyKey };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new User Defined Message for the given Call SID. </summary>
         /// <param name="pathCallSid"> The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the User Defined Message is associated with. </param>
         /// <param name="content"> The User Defined Message in the form of URL-encoded JSON string. </param>
@@ -106,13 +106,13 @@ namespace Kandy.Rest.Api.V2010.Account.Call
                                                                                   string content,
                                                                                   string pathAccountSid = null,
                                                                                   string idempotencyKey = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateUserDefinedMessageOptions(pathCallSid, content){  PathAccountSid = pathAccountSid, IdempotencyKey = idempotencyKey };
+            var options = new CreateUserDefinedMessageOptions(pathCallSid, content) { PathAccountSid = pathAccountSid, IdempotencyKey = idempotencyKey };
             return await CreateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a UserDefinedMessageResource object
         /// </summary>
@@ -130,7 +130,7 @@ namespace Kandy.Rest.Api.V2010.Account.Call
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created User Defined Message. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -149,7 +149,8 @@ namespace Kandy.Rest.Api.V2010.Account.Call
 
 
 
-        private UserDefinedMessageResource() {
+        private UserDefinedMessageResource()
+        {
 
         }
     }

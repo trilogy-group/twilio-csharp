@@ -28,12 +28,12 @@ namespace Kandy.Rest.Preview.HostedNumbers
 {
     public class AuthorizationDocumentResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class StatusEnum : StringEnum
         {
-            private StatusEnum(string value) : base(value) {}
-            public StatusEnum() {}
+            private StatusEnum(string value) : base(value) { }
+            public StatusEnum() { }
             public static implicit operator StatusEnum(string value)
             {
                 return new StatusEnum(value);
@@ -46,10 +46,10 @@ namespace Kandy.Rest.Preview.HostedNumbers
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateAuthorizationDocumentOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateAuthorizationDocumentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/HostedNumbers/AuthorizationDocuments";
 
 
@@ -66,26 +66,26 @@ namespace Kandy.Rest.Preview.HostedNumbers
         /// <param name="options"> Create AuthorizationDocument parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AuthorizationDocument </returns>
-        public static AuthorizationDocumentResource Create(CreateAuthorizationDocumentOptions options, ITwilioRestClient client = null)
+        public static AuthorizationDocumentResource Create(CreateAuthorizationDocumentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create an AuthorizationDocument for authorizing the hosting of phone number capabilities on Twilio's platform. </summary>
         /// <param name="options"> Create AuthorizationDocument parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AuthorizationDocument </returns>
         public static async System.Threading.Tasks.Task<AuthorizationDocumentResource> CreateAsync(CreateAuthorizationDocumentOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create an AuthorizationDocument for authorizing the hosting of phone number capabilities on Twilio's platform. </summary>
         /// <param name="hostedNumberOrderSids"> A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform. </param>
@@ -103,13 +103,13 @@ namespace Kandy.Rest.Preview.HostedNumbers
                                           string contactTitle,
                                           string contactPhoneNumber,
                                           List<string> ccEmails = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateAuthorizationDocumentOptions(hostedNumberOrderSids, addressSid, email, contactTitle, contactPhoneNumber){  CcEmails = ccEmails };
+            var options = new CreateAuthorizationDocumentOptions(hostedNumberOrderSids, addressSid, email, contactTitle, contactPhoneNumber) { CcEmails = ccEmails };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create an AuthorizationDocument for authorizing the hosting of phone number capabilities on Twilio's platform. </summary>
         /// <param name="hostedNumberOrderSids"> A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform. </param>
         /// <param name="addressSid"> A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument. </param>
@@ -126,20 +126,20 @@ namespace Kandy.Rest.Preview.HostedNumbers
                                                                                   string contactTitle,
                                                                                   string contactPhoneNumber,
                                                                                   List<string> ccEmails = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateAuthorizationDocumentOptions(hostedNumberOrderSids, addressSid, email, contactTitle, contactPhoneNumber){  CcEmails = ccEmails };
+            var options = new CreateAuthorizationDocumentOptions(hostedNumberOrderSids, addressSid, email, contactTitle, contactPhoneNumber) { CcEmails = ccEmails };
             return await CreateAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchAuthorizationDocumentOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchAuthorizationDocumentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/HostedNumbers/AuthorizationDocuments/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -154,53 +154,53 @@ namespace Kandy.Rest.Preview.HostedNumbers
         /// <param name="options"> Fetch AuthorizationDocument parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AuthorizationDocument </returns>
-        public static AuthorizationDocumentResource Fetch(FetchAuthorizationDocumentOptions options, ITwilioRestClient client = null)
+        public static AuthorizationDocumentResource Fetch(FetchAuthorizationDocumentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific AuthorizationDocument. </summary>
         /// <param name="options"> Fetch AuthorizationDocument parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AuthorizationDocument </returns>
         public static async System.Threading.Tasks.Task<AuthorizationDocumentResource> FetchAsync(FetchAuthorizationDocumentOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a specific AuthorizationDocument. </summary>
         /// <param name="pathSid"> A 34 character string that uniquely identifies this AuthorizationDocument. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AuthorizationDocument </returns>
         public static AuthorizationDocumentResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchAuthorizationDocumentOptions(pathSid){  };
+            var options = new FetchAuthorizationDocumentOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific AuthorizationDocument. </summary>
         /// <param name="pathSid"> A 34 character string that uniquely identifies this AuthorizationDocument. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AuthorizationDocument </returns>
-        public static async System.Threading.Tasks.Task<AuthorizationDocumentResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<AuthorizationDocumentResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchAuthorizationDocumentOptions(pathSid){  };
+            var options = new FetchAuthorizationDocumentOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadAuthorizationDocumentOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadAuthorizationDocumentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/HostedNumbers/AuthorizationDocuments";
 
 
@@ -216,7 +216,7 @@ namespace Kandy.Rest.Preview.HostedNumbers
         /// <param name="options"> Read AuthorizationDocument parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AuthorizationDocument </returns>
-        public static ResourceSet<AuthorizationDocumentResource> Read(ReadAuthorizationDocumentOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<AuthorizationDocumentResource> Read(ReadAuthorizationDocumentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -224,13 +224,13 @@ namespace Kandy.Rest.Preview.HostedNumbers
             return new ResourceSet<AuthorizationDocumentResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of AuthorizationDocuments belonging to the account initiating the request. </summary>
         /// <param name="options"> Read AuthorizationDocument parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AuthorizationDocument </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<AuthorizationDocumentResource>> ReadAsync(ReadAuthorizationDocumentOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -238,7 +238,7 @@ namespace Kandy.Rest.Preview.HostedNumbers
             var page = Page<AuthorizationDocumentResource>.FromJson("items", response.Content);
             return new ResourceSet<AuthorizationDocumentResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of AuthorizationDocuments belonging to the account initiating the request. </summary>
         /// <param name="email"> Email that this AuthorizationDocument will be sent to for signing. </param>
         /// <param name="status"> Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses. </param>
@@ -251,13 +251,13 @@ namespace Kandy.Rest.Preview.HostedNumbers
                                                      AuthorizationDocumentResource.StatusEnum status = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadAuthorizationDocumentOptions(){ Email = email, Status = status, PageSize = pageSize, Limit = limit};
+            var options = new ReadAuthorizationDocumentOptions() { Email = email, Status = status, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of AuthorizationDocuments belonging to the account initiating the request. </summary>
         /// <param name="email"> Email that this AuthorizationDocument will be sent to for signing. </param>
         /// <param name="status"> Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses. </param>
@@ -270,19 +270,19 @@ namespace Kandy.Rest.Preview.HostedNumbers
                                                                                              AuthorizationDocumentResource.StatusEnum status = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadAuthorizationDocumentOptions(){ Email = email, Status = status, PageSize = pageSize, Limit = limit};
+            var options = new ReadAuthorizationDocumentOptions() { Email = email, Status = status, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<AuthorizationDocumentResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<AuthorizationDocumentResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -299,7 +299,7 @@ namespace Kandy.Rest.Preview.HostedNumbers
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<AuthorizationDocumentResource> NextPage(Page<AuthorizationDocumentResource> page, ITwilioRestClient client)
+        public static Page<AuthorizationDocumentResource> NextPage(Page<AuthorizationDocumentResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -314,7 +314,7 @@ namespace Kandy.Rest.Preview.HostedNumbers
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<AuthorizationDocumentResource> PreviousPage(Page<AuthorizationDocumentResource> page, ITwilioRestClient client)
+        public static Page<AuthorizationDocumentResource> PreviousPage(Page<AuthorizationDocumentResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -325,14 +325,14 @@ namespace Kandy.Rest.Preview.HostedNumbers
             return Page<AuthorizationDocumentResource>.FromJson("items", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateAuthorizationDocumentOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateAuthorizationDocumentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/HostedNumbers/AuthorizationDocuments/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -347,7 +347,7 @@ namespace Kandy.Rest.Preview.HostedNumbers
         /// <param name="options"> Update AuthorizationDocument parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AuthorizationDocument </returns>
-        public static AuthorizationDocumentResource Update(UpdateAuthorizationDocumentOptions options, ITwilioRestClient client = null)
+        public static AuthorizationDocumentResource Update(UpdateAuthorizationDocumentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -358,15 +358,15 @@ namespace Kandy.Rest.Preview.HostedNumbers
         /// <param name="options"> Update AuthorizationDocument parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AuthorizationDocument </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<AuthorizationDocumentResource> UpdateAsync(UpdateAuthorizationDocumentOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Updates a specific AuthorizationDocument. </summary>
         /// <param name="pathSid">  </param>
@@ -388,13 +388,13 @@ namespace Kandy.Rest.Preview.HostedNumbers
                                           AuthorizationDocumentResource.StatusEnum status = null,
                                           string contactTitle = null,
                                           string contactPhoneNumber = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateAuthorizationDocumentOptions(pathSid){ HostedNumberOrderSids = hostedNumberOrderSids, AddressSid = addressSid, Email = email, CcEmails = ccEmails, Status = status, ContactTitle = contactTitle, ContactPhoneNumber = contactPhoneNumber };
+            var options = new UpdateAuthorizationDocumentOptions(pathSid) { HostedNumberOrderSids = hostedNumberOrderSids, AddressSid = addressSid, Email = email, CcEmails = ccEmails, Status = status, ContactTitle = contactTitle, ContactPhoneNumber = contactPhoneNumber };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Updates a specific AuthorizationDocument. </summary>
         /// <param name="pathSid">  </param>
         /// <param name="hostedNumberOrderSids"> A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform. </param>
@@ -415,13 +415,13 @@ namespace Kandy.Rest.Preview.HostedNumbers
                                                                               AuthorizationDocumentResource.StatusEnum status = null,
                                                                               string contactTitle = null,
                                                                               string contactPhoneNumber = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateAuthorizationDocumentOptions(pathSid){ HostedNumberOrderSids = hostedNumberOrderSids, AddressSid = addressSid, Email = email, CcEmails = ccEmails, Status = status, ContactTitle = contactTitle, ContactPhoneNumber = contactPhoneNumber };
+            var options = new UpdateAuthorizationDocumentOptions(pathSid) { HostedNumberOrderSids = hostedNumberOrderSids, AddressSid = addressSid, Email = email, CcEmails = ccEmails, Status = status, ContactTitle = contactTitle, ContactPhoneNumber = contactPhoneNumber };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a AuthorizationDocumentResource object
         /// </summary>
@@ -439,7 +439,7 @@ namespace Kandy.Rest.Preview.HostedNumbers
             }
         }
 
-    
+
         ///<summary> A 34 character string that uniquely identifies this AuthorizationDocument. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -448,7 +448,7 @@ namespace Kandy.Rest.Preview.HostedNumbers
         [JsonProperty("address_sid")]
         public string AddressSid { get; private set; }
 
-        
+
         [JsonProperty("status")]
         public AuthorizationDocumentResource.StatusEnum Status { get; private set; }
 
@@ -478,7 +478,8 @@ namespace Kandy.Rest.Preview.HostedNumbers
 
 
 
-        private AuthorizationDocumentResource() {
+        private AuthorizationDocumentResource()
+        {
 
         }
     }

@@ -28,12 +28,12 @@ namespace Kandy.Rest.FlexApi.V1
 {
     public class InsightsAssessmentsCommentResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateInsightsAssessmentsCommentOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateInsightsAssessmentsCommentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Insights/QualityManagement/Assessments/Comments";
 
 
@@ -50,26 +50,26 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="options"> Create InsightsAssessmentsComment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of InsightsAssessmentsComment </returns>
-        public static InsightsAssessmentsCommentResource Create(CreateInsightsAssessmentsCommentOptions options, ITwilioRestClient client = null)
+        public static InsightsAssessmentsCommentResource Create(CreateInsightsAssessmentsCommentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> To create a comment assessment for a conversation </summary>
         /// <param name="options"> Create InsightsAssessmentsComment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of InsightsAssessmentsComment </returns>
         public static async System.Threading.Tasks.Task<InsightsAssessmentsCommentResource> CreateAsync(CreateInsightsAssessmentsCommentOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> To create a comment assessment for a conversation </summary>
         /// <param name="categoryId"> The ID of the category </param>
@@ -89,13 +89,13 @@ namespace Kandy.Rest.FlexApi.V1
                                           string agentId,
                                           decimal? offset,
                                           string authorization = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateInsightsAssessmentsCommentOptions(categoryId, categoryName, comment, segmentId, agentId, offset){  Authorization = authorization };
+            var options = new CreateInsightsAssessmentsCommentOptions(categoryId, categoryName, comment, segmentId, agentId, offset) { Authorization = authorization };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> To create a comment assessment for a conversation </summary>
         /// <param name="categoryId"> The ID of the category </param>
         /// <param name="categoryName"> The name of the category </param>
@@ -114,16 +114,16 @@ namespace Kandy.Rest.FlexApi.V1
                                                                                   string agentId,
                                                                                   decimal? offset,
                                                                                   string authorization = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateInsightsAssessmentsCommentOptions(categoryId, categoryName, comment, segmentId, agentId, offset){  Authorization = authorization };
+            var options = new CreateInsightsAssessmentsCommentOptions(categoryId, categoryName, comment, segmentId, agentId, offset) { Authorization = authorization };
             return await CreateAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadInsightsAssessmentsCommentOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadInsightsAssessmentsCommentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Insights/QualityManagement/Assessments/Comments";
 
 
@@ -139,7 +139,7 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="options"> Read InsightsAssessmentsComment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of InsightsAssessmentsComment </returns>
-        public static ResourceSet<InsightsAssessmentsCommentResource> Read(ReadInsightsAssessmentsCommentOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<InsightsAssessmentsCommentResource> Read(ReadInsightsAssessmentsCommentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -147,13 +147,13 @@ namespace Kandy.Rest.FlexApi.V1
             return new ResourceSet<InsightsAssessmentsCommentResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> To create a comment assessment for a conversation </summary>
         /// <param name="options"> Read InsightsAssessmentsComment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of InsightsAssessmentsComment </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<InsightsAssessmentsCommentResource>> ReadAsync(ReadInsightsAssessmentsCommentOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -161,7 +161,7 @@ namespace Kandy.Rest.FlexApi.V1
             var page = Page<InsightsAssessmentsCommentResource>.FromJson("comments", response.Content);
             return new ResourceSet<InsightsAssessmentsCommentResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> To create a comment assessment for a conversation </summary>
         /// <param name="authorization"> The Authorization HTTP request header </param>
         /// <param name="segmentId"> The id of the segment. </param>
@@ -176,13 +176,13 @@ namespace Kandy.Rest.FlexApi.V1
                                                      string agentId = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadInsightsAssessmentsCommentOptions(){ Authorization = authorization, SegmentId = segmentId, AgentId = agentId, PageSize = pageSize, Limit = limit};
+            var options = new ReadInsightsAssessmentsCommentOptions() { Authorization = authorization, SegmentId = segmentId, AgentId = agentId, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> To create a comment assessment for a conversation </summary>
         /// <param name="authorization"> The Authorization HTTP request header </param>
         /// <param name="segmentId"> The id of the segment. </param>
@@ -197,19 +197,19 @@ namespace Kandy.Rest.FlexApi.V1
                                                                                              string agentId = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadInsightsAssessmentsCommentOptions(){ Authorization = authorization, SegmentId = segmentId, AgentId = agentId, PageSize = pageSize, Limit = limit};
+            var options = new ReadInsightsAssessmentsCommentOptions() { Authorization = authorization, SegmentId = segmentId, AgentId = agentId, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<InsightsAssessmentsCommentResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<InsightsAssessmentsCommentResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -226,7 +226,7 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<InsightsAssessmentsCommentResource> NextPage(Page<InsightsAssessmentsCommentResource> page, ITwilioRestClient client)
+        public static Page<InsightsAssessmentsCommentResource> NextPage(Page<InsightsAssessmentsCommentResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -241,7 +241,7 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<InsightsAssessmentsCommentResource> PreviousPage(Page<InsightsAssessmentsCommentResource> page, ITwilioRestClient client)
+        public static Page<InsightsAssessmentsCommentResource> PreviousPage(Page<InsightsAssessmentsCommentResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -252,7 +252,7 @@ namespace Kandy.Rest.FlexApi.V1
             return Page<InsightsAssessmentsCommentResource>.FromJson("comments", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a InsightsAssessmentsCommentResource object
         /// </summary>
@@ -270,7 +270,7 @@ namespace Kandy.Rest.FlexApi.V1
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -321,7 +321,8 @@ namespace Kandy.Rest.FlexApi.V1
 
 
 
-        private InsightsAssessmentsCommentResource() {
+        private InsightsAssessmentsCommentResource()
+        {
 
         }
     }

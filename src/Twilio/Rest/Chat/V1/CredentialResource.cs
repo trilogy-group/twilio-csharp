@@ -28,12 +28,12 @@ namespace Kandy.Rest.Chat.V1
 {
     public class CredentialResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class PushServiceEnum : StringEnum
         {
-            private PushServiceEnum(string value) : base(value) {}
-            public PushServiceEnum() {}
+            private PushServiceEnum(string value) : base(value) { }
+            public PushServiceEnum() { }
             public static implicit operator PushServiceEnum(string value)
             {
                 return new PushServiceEnum(value);
@@ -44,10 +44,10 @@ namespace Kandy.Rest.Chat.V1
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateCredentialOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateCredentialOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Credentials";
 
 
@@ -64,26 +64,26 @@ namespace Kandy.Rest.Chat.V1
         /// <param name="options"> Create Credential parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Credential </returns>
-        public static CredentialResource Create(CreateCredentialOptions options, ITwilioRestClient client = null)
+        public static CredentialResource Create(CreateCredentialOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create Credential parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Credential </returns>
         public static async System.Threading.Tasks.Task<CredentialResource> CreateAsync(CreateCredentialOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="type">  </param>
@@ -103,13 +103,13 @@ namespace Kandy.Rest.Chat.V1
                                           bool? sandbox = null,
                                           string apiKey = null,
                                           string secret = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateCredentialOptions(type){  FriendlyName = friendlyName, Certificate = certificate, PrivateKey = privateKey, Sandbox = sandbox, ApiKey = apiKey, Secret = secret };
+            var options = new CreateCredentialOptions(type) { FriendlyName = friendlyName, Certificate = certificate, PrivateKey = privateKey, Sandbox = sandbox, ApiKey = apiKey, Secret = secret };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="type">  </param>
         /// <param name="friendlyName"> A descriptive string that you create to describe the new resource. It can be up to 64 characters long. </param>
@@ -128,24 +128,24 @@ namespace Kandy.Rest.Chat.V1
                                                                                   bool? sandbox = null,
                                                                                   string apiKey = null,
                                                                                   string secret = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateCredentialOptions(type){  FriendlyName = friendlyName, Certificate = certificate, PrivateKey = privateKey, Sandbox = sandbox, ApiKey = apiKey, Secret = secret };
+            var options = new CreateCredentialOptions(type) { FriendlyName = friendlyName, Certificate = certificate, PrivateKey = privateKey, Sandbox = sandbox, ApiKey = apiKey, Secret = secret };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> delete </summary>
         /// <param name="options"> Delete Credential parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Credential </returns>
-        private static Request BuildDeleteRequest(DeleteCredentialOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteCredentialOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Credentials/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -160,56 +160,56 @@ namespace Kandy.Rest.Chat.V1
         /// <param name="options"> Delete Credential parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Credential </returns>
-        public static bool Delete(DeleteCredentialOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteCredentialOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="options"> Delete Credential parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Credential </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteCredentialOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> delete </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Credential resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Credential </returns>
-        public static bool Delete(string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteCredentialOptions(pathSid)     ;
+            var options = new DeleteCredentialOptions(pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Credential resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Credential </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteCredentialOptions(pathSid) ;
+            var options = new DeleteCredentialOptions(pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchCredentialOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchCredentialOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Credentials/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -224,53 +224,53 @@ namespace Kandy.Rest.Chat.V1
         /// <param name="options"> Fetch Credential parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Credential </returns>
-        public static CredentialResource Fetch(FetchCredentialOptions options, ITwilioRestClient client = null)
+        public static CredentialResource Fetch(FetchCredentialOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch Credential parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Credential </returns>
         public static async System.Threading.Tasks.Task<CredentialResource> FetchAsync(FetchCredentialOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Credential resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Credential </returns>
         public static CredentialResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchCredentialOptions(pathSid){  };
+            var options = new FetchCredentialOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Credential resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Credential </returns>
-        public static async System.Threading.Tasks.Task<CredentialResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<CredentialResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchCredentialOptions(pathSid){  };
+            var options = new FetchCredentialOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadCredentialOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadCredentialOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Credentials";
 
 
@@ -286,7 +286,7 @@ namespace Kandy.Rest.Chat.V1
         /// <param name="options"> Read Credential parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Credential </returns>
-        public static ResourceSet<CredentialResource> Read(ReadCredentialOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<CredentialResource> Read(ReadCredentialOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -294,13 +294,13 @@ namespace Kandy.Rest.Chat.V1
             return new ResourceSet<CredentialResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read Credential parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Credential </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<CredentialResource>> ReadAsync(ReadCredentialOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -308,7 +308,7 @@ namespace Kandy.Rest.Chat.V1
             var page = Page<CredentialResource>.FromJson("credentials", response.Content);
             return new ResourceSet<CredentialResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -317,13 +317,13 @@ namespace Kandy.Rest.Chat.V1
         public static ResourceSet<CredentialResource> Read(
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadCredentialOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadCredentialOptions() { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -332,19 +332,19 @@ namespace Kandy.Rest.Chat.V1
         public static async System.Threading.Tasks.Task<ResourceSet<CredentialResource>> ReadAsync(
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadCredentialOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadCredentialOptions() { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<CredentialResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<CredentialResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -361,7 +361,7 @@ namespace Kandy.Rest.Chat.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<CredentialResource> NextPage(Page<CredentialResource> page, ITwilioRestClient client)
+        public static Page<CredentialResource> NextPage(Page<CredentialResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -376,7 +376,7 @@ namespace Kandy.Rest.Chat.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<CredentialResource> PreviousPage(Page<CredentialResource> page, ITwilioRestClient client)
+        public static Page<CredentialResource> PreviousPage(Page<CredentialResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -387,14 +387,14 @@ namespace Kandy.Rest.Chat.V1
             return Page<CredentialResource>.FromJson("credentials", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateCredentialOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateCredentialOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Credentials/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -409,7 +409,7 @@ namespace Kandy.Rest.Chat.V1
         /// <param name="options"> Update Credential parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Credential </returns>
-        public static CredentialResource Update(UpdateCredentialOptions options, ITwilioRestClient client = null)
+        public static CredentialResource Update(UpdateCredentialOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -420,15 +420,15 @@ namespace Kandy.Rest.Chat.V1
         /// <param name="options"> Update Credential parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Credential </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<CredentialResource> UpdateAsync(UpdateCredentialOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> update </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Credential resource to update. </param>
@@ -448,13 +448,13 @@ namespace Kandy.Rest.Chat.V1
                                           bool? sandbox = null,
                                           string apiKey = null,
                                           string secret = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateCredentialOptions(pathSid){ FriendlyName = friendlyName, Certificate = certificate, PrivateKey = privateKey, Sandbox = sandbox, ApiKey = apiKey, Secret = secret };
+            var options = new UpdateCredentialOptions(pathSid) { FriendlyName = friendlyName, Certificate = certificate, PrivateKey = privateKey, Sandbox = sandbox, ApiKey = apiKey, Secret = secret };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> update </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the Credential resource to update. </param>
         /// <param name="friendlyName"> A descriptive string that you create to describe the resource. It can be up to 64 characters long. </param>
@@ -473,13 +473,13 @@ namespace Kandy.Rest.Chat.V1
                                                                               bool? sandbox = null,
                                                                               string apiKey = null,
                                                                               string secret = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateCredentialOptions(pathSid){ FriendlyName = friendlyName, Certificate = certificate, PrivateKey = privateKey, Sandbox = sandbox, ApiKey = apiKey, Secret = secret };
+            var options = new UpdateCredentialOptions(pathSid) { FriendlyName = friendlyName, Certificate = certificate, PrivateKey = privateKey, Sandbox = sandbox, ApiKey = apiKey, Secret = secret };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a CredentialResource object
         /// </summary>
@@ -497,7 +497,7 @@ namespace Kandy.Rest.Chat.V1
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the Credential resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -510,7 +510,7 @@ namespace Kandy.Rest.Chat.V1
         [JsonProperty("friendly_name")]
         public string FriendlyName { get; private set; }
 
-        
+
         [JsonProperty("type")]
         public CredentialResource.PushServiceEnum Type { get; private set; }
 
@@ -532,7 +532,8 @@ namespace Kandy.Rest.Chat.V1
 
 
 
-        private CredentialResource() {
+        private CredentialResource()
+        {
 
         }
     }

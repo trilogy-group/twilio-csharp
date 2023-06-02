@@ -28,18 +28,18 @@ namespace Kandy.Rest.Studio.V2.Flow.Execution
 {
     public class ExecutionContextResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchExecutionContextOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchExecutionContextOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Context";
 
             string PathFlowSid = options.PathFlowSid;
-            path = path.Replace("{"+"FlowSid"+"}", PathFlowSid);
+            path = path.Replace("{" + "FlowSid" + "}", PathFlowSid);
             string PathExecutionSid = options.PathExecutionSid;
-            path = path.Replace("{"+"ExecutionSid"+"}", PathExecutionSid);
+            path = path.Replace("{" + "ExecutionSid" + "}", PathExecutionSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -54,53 +54,53 @@ namespace Kandy.Rest.Studio.V2.Flow.Execution
         /// <param name="options"> Fetch ExecutionContext parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ExecutionContext </returns>
-        public static ExecutionContextResource Fetch(FetchExecutionContextOptions options, ITwilioRestClient client = null)
+        public static ExecutionContextResource Fetch(FetchExecutionContextOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve the most recent context for an Execution. </summary>
         /// <param name="options"> Fetch ExecutionContext parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ExecutionContext </returns>
         public static async System.Threading.Tasks.Task<ExecutionContextResource> FetchAsync(FetchExecutionContextOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Retrieve the most recent context for an Execution. </summary>
         /// <param name="pathFlowSid"> The SID of the Flow with the Execution context to fetch. </param>
         /// <param name="pathExecutionSid"> The SID of the Execution context to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ExecutionContext </returns>
         public static ExecutionContextResource Fetch(
-                                         string pathFlowSid, 
-                                         string pathExecutionSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathFlowSid,
+                                         string pathExecutionSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchExecutionContextOptions(pathFlowSid, pathExecutionSid){  };
+            var options = new FetchExecutionContextOptions(pathFlowSid, pathExecutionSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve the most recent context for an Execution. </summary>
         /// <param name="pathFlowSid"> The SID of the Flow with the Execution context to fetch. </param>
         /// <param name="pathExecutionSid"> The SID of the Execution context to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ExecutionContext </returns>
-        public static async System.Threading.Tasks.Task<ExecutionContextResource> FetchAsync(string pathFlowSid, string pathExecutionSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<ExecutionContextResource> FetchAsync(string pathFlowSid, string pathExecutionSid, IKandyRestClient client = null)
         {
-            var options = new FetchExecutionContextOptions(pathFlowSid, pathExecutionSid){  };
+            var options = new FetchExecutionContextOptions(pathFlowSid, pathExecutionSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a ExecutionContextResource object
         /// </summary>
@@ -118,7 +118,7 @@ namespace Kandy.Rest.Studio.V2.Flow.Execution
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ExecutionContext resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -141,7 +141,8 @@ namespace Kandy.Rest.Studio.V2.Flow.Execution
 
 
 
-        private ExecutionContextResource() {
+        private ExecutionContextResource()
+        {
 
         }
     }

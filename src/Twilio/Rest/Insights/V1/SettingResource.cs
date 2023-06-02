@@ -28,12 +28,12 @@ namespace Kandy.Rest.Insights.V1
 {
     public class SettingResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchSettingOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchSettingOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Voice/Settings";
 
 
@@ -50,53 +50,53 @@ namespace Kandy.Rest.Insights.V1
         /// <param name="options"> Fetch Setting parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Setting </returns>
-        public static SettingResource Fetch(FetchSettingOptions options, ITwilioRestClient client = null)
+        public static SettingResource Fetch(FetchSettingOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch Setting parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Setting </returns>
         public static async System.Threading.Tasks.Task<SettingResource> FetchAsync(FetchSettingOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="subaccountSid">  </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Setting </returns>
         public static SettingResource Fetch(
-                                         string subaccountSid = null, 
-                                         ITwilioRestClient client = null)
+                                         string subaccountSid = null,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchSettingOptions(){ SubaccountSid = subaccountSid };
+            var options = new FetchSettingOptions() { SubaccountSid = subaccountSid };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="subaccountSid">  </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Setting </returns>
-        public static async System.Threading.Tasks.Task<SettingResource> FetchAsync(string subaccountSid = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<SettingResource> FetchAsync(string subaccountSid = null, IKandyRestClient client = null)
         {
-            var options = new FetchSettingOptions(){ SubaccountSid = subaccountSid };
+            var options = new FetchSettingOptions() { SubaccountSid = subaccountSid };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildUpdateRequest(UpdateSettingOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildUpdateRequest(UpdateSettingOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Voice/Settings";
 
 
@@ -113,7 +113,7 @@ namespace Kandy.Rest.Insights.V1
         /// <param name="options"> Update Setting parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Setting </returns>
-        public static SettingResource Update(UpdateSettingOptions options, ITwilioRestClient client = null)
+        public static SettingResource Update(UpdateSettingOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -124,15 +124,15 @@ namespace Kandy.Rest.Insights.V1
         /// <param name="options"> Update Setting parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Setting </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<SettingResource> UpdateAsync(UpdateSettingOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> update </summary>
         /// <param name="advancedFeatures">  </param>
@@ -144,13 +144,13 @@ namespace Kandy.Rest.Insights.V1
                                           bool? advancedFeatures = null,
                                           bool? voiceTrace = null,
                                           string subaccountSid = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateSettingOptions(){ AdvancedFeatures = advancedFeatures, VoiceTrace = voiceTrace, SubaccountSid = subaccountSid };
+            var options = new UpdateSettingOptions() { AdvancedFeatures = advancedFeatures, VoiceTrace = voiceTrace, SubaccountSid = subaccountSid };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> update </summary>
         /// <param name="advancedFeatures">  </param>
         /// <param name="voiceTrace">  </param>
@@ -161,13 +161,13 @@ namespace Kandy.Rest.Insights.V1
                                                                               bool? advancedFeatures = null,
                                                                               bool? voiceTrace = null,
                                                                               string subaccountSid = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateSettingOptions(){ AdvancedFeatures = advancedFeatures, VoiceTrace = voiceTrace, SubaccountSid = subaccountSid };
+            var options = new UpdateSettingOptions() { AdvancedFeatures = advancedFeatures, VoiceTrace = voiceTrace, SubaccountSid = subaccountSid };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a SettingResource object
         /// </summary>
@@ -185,7 +185,7 @@ namespace Kandy.Rest.Insights.V1
             }
         }
 
-    
+
         ///<summary> The account_sid </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -204,7 +204,8 @@ namespace Kandy.Rest.Insights.V1
 
 
 
-        private SettingResource() {
+        private SettingResource()
+        {
 
         }
     }

@@ -28,12 +28,12 @@ namespace Kandy.Rest.Api.V2010.Account.Call
 {
     public class FeedbackResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class IssuesEnum : StringEnum
         {
-            private IssuesEnum(string value) : base(value) {}
-            public IssuesEnum() {}
+            private IssuesEnum(string value) : base(value) { }
+            public IssuesEnum() { }
             public static implicit operator IssuesEnum(string value)
             {
                 return new IssuesEnum(value);
@@ -49,16 +49,16 @@ namespace Kandy.Rest.Api.V2010.Account.Call
             public static readonly IssuesEnum UnsolicitedCall = new IssuesEnum("unsolicited-call");
         }
 
-        
-        private static Request BuildFetchRequest(FetchFeedbackOptions options, ITwilioRestClient client)
+
+        private static Request BuildFetchRequest(FetchFeedbackOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Feedback.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathCallSid = options.PathCallSid;
-            path = path.Replace("{"+"CallSid"+"}", PathCallSid);
+            path = path.Replace("{" + "CallSid" + "}", PathCallSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -73,62 +73,62 @@ namespace Kandy.Rest.Api.V2010.Account.Call
         /// <param name="options"> Fetch Feedback parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Feedback </returns>
-        public static FeedbackResource Fetch(FetchFeedbackOptions options, ITwilioRestClient client = null)
+        public static FeedbackResource Fetch(FetchFeedbackOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a Feedback resource from a call </summary>
         /// <param name="options"> Fetch Feedback parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Feedback </returns>
         public static async System.Threading.Tasks.Task<FeedbackResource> FetchAsync(FetchFeedbackOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a Feedback resource from a call </summary>
         /// <param name="pathCallSid"> The call sid that uniquely identifies the call </param>
         /// <param name="pathAccountSid"> The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Feedback </returns>
         public static FeedbackResource Fetch(
-                                         string pathCallSid, 
-                                         string pathAccountSid = null, 
-                                         ITwilioRestClient client = null)
+                                         string pathCallSid,
+                                         string pathAccountSid = null,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchFeedbackOptions(pathCallSid){ PathAccountSid = pathAccountSid };
+            var options = new FetchFeedbackOptions(pathCallSid) { PathAccountSid = pathAccountSid };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a Feedback resource from a call </summary>
         /// <param name="pathCallSid"> The call sid that uniquely identifies the call </param>
         /// <param name="pathAccountSid"> The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Feedback </returns>
-        public static async System.Threading.Tasks.Task<FeedbackResource> FetchAsync(string pathCallSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<FeedbackResource> FetchAsync(string pathCallSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new FetchFeedbackOptions(pathCallSid){ PathAccountSid = pathAccountSid };
+            var options = new FetchFeedbackOptions(pathCallSid) { PathAccountSid = pathAccountSid };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildUpdateRequest(UpdateFeedbackOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildUpdateRequest(UpdateFeedbackOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Feedback.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathCallSid = options.PathCallSid;
-            path = path.Replace("{"+"CallSid"+"}", PathCallSid);
+            path = path.Replace("{" + "CallSid" + "}", PathCallSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -143,7 +143,7 @@ namespace Kandy.Rest.Api.V2010.Account.Call
         /// <param name="options"> Update Feedback parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Feedback </returns>
-        public static FeedbackResource Update(UpdateFeedbackOptions options, ITwilioRestClient client = null)
+        public static FeedbackResource Update(UpdateFeedbackOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -154,15 +154,15 @@ namespace Kandy.Rest.Api.V2010.Account.Call
         /// <param name="options"> Update Feedback parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Feedback </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<FeedbackResource> UpdateAsync(UpdateFeedbackOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update a Feedback resource for a call </summary>
         /// <param name="pathCallSid"> The call sid that uniquely identifies the call </param>
@@ -176,13 +176,13 @@ namespace Kandy.Rest.Api.V2010.Account.Call
                                           string pathAccountSid = null,
                                           int? qualityScore = null,
                                           List<FeedbackResource.IssuesEnum> issue = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateFeedbackOptions(pathCallSid){ PathAccountSid = pathAccountSid, QualityScore = qualityScore, Issue = issue };
+            var options = new UpdateFeedbackOptions(pathCallSid) { PathAccountSid = pathAccountSid, QualityScore = qualityScore, Issue = issue };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update a Feedback resource for a call </summary>
         /// <param name="pathCallSid"> The call sid that uniquely identifies the call </param>
         /// <param name="pathAccountSid"> The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. </param>
@@ -195,13 +195,13 @@ namespace Kandy.Rest.Api.V2010.Account.Call
                                                                               string pathAccountSid = null,
                                                                               int? qualityScore = null,
                                                                               List<FeedbackResource.IssuesEnum> issue = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateFeedbackOptions(pathCallSid){ PathAccountSid = pathAccountSid, QualityScore = qualityScore, Issue = issue };
+            var options = new UpdateFeedbackOptions(pathCallSid) { PathAccountSid = pathAccountSid, QualityScore = qualityScore, Issue = issue };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a FeedbackResource object
         /// </summary>
@@ -219,7 +219,7 @@ namespace Kandy.Rest.Api.V2010.Account.Call
             }
         }
 
-    
+
         ///<summary> The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -246,7 +246,8 @@ namespace Kandy.Rest.Api.V2010.Account.Call
 
 
 
-        private FeedbackResource() {
+        private FeedbackResource()
+        {
 
         }
     }

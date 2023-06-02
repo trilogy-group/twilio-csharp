@@ -28,12 +28,12 @@ namespace Kandy.Rest.IpMessaging.V1.Service
 {
     public class RoleResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class RoleTypeEnum : StringEnum
         {
-            private RoleTypeEnum(string value) : base(value) {}
-            public RoleTypeEnum() {}
+            private RoleTypeEnum(string value) : base(value) { }
+            public RoleTypeEnum() { }
             public static implicit operator RoleTypeEnum(string value)
             {
                 return new RoleTypeEnum(value);
@@ -43,14 +43,14 @@ namespace Kandy.Rest.IpMessaging.V1.Service
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateRoleOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateRoleOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Roles";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -65,26 +65,26 @@ namespace Kandy.Rest.IpMessaging.V1.Service
         /// <param name="options"> Create Role parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Role </returns>
-        public static RoleResource Create(CreateRoleOptions options, ITwilioRestClient client = null)
+        public static RoleResource Create(CreateRoleOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create Role parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Role </returns>
         public static async System.Threading.Tasks.Task<RoleResource> CreateAsync(CreateRoleOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="pathServiceSid">  </param>
@@ -98,13 +98,13 @@ namespace Kandy.Rest.IpMessaging.V1.Service
                                           string friendlyName,
                                           RoleResource.RoleTypeEnum type,
                                           List<string> permission,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateRoleOptions(pathServiceSid, friendlyName, type, permission){  };
+            var options = new CreateRoleOptions(pathServiceSid, friendlyName, type, permission) { };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="pathServiceSid">  </param>
         /// <param name="friendlyName">  </param>
@@ -117,26 +117,26 @@ namespace Kandy.Rest.IpMessaging.V1.Service
                                                                                   string friendlyName,
                                                                                   RoleResource.RoleTypeEnum type,
                                                                                   List<string> permission,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateRoleOptions(pathServiceSid, friendlyName, type, permission){  };
+            var options = new CreateRoleOptions(pathServiceSid, friendlyName, type, permission) { };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> delete </summary>
         /// <param name="options"> Delete Role parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Role </returns>
-        private static Request BuildDeleteRequest(DeleteRoleOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteRoleOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Roles/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -151,60 +151,60 @@ namespace Kandy.Rest.IpMessaging.V1.Service
         /// <param name="options"> Delete Role parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Role </returns>
-        public static bool Delete(DeleteRoleOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteRoleOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="options"> Delete Role parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Role </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteRoleOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> delete </summary>
         /// <param name="pathServiceSid">  </param>
         /// <param name="pathSid">  </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Role </returns>
-        public static bool Delete(string pathServiceSid, string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathServiceSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteRoleOptions(pathServiceSid, pathSid)        ;
+            var options = new DeleteRoleOptions(pathServiceSid, pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="pathServiceSid">  </param>
         /// <param name="pathSid">  </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Role </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteRoleOptions(pathServiceSid, pathSid) ;
+            var options = new DeleteRoleOptions(pathServiceSid, pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchRoleOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchRoleOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Roles/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -219,60 +219,60 @@ namespace Kandy.Rest.IpMessaging.V1.Service
         /// <param name="options"> Fetch Role parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Role </returns>
-        public static RoleResource Fetch(FetchRoleOptions options, ITwilioRestClient client = null)
+        public static RoleResource Fetch(FetchRoleOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch Role parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Role </returns>
         public static async System.Threading.Tasks.Task<RoleResource> FetchAsync(FetchRoleOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathServiceSid">  </param>
         /// <param name="pathSid">  </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Role </returns>
         public static RoleResource Fetch(
-                                         string pathServiceSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathServiceSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchRoleOptions(pathServiceSid, pathSid){  };
+            var options = new FetchRoleOptions(pathServiceSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathServiceSid">  </param>
         /// <param name="pathSid">  </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Role </returns>
-        public static async System.Threading.Tasks.Task<RoleResource> FetchAsync(string pathServiceSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<RoleResource> FetchAsync(string pathServiceSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchRoleOptions(pathServiceSid, pathSid){  };
+            var options = new FetchRoleOptions(pathServiceSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadRoleOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadRoleOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Roles";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -286,7 +286,7 @@ namespace Kandy.Rest.IpMessaging.V1.Service
         /// <param name="options"> Read Role parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Role </returns>
-        public static ResourceSet<RoleResource> Read(ReadRoleOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<RoleResource> Read(ReadRoleOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -294,13 +294,13 @@ namespace Kandy.Rest.IpMessaging.V1.Service
             return new ResourceSet<RoleResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read Role parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Role </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<RoleResource>> ReadAsync(ReadRoleOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -308,7 +308,7 @@ namespace Kandy.Rest.IpMessaging.V1.Service
             var page = Page<RoleResource>.FromJson("roles", response.Content);
             return new ResourceSet<RoleResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="pathServiceSid">  </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -319,13 +319,13 @@ namespace Kandy.Rest.IpMessaging.V1.Service
                                                      string pathServiceSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadRoleOptions(pathServiceSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadRoleOptions(pathServiceSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="pathServiceSid">  </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -336,19 +336,19 @@ namespace Kandy.Rest.IpMessaging.V1.Service
                                                                                              string pathServiceSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadRoleOptions(pathServiceSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadRoleOptions(pathServiceSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<RoleResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<RoleResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -365,7 +365,7 @@ namespace Kandy.Rest.IpMessaging.V1.Service
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<RoleResource> NextPage(Page<RoleResource> page, ITwilioRestClient client)
+        public static Page<RoleResource> NextPage(Page<RoleResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -380,7 +380,7 @@ namespace Kandy.Rest.IpMessaging.V1.Service
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<RoleResource> PreviousPage(Page<RoleResource> page, ITwilioRestClient client)
+        public static Page<RoleResource> PreviousPage(Page<RoleResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -391,16 +391,16 @@ namespace Kandy.Rest.IpMessaging.V1.Service
             return Page<RoleResource>.FromJson("roles", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateRoleOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateRoleOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Roles/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -415,7 +415,7 @@ namespace Kandy.Rest.IpMessaging.V1.Service
         /// <param name="options"> Update Role parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Role </returns>
-        public static RoleResource Update(UpdateRoleOptions options, ITwilioRestClient client = null)
+        public static RoleResource Update(UpdateRoleOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -426,15 +426,15 @@ namespace Kandy.Rest.IpMessaging.V1.Service
         /// <param name="options"> Update Role parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Role </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<RoleResource> UpdateAsync(UpdateRoleOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> update </summary>
         /// <param name="pathServiceSid">  </param>
@@ -446,13 +446,13 @@ namespace Kandy.Rest.IpMessaging.V1.Service
                                           string pathServiceSid,
                                           string pathSid,
                                           List<string> permission,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateRoleOptions(pathServiceSid, pathSid, permission){  };
+            var options = new UpdateRoleOptions(pathServiceSid, pathSid, permission) { };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> update </summary>
         /// <param name="pathServiceSid">  </param>
         /// <param name="pathSid">  </param>
@@ -463,13 +463,13 @@ namespace Kandy.Rest.IpMessaging.V1.Service
                                                                               string pathServiceSid,
                                                                               string pathSid,
                                                                               List<string> permission,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateRoleOptions(pathServiceSid, pathSid, permission){  };
+            var options = new UpdateRoleOptions(pathServiceSid, pathSid, permission) { };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a RoleResource object
         /// </summary>
@@ -487,7 +487,7 @@ namespace Kandy.Rest.IpMessaging.V1.Service
             }
         }
 
-    
+
         ///<summary> The sid </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -504,7 +504,7 @@ namespace Kandy.Rest.IpMessaging.V1.Service
         [JsonProperty("friendly_name")]
         public string FriendlyName { get; private set; }
 
-        
+
         [JsonProperty("type")]
         public RoleResource.RoleTypeEnum Type { get; private set; }
 
@@ -526,7 +526,8 @@ namespace Kandy.Rest.IpMessaging.V1.Service
 
 
 
-        private RoleResource() {
+        private RoleResource()
+        {
 
         }
     }

@@ -28,12 +28,12 @@ namespace Kandy.Rest.Oauth.V1
 {
     public class DeviceCodeResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateDeviceCodeOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateDeviceCodeOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/device/code";
 
 
@@ -50,26 +50,26 @@ namespace Kandy.Rest.Oauth.V1
         /// <param name="options"> Create DeviceCode parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of DeviceCode </returns>
-        public static DeviceCodeResource Create(CreateDeviceCodeOptions options, ITwilioRestClient client = null)
+        public static DeviceCodeResource Create(CreateDeviceCodeOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Issues a new Access token (optionally identity_token & refresh_token) in exchange of Oauth grant </summary>
         /// <param name="options"> Create DeviceCode parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of DeviceCode </returns>
         public static async System.Threading.Tasks.Task<DeviceCodeResource> CreateAsync(CreateDeviceCodeOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Issues a new Access token (optionally identity_token & refresh_token) in exchange of Oauth grant </summary>
         /// <param name="clientSid"> A 34 character string that uniquely identifies this OAuth App. </param>
@@ -81,13 +81,13 @@ namespace Kandy.Rest.Oauth.V1
                                           string clientSid,
                                           List<string> scopes,
                                           List<string> audiences = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateDeviceCodeOptions(clientSid, scopes){  Audiences = audiences };
+            var options = new CreateDeviceCodeOptions(clientSid, scopes) { Audiences = audiences };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Issues a new Access token (optionally identity_token & refresh_token) in exchange of Oauth grant </summary>
         /// <param name="clientSid"> A 34 character string that uniquely identifies this OAuth App. </param>
         /// <param name="scopes"> An Array of scopes for authorization request </param>
@@ -98,13 +98,13 @@ namespace Kandy.Rest.Oauth.V1
                                                                                   string clientSid,
                                                                                   List<string> scopes,
                                                                                   List<string> audiences = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateDeviceCodeOptions(clientSid, scopes){  Audiences = audiences };
+            var options = new CreateDeviceCodeOptions(clientSid, scopes) { Audiences = audiences };
             return await CreateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a DeviceCodeResource object
         /// </summary>
@@ -122,7 +122,7 @@ namespace Kandy.Rest.Oauth.V1
             }
         }
 
-    
+
         ///<summary> The device verification code. </summary> 
         [JsonProperty("device_code")]
         public string DeviceCode { get; private set; }
@@ -149,7 +149,8 @@ namespace Kandy.Rest.Oauth.V1
 
 
 
-        private DeviceCodeResource() {
+        private DeviceCodeResource()
+        {
 
         }
     }

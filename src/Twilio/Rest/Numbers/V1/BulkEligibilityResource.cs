@@ -28,16 +28,16 @@ namespace Kandy.Rest.Numbers.V1
 {
     public class BulkEligibilityResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchBulkEligibilityOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchBulkEligibilityOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/HostedNumber/Eligibility/Bulk/{RequestId}";
 
             string PathRequestId = options.PathRequestId;
-            path = path.Replace("{"+"RequestId"+"}", PathRequestId);
+            path = path.Replace("{" + "RequestId" + "}", PathRequestId);
 
             return new Request(
                 HttpMethod.Get,
@@ -52,50 +52,50 @@ namespace Kandy.Rest.Numbers.V1
         /// <param name="options"> Fetch BulkEligibility parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of BulkEligibility </returns>
-        public static BulkEligibilityResource Fetch(FetchBulkEligibilityOptions options, ITwilioRestClient client = null)
+        public static BulkEligibilityResource Fetch(FetchBulkEligibilityOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch an eligibility bulk check that you requested to host in Twilio. </summary>
         /// <param name="options"> Fetch BulkEligibility parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of BulkEligibility </returns>
         public static async System.Threading.Tasks.Task<BulkEligibilityResource> FetchAsync(FetchBulkEligibilityOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch an eligibility bulk check that you requested to host in Twilio. </summary>
         /// <param name="pathRequestId"> The SID of the bulk eligibility check that you want to know about. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of BulkEligibility </returns>
         public static BulkEligibilityResource Fetch(
-                                         string pathRequestId, 
-                                         ITwilioRestClient client = null)
+                                         string pathRequestId,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchBulkEligibilityOptions(pathRequestId){  };
+            var options = new FetchBulkEligibilityOptions(pathRequestId) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch an eligibility bulk check that you requested to host in Twilio. </summary>
         /// <param name="pathRequestId"> The SID of the bulk eligibility check that you want to know about. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of BulkEligibility </returns>
-        public static async System.Threading.Tasks.Task<BulkEligibilityResource> FetchAsync(string pathRequestId, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<BulkEligibilityResource> FetchAsync(string pathRequestId, IKandyRestClient client = null)
         {
-            var options = new FetchBulkEligibilityOptions(pathRequestId){  };
+            var options = new FetchBulkEligibilityOptions(pathRequestId) { };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a BulkEligibilityResource object
         /// </summary>
@@ -113,7 +113,7 @@ namespace Kandy.Rest.Numbers.V1
             }
         }
 
-    
+
         ///<summary> The SID of the bulk eligibility check that you want to know about. </summary> 
         [JsonProperty("request_id")]
         public string RequestId { get; private set; }
@@ -144,7 +144,8 @@ namespace Kandy.Rest.Numbers.V1
 
 
 
-        private BulkEligibilityResource() {
+        private BulkEligibilityResource()
+        {
 
         }
     }

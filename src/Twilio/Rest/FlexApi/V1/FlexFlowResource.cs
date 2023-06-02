@@ -28,12 +28,12 @@ namespace Kandy.Rest.FlexApi.V1
 {
     public class FlexFlowResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class IntegrationTypeEnum : StringEnum
         {
-            private IntegrationTypeEnum(string value) : base(value) {}
-            public IntegrationTypeEnum() {}
+            private IntegrationTypeEnum(string value) : base(value) { }
+            public IntegrationTypeEnum() { }
             public static implicit operator IntegrationTypeEnum(string value)
             {
                 return new IntegrationTypeEnum(value);
@@ -46,8 +46,8 @@ namespace Kandy.Rest.FlexApi.V1
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class ChannelTypeEnum : StringEnum
         {
-            private ChannelTypeEnum(string value) : base(value) {}
-            public ChannelTypeEnum() {}
+            private ChannelTypeEnum(string value) : base(value) { }
+            public ChannelTypeEnum() { }
             public static implicit operator ChannelTypeEnum(string value)
             {
                 return new ChannelTypeEnum(value);
@@ -61,10 +61,10 @@ namespace Kandy.Rest.FlexApi.V1
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateFlexFlowOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateFlexFlowOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/FlexFlows";
 
 
@@ -81,26 +81,26 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="options"> Create FlexFlow parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of FlexFlow </returns>
-        public static FlexFlowResource Create(CreateFlexFlowOptions options, ITwilioRestClient client = null)
+        public static FlexFlowResource Create(CreateFlexFlowOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create FlexFlow parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of FlexFlow </returns>
         public static async System.Threading.Tasks.Task<FlexFlowResource> CreateAsync(CreateFlexFlowOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="friendlyName"> A descriptive string that you create to describe the Flex Flow resource. </param>
@@ -140,13 +140,13 @@ namespace Kandy.Rest.FlexApi.V1
                                           bool? longLived = null,
                                           bool? janitorEnabled = null,
                                           int? integrationRetryCount = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateFlexFlowOptions(friendlyName, chatServiceSid, channelType){  ContactIdentity = contactIdentity, Enabled = enabled, IntegrationType = integrationType, IntegrationFlowSid = integrationFlowSid, IntegrationUrl = integrationUrl, IntegrationWorkspaceSid = integrationWorkspaceSid, IntegrationWorkflowSid = integrationWorkflowSid, IntegrationChannel = integrationChannel, IntegrationTimeout = integrationTimeout, IntegrationPriority = integrationPriority, IntegrationCreationOnMessage = integrationCreationOnMessage, LongLived = longLived, JanitorEnabled = janitorEnabled, IntegrationRetryCount = integrationRetryCount };
+            var options = new CreateFlexFlowOptions(friendlyName, chatServiceSid, channelType) { ContactIdentity = contactIdentity, Enabled = enabled, IntegrationType = integrationType, IntegrationFlowSid = integrationFlowSid, IntegrationUrl = integrationUrl, IntegrationWorkspaceSid = integrationWorkspaceSid, IntegrationWorkflowSid = integrationWorkflowSid, IntegrationChannel = integrationChannel, IntegrationTimeout = integrationTimeout, IntegrationPriority = integrationPriority, IntegrationCreationOnMessage = integrationCreationOnMessage, LongLived = longLived, JanitorEnabled = janitorEnabled, IntegrationRetryCount = integrationRetryCount };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="friendlyName"> A descriptive string that you create to describe the Flex Flow resource. </param>
         /// <param name="chatServiceSid"> The SID of the chat service. </param>
@@ -185,24 +185,24 @@ namespace Kandy.Rest.FlexApi.V1
                                                                                   bool? longLived = null,
                                                                                   bool? janitorEnabled = null,
                                                                                   int? integrationRetryCount = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateFlexFlowOptions(friendlyName, chatServiceSid, channelType){  ContactIdentity = contactIdentity, Enabled = enabled, IntegrationType = integrationType, IntegrationFlowSid = integrationFlowSid, IntegrationUrl = integrationUrl, IntegrationWorkspaceSid = integrationWorkspaceSid, IntegrationWorkflowSid = integrationWorkflowSid, IntegrationChannel = integrationChannel, IntegrationTimeout = integrationTimeout, IntegrationPriority = integrationPriority, IntegrationCreationOnMessage = integrationCreationOnMessage, LongLived = longLived, JanitorEnabled = janitorEnabled, IntegrationRetryCount = integrationRetryCount };
+            var options = new CreateFlexFlowOptions(friendlyName, chatServiceSid, channelType) { ContactIdentity = contactIdentity, Enabled = enabled, IntegrationType = integrationType, IntegrationFlowSid = integrationFlowSid, IntegrationUrl = integrationUrl, IntegrationWorkspaceSid = integrationWorkspaceSid, IntegrationWorkflowSid = integrationWorkflowSid, IntegrationChannel = integrationChannel, IntegrationTimeout = integrationTimeout, IntegrationPriority = integrationPriority, IntegrationCreationOnMessage = integrationCreationOnMessage, LongLived = longLived, JanitorEnabled = janitorEnabled, IntegrationRetryCount = integrationRetryCount };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> delete </summary>
         /// <param name="options"> Delete FlexFlow parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of FlexFlow </returns>
-        private static Request BuildDeleteRequest(DeleteFlexFlowOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteFlexFlowOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/FlexFlows/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -217,56 +217,56 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="options"> Delete FlexFlow parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of FlexFlow </returns>
-        public static bool Delete(DeleteFlexFlowOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteFlexFlowOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="options"> Delete FlexFlow parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of FlexFlow </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteFlexFlowOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> delete </summary>
         /// <param name="pathSid"> The SID of the Flex Flow resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of FlexFlow </returns>
-        public static bool Delete(string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteFlexFlowOptions(pathSid)     ;
+            var options = new DeleteFlexFlowOptions(pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="pathSid"> The SID of the Flex Flow resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of FlexFlow </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteFlexFlowOptions(pathSid) ;
+            var options = new DeleteFlexFlowOptions(pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchFlexFlowOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchFlexFlowOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/FlexFlows/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -281,53 +281,53 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="options"> Fetch FlexFlow parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of FlexFlow </returns>
-        public static FlexFlowResource Fetch(FetchFlexFlowOptions options, ITwilioRestClient client = null)
+        public static FlexFlowResource Fetch(FetchFlexFlowOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch FlexFlow parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of FlexFlow </returns>
         public static async System.Threading.Tasks.Task<FlexFlowResource> FetchAsync(FetchFlexFlowOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathSid"> The SID of the Flex Flow resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of FlexFlow </returns>
         public static FlexFlowResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchFlexFlowOptions(pathSid){  };
+            var options = new FetchFlexFlowOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathSid"> The SID of the Flex Flow resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of FlexFlow </returns>
-        public static async System.Threading.Tasks.Task<FlexFlowResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<FlexFlowResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchFlexFlowOptions(pathSid){  };
+            var options = new FetchFlexFlowOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadFlexFlowOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadFlexFlowOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/FlexFlows";
 
 
@@ -343,7 +343,7 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="options"> Read FlexFlow parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of FlexFlow </returns>
-        public static ResourceSet<FlexFlowResource> Read(ReadFlexFlowOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<FlexFlowResource> Read(ReadFlexFlowOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -351,13 +351,13 @@ namespace Kandy.Rest.FlexApi.V1
             return new ResourceSet<FlexFlowResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read FlexFlow parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of FlexFlow </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<FlexFlowResource>> ReadAsync(ReadFlexFlowOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -365,7 +365,7 @@ namespace Kandy.Rest.FlexApi.V1
             var page = Page<FlexFlowResource>.FromJson("flex_flows", response.Content);
             return new ResourceSet<FlexFlowResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="friendlyName"> The `friendly_name` of the Flex Flow resources to read. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -376,13 +376,13 @@ namespace Kandy.Rest.FlexApi.V1
                                                      string friendlyName = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadFlexFlowOptions(){ FriendlyName = friendlyName, PageSize = pageSize, Limit = limit};
+            var options = new ReadFlexFlowOptions() { FriendlyName = friendlyName, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="friendlyName"> The `friendly_name` of the Flex Flow resources to read. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -393,19 +393,19 @@ namespace Kandy.Rest.FlexApi.V1
                                                                                              string friendlyName = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadFlexFlowOptions(){ FriendlyName = friendlyName, PageSize = pageSize, Limit = limit};
+            var options = new ReadFlexFlowOptions() { FriendlyName = friendlyName, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<FlexFlowResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<FlexFlowResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -422,7 +422,7 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<FlexFlowResource> NextPage(Page<FlexFlowResource> page, ITwilioRestClient client)
+        public static Page<FlexFlowResource> NextPage(Page<FlexFlowResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -437,7 +437,7 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<FlexFlowResource> PreviousPage(Page<FlexFlowResource> page, ITwilioRestClient client)
+        public static Page<FlexFlowResource> PreviousPage(Page<FlexFlowResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -448,14 +448,14 @@ namespace Kandy.Rest.FlexApi.V1
             return Page<FlexFlowResource>.FromJson("flex_flows", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateFlexFlowOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateFlexFlowOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/FlexFlows/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -470,7 +470,7 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="options"> Update FlexFlow parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of FlexFlow </returns>
-        public static FlexFlowResource Update(UpdateFlexFlowOptions options, ITwilioRestClient client = null)
+        public static FlexFlowResource Update(UpdateFlexFlowOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -481,15 +481,15 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="options"> Update FlexFlow parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of FlexFlow </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<FlexFlowResource> UpdateAsync(UpdateFlexFlowOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> update </summary>
         /// <param name="pathSid"> The SID of the Flex Flow resource to update. </param>
@@ -531,13 +531,13 @@ namespace Kandy.Rest.FlexApi.V1
                                           bool? longLived = null,
                                           bool? janitorEnabled = null,
                                           int? integrationRetryCount = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateFlexFlowOptions(pathSid){ FriendlyName = friendlyName, ChatServiceSid = chatServiceSid, ChannelType = channelType, ContactIdentity = contactIdentity, Enabled = enabled, IntegrationType = integrationType, IntegrationFlowSid = integrationFlowSid, IntegrationUrl = integrationUrl, IntegrationWorkspaceSid = integrationWorkspaceSid, IntegrationWorkflowSid = integrationWorkflowSid, IntegrationChannel = integrationChannel, IntegrationTimeout = integrationTimeout, IntegrationPriority = integrationPriority, IntegrationCreationOnMessage = integrationCreationOnMessage, LongLived = longLived, JanitorEnabled = janitorEnabled, IntegrationRetryCount = integrationRetryCount };
+            var options = new UpdateFlexFlowOptions(pathSid) { FriendlyName = friendlyName, ChatServiceSid = chatServiceSid, ChannelType = channelType, ContactIdentity = contactIdentity, Enabled = enabled, IntegrationType = integrationType, IntegrationFlowSid = integrationFlowSid, IntegrationUrl = integrationUrl, IntegrationWorkspaceSid = integrationWorkspaceSid, IntegrationWorkflowSid = integrationWorkflowSid, IntegrationChannel = integrationChannel, IntegrationTimeout = integrationTimeout, IntegrationPriority = integrationPriority, IntegrationCreationOnMessage = integrationCreationOnMessage, LongLived = longLived, JanitorEnabled = janitorEnabled, IntegrationRetryCount = integrationRetryCount };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> update </summary>
         /// <param name="pathSid"> The SID of the Flex Flow resource to update. </param>
         /// <param name="friendlyName"> A descriptive string that you create to describe the Flex Flow resource. </param>
@@ -578,13 +578,13 @@ namespace Kandy.Rest.FlexApi.V1
                                                                               bool? longLived = null,
                                                                               bool? janitorEnabled = null,
                                                                               int? integrationRetryCount = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateFlexFlowOptions(pathSid){ FriendlyName = friendlyName, ChatServiceSid = chatServiceSid, ChannelType = channelType, ContactIdentity = contactIdentity, Enabled = enabled, IntegrationType = integrationType, IntegrationFlowSid = integrationFlowSid, IntegrationUrl = integrationUrl, IntegrationWorkspaceSid = integrationWorkspaceSid, IntegrationWorkflowSid = integrationWorkflowSid, IntegrationChannel = integrationChannel, IntegrationTimeout = integrationTimeout, IntegrationPriority = integrationPriority, IntegrationCreationOnMessage = integrationCreationOnMessage, LongLived = longLived, JanitorEnabled = janitorEnabled, IntegrationRetryCount = integrationRetryCount };
+            var options = new UpdateFlexFlowOptions(pathSid) { FriendlyName = friendlyName, ChatServiceSid = chatServiceSid, ChannelType = channelType, ContactIdentity = contactIdentity, Enabled = enabled, IntegrationType = integrationType, IntegrationFlowSid = integrationFlowSid, IntegrationUrl = integrationUrl, IntegrationWorkspaceSid = integrationWorkspaceSid, IntegrationWorkflowSid = integrationWorkflowSid, IntegrationChannel = integrationChannel, IntegrationTimeout = integrationTimeout, IntegrationPriority = integrationPriority, IntegrationCreationOnMessage = integrationCreationOnMessage, LongLived = longLived, JanitorEnabled = janitorEnabled, IntegrationRetryCount = integrationRetryCount };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a FlexFlowResource object
         /// </summary>
@@ -602,7 +602,7 @@ namespace Kandy.Rest.FlexApi.V1
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Flow resource and owns this Workflow. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -627,7 +627,7 @@ namespace Kandy.Rest.FlexApi.V1
         [JsonProperty("chat_service_sid")]
         public string ChatServiceSid { get; private set; }
 
-        
+
         [JsonProperty("channel_type")]
         public FlexFlowResource.ChannelTypeEnum ChannelType { get; private set; }
 
@@ -639,7 +639,7 @@ namespace Kandy.Rest.FlexApi.V1
         [JsonProperty("enabled")]
         public bool? Enabled { get; private set; }
 
-        
+
         [JsonProperty("integration_type")]
         public FlexFlowResource.IntegrationTypeEnum IntegrationType { get; private set; }
 
@@ -661,7 +661,8 @@ namespace Kandy.Rest.FlexApi.V1
 
 
 
-        private FlexFlowResource() {
+        private FlexFlowResource()
+        {
 
         }
     }

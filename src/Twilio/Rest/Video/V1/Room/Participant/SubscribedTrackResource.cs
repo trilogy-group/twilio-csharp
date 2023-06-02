@@ -28,12 +28,12 @@ namespace Kandy.Rest.Video.V1.Room.Participant
 {
     public class SubscribedTrackResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class KindEnum : StringEnum
         {
-            private KindEnum(string value) : base(value) {}
-            public KindEnum() {}
+            private KindEnum(string value) : base(value) { }
+            public KindEnum() { }
             public static implicit operator KindEnum(string value)
             {
                 return new KindEnum(value);
@@ -44,18 +44,18 @@ namespace Kandy.Rest.Video.V1.Room.Participant
 
         }
 
-        
-        private static Request BuildFetchRequest(FetchSubscribedTrackOptions options, ITwilioRestClient client)
+
+        private static Request BuildFetchRequest(FetchSubscribedTrackOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribedTracks/{Sid}";
 
             string PathRoomSid = options.PathRoomSid;
-            path = path.Replace("{"+"RoomSid"+"}", PathRoomSid);
+            path = path.Replace("{" + "RoomSid" + "}", PathRoomSid);
             string PathParticipantSid = options.PathParticipantSid;
-            path = path.Replace("{"+"ParticipantSid"+"}", PathParticipantSid);
+            path = path.Replace("{" + "ParticipantSid" + "}", PathParticipantSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -70,26 +70,26 @@ namespace Kandy.Rest.Video.V1.Room.Participant
         /// <param name="options"> Fetch SubscribedTrack parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SubscribedTrack </returns>
-        public static SubscribedTrackResource Fetch(FetchSubscribedTrackOptions options, ITwilioRestClient client = null)
+        public static SubscribedTrackResource Fetch(FetchSubscribedTrackOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Returns a single Track resource represented by `track_sid`.  Note: This is one resource with the Video API that requires a SID, be Track Name on the subscriber side is not guaranteed to be unique. </summary>
         /// <param name="options"> Fetch SubscribedTrack parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SubscribedTrack </returns>
         public static async System.Threading.Tasks.Task<SubscribedTrackResource> FetchAsync(FetchSubscribedTrackOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Returns a single Track resource represented by `track_sid`.  Note: This is one resource with the Video API that requires a SID, be Track Name on the subscriber side is not guaranteed to be unique. </summary>
         /// <param name="pathRoomSid"> The SID of the Room where the Track resource to fetch is subscribed. </param>
         /// <param name="pathParticipantSid"> The SID of the participant that subscribes to the Track resource to fetch. </param>
@@ -97,38 +97,38 @@ namespace Kandy.Rest.Video.V1.Room.Participant
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SubscribedTrack </returns>
         public static SubscribedTrackResource Fetch(
-                                         string pathRoomSid, 
-                                         string pathParticipantSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathRoomSid,
+                                         string pathParticipantSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchSubscribedTrackOptions(pathRoomSid, pathParticipantSid, pathSid){  };
+            var options = new FetchSubscribedTrackOptions(pathRoomSid, pathParticipantSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Returns a single Track resource represented by `track_sid`.  Note: This is one resource with the Video API that requires a SID, be Track Name on the subscriber side is not guaranteed to be unique. </summary>
         /// <param name="pathRoomSid"> The SID of the Room where the Track resource to fetch is subscribed. </param>
         /// <param name="pathParticipantSid"> The SID of the participant that subscribes to the Track resource to fetch. </param>
         /// <param name="pathSid"> The SID of the RoomParticipantSubscribedTrack resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SubscribedTrack </returns>
-        public static async System.Threading.Tasks.Task<SubscribedTrackResource> FetchAsync(string pathRoomSid, string pathParticipantSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<SubscribedTrackResource> FetchAsync(string pathRoomSid, string pathParticipantSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchSubscribedTrackOptions(pathRoomSid, pathParticipantSid, pathSid){  };
+            var options = new FetchSubscribedTrackOptions(pathRoomSid, pathParticipantSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadSubscribedTrackOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadSubscribedTrackOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribedTracks";
 
             string PathRoomSid = options.PathRoomSid;
-            path = path.Replace("{"+"RoomSid"+"}", PathRoomSid);
+            path = path.Replace("{" + "RoomSid" + "}", PathRoomSid);
             string PathParticipantSid = options.PathParticipantSid;
-            path = path.Replace("{"+"ParticipantSid"+"}", PathParticipantSid);
+            path = path.Replace("{" + "ParticipantSid" + "}", PathParticipantSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -142,7 +142,7 @@ namespace Kandy.Rest.Video.V1.Room.Participant
         /// <param name="options"> Read SubscribedTrack parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SubscribedTrack </returns>
-        public static ResourceSet<SubscribedTrackResource> Read(ReadSubscribedTrackOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<SubscribedTrackResource> Read(ReadSubscribedTrackOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -150,13 +150,13 @@ namespace Kandy.Rest.Video.V1.Room.Participant
             return new ResourceSet<SubscribedTrackResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Returns a list of tracks that are subscribed for the participant. </summary>
         /// <param name="options"> Read SubscribedTrack parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SubscribedTrack </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<SubscribedTrackResource>> ReadAsync(ReadSubscribedTrackOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -164,7 +164,7 @@ namespace Kandy.Rest.Video.V1.Room.Participant
             var page = Page<SubscribedTrackResource>.FromJson("subscribed_tracks", response.Content);
             return new ResourceSet<SubscribedTrackResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Returns a list of tracks that are subscribed for the participant. </summary>
         /// <param name="pathRoomSid"> The SID of the Room resource with the Track resources to read. </param>
         /// <param name="pathParticipantSid"> The SID of the participant that subscribes to the Track resources to read. </param>
@@ -177,13 +177,13 @@ namespace Kandy.Rest.Video.V1.Room.Participant
                                                      string pathParticipantSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadSubscribedTrackOptions(pathRoomSid, pathParticipantSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadSubscribedTrackOptions(pathRoomSid, pathParticipantSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Returns a list of tracks that are subscribed for the participant. </summary>
         /// <param name="pathRoomSid"> The SID of the Room resource with the Track resources to read. </param>
         /// <param name="pathParticipantSid"> The SID of the participant that subscribes to the Track resources to read. </param>
@@ -196,19 +196,19 @@ namespace Kandy.Rest.Video.V1.Room.Participant
                                                                                              string pathParticipantSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadSubscribedTrackOptions(pathRoomSid, pathParticipantSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadSubscribedTrackOptions(pathRoomSid, pathParticipantSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<SubscribedTrackResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<SubscribedTrackResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -225,7 +225,7 @@ namespace Kandy.Rest.Video.V1.Room.Participant
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<SubscribedTrackResource> NextPage(Page<SubscribedTrackResource> page, ITwilioRestClient client)
+        public static Page<SubscribedTrackResource> NextPage(Page<SubscribedTrackResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -240,7 +240,7 @@ namespace Kandy.Rest.Video.V1.Room.Participant
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<SubscribedTrackResource> PreviousPage(Page<SubscribedTrackResource> page, ITwilioRestClient client)
+        public static Page<SubscribedTrackResource> PreviousPage(Page<SubscribedTrackResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -251,7 +251,7 @@ namespace Kandy.Rest.Video.V1.Room.Participant
             return Page<SubscribedTrackResource>.FromJson("subscribed_tracks", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a SubscribedTrackResource object
         /// </summary>
@@ -269,7 +269,7 @@ namespace Kandy.Rest.Video.V1.Room.Participant
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the RoomParticipantSubscribedTrack resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -302,7 +302,7 @@ namespace Kandy.Rest.Video.V1.Room.Participant
         [JsonProperty("enabled")]
         public bool? Enabled { get; private set; }
 
-        
+
         [JsonProperty("kind")]
         public SubscribedTrackResource.KindEnum Kind { get; private set; }
 
@@ -312,7 +312,8 @@ namespace Kandy.Rest.Video.V1.Room.Participant
 
 
 
-        private SubscribedTrackResource() {
+        private SubscribedTrackResource()
+        {
 
         }
     }

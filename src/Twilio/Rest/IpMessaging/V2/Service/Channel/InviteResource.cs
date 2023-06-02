@@ -28,18 +28,18 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
 {
     public class InviteResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateInviteOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateInviteOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathChannelSid = options.PathChannelSid;
-            path = path.Replace("{"+"ChannelSid"+"}", PathChannelSid);
+            path = path.Replace("{" + "ChannelSid" + "}", PathChannelSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -54,26 +54,26 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
         /// <param name="options"> Create Invite parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Invite </returns>
-        public static InviteResource Create(CreateInviteOptions options, ITwilioRestClient client = null)
+        public static InviteResource Create(CreateInviteOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create Invite parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Invite </returns>
         public static async System.Threading.Tasks.Task<InviteResource> CreateAsync(CreateInviteOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="pathServiceSid">  </param>
@@ -87,13 +87,13 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
                                           string pathChannelSid,
                                           string identity,
                                           string roleSid = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateInviteOptions(pathServiceSid, pathChannelSid, identity){  RoleSid = roleSid };
+            var options = new CreateInviteOptions(pathServiceSid, pathChannelSid, identity) { RoleSid = roleSid };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="pathServiceSid">  </param>
         /// <param name="pathChannelSid">  </param>
@@ -106,28 +106,28 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
                                                                                   string pathChannelSid,
                                                                                   string identity,
                                                                                   string roleSid = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateInviteOptions(pathServiceSid, pathChannelSid, identity){  RoleSid = roleSid };
+            var options = new CreateInviteOptions(pathServiceSid, pathChannelSid, identity) { RoleSid = roleSid };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> delete </summary>
         /// <param name="options"> Delete Invite parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Invite </returns>
-        private static Request BuildDeleteRequest(DeleteInviteOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteInviteOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathChannelSid = options.PathChannelSid;
-            path = path.Replace("{"+"ChannelSid"+"}", PathChannelSid);
+            path = path.Replace("{" + "ChannelSid" + "}", PathChannelSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -142,26 +142,26 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
         /// <param name="options"> Delete Invite parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Invite </returns>
-        public static bool Delete(DeleteInviteOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteInviteOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="options"> Delete Invite parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Invite </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteInviteOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> delete </summary>
         /// <param name="pathServiceSid">  </param>
@@ -169,37 +169,37 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
         /// <param name="pathSid">  </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Invite </returns>
-        public static bool Delete(string pathServiceSid, string pathChannelSid, string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathServiceSid, string pathChannelSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteInviteOptions(pathServiceSid, pathChannelSid, pathSid)           ;
+            var options = new DeleteInviteOptions(pathServiceSid, pathChannelSid, pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="pathServiceSid">  </param>
         /// <param name="pathChannelSid">  </param>
         /// <param name="pathSid">  </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Invite </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathChannelSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathChannelSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteInviteOptions(pathServiceSid, pathChannelSid, pathSid) ;
+            var options = new DeleteInviteOptions(pathServiceSid, pathChannelSid, pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchInviteOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchInviteOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathChannelSid = options.PathChannelSid;
-            path = path.Replace("{"+"ChannelSid"+"}", PathChannelSid);
+            path = path.Replace("{" + "ChannelSid" + "}", PathChannelSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -214,26 +214,26 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
         /// <param name="options"> Fetch Invite parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Invite </returns>
-        public static InviteResource Fetch(FetchInviteOptions options, ITwilioRestClient client = null)
+        public static InviteResource Fetch(FetchInviteOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch Invite parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Invite </returns>
         public static async System.Threading.Tasks.Task<InviteResource> FetchAsync(FetchInviteOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathServiceSid">  </param>
         /// <param name="pathChannelSid">  </param>
@@ -241,38 +241,38 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Invite </returns>
         public static InviteResource Fetch(
-                                         string pathServiceSid, 
-                                         string pathChannelSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathServiceSid,
+                                         string pathChannelSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchInviteOptions(pathServiceSid, pathChannelSid, pathSid){  };
+            var options = new FetchInviteOptions(pathServiceSid, pathChannelSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathServiceSid">  </param>
         /// <param name="pathChannelSid">  </param>
         /// <param name="pathSid">  </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Invite </returns>
-        public static async System.Threading.Tasks.Task<InviteResource> FetchAsync(string pathServiceSid, string pathChannelSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<InviteResource> FetchAsync(string pathServiceSid, string pathChannelSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchInviteOptions(pathServiceSid, pathChannelSid, pathSid){  };
+            var options = new FetchInviteOptions(pathServiceSid, pathChannelSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadInviteOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadInviteOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathChannelSid = options.PathChannelSid;
-            path = path.Replace("{"+"ChannelSid"+"}", PathChannelSid);
+            path = path.Replace("{" + "ChannelSid" + "}", PathChannelSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -286,7 +286,7 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
         /// <param name="options"> Read Invite parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Invite </returns>
-        public static ResourceSet<InviteResource> Read(ReadInviteOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<InviteResource> Read(ReadInviteOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -294,13 +294,13 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
             return new ResourceSet<InviteResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read Invite parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Invite </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<InviteResource>> ReadAsync(ReadInviteOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -308,7 +308,7 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
             var page = Page<InviteResource>.FromJson("invites", response.Content);
             return new ResourceSet<InviteResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="pathServiceSid">  </param>
         /// <param name="pathChannelSid">  </param>
@@ -323,13 +323,13 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
                                                      List<string> identity = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadInviteOptions(pathServiceSid, pathChannelSid){ Identity = identity, PageSize = pageSize, Limit = limit};
+            var options = new ReadInviteOptions(pathServiceSid, pathChannelSid) { Identity = identity, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="pathServiceSid">  </param>
         /// <param name="pathChannelSid">  </param>
@@ -344,19 +344,19 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
                                                                                              List<string> identity = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadInviteOptions(pathServiceSid, pathChannelSid){ Identity = identity, PageSize = pageSize, Limit = limit};
+            var options = new ReadInviteOptions(pathServiceSid, pathChannelSid) { Identity = identity, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<InviteResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<InviteResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -373,7 +373,7 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<InviteResource> NextPage(Page<InviteResource> page, ITwilioRestClient client)
+        public static Page<InviteResource> NextPage(Page<InviteResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -388,7 +388,7 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<InviteResource> PreviousPage(Page<InviteResource> page, ITwilioRestClient client)
+        public static Page<InviteResource> PreviousPage(Page<InviteResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -399,7 +399,7 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
             return Page<InviteResource>.FromJson("invites", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a InviteResource object
         /// </summary>
@@ -417,7 +417,7 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
             }
         }
 
-    
+
         ///<summary> The sid </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -460,7 +460,8 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
 
 
 
-        private InviteResource() {
+        private InviteResource()
+        {
 
         }
     }

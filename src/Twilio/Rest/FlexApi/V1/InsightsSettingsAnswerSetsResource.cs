@@ -28,12 +28,12 @@ namespace Kandy.Rest.FlexApi.V1
 {
     public class InsightsSettingsAnswerSetsResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchInsightsSettingsAnswerSetsOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchInsightsSettingsAnswerSetsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Insights/QualityManagement/Settings/AnswerSets";
 
 
@@ -50,50 +50,50 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="options"> Fetch InsightsSettingsAnswerSets parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of InsightsSettingsAnswerSets </returns>
-        public static InsightsSettingsAnswerSetsResource Fetch(FetchInsightsSettingsAnswerSetsOptions options, ITwilioRestClient client = null)
+        public static InsightsSettingsAnswerSetsResource Fetch(FetchInsightsSettingsAnswerSetsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> To get the Answer Set Settings for an Account </summary>
         /// <param name="options"> Fetch InsightsSettingsAnswerSets parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of InsightsSettingsAnswerSets </returns>
         public static async System.Threading.Tasks.Task<InsightsSettingsAnswerSetsResource> FetchAsync(FetchInsightsSettingsAnswerSetsOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> To get the Answer Set Settings for an Account </summary>
         /// <param name="authorization"> The Authorization HTTP request header </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of InsightsSettingsAnswerSets </returns>
         public static InsightsSettingsAnswerSetsResource Fetch(
-                                         string authorization = null, 
-                                         ITwilioRestClient client = null)
+                                         string authorization = null,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchInsightsSettingsAnswerSetsOptions(){ Authorization = authorization };
+            var options = new FetchInsightsSettingsAnswerSetsOptions() { Authorization = authorization };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> To get the Answer Set Settings for an Account </summary>
         /// <param name="authorization"> The Authorization HTTP request header </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of InsightsSettingsAnswerSets </returns>
-        public static async System.Threading.Tasks.Task<InsightsSettingsAnswerSetsResource> FetchAsync(string authorization = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<InsightsSettingsAnswerSetsResource> FetchAsync(string authorization = null, IKandyRestClient client = null)
         {
-            var options = new FetchInsightsSettingsAnswerSetsOptions(){ Authorization = authorization };
+            var options = new FetchInsightsSettingsAnswerSetsOptions() { Authorization = authorization };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a InsightsSettingsAnswerSetsResource object
         /// </summary>
@@ -111,7 +111,7 @@ namespace Kandy.Rest.FlexApi.V1
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -134,7 +134,8 @@ namespace Kandy.Rest.FlexApi.V1
 
 
 
-        private InsightsSettingsAnswerSetsResource() {
+        private InsightsSettingsAnswerSetsResource()
+        {
 
         }
     }

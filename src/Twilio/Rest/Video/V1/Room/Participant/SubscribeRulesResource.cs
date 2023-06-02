@@ -28,18 +28,18 @@ namespace Kandy.Rest.Video.V1.Room.Participant
 {
     public class SubscribeRulesResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchSubscribeRulesOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchSubscribeRulesOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribeRules";
 
             string PathRoomSid = options.PathRoomSid;
-            path = path.Replace("{"+"RoomSid"+"}", PathRoomSid);
+            path = path.Replace("{" + "RoomSid" + "}", PathRoomSid);
             string PathParticipantSid = options.PathParticipantSid;
-            path = path.Replace("{"+"ParticipantSid"+"}", PathParticipantSid);
+            path = path.Replace("{" + "ParticipantSid" + "}", PathParticipantSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -54,62 +54,62 @@ namespace Kandy.Rest.Video.V1.Room.Participant
         /// <param name="options"> Fetch SubscribeRules parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SubscribeRules </returns>
-        public static SubscribeRulesResource Fetch(FetchSubscribeRulesOptions options, ITwilioRestClient client = null)
+        public static SubscribeRulesResource Fetch(FetchSubscribeRulesOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Returns a list of Subscribe Rules for the Participant. </summary>
         /// <param name="options"> Fetch SubscribeRules parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SubscribeRules </returns>
         public static async System.Threading.Tasks.Task<SubscribeRulesResource> FetchAsync(FetchSubscribeRulesOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Returns a list of Subscribe Rules for the Participant. </summary>
         /// <param name="pathRoomSid"> The SID of the Room resource where the subscribe rules to fetch apply. </param>
         /// <param name="pathParticipantSid"> The SID of the Participant resource with the subscribe rules to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SubscribeRules </returns>
         public static SubscribeRulesResource Fetch(
-                                         string pathRoomSid, 
-                                         string pathParticipantSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathRoomSid,
+                                         string pathParticipantSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchSubscribeRulesOptions(pathRoomSid, pathParticipantSid){  };
+            var options = new FetchSubscribeRulesOptions(pathRoomSid, pathParticipantSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Returns a list of Subscribe Rules for the Participant. </summary>
         /// <param name="pathRoomSid"> The SID of the Room resource where the subscribe rules to fetch apply. </param>
         /// <param name="pathParticipantSid"> The SID of the Participant resource with the subscribe rules to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SubscribeRules </returns>
-        public static async System.Threading.Tasks.Task<SubscribeRulesResource> FetchAsync(string pathRoomSid, string pathParticipantSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<SubscribeRulesResource> FetchAsync(string pathRoomSid, string pathParticipantSid, IKandyRestClient client = null)
         {
-            var options = new FetchSubscribeRulesOptions(pathRoomSid, pathParticipantSid){  };
+            var options = new FetchSubscribeRulesOptions(pathRoomSid, pathParticipantSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildUpdateRequest(UpdateSubscribeRulesOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildUpdateRequest(UpdateSubscribeRulesOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribeRules";
 
             string PathRoomSid = options.PathRoomSid;
-            path = path.Replace("{"+"RoomSid"+"}", PathRoomSid);
+            path = path.Replace("{" + "RoomSid" + "}", PathRoomSid);
             string PathParticipantSid = options.PathParticipantSid;
-            path = path.Replace("{"+"ParticipantSid"+"}", PathParticipantSid);
+            path = path.Replace("{" + "ParticipantSid" + "}", PathParticipantSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -124,7 +124,7 @@ namespace Kandy.Rest.Video.V1.Room.Participant
         /// <param name="options"> Update SubscribeRules parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SubscribeRules </returns>
-        public static SubscribeRulesResource Update(UpdateSubscribeRulesOptions options, ITwilioRestClient client = null)
+        public static SubscribeRulesResource Update(UpdateSubscribeRulesOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -135,15 +135,15 @@ namespace Kandy.Rest.Video.V1.Room.Participant
         /// <param name="options"> Update SubscribeRules parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SubscribeRules </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<SubscribeRulesResource> UpdateAsync(UpdateSubscribeRulesOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update the Subscribe Rules for the Participant </summary>
         /// <param name="pathRoomSid"> The SID of the Room resource where the subscribe rules to update apply. </param>
@@ -155,13 +155,13 @@ namespace Kandy.Rest.Video.V1.Room.Participant
                                           string pathRoomSid,
                                           string pathParticipantSid,
                                           object rules = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateSubscribeRulesOptions(pathRoomSid, pathParticipantSid){ Rules = rules };
+            var options = new UpdateSubscribeRulesOptions(pathRoomSid, pathParticipantSid) { Rules = rules };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update the Subscribe Rules for the Participant </summary>
         /// <param name="pathRoomSid"> The SID of the Room resource where the subscribe rules to update apply. </param>
         /// <param name="pathParticipantSid"> The SID of the Participant resource to update the Subscribe Rules. </param>
@@ -172,13 +172,13 @@ namespace Kandy.Rest.Video.V1.Room.Participant
                                                                               string pathRoomSid,
                                                                               string pathParticipantSid,
                                                                               object rules = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateSubscribeRulesOptions(pathRoomSid, pathParticipantSid){ Rules = rules };
+            var options = new UpdateSubscribeRulesOptions(pathRoomSid, pathParticipantSid) { Rules = rules };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a SubscribeRulesResource object
         /// </summary>
@@ -196,7 +196,7 @@ namespace Kandy.Rest.Video.V1.Room.Participant
             }
         }
 
-    
+
         ///<summary> The SID of the Participant resource for the Subscribe Rules. </summary> 
         [JsonProperty("participant_sid")]
         public string ParticipantSid { get; private set; }
@@ -219,7 +219,8 @@ namespace Kandy.Rest.Video.V1.Room.Participant
 
 
 
-        private SubscribeRulesResource() {
+        private SubscribeRulesResource()
+        {
 
         }
     }

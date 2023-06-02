@@ -28,18 +28,18 @@ namespace Kandy.Rest.Preview.Understand.Assistant
 {
     public class DialogueResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchDialogueOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchDialogueOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/understand/Assistants/{AssistantSid}/Dialogues/{Sid}";
 
             string PathAssistantSid = options.PathAssistantSid;
-            path = path.Replace("{"+"AssistantSid"+"}", PathAssistantSid);
+            path = path.Replace("{" + "AssistantSid" + "}", PathAssistantSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -54,53 +54,53 @@ namespace Kandy.Rest.Preview.Understand.Assistant
         /// <param name="options"> Fetch Dialogue parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Dialogue </returns>
-        public static DialogueResource Fetch(FetchDialogueOptions options, ITwilioRestClient client = null)
+        public static DialogueResource Fetch(FetchDialogueOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch Dialogue parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Dialogue </returns>
         public static async System.Threading.Tasks.Task<DialogueResource> FetchAsync(FetchDialogueOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathAssistantSid">  </param>
         /// <param name="pathSid">  </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Dialogue </returns>
         public static DialogueResource Fetch(
-                                         string pathAssistantSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathAssistantSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchDialogueOptions(pathAssistantSid, pathSid){  };
+            var options = new FetchDialogueOptions(pathAssistantSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathAssistantSid">  </param>
         /// <param name="pathSid">  </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Dialogue </returns>
-        public static async System.Threading.Tasks.Task<DialogueResource> FetchAsync(string pathAssistantSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<DialogueResource> FetchAsync(string pathAssistantSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchDialogueOptions(pathAssistantSid, pathSid){  };
+            var options = new FetchDialogueOptions(pathAssistantSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a DialogueResource object
         /// </summary>
@@ -118,7 +118,7 @@ namespace Kandy.Rest.Preview.Understand.Assistant
             }
         }
 
-    
+
         ///<summary> The unique ID of the Account that created this Field. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -141,7 +141,8 @@ namespace Kandy.Rest.Preview.Understand.Assistant
 
 
 
-        private DialogueResource() {
+        private DialogueResource()
+        {
 
         }
     }

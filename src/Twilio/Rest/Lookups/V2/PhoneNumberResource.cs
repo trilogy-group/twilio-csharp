@@ -28,12 +28,12 @@ namespace Kandy.Rest.Lookups.V2
 {
     public class PhoneNumberResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class ValidationErrorEnum : StringEnum
         {
-            private ValidationErrorEnum(string value) : base(value) {}
-            public ValidationErrorEnum() {}
+            private ValidationErrorEnum(string value) : base(value) { }
+            public ValidationErrorEnum() { }
             public static implicit operator ValidationErrorEnum(string value)
             {
                 return new ValidationErrorEnum(value);
@@ -47,14 +47,14 @@ namespace Kandy.Rest.Lookups.V2
             public static readonly ValidationErrorEnum NotANumber = new ValidationErrorEnum("NOT_A_NUMBER");
         }
 
-        
-        private static Request BuildFetchRequest(FetchPhoneNumberOptions options, ITwilioRestClient client)
+
+        private static Request BuildFetchRequest(FetchPhoneNumberOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/PhoneNumbers/{PhoneNumber}";
 
             string PathPhoneNumber = options.PathPhoneNumber;
-            path = path.Replace("{"+"PhoneNumber"+"}", PathPhoneNumber);
+            path = path.Replace("{" + "PhoneNumber" + "}", PathPhoneNumber);
 
             return new Request(
                 HttpMethod.Get,
@@ -69,26 +69,26 @@ namespace Kandy.Rest.Lookups.V2
         /// <param name="options"> Fetch PhoneNumber parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of PhoneNumber </returns>
-        public static PhoneNumberResource Fetch(FetchPhoneNumberOptions options, ITwilioRestClient client = null)
+        public static PhoneNumberResource Fetch(FetchPhoneNumberOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch PhoneNumber parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of PhoneNumber </returns>
         public static async System.Threading.Tasks.Task<PhoneNumberResource> FetchAsync(FetchPhoneNumberOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathPhoneNumber"> The phone number to lookup in E.164 or national format. Default country code is +1 (North America). </param>
         /// <param name="fields"> A comma-separated list of fields to return. Possible values are caller_name, sim_swap, call_forwarding, live_activity, line_type_intelligence, identity_match. </param>
@@ -106,26 +106,26 @@ namespace Kandy.Rest.Lookups.V2
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of PhoneNumber </returns>
         public static PhoneNumberResource Fetch(
-                                         string pathPhoneNumber, 
-                                         string fields = null, 
-                                         string countryCode = null, 
-                                         string firstName = null, 
-                                         string lastName = null, 
-                                         string addressLine1 = null, 
-                                         string addressLine2 = null, 
-                                         string city = null, 
-                                         string state = null, 
-                                         string postalCode = null, 
-                                         string addressCountryCode = null, 
-                                         string nationalId = null, 
-                                         string dateOfBirth = null, 
-                                         ITwilioRestClient client = null)
+                                         string pathPhoneNumber,
+                                         string fields = null,
+                                         string countryCode = null,
+                                         string firstName = null,
+                                         string lastName = null,
+                                         string addressLine1 = null,
+                                         string addressLine2 = null,
+                                         string city = null,
+                                         string state = null,
+                                         string postalCode = null,
+                                         string addressCountryCode = null,
+                                         string nationalId = null,
+                                         string dateOfBirth = null,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchPhoneNumberOptions(pathPhoneNumber){ Fields = fields,CountryCode = countryCode,FirstName = firstName,LastName = lastName,AddressLine1 = addressLine1,AddressLine2 = addressLine2,City = city,State = state,PostalCode = postalCode,AddressCountryCode = addressCountryCode,NationalId = nationalId,DateOfBirth = dateOfBirth };
+            var options = new FetchPhoneNumberOptions(pathPhoneNumber) { Fields = fields, CountryCode = countryCode, FirstName = firstName, LastName = lastName, AddressLine1 = addressLine1, AddressLine2 = addressLine2, City = city, State = state, PostalCode = postalCode, AddressCountryCode = addressCountryCode, NationalId = nationalId, DateOfBirth = dateOfBirth };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathPhoneNumber"> The phone number to lookup in E.164 or national format. Default country code is +1 (North America). </param>
         /// <param name="fields"> A comma-separated list of fields to return. Possible values are caller_name, sim_swap, call_forwarding, live_activity, line_type_intelligence, identity_match. </param>
@@ -142,13 +142,13 @@ namespace Kandy.Rest.Lookups.V2
         /// <param name="dateOfBirth"> User’s date of birth, in YYYYMMDD format. This query parameter is only used (optionally) for identity_match package requests. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of PhoneNumber </returns>
-        public static async System.Threading.Tasks.Task<PhoneNumberResource> FetchAsync(string pathPhoneNumber, string fields = null, string countryCode = null, string firstName = null, string lastName = null, string addressLine1 = null, string addressLine2 = null, string city = null, string state = null, string postalCode = null, string addressCountryCode = null, string nationalId = null, string dateOfBirth = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<PhoneNumberResource> FetchAsync(string pathPhoneNumber, string fields = null, string countryCode = null, string firstName = null, string lastName = null, string addressLine1 = null, string addressLine2 = null, string city = null, string state = null, string postalCode = null, string addressCountryCode = null, string nationalId = null, string dateOfBirth = null, IKandyRestClient client = null)
         {
-            var options = new FetchPhoneNumberOptions(pathPhoneNumber){ Fields = fields,CountryCode = countryCode,FirstName = firstName,LastName = lastName,AddressLine1 = addressLine1,AddressLine2 = addressLine2,City = city,State = state,PostalCode = postalCode,AddressCountryCode = addressCountryCode,NationalId = nationalId,DateOfBirth = dateOfBirth };
+            var options = new FetchPhoneNumberOptions(pathPhoneNumber) { Fields = fields, CountryCode = countryCode, FirstName = firstName, LastName = lastName, AddressLine1 = addressLine1, AddressLine2 = addressLine2, City = city, State = state, PostalCode = postalCode, AddressCountryCode = addressCountryCode, NationalId = nationalId, DateOfBirth = dateOfBirth };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a PhoneNumberResource object
         /// </summary>
@@ -166,7 +166,7 @@ namespace Kandy.Rest.Lookups.V2
             }
         }
 
-    
+
         ///<summary> International dialing prefix of the phone number defined in the E.164 standard. </summary> 
         [JsonProperty("calling_country_code")]
         public string CallingCountryCode { get; private set; }
@@ -226,7 +226,8 @@ namespace Kandy.Rest.Lookups.V2
 
 
 
-        private PhoneNumberResource() {
+        private PhoneNumberResource()
+        {
 
         }
     }

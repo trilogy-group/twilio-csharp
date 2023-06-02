@@ -28,16 +28,16 @@ namespace Kandy.Rest.Voice.V1.ConnectionPolicy
 {
     public class ConnectionPolicyTargetResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateConnectionPolicyTargetOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateConnectionPolicyTargetOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets";
 
             string PathConnectionPolicySid = options.PathConnectionPolicySid;
-            path = path.Replace("{"+"ConnectionPolicySid"+"}", PathConnectionPolicySid);
+            path = path.Replace("{" + "ConnectionPolicySid" + "}", PathConnectionPolicySid);
 
             return new Request(
                 HttpMethod.Post,
@@ -52,26 +52,26 @@ namespace Kandy.Rest.Voice.V1.ConnectionPolicy
         /// <param name="options"> Create ConnectionPolicyTarget parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ConnectionPolicyTarget </returns>
-        public static ConnectionPolicyTargetResource Create(CreateConnectionPolicyTargetOptions options, ITwilioRestClient client = null)
+        public static ConnectionPolicyTargetResource Create(CreateConnectionPolicyTargetOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create ConnectionPolicyTarget parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ConnectionPolicyTarget </returns>
         public static async System.Threading.Tasks.Task<ConnectionPolicyTargetResource> CreateAsync(CreateConnectionPolicyTargetOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="pathConnectionPolicySid"> The SID of the Connection Policy that owns the Target. </param>
@@ -89,13 +89,13 @@ namespace Kandy.Rest.Voice.V1.ConnectionPolicy
                                           int? priority = null,
                                           int? weight = null,
                                           bool? enabled = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateConnectionPolicyTargetOptions(pathConnectionPolicySid, target){  FriendlyName = friendlyName, Priority = priority, Weight = weight, Enabled = enabled };
+            var options = new CreateConnectionPolicyTargetOptions(pathConnectionPolicySid, target) { FriendlyName = friendlyName, Priority = priority, Weight = weight, Enabled = enabled };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="pathConnectionPolicySid"> The SID of the Connection Policy that owns the Target. </param>
         /// <param name="target"> The SIP address you want Twilio to route your calls to. This must be a `sip:` schema. `sips` is NOT supported. </param>
@@ -112,26 +112,26 @@ namespace Kandy.Rest.Voice.V1.ConnectionPolicy
                                                                                   int? priority = null,
                                                                                   int? weight = null,
                                                                                   bool? enabled = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateConnectionPolicyTargetOptions(pathConnectionPolicySid, target){  FriendlyName = friendlyName, Priority = priority, Weight = weight, Enabled = enabled };
+            var options = new CreateConnectionPolicyTargetOptions(pathConnectionPolicySid, target) { FriendlyName = friendlyName, Priority = priority, Weight = weight, Enabled = enabled };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> delete </summary>
         /// <param name="options"> Delete ConnectionPolicyTarget parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ConnectionPolicyTarget </returns>
-        private static Request BuildDeleteRequest(DeleteConnectionPolicyTargetOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteConnectionPolicyTargetOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}";
 
             string PathConnectionPolicySid = options.PathConnectionPolicySid;
-            path = path.Replace("{"+"ConnectionPolicySid"+"}", PathConnectionPolicySid);
+            path = path.Replace("{" + "ConnectionPolicySid" + "}", PathConnectionPolicySid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -146,60 +146,60 @@ namespace Kandy.Rest.Voice.V1.ConnectionPolicy
         /// <param name="options"> Delete ConnectionPolicyTarget parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ConnectionPolicyTarget </returns>
-        public static bool Delete(DeleteConnectionPolicyTargetOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteConnectionPolicyTargetOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="options"> Delete ConnectionPolicyTarget parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ConnectionPolicyTarget </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteConnectionPolicyTargetOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> delete </summary>
         /// <param name="pathConnectionPolicySid"> The SID of the Connection Policy that owns the Target. </param>
         /// <param name="pathSid"> The unique string that we created to identify the Target resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ConnectionPolicyTarget </returns>
-        public static bool Delete(string pathConnectionPolicySid, string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathConnectionPolicySid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteConnectionPolicyTargetOptions(pathConnectionPolicySid, pathSid)        ;
+            var options = new DeleteConnectionPolicyTargetOptions(pathConnectionPolicySid, pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="pathConnectionPolicySid"> The SID of the Connection Policy that owns the Target. </param>
         /// <param name="pathSid"> The unique string that we created to identify the Target resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ConnectionPolicyTarget </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathConnectionPolicySid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathConnectionPolicySid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteConnectionPolicyTargetOptions(pathConnectionPolicySid, pathSid) ;
+            var options = new DeleteConnectionPolicyTargetOptions(pathConnectionPolicySid, pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchConnectionPolicyTargetOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchConnectionPolicyTargetOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}";
 
             string PathConnectionPolicySid = options.PathConnectionPolicySid;
-            path = path.Replace("{"+"ConnectionPolicySid"+"}", PathConnectionPolicySid);
+            path = path.Replace("{" + "ConnectionPolicySid" + "}", PathConnectionPolicySid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -214,60 +214,60 @@ namespace Kandy.Rest.Voice.V1.ConnectionPolicy
         /// <param name="options"> Fetch ConnectionPolicyTarget parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ConnectionPolicyTarget </returns>
-        public static ConnectionPolicyTargetResource Fetch(FetchConnectionPolicyTargetOptions options, ITwilioRestClient client = null)
+        public static ConnectionPolicyTargetResource Fetch(FetchConnectionPolicyTargetOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch ConnectionPolicyTarget parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ConnectionPolicyTarget </returns>
         public static async System.Threading.Tasks.Task<ConnectionPolicyTargetResource> FetchAsync(FetchConnectionPolicyTargetOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathConnectionPolicySid"> The SID of the Connection Policy that owns the Target. </param>
         /// <param name="pathSid"> The unique string that we created to identify the Target resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ConnectionPolicyTarget </returns>
         public static ConnectionPolicyTargetResource Fetch(
-                                         string pathConnectionPolicySid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathConnectionPolicySid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchConnectionPolicyTargetOptions(pathConnectionPolicySid, pathSid){  };
+            var options = new FetchConnectionPolicyTargetOptions(pathConnectionPolicySid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathConnectionPolicySid"> The SID of the Connection Policy that owns the Target. </param>
         /// <param name="pathSid"> The unique string that we created to identify the Target resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ConnectionPolicyTarget </returns>
-        public static async System.Threading.Tasks.Task<ConnectionPolicyTargetResource> FetchAsync(string pathConnectionPolicySid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<ConnectionPolicyTargetResource> FetchAsync(string pathConnectionPolicySid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchConnectionPolicyTargetOptions(pathConnectionPolicySid, pathSid){  };
+            var options = new FetchConnectionPolicyTargetOptions(pathConnectionPolicySid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadConnectionPolicyTargetOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadConnectionPolicyTargetOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets";
 
             string PathConnectionPolicySid = options.PathConnectionPolicySid;
-            path = path.Replace("{"+"ConnectionPolicySid"+"}", PathConnectionPolicySid);
+            path = path.Replace("{" + "ConnectionPolicySid" + "}", PathConnectionPolicySid);
 
             return new Request(
                 HttpMethod.Get,
@@ -281,7 +281,7 @@ namespace Kandy.Rest.Voice.V1.ConnectionPolicy
         /// <param name="options"> Read ConnectionPolicyTarget parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ConnectionPolicyTarget </returns>
-        public static ResourceSet<ConnectionPolicyTargetResource> Read(ReadConnectionPolicyTargetOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<ConnectionPolicyTargetResource> Read(ReadConnectionPolicyTargetOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -289,13 +289,13 @@ namespace Kandy.Rest.Voice.V1.ConnectionPolicy
             return new ResourceSet<ConnectionPolicyTargetResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read ConnectionPolicyTarget parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ConnectionPolicyTarget </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<ConnectionPolicyTargetResource>> ReadAsync(ReadConnectionPolicyTargetOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -303,7 +303,7 @@ namespace Kandy.Rest.Voice.V1.ConnectionPolicy
             var page = Page<ConnectionPolicyTargetResource>.FromJson("targets", response.Content);
             return new ResourceSet<ConnectionPolicyTargetResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="pathConnectionPolicySid"> The SID of the Connection Policy from which to read the Targets. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -314,13 +314,13 @@ namespace Kandy.Rest.Voice.V1.ConnectionPolicy
                                                      string pathConnectionPolicySid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadConnectionPolicyTargetOptions(pathConnectionPolicySid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadConnectionPolicyTargetOptions(pathConnectionPolicySid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="pathConnectionPolicySid"> The SID of the Connection Policy from which to read the Targets. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -331,19 +331,19 @@ namespace Kandy.Rest.Voice.V1.ConnectionPolicy
                                                                                              string pathConnectionPolicySid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadConnectionPolicyTargetOptions(pathConnectionPolicySid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadConnectionPolicyTargetOptions(pathConnectionPolicySid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<ConnectionPolicyTargetResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<ConnectionPolicyTargetResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -360,7 +360,7 @@ namespace Kandy.Rest.Voice.V1.ConnectionPolicy
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<ConnectionPolicyTargetResource> NextPage(Page<ConnectionPolicyTargetResource> page, ITwilioRestClient client)
+        public static Page<ConnectionPolicyTargetResource> NextPage(Page<ConnectionPolicyTargetResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -375,7 +375,7 @@ namespace Kandy.Rest.Voice.V1.ConnectionPolicy
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<ConnectionPolicyTargetResource> PreviousPage(Page<ConnectionPolicyTargetResource> page, ITwilioRestClient client)
+        public static Page<ConnectionPolicyTargetResource> PreviousPage(Page<ConnectionPolicyTargetResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -386,16 +386,16 @@ namespace Kandy.Rest.Voice.V1.ConnectionPolicy
             return Page<ConnectionPolicyTargetResource>.FromJson("targets", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateConnectionPolicyTargetOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateConnectionPolicyTargetOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}";
 
             string PathConnectionPolicySid = options.PathConnectionPolicySid;
-            path = path.Replace("{"+"ConnectionPolicySid"+"}", PathConnectionPolicySid);
+            path = path.Replace("{" + "ConnectionPolicySid" + "}", PathConnectionPolicySid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -410,7 +410,7 @@ namespace Kandy.Rest.Voice.V1.ConnectionPolicy
         /// <param name="options"> Update ConnectionPolicyTarget parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ConnectionPolicyTarget </returns>
-        public static ConnectionPolicyTargetResource Update(UpdateConnectionPolicyTargetOptions options, ITwilioRestClient client = null)
+        public static ConnectionPolicyTargetResource Update(UpdateConnectionPolicyTargetOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -421,15 +421,15 @@ namespace Kandy.Rest.Voice.V1.ConnectionPolicy
         /// <param name="options"> Update ConnectionPolicyTarget parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ConnectionPolicyTarget </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<ConnectionPolicyTargetResource> UpdateAsync(UpdateConnectionPolicyTargetOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> update </summary>
         /// <param name="pathConnectionPolicySid"> The SID of the Connection Policy that owns the Target. </param>
@@ -449,13 +449,13 @@ namespace Kandy.Rest.Voice.V1.ConnectionPolicy
                                           int? priority = null,
                                           int? weight = null,
                                           bool? enabled = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateConnectionPolicyTargetOptions(pathConnectionPolicySid, pathSid){ FriendlyName = friendlyName, Target = target, Priority = priority, Weight = weight, Enabled = enabled };
+            var options = new UpdateConnectionPolicyTargetOptions(pathConnectionPolicySid, pathSid) { FriendlyName = friendlyName, Target = target, Priority = priority, Weight = weight, Enabled = enabled };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> update </summary>
         /// <param name="pathConnectionPolicySid"> The SID of the Connection Policy that owns the Target. </param>
         /// <param name="pathSid"> The unique string that we created to identify the Target resource to update. </param>
@@ -474,13 +474,13 @@ namespace Kandy.Rest.Voice.V1.ConnectionPolicy
                                                                               int? priority = null,
                                                                               int? weight = null,
                                                                               bool? enabled = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateConnectionPolicyTargetOptions(pathConnectionPolicySid, pathSid){ FriendlyName = friendlyName, Target = target, Priority = priority, Weight = weight, Enabled = enabled };
+            var options = new UpdateConnectionPolicyTargetOptions(pathConnectionPolicySid, pathSid) { FriendlyName = friendlyName, Target = target, Priority = priority, Weight = weight, Enabled = enabled };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a ConnectionPolicyTargetResource object
         /// </summary>
@@ -498,7 +498,7 @@ namespace Kandy.Rest.Voice.V1.ConnectionPolicy
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Target resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -545,7 +545,8 @@ namespace Kandy.Rest.Voice.V1.ConnectionPolicy
 
 
 
-        private ConnectionPolicyTargetResource() {
+        private ConnectionPolicyTargetResource()
+        {
 
         }
     }

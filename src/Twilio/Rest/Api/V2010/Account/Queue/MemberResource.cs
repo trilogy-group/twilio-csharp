@@ -28,20 +28,20 @@ namespace Kandy.Rest.Api.V2010.Account.Queue
 {
     public class MemberResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchMemberOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchMemberOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathQueueSid = options.PathQueueSid;
-            path = path.Replace("{"+"QueueSid"+"}", PathQueueSid);
+            path = path.Replace("{" + "QueueSid" + "}", PathQueueSid);
             string PathCallSid = options.PathCallSid;
-            path = path.Replace("{"+"CallSid"+"}", PathCallSid);
+            path = path.Replace("{" + "CallSid" + "}", PathCallSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -56,26 +56,26 @@ namespace Kandy.Rest.Api.V2010.Account.Queue
         /// <param name="options"> Fetch Member parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Member </returns>
-        public static MemberResource Fetch(FetchMemberOptions options, ITwilioRestClient client = null)
+        public static MemberResource Fetch(FetchMemberOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific member from the queue </summary>
         /// <param name="options"> Fetch Member parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Member </returns>
         public static async System.Threading.Tasks.Task<MemberResource> FetchAsync(FetchMemberOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a specific member from the queue </summary>
         /// <param name="pathQueueSid"> The SID of the Queue in which to find the members to fetch. </param>
         /// <param name="pathCallSid"> The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resource(s) to fetch. </param>
@@ -83,38 +83,38 @@ namespace Kandy.Rest.Api.V2010.Account.Queue
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Member </returns>
         public static MemberResource Fetch(
-                                         string pathQueueSid, 
-                                         string pathCallSid, 
-                                         string pathAccountSid = null, 
-                                         ITwilioRestClient client = null)
+                                         string pathQueueSid,
+                                         string pathCallSid,
+                                         string pathAccountSid = null,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchMemberOptions(pathQueueSid, pathCallSid){ PathAccountSid = pathAccountSid };
+            var options = new FetchMemberOptions(pathQueueSid, pathCallSid) { PathAccountSid = pathAccountSid };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific member from the queue </summary>
         /// <param name="pathQueueSid"> The SID of the Queue in which to find the members to fetch. </param>
         /// <param name="pathCallSid"> The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resource(s) to fetch. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Member resource(s) to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Member </returns>
-        public static async System.Threading.Tasks.Task<MemberResource> FetchAsync(string pathQueueSid, string pathCallSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<MemberResource> FetchAsync(string pathQueueSid, string pathCallSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new FetchMemberOptions(pathQueueSid, pathCallSid){ PathAccountSid = pathAccountSid };
+            var options = new FetchMemberOptions(pathQueueSid, pathCallSid) { PathAccountSid = pathAccountSid };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadMemberOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadMemberOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathQueueSid = options.PathQueueSid;
-            path = path.Replace("{"+"QueueSid"+"}", PathQueueSid);
+            path = path.Replace("{" + "QueueSid" + "}", PathQueueSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -128,7 +128,7 @@ namespace Kandy.Rest.Api.V2010.Account.Queue
         /// <param name="options"> Read Member parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Member </returns>
-        public static ResourceSet<MemberResource> Read(ReadMemberOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<MemberResource> Read(ReadMemberOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -136,13 +136,13 @@ namespace Kandy.Rest.Api.V2010.Account.Queue
             return new ResourceSet<MemberResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve the members of the queue </summary>
         /// <param name="options"> Read Member parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Member </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<MemberResource>> ReadAsync(ReadMemberOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -150,7 +150,7 @@ namespace Kandy.Rest.Api.V2010.Account.Queue
             var page = Page<MemberResource>.FromJson("queue_members", response.Content);
             return new ResourceSet<MemberResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve the members of the queue </summary>
         /// <param name="pathQueueSid"> The SID of the Queue in which to find the members </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Member resource(s) to read. </param>
@@ -163,13 +163,13 @@ namespace Kandy.Rest.Api.V2010.Account.Queue
                                                      string pathAccountSid = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadMemberOptions(pathQueueSid){ PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit};
+            var options = new ReadMemberOptions(pathQueueSid) { PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve the members of the queue </summary>
         /// <param name="pathQueueSid"> The SID of the Queue in which to find the members </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Member resource(s) to read. </param>
@@ -182,19 +182,19 @@ namespace Kandy.Rest.Api.V2010.Account.Queue
                                                                                              string pathAccountSid = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadMemberOptions(pathQueueSid){ PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit};
+            var options = new ReadMemberOptions(pathQueueSid) { PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<MemberResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<MemberResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -211,7 +211,7 @@ namespace Kandy.Rest.Api.V2010.Account.Queue
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<MemberResource> NextPage(Page<MemberResource> page, ITwilioRestClient client)
+        public static Page<MemberResource> NextPage(Page<MemberResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -226,7 +226,7 @@ namespace Kandy.Rest.Api.V2010.Account.Queue
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<MemberResource> PreviousPage(Page<MemberResource> page, ITwilioRestClient client)
+        public static Page<MemberResource> PreviousPage(Page<MemberResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -237,18 +237,18 @@ namespace Kandy.Rest.Api.V2010.Account.Queue
             return Page<MemberResource>.FromJson("queue_members", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateMemberOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateMemberOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathQueueSid = options.PathQueueSid;
-            path = path.Replace("{"+"QueueSid"+"}", PathQueueSid);
+            path = path.Replace("{" + "QueueSid" + "}", PathQueueSid);
             string PathCallSid = options.PathCallSid;
-            path = path.Replace("{"+"CallSid"+"}", PathCallSid);
+            path = path.Replace("{" + "CallSid" + "}", PathCallSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -263,7 +263,7 @@ namespace Kandy.Rest.Api.V2010.Account.Queue
         /// <param name="options"> Update Member parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Member </returns>
-        public static MemberResource Update(UpdateMemberOptions options, ITwilioRestClient client = null)
+        public static MemberResource Update(UpdateMemberOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -274,15 +274,15 @@ namespace Kandy.Rest.Api.V2010.Account.Queue
         /// <param name="options"> Update Member parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Member </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<MemberResource> UpdateAsync(UpdateMemberOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Dequeue a member from a queue and have the member's call begin executing the TwiML document at that URL </summary>
         /// <param name="pathQueueSid"> The SID of the Queue in which to find the members to update. </param>
@@ -298,13 +298,13 @@ namespace Kandy.Rest.Api.V2010.Account.Queue
                                           Uri url,
                                           string pathAccountSid = null,
                                           Twilio.Http.HttpMethod method = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateMemberOptions(pathQueueSid, pathCallSid, url){ PathAccountSid = pathAccountSid, Method = method };
+            var options = new UpdateMemberOptions(pathQueueSid, pathCallSid, url) { PathAccountSid = pathAccountSid, Method = method };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Dequeue a member from a queue and have the member's call begin executing the TwiML document at that URL </summary>
         /// <param name="pathQueueSid"> The SID of the Queue in which to find the members to update. </param>
         /// <param name="pathCallSid"> The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resource(s) to update. </param>
@@ -319,13 +319,13 @@ namespace Kandy.Rest.Api.V2010.Account.Queue
                                                                               Uri url,
                                                                               string pathAccountSid = null,
                                                                               Twilio.Http.HttpMethod method = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateMemberOptions(pathQueueSid, pathCallSid, url){ PathAccountSid = pathAccountSid, Method = method };
+            var options = new UpdateMemberOptions(pathQueueSid, pathCallSid, url) { PathAccountSid = pathAccountSid, Method = method };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a MemberResource object
         /// </summary>
@@ -343,7 +343,7 @@ namespace Kandy.Rest.Api.V2010.Account.Queue
             }
         }
 
-    
+
         ///<summary> The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Member resource is associated with. </summary> 
         [JsonProperty("call_sid")]
         public string CallSid { get; private set; }
@@ -370,7 +370,8 @@ namespace Kandy.Rest.Api.V2010.Account.Queue
 
 
 
-        private MemberResource() {
+        private MemberResource()
+        {
 
         }
     }

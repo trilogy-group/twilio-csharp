@@ -28,12 +28,12 @@ namespace Kandy.Rest.Video.V1
 {
     public class CompositionResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class FormatEnum : StringEnum
         {
-            private FormatEnum(string value) : base(value) {}
-            public FormatEnum() {}
+            private FormatEnum(string value) : base(value) { }
+            public FormatEnum() { }
             public static implicit operator FormatEnum(string value)
             {
                 return new FormatEnum(value);
@@ -45,8 +45,8 @@ namespace Kandy.Rest.Video.V1
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class StatusEnum : StringEnum
         {
-            private StatusEnum(string value) : base(value) {}
-            public StatusEnum() {}
+            private StatusEnum(string value) : base(value) { }
+            public StatusEnum() { }
             public static implicit operator StatusEnum(string value)
             {
                 return new StatusEnum(value);
@@ -59,10 +59,10 @@ namespace Kandy.Rest.Video.V1
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateCompositionOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateCompositionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Compositions";
 
 
@@ -79,26 +79,26 @@ namespace Kandy.Rest.Video.V1
         /// <param name="options"> Create Composition parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Composition </returns>
-        public static CompositionResource Create(CreateCompositionOptions options, ITwilioRestClient client = null)
+        public static CompositionResource Create(CreateCompositionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create Composition parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Composition </returns>
         public static async System.Threading.Tasks.Task<CompositionResource> CreateAsync(CreateCompositionOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="roomSid"> The SID of the Group Room with the media tracks to be used as composition sources. </param>
@@ -122,13 +122,13 @@ namespace Kandy.Rest.Video.V1
                                           Uri statusCallback = null,
                                           Twilio.Http.HttpMethod statusCallbackMethod = null,
                                           bool? trim = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateCompositionOptions(roomSid){  VideoLayout = videoLayout, AudioSources = audioSources, AudioSourcesExcluded = audioSourcesExcluded, Resolution = resolution, Format = format, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, Trim = trim };
+            var options = new CreateCompositionOptions(roomSid) { VideoLayout = videoLayout, AudioSources = audioSources, AudioSourcesExcluded = audioSourcesExcluded, Resolution = resolution, Format = format, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, Trim = trim };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="roomSid"> The SID of the Group Room with the media tracks to be used as composition sources. </param>
         /// <param name="videoLayout"> An object that describes the video layout of the composition in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request </param>
@@ -151,24 +151,24 @@ namespace Kandy.Rest.Video.V1
                                                                                   Uri statusCallback = null,
                                                                                   Twilio.Http.HttpMethod statusCallbackMethod = null,
                                                                                   bool? trim = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateCompositionOptions(roomSid){  VideoLayout = videoLayout, AudioSources = audioSources, AudioSourcesExcluded = audioSourcesExcluded, Resolution = resolution, Format = format, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, Trim = trim };
+            var options = new CreateCompositionOptions(roomSid) { VideoLayout = videoLayout, AudioSources = audioSources, AudioSourcesExcluded = audioSourcesExcluded, Resolution = resolution, Format = format, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, Trim = trim };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Delete a Recording Composition resource identified by a Composition SID. </summary>
         /// <param name="options"> Delete Composition parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Composition </returns>
-        private static Request BuildDeleteRequest(DeleteCompositionOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteCompositionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Compositions/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -183,56 +183,56 @@ namespace Kandy.Rest.Video.V1
         /// <param name="options"> Delete Composition parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Composition </returns>
-        public static bool Delete(DeleteCompositionOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteCompositionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a Recording Composition resource identified by a Composition SID. </summary>
         /// <param name="options"> Delete Composition parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Composition </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteCompositionOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete a Recording Composition resource identified by a Composition SID. </summary>
         /// <param name="pathSid"> The SID of the Composition resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Composition </returns>
-        public static bool Delete(string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteCompositionOptions(pathSid)     ;
+            var options = new DeleteCompositionOptions(pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a Recording Composition resource identified by a Composition SID. </summary>
         /// <param name="pathSid"> The SID of the Composition resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Composition </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteCompositionOptions(pathSid) ;
+            var options = new DeleteCompositionOptions(pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchCompositionOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchCompositionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Compositions/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -247,53 +247,53 @@ namespace Kandy.Rest.Video.V1
         /// <param name="options"> Fetch Composition parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Composition </returns>
-        public static CompositionResource Fetch(FetchCompositionOptions options, ITwilioRestClient client = null)
+        public static CompositionResource Fetch(FetchCompositionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Returns a single Composition resource identified by a Composition SID. </summary>
         /// <param name="options"> Fetch Composition parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Composition </returns>
         public static async System.Threading.Tasks.Task<CompositionResource> FetchAsync(FetchCompositionOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Returns a single Composition resource identified by a Composition SID. </summary>
         /// <param name="pathSid"> The SID of the Composition resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Composition </returns>
         public static CompositionResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchCompositionOptions(pathSid){  };
+            var options = new FetchCompositionOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Returns a single Composition resource identified by a Composition SID. </summary>
         /// <param name="pathSid"> The SID of the Composition resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Composition </returns>
-        public static async System.Threading.Tasks.Task<CompositionResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<CompositionResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchCompositionOptions(pathSid){  };
+            var options = new FetchCompositionOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadCompositionOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadCompositionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Compositions";
 
 
@@ -309,7 +309,7 @@ namespace Kandy.Rest.Video.V1
         /// <param name="options"> Read Composition parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Composition </returns>
-        public static ResourceSet<CompositionResource> Read(ReadCompositionOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<CompositionResource> Read(ReadCompositionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -317,13 +317,13 @@ namespace Kandy.Rest.Video.V1
             return new ResourceSet<CompositionResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> List of all Recording compositions. </summary>
         /// <param name="options"> Read Composition parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Composition </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<CompositionResource>> ReadAsync(ReadCompositionOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -331,7 +331,7 @@ namespace Kandy.Rest.Video.V1
             var page = Page<CompositionResource>.FromJson("compositions", response.Content);
             return new ResourceSet<CompositionResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> List of all Recording compositions. </summary>
         /// <param name="status"> Read only Composition resources with this status. Can be: `enqueued`, `processing`, `completed`, `deleted`, or `failed`. </param>
         /// <param name="dateCreatedAfter"> Read only Composition resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone. </param>
@@ -348,13 +348,13 @@ namespace Kandy.Rest.Video.V1
                                                      string roomSid = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadCompositionOptions(){ Status = status, DateCreatedAfter = dateCreatedAfter, DateCreatedBefore = dateCreatedBefore, RoomSid = roomSid, PageSize = pageSize, Limit = limit};
+            var options = new ReadCompositionOptions() { Status = status, DateCreatedAfter = dateCreatedAfter, DateCreatedBefore = dateCreatedBefore, RoomSid = roomSid, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> List of all Recording compositions. </summary>
         /// <param name="status"> Read only Composition resources with this status. Can be: `enqueued`, `processing`, `completed`, `deleted`, or `failed`. </param>
         /// <param name="dateCreatedAfter"> Read only Composition resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone. </param>
@@ -371,19 +371,19 @@ namespace Kandy.Rest.Video.V1
                                                                                              string roomSid = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadCompositionOptions(){ Status = status, DateCreatedAfter = dateCreatedAfter, DateCreatedBefore = dateCreatedBefore, RoomSid = roomSid, PageSize = pageSize, Limit = limit};
+            var options = new ReadCompositionOptions() { Status = status, DateCreatedAfter = dateCreatedAfter, DateCreatedBefore = dateCreatedBefore, RoomSid = roomSid, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<CompositionResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<CompositionResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -400,7 +400,7 @@ namespace Kandy.Rest.Video.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<CompositionResource> NextPage(Page<CompositionResource> page, ITwilioRestClient client)
+        public static Page<CompositionResource> NextPage(Page<CompositionResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -415,7 +415,7 @@ namespace Kandy.Rest.Video.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<CompositionResource> PreviousPage(Page<CompositionResource> page, ITwilioRestClient client)
+        public static Page<CompositionResource> PreviousPage(Page<CompositionResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -426,7 +426,7 @@ namespace Kandy.Rest.Video.V1
             return Page<CompositionResource>.FromJson("compositions", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a CompositionResource object
         /// </summary>
@@ -444,12 +444,12 @@ namespace Kandy.Rest.Video.V1
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Composition resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
 
-        
+
         [JsonProperty("status")]
         public CompositionResource.StatusEnum Status { get; private set; }
 
@@ -493,7 +493,7 @@ namespace Kandy.Rest.Video.V1
         [JsonProperty("trim")]
         public bool? Trim { get; private set; }
 
-        
+
         [JsonProperty("format")]
         public CompositionResource.FormatEnum Format { get; private set; }
 
@@ -531,7 +531,8 @@ namespace Kandy.Rest.Video.V1
 
 
 
-        private CompositionResource() {
+        private CompositionResource()
+        {
 
         }
     }

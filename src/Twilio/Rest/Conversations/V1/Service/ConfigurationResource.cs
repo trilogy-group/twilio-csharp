@@ -28,16 +28,16 @@ namespace Kandy.Rest.Conversations.V1.Service
 {
     public class ConfigurationResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchConfigurationOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchConfigurationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ChatServiceSid}/Configuration";
 
             string PathChatServiceSid = options.PathChatServiceSid;
-            path = path.Replace("{"+"ChatServiceSid"+"}", PathChatServiceSid);
+            path = path.Replace("{" + "ChatServiceSid" + "}", PathChatServiceSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -52,57 +52,57 @@ namespace Kandy.Rest.Conversations.V1.Service
         /// <param name="options"> Fetch Configuration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Configuration </returns>
-        public static ConfigurationResource Fetch(FetchConfigurationOptions options, ITwilioRestClient client = null)
+        public static ConfigurationResource Fetch(FetchConfigurationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch the configuration of a conversation service </summary>
         /// <param name="options"> Fetch Configuration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Configuration </returns>
         public static async System.Threading.Tasks.Task<ConfigurationResource> FetchAsync(FetchConfigurationOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch the configuration of a conversation service </summary>
         /// <param name="pathChatServiceSid"> The SID of the Service configuration resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Configuration </returns>
         public static ConfigurationResource Fetch(
-                                         string pathChatServiceSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathChatServiceSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchConfigurationOptions(pathChatServiceSid){  };
+            var options = new FetchConfigurationOptions(pathChatServiceSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch the configuration of a conversation service </summary>
         /// <param name="pathChatServiceSid"> The SID of the Service configuration resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Configuration </returns>
-        public static async System.Threading.Tasks.Task<ConfigurationResource> FetchAsync(string pathChatServiceSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<ConfigurationResource> FetchAsync(string pathChatServiceSid, IKandyRestClient client = null)
         {
-            var options = new FetchConfigurationOptions(pathChatServiceSid){  };
+            var options = new FetchConfigurationOptions(pathChatServiceSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildUpdateRequest(UpdateConfigurationOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildUpdateRequest(UpdateConfigurationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ChatServiceSid}/Configuration";
 
             string PathChatServiceSid = options.PathChatServiceSid;
-            path = path.Replace("{"+"ChatServiceSid"+"}", PathChatServiceSid);
+            path = path.Replace("{" + "ChatServiceSid" + "}", PathChatServiceSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -117,7 +117,7 @@ namespace Kandy.Rest.Conversations.V1.Service
         /// <param name="options"> Update Configuration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Configuration </returns>
-        public static ConfigurationResource Update(UpdateConfigurationOptions options, ITwilioRestClient client = null)
+        public static ConfigurationResource Update(UpdateConfigurationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -128,15 +128,15 @@ namespace Kandy.Rest.Conversations.V1.Service
         /// <param name="options"> Update Configuration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Configuration </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<ConfigurationResource> UpdateAsync(UpdateConfigurationOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update configuration settings of a conversation service </summary>
         /// <param name="pathChatServiceSid"> The SID of the Service configuration resource to update. </param>
@@ -152,13 +152,13 @@ namespace Kandy.Rest.Conversations.V1.Service
                                           string defaultConversationRoleSid = null,
                                           string defaultChatServiceRoleSid = null,
                                           bool? reachabilityEnabled = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateConfigurationOptions(pathChatServiceSid){ DefaultConversationCreatorRoleSid = defaultConversationCreatorRoleSid, DefaultConversationRoleSid = defaultConversationRoleSid, DefaultChatServiceRoleSid = defaultChatServiceRoleSid, ReachabilityEnabled = reachabilityEnabled };
+            var options = new UpdateConfigurationOptions(pathChatServiceSid) { DefaultConversationCreatorRoleSid = defaultConversationCreatorRoleSid, DefaultConversationRoleSid = defaultConversationRoleSid, DefaultChatServiceRoleSid = defaultChatServiceRoleSid, ReachabilityEnabled = reachabilityEnabled };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update configuration settings of a conversation service </summary>
         /// <param name="pathChatServiceSid"> The SID of the Service configuration resource to update. </param>
         /// <param name="defaultConversationCreatorRoleSid"> The conversation-level role assigned to a conversation creator when they join a new conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles. </param>
@@ -173,13 +173,13 @@ namespace Kandy.Rest.Conversations.V1.Service
                                                                               string defaultConversationRoleSid = null,
                                                                               string defaultChatServiceRoleSid = null,
                                                                               bool? reachabilityEnabled = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateConfigurationOptions(pathChatServiceSid){ DefaultConversationCreatorRoleSid = defaultConversationCreatorRoleSid, DefaultConversationRoleSid = defaultConversationRoleSid, DefaultChatServiceRoleSid = defaultChatServiceRoleSid, ReachabilityEnabled = reachabilityEnabled };
+            var options = new UpdateConfigurationOptions(pathChatServiceSid) { DefaultConversationCreatorRoleSid = defaultConversationCreatorRoleSid, DefaultConversationRoleSid = defaultConversationRoleSid, DefaultChatServiceRoleSid = defaultChatServiceRoleSid, ReachabilityEnabled = reachabilityEnabled };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a ConfigurationResource object
         /// </summary>
@@ -197,7 +197,7 @@ namespace Kandy.Rest.Conversations.V1.Service
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the Service configuration resource. </summary> 
         [JsonProperty("chat_service_sid")]
         public string ChatServiceSid { get; private set; }
@@ -228,7 +228,8 @@ namespace Kandy.Rest.Conversations.V1.Service
 
 
 
-        private ConfigurationResource() {
+        private ConfigurationResource()
+        {
 
         }
     }

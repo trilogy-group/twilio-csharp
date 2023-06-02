@@ -28,12 +28,12 @@ namespace Kandy.Rest.Oauth.V1
 {
     public class UserInfoResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchUserInfoOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchUserInfoOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/userinfo";
 
 
@@ -50,47 +50,47 @@ namespace Kandy.Rest.Oauth.V1
         /// <param name="options"> Fetch UserInfo parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of UserInfo </returns>
-        public static UserInfoResource Fetch(FetchUserInfoOptions options, ITwilioRestClient client = null)
+        public static UserInfoResource Fetch(FetchUserInfoOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieves the consented UserInfo and other claims about the logged-in subject (end-user). </summary>
         /// <param name="options"> Fetch UserInfo parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of UserInfo </returns>
         public static async System.Threading.Tasks.Task<UserInfoResource> FetchAsync(FetchUserInfoOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Retrieves the consented UserInfo and other claims about the logged-in subject (end-user). </summary>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of UserInfo </returns>
         public static UserInfoResource Fetch(
-                                         ITwilioRestClient client = null)
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchUserInfoOptions(){  };
+            var options = new FetchUserInfoOptions() { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieves the consented UserInfo and other claims about the logged-in subject (end-user). </summary>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of UserInfo </returns>
-        public static async System.Threading.Tasks.Task<UserInfoResource> FetchAsync(ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<UserInfoResource> FetchAsync(IKandyRestClient client = null)
         {
-            var options = new FetchUserInfoOptions(){  };
+            var options = new FetchUserInfoOptions() { };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a UserInfoResource object
         /// </summary>
@@ -108,7 +108,7 @@ namespace Kandy.Rest.Oauth.V1
             }
         }
 
-    
+
         ///<summary> The URL of the party that will create the token and sign it with its private key. </summary> 
         [JsonProperty("user_sid")]
         public string UserSid { get; private set; }
@@ -135,7 +135,8 @@ namespace Kandy.Rest.Oauth.V1
 
 
 
-        private UserInfoResource() {
+        private UserInfoResource()
+        {
 
         }
     }

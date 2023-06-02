@@ -28,12 +28,12 @@ namespace Kandy.Rest.Preview.Wireless
 {
     public class CommandResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateCommandOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateCommandOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/wireless/Commands";
 
 
@@ -50,26 +50,26 @@ namespace Kandy.Rest.Preview.Wireless
         /// <param name="options"> Create Command parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Command </returns>
-        public static CommandResource Create(CreateCommandOptions options, ITwilioRestClient client = null)
+        public static CommandResource Create(CreateCommandOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create Command parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Command </returns>
         public static async System.Threading.Tasks.Task<CommandResource> CreateAsync(CreateCommandOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="command">  </param>
@@ -89,13 +89,13 @@ namespace Kandy.Rest.Preview.Wireless
                                           Uri callbackUrl = null,
                                           string commandMode = null,
                                           string includeSid = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateCommandOptions(command){  Device = device, Sim = sim, CallbackMethod = callbackMethod, CallbackUrl = callbackUrl, CommandMode = commandMode, IncludeSid = includeSid };
+            var options = new CreateCommandOptions(command) { Device = device, Sim = sim, CallbackMethod = callbackMethod, CallbackUrl = callbackUrl, CommandMode = commandMode, IncludeSid = includeSid };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="command">  </param>
         /// <param name="device">  </param>
@@ -114,20 +114,20 @@ namespace Kandy.Rest.Preview.Wireless
                                                                                   Uri callbackUrl = null,
                                                                                   string commandMode = null,
                                                                                   string includeSid = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateCommandOptions(command){  Device = device, Sim = sim, CallbackMethod = callbackMethod, CallbackUrl = callbackUrl, CommandMode = commandMode, IncludeSid = includeSid };
+            var options = new CreateCommandOptions(command) { Device = device, Sim = sim, CallbackMethod = callbackMethod, CallbackUrl = callbackUrl, CommandMode = commandMode, IncludeSid = includeSid };
             return await CreateAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchCommandOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchCommandOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/wireless/Commands/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -142,53 +142,53 @@ namespace Kandy.Rest.Preview.Wireless
         /// <param name="options"> Fetch Command parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Command </returns>
-        public static CommandResource Fetch(FetchCommandOptions options, ITwilioRestClient client = null)
+        public static CommandResource Fetch(FetchCommandOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch Command parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Command </returns>
         public static async System.Threading.Tasks.Task<CommandResource> FetchAsync(FetchCommandOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathSid">  </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Command </returns>
         public static CommandResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchCommandOptions(pathSid){  };
+            var options = new FetchCommandOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathSid">  </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Command </returns>
-        public static async System.Threading.Tasks.Task<CommandResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<CommandResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchCommandOptions(pathSid){  };
+            var options = new FetchCommandOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadCommandOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadCommandOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/wireless/Commands";
 
 
@@ -204,7 +204,7 @@ namespace Kandy.Rest.Preview.Wireless
         /// <param name="options"> Read Command parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Command </returns>
-        public static ResourceSet<CommandResource> Read(ReadCommandOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<CommandResource> Read(ReadCommandOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -212,13 +212,13 @@ namespace Kandy.Rest.Preview.Wireless
             return new ResourceSet<CommandResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read Command parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Command </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<CommandResource>> ReadAsync(ReadCommandOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -226,7 +226,7 @@ namespace Kandy.Rest.Preview.Wireless
             var page = Page<CommandResource>.FromJson("commands", response.Content);
             return new ResourceSet<CommandResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="device">  </param>
         /// <param name="sim">  </param>
@@ -243,13 +243,13 @@ namespace Kandy.Rest.Preview.Wireless
                                                      string direction = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadCommandOptions(){ Device = device, Sim = sim, Status = status, Direction = direction, PageSize = pageSize, Limit = limit};
+            var options = new ReadCommandOptions() { Device = device, Sim = sim, Status = status, Direction = direction, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="device">  </param>
         /// <param name="sim">  </param>
@@ -266,19 +266,19 @@ namespace Kandy.Rest.Preview.Wireless
                                                                                              string direction = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadCommandOptions(){ Device = device, Sim = sim, Status = status, Direction = direction, PageSize = pageSize, Limit = limit};
+            var options = new ReadCommandOptions() { Device = device, Sim = sim, Status = status, Direction = direction, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<CommandResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<CommandResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -295,7 +295,7 @@ namespace Kandy.Rest.Preview.Wireless
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<CommandResource> NextPage(Page<CommandResource> page, ITwilioRestClient client)
+        public static Page<CommandResource> NextPage(Page<CommandResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -310,7 +310,7 @@ namespace Kandy.Rest.Preview.Wireless
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<CommandResource> PreviousPage(Page<CommandResource> page, ITwilioRestClient client)
+        public static Page<CommandResource> PreviousPage(Page<CommandResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -321,7 +321,7 @@ namespace Kandy.Rest.Preview.Wireless
             return Page<CommandResource>.FromJson("commands", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a CommandResource object
         /// </summary>
@@ -339,7 +339,7 @@ namespace Kandy.Rest.Preview.Wireless
             }
         }
 
-    
+
         ///<summary> The sid </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -386,7 +386,8 @@ namespace Kandy.Rest.Preview.Wireless
 
 
 
-        private CommandResource() {
+        private CommandResource()
+        {
 
         }
     }

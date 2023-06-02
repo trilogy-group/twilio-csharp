@@ -28,12 +28,12 @@ namespace Kandy.Rest.Studio.V2.Flow
 {
     public class FlowRevisionResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class StatusEnum : StringEnum
         {
-            private StatusEnum(string value) : base(value) {}
-            public StatusEnum() {}
+            private StatusEnum(string value) : base(value) { }
+            public StatusEnum() { }
             public static implicit operator StatusEnum(string value)
             {
                 return new StatusEnum(value);
@@ -43,16 +43,16 @@ namespace Kandy.Rest.Studio.V2.Flow
 
         }
 
-        
-        private static Request BuildFetchRequest(FetchFlowRevisionOptions options, ITwilioRestClient client)
+
+        private static Request BuildFetchRequest(FetchFlowRevisionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Flows/{Sid}/Revisions/{Revision}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
             string PathRevision = options.PathRevision;
-            path = path.Replace("{"+"Revision"+"}", PathRevision);
+            path = path.Replace("{" + "Revision" + "}", PathRevision);
 
             return new Request(
                 HttpMethod.Get,
@@ -67,60 +67,60 @@ namespace Kandy.Rest.Studio.V2.Flow
         /// <param name="options"> Fetch FlowRevision parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of FlowRevision </returns>
-        public static FlowRevisionResource Fetch(FetchFlowRevisionOptions options, ITwilioRestClient client = null)
+        public static FlowRevisionResource Fetch(FetchFlowRevisionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a specific Flow revision. </summary>
         /// <param name="options"> Fetch FlowRevision parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of FlowRevision </returns>
         public static async System.Threading.Tasks.Task<FlowRevisionResource> FetchAsync(FetchFlowRevisionOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Retrieve a specific Flow revision. </summary>
         /// <param name="pathSid"> The SID of the Flow resource to fetch. </param>
         /// <param name="pathRevision"> Specific Revision number or can be `LatestPublished` and `LatestRevision`. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of FlowRevision </returns>
         public static FlowRevisionResource Fetch(
-                                         string pathSid, 
-                                         string pathRevision, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         string pathRevision,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchFlowRevisionOptions(pathSid, pathRevision){  };
+            var options = new FetchFlowRevisionOptions(pathSid, pathRevision) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a specific Flow revision. </summary>
         /// <param name="pathSid"> The SID of the Flow resource to fetch. </param>
         /// <param name="pathRevision"> Specific Revision number or can be `LatestPublished` and `LatestRevision`. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of FlowRevision </returns>
-        public static async System.Threading.Tasks.Task<FlowRevisionResource> FetchAsync(string pathSid, string pathRevision, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<FlowRevisionResource> FetchAsync(string pathSid, string pathRevision, IKandyRestClient client = null)
         {
-            var options = new FetchFlowRevisionOptions(pathSid, pathRevision){  };
+            var options = new FetchFlowRevisionOptions(pathSid, pathRevision) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadFlowRevisionOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadFlowRevisionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Flows/{Sid}/Revisions";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -134,7 +134,7 @@ namespace Kandy.Rest.Studio.V2.Flow
         /// <param name="options"> Read FlowRevision parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of FlowRevision </returns>
-        public static ResourceSet<FlowRevisionResource> Read(ReadFlowRevisionOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<FlowRevisionResource> Read(ReadFlowRevisionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -142,13 +142,13 @@ namespace Kandy.Rest.Studio.V2.Flow
             return new ResourceSet<FlowRevisionResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Flows revisions. </summary>
         /// <param name="options"> Read FlowRevision parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of FlowRevision </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<FlowRevisionResource>> ReadAsync(ReadFlowRevisionOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -156,7 +156,7 @@ namespace Kandy.Rest.Studio.V2.Flow
             var page = Page<FlowRevisionResource>.FromJson("revisions", response.Content);
             return new ResourceSet<FlowRevisionResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Flows revisions. </summary>
         /// <param name="pathSid"> The SID of the Flow resource to fetch. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -167,13 +167,13 @@ namespace Kandy.Rest.Studio.V2.Flow
                                                      string pathSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadFlowRevisionOptions(pathSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadFlowRevisionOptions(pathSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Flows revisions. </summary>
         /// <param name="pathSid"> The SID of the Flow resource to fetch. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -184,19 +184,19 @@ namespace Kandy.Rest.Studio.V2.Flow
                                                                                              string pathSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadFlowRevisionOptions(pathSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadFlowRevisionOptions(pathSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<FlowRevisionResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<FlowRevisionResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -213,7 +213,7 @@ namespace Kandy.Rest.Studio.V2.Flow
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<FlowRevisionResource> NextPage(Page<FlowRevisionResource> page, ITwilioRestClient client)
+        public static Page<FlowRevisionResource> NextPage(Page<FlowRevisionResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -228,7 +228,7 @@ namespace Kandy.Rest.Studio.V2.Flow
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<FlowRevisionResource> PreviousPage(Page<FlowRevisionResource> page, ITwilioRestClient client)
+        public static Page<FlowRevisionResource> PreviousPage(Page<FlowRevisionResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -239,7 +239,7 @@ namespace Kandy.Rest.Studio.V2.Flow
             return Page<FlowRevisionResource>.FromJson("revisions", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a FlowRevisionResource object
         /// </summary>
@@ -257,7 +257,7 @@ namespace Kandy.Rest.Studio.V2.Flow
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the Flow resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -274,7 +274,7 @@ namespace Kandy.Rest.Studio.V2.Flow
         [JsonProperty("definition")]
         public object Definition { get; private set; }
 
-        
+
         [JsonProperty("status")]
         public FlowRevisionResource.StatusEnum Status { get; private set; }
 
@@ -308,7 +308,8 @@ namespace Kandy.Rest.Studio.V2.Flow
 
 
 
-        private FlowRevisionResource() {
+        private FlowRevisionResource()
+        {
 
         }
     }

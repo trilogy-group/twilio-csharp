@@ -28,16 +28,16 @@ namespace Kandy.Rest.Monitor.V1
 {
     public class AlertResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchAlertOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchAlertOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Alerts/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -52,53 +52,53 @@ namespace Kandy.Rest.Monitor.V1
         /// <param name="options"> Fetch Alert parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Alert </returns>
-        public static AlertResource Fetch(FetchAlertOptions options, ITwilioRestClient client = null)
+        public static AlertResource Fetch(FetchAlertOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch Alert parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Alert </returns>
         public static async System.Threading.Tasks.Task<AlertResource> FetchAsync(FetchAlertOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathSid"> The SID of the Alert resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Alert </returns>
         public static AlertResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchAlertOptions(pathSid){  };
+            var options = new FetchAlertOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathSid"> The SID of the Alert resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Alert </returns>
-        public static async System.Threading.Tasks.Task<AlertResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<AlertResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchAlertOptions(pathSid){  };
+            var options = new FetchAlertOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadAlertOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadAlertOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Alerts";
 
 
@@ -114,7 +114,7 @@ namespace Kandy.Rest.Monitor.V1
         /// <param name="options"> Read Alert parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Alert </returns>
-        public static ResourceSet<AlertResource> Read(ReadAlertOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<AlertResource> Read(ReadAlertOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -122,13 +122,13 @@ namespace Kandy.Rest.Monitor.V1
             return new ResourceSet<AlertResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read Alert parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Alert </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<AlertResource>> ReadAsync(ReadAlertOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -136,7 +136,7 @@ namespace Kandy.Rest.Monitor.V1
             var page = Page<AlertResource>.FromJson("alerts", response.Content);
             return new ResourceSet<AlertResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="logLevel"> Only show alerts for this log-level.  Can be: `error`, `warning`, `notice`, or `debug`. </param>
         /// <param name="startDate"> Only include alerts that occurred on or after this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported. </param>
@@ -151,13 +151,13 @@ namespace Kandy.Rest.Monitor.V1
                                                      DateTime? endDate = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadAlertOptions(){ LogLevel = logLevel, StartDate = startDate, EndDate = endDate, PageSize = pageSize, Limit = limit};
+            var options = new ReadAlertOptions() { LogLevel = logLevel, StartDate = startDate, EndDate = endDate, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="logLevel"> Only show alerts for this log-level.  Can be: `error`, `warning`, `notice`, or `debug`. </param>
         /// <param name="startDate"> Only include alerts that occurred on or after this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported. </param>
@@ -172,19 +172,19 @@ namespace Kandy.Rest.Monitor.V1
                                                                                              DateTime? endDate = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadAlertOptions(){ LogLevel = logLevel, StartDate = startDate, EndDate = endDate, PageSize = pageSize, Limit = limit};
+            var options = new ReadAlertOptions() { LogLevel = logLevel, StartDate = startDate, EndDate = endDate, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<AlertResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<AlertResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -201,7 +201,7 @@ namespace Kandy.Rest.Monitor.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<AlertResource> NextPage(Page<AlertResource> page, ITwilioRestClient client)
+        public static Page<AlertResource> NextPage(Page<AlertResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -216,7 +216,7 @@ namespace Kandy.Rest.Monitor.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<AlertResource> PreviousPage(Page<AlertResource> page, ITwilioRestClient client)
+        public static Page<AlertResource> PreviousPage(Page<AlertResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -227,7 +227,7 @@ namespace Kandy.Rest.Monitor.V1
             return Page<AlertResource>.FromJson("alerts", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a AlertResource object
         /// </summary>
@@ -245,7 +245,7 @@ namespace Kandy.Rest.Monitor.V1
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Alert resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -324,7 +324,8 @@ namespace Kandy.Rest.Monitor.V1
 
 
 
-        private AlertResource() {
+        private AlertResource()
+        {
 
         }
     }

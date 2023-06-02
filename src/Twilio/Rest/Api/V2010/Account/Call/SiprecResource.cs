@@ -28,12 +28,12 @@ namespace Kandy.Rest.Api.V2010.Account.Call
 {
     public class SiprecResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class StatusEnum : StringEnum
         {
-            private StatusEnum(string value) : base(value) {}
-            public StatusEnum() {}
+            private StatusEnum(string value) : base(value) { }
+            public StatusEnum() { }
             public static implicit operator StatusEnum(string value)
             {
                 return new StatusEnum(value);
@@ -44,8 +44,8 @@ namespace Kandy.Rest.Api.V2010.Account.Call
         }
         public sealed class TrackEnum : StringEnum
         {
-            private TrackEnum(string value) : base(value) {}
-            public TrackEnum() {}
+            private TrackEnum(string value) : base(value) { }
+            public TrackEnum() { }
             public static implicit operator TrackEnum(string value)
             {
                 return new TrackEnum(value);
@@ -57,8 +57,8 @@ namespace Kandy.Rest.Api.V2010.Account.Call
         }
         public sealed class UpdateStatusEnum : StringEnum
         {
-            private UpdateStatusEnum(string value) : base(value) {}
-            public UpdateStatusEnum() {}
+            private UpdateStatusEnum(string value) : base(value) { }
+            public UpdateStatusEnum() { }
             public static implicit operator UpdateStatusEnum(string value)
             {
                 return new UpdateStatusEnum(value);
@@ -67,16 +67,16 @@ namespace Kandy.Rest.Api.V2010.Account.Call
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateSiprecOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateSiprecOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Siprec.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathCallSid = options.PathCallSid;
-            path = path.Replace("{"+"CallSid"+"}", PathCallSid);
+            path = path.Replace("{" + "CallSid" + "}", PathCallSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -91,26 +91,26 @@ namespace Kandy.Rest.Api.V2010.Account.Call
         /// <param name="options"> Create Siprec parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Siprec </returns>
-        public static SiprecResource Create(CreateSiprecOptions options, ITwilioRestClient client = null)
+        public static SiprecResource Create(CreateSiprecOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a Siprec </summary>
         /// <param name="options"> Create Siprec parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Siprec </returns>
         public static async System.Threading.Tasks.Task<SiprecResource> CreateAsync(CreateSiprecOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a Siprec </summary>
         /// <param name="pathCallSid"> The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Siprec resource is associated with. </param>
@@ -526,13 +526,13 @@ namespace Kandy.Rest.Api.V2010.Account.Call
                                           string parameter98Value = null,
                                           string parameter99Name = null,
                                           string parameter99Value = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateSiprecOptions(pathCallSid){  PathAccountSid = pathAccountSid, Name = name, ConnectorName = connectorName, Track = track, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, Parameter1Name = parameter1Name, Parameter1Value = parameter1Value, Parameter2Name = parameter2Name, Parameter2Value = parameter2Value, Parameter3Name = parameter3Name, Parameter3Value = parameter3Value, Parameter4Name = parameter4Name, Parameter4Value = parameter4Value, Parameter5Name = parameter5Name, Parameter5Value = parameter5Value, Parameter6Name = parameter6Name, Parameter6Value = parameter6Value, Parameter7Name = parameter7Name, Parameter7Value = parameter7Value, Parameter8Name = parameter8Name, Parameter8Value = parameter8Value, Parameter9Name = parameter9Name, Parameter9Value = parameter9Value, Parameter10Name = parameter10Name, Parameter10Value = parameter10Value, Parameter11Name = parameter11Name, Parameter11Value = parameter11Value, Parameter12Name = parameter12Name, Parameter12Value = parameter12Value, Parameter13Name = parameter13Name, Parameter13Value = parameter13Value, Parameter14Name = parameter14Name, Parameter14Value = parameter14Value, Parameter15Name = parameter15Name, Parameter15Value = parameter15Value, Parameter16Name = parameter16Name, Parameter16Value = parameter16Value, Parameter17Name = parameter17Name, Parameter17Value = parameter17Value, Parameter18Name = parameter18Name, Parameter18Value = parameter18Value, Parameter19Name = parameter19Name, Parameter19Value = parameter19Value, Parameter20Name = parameter20Name, Parameter20Value = parameter20Value, Parameter21Name = parameter21Name, Parameter21Value = parameter21Value, Parameter22Name = parameter22Name, Parameter22Value = parameter22Value, Parameter23Name = parameter23Name, Parameter23Value = parameter23Value, Parameter24Name = parameter24Name, Parameter24Value = parameter24Value, Parameter25Name = parameter25Name, Parameter25Value = parameter25Value, Parameter26Name = parameter26Name, Parameter26Value = parameter26Value, Parameter27Name = parameter27Name, Parameter27Value = parameter27Value, Parameter28Name = parameter28Name, Parameter28Value = parameter28Value, Parameter29Name = parameter29Name, Parameter29Value = parameter29Value, Parameter30Name = parameter30Name, Parameter30Value = parameter30Value, Parameter31Name = parameter31Name, Parameter31Value = parameter31Value, Parameter32Name = parameter32Name, Parameter32Value = parameter32Value, Parameter33Name = parameter33Name, Parameter33Value = parameter33Value, Parameter34Name = parameter34Name, Parameter34Value = parameter34Value, Parameter35Name = parameter35Name, Parameter35Value = parameter35Value, Parameter36Name = parameter36Name, Parameter36Value = parameter36Value, Parameter37Name = parameter37Name, Parameter37Value = parameter37Value, Parameter38Name = parameter38Name, Parameter38Value = parameter38Value, Parameter39Name = parameter39Name, Parameter39Value = parameter39Value, Parameter40Name = parameter40Name, Parameter40Value = parameter40Value, Parameter41Name = parameter41Name, Parameter41Value = parameter41Value, Parameter42Name = parameter42Name, Parameter42Value = parameter42Value, Parameter43Name = parameter43Name, Parameter43Value = parameter43Value, Parameter44Name = parameter44Name, Parameter44Value = parameter44Value, Parameter45Name = parameter45Name, Parameter45Value = parameter45Value, Parameter46Name = parameter46Name, Parameter46Value = parameter46Value, Parameter47Name = parameter47Name, Parameter47Value = parameter47Value, Parameter48Name = parameter48Name, Parameter48Value = parameter48Value, Parameter49Name = parameter49Name, Parameter49Value = parameter49Value, Parameter50Name = parameter50Name, Parameter50Value = parameter50Value, Parameter51Name = parameter51Name, Parameter51Value = parameter51Value, Parameter52Name = parameter52Name, Parameter52Value = parameter52Value, Parameter53Name = parameter53Name, Parameter53Value = parameter53Value, Parameter54Name = parameter54Name, Parameter54Value = parameter54Value, Parameter55Name = parameter55Name, Parameter55Value = parameter55Value, Parameter56Name = parameter56Name, Parameter56Value = parameter56Value, Parameter57Name = parameter57Name, Parameter57Value = parameter57Value, Parameter58Name = parameter58Name, Parameter58Value = parameter58Value, Parameter59Name = parameter59Name, Parameter59Value = parameter59Value, Parameter60Name = parameter60Name, Parameter60Value = parameter60Value, Parameter61Name = parameter61Name, Parameter61Value = parameter61Value, Parameter62Name = parameter62Name, Parameter62Value = parameter62Value, Parameter63Name = parameter63Name, Parameter63Value = parameter63Value, Parameter64Name = parameter64Name, Parameter64Value = parameter64Value, Parameter65Name = parameter65Name, Parameter65Value = parameter65Value, Parameter66Name = parameter66Name, Parameter66Value = parameter66Value, Parameter67Name = parameter67Name, Parameter67Value = parameter67Value, Parameter68Name = parameter68Name, Parameter68Value = parameter68Value, Parameter69Name = parameter69Name, Parameter69Value = parameter69Value, Parameter70Name = parameter70Name, Parameter70Value = parameter70Value, Parameter71Name = parameter71Name, Parameter71Value = parameter71Value, Parameter72Name = parameter72Name, Parameter72Value = parameter72Value, Parameter73Name = parameter73Name, Parameter73Value = parameter73Value, Parameter74Name = parameter74Name, Parameter74Value = parameter74Value, Parameter75Name = parameter75Name, Parameter75Value = parameter75Value, Parameter76Name = parameter76Name, Parameter76Value = parameter76Value, Parameter77Name = parameter77Name, Parameter77Value = parameter77Value, Parameter78Name = parameter78Name, Parameter78Value = parameter78Value, Parameter79Name = parameter79Name, Parameter79Value = parameter79Value, Parameter80Name = parameter80Name, Parameter80Value = parameter80Value, Parameter81Name = parameter81Name, Parameter81Value = parameter81Value, Parameter82Name = parameter82Name, Parameter82Value = parameter82Value, Parameter83Name = parameter83Name, Parameter83Value = parameter83Value, Parameter84Name = parameter84Name, Parameter84Value = parameter84Value, Parameter85Name = parameter85Name, Parameter85Value = parameter85Value, Parameter86Name = parameter86Name, Parameter86Value = parameter86Value, Parameter87Name = parameter87Name, Parameter87Value = parameter87Value, Parameter88Name = parameter88Name, Parameter88Value = parameter88Value, Parameter89Name = parameter89Name, Parameter89Value = parameter89Value, Parameter90Name = parameter90Name, Parameter90Value = parameter90Value, Parameter91Name = parameter91Name, Parameter91Value = parameter91Value, Parameter92Name = parameter92Name, Parameter92Value = parameter92Value, Parameter93Name = parameter93Name, Parameter93Value = parameter93Value, Parameter94Name = parameter94Name, Parameter94Value = parameter94Value, Parameter95Name = parameter95Name, Parameter95Value = parameter95Value, Parameter96Name = parameter96Name, Parameter96Value = parameter96Value, Parameter97Name = parameter97Name, Parameter97Value = parameter97Value, Parameter98Name = parameter98Name, Parameter98Value = parameter98Value, Parameter99Name = parameter99Name, Parameter99Value = parameter99Value };
+            var options = new CreateSiprecOptions(pathCallSid) { PathAccountSid = pathAccountSid, Name = name, ConnectorName = connectorName, Track = track, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, Parameter1Name = parameter1Name, Parameter1Value = parameter1Value, Parameter2Name = parameter2Name, Parameter2Value = parameter2Value, Parameter3Name = parameter3Name, Parameter3Value = parameter3Value, Parameter4Name = parameter4Name, Parameter4Value = parameter4Value, Parameter5Name = parameter5Name, Parameter5Value = parameter5Value, Parameter6Name = parameter6Name, Parameter6Value = parameter6Value, Parameter7Name = parameter7Name, Parameter7Value = parameter7Value, Parameter8Name = parameter8Name, Parameter8Value = parameter8Value, Parameter9Name = parameter9Name, Parameter9Value = parameter9Value, Parameter10Name = parameter10Name, Parameter10Value = parameter10Value, Parameter11Name = parameter11Name, Parameter11Value = parameter11Value, Parameter12Name = parameter12Name, Parameter12Value = parameter12Value, Parameter13Name = parameter13Name, Parameter13Value = parameter13Value, Parameter14Name = parameter14Name, Parameter14Value = parameter14Value, Parameter15Name = parameter15Name, Parameter15Value = parameter15Value, Parameter16Name = parameter16Name, Parameter16Value = parameter16Value, Parameter17Name = parameter17Name, Parameter17Value = parameter17Value, Parameter18Name = parameter18Name, Parameter18Value = parameter18Value, Parameter19Name = parameter19Name, Parameter19Value = parameter19Value, Parameter20Name = parameter20Name, Parameter20Value = parameter20Value, Parameter21Name = parameter21Name, Parameter21Value = parameter21Value, Parameter22Name = parameter22Name, Parameter22Value = parameter22Value, Parameter23Name = parameter23Name, Parameter23Value = parameter23Value, Parameter24Name = parameter24Name, Parameter24Value = parameter24Value, Parameter25Name = parameter25Name, Parameter25Value = parameter25Value, Parameter26Name = parameter26Name, Parameter26Value = parameter26Value, Parameter27Name = parameter27Name, Parameter27Value = parameter27Value, Parameter28Name = parameter28Name, Parameter28Value = parameter28Value, Parameter29Name = parameter29Name, Parameter29Value = parameter29Value, Parameter30Name = parameter30Name, Parameter30Value = parameter30Value, Parameter31Name = parameter31Name, Parameter31Value = parameter31Value, Parameter32Name = parameter32Name, Parameter32Value = parameter32Value, Parameter33Name = parameter33Name, Parameter33Value = parameter33Value, Parameter34Name = parameter34Name, Parameter34Value = parameter34Value, Parameter35Name = parameter35Name, Parameter35Value = parameter35Value, Parameter36Name = parameter36Name, Parameter36Value = parameter36Value, Parameter37Name = parameter37Name, Parameter37Value = parameter37Value, Parameter38Name = parameter38Name, Parameter38Value = parameter38Value, Parameter39Name = parameter39Name, Parameter39Value = parameter39Value, Parameter40Name = parameter40Name, Parameter40Value = parameter40Value, Parameter41Name = parameter41Name, Parameter41Value = parameter41Value, Parameter42Name = parameter42Name, Parameter42Value = parameter42Value, Parameter43Name = parameter43Name, Parameter43Value = parameter43Value, Parameter44Name = parameter44Name, Parameter44Value = parameter44Value, Parameter45Name = parameter45Name, Parameter45Value = parameter45Value, Parameter46Name = parameter46Name, Parameter46Value = parameter46Value, Parameter47Name = parameter47Name, Parameter47Value = parameter47Value, Parameter48Name = parameter48Name, Parameter48Value = parameter48Value, Parameter49Name = parameter49Name, Parameter49Value = parameter49Value, Parameter50Name = parameter50Name, Parameter50Value = parameter50Value, Parameter51Name = parameter51Name, Parameter51Value = parameter51Value, Parameter52Name = parameter52Name, Parameter52Value = parameter52Value, Parameter53Name = parameter53Name, Parameter53Value = parameter53Value, Parameter54Name = parameter54Name, Parameter54Value = parameter54Value, Parameter55Name = parameter55Name, Parameter55Value = parameter55Value, Parameter56Name = parameter56Name, Parameter56Value = parameter56Value, Parameter57Name = parameter57Name, Parameter57Value = parameter57Value, Parameter58Name = parameter58Name, Parameter58Value = parameter58Value, Parameter59Name = parameter59Name, Parameter59Value = parameter59Value, Parameter60Name = parameter60Name, Parameter60Value = parameter60Value, Parameter61Name = parameter61Name, Parameter61Value = parameter61Value, Parameter62Name = parameter62Name, Parameter62Value = parameter62Value, Parameter63Name = parameter63Name, Parameter63Value = parameter63Value, Parameter64Name = parameter64Name, Parameter64Value = parameter64Value, Parameter65Name = parameter65Name, Parameter65Value = parameter65Value, Parameter66Name = parameter66Name, Parameter66Value = parameter66Value, Parameter67Name = parameter67Name, Parameter67Value = parameter67Value, Parameter68Name = parameter68Name, Parameter68Value = parameter68Value, Parameter69Name = parameter69Name, Parameter69Value = parameter69Value, Parameter70Name = parameter70Name, Parameter70Value = parameter70Value, Parameter71Name = parameter71Name, Parameter71Value = parameter71Value, Parameter72Name = parameter72Name, Parameter72Value = parameter72Value, Parameter73Name = parameter73Name, Parameter73Value = parameter73Value, Parameter74Name = parameter74Name, Parameter74Value = parameter74Value, Parameter75Name = parameter75Name, Parameter75Value = parameter75Value, Parameter76Name = parameter76Name, Parameter76Value = parameter76Value, Parameter77Name = parameter77Name, Parameter77Value = parameter77Value, Parameter78Name = parameter78Name, Parameter78Value = parameter78Value, Parameter79Name = parameter79Name, Parameter79Value = parameter79Value, Parameter80Name = parameter80Name, Parameter80Value = parameter80Value, Parameter81Name = parameter81Name, Parameter81Value = parameter81Value, Parameter82Name = parameter82Name, Parameter82Value = parameter82Value, Parameter83Name = parameter83Name, Parameter83Value = parameter83Value, Parameter84Name = parameter84Name, Parameter84Value = parameter84Value, Parameter85Name = parameter85Name, Parameter85Value = parameter85Value, Parameter86Name = parameter86Name, Parameter86Value = parameter86Value, Parameter87Name = parameter87Name, Parameter87Value = parameter87Value, Parameter88Name = parameter88Name, Parameter88Value = parameter88Value, Parameter89Name = parameter89Name, Parameter89Value = parameter89Value, Parameter90Name = parameter90Name, Parameter90Value = parameter90Value, Parameter91Name = parameter91Name, Parameter91Value = parameter91Value, Parameter92Name = parameter92Name, Parameter92Value = parameter92Value, Parameter93Name = parameter93Name, Parameter93Value = parameter93Value, Parameter94Name = parameter94Name, Parameter94Value = parameter94Value, Parameter95Name = parameter95Name, Parameter95Value = parameter95Value, Parameter96Name = parameter96Name, Parameter96Value = parameter96Value, Parameter97Name = parameter97Name, Parameter97Value = parameter97Value, Parameter98Name = parameter98Name, Parameter98Value = parameter98Value, Parameter99Name = parameter99Name, Parameter99Value = parameter99Value };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a Siprec </summary>
         /// <param name="pathCallSid"> The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Siprec resource is associated with. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Siprec resource. </param>
@@ -947,24 +947,24 @@ namespace Kandy.Rest.Api.V2010.Account.Call
                                                                                   string parameter98Value = null,
                                                                                   string parameter99Name = null,
                                                                                   string parameter99Value = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateSiprecOptions(pathCallSid){  PathAccountSid = pathAccountSid, Name = name, ConnectorName = connectorName, Track = track, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, Parameter1Name = parameter1Name, Parameter1Value = parameter1Value, Parameter2Name = parameter2Name, Parameter2Value = parameter2Value, Parameter3Name = parameter3Name, Parameter3Value = parameter3Value, Parameter4Name = parameter4Name, Parameter4Value = parameter4Value, Parameter5Name = parameter5Name, Parameter5Value = parameter5Value, Parameter6Name = parameter6Name, Parameter6Value = parameter6Value, Parameter7Name = parameter7Name, Parameter7Value = parameter7Value, Parameter8Name = parameter8Name, Parameter8Value = parameter8Value, Parameter9Name = parameter9Name, Parameter9Value = parameter9Value, Parameter10Name = parameter10Name, Parameter10Value = parameter10Value, Parameter11Name = parameter11Name, Parameter11Value = parameter11Value, Parameter12Name = parameter12Name, Parameter12Value = parameter12Value, Parameter13Name = parameter13Name, Parameter13Value = parameter13Value, Parameter14Name = parameter14Name, Parameter14Value = parameter14Value, Parameter15Name = parameter15Name, Parameter15Value = parameter15Value, Parameter16Name = parameter16Name, Parameter16Value = parameter16Value, Parameter17Name = parameter17Name, Parameter17Value = parameter17Value, Parameter18Name = parameter18Name, Parameter18Value = parameter18Value, Parameter19Name = parameter19Name, Parameter19Value = parameter19Value, Parameter20Name = parameter20Name, Parameter20Value = parameter20Value, Parameter21Name = parameter21Name, Parameter21Value = parameter21Value, Parameter22Name = parameter22Name, Parameter22Value = parameter22Value, Parameter23Name = parameter23Name, Parameter23Value = parameter23Value, Parameter24Name = parameter24Name, Parameter24Value = parameter24Value, Parameter25Name = parameter25Name, Parameter25Value = parameter25Value, Parameter26Name = parameter26Name, Parameter26Value = parameter26Value, Parameter27Name = parameter27Name, Parameter27Value = parameter27Value, Parameter28Name = parameter28Name, Parameter28Value = parameter28Value, Parameter29Name = parameter29Name, Parameter29Value = parameter29Value, Parameter30Name = parameter30Name, Parameter30Value = parameter30Value, Parameter31Name = parameter31Name, Parameter31Value = parameter31Value, Parameter32Name = parameter32Name, Parameter32Value = parameter32Value, Parameter33Name = parameter33Name, Parameter33Value = parameter33Value, Parameter34Name = parameter34Name, Parameter34Value = parameter34Value, Parameter35Name = parameter35Name, Parameter35Value = parameter35Value, Parameter36Name = parameter36Name, Parameter36Value = parameter36Value, Parameter37Name = parameter37Name, Parameter37Value = parameter37Value, Parameter38Name = parameter38Name, Parameter38Value = parameter38Value, Parameter39Name = parameter39Name, Parameter39Value = parameter39Value, Parameter40Name = parameter40Name, Parameter40Value = parameter40Value, Parameter41Name = parameter41Name, Parameter41Value = parameter41Value, Parameter42Name = parameter42Name, Parameter42Value = parameter42Value, Parameter43Name = parameter43Name, Parameter43Value = parameter43Value, Parameter44Name = parameter44Name, Parameter44Value = parameter44Value, Parameter45Name = parameter45Name, Parameter45Value = parameter45Value, Parameter46Name = parameter46Name, Parameter46Value = parameter46Value, Parameter47Name = parameter47Name, Parameter47Value = parameter47Value, Parameter48Name = parameter48Name, Parameter48Value = parameter48Value, Parameter49Name = parameter49Name, Parameter49Value = parameter49Value, Parameter50Name = parameter50Name, Parameter50Value = parameter50Value, Parameter51Name = parameter51Name, Parameter51Value = parameter51Value, Parameter52Name = parameter52Name, Parameter52Value = parameter52Value, Parameter53Name = parameter53Name, Parameter53Value = parameter53Value, Parameter54Name = parameter54Name, Parameter54Value = parameter54Value, Parameter55Name = parameter55Name, Parameter55Value = parameter55Value, Parameter56Name = parameter56Name, Parameter56Value = parameter56Value, Parameter57Name = parameter57Name, Parameter57Value = parameter57Value, Parameter58Name = parameter58Name, Parameter58Value = parameter58Value, Parameter59Name = parameter59Name, Parameter59Value = parameter59Value, Parameter60Name = parameter60Name, Parameter60Value = parameter60Value, Parameter61Name = parameter61Name, Parameter61Value = parameter61Value, Parameter62Name = parameter62Name, Parameter62Value = parameter62Value, Parameter63Name = parameter63Name, Parameter63Value = parameter63Value, Parameter64Name = parameter64Name, Parameter64Value = parameter64Value, Parameter65Name = parameter65Name, Parameter65Value = parameter65Value, Parameter66Name = parameter66Name, Parameter66Value = parameter66Value, Parameter67Name = parameter67Name, Parameter67Value = parameter67Value, Parameter68Name = parameter68Name, Parameter68Value = parameter68Value, Parameter69Name = parameter69Name, Parameter69Value = parameter69Value, Parameter70Name = parameter70Name, Parameter70Value = parameter70Value, Parameter71Name = parameter71Name, Parameter71Value = parameter71Value, Parameter72Name = parameter72Name, Parameter72Value = parameter72Value, Parameter73Name = parameter73Name, Parameter73Value = parameter73Value, Parameter74Name = parameter74Name, Parameter74Value = parameter74Value, Parameter75Name = parameter75Name, Parameter75Value = parameter75Value, Parameter76Name = parameter76Name, Parameter76Value = parameter76Value, Parameter77Name = parameter77Name, Parameter77Value = parameter77Value, Parameter78Name = parameter78Name, Parameter78Value = parameter78Value, Parameter79Name = parameter79Name, Parameter79Value = parameter79Value, Parameter80Name = parameter80Name, Parameter80Value = parameter80Value, Parameter81Name = parameter81Name, Parameter81Value = parameter81Value, Parameter82Name = parameter82Name, Parameter82Value = parameter82Value, Parameter83Name = parameter83Name, Parameter83Value = parameter83Value, Parameter84Name = parameter84Name, Parameter84Value = parameter84Value, Parameter85Name = parameter85Name, Parameter85Value = parameter85Value, Parameter86Name = parameter86Name, Parameter86Value = parameter86Value, Parameter87Name = parameter87Name, Parameter87Value = parameter87Value, Parameter88Name = parameter88Name, Parameter88Value = parameter88Value, Parameter89Name = parameter89Name, Parameter89Value = parameter89Value, Parameter90Name = parameter90Name, Parameter90Value = parameter90Value, Parameter91Name = parameter91Name, Parameter91Value = parameter91Value, Parameter92Name = parameter92Name, Parameter92Value = parameter92Value, Parameter93Name = parameter93Name, Parameter93Value = parameter93Value, Parameter94Name = parameter94Name, Parameter94Value = parameter94Value, Parameter95Name = parameter95Name, Parameter95Value = parameter95Value, Parameter96Name = parameter96Name, Parameter96Value = parameter96Value, Parameter97Name = parameter97Name, Parameter97Value = parameter97Value, Parameter98Name = parameter98Name, Parameter98Value = parameter98Value, Parameter99Name = parameter99Name, Parameter99Value = parameter99Value };
+            var options = new CreateSiprecOptions(pathCallSid) { PathAccountSid = pathAccountSid, Name = name, ConnectorName = connectorName, Track = track, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, Parameter1Name = parameter1Name, Parameter1Value = parameter1Value, Parameter2Name = parameter2Name, Parameter2Value = parameter2Value, Parameter3Name = parameter3Name, Parameter3Value = parameter3Value, Parameter4Name = parameter4Name, Parameter4Value = parameter4Value, Parameter5Name = parameter5Name, Parameter5Value = parameter5Value, Parameter6Name = parameter6Name, Parameter6Value = parameter6Value, Parameter7Name = parameter7Name, Parameter7Value = parameter7Value, Parameter8Name = parameter8Name, Parameter8Value = parameter8Value, Parameter9Name = parameter9Name, Parameter9Value = parameter9Value, Parameter10Name = parameter10Name, Parameter10Value = parameter10Value, Parameter11Name = parameter11Name, Parameter11Value = parameter11Value, Parameter12Name = parameter12Name, Parameter12Value = parameter12Value, Parameter13Name = parameter13Name, Parameter13Value = parameter13Value, Parameter14Name = parameter14Name, Parameter14Value = parameter14Value, Parameter15Name = parameter15Name, Parameter15Value = parameter15Value, Parameter16Name = parameter16Name, Parameter16Value = parameter16Value, Parameter17Name = parameter17Name, Parameter17Value = parameter17Value, Parameter18Name = parameter18Name, Parameter18Value = parameter18Value, Parameter19Name = parameter19Name, Parameter19Value = parameter19Value, Parameter20Name = parameter20Name, Parameter20Value = parameter20Value, Parameter21Name = parameter21Name, Parameter21Value = parameter21Value, Parameter22Name = parameter22Name, Parameter22Value = parameter22Value, Parameter23Name = parameter23Name, Parameter23Value = parameter23Value, Parameter24Name = parameter24Name, Parameter24Value = parameter24Value, Parameter25Name = parameter25Name, Parameter25Value = parameter25Value, Parameter26Name = parameter26Name, Parameter26Value = parameter26Value, Parameter27Name = parameter27Name, Parameter27Value = parameter27Value, Parameter28Name = parameter28Name, Parameter28Value = parameter28Value, Parameter29Name = parameter29Name, Parameter29Value = parameter29Value, Parameter30Name = parameter30Name, Parameter30Value = parameter30Value, Parameter31Name = parameter31Name, Parameter31Value = parameter31Value, Parameter32Name = parameter32Name, Parameter32Value = parameter32Value, Parameter33Name = parameter33Name, Parameter33Value = parameter33Value, Parameter34Name = parameter34Name, Parameter34Value = parameter34Value, Parameter35Name = parameter35Name, Parameter35Value = parameter35Value, Parameter36Name = parameter36Name, Parameter36Value = parameter36Value, Parameter37Name = parameter37Name, Parameter37Value = parameter37Value, Parameter38Name = parameter38Name, Parameter38Value = parameter38Value, Parameter39Name = parameter39Name, Parameter39Value = parameter39Value, Parameter40Name = parameter40Name, Parameter40Value = parameter40Value, Parameter41Name = parameter41Name, Parameter41Value = parameter41Value, Parameter42Name = parameter42Name, Parameter42Value = parameter42Value, Parameter43Name = parameter43Name, Parameter43Value = parameter43Value, Parameter44Name = parameter44Name, Parameter44Value = parameter44Value, Parameter45Name = parameter45Name, Parameter45Value = parameter45Value, Parameter46Name = parameter46Name, Parameter46Value = parameter46Value, Parameter47Name = parameter47Name, Parameter47Value = parameter47Value, Parameter48Name = parameter48Name, Parameter48Value = parameter48Value, Parameter49Name = parameter49Name, Parameter49Value = parameter49Value, Parameter50Name = parameter50Name, Parameter50Value = parameter50Value, Parameter51Name = parameter51Name, Parameter51Value = parameter51Value, Parameter52Name = parameter52Name, Parameter52Value = parameter52Value, Parameter53Name = parameter53Name, Parameter53Value = parameter53Value, Parameter54Name = parameter54Name, Parameter54Value = parameter54Value, Parameter55Name = parameter55Name, Parameter55Value = parameter55Value, Parameter56Name = parameter56Name, Parameter56Value = parameter56Value, Parameter57Name = parameter57Name, Parameter57Value = parameter57Value, Parameter58Name = parameter58Name, Parameter58Value = parameter58Value, Parameter59Name = parameter59Name, Parameter59Value = parameter59Value, Parameter60Name = parameter60Name, Parameter60Value = parameter60Value, Parameter61Name = parameter61Name, Parameter61Value = parameter61Value, Parameter62Name = parameter62Name, Parameter62Value = parameter62Value, Parameter63Name = parameter63Name, Parameter63Value = parameter63Value, Parameter64Name = parameter64Name, Parameter64Value = parameter64Value, Parameter65Name = parameter65Name, Parameter65Value = parameter65Value, Parameter66Name = parameter66Name, Parameter66Value = parameter66Value, Parameter67Name = parameter67Name, Parameter67Value = parameter67Value, Parameter68Name = parameter68Name, Parameter68Value = parameter68Value, Parameter69Name = parameter69Name, Parameter69Value = parameter69Value, Parameter70Name = parameter70Name, Parameter70Value = parameter70Value, Parameter71Name = parameter71Name, Parameter71Value = parameter71Value, Parameter72Name = parameter72Name, Parameter72Value = parameter72Value, Parameter73Name = parameter73Name, Parameter73Value = parameter73Value, Parameter74Name = parameter74Name, Parameter74Value = parameter74Value, Parameter75Name = parameter75Name, Parameter75Value = parameter75Value, Parameter76Name = parameter76Name, Parameter76Value = parameter76Value, Parameter77Name = parameter77Name, Parameter77Value = parameter77Value, Parameter78Name = parameter78Name, Parameter78Value = parameter78Value, Parameter79Name = parameter79Name, Parameter79Value = parameter79Value, Parameter80Name = parameter80Name, Parameter80Value = parameter80Value, Parameter81Name = parameter81Name, Parameter81Value = parameter81Value, Parameter82Name = parameter82Name, Parameter82Value = parameter82Value, Parameter83Name = parameter83Name, Parameter83Value = parameter83Value, Parameter84Name = parameter84Name, Parameter84Value = parameter84Value, Parameter85Name = parameter85Name, Parameter85Value = parameter85Value, Parameter86Name = parameter86Name, Parameter86Value = parameter86Value, Parameter87Name = parameter87Name, Parameter87Value = parameter87Value, Parameter88Name = parameter88Name, Parameter88Value = parameter88Value, Parameter89Name = parameter89Name, Parameter89Value = parameter89Value, Parameter90Name = parameter90Name, Parameter90Value = parameter90Value, Parameter91Name = parameter91Name, Parameter91Value = parameter91Value, Parameter92Name = parameter92Name, Parameter92Value = parameter92Value, Parameter93Name = parameter93Name, Parameter93Value = parameter93Value, Parameter94Name = parameter94Name, Parameter94Value = parameter94Value, Parameter95Name = parameter95Name, Parameter95Value = parameter95Value, Parameter96Name = parameter96Name, Parameter96Value = parameter96Value, Parameter97Name = parameter97Name, Parameter97Value = parameter97Value, Parameter98Name = parameter98Name, Parameter98Value = parameter98Value, Parameter99Name = parameter99Name, Parameter99Value = parameter99Value };
             return await CreateAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildUpdateRequest(UpdateSiprecOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildUpdateRequest(UpdateSiprecOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Siprec/{Sid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathCallSid = options.PathCallSid;
-            path = path.Replace("{"+"CallSid"+"}", PathCallSid);
+            path = path.Replace("{" + "CallSid" + "}", PathCallSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -979,7 +979,7 @@ namespace Kandy.Rest.Api.V2010.Account.Call
         /// <param name="options"> Update Siprec parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Siprec </returns>
-        public static SiprecResource Update(UpdateSiprecOptions options, ITwilioRestClient client = null)
+        public static SiprecResource Update(UpdateSiprecOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -990,15 +990,15 @@ namespace Kandy.Rest.Api.V2010.Account.Call
         /// <param name="options"> Update Siprec parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Siprec </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<SiprecResource> UpdateAsync(UpdateSiprecOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Stop a Siprec using either the SID of the Siprec resource or the `name` used when creating the resource </summary>
         /// <param name="pathCallSid"> The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Siprec resource is associated with. </param>
@@ -1012,13 +1012,13 @@ namespace Kandy.Rest.Api.V2010.Account.Call
                                           string pathSid,
                                           SiprecResource.UpdateStatusEnum status,
                                           string pathAccountSid = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateSiprecOptions(pathCallSid, pathSid, status){ PathAccountSid = pathAccountSid };
+            var options = new UpdateSiprecOptions(pathCallSid, pathSid, status) { PathAccountSid = pathAccountSid };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Stop a Siprec using either the SID of the Siprec resource or the `name` used when creating the resource </summary>
         /// <param name="pathCallSid"> The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Siprec resource is associated with. </param>
         /// <param name="pathSid"> The SID of the Siprec resource, or the `name` used when creating the resource </param>
@@ -1031,13 +1031,13 @@ namespace Kandy.Rest.Api.V2010.Account.Call
                                                                               string pathSid,
                                                                               SiprecResource.UpdateStatusEnum status,
                                                                               string pathAccountSid = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateSiprecOptions(pathCallSid, pathSid, status){ PathAccountSid = pathAccountSid };
+            var options = new UpdateSiprecOptions(pathCallSid, pathSid, status) { PathAccountSid = pathAccountSid };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a SiprecResource object
         /// </summary>
@@ -1055,7 +1055,7 @@ namespace Kandy.Rest.Api.V2010.Account.Call
             }
         }
 
-    
+
         ///<summary> The SID of the Siprec resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -1072,7 +1072,7 @@ namespace Kandy.Rest.Api.V2010.Account.Call
         [JsonProperty("name")]
         public string Name { get; private set; }
 
-        
+
         [JsonProperty("status")]
         public SiprecResource.StatusEnum Status { get; private set; }
 
@@ -1086,7 +1086,8 @@ namespace Kandy.Rest.Api.V2010.Account.Call
 
 
 
-        private SiprecResource() {
+        private SiprecResource()
+        {
 
         }
     }

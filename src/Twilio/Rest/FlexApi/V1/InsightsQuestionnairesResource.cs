@@ -28,12 +28,12 @@ namespace Kandy.Rest.FlexApi.V1
 {
     public class InsightsQuestionnairesResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateInsightsQuestionnairesOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateInsightsQuestionnairesOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Insights/QualityManagement/Questionnaires";
 
 
@@ -50,26 +50,26 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="options"> Create InsightsQuestionnaires parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of InsightsQuestionnaires </returns>
-        public static InsightsQuestionnairesResource Create(CreateInsightsQuestionnairesOptions options, ITwilioRestClient client = null)
+        public static InsightsQuestionnairesResource Create(CreateInsightsQuestionnairesOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> To create a Questionnaire </summary>
         /// <param name="options"> Create InsightsQuestionnaires parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of InsightsQuestionnaires </returns>
         public static async System.Threading.Tasks.Task<InsightsQuestionnairesResource> CreateAsync(CreateInsightsQuestionnairesOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> To create a Questionnaire </summary>
         /// <param name="name"> The name of this questionnaire </param>
@@ -85,13 +85,13 @@ namespace Kandy.Rest.FlexApi.V1
                                           bool? active = null,
                                           List<string> questionSids = null,
                                           string authorization = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateInsightsQuestionnairesOptions(name){  Description = description, Active = active, QuestionSids = questionSids, Authorization = authorization };
+            var options = new CreateInsightsQuestionnairesOptions(name) { Description = description, Active = active, QuestionSids = questionSids, Authorization = authorization };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> To create a Questionnaire </summary>
         /// <param name="name"> The name of this questionnaire </param>
         /// <param name="description"> The description of this questionnaire </param>
@@ -106,24 +106,24 @@ namespace Kandy.Rest.FlexApi.V1
                                                                                   bool? active = null,
                                                                                   List<string> questionSids = null,
                                                                                   string authorization = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateInsightsQuestionnairesOptions(name){  Description = description, Active = active, QuestionSids = questionSids, Authorization = authorization };
+            var options = new CreateInsightsQuestionnairesOptions(name) { Description = description, Active = active, QuestionSids = questionSids, Authorization = authorization };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> To delete the questionnaire </summary>
         /// <param name="options"> Delete InsightsQuestionnaires parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of InsightsQuestionnaires </returns>
-        private static Request BuildDeleteRequest(DeleteInsightsQuestionnairesOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteInsightsQuestionnairesOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Insights/QualityManagement/Questionnaires/{QuestionnaireSid}";
 
             string PathQuestionnaireSid = options.PathQuestionnaireSid;
-            path = path.Replace("{"+"QuestionnaireSid"+"}", PathQuestionnaireSid);
+            path = path.Replace("{" + "QuestionnaireSid" + "}", PathQuestionnaireSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -138,58 +138,58 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="options"> Delete InsightsQuestionnaires parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of InsightsQuestionnaires </returns>
-        public static bool Delete(DeleteInsightsQuestionnairesOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteInsightsQuestionnairesOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> To delete the questionnaire </summary>
         /// <param name="options"> Delete InsightsQuestionnaires parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of InsightsQuestionnaires </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteInsightsQuestionnairesOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> To delete the questionnaire </summary>
         /// <param name="pathQuestionnaireSid"> The SID of the questionnaire </param>
         /// <param name="authorization"> The Authorization HTTP request header </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of InsightsQuestionnaires </returns>
-        public static bool Delete(string pathQuestionnaireSid, string authorization = null, ITwilioRestClient client = null)
+        public static bool Delete(string pathQuestionnaireSid, string authorization = null, IKandyRestClient client = null)
         {
-            var options = new DeleteInsightsQuestionnairesOptions(pathQuestionnaireSid)      { Authorization = authorization }   ;
+            var options = new DeleteInsightsQuestionnairesOptions(pathQuestionnaireSid) { Authorization = authorization };
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> To delete the questionnaire </summary>
         /// <param name="pathQuestionnaireSid"> The SID of the questionnaire </param>
         /// <param name="authorization"> The Authorization HTTP request header </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of InsightsQuestionnaires </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathQuestionnaireSid, string authorization = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathQuestionnaireSid, string authorization = null, IKandyRestClient client = null)
         {
-            var options = new DeleteInsightsQuestionnairesOptions(pathQuestionnaireSid)  { Authorization = authorization };
+            var options = new DeleteInsightsQuestionnairesOptions(pathQuestionnaireSid) { Authorization = authorization };
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchInsightsQuestionnairesOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchInsightsQuestionnairesOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Insights/QualityManagement/Questionnaires/{QuestionnaireSid}";
 
             string PathQuestionnaireSid = options.PathQuestionnaireSid;
-            path = path.Replace("{"+"QuestionnaireSid"+"}", PathQuestionnaireSid);
+            path = path.Replace("{" + "QuestionnaireSid" + "}", PathQuestionnaireSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -204,56 +204,56 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="options"> Fetch InsightsQuestionnaires parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of InsightsQuestionnaires </returns>
-        public static InsightsQuestionnairesResource Fetch(FetchInsightsQuestionnairesOptions options, ITwilioRestClient client = null)
+        public static InsightsQuestionnairesResource Fetch(FetchInsightsQuestionnairesOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> To get the Questionnaire Detail </summary>
         /// <param name="options"> Fetch InsightsQuestionnaires parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of InsightsQuestionnaires </returns>
         public static async System.Threading.Tasks.Task<InsightsQuestionnairesResource> FetchAsync(FetchInsightsQuestionnairesOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> To get the Questionnaire Detail </summary>
         /// <param name="pathQuestionnaireSid"> The SID of the questionnaire </param>
         /// <param name="authorization"> The Authorization HTTP request header </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of InsightsQuestionnaires </returns>
         public static InsightsQuestionnairesResource Fetch(
-                                         string pathQuestionnaireSid, 
-                                         string authorization = null, 
-                                         ITwilioRestClient client = null)
+                                         string pathQuestionnaireSid,
+                                         string authorization = null,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchInsightsQuestionnairesOptions(pathQuestionnaireSid){ Authorization = authorization };
+            var options = new FetchInsightsQuestionnairesOptions(pathQuestionnaireSid) { Authorization = authorization };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> To get the Questionnaire Detail </summary>
         /// <param name="pathQuestionnaireSid"> The SID of the questionnaire </param>
         /// <param name="authorization"> The Authorization HTTP request header </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of InsightsQuestionnaires </returns>
-        public static async System.Threading.Tasks.Task<InsightsQuestionnairesResource> FetchAsync(string pathQuestionnaireSid, string authorization = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<InsightsQuestionnairesResource> FetchAsync(string pathQuestionnaireSid, string authorization = null, IKandyRestClient client = null)
         {
-            var options = new FetchInsightsQuestionnairesOptions(pathQuestionnaireSid){ Authorization = authorization };
+            var options = new FetchInsightsQuestionnairesOptions(pathQuestionnaireSid) { Authorization = authorization };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadInsightsQuestionnairesOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadInsightsQuestionnairesOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Insights/QualityManagement/Questionnaires";
 
 
@@ -269,7 +269,7 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="options"> Read InsightsQuestionnaires parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of InsightsQuestionnaires </returns>
-        public static ResourceSet<InsightsQuestionnairesResource> Read(ReadInsightsQuestionnairesOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<InsightsQuestionnairesResource> Read(ReadInsightsQuestionnairesOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -277,13 +277,13 @@ namespace Kandy.Rest.FlexApi.V1
             return new ResourceSet<InsightsQuestionnairesResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> To get all questionnaires with questions </summary>
         /// <param name="options"> Read InsightsQuestionnaires parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of InsightsQuestionnaires </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<InsightsQuestionnairesResource>> ReadAsync(ReadInsightsQuestionnairesOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -291,7 +291,7 @@ namespace Kandy.Rest.FlexApi.V1
             var page = Page<InsightsQuestionnairesResource>.FromJson("questionnaires", response.Content);
             return new ResourceSet<InsightsQuestionnairesResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> To get all questionnaires with questions </summary>
         /// <param name="authorization"> The Authorization HTTP request header </param>
         /// <param name="includeInactive"> Flag indicating whether to include inactive questionnaires or not </param>
@@ -304,13 +304,13 @@ namespace Kandy.Rest.FlexApi.V1
                                                      bool? includeInactive = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadInsightsQuestionnairesOptions(){ Authorization = authorization, IncludeInactive = includeInactive, PageSize = pageSize, Limit = limit};
+            var options = new ReadInsightsQuestionnairesOptions() { Authorization = authorization, IncludeInactive = includeInactive, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> To get all questionnaires with questions </summary>
         /// <param name="authorization"> The Authorization HTTP request header </param>
         /// <param name="includeInactive"> Flag indicating whether to include inactive questionnaires or not </param>
@@ -323,19 +323,19 @@ namespace Kandy.Rest.FlexApi.V1
                                                                                              bool? includeInactive = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadInsightsQuestionnairesOptions(){ Authorization = authorization, IncludeInactive = includeInactive, PageSize = pageSize, Limit = limit};
+            var options = new ReadInsightsQuestionnairesOptions() { Authorization = authorization, IncludeInactive = includeInactive, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<InsightsQuestionnairesResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<InsightsQuestionnairesResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -352,7 +352,7 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<InsightsQuestionnairesResource> NextPage(Page<InsightsQuestionnairesResource> page, ITwilioRestClient client)
+        public static Page<InsightsQuestionnairesResource> NextPage(Page<InsightsQuestionnairesResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -367,7 +367,7 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<InsightsQuestionnairesResource> PreviousPage(Page<InsightsQuestionnairesResource> page, ITwilioRestClient client)
+        public static Page<InsightsQuestionnairesResource> PreviousPage(Page<InsightsQuestionnairesResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -378,14 +378,14 @@ namespace Kandy.Rest.FlexApi.V1
             return Page<InsightsQuestionnairesResource>.FromJson("questionnaires", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateInsightsQuestionnairesOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateInsightsQuestionnairesOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Insights/QualityManagement/Questionnaires/{QuestionnaireSid}";
 
             string PathQuestionnaireSid = options.PathQuestionnaireSid;
-            path = path.Replace("{"+"QuestionnaireSid"+"}", PathQuestionnaireSid);
+            path = path.Replace("{" + "QuestionnaireSid" + "}", PathQuestionnaireSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -400,7 +400,7 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="options"> Update InsightsQuestionnaires parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of InsightsQuestionnaires </returns>
-        public static InsightsQuestionnairesResource Update(UpdateInsightsQuestionnairesOptions options, ITwilioRestClient client = null)
+        public static InsightsQuestionnairesResource Update(UpdateInsightsQuestionnairesOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -411,15 +411,15 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="options"> Update InsightsQuestionnaires parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of InsightsQuestionnaires </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<InsightsQuestionnairesResource> UpdateAsync(UpdateInsightsQuestionnairesOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> To update the questionnaire </summary>
         /// <param name="pathQuestionnaireSid"> The SID of the questionnaire </param>
@@ -437,13 +437,13 @@ namespace Kandy.Rest.FlexApi.V1
                                           string description = null,
                                           List<string> questionSids = null,
                                           string authorization = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateInsightsQuestionnairesOptions(pathQuestionnaireSid, active){ Name = name, Description = description, QuestionSids = questionSids, Authorization = authorization };
+            var options = new UpdateInsightsQuestionnairesOptions(pathQuestionnaireSid, active) { Name = name, Description = description, QuestionSids = questionSids, Authorization = authorization };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> To update the questionnaire </summary>
         /// <param name="pathQuestionnaireSid"> The SID of the questionnaire </param>
         /// <param name="active"> The flag to enable or disable questionnaire </param>
@@ -460,13 +460,13 @@ namespace Kandy.Rest.FlexApi.V1
                                                                               string description = null,
                                                                               List<string> questionSids = null,
                                                                               string authorization = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateInsightsQuestionnairesOptions(pathQuestionnaireSid, active){ Name = name, Description = description, QuestionSids = questionSids, Authorization = authorization };
+            var options = new UpdateInsightsQuestionnairesOptions(pathQuestionnaireSid, active) { Name = name, Description = description, QuestionSids = questionSids, Authorization = authorization };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a InsightsQuestionnairesResource object
         /// </summary>
@@ -484,7 +484,7 @@ namespace Kandy.Rest.FlexApi.V1
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -515,7 +515,8 @@ namespace Kandy.Rest.FlexApi.V1
 
 
 
-        private InsightsQuestionnairesResource() {
+        private InsightsQuestionnairesResource()
+        {
 
         }
     }

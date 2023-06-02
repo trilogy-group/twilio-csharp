@@ -28,11 +28,11 @@ namespace Kandy.Rest.Insights.V1
 {
     public class CallSummariesResource : Resource
     {
-    
+
         public sealed class ProcessingStateRequestEnum : StringEnum
         {
-            private ProcessingStateRequestEnum(string value) : base(value) {}
-            public ProcessingStateRequestEnum() {}
+            private ProcessingStateRequestEnum(string value) : base(value) { }
+            public ProcessingStateRequestEnum() { }
             public static implicit operator ProcessingStateRequestEnum(string value)
             {
                 return new ProcessingStateRequestEnum(value);
@@ -46,8 +46,8 @@ namespace Kandy.Rest.Insights.V1
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class ProcessingStateEnum : StringEnum
         {
-            private ProcessingStateEnum(string value) : base(value) {}
-            public ProcessingStateEnum() {}
+            private ProcessingStateEnum(string value) : base(value) { }
+            public ProcessingStateEnum() { }
             public static implicit operator ProcessingStateEnum(string value)
             {
                 return new ProcessingStateEnum(value);
@@ -58,8 +58,8 @@ namespace Kandy.Rest.Insights.V1
         }
         public sealed class SortByEnum : StringEnum
         {
-            private SortByEnum(string value) : base(value) {}
-            public SortByEnum() {}
+            private SortByEnum(string value) : base(value) { }
+            public SortByEnum() { }
             public static implicit operator SortByEnum(string value)
             {
                 return new SortByEnum(value);
@@ -71,8 +71,8 @@ namespace Kandy.Rest.Insights.V1
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class AnsweredByEnum : StringEnum
         {
-            private AnsweredByEnum(string value) : base(value) {}
-            public AnsweredByEnum() {}
+            private AnsweredByEnum(string value) : base(value) { }
+            public AnsweredByEnum() { }
             public static implicit operator AnsweredByEnum(string value)
             {
                 return new AnsweredByEnum(value);
@@ -89,8 +89,8 @@ namespace Kandy.Rest.Insights.V1
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class CallStateEnum : StringEnum
         {
-            private CallStateEnum(string value) : base(value) {}
-            public CallStateEnum() {}
+            private CallStateEnum(string value) : base(value) { }
+            public CallStateEnum() { }
             public static implicit operator CallStateEnum(string value)
             {
                 return new CallStateEnum(value);
@@ -108,8 +108,8 @@ namespace Kandy.Rest.Insights.V1
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class CallTypeEnum : StringEnum
         {
-            private CallTypeEnum(string value) : base(value) {}
-            public CallTypeEnum() {}
+            private CallTypeEnum(string value) : base(value) { }
+            public CallTypeEnum() { }
             public static implicit operator CallTypeEnum(string value)
             {
                 return new CallTypeEnum(value);
@@ -121,10 +121,10 @@ namespace Kandy.Rest.Insights.V1
 
         }
 
-        
-        private static Request BuildReadRequest(ReadCallSummariesOptions options, ITwilioRestClient client)
+
+        private static Request BuildReadRequest(ReadCallSummariesOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Voice/Summaries";
 
 
@@ -140,7 +140,7 @@ namespace Kandy.Rest.Insights.V1
         /// <param name="options"> Read CallSummaries parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of CallSummaries </returns>
-        public static ResourceSet<CallSummariesResource> Read(ReadCallSummariesOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<CallSummariesResource> Read(ReadCallSummariesOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -148,13 +148,13 @@ namespace Kandy.Rest.Insights.V1
             return new ResourceSet<CallSummariesResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read CallSummaries parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of CallSummaries </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<CallSummariesResource>> ReadAsync(ReadCallSummariesOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -162,7 +162,7 @@ namespace Kandy.Rest.Insights.V1
             var page = Page<CallSummariesResource>.FromJson("call_summaries", response.Content);
             return new ResourceSet<CallSummariesResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="from">  </param>
         /// <param name="to">  </param>
@@ -217,13 +217,13 @@ namespace Kandy.Rest.Insights.V1
                                                      string callScores = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadCallSummariesOptions(){ From = from, To = to, FromCarrier = fromCarrier, ToCarrier = toCarrier, FromCountryCode = fromCountryCode, ToCountryCode = toCountryCode, Branded = branded, VerifiedCaller = verifiedCaller, HasTag = hasTag, StartTime = startTime, EndTime = endTime, CallType = callType, CallState = callState, Direction = direction, ProcessingState = processingState, SortBy = sortBy, Subaccount = subaccount, AbnormalSession = abnormalSession, AnsweredBy = answeredBy, ConnectivityIssues = connectivityIssues, QualityIssues = qualityIssues, Spam = spam, CallScores = callScores, PageSize = pageSize, Limit = limit};
+            var options = new ReadCallSummariesOptions() { From = from, To = to, FromCarrier = fromCarrier, ToCarrier = toCarrier, FromCountryCode = fromCountryCode, ToCountryCode = toCountryCode, Branded = branded, VerifiedCaller = verifiedCaller, HasTag = hasTag, StartTime = startTime, EndTime = endTime, CallType = callType, CallState = callState, Direction = direction, ProcessingState = processingState, SortBy = sortBy, Subaccount = subaccount, AbnormalSession = abnormalSession, AnsweredBy = answeredBy, ConnectivityIssues = connectivityIssues, QualityIssues = qualityIssues, Spam = spam, CallScores = callScores, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="from">  </param>
         /// <param name="to">  </param>
@@ -278,19 +278,19 @@ namespace Kandy.Rest.Insights.V1
                                                                                              string callScores = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadCallSummariesOptions(){ From = from, To = to, FromCarrier = fromCarrier, ToCarrier = toCarrier, FromCountryCode = fromCountryCode, ToCountryCode = toCountryCode, Branded = branded, VerifiedCaller = verifiedCaller, HasTag = hasTag, StartTime = startTime, EndTime = endTime, CallType = callType, CallState = callState, Direction = direction, ProcessingState = processingState, SortBy = sortBy, Subaccount = subaccount, AbnormalSession = abnormalSession, AnsweredBy = answeredBy, ConnectivityIssues = connectivityIssues, QualityIssues = qualityIssues, Spam = spam, CallScores = callScores, PageSize = pageSize, Limit = limit};
+            var options = new ReadCallSummariesOptions() { From = from, To = to, FromCarrier = fromCarrier, ToCarrier = toCarrier, FromCountryCode = fromCountryCode, ToCountryCode = toCountryCode, Branded = branded, VerifiedCaller = verifiedCaller, HasTag = hasTag, StartTime = startTime, EndTime = endTime, CallType = callType, CallState = callState, Direction = direction, ProcessingState = processingState, SortBy = sortBy, Subaccount = subaccount, AbnormalSession = abnormalSession, AnsweredBy = answeredBy, ConnectivityIssues = connectivityIssues, QualityIssues = qualityIssues, Spam = spam, CallScores = callScores, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<CallSummariesResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<CallSummariesResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -307,7 +307,7 @@ namespace Kandy.Rest.Insights.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<CallSummariesResource> NextPage(Page<CallSummariesResource> page, ITwilioRestClient client)
+        public static Page<CallSummariesResource> NextPage(Page<CallSummariesResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -322,7 +322,7 @@ namespace Kandy.Rest.Insights.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<CallSummariesResource> PreviousPage(Page<CallSummariesResource> page, ITwilioRestClient client)
+        public static Page<CallSummariesResource> PreviousPage(Page<CallSummariesResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -333,7 +333,7 @@ namespace Kandy.Rest.Insights.V1
             return Page<CallSummariesResource>.FromJson("call_summaries", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a CallSummariesResource object
         /// </summary>
@@ -351,7 +351,7 @@ namespace Kandy.Rest.Insights.V1
             }
         }
 
-    
+
         ///<summary> The account_sid </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -360,19 +360,19 @@ namespace Kandy.Rest.Insights.V1
         [JsonProperty("call_sid")]
         public string CallSid { get; private set; }
 
-        
+
         [JsonProperty("answered_by")]
         public CallSummariesResource.AnsweredByEnum AnsweredBy { get; private set; }
 
-        
+
         [JsonProperty("call_type")]
         public CallSummariesResource.CallTypeEnum CallType { get; private set; }
 
-        
+
         [JsonProperty("call_state")]
         public CallSummariesResource.CallStateEnum CallState { get; private set; }
 
-        
+
         [JsonProperty("processing_state")]
         public CallSummariesResource.ProcessingStateEnum ProcessingState { get; private set; }
 
@@ -442,7 +442,8 @@ namespace Kandy.Rest.Insights.V1
 
 
 
-        private CallSummariesResource() {
+        private CallSummariesResource()
+        {
 
         }
     }

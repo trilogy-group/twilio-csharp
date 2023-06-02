@@ -28,16 +28,16 @@ namespace Kandy.Rest.Conversations.V1.Service.Configuration
 {
     public class NotificationResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchNotificationOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchNotificationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ChatServiceSid}/Configuration/Notifications";
 
             string PathChatServiceSid = options.PathChatServiceSid;
-            path = path.Replace("{"+"ChatServiceSid"+"}", PathChatServiceSid);
+            path = path.Replace("{" + "ChatServiceSid" + "}", PathChatServiceSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -52,57 +52,57 @@ namespace Kandy.Rest.Conversations.V1.Service.Configuration
         /// <param name="options"> Fetch Notification parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Notification </returns>
-        public static NotificationResource Fetch(FetchNotificationOptions options, ITwilioRestClient client = null)
+        public static NotificationResource Fetch(FetchNotificationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch push notification service settings </summary>
         /// <param name="options"> Fetch Notification parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Notification </returns>
         public static async System.Threading.Tasks.Task<NotificationResource> FetchAsync(FetchNotificationOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch push notification service settings </summary>
         /// <param name="pathChatServiceSid"> The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Configuration applies to. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Notification </returns>
         public static NotificationResource Fetch(
-                                         string pathChatServiceSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathChatServiceSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchNotificationOptions(pathChatServiceSid){  };
+            var options = new FetchNotificationOptions(pathChatServiceSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch push notification service settings </summary>
         /// <param name="pathChatServiceSid"> The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Configuration applies to. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Notification </returns>
-        public static async System.Threading.Tasks.Task<NotificationResource> FetchAsync(string pathChatServiceSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<NotificationResource> FetchAsync(string pathChatServiceSid, IKandyRestClient client = null)
         {
-            var options = new FetchNotificationOptions(pathChatServiceSid){  };
+            var options = new FetchNotificationOptions(pathChatServiceSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildUpdateRequest(UpdateNotificationOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildUpdateRequest(UpdateNotificationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ChatServiceSid}/Configuration/Notifications";
 
             string PathChatServiceSid = options.PathChatServiceSid;
-            path = path.Replace("{"+"ChatServiceSid"+"}", PathChatServiceSid);
+            path = path.Replace("{" + "ChatServiceSid" + "}", PathChatServiceSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -117,7 +117,7 @@ namespace Kandy.Rest.Conversations.V1.Service.Configuration
         /// <param name="options"> Update Notification parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Notification </returns>
-        public static NotificationResource Update(UpdateNotificationOptions options, ITwilioRestClient client = null)
+        public static NotificationResource Update(UpdateNotificationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -128,15 +128,15 @@ namespace Kandy.Rest.Conversations.V1.Service.Configuration
         /// <param name="options"> Update Notification parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Notification </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<NotificationResource> UpdateAsync(UpdateNotificationOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update push notification service settings </summary>
         /// <param name="pathChatServiceSid"> The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Configuration applies to. </param>
@@ -170,13 +170,13 @@ namespace Kandy.Rest.Conversations.V1.Service.Configuration
                                           string removedFromConversationSound = null,
                                           bool? newMessageWithMediaEnabled = null,
                                           string newMessageWithMediaTemplate = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateNotificationOptions(pathChatServiceSid){ LogEnabled = logEnabled, NewMessageEnabled = newMessageEnabled, NewMessageTemplate = newMessageTemplate, NewMessageSound = newMessageSound, NewMessageBadgeCountEnabled = newMessageBadgeCountEnabled, AddedToConversationEnabled = addedToConversationEnabled, AddedToConversationTemplate = addedToConversationTemplate, AddedToConversationSound = addedToConversationSound, RemovedFromConversationEnabled = removedFromConversationEnabled, RemovedFromConversationTemplate = removedFromConversationTemplate, RemovedFromConversationSound = removedFromConversationSound, NewMessageWithMediaEnabled = newMessageWithMediaEnabled, NewMessageWithMediaTemplate = newMessageWithMediaTemplate };
+            var options = new UpdateNotificationOptions(pathChatServiceSid) { LogEnabled = logEnabled, NewMessageEnabled = newMessageEnabled, NewMessageTemplate = newMessageTemplate, NewMessageSound = newMessageSound, NewMessageBadgeCountEnabled = newMessageBadgeCountEnabled, AddedToConversationEnabled = addedToConversationEnabled, AddedToConversationTemplate = addedToConversationTemplate, AddedToConversationSound = addedToConversationSound, RemovedFromConversationEnabled = removedFromConversationEnabled, RemovedFromConversationTemplate = removedFromConversationTemplate, RemovedFromConversationSound = removedFromConversationSound, NewMessageWithMediaEnabled = newMessageWithMediaEnabled, NewMessageWithMediaTemplate = newMessageWithMediaTemplate };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update push notification service settings </summary>
         /// <param name="pathChatServiceSid"> The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Configuration applies to. </param>
         /// <param name="logEnabled"> Weather the notification logging is enabled. </param>
@@ -209,13 +209,13 @@ namespace Kandy.Rest.Conversations.V1.Service.Configuration
                                                                               string removedFromConversationSound = null,
                                                                               bool? newMessageWithMediaEnabled = null,
                                                                               string newMessageWithMediaTemplate = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateNotificationOptions(pathChatServiceSid){ LogEnabled = logEnabled, NewMessageEnabled = newMessageEnabled, NewMessageTemplate = newMessageTemplate, NewMessageSound = newMessageSound, NewMessageBadgeCountEnabled = newMessageBadgeCountEnabled, AddedToConversationEnabled = addedToConversationEnabled, AddedToConversationTemplate = addedToConversationTemplate, AddedToConversationSound = addedToConversationSound, RemovedFromConversationEnabled = removedFromConversationEnabled, RemovedFromConversationTemplate = removedFromConversationTemplate, RemovedFromConversationSound = removedFromConversationSound, NewMessageWithMediaEnabled = newMessageWithMediaEnabled, NewMessageWithMediaTemplate = newMessageWithMediaTemplate };
+            var options = new UpdateNotificationOptions(pathChatServiceSid) { LogEnabled = logEnabled, NewMessageEnabled = newMessageEnabled, NewMessageTemplate = newMessageTemplate, NewMessageSound = newMessageSound, NewMessageBadgeCountEnabled = newMessageBadgeCountEnabled, AddedToConversationEnabled = addedToConversationEnabled, AddedToConversationTemplate = addedToConversationTemplate, AddedToConversationSound = addedToConversationSound, RemovedFromConversationEnabled = removedFromConversationEnabled, RemovedFromConversationTemplate = removedFromConversationTemplate, RemovedFromConversationSound = removedFromConversationSound, NewMessageWithMediaEnabled = newMessageWithMediaEnabled, NewMessageWithMediaTemplate = newMessageWithMediaTemplate };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a NotificationResource object
         /// </summary>
@@ -233,7 +233,7 @@ namespace Kandy.Rest.Conversations.V1.Service.Configuration
             }
         }
 
-    
+
         ///<summary> The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this configuration. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -264,7 +264,8 @@ namespace Kandy.Rest.Conversations.V1.Service.Configuration
 
 
 
-        private NotificationResource() {
+        private NotificationResource()
+        {
 
         }
     }

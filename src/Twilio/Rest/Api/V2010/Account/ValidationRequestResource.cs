@@ -28,16 +28,16 @@ namespace Kandy.Rest.Api.V2010.Account
 {
     public class ValidationRequestResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateValidationRequestOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateValidationRequestOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -52,26 +52,26 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="options"> Create ValidationRequest parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ValidationRequest </returns>
-        public static ValidationRequestResource Create(CreateValidationRequestOptions options, ITwilioRestClient client = null)
+        public static ValidationRequestResource Create(CreateValidationRequestOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create ValidationRequest parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ValidationRequest </returns>
         public static async System.Threading.Tasks.Task<ValidationRequestResource> CreateAsync(CreateValidationRequestOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="phoneNumber"> The phone number to verify in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number. </param>
@@ -91,13 +91,13 @@ namespace Kandy.Rest.Api.V2010.Account
                                           string extension = null,
                                           Uri statusCallback = null,
                                           Twilio.Http.HttpMethod statusCallbackMethod = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateValidationRequestOptions(phoneNumber){  PathAccountSid = pathAccountSid, FriendlyName = friendlyName, CallDelay = callDelay, Extension = extension, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod };
+            var options = new CreateValidationRequestOptions(phoneNumber) { PathAccountSid = pathAccountSid, FriendlyName = friendlyName, CallDelay = callDelay, Extension = extension, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="phoneNumber"> The phone number to verify in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for the new caller ID resource. </param>
@@ -116,13 +116,13 @@ namespace Kandy.Rest.Api.V2010.Account
                                                                                   string extension = null,
                                                                                   Uri statusCallback = null,
                                                                                   Twilio.Http.HttpMethod statusCallbackMethod = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateValidationRequestOptions(phoneNumber){  PathAccountSid = pathAccountSid, FriendlyName = friendlyName, CallDelay = callDelay, Extension = extension, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod };
+            var options = new CreateValidationRequestOptions(phoneNumber) { PathAccountSid = pathAccountSid, FriendlyName = friendlyName, CallDelay = callDelay, Extension = extension, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod };
             return await CreateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a ValidationRequestResource object
         /// </summary>
@@ -140,7 +140,7 @@ namespace Kandy.Rest.Api.V2010.Account
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for the Caller ID. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -164,7 +164,8 @@ namespace Kandy.Rest.Api.V2010.Account
 
 
 
-        private ValidationRequestResource() {
+        private ValidationRequestResource()
+        {
 
         }
     }

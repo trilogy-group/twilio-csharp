@@ -28,12 +28,12 @@ namespace Kandy.Rest.Video.V1.Room.Participant
 {
     public class AnonymizeResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class StatusEnum : StringEnum
         {
-            private StatusEnum(string value) : base(value) {}
-            public StatusEnum() {}
+            private StatusEnum(string value) : base(value) { }
+            public StatusEnum() { }
             public static implicit operator StatusEnum(string value)
             {
                 return new StatusEnum(value);
@@ -43,16 +43,16 @@ namespace Kandy.Rest.Video.V1.Room.Participant
 
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateAnonymizeOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateAnonymizeOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Rooms/{RoomSid}/Participants/{Sid}/Anonymize";
 
             string PathRoomSid = options.PathRoomSid;
-            path = path.Replace("{"+"RoomSid"+"}", PathRoomSid);
+            path = path.Replace("{" + "RoomSid" + "}", PathRoomSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -67,7 +67,7 @@ namespace Kandy.Rest.Video.V1.Room.Participant
         /// <param name="options"> Update Anonymize parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Anonymize </returns>
-        public static AnonymizeResource Update(UpdateAnonymizeOptions options, ITwilioRestClient client = null)
+        public static AnonymizeResource Update(UpdateAnonymizeOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -78,15 +78,15 @@ namespace Kandy.Rest.Video.V1.Room.Participant
         /// <param name="options"> Update Anonymize parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Anonymize </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<AnonymizeResource> UpdateAsync(UpdateAnonymizeOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> update </summary>
         /// <param name="pathRoomSid"> The SID of the room with the participant to update. </param>
@@ -96,13 +96,13 @@ namespace Kandy.Rest.Video.V1.Room.Participant
         public static AnonymizeResource Update(
                                           string pathRoomSid,
                                           string pathSid,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateAnonymizeOptions(pathRoomSid, pathSid){  };
+            var options = new UpdateAnonymizeOptions(pathRoomSid, pathSid) { };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> update </summary>
         /// <param name="pathRoomSid"> The SID of the room with the participant to update. </param>
         /// <param name="pathSid"> The SID of the RoomParticipant resource to update. </param>
@@ -111,13 +111,13 @@ namespace Kandy.Rest.Video.V1.Room.Participant
         public static async System.Threading.Tasks.Task<AnonymizeResource> UpdateAsync(
                                                                               string pathRoomSid,
                                                                               string pathSid,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateAnonymizeOptions(pathRoomSid, pathSid){  };
+            var options = new UpdateAnonymizeOptions(pathRoomSid, pathSid) { };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a AnonymizeResource object
         /// </summary>
@@ -135,7 +135,7 @@ namespace Kandy.Rest.Video.V1.Room.Participant
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the RoomParticipant resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -148,7 +148,7 @@ namespace Kandy.Rest.Video.V1.Room.Participant
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
 
-        
+
         [JsonProperty("status")]
         public AnonymizeResource.StatusEnum Status { get; private set; }
 
@@ -182,7 +182,8 @@ namespace Kandy.Rest.Video.V1.Room.Participant
 
 
 
-        private AnonymizeResource() {
+        private AnonymizeResource()
+        {
 
         }
     }

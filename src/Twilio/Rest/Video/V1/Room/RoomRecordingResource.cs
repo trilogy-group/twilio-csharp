@@ -28,12 +28,12 @@ namespace Kandy.Rest.Video.V1.Room
 {
     public class RoomRecordingResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class StatusEnum : StringEnum
         {
-            private StatusEnum(string value) : base(value) {}
-            public StatusEnum() {}
+            private StatusEnum(string value) : base(value) { }
+            public StatusEnum() { }
             public static implicit operator StatusEnum(string value)
             {
                 return new StatusEnum(value);
@@ -47,8 +47,8 @@ namespace Kandy.Rest.Video.V1.Room
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class FormatEnum : StringEnum
         {
-            private FormatEnum(string value) : base(value) {}
-            public FormatEnum() {}
+            private FormatEnum(string value) : base(value) { }
+            public FormatEnum() { }
             public static implicit operator FormatEnum(string value)
             {
                 return new FormatEnum(value);
@@ -60,8 +60,8 @@ namespace Kandy.Rest.Video.V1.Room
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class TypeEnum : StringEnum
         {
-            private TypeEnum(string value) : base(value) {}
-            public TypeEnum() {}
+            private TypeEnum(string value) : base(value) { }
+            public TypeEnum() { }
             public static implicit operator TypeEnum(string value)
             {
                 return new TypeEnum(value);
@@ -74,8 +74,8 @@ namespace Kandy.Rest.Video.V1.Room
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class CodecEnum : StringEnum
         {
-            private CodecEnum(string value) : base(value) {}
-            public CodecEnum() {}
+            private CodecEnum(string value) : base(value) { }
+            public CodecEnum() { }
             public static implicit operator CodecEnum(string value)
             {
                 return new CodecEnum(value);
@@ -87,20 +87,20 @@ namespace Kandy.Rest.Video.V1.Room
 
         }
 
-        
+
         /// <summary> delete </summary>
         /// <param name="options"> Delete RoomRecording parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of RoomRecording </returns>
-        private static Request BuildDeleteRequest(DeleteRoomRecordingOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteRoomRecordingOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Rooms/{RoomSid}/Recordings/{Sid}";
 
             string PathRoomSid = options.PathRoomSid;
-            path = path.Replace("{"+"RoomSid"+"}", PathRoomSid);
+            path = path.Replace("{" + "RoomSid" + "}", PathRoomSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -115,60 +115,60 @@ namespace Kandy.Rest.Video.V1.Room
         /// <param name="options"> Delete RoomRecording parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of RoomRecording </returns>
-        public static bool Delete(DeleteRoomRecordingOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteRoomRecordingOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="options"> Delete RoomRecording parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of RoomRecording </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteRoomRecordingOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> delete </summary>
         /// <param name="pathRoomSid"> The SID of the room with the RoomRecording resource to delete. </param>
         /// <param name="pathSid"> The SID of the RoomRecording resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of RoomRecording </returns>
-        public static bool Delete(string pathRoomSid, string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathRoomSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteRoomRecordingOptions(pathRoomSid, pathSid)        ;
+            var options = new DeleteRoomRecordingOptions(pathRoomSid, pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="pathRoomSid"> The SID of the room with the RoomRecording resource to delete. </param>
         /// <param name="pathSid"> The SID of the RoomRecording resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of RoomRecording </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathRoomSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathRoomSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteRoomRecordingOptions(pathRoomSid, pathSid) ;
+            var options = new DeleteRoomRecordingOptions(pathRoomSid, pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchRoomRecordingOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchRoomRecordingOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Rooms/{RoomSid}/Recordings/{Sid}";
 
             string PathRoomSid = options.PathRoomSid;
-            path = path.Replace("{"+"RoomSid"+"}", PathRoomSid);
+            path = path.Replace("{" + "RoomSid" + "}", PathRoomSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -183,60 +183,60 @@ namespace Kandy.Rest.Video.V1.Room
         /// <param name="options"> Fetch RoomRecording parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of RoomRecording </returns>
-        public static RoomRecordingResource Fetch(FetchRoomRecordingOptions options, ITwilioRestClient client = null)
+        public static RoomRecordingResource Fetch(FetchRoomRecordingOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch RoomRecording parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of RoomRecording </returns>
         public static async System.Threading.Tasks.Task<RoomRecordingResource> FetchAsync(FetchRoomRecordingOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathRoomSid"> The SID of the Room resource with the recording to fetch. </param>
         /// <param name="pathSid"> The SID of the RoomRecording resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of RoomRecording </returns>
         public static RoomRecordingResource Fetch(
-                                         string pathRoomSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathRoomSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchRoomRecordingOptions(pathRoomSid, pathSid){  };
+            var options = new FetchRoomRecordingOptions(pathRoomSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathRoomSid"> The SID of the Room resource with the recording to fetch. </param>
         /// <param name="pathSid"> The SID of the RoomRecording resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of RoomRecording </returns>
-        public static async System.Threading.Tasks.Task<RoomRecordingResource> FetchAsync(string pathRoomSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<RoomRecordingResource> FetchAsync(string pathRoomSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchRoomRecordingOptions(pathRoomSid, pathSid){  };
+            var options = new FetchRoomRecordingOptions(pathRoomSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadRoomRecordingOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadRoomRecordingOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Rooms/{RoomSid}/Recordings";
 
             string PathRoomSid = options.PathRoomSid;
-            path = path.Replace("{"+"RoomSid"+"}", PathRoomSid);
+            path = path.Replace("{" + "RoomSid" + "}", PathRoomSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -250,7 +250,7 @@ namespace Kandy.Rest.Video.V1.Room
         /// <param name="options"> Read RoomRecording parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of RoomRecording </returns>
-        public static ResourceSet<RoomRecordingResource> Read(ReadRoomRecordingOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<RoomRecordingResource> Read(ReadRoomRecordingOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -258,13 +258,13 @@ namespace Kandy.Rest.Video.V1.Room
             return new ResourceSet<RoomRecordingResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read RoomRecording parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of RoomRecording </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<RoomRecordingResource>> ReadAsync(ReadRoomRecordingOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -272,7 +272,7 @@ namespace Kandy.Rest.Video.V1.Room
             var page = Page<RoomRecordingResource>.FromJson("recordings", response.Content);
             return new ResourceSet<RoomRecordingResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="pathRoomSid"> The SID of the room with the RoomRecording resources to read. </param>
         /// <param name="status"> Read only the recordings with this status. Can be: `processing`, `completed`, or `deleted`. </param>
@@ -291,13 +291,13 @@ namespace Kandy.Rest.Video.V1.Room
                                                      DateTime? dateCreatedBefore = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadRoomRecordingOptions(pathRoomSid){ Status = status, SourceSid = sourceSid, DateCreatedAfter = dateCreatedAfter, DateCreatedBefore = dateCreatedBefore, PageSize = pageSize, Limit = limit};
+            var options = new ReadRoomRecordingOptions(pathRoomSid) { Status = status, SourceSid = sourceSid, DateCreatedAfter = dateCreatedAfter, DateCreatedBefore = dateCreatedBefore, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="pathRoomSid"> The SID of the room with the RoomRecording resources to read. </param>
         /// <param name="status"> Read only the recordings with this status. Can be: `processing`, `completed`, or `deleted`. </param>
@@ -316,19 +316,19 @@ namespace Kandy.Rest.Video.V1.Room
                                                                                              DateTime? dateCreatedBefore = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadRoomRecordingOptions(pathRoomSid){ Status = status, SourceSid = sourceSid, DateCreatedAfter = dateCreatedAfter, DateCreatedBefore = dateCreatedBefore, PageSize = pageSize, Limit = limit};
+            var options = new ReadRoomRecordingOptions(pathRoomSid) { Status = status, SourceSid = sourceSid, DateCreatedAfter = dateCreatedAfter, DateCreatedBefore = dateCreatedBefore, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<RoomRecordingResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<RoomRecordingResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -345,7 +345,7 @@ namespace Kandy.Rest.Video.V1.Room
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<RoomRecordingResource> NextPage(Page<RoomRecordingResource> page, ITwilioRestClient client)
+        public static Page<RoomRecordingResource> NextPage(Page<RoomRecordingResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -360,7 +360,7 @@ namespace Kandy.Rest.Video.V1.Room
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<RoomRecordingResource> PreviousPage(Page<RoomRecordingResource> page, ITwilioRestClient client)
+        public static Page<RoomRecordingResource> PreviousPage(Page<RoomRecordingResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -371,7 +371,7 @@ namespace Kandy.Rest.Video.V1.Room
             return Page<RoomRecordingResource>.FromJson("recordings", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a RoomRecordingResource object
         /// </summary>
@@ -389,12 +389,12 @@ namespace Kandy.Rest.Video.V1.Room
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the RoomRecording resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
 
-        
+
         [JsonProperty("status")]
         public RoomRecordingResource.StatusEnum Status { get; private set; }
 
@@ -418,7 +418,7 @@ namespace Kandy.Rest.Video.V1.Room
         [JsonProperty("url")]
         public Uri Url { get; private set; }
 
-        
+
         [JsonProperty("type")]
         public RoomRecordingResource.TypeEnum Type { get; private set; }
 
@@ -426,11 +426,11 @@ namespace Kandy.Rest.Video.V1.Room
         [JsonProperty("duration")]
         public int? Duration { get; private set; }
 
-        
+
         [JsonProperty("container_format")]
         public RoomRecordingResource.FormatEnum ContainerFormat { get; private set; }
 
-        
+
         [JsonProperty("codec")]
         public RoomRecordingResource.CodecEnum Codec { get; private set; }
 
@@ -460,7 +460,8 @@ namespace Kandy.Rest.Video.V1.Room
 
 
 
-        private RoomRecordingResource() {
+        private RoomRecordingResource()
+        {
 
         }
     }

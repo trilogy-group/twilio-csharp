@@ -28,16 +28,16 @@ namespace Kandy.Rest.Events.V1.Sink
 {
     public class SinkTestResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateSinkTestOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateSinkTestOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Sinks/{Sid}/Test";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -52,26 +52,26 @@ namespace Kandy.Rest.Events.V1.Sink
         /// <param name="options"> Create SinkTest parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SinkTest </returns>
-        public static SinkTestResource Create(CreateSinkTestOptions options, ITwilioRestClient client = null)
+        public static SinkTestResource Create(CreateSinkTestOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Sink Test Event for the given Sink. </summary>
         /// <param name="options"> Create SinkTest parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SinkTest </returns>
         public static async System.Threading.Tasks.Task<SinkTestResource> CreateAsync(CreateSinkTestOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new Sink Test Event for the given Sink. </summary>
         /// <param name="pathSid"> A 34 character string that uniquely identifies the Sink to be Tested. </param>
@@ -79,26 +79,26 @@ namespace Kandy.Rest.Events.V1.Sink
         /// <returns> A single instance of SinkTest </returns>
         public static SinkTestResource Create(
                                           string pathSid,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateSinkTestOptions(pathSid){  };
+            var options = new CreateSinkTestOptions(pathSid) { };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Sink Test Event for the given Sink. </summary>
         /// <param name="pathSid"> A 34 character string that uniquely identifies the Sink to be Tested. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SinkTest </returns>
         public static async System.Threading.Tasks.Task<SinkTestResource> CreateAsync(
                                                                                   string pathSid,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateSinkTestOptions(pathSid){  };
+            var options = new CreateSinkTestOptions(pathSid) { };
             return await CreateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a SinkTestResource object
         /// </summary>
@@ -116,14 +116,15 @@ namespace Kandy.Rest.Events.V1.Sink
             }
         }
 
-    
+
         ///<summary> Feedback indicating whether the test event was generated. </summary> 
         [JsonProperty("result")]
         public string Result { get; private set; }
 
 
 
-        private SinkTestResource() {
+        private SinkTestResource()
+        {
 
         }
     }

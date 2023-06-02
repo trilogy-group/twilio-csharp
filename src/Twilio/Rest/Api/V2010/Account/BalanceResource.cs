@@ -28,16 +28,16 @@ namespace Kandy.Rest.Api.V2010.Account
 {
     public class BalanceResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchBalanceOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchBalanceOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Balance.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -52,50 +52,50 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="options"> Fetch Balance parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Balance </returns>
-        public static BalanceResource Fetch(FetchBalanceOptions options, ITwilioRestClient client = null)
+        public static BalanceResource Fetch(FetchBalanceOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch the balance for an Account based on Account Sid. Balance changes may not be reflected immediately. Child accounts do not contain balance information </summary>
         /// <param name="options"> Fetch Balance parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Balance </returns>
         public static async System.Threading.Tasks.Task<BalanceResource> FetchAsync(FetchBalanceOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch the balance for an Account based on Account Sid. Balance changes may not be reflected immediately. Child accounts do not contain balance information </summary>
         /// <param name="pathAccountSid"> The unique SID identifier of the Account. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Balance </returns>
         public static BalanceResource Fetch(
-                                         string pathAccountSid = null, 
-                                         ITwilioRestClient client = null)
+                                         string pathAccountSid = null,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchBalanceOptions(){ PathAccountSid = pathAccountSid };
+            var options = new FetchBalanceOptions() { PathAccountSid = pathAccountSid };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch the balance for an Account based on Account Sid. Balance changes may not be reflected immediately. Child accounts do not contain balance information </summary>
         /// <param name="pathAccountSid"> The unique SID identifier of the Account. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Balance </returns>
-        public static async System.Threading.Tasks.Task<BalanceResource> FetchAsync(string pathAccountSid = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<BalanceResource> FetchAsync(string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new FetchBalanceOptions(){ PathAccountSid = pathAccountSid };
+            var options = new FetchBalanceOptions() { PathAccountSid = pathAccountSid };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a BalanceResource object
         /// </summary>
@@ -113,7 +113,7 @@ namespace Kandy.Rest.Api.V2010.Account
             }
         }
 
-    
+
         ///<summary> The unique SID identifier of the Account. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -128,7 +128,8 @@ namespace Kandy.Rest.Api.V2010.Account
 
 
 
-        private BalanceResource() {
+        private BalanceResource()
+        {
 
         }
     }

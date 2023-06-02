@@ -28,12 +28,12 @@ namespace Kandy.Rest.Conversations.V1.Service
 {
     public class ConversationResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class StateEnum : StringEnum
         {
-            private StateEnum(string value) : base(value) {}
-            public StateEnum() {}
+            private StateEnum(string value) : base(value) { }
+            public StateEnum() { }
             public static implicit operator StateEnum(string value)
             {
                 return new StateEnum(value);
@@ -45,8 +45,8 @@ namespace Kandy.Rest.Conversations.V1.Service
         }
         public sealed class WebhookEnabledTypeEnum : StringEnum
         {
-            private WebhookEnabledTypeEnum(string value) : base(value) {}
-            public WebhookEnabledTypeEnum() {}
+            private WebhookEnabledTypeEnum(string value) : base(value) { }
+            public WebhookEnabledTypeEnum() { }
             public static implicit operator WebhookEnabledTypeEnum(string value)
             {
                 return new WebhookEnabledTypeEnum(value);
@@ -56,14 +56,14 @@ namespace Kandy.Rest.Conversations.V1.Service
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateConversationOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateConversationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ChatServiceSid}/Conversations";
 
             string PathChatServiceSid = options.PathChatServiceSid;
-            path = path.Replace("{"+"ChatServiceSid"+"}", PathChatServiceSid);
+            path = path.Replace("{" + "ChatServiceSid" + "}", PathChatServiceSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -78,26 +78,26 @@ namespace Kandy.Rest.Conversations.V1.Service
         /// <param name="options"> Create Conversation parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Conversation </returns>
-        public static ConversationResource Create(CreateConversationOptions options, ITwilioRestClient client = null)
+        public static ConversationResource Create(CreateConversationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new conversation in your service </summary>
         /// <param name="options"> Create Conversation parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Conversation </returns>
         public static async System.Threading.Tasks.Task<ConversationResource> CreateAsync(CreateConversationOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new conversation in your service </summary>
         /// <param name="pathChatServiceSid"> The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with. </param>
@@ -125,13 +125,13 @@ namespace Kandy.Rest.Conversations.V1.Service
                                           string timersInactive = null,
                                           string timersClosed = null,
                                           ConversationResource.WebhookEnabledTypeEnum xTwilioWebhookEnabled = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateConversationOptions(pathChatServiceSid){  FriendlyName = friendlyName, UniqueName = uniqueName, Attributes = attributes, MessagingServiceSid = messagingServiceSid, DateCreated = dateCreated, DateUpdated = dateUpdated, State = state, TimersInactive = timersInactive, TimersClosed = timersClosed, XTwilioWebhookEnabled = xTwilioWebhookEnabled };
+            var options = new CreateConversationOptions(pathChatServiceSid) { FriendlyName = friendlyName, UniqueName = uniqueName, Attributes = attributes, MessagingServiceSid = messagingServiceSid, DateCreated = dateCreated, DateUpdated = dateUpdated, State = state, TimersInactive = timersInactive, TimersClosed = timersClosed, XTwilioWebhookEnabled = xTwilioWebhookEnabled };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new conversation in your service </summary>
         /// <param name="pathChatServiceSid"> The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with. </param>
         /// <param name="friendlyName"> The human-readable name of this conversation, limited to 256 characters. Optional. </param>
@@ -158,26 +158,26 @@ namespace Kandy.Rest.Conversations.V1.Service
                                                                                   string timersInactive = null,
                                                                                   string timersClosed = null,
                                                                                   ConversationResource.WebhookEnabledTypeEnum xTwilioWebhookEnabled = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateConversationOptions(pathChatServiceSid){  FriendlyName = friendlyName, UniqueName = uniqueName, Attributes = attributes, MessagingServiceSid = messagingServiceSid, DateCreated = dateCreated, DateUpdated = dateUpdated, State = state, TimersInactive = timersInactive, TimersClosed = timersClosed, XTwilioWebhookEnabled = xTwilioWebhookEnabled };
+            var options = new CreateConversationOptions(pathChatServiceSid) { FriendlyName = friendlyName, UniqueName = uniqueName, Attributes = attributes, MessagingServiceSid = messagingServiceSid, DateCreated = dateCreated, DateUpdated = dateUpdated, State = state, TimersInactive = timersInactive, TimersClosed = timersClosed, XTwilioWebhookEnabled = xTwilioWebhookEnabled };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Remove a conversation from your service </summary>
         /// <param name="options"> Delete Conversation parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Conversation </returns>
-        private static Request BuildDeleteRequest(DeleteConversationOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteConversationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ChatServiceSid}/Conversations/{Sid}";
 
             string PathChatServiceSid = options.PathChatServiceSid;
-            path = path.Replace("{"+"ChatServiceSid"+"}", PathChatServiceSid);
+            path = path.Replace("{" + "ChatServiceSid" + "}", PathChatServiceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -192,26 +192,26 @@ namespace Kandy.Rest.Conversations.V1.Service
         /// <param name="options"> Delete Conversation parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Conversation </returns>
-        public static bool Delete(DeleteConversationOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteConversationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Remove a conversation from your service </summary>
         /// <param name="options"> Delete Conversation parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Conversation </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteConversationOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Remove a conversation from your service </summary>
         /// <param name="pathChatServiceSid"> The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with. </param>
@@ -219,35 +219,35 @@ namespace Kandy.Rest.Conversations.V1.Service
         /// <param name="xTwilioWebhookEnabled"> The X-Twilio-Webhook-Enabled HTTP request header </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Conversation </returns>
-        public static bool Delete(string pathChatServiceSid, string pathSid, ConversationResource.WebhookEnabledTypeEnum xTwilioWebhookEnabled = null, ITwilioRestClient client = null)
+        public static bool Delete(string pathChatServiceSid, string pathSid, ConversationResource.WebhookEnabledTypeEnum xTwilioWebhookEnabled = null, IKandyRestClient client = null)
         {
-            var options = new DeleteConversationOptions(pathChatServiceSid, pathSid)         { XTwilioWebhookEnabled = xTwilioWebhookEnabled }   ;
+            var options = new DeleteConversationOptions(pathChatServiceSid, pathSid) { XTwilioWebhookEnabled = xTwilioWebhookEnabled };
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Remove a conversation from your service </summary>
         /// <param name="pathChatServiceSid"> The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with. </param>
         /// <param name="pathSid"> A 34 character string that uniquely identifies this resource. Can also be the `unique_name` of the Conversation. </param>
         /// <param name="xTwilioWebhookEnabled"> The X-Twilio-Webhook-Enabled HTTP request header </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Conversation </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathChatServiceSid, string pathSid, ConversationResource.WebhookEnabledTypeEnum xTwilioWebhookEnabled = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathChatServiceSid, string pathSid, ConversationResource.WebhookEnabledTypeEnum xTwilioWebhookEnabled = null, IKandyRestClient client = null)
         {
-            var options = new DeleteConversationOptions(pathChatServiceSid, pathSid)  { XTwilioWebhookEnabled = xTwilioWebhookEnabled };
+            var options = new DeleteConversationOptions(pathChatServiceSid, pathSid) { XTwilioWebhookEnabled = xTwilioWebhookEnabled };
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchConversationOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchConversationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ChatServiceSid}/Conversations/{Sid}";
 
             string PathChatServiceSid = options.PathChatServiceSid;
-            path = path.Replace("{"+"ChatServiceSid"+"}", PathChatServiceSid);
+            path = path.Replace("{" + "ChatServiceSid" + "}", PathChatServiceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -262,60 +262,60 @@ namespace Kandy.Rest.Conversations.V1.Service
         /// <param name="options"> Fetch Conversation parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Conversation </returns>
-        public static ConversationResource Fetch(FetchConversationOptions options, ITwilioRestClient client = null)
+        public static ConversationResource Fetch(FetchConversationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a conversation from your service </summary>
         /// <param name="options"> Fetch Conversation parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Conversation </returns>
         public static async System.Threading.Tasks.Task<ConversationResource> FetchAsync(FetchConversationOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a conversation from your service </summary>
         /// <param name="pathChatServiceSid"> The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with. </param>
         /// <param name="pathSid"> A 34 character string that uniquely identifies this resource. Can also be the `unique_name` of the Conversation. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Conversation </returns>
         public static ConversationResource Fetch(
-                                         string pathChatServiceSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathChatServiceSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchConversationOptions(pathChatServiceSid, pathSid){  };
+            var options = new FetchConversationOptions(pathChatServiceSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a conversation from your service </summary>
         /// <param name="pathChatServiceSid"> The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with. </param>
         /// <param name="pathSid"> A 34 character string that uniquely identifies this resource. Can also be the `unique_name` of the Conversation. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Conversation </returns>
-        public static async System.Threading.Tasks.Task<ConversationResource> FetchAsync(string pathChatServiceSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<ConversationResource> FetchAsync(string pathChatServiceSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchConversationOptions(pathChatServiceSid, pathSid){  };
+            var options = new FetchConversationOptions(pathChatServiceSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadConversationOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadConversationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ChatServiceSid}/Conversations";
 
             string PathChatServiceSid = options.PathChatServiceSid;
-            path = path.Replace("{"+"ChatServiceSid"+"}", PathChatServiceSid);
+            path = path.Replace("{" + "ChatServiceSid" + "}", PathChatServiceSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -329,7 +329,7 @@ namespace Kandy.Rest.Conversations.V1.Service
         /// <param name="options"> Read Conversation parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Conversation </returns>
-        public static ResourceSet<ConversationResource> Read(ReadConversationOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<ConversationResource> Read(ReadConversationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -337,13 +337,13 @@ namespace Kandy.Rest.Conversations.V1.Service
             return new ResourceSet<ConversationResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of conversations in your service </summary>
         /// <param name="options"> Read Conversation parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Conversation </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<ConversationResource>> ReadAsync(ReadConversationOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -351,7 +351,7 @@ namespace Kandy.Rest.Conversations.V1.Service
             var page = Page<ConversationResource>.FromJson("conversations", response.Content);
             return new ResourceSet<ConversationResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of conversations in your service </summary>
         /// <param name="pathChatServiceSid"> The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with. </param>
         /// <param name="startDate"> Start date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the start time of the date is used (YYYY-MM-DDT00:00:00Z). Can be combined with other filters. </param>
@@ -368,13 +368,13 @@ namespace Kandy.Rest.Conversations.V1.Service
                                                      ConversationResource.StateEnum state = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadConversationOptions(pathChatServiceSid){ StartDate = startDate, EndDate = endDate, State = state, PageSize = pageSize, Limit = limit};
+            var options = new ReadConversationOptions(pathChatServiceSid) { StartDate = startDate, EndDate = endDate, State = state, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of conversations in your service </summary>
         /// <param name="pathChatServiceSid"> The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with. </param>
         /// <param name="startDate"> Start date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the start time of the date is used (YYYY-MM-DDT00:00:00Z). Can be combined with other filters. </param>
@@ -391,19 +391,19 @@ namespace Kandy.Rest.Conversations.V1.Service
                                                                                              ConversationResource.StateEnum state = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadConversationOptions(pathChatServiceSid){ StartDate = startDate, EndDate = endDate, State = state, PageSize = pageSize, Limit = limit};
+            var options = new ReadConversationOptions(pathChatServiceSid) { StartDate = startDate, EndDate = endDate, State = state, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<ConversationResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<ConversationResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -420,7 +420,7 @@ namespace Kandy.Rest.Conversations.V1.Service
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<ConversationResource> NextPage(Page<ConversationResource> page, ITwilioRestClient client)
+        public static Page<ConversationResource> NextPage(Page<ConversationResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -435,7 +435,7 @@ namespace Kandy.Rest.Conversations.V1.Service
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<ConversationResource> PreviousPage(Page<ConversationResource> page, ITwilioRestClient client)
+        public static Page<ConversationResource> PreviousPage(Page<ConversationResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -446,16 +446,16 @@ namespace Kandy.Rest.Conversations.V1.Service
             return Page<ConversationResource>.FromJson("conversations", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateConversationOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateConversationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ChatServiceSid}/Conversations/{Sid}";
 
             string PathChatServiceSid = options.PathChatServiceSid;
-            path = path.Replace("{"+"ChatServiceSid"+"}", PathChatServiceSid);
+            path = path.Replace("{" + "ChatServiceSid" + "}", PathChatServiceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -470,7 +470,7 @@ namespace Kandy.Rest.Conversations.V1.Service
         /// <param name="options"> Update Conversation parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Conversation </returns>
-        public static ConversationResource Update(UpdateConversationOptions options, ITwilioRestClient client = null)
+        public static ConversationResource Update(UpdateConversationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -481,15 +481,15 @@ namespace Kandy.Rest.Conversations.V1.Service
         /// <param name="options"> Update Conversation parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Conversation </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<ConversationResource> UpdateAsync(UpdateConversationOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update an existing conversation in your service </summary>
         /// <param name="pathChatServiceSid"> The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with. </param>
@@ -519,13 +519,13 @@ namespace Kandy.Rest.Conversations.V1.Service
                                           string timersClosed = null,
                                           string uniqueName = null,
                                           ConversationResource.WebhookEnabledTypeEnum xTwilioWebhookEnabled = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateConversationOptions(pathChatServiceSid, pathSid){ FriendlyName = friendlyName, DateCreated = dateCreated, DateUpdated = dateUpdated, Attributes = attributes, MessagingServiceSid = messagingServiceSid, State = state, TimersInactive = timersInactive, TimersClosed = timersClosed, UniqueName = uniqueName, XTwilioWebhookEnabled = xTwilioWebhookEnabled };
+            var options = new UpdateConversationOptions(pathChatServiceSid, pathSid) { FriendlyName = friendlyName, DateCreated = dateCreated, DateUpdated = dateUpdated, Attributes = attributes, MessagingServiceSid = messagingServiceSid, State = state, TimersInactive = timersInactive, TimersClosed = timersClosed, UniqueName = uniqueName, XTwilioWebhookEnabled = xTwilioWebhookEnabled };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update an existing conversation in your service </summary>
         /// <param name="pathChatServiceSid"> The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with. </param>
         /// <param name="pathSid"> A 34 character string that uniquely identifies this resource. Can also be the `unique_name` of the Conversation. </param>
@@ -554,13 +554,13 @@ namespace Kandy.Rest.Conversations.V1.Service
                                                                               string timersClosed = null,
                                                                               string uniqueName = null,
                                                                               ConversationResource.WebhookEnabledTypeEnum xTwilioWebhookEnabled = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateConversationOptions(pathChatServiceSid, pathSid){ FriendlyName = friendlyName, DateCreated = dateCreated, DateUpdated = dateUpdated, Attributes = attributes, MessagingServiceSid = messagingServiceSid, State = state, TimersInactive = timersInactive, TimersClosed = timersClosed, UniqueName = uniqueName, XTwilioWebhookEnabled = xTwilioWebhookEnabled };
+            var options = new UpdateConversationOptions(pathChatServiceSid, pathSid) { FriendlyName = friendlyName, DateCreated = dateCreated, DateUpdated = dateUpdated, Attributes = attributes, MessagingServiceSid = messagingServiceSid, State = state, TimersInactive = timersInactive, TimersClosed = timersClosed, UniqueName = uniqueName, XTwilioWebhookEnabled = xTwilioWebhookEnabled };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a ConversationResource object
         /// </summary>
@@ -578,7 +578,7 @@ namespace Kandy.Rest.Conversations.V1.Service
             }
         }
 
-    
+
         ///<summary> The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this conversation. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -607,7 +607,7 @@ namespace Kandy.Rest.Conversations.V1.Service
         [JsonProperty("attributes")]
         public string Attributes { get; private set; }
 
-        
+
         [JsonProperty("state")]
         public ConversationResource.StateEnum State { get; private set; }
 
@@ -637,7 +637,8 @@ namespace Kandy.Rest.Conversations.V1.Service
 
 
 
-        private ConversationResource() {
+        private ConversationResource()
+        {
 
         }
     }

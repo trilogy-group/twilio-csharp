@@ -28,16 +28,16 @@ namespace Kandy.Rest.Api.V2010.Account.Sip
 {
     public class CredentialListResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateCredentialListOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateCredentialListOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -52,26 +52,26 @@ namespace Kandy.Rest.Api.V2010.Account.Sip
         /// <param name="options"> Create CredentialList parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of CredentialList </returns>
-        public static CredentialListResource Create(CreateCredentialListOptions options, ITwilioRestClient client = null)
+        public static CredentialListResource Create(CreateCredentialListOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a Credential List </summary>
         /// <param name="options"> Create CredentialList parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of CredentialList </returns>
         public static async System.Threading.Tasks.Task<CredentialListResource> CreateAsync(CreateCredentialListOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a Credential List </summary>
         /// <param name="friendlyName"> A human readable descriptive text that describes the CredentialList, up to 64 characters long. </param>
@@ -81,13 +81,13 @@ namespace Kandy.Rest.Api.V2010.Account.Sip
         public static CredentialListResource Create(
                                           string friendlyName,
                                           string pathAccountSid = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateCredentialListOptions(friendlyName){  PathAccountSid = pathAccountSid };
+            var options = new CreateCredentialListOptions(friendlyName) { PathAccountSid = pathAccountSid };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a Credential List </summary>
         /// <param name="friendlyName"> A human readable descriptive text that describes the CredentialList, up to 64 characters long. </param>
         /// <param name="pathAccountSid"> The unique id of the Account that is responsible for this resource. </param>
@@ -96,26 +96,26 @@ namespace Kandy.Rest.Api.V2010.Account.Sip
         public static async System.Threading.Tasks.Task<CredentialListResource> CreateAsync(
                                                                                   string friendlyName,
                                                                                   string pathAccountSid = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateCredentialListOptions(friendlyName){  PathAccountSid = pathAccountSid };
+            var options = new CreateCredentialListOptions(friendlyName) { PathAccountSid = pathAccountSid };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Delete a Credential List </summary>
         /// <param name="options"> Delete CredentialList parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of CredentialList </returns>
-        private static Request BuildDeleteRequest(DeleteCredentialListOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteCredentialListOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -130,60 +130,60 @@ namespace Kandy.Rest.Api.V2010.Account.Sip
         /// <param name="options"> Delete CredentialList parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of CredentialList </returns>
-        public static bool Delete(DeleteCredentialListOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteCredentialListOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a Credential List </summary>
         /// <param name="options"> Delete CredentialList parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of CredentialList </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteCredentialListOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete a Credential List </summary>
         /// <param name="pathSid"> The credential list Sid that uniquely identifies this resource </param>
         /// <param name="pathAccountSid"> The unique id of the Account that is responsible for this resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of CredentialList </returns>
-        public static bool Delete(string pathSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static bool Delete(string pathSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new DeleteCredentialListOptions(pathSid)      { PathAccountSid = pathAccountSid }   ;
+            var options = new DeleteCredentialListOptions(pathSid) { PathAccountSid = pathAccountSid };
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a Credential List </summary>
         /// <param name="pathSid"> The credential list Sid that uniquely identifies this resource </param>
         /// <param name="pathAccountSid"> The unique id of the Account that is responsible for this resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of CredentialList </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new DeleteCredentialListOptions(pathSid)  { PathAccountSid = pathAccountSid };
+            var options = new DeleteCredentialListOptions(pathSid) { PathAccountSid = pathAccountSid };
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchCredentialListOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchCredentialListOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -198,60 +198,60 @@ namespace Kandy.Rest.Api.V2010.Account.Sip
         /// <param name="options"> Fetch CredentialList parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of CredentialList </returns>
-        public static CredentialListResource Fetch(FetchCredentialListOptions options, ITwilioRestClient client = null)
+        public static CredentialListResource Fetch(FetchCredentialListOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Get a Credential List </summary>
         /// <param name="options"> Fetch CredentialList parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of CredentialList </returns>
         public static async System.Threading.Tasks.Task<CredentialListResource> FetchAsync(FetchCredentialListOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Get a Credential List </summary>
         /// <param name="pathSid"> The credential list Sid that uniquely identifies this resource </param>
         /// <param name="pathAccountSid"> The unique id of the Account that is responsible for this resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of CredentialList </returns>
         public static CredentialListResource Fetch(
-                                         string pathSid, 
-                                         string pathAccountSid = null, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         string pathAccountSid = null,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchCredentialListOptions(pathSid){ PathAccountSid = pathAccountSid };
+            var options = new FetchCredentialListOptions(pathSid) { PathAccountSid = pathAccountSid };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Get a Credential List </summary>
         /// <param name="pathSid"> The credential list Sid that uniquely identifies this resource </param>
         /// <param name="pathAccountSid"> The unique id of the Account that is responsible for this resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of CredentialList </returns>
-        public static async System.Threading.Tasks.Task<CredentialListResource> FetchAsync(string pathSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<CredentialListResource> FetchAsync(string pathSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new FetchCredentialListOptions(pathSid){ PathAccountSid = pathAccountSid };
+            var options = new FetchCredentialListOptions(pathSid) { PathAccountSid = pathAccountSid };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadCredentialListOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadCredentialListOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -265,7 +265,7 @@ namespace Kandy.Rest.Api.V2010.Account.Sip
         /// <param name="options"> Read CredentialList parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of CredentialList </returns>
-        public static ResourceSet<CredentialListResource> Read(ReadCredentialListOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<CredentialListResource> Read(ReadCredentialListOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -273,13 +273,13 @@ namespace Kandy.Rest.Api.V2010.Account.Sip
             return new ResourceSet<CredentialListResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Get All Credential Lists </summary>
         /// <param name="options"> Read CredentialList parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of CredentialList </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<CredentialListResource>> ReadAsync(ReadCredentialListOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -287,7 +287,7 @@ namespace Kandy.Rest.Api.V2010.Account.Sip
             var page = Page<CredentialListResource>.FromJson("credential_lists", response.Content);
             return new ResourceSet<CredentialListResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Get All Credential Lists </summary>
         /// <param name="pathAccountSid"> The unique id of the Account that is responsible for this resource. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -298,13 +298,13 @@ namespace Kandy.Rest.Api.V2010.Account.Sip
                                                      string pathAccountSid = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadCredentialListOptions(){ PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit};
+            var options = new ReadCredentialListOptions() { PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Get All Credential Lists </summary>
         /// <param name="pathAccountSid"> The unique id of the Account that is responsible for this resource. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -315,19 +315,19 @@ namespace Kandy.Rest.Api.V2010.Account.Sip
                                                                                              string pathAccountSid = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadCredentialListOptions(){ PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit};
+            var options = new ReadCredentialListOptions() { PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<CredentialListResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<CredentialListResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -344,7 +344,7 @@ namespace Kandy.Rest.Api.V2010.Account.Sip
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<CredentialListResource> NextPage(Page<CredentialListResource> page, ITwilioRestClient client)
+        public static Page<CredentialListResource> NextPage(Page<CredentialListResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -359,7 +359,7 @@ namespace Kandy.Rest.Api.V2010.Account.Sip
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<CredentialListResource> PreviousPage(Page<CredentialListResource> page, ITwilioRestClient client)
+        public static Page<CredentialListResource> PreviousPage(Page<CredentialListResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -370,16 +370,16 @@ namespace Kandy.Rest.Api.V2010.Account.Sip
             return Page<CredentialListResource>.FromJson("credential_lists", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateCredentialListOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateCredentialListOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -394,7 +394,7 @@ namespace Kandy.Rest.Api.V2010.Account.Sip
         /// <param name="options"> Update CredentialList parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of CredentialList </returns>
-        public static CredentialListResource Update(UpdateCredentialListOptions options, ITwilioRestClient client = null)
+        public static CredentialListResource Update(UpdateCredentialListOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -405,15 +405,15 @@ namespace Kandy.Rest.Api.V2010.Account.Sip
         /// <param name="options"> Update CredentialList parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of CredentialList </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<CredentialListResource> UpdateAsync(UpdateCredentialListOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update a Credential List </summary>
         /// <param name="pathSid"> The credential list Sid that uniquely identifies this resource </param>
@@ -425,13 +425,13 @@ namespace Kandy.Rest.Api.V2010.Account.Sip
                                           string pathSid,
                                           string friendlyName,
                                           string pathAccountSid = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateCredentialListOptions(pathSid, friendlyName){ PathAccountSid = pathAccountSid };
+            var options = new UpdateCredentialListOptions(pathSid, friendlyName) { PathAccountSid = pathAccountSid };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update a Credential List </summary>
         /// <param name="pathSid"> The credential list Sid that uniquely identifies this resource </param>
         /// <param name="friendlyName"> A human readable descriptive text for a CredentialList, up to 64 characters long. </param>
@@ -442,13 +442,13 @@ namespace Kandy.Rest.Api.V2010.Account.Sip
                                                                               string pathSid,
                                                                               string friendlyName,
                                                                               string pathAccountSid = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateCredentialListOptions(pathSid, friendlyName){ PathAccountSid = pathAccountSid };
+            var options = new UpdateCredentialListOptions(pathSid, friendlyName) { PathAccountSid = pathAccountSid };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a CredentialListResource object
         /// </summary>
@@ -466,7 +466,7 @@ namespace Kandy.Rest.Api.V2010.Account.Sip
             }
         }
 
-    
+
         ///<summary> The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) that owns this resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -497,7 +497,8 @@ namespace Kandy.Rest.Api.V2010.Account.Sip
 
 
 
-        private CredentialListResource() {
+        private CredentialListResource()
+        {
 
         }
     }

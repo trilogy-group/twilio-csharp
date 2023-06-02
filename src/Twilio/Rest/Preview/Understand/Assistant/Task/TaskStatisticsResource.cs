@@ -28,18 +28,18 @@ namespace Kandy.Rest.Preview.Understand.Assistant.Task
 {
     public class TaskStatisticsResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchTaskStatisticsOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchTaskStatisticsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Statistics";
 
             string PathAssistantSid = options.PathAssistantSid;
-            path = path.Replace("{"+"AssistantSid"+"}", PathAssistantSid);
+            path = path.Replace("{" + "AssistantSid" + "}", PathAssistantSid);
             string PathTaskSid = options.PathTaskSid;
-            path = path.Replace("{"+"TaskSid"+"}", PathTaskSid);
+            path = path.Replace("{" + "TaskSid" + "}", PathTaskSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -54,53 +54,53 @@ namespace Kandy.Rest.Preview.Understand.Assistant.Task
         /// <param name="options"> Fetch TaskStatistics parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of TaskStatistics </returns>
-        public static TaskStatisticsResource Fetch(FetchTaskStatisticsOptions options, ITwilioRestClient client = null)
+        public static TaskStatisticsResource Fetch(FetchTaskStatisticsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch TaskStatistics parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of TaskStatistics </returns>
         public static async System.Threading.Tasks.Task<TaskStatisticsResource> FetchAsync(FetchTaskStatisticsOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathAssistantSid"> The unique ID of the parent Assistant. </param>
         /// <param name="pathTaskSid"> The unique ID of the Task associated with this Field. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of TaskStatistics </returns>
         public static TaskStatisticsResource Fetch(
-                                         string pathAssistantSid, 
-                                         string pathTaskSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathAssistantSid,
+                                         string pathTaskSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchTaskStatisticsOptions(pathAssistantSid, pathTaskSid){  };
+            var options = new FetchTaskStatisticsOptions(pathAssistantSid, pathTaskSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathAssistantSid"> The unique ID of the parent Assistant. </param>
         /// <param name="pathTaskSid"> The unique ID of the Task associated with this Field. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of TaskStatistics </returns>
-        public static async System.Threading.Tasks.Task<TaskStatisticsResource> FetchAsync(string pathAssistantSid, string pathTaskSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<TaskStatisticsResource> FetchAsync(string pathAssistantSid, string pathTaskSid, IKandyRestClient client = null)
         {
-            var options = new FetchTaskStatisticsOptions(pathAssistantSid, pathTaskSid){  };
+            var options = new FetchTaskStatisticsOptions(pathAssistantSid, pathTaskSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a TaskStatisticsResource object
         /// </summary>
@@ -118,7 +118,7 @@ namespace Kandy.Rest.Preview.Understand.Assistant.Task
             }
         }
 
-    
+
         ///<summary> The unique ID of the Account that created this Field. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -145,7 +145,8 @@ namespace Kandy.Rest.Preview.Understand.Assistant.Task
 
 
 
-        private TaskStatisticsResource() {
+        private TaskStatisticsResource()
+        {
 
         }
     }

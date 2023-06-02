@@ -28,20 +28,20 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Worker
 {
     public class WorkerChannelResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchWorkerChannelOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchWorkerChannelOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Channels/{Sid}";
 
             string PathWorkspaceSid = options.PathWorkspaceSid;
-            path = path.Replace("{"+"WorkspaceSid"+"}", PathWorkspaceSid);
+            path = path.Replace("{" + "WorkspaceSid" + "}", PathWorkspaceSid);
             string PathWorkerSid = options.PathWorkerSid;
-            path = path.Replace("{"+"WorkerSid"+"}", PathWorkerSid);
+            path = path.Replace("{" + "WorkerSid" + "}", PathWorkerSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -56,26 +56,26 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Worker
         /// <param name="options"> Fetch WorkerChannel parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of WorkerChannel </returns>
-        public static WorkerChannelResource Fetch(FetchWorkerChannelOptions options, ITwilioRestClient client = null)
+        public static WorkerChannelResource Fetch(FetchWorkerChannelOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch WorkerChannel parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of WorkerChannel </returns>
         public static async System.Threading.Tasks.Task<WorkerChannelResource> FetchAsync(FetchWorkerChannelOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathWorkspaceSid"> The SID of the Workspace with the WorkerChannel to fetch. </param>
         /// <param name="pathWorkerSid"> The SID of the Worker with the WorkerChannel to fetch. </param>
@@ -83,38 +83,38 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Worker
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of WorkerChannel </returns>
         public static WorkerChannelResource Fetch(
-                                         string pathWorkspaceSid, 
-                                         string pathWorkerSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathWorkspaceSid,
+                                         string pathWorkerSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchWorkerChannelOptions(pathWorkspaceSid, pathWorkerSid, pathSid){  };
+            var options = new FetchWorkerChannelOptions(pathWorkspaceSid, pathWorkerSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathWorkspaceSid"> The SID of the Workspace with the WorkerChannel to fetch. </param>
         /// <param name="pathWorkerSid"> The SID of the Worker with the WorkerChannel to fetch. </param>
         /// <param name="pathSid"> The SID of the WorkerChannel to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of WorkerChannel </returns>
-        public static async System.Threading.Tasks.Task<WorkerChannelResource> FetchAsync(string pathWorkspaceSid, string pathWorkerSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<WorkerChannelResource> FetchAsync(string pathWorkspaceSid, string pathWorkerSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchWorkerChannelOptions(pathWorkspaceSid, pathWorkerSid, pathSid){  };
+            var options = new FetchWorkerChannelOptions(pathWorkspaceSid, pathWorkerSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadWorkerChannelOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadWorkerChannelOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Channels";
 
             string PathWorkspaceSid = options.PathWorkspaceSid;
-            path = path.Replace("{"+"WorkspaceSid"+"}", PathWorkspaceSid);
+            path = path.Replace("{" + "WorkspaceSid" + "}", PathWorkspaceSid);
             string PathWorkerSid = options.PathWorkerSid;
-            path = path.Replace("{"+"WorkerSid"+"}", PathWorkerSid);
+            path = path.Replace("{" + "WorkerSid" + "}", PathWorkerSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -128,7 +128,7 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Worker
         /// <param name="options"> Read WorkerChannel parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of WorkerChannel </returns>
-        public static ResourceSet<WorkerChannelResource> Read(ReadWorkerChannelOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<WorkerChannelResource> Read(ReadWorkerChannelOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -136,13 +136,13 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Worker
             return new ResourceSet<WorkerChannelResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read WorkerChannel parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of WorkerChannel </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<WorkerChannelResource>> ReadAsync(ReadWorkerChannelOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -150,7 +150,7 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Worker
             var page = Page<WorkerChannelResource>.FromJson("channels", response.Content);
             return new ResourceSet<WorkerChannelResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="pathWorkspaceSid"> The SID of the Workspace with the WorkerChannels to read. </param>
         /// <param name="pathWorkerSid"> The SID of the Worker with the WorkerChannels to read. </param>
@@ -163,13 +163,13 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Worker
                                                      string pathWorkerSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadWorkerChannelOptions(pathWorkspaceSid, pathWorkerSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadWorkerChannelOptions(pathWorkspaceSid, pathWorkerSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="pathWorkspaceSid"> The SID of the Workspace with the WorkerChannels to read. </param>
         /// <param name="pathWorkerSid"> The SID of the Worker with the WorkerChannels to read. </param>
@@ -182,19 +182,19 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Worker
                                                                                              string pathWorkerSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadWorkerChannelOptions(pathWorkspaceSid, pathWorkerSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadWorkerChannelOptions(pathWorkspaceSid, pathWorkerSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<WorkerChannelResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<WorkerChannelResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -211,7 +211,7 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Worker
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<WorkerChannelResource> NextPage(Page<WorkerChannelResource> page, ITwilioRestClient client)
+        public static Page<WorkerChannelResource> NextPage(Page<WorkerChannelResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -226,7 +226,7 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Worker
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<WorkerChannelResource> PreviousPage(Page<WorkerChannelResource> page, ITwilioRestClient client)
+        public static Page<WorkerChannelResource> PreviousPage(Page<WorkerChannelResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -237,18 +237,18 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Worker
             return Page<WorkerChannelResource>.FromJson("channels", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateWorkerChannelOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateWorkerChannelOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Channels/{Sid}";
 
             string PathWorkspaceSid = options.PathWorkspaceSid;
-            path = path.Replace("{"+"WorkspaceSid"+"}", PathWorkspaceSid);
+            path = path.Replace("{" + "WorkspaceSid" + "}", PathWorkspaceSid);
             string PathWorkerSid = options.PathWorkerSid;
-            path = path.Replace("{"+"WorkerSid"+"}", PathWorkerSid);
+            path = path.Replace("{" + "WorkerSid" + "}", PathWorkerSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -263,7 +263,7 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Worker
         /// <param name="options"> Update WorkerChannel parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of WorkerChannel </returns>
-        public static WorkerChannelResource Update(UpdateWorkerChannelOptions options, ITwilioRestClient client = null)
+        public static WorkerChannelResource Update(UpdateWorkerChannelOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -274,15 +274,15 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Worker
         /// <param name="options"> Update WorkerChannel parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of WorkerChannel </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<WorkerChannelResource> UpdateAsync(UpdateWorkerChannelOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> update </summary>
         /// <param name="pathWorkspaceSid"> The SID of the Workspace with the WorkerChannel to update. </param>
@@ -298,13 +298,13 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Worker
                                           string pathSid,
                                           int? capacity = null,
                                           bool? available = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateWorkerChannelOptions(pathWorkspaceSid, pathWorkerSid, pathSid){ Capacity = capacity, Available = available };
+            var options = new UpdateWorkerChannelOptions(pathWorkspaceSid, pathWorkerSid, pathSid) { Capacity = capacity, Available = available };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> update </summary>
         /// <param name="pathWorkspaceSid"> The SID of the Workspace with the WorkerChannel to update. </param>
         /// <param name="pathWorkerSid"> The SID of the Worker with the WorkerChannel to update. </param>
@@ -319,13 +319,13 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Worker
                                                                               string pathSid,
                                                                               int? capacity = null,
                                                                               bool? available = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateWorkerChannelOptions(pathWorkspaceSid, pathWorkerSid, pathSid){ Capacity = capacity, Available = available };
+            var options = new UpdateWorkerChannelOptions(pathWorkspaceSid, pathWorkerSid, pathSid) { Capacity = capacity, Available = available };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a WorkerChannelResource object
         /// </summary>
@@ -343,7 +343,7 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Worker
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Worker resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -398,7 +398,8 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Worker
 
 
 
-        private WorkerChannelResource() {
+        private WorkerChannelResource()
+        {
 
         }
     }

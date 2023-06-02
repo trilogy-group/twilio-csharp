@@ -28,12 +28,12 @@ namespace Kandy.Rest.Api.V2010.Account.Conference
 {
     public class ParticipantResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class StatusEnum : StringEnum
         {
-            private StatusEnum(string value) : base(value) {}
-            public StatusEnum() {}
+            private StatusEnum(string value) : base(value) { }
+            public StatusEnum() { }
             public static implicit operator StatusEnum(string value)
             {
                 return new StatusEnum(value);
@@ -47,16 +47,16 @@ namespace Kandy.Rest.Api.V2010.Account.Conference
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateParticipantOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateParticipantOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathConferenceSid = options.PathConferenceSid;
-            path = path.Replace("{"+"ConferenceSid"+"}", PathConferenceSid);
+            path = path.Replace("{" + "ConferenceSid" + "}", PathConferenceSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -71,26 +71,26 @@ namespace Kandy.Rest.Api.V2010.Account.Conference
         /// <param name="options"> Create Participant parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Participant </returns>
-        public static ParticipantResource Create(CreateParticipantOptions options, ITwilioRestClient client = null)
+        public static ParticipantResource Create(CreateParticipantOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create Participant parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Participant </returns>
         public static async System.Threading.Tasks.Task<ParticipantResource> CreateAsync(CreateParticipantOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="pathConferenceSid"> The SID of the participant's conference. </param>
@@ -194,13 +194,13 @@ namespace Kandy.Rest.Api.V2010.Account.Conference
                                           Uri amdStatusCallback = null,
                                           Twilio.Http.HttpMethod amdStatusCallbackMethod = null,
                                           string trim = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateParticipantOptions(pathConferenceSid, from, to){  PathAccountSid = pathAccountSid, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, StatusCallbackEvent = statusCallbackEvent, Label = label, Timeout = timeout, Record = record, Muted = muted, Beep = beep, StartConferenceOnEnter = startConferenceOnEnter, EndConferenceOnExit = endConferenceOnExit, WaitUrl = waitUrl, WaitMethod = waitMethod, EarlyMedia = earlyMedia, MaxParticipants = maxParticipants, ConferenceRecord = conferenceRecord, ConferenceTrim = conferenceTrim, ConferenceStatusCallback = conferenceStatusCallback, ConferenceStatusCallbackMethod = conferenceStatusCallbackMethod, ConferenceStatusCallbackEvent = conferenceStatusCallbackEvent, RecordingChannels = recordingChannels, RecordingStatusCallback = recordingStatusCallback, RecordingStatusCallbackMethod = recordingStatusCallbackMethod, SipAuthUsername = sipAuthUsername, SipAuthPassword = sipAuthPassword, Region = region, ConferenceRecordingStatusCallback = conferenceRecordingStatusCallback, ConferenceRecordingStatusCallbackMethod = conferenceRecordingStatusCallbackMethod, RecordingStatusCallbackEvent = recordingStatusCallbackEvent, ConferenceRecordingStatusCallbackEvent = conferenceRecordingStatusCallbackEvent, Coaching = coaching, CallSidToCoach = callSidToCoach, JitterBufferSize = jitterBufferSize, Byoc = byoc, CallerId = callerId, CallReason = callReason, RecordingTrack = recordingTrack, TimeLimit = timeLimit, MachineDetection = machineDetection, MachineDetectionTimeout = machineDetectionTimeout, MachineDetectionSpeechThreshold = machineDetectionSpeechThreshold, MachineDetectionSpeechEndThreshold = machineDetectionSpeechEndThreshold, MachineDetectionSilenceTimeout = machineDetectionSilenceTimeout, AmdStatusCallback = amdStatusCallback, AmdStatusCallbackMethod = amdStatusCallbackMethod, Trim = trim };
+            var options = new CreateParticipantOptions(pathConferenceSid, from, to) { PathAccountSid = pathAccountSid, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, StatusCallbackEvent = statusCallbackEvent, Label = label, Timeout = timeout, Record = record, Muted = muted, Beep = beep, StartConferenceOnEnter = startConferenceOnEnter, EndConferenceOnExit = endConferenceOnExit, WaitUrl = waitUrl, WaitMethod = waitMethod, EarlyMedia = earlyMedia, MaxParticipants = maxParticipants, ConferenceRecord = conferenceRecord, ConferenceTrim = conferenceTrim, ConferenceStatusCallback = conferenceStatusCallback, ConferenceStatusCallbackMethod = conferenceStatusCallbackMethod, ConferenceStatusCallbackEvent = conferenceStatusCallbackEvent, RecordingChannels = recordingChannels, RecordingStatusCallback = recordingStatusCallback, RecordingStatusCallbackMethod = recordingStatusCallbackMethod, SipAuthUsername = sipAuthUsername, SipAuthPassword = sipAuthPassword, Region = region, ConferenceRecordingStatusCallback = conferenceRecordingStatusCallback, ConferenceRecordingStatusCallbackMethod = conferenceRecordingStatusCallbackMethod, RecordingStatusCallbackEvent = recordingStatusCallbackEvent, ConferenceRecordingStatusCallbackEvent = conferenceRecordingStatusCallbackEvent, Coaching = coaching, CallSidToCoach = callSidToCoach, JitterBufferSize = jitterBufferSize, Byoc = byoc, CallerId = callerId, CallReason = callReason, RecordingTrack = recordingTrack, TimeLimit = timeLimit, MachineDetection = machineDetection, MachineDetectionTimeout = machineDetectionTimeout, MachineDetectionSpeechThreshold = machineDetectionSpeechThreshold, MachineDetectionSpeechEndThreshold = machineDetectionSpeechEndThreshold, MachineDetectionSilenceTimeout = machineDetectionSilenceTimeout, AmdStatusCallback = amdStatusCallback, AmdStatusCallbackMethod = amdStatusCallbackMethod, Trim = trim };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="pathConferenceSid"> The SID of the participant's conference. </param>
         /// <param name="from"> The phone number, Client identifier, or username portion of SIP address that made this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). Client identifiers are formatted `client:name`. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `from` must also be a phone number. If `to` is sip address, this value of `from` should be a username portion to be used to populate the P-Asserted-Identity header that is passed to the SIP endpoint. </param>
@@ -303,28 +303,28 @@ namespace Kandy.Rest.Api.V2010.Account.Conference
                                                                                   Uri amdStatusCallback = null,
                                                                                   Twilio.Http.HttpMethod amdStatusCallbackMethod = null,
                                                                                   string trim = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateParticipantOptions(pathConferenceSid, from, to){  PathAccountSid = pathAccountSid, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, StatusCallbackEvent = statusCallbackEvent, Label = label, Timeout = timeout, Record = record, Muted = muted, Beep = beep, StartConferenceOnEnter = startConferenceOnEnter, EndConferenceOnExit = endConferenceOnExit, WaitUrl = waitUrl, WaitMethod = waitMethod, EarlyMedia = earlyMedia, MaxParticipants = maxParticipants, ConferenceRecord = conferenceRecord, ConferenceTrim = conferenceTrim, ConferenceStatusCallback = conferenceStatusCallback, ConferenceStatusCallbackMethod = conferenceStatusCallbackMethod, ConferenceStatusCallbackEvent = conferenceStatusCallbackEvent, RecordingChannels = recordingChannels, RecordingStatusCallback = recordingStatusCallback, RecordingStatusCallbackMethod = recordingStatusCallbackMethod, SipAuthUsername = sipAuthUsername, SipAuthPassword = sipAuthPassword, Region = region, ConferenceRecordingStatusCallback = conferenceRecordingStatusCallback, ConferenceRecordingStatusCallbackMethod = conferenceRecordingStatusCallbackMethod, RecordingStatusCallbackEvent = recordingStatusCallbackEvent, ConferenceRecordingStatusCallbackEvent = conferenceRecordingStatusCallbackEvent, Coaching = coaching, CallSidToCoach = callSidToCoach, JitterBufferSize = jitterBufferSize, Byoc = byoc, CallerId = callerId, CallReason = callReason, RecordingTrack = recordingTrack, TimeLimit = timeLimit, MachineDetection = machineDetection, MachineDetectionTimeout = machineDetectionTimeout, MachineDetectionSpeechThreshold = machineDetectionSpeechThreshold, MachineDetectionSpeechEndThreshold = machineDetectionSpeechEndThreshold, MachineDetectionSilenceTimeout = machineDetectionSilenceTimeout, AmdStatusCallback = amdStatusCallback, AmdStatusCallbackMethod = amdStatusCallbackMethod, Trim = trim };
+            var options = new CreateParticipantOptions(pathConferenceSid, from, to) { PathAccountSid = pathAccountSid, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, StatusCallbackEvent = statusCallbackEvent, Label = label, Timeout = timeout, Record = record, Muted = muted, Beep = beep, StartConferenceOnEnter = startConferenceOnEnter, EndConferenceOnExit = endConferenceOnExit, WaitUrl = waitUrl, WaitMethod = waitMethod, EarlyMedia = earlyMedia, MaxParticipants = maxParticipants, ConferenceRecord = conferenceRecord, ConferenceTrim = conferenceTrim, ConferenceStatusCallback = conferenceStatusCallback, ConferenceStatusCallbackMethod = conferenceStatusCallbackMethod, ConferenceStatusCallbackEvent = conferenceStatusCallbackEvent, RecordingChannels = recordingChannels, RecordingStatusCallback = recordingStatusCallback, RecordingStatusCallbackMethod = recordingStatusCallbackMethod, SipAuthUsername = sipAuthUsername, SipAuthPassword = sipAuthPassword, Region = region, ConferenceRecordingStatusCallback = conferenceRecordingStatusCallback, ConferenceRecordingStatusCallbackMethod = conferenceRecordingStatusCallbackMethod, RecordingStatusCallbackEvent = recordingStatusCallbackEvent, ConferenceRecordingStatusCallbackEvent = conferenceRecordingStatusCallbackEvent, Coaching = coaching, CallSidToCoach = callSidToCoach, JitterBufferSize = jitterBufferSize, Byoc = byoc, CallerId = callerId, CallReason = callReason, RecordingTrack = recordingTrack, TimeLimit = timeLimit, MachineDetection = machineDetection, MachineDetectionTimeout = machineDetectionTimeout, MachineDetectionSpeechThreshold = machineDetectionSpeechThreshold, MachineDetectionSpeechEndThreshold = machineDetectionSpeechEndThreshold, MachineDetectionSilenceTimeout = machineDetectionSilenceTimeout, AmdStatusCallback = amdStatusCallback, AmdStatusCallbackMethod = amdStatusCallbackMethod, Trim = trim };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Kick a participant from a given conference </summary>
         /// <param name="options"> Delete Participant parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Participant </returns>
-        private static Request BuildDeleteRequest(DeleteParticipantOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteParticipantOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathConferenceSid = options.PathConferenceSid;
-            path = path.Replace("{"+"ConferenceSid"+"}", PathConferenceSid);
+            path = path.Replace("{" + "ConferenceSid" + "}", PathConferenceSid);
             string PathCallSid = options.PathCallSid;
-            path = path.Replace("{"+"CallSid"+"}", PathCallSid);
+            path = path.Replace("{" + "CallSid" + "}", PathCallSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -339,26 +339,26 @@ namespace Kandy.Rest.Api.V2010.Account.Conference
         /// <param name="options"> Delete Participant parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Participant </returns>
-        public static bool Delete(DeleteParticipantOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteParticipantOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Kick a participant from a given conference </summary>
         /// <param name="options"> Delete Participant parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Participant </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteParticipantOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Kick a participant from a given conference </summary>
         /// <param name="pathConferenceSid"> The SID of the conference with the participants to delete. </param>
@@ -366,37 +366,37 @@ namespace Kandy.Rest.Api.V2010.Account.Conference
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resources to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Participant </returns>
-        public static bool Delete(string pathConferenceSid, string pathCallSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static bool Delete(string pathConferenceSid, string pathCallSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new DeleteParticipantOptions(pathConferenceSid, pathCallSid)         { PathAccountSid = pathAccountSid }   ;
+            var options = new DeleteParticipantOptions(pathConferenceSid, pathCallSid) { PathAccountSid = pathAccountSid };
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Kick a participant from a given conference </summary>
         /// <param name="pathConferenceSid"> The SID of the conference with the participants to delete. </param>
         /// <param name="pathCallSid"> The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID or label of the participant to delete. Non URL safe characters in a label must be percent encoded, for example, a space character is represented as %20. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resources to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Participant </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathConferenceSid, string pathCallSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathConferenceSid, string pathCallSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new DeleteParticipantOptions(pathConferenceSid, pathCallSid)  { PathAccountSid = pathAccountSid };
+            var options = new DeleteParticipantOptions(pathConferenceSid, pathCallSid) { PathAccountSid = pathAccountSid };
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchParticipantOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchParticipantOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathConferenceSid = options.PathConferenceSid;
-            path = path.Replace("{"+"ConferenceSid"+"}", PathConferenceSid);
+            path = path.Replace("{" + "ConferenceSid" + "}", PathConferenceSid);
             string PathCallSid = options.PathCallSid;
-            path = path.Replace("{"+"CallSid"+"}", PathCallSid);
+            path = path.Replace("{" + "CallSid" + "}", PathCallSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -411,26 +411,26 @@ namespace Kandy.Rest.Api.V2010.Account.Conference
         /// <param name="options"> Fetch Participant parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Participant </returns>
-        public static ParticipantResource Fetch(FetchParticipantOptions options, ITwilioRestClient client = null)
+        public static ParticipantResource Fetch(FetchParticipantOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch an instance of a participant </summary>
         /// <param name="options"> Fetch Participant parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Participant </returns>
         public static async System.Threading.Tasks.Task<ParticipantResource> FetchAsync(FetchParticipantOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch an instance of a participant </summary>
         /// <param name="pathConferenceSid"> The SID of the conference with the participant to fetch. </param>
         /// <param name="pathCallSid"> The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID or label of the participant to fetch. Non URL safe characters in a label must be percent encoded, for example, a space character is represented as %20. </param>
@@ -438,38 +438,38 @@ namespace Kandy.Rest.Api.V2010.Account.Conference
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Participant </returns>
         public static ParticipantResource Fetch(
-                                         string pathConferenceSid, 
-                                         string pathCallSid, 
-                                         string pathAccountSid = null, 
-                                         ITwilioRestClient client = null)
+                                         string pathConferenceSid,
+                                         string pathCallSid,
+                                         string pathAccountSid = null,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchParticipantOptions(pathConferenceSid, pathCallSid){ PathAccountSid = pathAccountSid };
+            var options = new FetchParticipantOptions(pathConferenceSid, pathCallSid) { PathAccountSid = pathAccountSid };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch an instance of a participant </summary>
         /// <param name="pathConferenceSid"> The SID of the conference with the participant to fetch. </param>
         /// <param name="pathCallSid"> The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID or label of the participant to fetch. Non URL safe characters in a label must be percent encoded, for example, a space character is represented as %20. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Participant </returns>
-        public static async System.Threading.Tasks.Task<ParticipantResource> FetchAsync(string pathConferenceSid, string pathCallSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<ParticipantResource> FetchAsync(string pathConferenceSid, string pathCallSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new FetchParticipantOptions(pathConferenceSid, pathCallSid){ PathAccountSid = pathAccountSid };
+            var options = new FetchParticipantOptions(pathConferenceSid, pathCallSid) { PathAccountSid = pathAccountSid };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadParticipantOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadParticipantOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathConferenceSid = options.PathConferenceSid;
-            path = path.Replace("{"+"ConferenceSid"+"}", PathConferenceSid);
+            path = path.Replace("{" + "ConferenceSid" + "}", PathConferenceSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -483,7 +483,7 @@ namespace Kandy.Rest.Api.V2010.Account.Conference
         /// <param name="options"> Read Participant parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Participant </returns>
-        public static ResourceSet<ParticipantResource> Read(ReadParticipantOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<ParticipantResource> Read(ReadParticipantOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -491,13 +491,13 @@ namespace Kandy.Rest.Api.V2010.Account.Conference
             return new ResourceSet<ParticipantResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of participants belonging to the account used to make the request </summary>
         /// <param name="options"> Read Participant parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Participant </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<ParticipantResource>> ReadAsync(ReadParticipantOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -505,7 +505,7 @@ namespace Kandy.Rest.Api.V2010.Account.Conference
             var page = Page<ParticipantResource>.FromJson("participants", response.Content);
             return new ResourceSet<ParticipantResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of participants belonging to the account used to make the request </summary>
         /// <param name="pathConferenceSid"> The SID of the conference with the participants to read. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resources to read. </param>
@@ -524,13 +524,13 @@ namespace Kandy.Rest.Api.V2010.Account.Conference
                                                      bool? coaching = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadParticipantOptions(pathConferenceSid){ PathAccountSid = pathAccountSid, Muted = muted, Hold = hold, Coaching = coaching, PageSize = pageSize, Limit = limit};
+            var options = new ReadParticipantOptions(pathConferenceSid) { PathAccountSid = pathAccountSid, Muted = muted, Hold = hold, Coaching = coaching, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of participants belonging to the account used to make the request </summary>
         /// <param name="pathConferenceSid"> The SID of the conference with the participants to read. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resources to read. </param>
@@ -549,19 +549,19 @@ namespace Kandy.Rest.Api.V2010.Account.Conference
                                                                                              bool? coaching = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadParticipantOptions(pathConferenceSid){ PathAccountSid = pathAccountSid, Muted = muted, Hold = hold, Coaching = coaching, PageSize = pageSize, Limit = limit};
+            var options = new ReadParticipantOptions(pathConferenceSid) { PathAccountSid = pathAccountSid, Muted = muted, Hold = hold, Coaching = coaching, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<ParticipantResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<ParticipantResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -578,7 +578,7 @@ namespace Kandy.Rest.Api.V2010.Account.Conference
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<ParticipantResource> NextPage(Page<ParticipantResource> page, ITwilioRestClient client)
+        public static Page<ParticipantResource> NextPage(Page<ParticipantResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -593,7 +593,7 @@ namespace Kandy.Rest.Api.V2010.Account.Conference
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<ParticipantResource> PreviousPage(Page<ParticipantResource> page, ITwilioRestClient client)
+        public static Page<ParticipantResource> PreviousPage(Page<ParticipantResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -604,18 +604,18 @@ namespace Kandy.Rest.Api.V2010.Account.Conference
             return Page<ParticipantResource>.FromJson("participants", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateParticipantOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateParticipantOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathConferenceSid = options.PathConferenceSid;
-            path = path.Replace("{"+"ConferenceSid"+"}", PathConferenceSid);
+            path = path.Replace("{" + "ConferenceSid" + "}", PathConferenceSid);
             string PathCallSid = options.PathCallSid;
-            path = path.Replace("{"+"CallSid"+"}", PathCallSid);
+            path = path.Replace("{" + "CallSid" + "}", PathCallSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -630,7 +630,7 @@ namespace Kandy.Rest.Api.V2010.Account.Conference
         /// <param name="options"> Update Participant parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Participant </returns>
-        public static ParticipantResource Update(UpdateParticipantOptions options, ITwilioRestClient client = null)
+        public static ParticipantResource Update(UpdateParticipantOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -641,15 +641,15 @@ namespace Kandy.Rest.Api.V2010.Account.Conference
         /// <param name="options"> Update Participant parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Participant </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<ParticipantResource> UpdateAsync(UpdateParticipantOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update the properties of the participant </summary>
         /// <param name="pathConferenceSid"> The SID of the conference with the participant to update. </param>
@@ -685,13 +685,13 @@ namespace Kandy.Rest.Api.V2010.Account.Conference
                                           bool? endConferenceOnExit = null,
                                           bool? coaching = null,
                                           string callSidToCoach = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateParticipantOptions(pathConferenceSid, pathCallSid){ PathAccountSid = pathAccountSid, Muted = muted, Hold = hold, HoldUrl = holdUrl, HoldMethod = holdMethod, AnnounceUrl = announceUrl, AnnounceMethod = announceMethod, WaitUrl = waitUrl, WaitMethod = waitMethod, BeepOnExit = beepOnExit, EndConferenceOnExit = endConferenceOnExit, Coaching = coaching, CallSidToCoach = callSidToCoach };
+            var options = new UpdateParticipantOptions(pathConferenceSid, pathCallSid) { PathAccountSid = pathAccountSid, Muted = muted, Hold = hold, HoldUrl = holdUrl, HoldMethod = holdMethod, AnnounceUrl = announceUrl, AnnounceMethod = announceMethod, WaitUrl = waitUrl, WaitMethod = waitMethod, BeepOnExit = beepOnExit, EndConferenceOnExit = endConferenceOnExit, Coaching = coaching, CallSidToCoach = callSidToCoach };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update the properties of the participant </summary>
         /// <param name="pathConferenceSid"> The SID of the conference with the participant to update. </param>
         /// <param name="pathCallSid"> The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID or label of the participant to update. Non URL safe characters in a label must be percent encoded, for example, a space character is represented as %20. </param>
@@ -726,13 +726,13 @@ namespace Kandy.Rest.Api.V2010.Account.Conference
                                                                               bool? endConferenceOnExit = null,
                                                                               bool? coaching = null,
                                                                               string callSidToCoach = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateParticipantOptions(pathConferenceSid, pathCallSid){ PathAccountSid = pathAccountSid, Muted = muted, Hold = hold, HoldUrl = holdUrl, HoldMethod = holdMethod, AnnounceUrl = announceUrl, AnnounceMethod = announceMethod, WaitUrl = waitUrl, WaitMethod = waitMethod, BeepOnExit = beepOnExit, EndConferenceOnExit = endConferenceOnExit, Coaching = coaching, CallSidToCoach = callSidToCoach };
+            var options = new UpdateParticipantOptions(pathConferenceSid, pathCallSid) { PathAccountSid = pathAccountSid, Muted = muted, Hold = hold, HoldUrl = holdUrl, HoldMethod = holdMethod, AnnounceUrl = announceUrl, AnnounceMethod = announceMethod, WaitUrl = waitUrl, WaitMethod = waitMethod, BeepOnExit = beepOnExit, EndConferenceOnExit = endConferenceOnExit, Coaching = coaching, CallSidToCoach = callSidToCoach };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a ParticipantResource object
         /// </summary>
@@ -750,7 +750,7 @@ namespace Kandy.Rest.Api.V2010.Account.Conference
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -799,7 +799,7 @@ namespace Kandy.Rest.Api.V2010.Account.Conference
         [JsonProperty("start_conference_on_enter")]
         public bool? StartConferenceOnEnter { get; private set; }
 
-        
+
         [JsonProperty("status")]
         public ParticipantResource.StatusEnum Status { get; private set; }
 
@@ -809,7 +809,8 @@ namespace Kandy.Rest.Api.V2010.Account.Conference
 
 
 
-        private ParticipantResource() {
+        private ParticipantResource()
+        {
 
         }
     }

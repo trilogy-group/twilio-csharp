@@ -28,12 +28,12 @@ namespace Kandy.Rest.Video.V1
 {
     public class RecordingSettingsResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateRecordingSettingsOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateRecordingSettingsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/RecordingSettings/Default";
 
 
@@ -50,26 +50,26 @@ namespace Kandy.Rest.Video.V1
         /// <param name="options"> Create RecordingSettings parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of RecordingSettings </returns>
-        public static RecordingSettingsResource Create(CreateRecordingSettingsOptions options, ITwilioRestClient client = null)
+        public static RecordingSettingsResource Create(CreateRecordingSettingsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create RecordingSettings parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of RecordingSettings </returns>
         public static async System.Threading.Tasks.Task<RecordingSettingsResource> CreateAsync(CreateRecordingSettingsOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="friendlyName"> A descriptive string that you create to describe the resource and be shown to users in the console </param>
@@ -87,13 +87,13 @@ namespace Kandy.Rest.Video.V1
                                           Uri awsS3Url = null,
                                           bool? awsStorageEnabled = null,
                                           bool? encryptionEnabled = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateRecordingSettingsOptions(friendlyName){  AwsCredentialsSid = awsCredentialsSid, EncryptionKeySid = encryptionKeySid, AwsS3Url = awsS3Url, AwsStorageEnabled = awsStorageEnabled, EncryptionEnabled = encryptionEnabled };
+            var options = new CreateRecordingSettingsOptions(friendlyName) { AwsCredentialsSid = awsCredentialsSid, EncryptionKeySid = encryptionKeySid, AwsS3Url = awsS3Url, AwsStorageEnabled = awsStorageEnabled, EncryptionEnabled = encryptionEnabled };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="friendlyName"> A descriptive string that you create to describe the resource and be shown to users in the console </param>
         /// <param name="awsCredentialsSid"> The SID of the stored Credential resource. </param>
@@ -110,16 +110,16 @@ namespace Kandy.Rest.Video.V1
                                                                                   Uri awsS3Url = null,
                                                                                   bool? awsStorageEnabled = null,
                                                                                   bool? encryptionEnabled = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateRecordingSettingsOptions(friendlyName){  AwsCredentialsSid = awsCredentialsSid, EncryptionKeySid = encryptionKeySid, AwsS3Url = awsS3Url, AwsStorageEnabled = awsStorageEnabled, EncryptionEnabled = encryptionEnabled };
+            var options = new CreateRecordingSettingsOptions(friendlyName) { AwsCredentialsSid = awsCredentialsSid, EncryptionKeySid = encryptionKeySid, AwsS3Url = awsS3Url, AwsStorageEnabled = awsStorageEnabled, EncryptionEnabled = encryptionEnabled };
             return await CreateAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchRecordingSettingsOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchRecordingSettingsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/RecordingSettings/Default";
 
 
@@ -136,47 +136,47 @@ namespace Kandy.Rest.Video.V1
         /// <param name="options"> Fetch RecordingSettings parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of RecordingSettings </returns>
-        public static RecordingSettingsResource Fetch(FetchRecordingSettingsOptions options, ITwilioRestClient client = null)
+        public static RecordingSettingsResource Fetch(FetchRecordingSettingsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch RecordingSettings parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of RecordingSettings </returns>
         public static async System.Threading.Tasks.Task<RecordingSettingsResource> FetchAsync(FetchRecordingSettingsOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of RecordingSettings </returns>
         public static RecordingSettingsResource Fetch(
-                                         ITwilioRestClient client = null)
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchRecordingSettingsOptions(){  };
+            var options = new FetchRecordingSettingsOptions() { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of RecordingSettings </returns>
-        public static async System.Threading.Tasks.Task<RecordingSettingsResource> FetchAsync(ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<RecordingSettingsResource> FetchAsync(IKandyRestClient client = null)
         {
-            var options = new FetchRecordingSettingsOptions(){  };
+            var options = new FetchRecordingSettingsOptions() { };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a RecordingSettingsResource object
         /// </summary>
@@ -194,7 +194,7 @@ namespace Kandy.Rest.Video.V1
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the RecordingSettings resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -229,7 +229,8 @@ namespace Kandy.Rest.Video.V1
 
 
 
-        private RecordingSettingsResource() {
+        private RecordingSettingsResource()
+        {
 
         }
     }

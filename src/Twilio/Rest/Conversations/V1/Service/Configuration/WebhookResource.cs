@@ -28,12 +28,12 @@ namespace Kandy.Rest.Conversations.V1.Service.Configuration
 {
     public class WebhookResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class MethodEnum : StringEnum
         {
-            private MethodEnum(string value) : base(value) {}
-            public MethodEnum() {}
+            private MethodEnum(string value) : base(value) { }
+            public MethodEnum() { }
             public static implicit operator MethodEnum(string value)
             {
                 return new MethodEnum(value);
@@ -43,14 +43,14 @@ namespace Kandy.Rest.Conversations.V1.Service.Configuration
 
         }
 
-        
-        private static Request BuildFetchRequest(FetchWebhookOptions options, ITwilioRestClient client)
+
+        private static Request BuildFetchRequest(FetchWebhookOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ChatServiceSid}/Configuration/Webhooks";
 
             string PathChatServiceSid = options.PathChatServiceSid;
-            path = path.Replace("{"+"ChatServiceSid"+"}", PathChatServiceSid);
+            path = path.Replace("{" + "ChatServiceSid" + "}", PathChatServiceSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -65,57 +65,57 @@ namespace Kandy.Rest.Conversations.V1.Service.Configuration
         /// <param name="options"> Fetch Webhook parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Webhook </returns>
-        public static WebhookResource Fetch(FetchWebhookOptions options, ITwilioRestClient client = null)
+        public static WebhookResource Fetch(FetchWebhookOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific service webhook configuration. </summary>
         /// <param name="options"> Fetch Webhook parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Webhook </returns>
         public static async System.Threading.Tasks.Task<WebhookResource> FetchAsync(FetchWebhookOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a specific service webhook configuration. </summary>
         /// <param name="pathChatServiceSid"> The unique ID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) this conversation belongs to. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Webhook </returns>
         public static WebhookResource Fetch(
-                                         string pathChatServiceSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathChatServiceSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchWebhookOptions(pathChatServiceSid){  };
+            var options = new FetchWebhookOptions(pathChatServiceSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific service webhook configuration. </summary>
         /// <param name="pathChatServiceSid"> The unique ID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) this conversation belongs to. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Webhook </returns>
-        public static async System.Threading.Tasks.Task<WebhookResource> FetchAsync(string pathChatServiceSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<WebhookResource> FetchAsync(string pathChatServiceSid, IKandyRestClient client = null)
         {
-            var options = new FetchWebhookOptions(pathChatServiceSid){  };
+            var options = new FetchWebhookOptions(pathChatServiceSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildUpdateRequest(UpdateWebhookOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildUpdateRequest(UpdateWebhookOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ChatServiceSid}/Configuration/Webhooks";
 
             string PathChatServiceSid = options.PathChatServiceSid;
-            path = path.Replace("{"+"ChatServiceSid"+"}", PathChatServiceSid);
+            path = path.Replace("{" + "ChatServiceSid" + "}", PathChatServiceSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -130,7 +130,7 @@ namespace Kandy.Rest.Conversations.V1.Service.Configuration
         /// <param name="options"> Update Webhook parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Webhook </returns>
-        public static WebhookResource Update(UpdateWebhookOptions options, ITwilioRestClient client = null)
+        public static WebhookResource Update(UpdateWebhookOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -141,15 +141,15 @@ namespace Kandy.Rest.Conversations.V1.Service.Configuration
         /// <param name="options"> Update Webhook parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Webhook </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<WebhookResource> UpdateAsync(UpdateWebhookOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update a specific Webhook. </summary>
         /// <param name="pathChatServiceSid"> The unique ID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) this conversation belongs to. </param>
@@ -165,13 +165,13 @@ namespace Kandy.Rest.Conversations.V1.Service.Configuration
                                           Uri postWebhookUrl = null,
                                           List<string> filters = null,
                                           string method = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateWebhookOptions(pathChatServiceSid){ PreWebhookUrl = preWebhookUrl, PostWebhookUrl = postWebhookUrl, Filters = filters, Method = method };
+            var options = new UpdateWebhookOptions(pathChatServiceSid) { PreWebhookUrl = preWebhookUrl, PostWebhookUrl = postWebhookUrl, Filters = filters, Method = method };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update a specific Webhook. </summary>
         /// <param name="pathChatServiceSid"> The unique ID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) this conversation belongs to. </param>
         /// <param name="preWebhookUrl"> The absolute url the pre-event webhook request should be sent to. </param>
@@ -186,13 +186,13 @@ namespace Kandy.Rest.Conversations.V1.Service.Configuration
                                                                               Uri postWebhookUrl = null,
                                                                               List<string> filters = null,
                                                                               string method = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateWebhookOptions(pathChatServiceSid){ PreWebhookUrl = preWebhookUrl, PostWebhookUrl = postWebhookUrl, Filters = filters, Method = method };
+            var options = new UpdateWebhookOptions(pathChatServiceSid) { PreWebhookUrl = preWebhookUrl, PostWebhookUrl = postWebhookUrl, Filters = filters, Method = method };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a WebhookResource object
         /// </summary>
@@ -210,7 +210,7 @@ namespace Kandy.Rest.Conversations.V1.Service.Configuration
             }
         }
 
-    
+
         ///<summary> The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this service. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -231,7 +231,7 @@ namespace Kandy.Rest.Conversations.V1.Service.Configuration
         [JsonProperty("filters")]
         public List<string> Filters { get; private set; }
 
-        
+
         [JsonProperty("method")]
         public WebhookResource.MethodEnum Method { get; private set; }
 
@@ -241,7 +241,8 @@ namespace Kandy.Rest.Conversations.V1.Service.Configuration
 
 
 
-        private WebhookResource() {
+        private WebhookResource()
+        {
 
         }
     }

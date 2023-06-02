@@ -28,12 +28,12 @@ namespace Kandy.Rest.FlexApi.V1
 {
     public class InsightsSegmentsResource : Resource
     {
-    
 
-        
-        private static Request BuildReadRequest(ReadInsightsSegmentsOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildReadRequest(ReadInsightsSegmentsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Insights/Segments";
 
 
@@ -49,7 +49,7 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="options"> Read InsightsSegments parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of InsightsSegments </returns>
-        public static ResourceSet<InsightsSegmentsResource> Read(ReadInsightsSegmentsOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<InsightsSegmentsResource> Read(ReadInsightsSegmentsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -57,13 +57,13 @@ namespace Kandy.Rest.FlexApi.V1
             return new ResourceSet<InsightsSegmentsResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> To get segments for given reservation Ids </summary>
         /// <param name="options"> Read InsightsSegments parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of InsightsSegments </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<InsightsSegmentsResource>> ReadAsync(ReadInsightsSegmentsOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -71,7 +71,7 @@ namespace Kandy.Rest.FlexApi.V1
             var page = Page<InsightsSegmentsResource>.FromJson("segments", response.Content);
             return new ResourceSet<InsightsSegmentsResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> To get segments for given reservation Ids </summary>
         /// <param name="authorization"> The Authorization HTTP request header </param>
         /// <param name="segmentId"> To unique id of the segment </param>
@@ -86,13 +86,13 @@ namespace Kandy.Rest.FlexApi.V1
                                                      List<string> reservationId = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadInsightsSegmentsOptions(){ Authorization = authorization, SegmentId = segmentId, ReservationId = reservationId, PageSize = pageSize, Limit = limit};
+            var options = new ReadInsightsSegmentsOptions() { Authorization = authorization, SegmentId = segmentId, ReservationId = reservationId, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> To get segments for given reservation Ids </summary>
         /// <param name="authorization"> The Authorization HTTP request header </param>
         /// <param name="segmentId"> To unique id of the segment </param>
@@ -107,19 +107,19 @@ namespace Kandy.Rest.FlexApi.V1
                                                                                              List<string> reservationId = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadInsightsSegmentsOptions(){ Authorization = authorization, SegmentId = segmentId, ReservationId = reservationId, PageSize = pageSize, Limit = limit};
+            var options = new ReadInsightsSegmentsOptions() { Authorization = authorization, SegmentId = segmentId, ReservationId = reservationId, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<InsightsSegmentsResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<InsightsSegmentsResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -136,7 +136,7 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<InsightsSegmentsResource> NextPage(Page<InsightsSegmentsResource> page, ITwilioRestClient client)
+        public static Page<InsightsSegmentsResource> NextPage(Page<InsightsSegmentsResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -151,7 +151,7 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<InsightsSegmentsResource> PreviousPage(Page<InsightsSegmentsResource> page, ITwilioRestClient client)
+        public static Page<InsightsSegmentsResource> PreviousPage(Page<InsightsSegmentsResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -162,7 +162,7 @@ namespace Kandy.Rest.FlexApi.V1
             return Page<InsightsSegmentsResource>.FromJson("segments", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a InsightsSegmentsResource object
         /// </summary>
@@ -180,7 +180,7 @@ namespace Kandy.Rest.FlexApi.V1
             }
         }
 
-    
+
         ///<summary> To unique id of the segment </summary> 
         [JsonProperty("segment_id")]
         public string SegmentId { get; private set; }
@@ -271,7 +271,8 @@ namespace Kandy.Rest.FlexApi.V1
 
 
 
-        private InsightsSegmentsResource() {
+        private InsightsSegmentsResource()
+        {
 
         }
     }

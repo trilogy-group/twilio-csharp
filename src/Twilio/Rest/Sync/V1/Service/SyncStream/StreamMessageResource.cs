@@ -28,18 +28,18 @@ namespace Kandy.Rest.Sync.V1.Service.SyncStream
 {
     public class StreamMessageResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateStreamMessageOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateStreamMessageOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Streams/{StreamSid}/Messages";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathStreamSid = options.PathStreamSid;
-            path = path.Replace("{"+"StreamSid"+"}", PathStreamSid);
+            path = path.Replace("{" + "StreamSid" + "}", PathStreamSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -54,26 +54,26 @@ namespace Kandy.Rest.Sync.V1.Service.SyncStream
         /// <param name="options"> Create StreamMessage parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of StreamMessage </returns>
-        public static StreamMessageResource Create(CreateStreamMessageOptions options, ITwilioRestClient client = null)
+        public static StreamMessageResource Create(CreateStreamMessageOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Stream Message. </summary>
         /// <param name="options"> Create StreamMessage parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of StreamMessage </returns>
         public static async System.Threading.Tasks.Task<StreamMessageResource> CreateAsync(CreateStreamMessageOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new Stream Message. </summary>
         /// <param name="pathServiceSid"> The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) to create the new Stream Message in. </param>
@@ -85,13 +85,13 @@ namespace Kandy.Rest.Sync.V1.Service.SyncStream
                                           string pathServiceSid,
                                           string pathStreamSid,
                                           object data,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateStreamMessageOptions(pathServiceSid, pathStreamSid, data){  };
+            var options = new CreateStreamMessageOptions(pathServiceSid, pathStreamSid, data) { };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Stream Message. </summary>
         /// <param name="pathServiceSid"> The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) to create the new Stream Message in. </param>
         /// <param name="pathStreamSid"> The SID of the Sync Stream to create the new Stream Message resource for. </param>
@@ -102,13 +102,13 @@ namespace Kandy.Rest.Sync.V1.Service.SyncStream
                                                                                   string pathServiceSid,
                                                                                   string pathStreamSid,
                                                                                   object data,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateStreamMessageOptions(pathServiceSid, pathStreamSid, data){  };
+            var options = new CreateStreamMessageOptions(pathServiceSid, pathStreamSid, data) { };
             return await CreateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a StreamMessageResource object
         /// </summary>
@@ -126,7 +126,7 @@ namespace Kandy.Rest.Sync.V1.Service.SyncStream
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the Stream Message resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -137,7 +137,8 @@ namespace Kandy.Rest.Sync.V1.Service.SyncStream
 
 
 
-        private StreamMessageResource() {
+        private StreamMessageResource()
+        {
 
         }
     }

@@ -28,12 +28,12 @@ namespace Kandy.Rest.Verify.V2
 {
     public class VerificationAttemptResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class ChannelsEnum : StringEnum
         {
-            private ChannelsEnum(string value) : base(value) {}
-            public ChannelsEnum() {}
+            private ChannelsEnum(string value) : base(value) { }
+            public ChannelsEnum() { }
             public static implicit operator ChannelsEnum(string value)
             {
                 return new ChannelsEnum(value);
@@ -47,8 +47,8 @@ namespace Kandy.Rest.Verify.V2
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class ConversionStatusEnum : StringEnum
         {
-            private ConversionStatusEnum(string value) : base(value) {}
-            public ConversionStatusEnum() {}
+            private ConversionStatusEnum(string value) : base(value) { }
+            public ConversionStatusEnum() { }
             public static implicit operator ConversionStatusEnum(string value)
             {
                 return new ConversionStatusEnum(value);
@@ -58,14 +58,14 @@ namespace Kandy.Rest.Verify.V2
 
         }
 
-        
-        private static Request BuildFetchRequest(FetchVerificationAttemptOptions options, ITwilioRestClient client)
+
+        private static Request BuildFetchRequest(FetchVerificationAttemptOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Attempts/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -80,53 +80,53 @@ namespace Kandy.Rest.Verify.V2
         /// <param name="options"> Fetch VerificationAttempt parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of VerificationAttempt </returns>
-        public static VerificationAttemptResource Fetch(FetchVerificationAttemptOptions options, ITwilioRestClient client = null)
+        public static VerificationAttemptResource Fetch(FetchVerificationAttemptOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific verification attempt. </summary>
         /// <param name="options"> Fetch VerificationAttempt parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of VerificationAttempt </returns>
         public static async System.Threading.Tasks.Task<VerificationAttemptResource> FetchAsync(FetchVerificationAttemptOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a specific verification attempt. </summary>
         /// <param name="pathSid"> The unique SID identifier of a Verification Attempt </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of VerificationAttempt </returns>
         public static VerificationAttemptResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchVerificationAttemptOptions(pathSid){  };
+            var options = new FetchVerificationAttemptOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific verification attempt. </summary>
         /// <param name="pathSid"> The unique SID identifier of a Verification Attempt </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of VerificationAttempt </returns>
-        public static async System.Threading.Tasks.Task<VerificationAttemptResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<VerificationAttemptResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchVerificationAttemptOptions(pathSid){  };
+            var options = new FetchVerificationAttemptOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadVerificationAttemptOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadVerificationAttemptOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Attempts";
 
 
@@ -142,7 +142,7 @@ namespace Kandy.Rest.Verify.V2
         /// <param name="options"> Read VerificationAttempt parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of VerificationAttempt </returns>
-        public static ResourceSet<VerificationAttemptResource> Read(ReadVerificationAttemptOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<VerificationAttemptResource> Read(ReadVerificationAttemptOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -150,13 +150,13 @@ namespace Kandy.Rest.Verify.V2
             return new ResourceSet<VerificationAttemptResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> List all the verification attempts for a given Account. </summary>
         /// <param name="options"> Read VerificationAttempt parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of VerificationAttempt </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<VerificationAttemptResource>> ReadAsync(ReadVerificationAttemptOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -164,7 +164,7 @@ namespace Kandy.Rest.Verify.V2
             var page = Page<VerificationAttemptResource>.FromJson("attempts", response.Content);
             return new ResourceSet<VerificationAttemptResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> List all the verification attempts for a given Account. </summary>
         /// <param name="dateCreatedAfter"> Datetime filter used to query Verification Attempts created after this datetime. Given as GMT in RFC 2822 format. </param>
         /// <param name="dateCreatedBefore"> Datetime filter used to query Verification Attempts created before this datetime. Given as GMT in RFC 2822 format. </param>
@@ -189,13 +189,13 @@ namespace Kandy.Rest.Verify.V2
                                                      VerificationAttemptResource.ConversionStatusEnum status = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadVerificationAttemptOptions(){ DateCreatedAfter = dateCreatedAfter, DateCreatedBefore = dateCreatedBefore, ChannelDataTo = channelDataTo, Country = country, Channel = channel, VerifyServiceSid = verifyServiceSid, VerificationSid = verificationSid, Status = status, PageSize = pageSize, Limit = limit};
+            var options = new ReadVerificationAttemptOptions() { DateCreatedAfter = dateCreatedAfter, DateCreatedBefore = dateCreatedBefore, ChannelDataTo = channelDataTo, Country = country, Channel = channel, VerifyServiceSid = verifyServiceSid, VerificationSid = verificationSid, Status = status, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> List all the verification attempts for a given Account. </summary>
         /// <param name="dateCreatedAfter"> Datetime filter used to query Verification Attempts created after this datetime. Given as GMT in RFC 2822 format. </param>
         /// <param name="dateCreatedBefore"> Datetime filter used to query Verification Attempts created before this datetime. Given as GMT in RFC 2822 format. </param>
@@ -220,19 +220,19 @@ namespace Kandy.Rest.Verify.V2
                                                                                              VerificationAttemptResource.ConversionStatusEnum status = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadVerificationAttemptOptions(){ DateCreatedAfter = dateCreatedAfter, DateCreatedBefore = dateCreatedBefore, ChannelDataTo = channelDataTo, Country = country, Channel = channel, VerifyServiceSid = verifyServiceSid, VerificationSid = verificationSid, Status = status, PageSize = pageSize, Limit = limit};
+            var options = new ReadVerificationAttemptOptions() { DateCreatedAfter = dateCreatedAfter, DateCreatedBefore = dateCreatedBefore, ChannelDataTo = channelDataTo, Country = country, Channel = channel, VerifyServiceSid = verifyServiceSid, VerificationSid = verificationSid, Status = status, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<VerificationAttemptResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<VerificationAttemptResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -249,7 +249,7 @@ namespace Kandy.Rest.Verify.V2
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<VerificationAttemptResource> NextPage(Page<VerificationAttemptResource> page, ITwilioRestClient client)
+        public static Page<VerificationAttemptResource> NextPage(Page<VerificationAttemptResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -264,7 +264,7 @@ namespace Kandy.Rest.Verify.V2
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<VerificationAttemptResource> PreviousPage(Page<VerificationAttemptResource> page, ITwilioRestClient client)
+        public static Page<VerificationAttemptResource> PreviousPage(Page<VerificationAttemptResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -275,7 +275,7 @@ namespace Kandy.Rest.Verify.V2
             return Page<VerificationAttemptResource>.FromJson("attempts", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a VerificationAttemptResource object
         /// </summary>
@@ -293,7 +293,7 @@ namespace Kandy.Rest.Verify.V2
             }
         }
 
-    
+
         ///<summary> The SID that uniquely identifies the verification attempt resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -318,11 +318,11 @@ namespace Kandy.Rest.Verify.V2
         [JsonProperty("date_updated")]
         public DateTime? DateUpdated { get; private set; }
 
-        
+
         [JsonProperty("conversion_status")]
         public VerificationAttemptResource.ConversionStatusEnum ConversionStatus { get; private set; }
 
-        
+
         [JsonProperty("channel")]
         public VerificationAttemptResource.ChannelsEnum Channel { get; private set; }
 
@@ -340,7 +340,8 @@ namespace Kandy.Rest.Verify.V2
 
 
 
-        private VerificationAttemptResource() {
+        private VerificationAttemptResource()
+        {
 
         }
     }

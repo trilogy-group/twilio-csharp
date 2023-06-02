@@ -28,12 +28,12 @@ namespace Kandy.Rest.Api.V2010
 {
     public class AccountResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class StatusEnum : StringEnum
         {
-            private StatusEnum(string value) : base(value) {}
-            public StatusEnum() {}
+            private StatusEnum(string value) : base(value) { }
+            public StatusEnum() { }
             public static implicit operator StatusEnum(string value)
             {
                 return new StatusEnum(value);
@@ -46,8 +46,8 @@ namespace Kandy.Rest.Api.V2010
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class TypeEnum : StringEnum
         {
-            private TypeEnum(string value) : base(value) {}
-            public TypeEnum() {}
+            private TypeEnum(string value) : base(value) { }
+            public TypeEnum() { }
             public static implicit operator TypeEnum(string value)
             {
                 return new TypeEnum(value);
@@ -57,10 +57,10 @@ namespace Kandy.Rest.Api.V2010
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateAccountOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateAccountOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts.json";
 
 
@@ -77,26 +77,26 @@ namespace Kandy.Rest.Api.V2010
         /// <param name="options"> Create Account parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Account </returns>
-        public static AccountResource Create(CreateAccountOptions options, ITwilioRestClient client = null)
+        public static AccountResource Create(CreateAccountOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Twilio Subaccount from the account making the request </summary>
         /// <param name="options"> Create Account parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Account </returns>
         public static async System.Threading.Tasks.Task<AccountResource> CreateAsync(CreateAccountOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new Twilio Subaccount from the account making the request </summary>
         /// <param name="friendlyName"> A human readable description of the account to create, defaults to `SubAccount Created at {YYYY-MM-DD HH:MM meridian}` </param>
@@ -104,33 +104,33 @@ namespace Kandy.Rest.Api.V2010
         /// <returns> A single instance of Account </returns>
         public static AccountResource Create(
                                           string friendlyName = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateAccountOptions(){  FriendlyName = friendlyName };
+            var options = new CreateAccountOptions() { FriendlyName = friendlyName };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Twilio Subaccount from the account making the request </summary>
         /// <param name="friendlyName"> A human readable description of the account to create, defaults to `SubAccount Created at {YYYY-MM-DD HH:MM meridian}` </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Account </returns>
         public static async System.Threading.Tasks.Task<AccountResource> CreateAsync(
                                                                                   string friendlyName = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateAccountOptions(){  FriendlyName = friendlyName };
+            var options = new CreateAccountOptions() { FriendlyName = friendlyName };
             return await CreateAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchAccountOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchAccountOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{Sid}.json";
 
             string PathSid = options.PathSid ?? client.AccountSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -145,53 +145,53 @@ namespace Kandy.Rest.Api.V2010
         /// <param name="options"> Fetch Account parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Account </returns>
-        public static AccountResource Fetch(FetchAccountOptions options, ITwilioRestClient client = null)
+        public static AccountResource Fetch(FetchAccountOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch the account specified by the provided Account Sid </summary>
         /// <param name="options"> Fetch Account parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Account </returns>
         public static async System.Threading.Tasks.Task<AccountResource> FetchAsync(FetchAccountOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch the account specified by the provided Account Sid </summary>
         /// <param name="pathSid"> The Account Sid that uniquely identifies the account to fetch </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Account </returns>
         public static AccountResource Fetch(
-                                         string pathSid = null, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid = null,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchAccountOptions(){ PathSid = pathSid };
+            var options = new FetchAccountOptions() { PathSid = pathSid };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch the account specified by the provided Account Sid </summary>
         /// <param name="pathSid"> The Account Sid that uniquely identifies the account to fetch </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Account </returns>
-        public static async System.Threading.Tasks.Task<AccountResource> FetchAsync(string pathSid = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<AccountResource> FetchAsync(string pathSid = null, IKandyRestClient client = null)
         {
-            var options = new FetchAccountOptions(){ PathSid = pathSid };
+            var options = new FetchAccountOptions() { PathSid = pathSid };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadAccountOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadAccountOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts.json";
 
 
@@ -207,7 +207,7 @@ namespace Kandy.Rest.Api.V2010
         /// <param name="options"> Read Account parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Account </returns>
-        public static ResourceSet<AccountResource> Read(ReadAccountOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<AccountResource> Read(ReadAccountOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -215,13 +215,13 @@ namespace Kandy.Rest.Api.V2010
             return new ResourceSet<AccountResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieves a collection of Accounts belonging to the account used to make the request </summary>
         /// <param name="options"> Read Account parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Account </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<AccountResource>> ReadAsync(ReadAccountOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -229,7 +229,7 @@ namespace Kandy.Rest.Api.V2010
             var page = Page<AccountResource>.FromJson("accounts", response.Content);
             return new ResourceSet<AccountResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieves a collection of Accounts belonging to the account used to make the request </summary>
         /// <param name="friendlyName"> Only return the Account resources with friendly names that exactly match this name. </param>
         /// <param name="status"> Only return Account resources with the given status. Can be `closed`, `suspended` or `active`. </param>
@@ -242,13 +242,13 @@ namespace Kandy.Rest.Api.V2010
                                                      AccountResource.StatusEnum status = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadAccountOptions(){ FriendlyName = friendlyName, Status = status, PageSize = pageSize, Limit = limit};
+            var options = new ReadAccountOptions() { FriendlyName = friendlyName, Status = status, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieves a collection of Accounts belonging to the account used to make the request </summary>
         /// <param name="friendlyName"> Only return the Account resources with friendly names that exactly match this name. </param>
         /// <param name="status"> Only return Account resources with the given status. Can be `closed`, `suspended` or `active`. </param>
@@ -261,19 +261,19 @@ namespace Kandy.Rest.Api.V2010
                                                                                              AccountResource.StatusEnum status = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadAccountOptions(){ FriendlyName = friendlyName, Status = status, PageSize = pageSize, Limit = limit};
+            var options = new ReadAccountOptions() { FriendlyName = friendlyName, Status = status, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<AccountResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<AccountResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -290,7 +290,7 @@ namespace Kandy.Rest.Api.V2010
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<AccountResource> NextPage(Page<AccountResource> page, ITwilioRestClient client)
+        public static Page<AccountResource> NextPage(Page<AccountResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -305,7 +305,7 @@ namespace Kandy.Rest.Api.V2010
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<AccountResource> PreviousPage(Page<AccountResource> page, ITwilioRestClient client)
+        public static Page<AccountResource> PreviousPage(Page<AccountResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -316,14 +316,14 @@ namespace Kandy.Rest.Api.V2010
             return Page<AccountResource>.FromJson("accounts", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateAccountOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateAccountOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{Sid}.json";
 
             string PathSid = options.PathSid ?? client.AccountSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -338,7 +338,7 @@ namespace Kandy.Rest.Api.V2010
         /// <param name="options"> Update Account parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Account </returns>
-        public static AccountResource Update(UpdateAccountOptions options, ITwilioRestClient client = null)
+        public static AccountResource Update(UpdateAccountOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -349,15 +349,15 @@ namespace Kandy.Rest.Api.V2010
         /// <param name="options"> Update Account parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Account </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<AccountResource> UpdateAsync(UpdateAccountOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Modify the properties of a given Account </summary>
         /// <param name="pathSid"> The Account Sid that uniquely identifies the account to update </param>
@@ -369,13 +369,13 @@ namespace Kandy.Rest.Api.V2010
                                           string pathSid = null,
                                           string friendlyName = null,
                                           AccountResource.StatusEnum status = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateAccountOptions(){ PathSid = pathSid, FriendlyName = friendlyName, Status = status };
+            var options = new UpdateAccountOptions() { PathSid = pathSid, FriendlyName = friendlyName, Status = status };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Modify the properties of a given Account </summary>
         /// <param name="pathSid"> The Account Sid that uniquely identifies the account to update </param>
         /// <param name="friendlyName"> Update the human-readable description of this Account </param>
@@ -386,13 +386,13 @@ namespace Kandy.Rest.Api.V2010
                                                                               string pathSid = null,
                                                                               string friendlyName = null,
                                                                               AccountResource.StatusEnum status = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateAccountOptions(){ PathSid = pathSid, FriendlyName = friendlyName, Status = status };
+            var options = new UpdateAccountOptions() { PathSid = pathSid, FriendlyName = friendlyName, Status = status };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a AccountResource object
         /// </summary>
@@ -410,7 +410,7 @@ namespace Kandy.Rest.Api.V2010
             }
         }
 
-    
+
         ///<summary> The authorization token for this account. This token should be kept a secret, so no sharing. </summary> 
         [JsonProperty("auth_token")]
         public string AuthToken { get; private set; }
@@ -435,7 +435,7 @@ namespace Kandy.Rest.Api.V2010
         [JsonProperty("sid")]
         public string Sid { get; private set; }
 
-        
+
         [JsonProperty("status")]
         public AccountResource.StatusEnum Status { get; private set; }
 
@@ -443,7 +443,7 @@ namespace Kandy.Rest.Api.V2010
         [JsonProperty("subresource_uris")]
         public Dictionary<string, string> SubresourceUris { get; private set; }
 
-        
+
         [JsonProperty("type")]
         public AccountResource.TypeEnum Type { get; private set; }
 
@@ -453,7 +453,8 @@ namespace Kandy.Rest.Api.V2010
 
 
 
-        private AccountResource() {
+        private AccountResource()
+        {
 
         }
     }

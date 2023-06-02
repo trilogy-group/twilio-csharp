@@ -28,11 +28,11 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
 {
     public class MessageResource : Resource
     {
-    
+
         public sealed class WebhookEnabledTypeEnum : StringEnum
         {
-            private WebhookEnabledTypeEnum(string value) : base(value) {}
-            public WebhookEnabledTypeEnum() {}
+            private WebhookEnabledTypeEnum(string value) : base(value) { }
+            public WebhookEnabledTypeEnum() { }
             public static implicit operator WebhookEnabledTypeEnum(string value)
             {
                 return new WebhookEnabledTypeEnum(value);
@@ -43,8 +43,8 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
         }
         public sealed class OrderTypeEnum : StringEnum
         {
-            private OrderTypeEnum(string value) : base(value) {}
-            public OrderTypeEnum() {}
+            private OrderTypeEnum(string value) : base(value) { }
+            public OrderTypeEnum() { }
             public static implicit operator OrderTypeEnum(string value)
             {
                 return new OrderTypeEnum(value);
@@ -54,16 +54,16 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateMessageOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateMessageOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathChannelSid = options.PathChannelSid;
-            path = path.Replace("{"+"ChannelSid"+"}", PathChannelSid);
+            path = path.Replace("{" + "ChannelSid" + "}", PathChannelSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -78,26 +78,26 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
         /// <param name="options"> Create Message parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Message </returns>
-        public static MessageResource Create(CreateMessageOptions options, ITwilioRestClient client = null)
+        public static MessageResource Create(CreateMessageOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create Message parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Message </returns>
         public static async System.Threading.Tasks.Task<MessageResource> CreateAsync(CreateMessageOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="pathServiceSid">  </param>
@@ -123,13 +123,13 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
                                           string body = null,
                                           string mediaSid = null,
                                           MessageResource.WebhookEnabledTypeEnum xTwilioWebhookEnabled = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateMessageOptions(pathServiceSid, pathChannelSid){  From = from, Attributes = attributes, DateCreated = dateCreated, DateUpdated = dateUpdated, LastUpdatedBy = lastUpdatedBy, Body = body, MediaSid = mediaSid, XTwilioWebhookEnabled = xTwilioWebhookEnabled };
+            var options = new CreateMessageOptions(pathServiceSid, pathChannelSid) { From = from, Attributes = attributes, DateCreated = dateCreated, DateUpdated = dateUpdated, LastUpdatedBy = lastUpdatedBy, Body = body, MediaSid = mediaSid, XTwilioWebhookEnabled = xTwilioWebhookEnabled };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="pathServiceSid">  </param>
         /// <param name="pathChannelSid">  </param>
@@ -154,28 +154,28 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
                                                                                   string body = null,
                                                                                   string mediaSid = null,
                                                                                   MessageResource.WebhookEnabledTypeEnum xTwilioWebhookEnabled = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateMessageOptions(pathServiceSid, pathChannelSid){  From = from, Attributes = attributes, DateCreated = dateCreated, DateUpdated = dateUpdated, LastUpdatedBy = lastUpdatedBy, Body = body, MediaSid = mediaSid, XTwilioWebhookEnabled = xTwilioWebhookEnabled };
+            var options = new CreateMessageOptions(pathServiceSid, pathChannelSid) { From = from, Attributes = attributes, DateCreated = dateCreated, DateUpdated = dateUpdated, LastUpdatedBy = lastUpdatedBy, Body = body, MediaSid = mediaSid, XTwilioWebhookEnabled = xTwilioWebhookEnabled };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> delete </summary>
         /// <param name="options"> Delete Message parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Message </returns>
-        private static Request BuildDeleteRequest(DeleteMessageOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteMessageOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathChannelSid = options.PathChannelSid;
-            path = path.Replace("{"+"ChannelSid"+"}", PathChannelSid);
+            path = path.Replace("{" + "ChannelSid" + "}", PathChannelSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -190,26 +190,26 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
         /// <param name="options"> Delete Message parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Message </returns>
-        public static bool Delete(DeleteMessageOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteMessageOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="options"> Delete Message parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Message </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteMessageOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> delete </summary>
         /// <param name="pathServiceSid">  </param>
@@ -218,13 +218,13 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
         /// <param name="xTwilioWebhookEnabled"> The X-Twilio-Webhook-Enabled HTTP request header </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Message </returns>
-        public static bool Delete(string pathServiceSid, string pathChannelSid, string pathSid, MessageResource.WebhookEnabledTypeEnum xTwilioWebhookEnabled = null, ITwilioRestClient client = null)
+        public static bool Delete(string pathServiceSid, string pathChannelSid, string pathSid, MessageResource.WebhookEnabledTypeEnum xTwilioWebhookEnabled = null, IKandyRestClient client = null)
         {
-            var options = new DeleteMessageOptions(pathServiceSid, pathChannelSid, pathSid)            { XTwilioWebhookEnabled = xTwilioWebhookEnabled }   ;
+            var options = new DeleteMessageOptions(pathServiceSid, pathChannelSid, pathSid) { XTwilioWebhookEnabled = xTwilioWebhookEnabled };
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="pathServiceSid">  </param>
         /// <param name="pathChannelSid">  </param>
@@ -232,24 +232,24 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
         /// <param name="xTwilioWebhookEnabled"> The X-Twilio-Webhook-Enabled HTTP request header </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Message </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathChannelSid, string pathSid, MessageResource.WebhookEnabledTypeEnum xTwilioWebhookEnabled = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathChannelSid, string pathSid, MessageResource.WebhookEnabledTypeEnum xTwilioWebhookEnabled = null, IKandyRestClient client = null)
         {
-            var options = new DeleteMessageOptions(pathServiceSid, pathChannelSid, pathSid)  { XTwilioWebhookEnabled = xTwilioWebhookEnabled };
+            var options = new DeleteMessageOptions(pathServiceSid, pathChannelSid, pathSid) { XTwilioWebhookEnabled = xTwilioWebhookEnabled };
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchMessageOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchMessageOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathChannelSid = options.PathChannelSid;
-            path = path.Replace("{"+"ChannelSid"+"}", PathChannelSid);
+            path = path.Replace("{" + "ChannelSid" + "}", PathChannelSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -264,26 +264,26 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
         /// <param name="options"> Fetch Message parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Message </returns>
-        public static MessageResource Fetch(FetchMessageOptions options, ITwilioRestClient client = null)
+        public static MessageResource Fetch(FetchMessageOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch Message parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Message </returns>
         public static async System.Threading.Tasks.Task<MessageResource> FetchAsync(FetchMessageOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathServiceSid">  </param>
         /// <param name="pathChannelSid">  </param>
@@ -291,38 +291,38 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Message </returns>
         public static MessageResource Fetch(
-                                         string pathServiceSid, 
-                                         string pathChannelSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathServiceSid,
+                                         string pathChannelSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchMessageOptions(pathServiceSid, pathChannelSid, pathSid){  };
+            var options = new FetchMessageOptions(pathServiceSid, pathChannelSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathServiceSid">  </param>
         /// <param name="pathChannelSid">  </param>
         /// <param name="pathSid">  </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Message </returns>
-        public static async System.Threading.Tasks.Task<MessageResource> FetchAsync(string pathServiceSid, string pathChannelSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<MessageResource> FetchAsync(string pathServiceSid, string pathChannelSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchMessageOptions(pathServiceSid, pathChannelSid, pathSid){  };
+            var options = new FetchMessageOptions(pathServiceSid, pathChannelSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadMessageOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadMessageOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathChannelSid = options.PathChannelSid;
-            path = path.Replace("{"+"ChannelSid"+"}", PathChannelSid);
+            path = path.Replace("{" + "ChannelSid" + "}", PathChannelSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -336,7 +336,7 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
         /// <param name="options"> Read Message parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Message </returns>
-        public static ResourceSet<MessageResource> Read(ReadMessageOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<MessageResource> Read(ReadMessageOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -344,13 +344,13 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
             return new ResourceSet<MessageResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read Message parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Message </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<MessageResource>> ReadAsync(ReadMessageOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -358,7 +358,7 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
             var page = Page<MessageResource>.FromJson("messages", response.Content);
             return new ResourceSet<MessageResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="pathServiceSid">  </param>
         /// <param name="pathChannelSid">  </param>
@@ -373,13 +373,13 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
                                                      MessageResource.OrderTypeEnum order = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadMessageOptions(pathServiceSid, pathChannelSid){ Order = order, PageSize = pageSize, Limit = limit};
+            var options = new ReadMessageOptions(pathServiceSid, pathChannelSid) { Order = order, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="pathServiceSid">  </param>
         /// <param name="pathChannelSid">  </param>
@@ -394,19 +394,19 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
                                                                                              MessageResource.OrderTypeEnum order = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadMessageOptions(pathServiceSid, pathChannelSid){ Order = order, PageSize = pageSize, Limit = limit};
+            var options = new ReadMessageOptions(pathServiceSid, pathChannelSid) { Order = order, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<MessageResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<MessageResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -423,7 +423,7 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<MessageResource> NextPage(Page<MessageResource> page, ITwilioRestClient client)
+        public static Page<MessageResource> NextPage(Page<MessageResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -438,7 +438,7 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<MessageResource> PreviousPage(Page<MessageResource> page, ITwilioRestClient client)
+        public static Page<MessageResource> PreviousPage(Page<MessageResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -449,18 +449,18 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
             return Page<MessageResource>.FromJson("messages", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateMessageOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateMessageOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathChannelSid = options.PathChannelSid;
-            path = path.Replace("{"+"ChannelSid"+"}", PathChannelSid);
+            path = path.Replace("{" + "ChannelSid" + "}", PathChannelSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -475,7 +475,7 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
         /// <param name="options"> Update Message parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Message </returns>
-        public static MessageResource Update(UpdateMessageOptions options, ITwilioRestClient client = null)
+        public static MessageResource Update(UpdateMessageOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -486,15 +486,15 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
         /// <param name="options"> Update Message parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Message </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<MessageResource> UpdateAsync(UpdateMessageOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> update </summary>
         /// <param name="pathServiceSid">  </param>
@@ -520,13 +520,13 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
                                           string lastUpdatedBy = null,
                                           string from = null,
                                           MessageResource.WebhookEnabledTypeEnum xTwilioWebhookEnabled = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateMessageOptions(pathServiceSid, pathChannelSid, pathSid){ Body = body, Attributes = attributes, DateCreated = dateCreated, DateUpdated = dateUpdated, LastUpdatedBy = lastUpdatedBy, From = from, XTwilioWebhookEnabled = xTwilioWebhookEnabled };
+            var options = new UpdateMessageOptions(pathServiceSid, pathChannelSid, pathSid) { Body = body, Attributes = attributes, DateCreated = dateCreated, DateUpdated = dateUpdated, LastUpdatedBy = lastUpdatedBy, From = from, XTwilioWebhookEnabled = xTwilioWebhookEnabled };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> update </summary>
         /// <param name="pathServiceSid">  </param>
         /// <param name="pathChannelSid">  </param>
@@ -551,13 +551,13 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
                                                                               string lastUpdatedBy = null,
                                                                               string from = null,
                                                                               MessageResource.WebhookEnabledTypeEnum xTwilioWebhookEnabled = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateMessageOptions(pathServiceSid, pathChannelSid, pathSid){ Body = body, Attributes = attributes, DateCreated = dateCreated, DateUpdated = dateUpdated, LastUpdatedBy = lastUpdatedBy, From = from, XTwilioWebhookEnabled = xTwilioWebhookEnabled };
+            var options = new UpdateMessageOptions(pathServiceSid, pathChannelSid, pathSid) { Body = body, Attributes = attributes, DateCreated = dateCreated, DateUpdated = dateUpdated, LastUpdatedBy = lastUpdatedBy, From = from, XTwilioWebhookEnabled = xTwilioWebhookEnabled };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a MessageResource object
         /// </summary>
@@ -575,7 +575,7 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
             }
         }
 
-    
+
         ///<summary> The sid </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -642,7 +642,8 @@ namespace Kandy.Rest.IpMessaging.V2.Service.Channel
 
 
 
-        private MessageResource() {
+        private MessageResource()
+        {
 
         }
     }

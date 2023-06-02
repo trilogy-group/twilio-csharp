@@ -28,12 +28,12 @@ namespace Kandy.Rest.Messaging.V1
 {
     public class ExternalCampaignResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateExternalCampaignOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateExternalCampaignOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/PreregisteredUsa2p";
 
 
@@ -50,26 +50,26 @@ namespace Kandy.Rest.Messaging.V1
         /// <param name="options"> Create ExternalCampaign parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ExternalCampaign </returns>
-        public static ExternalCampaignResource Create(CreateExternalCampaignOptions options, ITwilioRestClient client = null)
+        public static ExternalCampaignResource Create(CreateExternalCampaignOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create ExternalCampaign parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ExternalCampaign </returns>
         public static async System.Threading.Tasks.Task<ExternalCampaignResource> CreateAsync(CreateExternalCampaignOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="campaignId"> ID of the preregistered campaign. </param>
@@ -79,13 +79,13 @@ namespace Kandy.Rest.Messaging.V1
         public static ExternalCampaignResource Create(
                                           string campaignId,
                                           string messagingServiceSid,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateExternalCampaignOptions(campaignId, messagingServiceSid){  };
+            var options = new CreateExternalCampaignOptions(campaignId, messagingServiceSid) { };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="campaignId"> ID of the preregistered campaign. </param>
         /// <param name="messagingServiceSid"> The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) that the resource is associated with. </param>
@@ -94,13 +94,13 @@ namespace Kandy.Rest.Messaging.V1
         public static async System.Threading.Tasks.Task<ExternalCampaignResource> CreateAsync(
                                                                                   string campaignId,
                                                                                   string messagingServiceSid,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateExternalCampaignOptions(campaignId, messagingServiceSid){  };
+            var options = new CreateExternalCampaignOptions(campaignId, messagingServiceSid) { };
             return await CreateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a ExternalCampaignResource object
         /// </summary>
@@ -118,7 +118,7 @@ namespace Kandy.Rest.Messaging.V1
             }
         }
 
-    
+
         ///<summary> The unique string that identifies a US A2P Compliance resource `QE2c6890da8086d771620e9b13fadeba0b`. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -141,7 +141,8 @@ namespace Kandy.Rest.Messaging.V1
 
 
 
-        private ExternalCampaignResource() {
+        private ExternalCampaignResource()
+        {
 
         }
     }

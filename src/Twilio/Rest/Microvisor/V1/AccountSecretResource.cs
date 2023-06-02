@@ -28,12 +28,12 @@ namespace Kandy.Rest.Microvisor.V1
 {
     public class AccountSecretResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateAccountSecretOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateAccountSecretOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Secrets";
 
 
@@ -50,26 +50,26 @@ namespace Kandy.Rest.Microvisor.V1
         /// <param name="options"> Create AccountSecret parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AccountSecret </returns>
-        public static AccountSecretResource Create(CreateAccountSecretOptions options, ITwilioRestClient client = null)
+        public static AccountSecretResource Create(CreateAccountSecretOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a secret for an Account. </summary>
         /// <param name="options"> Create AccountSecret parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AccountSecret </returns>
         public static async System.Threading.Tasks.Task<AccountSecretResource> CreateAsync(CreateAccountSecretOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a secret for an Account. </summary>
         /// <param name="key"> The secret key; up to 100 characters. </param>
@@ -79,13 +79,13 @@ namespace Kandy.Rest.Microvisor.V1
         public static AccountSecretResource Create(
                                           string key,
                                           string value,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateAccountSecretOptions(key, value){  };
+            var options = new CreateAccountSecretOptions(key, value) { };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a secret for an Account. </summary>
         /// <param name="key"> The secret key; up to 100 characters. </param>
         /// <param name="value"> The secret value; up to 4096 characters. </param>
@@ -94,24 +94,24 @@ namespace Kandy.Rest.Microvisor.V1
         public static async System.Threading.Tasks.Task<AccountSecretResource> CreateAsync(
                                                                                   string key,
                                                                                   string value,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateAccountSecretOptions(key, value){  };
+            var options = new CreateAccountSecretOptions(key, value) { };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Delete a secret for an Account. </summary>
         /// <param name="options"> Delete AccountSecret parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AccountSecret </returns>
-        private static Request BuildDeleteRequest(DeleteAccountSecretOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteAccountSecretOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Secrets/{Key}";
 
             string PathKey = options.PathKey;
-            path = path.Replace("{"+"Key"+"}", PathKey);
+            path = path.Replace("{" + "Key" + "}", PathKey);
 
             return new Request(
                 HttpMethod.Delete,
@@ -126,56 +126,56 @@ namespace Kandy.Rest.Microvisor.V1
         /// <param name="options"> Delete AccountSecret parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AccountSecret </returns>
-        public static bool Delete(DeleteAccountSecretOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteAccountSecretOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a secret for an Account. </summary>
         /// <param name="options"> Delete AccountSecret parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AccountSecret </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteAccountSecretOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete a secret for an Account. </summary>
         /// <param name="pathKey"> The secret key; up to 100 characters. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AccountSecret </returns>
-        public static bool Delete(string pathKey, ITwilioRestClient client = null)
+        public static bool Delete(string pathKey, IKandyRestClient client = null)
         {
-            var options = new DeleteAccountSecretOptions(pathKey)     ;
+            var options = new DeleteAccountSecretOptions(pathKey);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a secret for an Account. </summary>
         /// <param name="pathKey"> The secret key; up to 100 characters. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AccountSecret </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathKey, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathKey, IKandyRestClient client = null)
         {
-            var options = new DeleteAccountSecretOptions(pathKey) ;
+            var options = new DeleteAccountSecretOptions(pathKey);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchAccountSecretOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchAccountSecretOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Secrets/{Key}";
 
             string PathKey = options.PathKey;
-            path = path.Replace("{"+"Key"+"}", PathKey);
+            path = path.Replace("{" + "Key" + "}", PathKey);
 
             return new Request(
                 HttpMethod.Get,
@@ -190,53 +190,53 @@ namespace Kandy.Rest.Microvisor.V1
         /// <param name="options"> Fetch AccountSecret parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AccountSecret </returns>
-        public static AccountSecretResource Fetch(FetchAccountSecretOptions options, ITwilioRestClient client = null)
+        public static AccountSecretResource Fetch(FetchAccountSecretOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a Secret for an Account. </summary>
         /// <param name="options"> Fetch AccountSecret parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AccountSecret </returns>
         public static async System.Threading.Tasks.Task<AccountSecretResource> FetchAsync(FetchAccountSecretOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Retrieve a Secret for an Account. </summary>
         /// <param name="pathKey"> The secret key; up to 100 characters. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AccountSecret </returns>
         public static AccountSecretResource Fetch(
-                                         string pathKey, 
-                                         ITwilioRestClient client = null)
+                                         string pathKey,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchAccountSecretOptions(pathKey){  };
+            var options = new FetchAccountSecretOptions(pathKey) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a Secret for an Account. </summary>
         /// <param name="pathKey"> The secret key; up to 100 characters. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AccountSecret </returns>
-        public static async System.Threading.Tasks.Task<AccountSecretResource> FetchAsync(string pathKey, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<AccountSecretResource> FetchAsync(string pathKey, IKandyRestClient client = null)
         {
-            var options = new FetchAccountSecretOptions(pathKey){  };
+            var options = new FetchAccountSecretOptions(pathKey) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadAccountSecretOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadAccountSecretOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Secrets";
 
 
@@ -252,7 +252,7 @@ namespace Kandy.Rest.Microvisor.V1
         /// <param name="options"> Read AccountSecret parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AccountSecret </returns>
-        public static ResourceSet<AccountSecretResource> Read(ReadAccountSecretOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<AccountSecretResource> Read(ReadAccountSecretOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -260,13 +260,13 @@ namespace Kandy.Rest.Microvisor.V1
             return new ResourceSet<AccountSecretResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Secrets for an Account. </summary>
         /// <param name="options"> Read AccountSecret parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AccountSecret </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<AccountSecretResource>> ReadAsync(ReadAccountSecretOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -274,7 +274,7 @@ namespace Kandy.Rest.Microvisor.V1
             var page = Page<AccountSecretResource>.FromJson("secrets", response.Content);
             return new ResourceSet<AccountSecretResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Secrets for an Account. </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -283,13 +283,13 @@ namespace Kandy.Rest.Microvisor.V1
         public static ResourceSet<AccountSecretResource> Read(
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadAccountSecretOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadAccountSecretOptions() { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Secrets for an Account. </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -298,19 +298,19 @@ namespace Kandy.Rest.Microvisor.V1
         public static async System.Threading.Tasks.Task<ResourceSet<AccountSecretResource>> ReadAsync(
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadAccountSecretOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadAccountSecretOptions() { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<AccountSecretResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<AccountSecretResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -327,7 +327,7 @@ namespace Kandy.Rest.Microvisor.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<AccountSecretResource> NextPage(Page<AccountSecretResource> page, ITwilioRestClient client)
+        public static Page<AccountSecretResource> NextPage(Page<AccountSecretResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -342,7 +342,7 @@ namespace Kandy.Rest.Microvisor.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<AccountSecretResource> PreviousPage(Page<AccountSecretResource> page, ITwilioRestClient client)
+        public static Page<AccountSecretResource> PreviousPage(Page<AccountSecretResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -353,14 +353,14 @@ namespace Kandy.Rest.Microvisor.V1
             return Page<AccountSecretResource>.FromJson("secrets", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateAccountSecretOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateAccountSecretOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Secrets/{Key}";
 
             string PathKey = options.PathKey;
-            path = path.Replace("{"+"Key"+"}", PathKey);
+            path = path.Replace("{" + "Key" + "}", PathKey);
 
             return new Request(
                 HttpMethod.Post,
@@ -375,7 +375,7 @@ namespace Kandy.Rest.Microvisor.V1
         /// <param name="options"> Update AccountSecret parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AccountSecret </returns>
-        public static AccountSecretResource Update(UpdateAccountSecretOptions options, ITwilioRestClient client = null)
+        public static AccountSecretResource Update(UpdateAccountSecretOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -386,15 +386,15 @@ namespace Kandy.Rest.Microvisor.V1
         /// <param name="options"> Update AccountSecret parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AccountSecret </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<AccountSecretResource> UpdateAsync(UpdateAccountSecretOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update a secret for an Account. </summary>
         /// <param name="pathKey"> The secret key; up to 100 characters. </param>
@@ -404,13 +404,13 @@ namespace Kandy.Rest.Microvisor.V1
         public static AccountSecretResource Update(
                                           string pathKey,
                                           string value,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateAccountSecretOptions(pathKey, value){  };
+            var options = new UpdateAccountSecretOptions(pathKey, value) { };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update a secret for an Account. </summary>
         /// <param name="pathKey"> The secret key; up to 100 characters. </param>
         /// <param name="value"> The secret value; up to 4096 characters. </param>
@@ -419,13 +419,13 @@ namespace Kandy.Rest.Microvisor.V1
         public static async System.Threading.Tasks.Task<AccountSecretResource> UpdateAsync(
                                                                               string pathKey,
                                                                               string value,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateAccountSecretOptions(pathKey, value){  };
+            var options = new UpdateAccountSecretOptions(pathKey, value) { };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a AccountSecretResource object
         /// </summary>
@@ -443,7 +443,7 @@ namespace Kandy.Rest.Microvisor.V1
             }
         }
 
-    
+
         ///<summary> The secret key; up to 100 characters. </summary> 
         [JsonProperty("key")]
         public string Key { get; private set; }
@@ -458,7 +458,8 @@ namespace Kandy.Rest.Microvisor.V1
 
 
 
-        private AccountSecretResource() {
+        private AccountSecretResource()
+        {
 
         }
     }

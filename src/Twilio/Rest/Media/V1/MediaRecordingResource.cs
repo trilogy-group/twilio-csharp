@@ -28,12 +28,12 @@ namespace Kandy.Rest.Media.V1
 {
     public class MediaRecordingResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class StatusEnum : StringEnum
         {
-            private StatusEnum(string value) : base(value) {}
-            public StatusEnum() {}
+            private StatusEnum(string value) : base(value) { }
+            public StatusEnum() { }
             public static implicit operator StatusEnum(string value)
             {
                 return new StatusEnum(value);
@@ -47,8 +47,8 @@ namespace Kandy.Rest.Media.V1
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class FormatEnum : StringEnum
         {
-            private FormatEnum(string value) : base(value) {}
-            public FormatEnum() {}
+            private FormatEnum(string value) : base(value) { }
+            public FormatEnum() { }
             public static implicit operator FormatEnum(string value)
             {
                 return new FormatEnum(value);
@@ -59,8 +59,8 @@ namespace Kandy.Rest.Media.V1
         }
         public sealed class OrderEnum : StringEnum
         {
-            private OrderEnum(string value) : base(value) {}
-            public OrderEnum() {}
+            private OrderEnum(string value) : base(value) { }
+            public OrderEnum() { }
             public static implicit operator OrderEnum(string value)
             {
                 return new OrderEnum(value);
@@ -70,18 +70,18 @@ namespace Kandy.Rest.Media.V1
 
         }
 
-        
+
         /// <summary> Deletes a MediaRecording resource identified by a SID. </summary>
         /// <param name="options"> Delete MediaRecording parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of MediaRecording </returns>
-        private static Request BuildDeleteRequest(DeleteMediaRecordingOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteMediaRecordingOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/MediaRecordings/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -96,56 +96,56 @@ namespace Kandy.Rest.Media.V1
         /// <param name="options"> Delete MediaRecording parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of MediaRecording </returns>
-        public static bool Delete(DeleteMediaRecordingOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteMediaRecordingOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Deletes a MediaRecording resource identified by a SID. </summary>
         /// <param name="options"> Delete MediaRecording parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of MediaRecording </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteMediaRecordingOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Deletes a MediaRecording resource identified by a SID. </summary>
         /// <param name="pathSid"> The SID of the MediaRecording resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of MediaRecording </returns>
-        public static bool Delete(string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteMediaRecordingOptions(pathSid)     ;
+            var options = new DeleteMediaRecordingOptions(pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Deletes a MediaRecording resource identified by a SID. </summary>
         /// <param name="pathSid"> The SID of the MediaRecording resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of MediaRecording </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteMediaRecordingOptions(pathSid) ;
+            var options = new DeleteMediaRecordingOptions(pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchMediaRecordingOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchMediaRecordingOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/MediaRecordings/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -160,53 +160,53 @@ namespace Kandy.Rest.Media.V1
         /// <param name="options"> Fetch MediaRecording parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of MediaRecording </returns>
-        public static MediaRecordingResource Fetch(FetchMediaRecordingOptions options, ITwilioRestClient client = null)
+        public static MediaRecordingResource Fetch(FetchMediaRecordingOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Returns a single MediaRecording resource identified by a SID. </summary>
         /// <param name="options"> Fetch MediaRecording parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of MediaRecording </returns>
         public static async System.Threading.Tasks.Task<MediaRecordingResource> FetchAsync(FetchMediaRecordingOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Returns a single MediaRecording resource identified by a SID. </summary>
         /// <param name="pathSid"> The SID of the MediaRecording resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of MediaRecording </returns>
         public static MediaRecordingResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchMediaRecordingOptions(pathSid){  };
+            var options = new FetchMediaRecordingOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Returns a single MediaRecording resource identified by a SID. </summary>
         /// <param name="pathSid"> The SID of the MediaRecording resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of MediaRecording </returns>
-        public static async System.Threading.Tasks.Task<MediaRecordingResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<MediaRecordingResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchMediaRecordingOptions(pathSid){  };
+            var options = new FetchMediaRecordingOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadMediaRecordingOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadMediaRecordingOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/MediaRecordings";
 
 
@@ -222,7 +222,7 @@ namespace Kandy.Rest.Media.V1
         /// <param name="options"> Read MediaRecording parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of MediaRecording </returns>
-        public static ResourceSet<MediaRecordingResource> Read(ReadMediaRecordingOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<MediaRecordingResource> Read(ReadMediaRecordingOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -230,13 +230,13 @@ namespace Kandy.Rest.Media.V1
             return new ResourceSet<MediaRecordingResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Returns a list of MediaRecordings. </summary>
         /// <param name="options"> Read MediaRecording parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of MediaRecording </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<MediaRecordingResource>> ReadAsync(ReadMediaRecordingOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -244,7 +244,7 @@ namespace Kandy.Rest.Media.V1
             var page = Page<MediaRecordingResource>.FromJson("media_recordings", response.Content);
             return new ResourceSet<MediaRecordingResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Returns a list of MediaRecordings. </summary>
         /// <param name="order"> The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default. </param>
         /// <param name="status"> Status to filter by, with possible values `processing`, `completed`, `deleted`, or `failed`. </param>
@@ -261,13 +261,13 @@ namespace Kandy.Rest.Media.V1
                                                      string sourceSid = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadMediaRecordingOptions(){ Order = order, Status = status, ProcessorSid = processorSid, SourceSid = sourceSid, PageSize = pageSize, Limit = limit};
+            var options = new ReadMediaRecordingOptions() { Order = order, Status = status, ProcessorSid = processorSid, SourceSid = sourceSid, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Returns a list of MediaRecordings. </summary>
         /// <param name="order"> The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default. </param>
         /// <param name="status"> Status to filter by, with possible values `processing`, `completed`, `deleted`, or `failed`. </param>
@@ -284,19 +284,19 @@ namespace Kandy.Rest.Media.V1
                                                                                              string sourceSid = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadMediaRecordingOptions(){ Order = order, Status = status, ProcessorSid = processorSid, SourceSid = sourceSid, PageSize = pageSize, Limit = limit};
+            var options = new ReadMediaRecordingOptions() { Order = order, Status = status, ProcessorSid = processorSid, SourceSid = sourceSid, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<MediaRecordingResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<MediaRecordingResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -313,7 +313,7 @@ namespace Kandy.Rest.Media.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<MediaRecordingResource> NextPage(Page<MediaRecordingResource> page, ITwilioRestClient client)
+        public static Page<MediaRecordingResource> NextPage(Page<MediaRecordingResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -328,7 +328,7 @@ namespace Kandy.Rest.Media.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<MediaRecordingResource> PreviousPage(Page<MediaRecordingResource> page, ITwilioRestClient client)
+        public static Page<MediaRecordingResource> PreviousPage(Page<MediaRecordingResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -339,7 +339,7 @@ namespace Kandy.Rest.Media.V1
             return Page<MediaRecordingResource>.FromJson("media_recordings", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a MediaRecordingResource object
         /// </summary>
@@ -357,7 +357,7 @@ namespace Kandy.Rest.Media.V1
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the MediaRecording resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -374,7 +374,7 @@ namespace Kandy.Rest.Media.V1
         [JsonProperty("duration")]
         public int? Duration { get; private set; }
 
-        
+
         [JsonProperty("format")]
         public MediaRecordingResource.FormatEnum Format { get; private set; }
 
@@ -402,7 +402,7 @@ namespace Kandy.Rest.Media.V1
         [JsonProperty("media_size")]
         public long? MediaSize { get; private set; }
 
-        
+
         [JsonProperty("status")]
         public MediaRecordingResource.StatusEnum Status { get; private set; }
 
@@ -420,7 +420,8 @@ namespace Kandy.Rest.Media.V1
 
 
 
-        private MediaRecordingResource() {
+        private MediaRecordingResource()
+        {
 
         }
     }

@@ -28,22 +28,22 @@ namespace Kandy.Rest.Voice.V1
 {
     public class ArchivedCallResource : Resource
     {
-    
 
-        
+
+
         /// <summary> Delete an archived call record from Bulk Export. Note: this does not also delete the record from the Voice API. </summary>
         /// <param name="options"> Delete ArchivedCall parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ArchivedCall </returns>
-        private static Request BuildDeleteRequest(DeleteArchivedCallOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteArchivedCallOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Archives/{Date}/Calls/{Sid}";
 
             string PathDate = options.PathDate.Value.ToString("yyyy-MM-dd");
-            path = path.Replace("{"+"Date"+"}", PathDate);
+            path = path.Replace("{" + "Date" + "}", PathDate);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -58,51 +58,51 @@ namespace Kandy.Rest.Voice.V1
         /// <param name="options"> Delete ArchivedCall parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ArchivedCall </returns>
-        public static bool Delete(DeleteArchivedCallOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteArchivedCallOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete an archived call record from Bulk Export. Note: this does not also delete the record from the Voice API. </summary>
         /// <param name="options"> Delete ArchivedCall parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ArchivedCall </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteArchivedCallOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete an archived call record from Bulk Export. Note: this does not also delete the record from the Voice API. </summary>
         /// <param name="pathDate"> The date of the Call in UTC. </param>
         /// <param name="pathSid"> The Twilio-provided Call SID that uniquely identifies the Call resource to delete </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ArchivedCall </returns>
-        public static bool Delete(DateTime? pathDate, string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(DateTime? pathDate, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteArchivedCallOptions(pathDate, pathSid)        ;
+            var options = new DeleteArchivedCallOptions(pathDate, pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete an archived call record from Bulk Export. Note: this does not also delete the record from the Voice API. </summary>
         /// <param name="pathDate"> The date of the Call in UTC. </param>
         /// <param name="pathSid"> The Twilio-provided Call SID that uniquely identifies the Call resource to delete </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ArchivedCall </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(DateTime? pathDate, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(DateTime? pathDate, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteArchivedCallOptions(pathDate, pathSid) ;
+            var options = new DeleteArchivedCallOptions(pathDate, pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a ArchivedCallResource object
         /// </summary>
@@ -120,10 +120,11 @@ namespace Kandy.Rest.Voice.V1
             }
         }
 
-    
 
 
-        private ArchivedCallResource() {
+
+        private ArchivedCallResource()
+        {
 
         }
     }

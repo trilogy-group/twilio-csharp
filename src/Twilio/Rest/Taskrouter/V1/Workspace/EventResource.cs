@@ -28,18 +28,18 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace
 {
     public class EventResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchEventOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchEventOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Workspaces/{WorkspaceSid}/Events/{Sid}";
 
             string PathWorkspaceSid = options.PathWorkspaceSid;
-            path = path.Replace("{"+"WorkspaceSid"+"}", PathWorkspaceSid);
+            path = path.Replace("{" + "WorkspaceSid" + "}", PathWorkspaceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -54,60 +54,60 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace
         /// <param name="options"> Fetch Event parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Event </returns>
-        public static EventResource Fetch(FetchEventOptions options, ITwilioRestClient client = null)
+        public static EventResource Fetch(FetchEventOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch Event parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Event </returns>
         public static async System.Threading.Tasks.Task<EventResource> FetchAsync(FetchEventOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathWorkspaceSid"> The SID of the Workspace with the Event to fetch. </param>
         /// <param name="pathSid"> The SID of the Event resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Event </returns>
         public static EventResource Fetch(
-                                         string pathWorkspaceSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathWorkspaceSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchEventOptions(pathWorkspaceSid, pathSid){  };
+            var options = new FetchEventOptions(pathWorkspaceSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathWorkspaceSid"> The SID of the Workspace with the Event to fetch. </param>
         /// <param name="pathSid"> The SID of the Event resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Event </returns>
-        public static async System.Threading.Tasks.Task<EventResource> FetchAsync(string pathWorkspaceSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<EventResource> FetchAsync(string pathWorkspaceSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchEventOptions(pathWorkspaceSid, pathSid){  };
+            var options = new FetchEventOptions(pathWorkspaceSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadEventOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadEventOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Workspaces/{WorkspaceSid}/Events";
 
             string PathWorkspaceSid = options.PathWorkspaceSid;
-            path = path.Replace("{"+"WorkspaceSid"+"}", PathWorkspaceSid);
+            path = path.Replace("{" + "WorkspaceSid" + "}", PathWorkspaceSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -121,7 +121,7 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace
         /// <param name="options"> Read Event parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Event </returns>
-        public static ResourceSet<EventResource> Read(ReadEventOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<EventResource> Read(ReadEventOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -129,13 +129,13 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace
             return new ResourceSet<EventResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read Event parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Event </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<EventResource>> ReadAsync(ReadEventOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -143,7 +143,7 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace
             var page = Page<EventResource>.FromJson("events", response.Content);
             return new ResourceSet<EventResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="pathWorkspaceSid"> The SID of the Workspace with the Events to read. Returns only the Events that pertain to the specified Workspace. </param>
         /// <param name="endDate"> Only include Events that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time. </param>
@@ -176,13 +176,13 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace
                                                      string sid = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadEventOptions(pathWorkspaceSid){ EndDate = endDate, EventType = eventType, Minutes = minutes, ReservationSid = reservationSid, StartDate = startDate, TaskQueueSid = taskQueueSid, TaskSid = taskSid, WorkerSid = workerSid, WorkflowSid = workflowSid, TaskChannel = taskChannel, Sid = sid, PageSize = pageSize, Limit = limit};
+            var options = new ReadEventOptions(pathWorkspaceSid) { EndDate = endDate, EventType = eventType, Minutes = minutes, ReservationSid = reservationSid, StartDate = startDate, TaskQueueSid = taskQueueSid, TaskSid = taskSid, WorkerSid = workerSid, WorkflowSid = workflowSid, TaskChannel = taskChannel, Sid = sid, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="pathWorkspaceSid"> The SID of the Workspace with the Events to read. Returns only the Events that pertain to the specified Workspace. </param>
         /// <param name="endDate"> Only include Events that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time. </param>
@@ -215,19 +215,19 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace
                                                                                              string sid = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadEventOptions(pathWorkspaceSid){ EndDate = endDate, EventType = eventType, Minutes = minutes, ReservationSid = reservationSid, StartDate = startDate, TaskQueueSid = taskQueueSid, TaskSid = taskSid, WorkerSid = workerSid, WorkflowSid = workflowSid, TaskChannel = taskChannel, Sid = sid, PageSize = pageSize, Limit = limit};
+            var options = new ReadEventOptions(pathWorkspaceSid) { EndDate = endDate, EventType = eventType, Minutes = minutes, ReservationSid = reservationSid, StartDate = startDate, TaskQueueSid = taskQueueSid, TaskSid = taskSid, WorkerSid = workerSid, WorkflowSid = workflowSid, TaskChannel = taskChannel, Sid = sid, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<EventResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<EventResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -244,7 +244,7 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<EventResource> NextPage(Page<EventResource> page, ITwilioRestClient client)
+        public static Page<EventResource> NextPage(Page<EventResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -259,7 +259,7 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<EventResource> PreviousPage(Page<EventResource> page, ITwilioRestClient client)
+        public static Page<EventResource> PreviousPage(Page<EventResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -270,7 +270,7 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace
             return Page<EventResource>.FromJson("events", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a EventResource object
         /// </summary>
@@ -288,7 +288,7 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Event resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -359,7 +359,8 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace
 
 
 
-        private EventResource() {
+        private EventResource()
+        {
 
         }
     }

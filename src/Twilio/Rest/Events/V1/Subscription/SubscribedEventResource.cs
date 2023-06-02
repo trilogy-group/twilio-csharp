@@ -28,16 +28,16 @@ namespace Kandy.Rest.Events.V1.Subscription
 {
     public class SubscribedEventResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateSubscribedEventOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateSubscribedEventOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents";
 
             string PathSubscriptionSid = options.PathSubscriptionSid;
-            path = path.Replace("{"+"SubscriptionSid"+"}", PathSubscriptionSid);
+            path = path.Replace("{" + "SubscriptionSid" + "}", PathSubscriptionSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -52,26 +52,26 @@ namespace Kandy.Rest.Events.V1.Subscription
         /// <param name="options"> Create SubscribedEvent parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SubscribedEvent </returns>
-        public static SubscribedEventResource Create(CreateSubscribedEventOptions options, ITwilioRestClient client = null)
+        public static SubscribedEventResource Create(CreateSubscribedEventOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Subscribed Event type for the subscription </summary>
         /// <param name="options"> Create SubscribedEvent parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SubscribedEvent </returns>
         public static async System.Threading.Tasks.Task<SubscribedEventResource> CreateAsync(CreateSubscribedEventOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new Subscribed Event type for the subscription </summary>
         /// <param name="pathSubscriptionSid"> The unique SID identifier of the Subscription. </param>
@@ -83,13 +83,13 @@ namespace Kandy.Rest.Events.V1.Subscription
                                           string pathSubscriptionSid,
                                           string type,
                                           int? schemaVersion = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateSubscribedEventOptions(pathSubscriptionSid, type){  SchemaVersion = schemaVersion };
+            var options = new CreateSubscribedEventOptions(pathSubscriptionSid, type) { SchemaVersion = schemaVersion };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Subscribed Event type for the subscription </summary>
         /// <param name="pathSubscriptionSid"> The unique SID identifier of the Subscription. </param>
         /// <param name="type"> Type of event being subscribed to. </param>
@@ -100,26 +100,26 @@ namespace Kandy.Rest.Events.V1.Subscription
                                                                                   string pathSubscriptionSid,
                                                                                   string type,
                                                                                   int? schemaVersion = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateSubscribedEventOptions(pathSubscriptionSid, type){  SchemaVersion = schemaVersion };
+            var options = new CreateSubscribedEventOptions(pathSubscriptionSid, type) { SchemaVersion = schemaVersion };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Remove an event type from a subscription. </summary>
         /// <param name="options"> Delete SubscribedEvent parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SubscribedEvent </returns>
-        private static Request BuildDeleteRequest(DeleteSubscribedEventOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteSubscribedEventOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents/{Type}";
 
             string PathSubscriptionSid = options.PathSubscriptionSid;
-            path = path.Replace("{"+"SubscriptionSid"+"}", PathSubscriptionSid);
+            path = path.Replace("{" + "SubscriptionSid" + "}", PathSubscriptionSid);
             string PathType = options.PathType;
-            path = path.Replace("{"+"Type"+"}", PathType);
+            path = path.Replace("{" + "Type" + "}", PathType);
 
             return new Request(
                 HttpMethod.Delete,
@@ -134,60 +134,60 @@ namespace Kandy.Rest.Events.V1.Subscription
         /// <param name="options"> Delete SubscribedEvent parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SubscribedEvent </returns>
-        public static bool Delete(DeleteSubscribedEventOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteSubscribedEventOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Remove an event type from a subscription. </summary>
         /// <param name="options"> Delete SubscribedEvent parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SubscribedEvent </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteSubscribedEventOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Remove an event type from a subscription. </summary>
         /// <param name="pathSubscriptionSid"> The unique SID identifier of the Subscription. </param>
         /// <param name="pathType"> Type of event being subscribed to. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SubscribedEvent </returns>
-        public static bool Delete(string pathSubscriptionSid, string pathType, ITwilioRestClient client = null)
+        public static bool Delete(string pathSubscriptionSid, string pathType, IKandyRestClient client = null)
         {
-            var options = new DeleteSubscribedEventOptions(pathSubscriptionSid, pathType)        ;
+            var options = new DeleteSubscribedEventOptions(pathSubscriptionSid, pathType);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Remove an event type from a subscription. </summary>
         /// <param name="pathSubscriptionSid"> The unique SID identifier of the Subscription. </param>
         /// <param name="pathType"> Type of event being subscribed to. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SubscribedEvent </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSubscriptionSid, string pathType, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSubscriptionSid, string pathType, IKandyRestClient client = null)
         {
-            var options = new DeleteSubscribedEventOptions(pathSubscriptionSid, pathType) ;
+            var options = new DeleteSubscribedEventOptions(pathSubscriptionSid, pathType);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchSubscribedEventOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchSubscribedEventOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents/{Type}";
 
             string PathSubscriptionSid = options.PathSubscriptionSid;
-            path = path.Replace("{"+"SubscriptionSid"+"}", PathSubscriptionSid);
+            path = path.Replace("{" + "SubscriptionSid" + "}", PathSubscriptionSid);
             string PathType = options.PathType;
-            path = path.Replace("{"+"Type"+"}", PathType);
+            path = path.Replace("{" + "Type" + "}", PathType);
 
             return new Request(
                 HttpMethod.Get,
@@ -202,60 +202,60 @@ namespace Kandy.Rest.Events.V1.Subscription
         /// <param name="options"> Fetch SubscribedEvent parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SubscribedEvent </returns>
-        public static SubscribedEventResource Fetch(FetchSubscribedEventOptions options, ITwilioRestClient client = null)
+        public static SubscribedEventResource Fetch(FetchSubscribedEventOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Read an Event for a Subscription. </summary>
         /// <param name="options"> Fetch SubscribedEvent parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SubscribedEvent </returns>
         public static async System.Threading.Tasks.Task<SubscribedEventResource> FetchAsync(FetchSubscribedEventOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Read an Event for a Subscription. </summary>
         /// <param name="pathSubscriptionSid"> The unique SID identifier of the Subscription. </param>
         /// <param name="pathType"> Type of event being subscribed to. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SubscribedEvent </returns>
         public static SubscribedEventResource Fetch(
-                                         string pathSubscriptionSid, 
-                                         string pathType, 
-                                         ITwilioRestClient client = null)
+                                         string pathSubscriptionSid,
+                                         string pathType,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchSubscribedEventOptions(pathSubscriptionSid, pathType){  };
+            var options = new FetchSubscribedEventOptions(pathSubscriptionSid, pathType) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Read an Event for a Subscription. </summary>
         /// <param name="pathSubscriptionSid"> The unique SID identifier of the Subscription. </param>
         /// <param name="pathType"> Type of event being subscribed to. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SubscribedEvent </returns>
-        public static async System.Threading.Tasks.Task<SubscribedEventResource> FetchAsync(string pathSubscriptionSid, string pathType, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<SubscribedEventResource> FetchAsync(string pathSubscriptionSid, string pathType, IKandyRestClient client = null)
         {
-            var options = new FetchSubscribedEventOptions(pathSubscriptionSid, pathType){  };
+            var options = new FetchSubscribedEventOptions(pathSubscriptionSid, pathType) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadSubscribedEventOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadSubscribedEventOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents";
 
             string PathSubscriptionSid = options.PathSubscriptionSid;
-            path = path.Replace("{"+"SubscriptionSid"+"}", PathSubscriptionSid);
+            path = path.Replace("{" + "SubscriptionSid" + "}", PathSubscriptionSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -269,7 +269,7 @@ namespace Kandy.Rest.Events.V1.Subscription
         /// <param name="options"> Read SubscribedEvent parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SubscribedEvent </returns>
-        public static ResourceSet<SubscribedEventResource> Read(ReadSubscribedEventOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<SubscribedEventResource> Read(ReadSubscribedEventOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -277,13 +277,13 @@ namespace Kandy.Rest.Events.V1.Subscription
             return new ResourceSet<SubscribedEventResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Subscribed Event types for a Subscription. </summary>
         /// <param name="options"> Read SubscribedEvent parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SubscribedEvent </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<SubscribedEventResource>> ReadAsync(ReadSubscribedEventOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -291,7 +291,7 @@ namespace Kandy.Rest.Events.V1.Subscription
             var page = Page<SubscribedEventResource>.FromJson("types", response.Content);
             return new ResourceSet<SubscribedEventResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Subscribed Event types for a Subscription. </summary>
         /// <param name="pathSubscriptionSid"> The unique SID identifier of the Subscription. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -302,13 +302,13 @@ namespace Kandy.Rest.Events.V1.Subscription
                                                      string pathSubscriptionSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadSubscribedEventOptions(pathSubscriptionSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadSubscribedEventOptions(pathSubscriptionSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Subscribed Event types for a Subscription. </summary>
         /// <param name="pathSubscriptionSid"> The unique SID identifier of the Subscription. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -319,19 +319,19 @@ namespace Kandy.Rest.Events.V1.Subscription
                                                                                              string pathSubscriptionSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadSubscribedEventOptions(pathSubscriptionSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadSubscribedEventOptions(pathSubscriptionSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<SubscribedEventResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<SubscribedEventResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -348,7 +348,7 @@ namespace Kandy.Rest.Events.V1.Subscription
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<SubscribedEventResource> NextPage(Page<SubscribedEventResource> page, ITwilioRestClient client)
+        public static Page<SubscribedEventResource> NextPage(Page<SubscribedEventResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -363,7 +363,7 @@ namespace Kandy.Rest.Events.V1.Subscription
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<SubscribedEventResource> PreviousPage(Page<SubscribedEventResource> page, ITwilioRestClient client)
+        public static Page<SubscribedEventResource> PreviousPage(Page<SubscribedEventResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -374,16 +374,16 @@ namespace Kandy.Rest.Events.V1.Subscription
             return Page<SubscribedEventResource>.FromJson("types", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateSubscribedEventOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateSubscribedEventOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents/{Type}";
 
             string PathSubscriptionSid = options.PathSubscriptionSid;
-            path = path.Replace("{"+"SubscriptionSid"+"}", PathSubscriptionSid);
+            path = path.Replace("{" + "SubscriptionSid" + "}", PathSubscriptionSid);
             string PathType = options.PathType;
-            path = path.Replace("{"+"Type"+"}", PathType);
+            path = path.Replace("{" + "Type" + "}", PathType);
 
             return new Request(
                 HttpMethod.Post,
@@ -398,7 +398,7 @@ namespace Kandy.Rest.Events.V1.Subscription
         /// <param name="options"> Update SubscribedEvent parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SubscribedEvent </returns>
-        public static SubscribedEventResource Update(UpdateSubscribedEventOptions options, ITwilioRestClient client = null)
+        public static SubscribedEventResource Update(UpdateSubscribedEventOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -409,15 +409,15 @@ namespace Kandy.Rest.Events.V1.Subscription
         /// <param name="options"> Update SubscribedEvent parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SubscribedEvent </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<SubscribedEventResource> UpdateAsync(UpdateSubscribedEventOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update an Event for a Subscription. </summary>
         /// <param name="pathSubscriptionSid"> The unique SID identifier of the Subscription. </param>
@@ -429,13 +429,13 @@ namespace Kandy.Rest.Events.V1.Subscription
                                           string pathSubscriptionSid,
                                           string pathType,
                                           int? schemaVersion = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateSubscribedEventOptions(pathSubscriptionSid, pathType){ SchemaVersion = schemaVersion };
+            var options = new UpdateSubscribedEventOptions(pathSubscriptionSid, pathType) { SchemaVersion = schemaVersion };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update an Event for a Subscription. </summary>
         /// <param name="pathSubscriptionSid"> The unique SID identifier of the Subscription. </param>
         /// <param name="pathType"> Type of event being subscribed to. </param>
@@ -446,13 +446,13 @@ namespace Kandy.Rest.Events.V1.Subscription
                                                                               string pathSubscriptionSid,
                                                                               string pathType,
                                                                               int? schemaVersion = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateSubscribedEventOptions(pathSubscriptionSid, pathType){ SchemaVersion = schemaVersion };
+            var options = new UpdateSubscribedEventOptions(pathSubscriptionSid, pathType) { SchemaVersion = schemaVersion };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a SubscribedEventResource object
         /// </summary>
@@ -470,7 +470,7 @@ namespace Kandy.Rest.Events.V1.Subscription
             }
         }
 
-    
+
         ///<summary> The unique SID identifier of the Account. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -493,7 +493,8 @@ namespace Kandy.Rest.Events.V1.Subscription
 
 
 
-        private SubscribedEventResource() {
+        private SubscribedEventResource()
+        {
 
         }
     }

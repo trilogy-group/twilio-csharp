@@ -28,24 +28,24 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
 {
     public class SyncMapPermissionResource : Resource
     {
-    
 
-        
+
+
         /// <summary> Delete a specific Sync Map Permission. </summary>
         /// <param name="options"> Delete SyncMapPermission parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SyncMapPermission </returns>
-        private static Request BuildDeleteRequest(DeleteSyncMapPermissionOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteSyncMapPermissionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathMapSid = options.PathMapSid;
-            path = path.Replace("{"+"MapSid"+"}", PathMapSid);
+            path = path.Replace("{" + "MapSid" + "}", PathMapSid);
             string PathIdentity = options.PathIdentity;
-            path = path.Replace("{"+"Identity"+"}", PathIdentity);
+            path = path.Replace("{" + "Identity" + "}", PathIdentity);
 
             return new Request(
                 HttpMethod.Delete,
@@ -60,26 +60,26 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
         /// <param name="options"> Delete SyncMapPermission parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SyncMapPermission </returns>
-        public static bool Delete(DeleteSyncMapPermissionOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteSyncMapPermissionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific Sync Map Permission. </summary>
         /// <param name="options"> Delete SyncMapPermission parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SyncMapPermission </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteSyncMapPermissionOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete a specific Sync Map Permission. </summary>
         /// <param name="pathServiceSid"> The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map Permission resource to delete. Can be the Service's `sid` value or `default`. </param>
@@ -87,37 +87,37 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
         /// <param name="pathIdentity"> The application-defined string that uniquely identifies the User's Sync Map Permission resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SyncMapPermission </returns>
-        public static bool Delete(string pathServiceSid, string pathMapSid, string pathIdentity, ITwilioRestClient client = null)
+        public static bool Delete(string pathServiceSid, string pathMapSid, string pathIdentity, IKandyRestClient client = null)
         {
-            var options = new DeleteSyncMapPermissionOptions(pathServiceSid, pathMapSid, pathIdentity)           ;
+            var options = new DeleteSyncMapPermissionOptions(pathServiceSid, pathMapSid, pathIdentity);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific Sync Map Permission. </summary>
         /// <param name="pathServiceSid"> The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map Permission resource to delete. Can be the Service's `sid` value or `default`. </param>
         /// <param name="pathMapSid"> The SID of the Sync Map with the Sync Map Permission resource to delete. Can be the Sync Map resource's `sid` or its `unique_name`. </param>
         /// <param name="pathIdentity"> The application-defined string that uniquely identifies the User's Sync Map Permission resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SyncMapPermission </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathMapSid, string pathIdentity, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathMapSid, string pathIdentity, IKandyRestClient client = null)
         {
-            var options = new DeleteSyncMapPermissionOptions(pathServiceSid, pathMapSid, pathIdentity) ;
+            var options = new DeleteSyncMapPermissionOptions(pathServiceSid, pathMapSid, pathIdentity);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchSyncMapPermissionOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchSyncMapPermissionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathMapSid = options.PathMapSid;
-            path = path.Replace("{"+"MapSid"+"}", PathMapSid);
+            path = path.Replace("{" + "MapSid" + "}", PathMapSid);
             string PathIdentity = options.PathIdentity;
-            path = path.Replace("{"+"Identity"+"}", PathIdentity);
+            path = path.Replace("{" + "Identity" + "}", PathIdentity);
 
             return new Request(
                 HttpMethod.Get,
@@ -132,26 +132,26 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
         /// <param name="options"> Fetch SyncMapPermission parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SyncMapPermission </returns>
-        public static SyncMapPermissionResource Fetch(FetchSyncMapPermissionOptions options, ITwilioRestClient client = null)
+        public static SyncMapPermissionResource Fetch(FetchSyncMapPermissionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Sync Map Permission. </summary>
         /// <param name="options"> Fetch SyncMapPermission parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SyncMapPermission </returns>
         public static async System.Threading.Tasks.Task<SyncMapPermissionResource> FetchAsync(FetchSyncMapPermissionOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a specific Sync Map Permission. </summary>
         /// <param name="pathServiceSid"> The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map Permission resource to fetch. Can be the Service's `sid` value or `default`. </param>
         /// <param name="pathMapSid"> The SID of the Sync Map with the Sync Map Permission resource to fetch. Can be the Sync Map resource's `sid` or its `unique_name`. </param>
@@ -159,38 +159,38 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SyncMapPermission </returns>
         public static SyncMapPermissionResource Fetch(
-                                         string pathServiceSid, 
-                                         string pathMapSid, 
-                                         string pathIdentity, 
-                                         ITwilioRestClient client = null)
+                                         string pathServiceSid,
+                                         string pathMapSid,
+                                         string pathIdentity,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchSyncMapPermissionOptions(pathServiceSid, pathMapSid, pathIdentity){  };
+            var options = new FetchSyncMapPermissionOptions(pathServiceSid, pathMapSid, pathIdentity) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Sync Map Permission. </summary>
         /// <param name="pathServiceSid"> The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map Permission resource to fetch. Can be the Service's `sid` value or `default`. </param>
         /// <param name="pathMapSid"> The SID of the Sync Map with the Sync Map Permission resource to fetch. Can be the Sync Map resource's `sid` or its `unique_name`. </param>
         /// <param name="pathIdentity"> The application-defined string that uniquely identifies the User's Sync Map Permission resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SyncMapPermission </returns>
-        public static async System.Threading.Tasks.Task<SyncMapPermissionResource> FetchAsync(string pathServiceSid, string pathMapSid, string pathIdentity, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<SyncMapPermissionResource> FetchAsync(string pathServiceSid, string pathMapSid, string pathIdentity, IKandyRestClient client = null)
         {
-            var options = new FetchSyncMapPermissionOptions(pathServiceSid, pathMapSid, pathIdentity){  };
+            var options = new FetchSyncMapPermissionOptions(pathServiceSid, pathMapSid, pathIdentity) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadSyncMapPermissionOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadSyncMapPermissionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathMapSid = options.PathMapSid;
-            path = path.Replace("{"+"MapSid"+"}", PathMapSid);
+            path = path.Replace("{" + "MapSid" + "}", PathMapSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -204,7 +204,7 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
         /// <param name="options"> Read SyncMapPermission parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SyncMapPermission </returns>
-        public static ResourceSet<SyncMapPermissionResource> Read(ReadSyncMapPermissionOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<SyncMapPermissionResource> Read(ReadSyncMapPermissionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -212,13 +212,13 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
             return new ResourceSet<SyncMapPermissionResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Permissions applying to a Sync Map. </summary>
         /// <param name="options"> Read SyncMapPermission parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SyncMapPermission </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<SyncMapPermissionResource>> ReadAsync(ReadSyncMapPermissionOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -226,7 +226,7 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
             var page = Page<SyncMapPermissionResource>.FromJson("permissions", response.Content);
             return new ResourceSet<SyncMapPermissionResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Permissions applying to a Sync Map. </summary>
         /// <param name="pathServiceSid"> The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map Permission resources to read. Can be the Service's `sid` value or `default`. </param>
         /// <param name="pathMapSid"> The SID of the Sync Map with the Permission resources to read. Can be the Sync Map resource's `sid` or its `unique_name`. </param>
@@ -239,13 +239,13 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
                                                      string pathMapSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadSyncMapPermissionOptions(pathServiceSid, pathMapSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadSyncMapPermissionOptions(pathServiceSid, pathMapSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Permissions applying to a Sync Map. </summary>
         /// <param name="pathServiceSid"> The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map Permission resources to read. Can be the Service's `sid` value or `default`. </param>
         /// <param name="pathMapSid"> The SID of the Sync Map with the Permission resources to read. Can be the Sync Map resource's `sid` or its `unique_name`. </param>
@@ -258,19 +258,19 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
                                                                                              string pathMapSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadSyncMapPermissionOptions(pathServiceSid, pathMapSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadSyncMapPermissionOptions(pathServiceSid, pathMapSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<SyncMapPermissionResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<SyncMapPermissionResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -287,7 +287,7 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<SyncMapPermissionResource> NextPage(Page<SyncMapPermissionResource> page, ITwilioRestClient client)
+        public static Page<SyncMapPermissionResource> NextPage(Page<SyncMapPermissionResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -302,7 +302,7 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<SyncMapPermissionResource> PreviousPage(Page<SyncMapPermissionResource> page, ITwilioRestClient client)
+        public static Page<SyncMapPermissionResource> PreviousPage(Page<SyncMapPermissionResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -313,18 +313,18 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
             return Page<SyncMapPermissionResource>.FromJson("permissions", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateSyncMapPermissionOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateSyncMapPermissionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathMapSid = options.PathMapSid;
-            path = path.Replace("{"+"MapSid"+"}", PathMapSid);
+            path = path.Replace("{" + "MapSid" + "}", PathMapSid);
             string PathIdentity = options.PathIdentity;
-            path = path.Replace("{"+"Identity"+"}", PathIdentity);
+            path = path.Replace("{" + "Identity" + "}", PathIdentity);
 
             return new Request(
                 HttpMethod.Post,
@@ -339,7 +339,7 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
         /// <param name="options"> Update SyncMapPermission parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SyncMapPermission </returns>
-        public static SyncMapPermissionResource Update(UpdateSyncMapPermissionOptions options, ITwilioRestClient client = null)
+        public static SyncMapPermissionResource Update(UpdateSyncMapPermissionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -350,15 +350,15 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
         /// <param name="options"> Update SyncMapPermission parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SyncMapPermission </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<SyncMapPermissionResource> UpdateAsync(UpdateSyncMapPermissionOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update an identity's access to a specific Sync Map. </summary>
         /// <param name="pathServiceSid"> The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map Permission resource to update. Can be the Service's `sid` value or `default`. </param>
@@ -376,13 +376,13 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
                                           bool? read,
                                           bool? write,
                                           bool? manage,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateSyncMapPermissionOptions(pathServiceSid, pathMapSid, pathIdentity, read, write, manage){  };
+            var options = new UpdateSyncMapPermissionOptions(pathServiceSid, pathMapSid, pathIdentity, read, write, manage) { };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update an identity's access to a specific Sync Map. </summary>
         /// <param name="pathServiceSid"> The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map Permission resource to update. Can be the Service's `sid` value or `default`. </param>
         /// <param name="pathMapSid"> The SID of the Sync Map with the Sync Map Permission resource to update. Can be the Sync Map resource's `sid` or its `unique_name`. </param>
@@ -399,13 +399,13 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
                                                                               bool? read,
                                                                               bool? write,
                                                                               bool? manage,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateSyncMapPermissionOptions(pathServiceSid, pathMapSid, pathIdentity, read, write, manage){  };
+            var options = new UpdateSyncMapPermissionOptions(pathServiceSid, pathMapSid, pathIdentity, read, write, manage) { };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a SyncMapPermissionResource object
         /// </summary>
@@ -423,7 +423,7 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Sync Map Permission resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -458,7 +458,8 @@ namespace Kandy.Rest.Sync.V1.Service.SyncMap
 
 
 
-        private SyncMapPermissionResource() {
+        private SyncMapPermissionResource()
+        {
 
         }
     }

@@ -28,16 +28,16 @@ namespace Kandy.Rest.Studio.V2.Flow
 {
     public class FlowTestUserResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchFlowTestUserOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchFlowTestUserOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Flows/{Sid}/TestUsers";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -52,57 +52,57 @@ namespace Kandy.Rest.Studio.V2.Flow
         /// <param name="options"> Fetch FlowTestUser parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of FlowTestUser </returns>
-        public static FlowTestUserResource Fetch(FetchFlowTestUserOptions options, ITwilioRestClient client = null)
+        public static FlowTestUserResource Fetch(FetchFlowTestUserOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch flow test users </summary>
         /// <param name="options"> Fetch FlowTestUser parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of FlowTestUser </returns>
         public static async System.Threading.Tasks.Task<FlowTestUserResource> FetchAsync(FetchFlowTestUserOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch flow test users </summary>
         /// <param name="pathSid"> Unique identifier of the flow. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of FlowTestUser </returns>
         public static FlowTestUserResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchFlowTestUserOptions(pathSid){  };
+            var options = new FetchFlowTestUserOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch flow test users </summary>
         /// <param name="pathSid"> Unique identifier of the flow. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of FlowTestUser </returns>
-        public static async System.Threading.Tasks.Task<FlowTestUserResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<FlowTestUserResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchFlowTestUserOptions(pathSid){  };
+            var options = new FetchFlowTestUserOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildUpdateRequest(UpdateFlowTestUserOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildUpdateRequest(UpdateFlowTestUserOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Flows/{Sid}/TestUsers";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -117,7 +117,7 @@ namespace Kandy.Rest.Studio.V2.Flow
         /// <param name="options"> Update FlowTestUser parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of FlowTestUser </returns>
-        public static FlowTestUserResource Update(UpdateFlowTestUserOptions options, ITwilioRestClient client = null)
+        public static FlowTestUserResource Update(UpdateFlowTestUserOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -128,15 +128,15 @@ namespace Kandy.Rest.Studio.V2.Flow
         /// <param name="options"> Update FlowTestUser parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of FlowTestUser </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<FlowTestUserResource> UpdateAsync(UpdateFlowTestUserOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update flow test users </summary>
         /// <param name="pathSid"> Unique identifier of the flow. </param>
@@ -146,13 +146,13 @@ namespace Kandy.Rest.Studio.V2.Flow
         public static FlowTestUserResource Update(
                                           string pathSid,
                                           List<string> testUsers,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateFlowTestUserOptions(pathSid, testUsers){  };
+            var options = new UpdateFlowTestUserOptions(pathSid, testUsers) { };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update flow test users </summary>
         /// <param name="pathSid"> Unique identifier of the flow. </param>
         /// <param name="testUsers"> List of test user identities that can test draft versions of the flow. </param>
@@ -161,13 +161,13 @@ namespace Kandy.Rest.Studio.V2.Flow
         public static async System.Threading.Tasks.Task<FlowTestUserResource> UpdateAsync(
                                                                               string pathSid,
                                                                               List<string> testUsers,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateFlowTestUserOptions(pathSid, testUsers){  };
+            var options = new UpdateFlowTestUserOptions(pathSid, testUsers) { };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a FlowTestUserResource object
         /// </summary>
@@ -185,7 +185,7 @@ namespace Kandy.Rest.Studio.V2.Flow
             }
         }
 
-    
+
         ///<summary> Unique identifier of the flow. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -200,7 +200,8 @@ namespace Kandy.Rest.Studio.V2.Flow
 
 
 
-        private FlowTestUserResource() {
+        private FlowTestUserResource()
+        {
 
         }
     }

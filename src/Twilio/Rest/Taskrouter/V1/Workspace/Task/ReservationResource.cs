@@ -28,12 +28,12 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Task
 {
     public class ReservationResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class StatusEnum : StringEnum
         {
-            private StatusEnum(string value) : base(value) {}
-            public StatusEnum() {}
+            private StatusEnum(string value) : base(value) { }
+            public StatusEnum() { }
             public static implicit operator StatusEnum(string value)
             {
                 return new StatusEnum(value);
@@ -50,8 +50,8 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Task
         }
         public sealed class CallStatusEnum : StringEnum
         {
-            private CallStatusEnum(string value) : base(value) {}
-            public CallStatusEnum() {}
+            private CallStatusEnum(string value) : base(value) { }
+            public CallStatusEnum() { }
             public static implicit operator CallStatusEnum(string value)
             {
                 return new CallStatusEnum(value);
@@ -64,8 +64,8 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Task
         }
         public sealed class ConferenceEventEnum : StringEnum
         {
-            private ConferenceEventEnum(string value) : base(value) {}
-            public ConferenceEventEnum() {}
+            private ConferenceEventEnum(string value) : base(value) { }
+            public ConferenceEventEnum() { }
             public static implicit operator ConferenceEventEnum(string value)
             {
                 return new ConferenceEventEnum(value);
@@ -81,8 +81,8 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Task
         }
         public sealed class SupervisorModeEnum : StringEnum
         {
-            private SupervisorModeEnum(string value) : base(value) {}
-            public SupervisorModeEnum() {}
+            private SupervisorModeEnum(string value) : base(value) { }
+            public SupervisorModeEnum() { }
             public static implicit operator SupervisorModeEnum(string value)
             {
                 return new SupervisorModeEnum(value);
@@ -93,18 +93,18 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Task
 
         }
 
-        
-        private static Request BuildFetchRequest(FetchReservationOptions options, ITwilioRestClient client)
+
+        private static Request BuildFetchRequest(FetchReservationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Workspaces/{WorkspaceSid}/Tasks/{TaskSid}/Reservations/{Sid}";
 
             string PathWorkspaceSid = options.PathWorkspaceSid;
-            path = path.Replace("{"+"WorkspaceSid"+"}", PathWorkspaceSid);
+            path = path.Replace("{" + "WorkspaceSid" + "}", PathWorkspaceSid);
             string PathTaskSid = options.PathTaskSid;
-            path = path.Replace("{"+"TaskSid"+"}", PathTaskSid);
+            path = path.Replace("{" + "TaskSid" + "}", PathTaskSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -119,26 +119,26 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Task
         /// <param name="options"> Fetch Reservation parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Reservation </returns>
-        public static ReservationResource Fetch(FetchReservationOptions options, ITwilioRestClient client = null)
+        public static ReservationResource Fetch(FetchReservationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch Reservation parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Reservation </returns>
         public static async System.Threading.Tasks.Task<ReservationResource> FetchAsync(FetchReservationOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathWorkspaceSid"> The SID of the Workspace with the TaskReservation resource to fetch. </param>
         /// <param name="pathTaskSid"> The SID of the reserved Task resource with the TaskReservation resource to fetch. </param>
@@ -146,38 +146,38 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Task
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Reservation </returns>
         public static ReservationResource Fetch(
-                                         string pathWorkspaceSid, 
-                                         string pathTaskSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathWorkspaceSid,
+                                         string pathTaskSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchReservationOptions(pathWorkspaceSid, pathTaskSid, pathSid){  };
+            var options = new FetchReservationOptions(pathWorkspaceSid, pathTaskSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathWorkspaceSid"> The SID of the Workspace with the TaskReservation resource to fetch. </param>
         /// <param name="pathTaskSid"> The SID of the reserved Task resource with the TaskReservation resource to fetch. </param>
         /// <param name="pathSid"> The SID of the TaskReservation resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Reservation </returns>
-        public static async System.Threading.Tasks.Task<ReservationResource> FetchAsync(string pathWorkspaceSid, string pathTaskSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<ReservationResource> FetchAsync(string pathWorkspaceSid, string pathTaskSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchReservationOptions(pathWorkspaceSid, pathTaskSid, pathSid){  };
+            var options = new FetchReservationOptions(pathWorkspaceSid, pathTaskSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadReservationOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadReservationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Workspaces/{WorkspaceSid}/Tasks/{TaskSid}/Reservations";
 
             string PathWorkspaceSid = options.PathWorkspaceSid;
-            path = path.Replace("{"+"WorkspaceSid"+"}", PathWorkspaceSid);
+            path = path.Replace("{" + "WorkspaceSid" + "}", PathWorkspaceSid);
             string PathTaskSid = options.PathTaskSid;
-            path = path.Replace("{"+"TaskSid"+"}", PathTaskSid);
+            path = path.Replace("{" + "TaskSid" + "}", PathTaskSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -191,7 +191,7 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Task
         /// <param name="options"> Read Reservation parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Reservation </returns>
-        public static ResourceSet<ReservationResource> Read(ReadReservationOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<ReservationResource> Read(ReadReservationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -199,13 +199,13 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Task
             return new ResourceSet<ReservationResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read Reservation parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Reservation </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<ReservationResource>> ReadAsync(ReadReservationOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -213,7 +213,7 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Task
             var page = Page<ReservationResource>.FromJson("reservations", response.Content);
             return new ResourceSet<ReservationResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="pathWorkspaceSid"> The SID of the Workspace with the TaskReservation resources to read. </param>
         /// <param name="pathTaskSid"> The SID of the reserved Task resource with the TaskReservation resources to read. </param>
@@ -230,13 +230,13 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Task
                                                      string workerSid = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadReservationOptions(pathWorkspaceSid, pathTaskSid){ ReservationStatus = reservationStatus, WorkerSid = workerSid, PageSize = pageSize, Limit = limit};
+            var options = new ReadReservationOptions(pathWorkspaceSid, pathTaskSid) { ReservationStatus = reservationStatus, WorkerSid = workerSid, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="pathWorkspaceSid"> The SID of the Workspace with the TaskReservation resources to read. </param>
         /// <param name="pathTaskSid"> The SID of the reserved Task resource with the TaskReservation resources to read. </param>
@@ -253,19 +253,19 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Task
                                                                                              string workerSid = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadReservationOptions(pathWorkspaceSid, pathTaskSid){ ReservationStatus = reservationStatus, WorkerSid = workerSid, PageSize = pageSize, Limit = limit};
+            var options = new ReadReservationOptions(pathWorkspaceSid, pathTaskSid) { ReservationStatus = reservationStatus, WorkerSid = workerSid, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<ReservationResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<ReservationResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -282,7 +282,7 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Task
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<ReservationResource> NextPage(Page<ReservationResource> page, ITwilioRestClient client)
+        public static Page<ReservationResource> NextPage(Page<ReservationResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -297,7 +297,7 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Task
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<ReservationResource> PreviousPage(Page<ReservationResource> page, ITwilioRestClient client)
+        public static Page<ReservationResource> PreviousPage(Page<ReservationResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -308,18 +308,18 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Task
             return Page<ReservationResource>.FromJson("reservations", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateReservationOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateReservationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Workspaces/{WorkspaceSid}/Tasks/{TaskSid}/Reservations/{Sid}";
 
             string PathWorkspaceSid = options.PathWorkspaceSid;
-            path = path.Replace("{"+"WorkspaceSid"+"}", PathWorkspaceSid);
+            path = path.Replace("{" + "WorkspaceSid" + "}", PathWorkspaceSid);
             string PathTaskSid = options.PathTaskSid;
-            path = path.Replace("{"+"TaskSid"+"}", PathTaskSid);
+            path = path.Replace("{" + "TaskSid" + "}", PathTaskSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -334,7 +334,7 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Task
         /// <param name="options"> Update Reservation parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Reservation </returns>
-        public static ReservationResource Update(UpdateReservationOptions options, ITwilioRestClient client = null)
+        public static ReservationResource Update(UpdateReservationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -345,15 +345,15 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Task
         /// <param name="options"> Update Reservation parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Reservation </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<ReservationResource> UpdateAsync(UpdateReservationOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> update </summary>
         /// <param name="pathWorkspaceSid"> The SID of the Workspace with the TaskReservation resources to update. </param>
@@ -473,13 +473,13 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Task
                                           bool? endConferenceOnCustomerExit = null,
                                           bool? beepOnCustomerEntrance = null,
                                           string ifMatch = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateReservationOptions(pathWorkspaceSid, pathTaskSid, pathSid){ ReservationStatus = reservationStatus, WorkerActivitySid = workerActivitySid, Instruction = instruction, DequeuePostWorkActivitySid = dequeuePostWorkActivitySid, DequeueFrom = dequeueFrom, DequeueRecord = dequeueRecord, DequeueTimeout = dequeueTimeout, DequeueTo = dequeueTo, DequeueStatusCallbackUrl = dequeueStatusCallbackUrl, CallFrom = callFrom, CallRecord = callRecord, CallTimeout = callTimeout, CallTo = callTo, CallUrl = callUrl, CallStatusCallbackUrl = callStatusCallbackUrl, CallAccept = callAccept, RedirectCallSid = redirectCallSid, RedirectAccept = redirectAccept, RedirectUrl = redirectUrl, To = to, From = from, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, StatusCallbackEvent = statusCallbackEvent, Timeout = timeout, Record = record, Muted = muted, Beep = beep, StartConferenceOnEnter = startConferenceOnEnter, EndConferenceOnExit = endConferenceOnExit, WaitUrl = waitUrl, WaitMethod = waitMethod, EarlyMedia = earlyMedia, MaxParticipants = maxParticipants, ConferenceStatusCallback = conferenceStatusCallback, ConferenceStatusCallbackMethod = conferenceStatusCallbackMethod, ConferenceStatusCallbackEvent = conferenceStatusCallbackEvent, ConferenceRecord = conferenceRecord, ConferenceTrim = conferenceTrim, RecordingChannels = recordingChannels, RecordingStatusCallback = recordingStatusCallback, RecordingStatusCallbackMethod = recordingStatusCallbackMethod, ConferenceRecordingStatusCallback = conferenceRecordingStatusCallback, ConferenceRecordingStatusCallbackMethod = conferenceRecordingStatusCallbackMethod, Region = region, SipAuthUsername = sipAuthUsername, SipAuthPassword = sipAuthPassword, DequeueStatusCallbackEvent = dequeueStatusCallbackEvent, PostWorkActivitySid = postWorkActivitySid, SupervisorMode = supervisorMode, Supervisor = supervisor, EndConferenceOnCustomerExit = endConferenceOnCustomerExit, BeepOnCustomerEntrance = beepOnCustomerEntrance, IfMatch = ifMatch };
+            var options = new UpdateReservationOptions(pathWorkspaceSid, pathTaskSid, pathSid) { ReservationStatus = reservationStatus, WorkerActivitySid = workerActivitySid, Instruction = instruction, DequeuePostWorkActivitySid = dequeuePostWorkActivitySid, DequeueFrom = dequeueFrom, DequeueRecord = dequeueRecord, DequeueTimeout = dequeueTimeout, DequeueTo = dequeueTo, DequeueStatusCallbackUrl = dequeueStatusCallbackUrl, CallFrom = callFrom, CallRecord = callRecord, CallTimeout = callTimeout, CallTo = callTo, CallUrl = callUrl, CallStatusCallbackUrl = callStatusCallbackUrl, CallAccept = callAccept, RedirectCallSid = redirectCallSid, RedirectAccept = redirectAccept, RedirectUrl = redirectUrl, To = to, From = from, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, StatusCallbackEvent = statusCallbackEvent, Timeout = timeout, Record = record, Muted = muted, Beep = beep, StartConferenceOnEnter = startConferenceOnEnter, EndConferenceOnExit = endConferenceOnExit, WaitUrl = waitUrl, WaitMethod = waitMethod, EarlyMedia = earlyMedia, MaxParticipants = maxParticipants, ConferenceStatusCallback = conferenceStatusCallback, ConferenceStatusCallbackMethod = conferenceStatusCallbackMethod, ConferenceStatusCallbackEvent = conferenceStatusCallbackEvent, ConferenceRecord = conferenceRecord, ConferenceTrim = conferenceTrim, RecordingChannels = recordingChannels, RecordingStatusCallback = recordingStatusCallback, RecordingStatusCallbackMethod = recordingStatusCallbackMethod, ConferenceRecordingStatusCallback = conferenceRecordingStatusCallback, ConferenceRecordingStatusCallbackMethod = conferenceRecordingStatusCallbackMethod, Region = region, SipAuthUsername = sipAuthUsername, SipAuthPassword = sipAuthPassword, DequeueStatusCallbackEvent = dequeueStatusCallbackEvent, PostWorkActivitySid = postWorkActivitySid, SupervisorMode = supervisorMode, Supervisor = supervisor, EndConferenceOnCustomerExit = endConferenceOnCustomerExit, BeepOnCustomerEntrance = beepOnCustomerEntrance, IfMatch = ifMatch };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> update </summary>
         /// <param name="pathWorkspaceSid"> The SID of the Workspace with the TaskReservation resources to update. </param>
         /// <param name="pathTaskSid"> The SID of the reserved Task resource with the TaskReservation resources to update. </param>
@@ -598,13 +598,13 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Task
                                                                               bool? endConferenceOnCustomerExit = null,
                                                                               bool? beepOnCustomerEntrance = null,
                                                                               string ifMatch = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateReservationOptions(pathWorkspaceSid, pathTaskSid, pathSid){ ReservationStatus = reservationStatus, WorkerActivitySid = workerActivitySid, Instruction = instruction, DequeuePostWorkActivitySid = dequeuePostWorkActivitySid, DequeueFrom = dequeueFrom, DequeueRecord = dequeueRecord, DequeueTimeout = dequeueTimeout, DequeueTo = dequeueTo, DequeueStatusCallbackUrl = dequeueStatusCallbackUrl, CallFrom = callFrom, CallRecord = callRecord, CallTimeout = callTimeout, CallTo = callTo, CallUrl = callUrl, CallStatusCallbackUrl = callStatusCallbackUrl, CallAccept = callAccept, RedirectCallSid = redirectCallSid, RedirectAccept = redirectAccept, RedirectUrl = redirectUrl, To = to, From = from, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, StatusCallbackEvent = statusCallbackEvent, Timeout = timeout, Record = record, Muted = muted, Beep = beep, StartConferenceOnEnter = startConferenceOnEnter, EndConferenceOnExit = endConferenceOnExit, WaitUrl = waitUrl, WaitMethod = waitMethod, EarlyMedia = earlyMedia, MaxParticipants = maxParticipants, ConferenceStatusCallback = conferenceStatusCallback, ConferenceStatusCallbackMethod = conferenceStatusCallbackMethod, ConferenceStatusCallbackEvent = conferenceStatusCallbackEvent, ConferenceRecord = conferenceRecord, ConferenceTrim = conferenceTrim, RecordingChannels = recordingChannels, RecordingStatusCallback = recordingStatusCallback, RecordingStatusCallbackMethod = recordingStatusCallbackMethod, ConferenceRecordingStatusCallback = conferenceRecordingStatusCallback, ConferenceRecordingStatusCallbackMethod = conferenceRecordingStatusCallbackMethod, Region = region, SipAuthUsername = sipAuthUsername, SipAuthPassword = sipAuthPassword, DequeueStatusCallbackEvent = dequeueStatusCallbackEvent, PostWorkActivitySid = postWorkActivitySid, SupervisorMode = supervisorMode, Supervisor = supervisor, EndConferenceOnCustomerExit = endConferenceOnCustomerExit, BeepOnCustomerEntrance = beepOnCustomerEntrance, IfMatch = ifMatch };
+            var options = new UpdateReservationOptions(pathWorkspaceSid, pathTaskSid, pathSid) { ReservationStatus = reservationStatus, WorkerActivitySid = workerActivitySid, Instruction = instruction, DequeuePostWorkActivitySid = dequeuePostWorkActivitySid, DequeueFrom = dequeueFrom, DequeueRecord = dequeueRecord, DequeueTimeout = dequeueTimeout, DequeueTo = dequeueTo, DequeueStatusCallbackUrl = dequeueStatusCallbackUrl, CallFrom = callFrom, CallRecord = callRecord, CallTimeout = callTimeout, CallTo = callTo, CallUrl = callUrl, CallStatusCallbackUrl = callStatusCallbackUrl, CallAccept = callAccept, RedirectCallSid = redirectCallSid, RedirectAccept = redirectAccept, RedirectUrl = redirectUrl, To = to, From = from, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, StatusCallbackEvent = statusCallbackEvent, Timeout = timeout, Record = record, Muted = muted, Beep = beep, StartConferenceOnEnter = startConferenceOnEnter, EndConferenceOnExit = endConferenceOnExit, WaitUrl = waitUrl, WaitMethod = waitMethod, EarlyMedia = earlyMedia, MaxParticipants = maxParticipants, ConferenceStatusCallback = conferenceStatusCallback, ConferenceStatusCallbackMethod = conferenceStatusCallbackMethod, ConferenceStatusCallbackEvent = conferenceStatusCallbackEvent, ConferenceRecord = conferenceRecord, ConferenceTrim = conferenceTrim, RecordingChannels = recordingChannels, RecordingStatusCallback = recordingStatusCallback, RecordingStatusCallbackMethod = recordingStatusCallbackMethod, ConferenceRecordingStatusCallback = conferenceRecordingStatusCallback, ConferenceRecordingStatusCallbackMethod = conferenceRecordingStatusCallbackMethod, Region = region, SipAuthUsername = sipAuthUsername, SipAuthPassword = sipAuthPassword, DequeueStatusCallbackEvent = dequeueStatusCallbackEvent, PostWorkActivitySid = postWorkActivitySid, SupervisorMode = supervisorMode, Supervisor = supervisor, EndConferenceOnCustomerExit = endConferenceOnCustomerExit, BeepOnCustomerEntrance = beepOnCustomerEntrance, IfMatch = ifMatch };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a ReservationResource object
         /// </summary>
@@ -622,7 +622,7 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Task
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the TaskReservation resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -635,7 +635,7 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Task
         [JsonProperty("date_updated")]
         public DateTime? DateUpdated { get; private set; }
 
-        
+
         [JsonProperty("reservation_status")]
         public ReservationResource.StatusEnum ReservationStatus { get; private set; }
 
@@ -669,7 +669,8 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace.Task
 
 
 
-        private ReservationResource() {
+        private ReservationResource()
+        {
 
         }
     }

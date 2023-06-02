@@ -28,16 +28,16 @@ namespace Kandy.Rest.Sync.V1.Service
 {
     public class SyncStreamResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateSyncStreamOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateSyncStreamOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Streams";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -52,26 +52,26 @@ namespace Kandy.Rest.Sync.V1.Service
         /// <param name="options"> Create SyncStream parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SyncStream </returns>
-        public static SyncStreamResource Create(CreateSyncStreamOptions options, ITwilioRestClient client = null)
+        public static SyncStreamResource Create(CreateSyncStreamOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Stream. </summary>
         /// <param name="options"> Create SyncStream parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SyncStream </returns>
         public static async System.Threading.Tasks.Task<SyncStreamResource> CreateAsync(CreateSyncStreamOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new Stream. </summary>
         /// <param name="pathServiceSid"> The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) to create the new Stream in. </param>
@@ -83,13 +83,13 @@ namespace Kandy.Rest.Sync.V1.Service
                                           string pathServiceSid,
                                           string uniqueName = null,
                                           int? ttl = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateSyncStreamOptions(pathServiceSid){  UniqueName = uniqueName, Ttl = ttl };
+            var options = new CreateSyncStreamOptions(pathServiceSid) { UniqueName = uniqueName, Ttl = ttl };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Stream. </summary>
         /// <param name="pathServiceSid"> The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) to create the new Stream in. </param>
         /// <param name="uniqueName"> An application-defined string that uniquely identifies the resource. This value must be unique within its Service and it can be up to 320 characters long. The `unique_name` value can be used as an alternative to the `sid` in the URL path to address the resource. </param>
@@ -100,26 +100,26 @@ namespace Kandy.Rest.Sync.V1.Service
                                                                                   string pathServiceSid,
                                                                                   string uniqueName = null,
                                                                                   int? ttl = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateSyncStreamOptions(pathServiceSid){  UniqueName = uniqueName, Ttl = ttl };
+            var options = new CreateSyncStreamOptions(pathServiceSid) { UniqueName = uniqueName, Ttl = ttl };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Delete a specific Stream. </summary>
         /// <param name="options"> Delete SyncStream parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SyncStream </returns>
-        private static Request BuildDeleteRequest(DeleteSyncStreamOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteSyncStreamOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Streams/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -134,60 +134,60 @@ namespace Kandy.Rest.Sync.V1.Service
         /// <param name="options"> Delete SyncStream parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SyncStream </returns>
-        public static bool Delete(DeleteSyncStreamOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteSyncStreamOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific Stream. </summary>
         /// <param name="options"> Delete SyncStream parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SyncStream </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteSyncStreamOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete a specific Stream. </summary>
         /// <param name="pathServiceSid"> The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Stream resource to delete. </param>
         /// <param name="pathSid"> The SID of the Stream resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SyncStream </returns>
-        public static bool Delete(string pathServiceSid, string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathServiceSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteSyncStreamOptions(pathServiceSid, pathSid)        ;
+            var options = new DeleteSyncStreamOptions(pathServiceSid, pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific Stream. </summary>
         /// <param name="pathServiceSid"> The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Stream resource to delete. </param>
         /// <param name="pathSid"> The SID of the Stream resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SyncStream </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathServiceSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteSyncStreamOptions(pathServiceSid, pathSid) ;
+            var options = new DeleteSyncStreamOptions(pathServiceSid, pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchSyncStreamOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchSyncStreamOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Streams/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -202,60 +202,60 @@ namespace Kandy.Rest.Sync.V1.Service
         /// <param name="options"> Fetch SyncStream parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SyncStream </returns>
-        public static SyncStreamResource Fetch(FetchSyncStreamOptions options, ITwilioRestClient client = null)
+        public static SyncStreamResource Fetch(FetchSyncStreamOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Stream. </summary>
         /// <param name="options"> Fetch SyncStream parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SyncStream </returns>
         public static async System.Threading.Tasks.Task<SyncStreamResource> FetchAsync(FetchSyncStreamOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a specific Stream. </summary>
         /// <param name="pathServiceSid"> The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Stream resource to fetch. </param>
         /// <param name="pathSid"> The SID of the Stream resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SyncStream </returns>
         public static SyncStreamResource Fetch(
-                                         string pathServiceSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathServiceSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchSyncStreamOptions(pathServiceSid, pathSid){  };
+            var options = new FetchSyncStreamOptions(pathServiceSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Stream. </summary>
         /// <param name="pathServiceSid"> The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Stream resource to fetch. </param>
         /// <param name="pathSid"> The SID of the Stream resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SyncStream </returns>
-        public static async System.Threading.Tasks.Task<SyncStreamResource> FetchAsync(string pathServiceSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<SyncStreamResource> FetchAsync(string pathServiceSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchSyncStreamOptions(pathServiceSid, pathSid){  };
+            var options = new FetchSyncStreamOptions(pathServiceSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadSyncStreamOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadSyncStreamOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Streams";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -269,7 +269,7 @@ namespace Kandy.Rest.Sync.V1.Service
         /// <param name="options"> Read SyncStream parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SyncStream </returns>
-        public static ResourceSet<SyncStreamResource> Read(ReadSyncStreamOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<SyncStreamResource> Read(ReadSyncStreamOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -277,13 +277,13 @@ namespace Kandy.Rest.Sync.V1.Service
             return new ResourceSet<SyncStreamResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Streams in a Service Instance. </summary>
         /// <param name="options"> Read SyncStream parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SyncStream </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<SyncStreamResource>> ReadAsync(ReadSyncStreamOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -291,7 +291,7 @@ namespace Kandy.Rest.Sync.V1.Service
             var page = Page<SyncStreamResource>.FromJson("streams", response.Content);
             return new ResourceSet<SyncStreamResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Streams in a Service Instance. </summary>
         /// <param name="pathServiceSid"> The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Stream resources to read. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -302,13 +302,13 @@ namespace Kandy.Rest.Sync.V1.Service
                                                      string pathServiceSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadSyncStreamOptions(pathServiceSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadSyncStreamOptions(pathServiceSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Streams in a Service Instance. </summary>
         /// <param name="pathServiceSid"> The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Stream resources to read. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -319,19 +319,19 @@ namespace Kandy.Rest.Sync.V1.Service
                                                                                              string pathServiceSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadSyncStreamOptions(pathServiceSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadSyncStreamOptions(pathServiceSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<SyncStreamResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<SyncStreamResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -348,7 +348,7 @@ namespace Kandy.Rest.Sync.V1.Service
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<SyncStreamResource> NextPage(Page<SyncStreamResource> page, ITwilioRestClient client)
+        public static Page<SyncStreamResource> NextPage(Page<SyncStreamResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -363,7 +363,7 @@ namespace Kandy.Rest.Sync.V1.Service
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<SyncStreamResource> PreviousPage(Page<SyncStreamResource> page, ITwilioRestClient client)
+        public static Page<SyncStreamResource> PreviousPage(Page<SyncStreamResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -374,16 +374,16 @@ namespace Kandy.Rest.Sync.V1.Service
             return Page<SyncStreamResource>.FromJson("streams", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateSyncStreamOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateSyncStreamOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Streams/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -398,7 +398,7 @@ namespace Kandy.Rest.Sync.V1.Service
         /// <param name="options"> Update SyncStream parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of SyncStream </returns>
-        public static SyncStreamResource Update(UpdateSyncStreamOptions options, ITwilioRestClient client = null)
+        public static SyncStreamResource Update(UpdateSyncStreamOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -409,15 +409,15 @@ namespace Kandy.Rest.Sync.V1.Service
         /// <param name="options"> Update SyncStream parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of SyncStream </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<SyncStreamResource> UpdateAsync(UpdateSyncStreamOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update a specific Stream. </summary>
         /// <param name="pathServiceSid"> The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Stream resource to update. </param>
@@ -429,13 +429,13 @@ namespace Kandy.Rest.Sync.V1.Service
                                           string pathServiceSid,
                                           string pathSid,
                                           int? ttl = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateSyncStreamOptions(pathServiceSid, pathSid){ Ttl = ttl };
+            var options = new UpdateSyncStreamOptions(pathServiceSid, pathSid) { Ttl = ttl };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update a specific Stream. </summary>
         /// <param name="pathServiceSid"> The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Stream resource to update. </param>
         /// <param name="pathSid"> The SID of the Stream resource to update. </param>
@@ -446,13 +446,13 @@ namespace Kandy.Rest.Sync.V1.Service
                                                                               string pathServiceSid,
                                                                               string pathSid,
                                                                               int? ttl = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateSyncStreamOptions(pathServiceSid, pathSid){ Ttl = ttl };
+            var options = new UpdateSyncStreamOptions(pathServiceSid, pathSid) { Ttl = ttl };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a SyncStreamResource object
         /// </summary>
@@ -470,7 +470,7 @@ namespace Kandy.Rest.Sync.V1.Service
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the Sync Stream resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -513,7 +513,8 @@ namespace Kandy.Rest.Sync.V1.Service
 
 
 
-        private SyncStreamResource() {
+        private SyncStreamResource()
+        {
 
         }
     }

@@ -28,12 +28,12 @@ namespace Kandy.Rest.Media.V1
 {
     public class MediaProcessorResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class StatusEnum : StringEnum
         {
-            private StatusEnum(string value) : base(value) {}
-            public StatusEnum() {}
+            private StatusEnum(string value) : base(value) { }
+            public StatusEnum() { }
             public static implicit operator StatusEnum(string value)
             {
                 return new StatusEnum(value);
@@ -45,8 +45,8 @@ namespace Kandy.Rest.Media.V1
         }
         public sealed class OrderEnum : StringEnum
         {
-            private OrderEnum(string value) : base(value) {}
-            public OrderEnum() {}
+            private OrderEnum(string value) : base(value) { }
+            public OrderEnum() { }
             public static implicit operator OrderEnum(string value)
             {
                 return new OrderEnum(value);
@@ -57,8 +57,8 @@ namespace Kandy.Rest.Media.V1
         }
         public sealed class UpdateStatusEnum : StringEnum
         {
-            private UpdateStatusEnum(string value) : base(value) {}
-            public UpdateStatusEnum() {}
+            private UpdateStatusEnum(string value) : base(value) { }
+            public UpdateStatusEnum() { }
             public static implicit operator UpdateStatusEnum(string value)
             {
                 return new UpdateStatusEnum(value);
@@ -67,10 +67,10 @@ namespace Kandy.Rest.Media.V1
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateMediaProcessorOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateMediaProcessorOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/MediaProcessors";
 
 
@@ -87,26 +87,26 @@ namespace Kandy.Rest.Media.V1
         /// <param name="options"> Create MediaProcessor parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of MediaProcessor </returns>
-        public static MediaProcessorResource Create(CreateMediaProcessorOptions options, ITwilioRestClient client = null)
+        public static MediaProcessorResource Create(CreateMediaProcessorOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create MediaProcessor parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of MediaProcessor </returns>
         public static async System.Threading.Tasks.Task<MediaProcessorResource> CreateAsync(CreateMediaProcessorOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="extension"> The [Media Extension](/docs/live/api/media-extensions-overview) name or URL. Ex: `video-composer-v2` </param>
@@ -124,13 +124,13 @@ namespace Kandy.Rest.Media.V1
                                           Uri statusCallback = null,
                                           Twilio.Http.HttpMethod statusCallbackMethod = null,
                                           int? maxDuration = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateMediaProcessorOptions(extension, extensionContext){  ExtensionEnvironment = extensionEnvironment, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, MaxDuration = maxDuration };
+            var options = new CreateMediaProcessorOptions(extension, extensionContext) { ExtensionEnvironment = extensionEnvironment, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, MaxDuration = maxDuration };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="extension"> The [Media Extension](/docs/live/api/media-extensions-overview) name or URL. Ex: `video-composer-v2` </param>
         /// <param name="extensionContext"> The context of the Media Extension, represented as a JSON dictionary. See the documentation for the specific [Media Extension](/docs/live/api/media-extensions-overview) you are using for more information about the context to send. </param>
@@ -147,20 +147,20 @@ namespace Kandy.Rest.Media.V1
                                                                                   Uri statusCallback = null,
                                                                                   Twilio.Http.HttpMethod statusCallbackMethod = null,
                                                                                   int? maxDuration = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateMediaProcessorOptions(extension, extensionContext){  ExtensionEnvironment = extensionEnvironment, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, MaxDuration = maxDuration };
+            var options = new CreateMediaProcessorOptions(extension, extensionContext) { ExtensionEnvironment = extensionEnvironment, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod, MaxDuration = maxDuration };
             return await CreateAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchMediaProcessorOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchMediaProcessorOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/MediaProcessors/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -175,53 +175,53 @@ namespace Kandy.Rest.Media.V1
         /// <param name="options"> Fetch MediaProcessor parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of MediaProcessor </returns>
-        public static MediaProcessorResource Fetch(FetchMediaProcessorOptions options, ITwilioRestClient client = null)
+        public static MediaProcessorResource Fetch(FetchMediaProcessorOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Returns a single MediaProcessor resource identified by a SID. </summary>
         /// <param name="options"> Fetch MediaProcessor parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of MediaProcessor </returns>
         public static async System.Threading.Tasks.Task<MediaProcessorResource> FetchAsync(FetchMediaProcessorOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Returns a single MediaProcessor resource identified by a SID. </summary>
         /// <param name="pathSid"> The SID of the MediaProcessor resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of MediaProcessor </returns>
         public static MediaProcessorResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchMediaProcessorOptions(pathSid){  };
+            var options = new FetchMediaProcessorOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Returns a single MediaProcessor resource identified by a SID. </summary>
         /// <param name="pathSid"> The SID of the MediaProcessor resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of MediaProcessor </returns>
-        public static async System.Threading.Tasks.Task<MediaProcessorResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<MediaProcessorResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchMediaProcessorOptions(pathSid){  };
+            var options = new FetchMediaProcessorOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadMediaProcessorOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadMediaProcessorOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/MediaProcessors";
 
 
@@ -237,7 +237,7 @@ namespace Kandy.Rest.Media.V1
         /// <param name="options"> Read MediaProcessor parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of MediaProcessor </returns>
-        public static ResourceSet<MediaProcessorResource> Read(ReadMediaProcessorOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<MediaProcessorResource> Read(ReadMediaProcessorOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -245,13 +245,13 @@ namespace Kandy.Rest.Media.V1
             return new ResourceSet<MediaProcessorResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Returns a list of MediaProcessors. </summary>
         /// <param name="options"> Read MediaProcessor parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of MediaProcessor </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<MediaProcessorResource>> ReadAsync(ReadMediaProcessorOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -259,7 +259,7 @@ namespace Kandy.Rest.Media.V1
             var page = Page<MediaProcessorResource>.FromJson("media_processors", response.Content);
             return new ResourceSet<MediaProcessorResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Returns a list of MediaProcessors. </summary>
         /// <param name="order"> The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default. </param>
         /// <param name="status"> Status to filter by, with possible values `started`, `ended` or `failed`. </param>
@@ -272,13 +272,13 @@ namespace Kandy.Rest.Media.V1
                                                      MediaProcessorResource.StatusEnum status = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadMediaProcessorOptions(){ Order = order, Status = status, PageSize = pageSize, Limit = limit};
+            var options = new ReadMediaProcessorOptions() { Order = order, Status = status, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Returns a list of MediaProcessors. </summary>
         /// <param name="order"> The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default. </param>
         /// <param name="status"> Status to filter by, with possible values `started`, `ended` or `failed`. </param>
@@ -291,19 +291,19 @@ namespace Kandy.Rest.Media.V1
                                                                                              MediaProcessorResource.StatusEnum status = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadMediaProcessorOptions(){ Order = order, Status = status, PageSize = pageSize, Limit = limit};
+            var options = new ReadMediaProcessorOptions() { Order = order, Status = status, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<MediaProcessorResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<MediaProcessorResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -320,7 +320,7 @@ namespace Kandy.Rest.Media.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<MediaProcessorResource> NextPage(Page<MediaProcessorResource> page, ITwilioRestClient client)
+        public static Page<MediaProcessorResource> NextPage(Page<MediaProcessorResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -335,7 +335,7 @@ namespace Kandy.Rest.Media.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<MediaProcessorResource> PreviousPage(Page<MediaProcessorResource> page, ITwilioRestClient client)
+        public static Page<MediaProcessorResource> PreviousPage(Page<MediaProcessorResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -346,14 +346,14 @@ namespace Kandy.Rest.Media.V1
             return Page<MediaProcessorResource>.FromJson("media_processors", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateMediaProcessorOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateMediaProcessorOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/MediaProcessors/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -368,7 +368,7 @@ namespace Kandy.Rest.Media.V1
         /// <param name="options"> Update MediaProcessor parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of MediaProcessor </returns>
-        public static MediaProcessorResource Update(UpdateMediaProcessorOptions options, ITwilioRestClient client = null)
+        public static MediaProcessorResource Update(UpdateMediaProcessorOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -379,15 +379,15 @@ namespace Kandy.Rest.Media.V1
         /// <param name="options"> Update MediaProcessor parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of MediaProcessor </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<MediaProcessorResource> UpdateAsync(UpdateMediaProcessorOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Updates a MediaProcessor resource identified by a SID. </summary>
         /// <param name="pathSid"> The SID of the MediaProcessor resource to update. </param>
@@ -397,13 +397,13 @@ namespace Kandy.Rest.Media.V1
         public static MediaProcessorResource Update(
                                           string pathSid,
                                           MediaProcessorResource.UpdateStatusEnum status,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateMediaProcessorOptions(pathSid, status){  };
+            var options = new UpdateMediaProcessorOptions(pathSid, status) { };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Updates a MediaProcessor resource identified by a SID. </summary>
         /// <param name="pathSid"> The SID of the MediaProcessor resource to update. </param>
         /// <param name="status">  </param>
@@ -412,13 +412,13 @@ namespace Kandy.Rest.Media.V1
         public static async System.Threading.Tasks.Task<MediaProcessorResource> UpdateAsync(
                                                                               string pathSid,
                                                                               MediaProcessorResource.UpdateStatusEnum status,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateMediaProcessorOptions(pathSid, status){  };
+            var options = new UpdateMediaProcessorOptions(pathSid, status) { };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a MediaProcessorResource object
         /// </summary>
@@ -436,7 +436,7 @@ namespace Kandy.Rest.Media.V1
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the MediaProcessor resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -461,7 +461,7 @@ namespace Kandy.Rest.Media.V1
         [JsonProperty("extension_context")]
         public string ExtensionContext { get; private set; }
 
-        
+
         [JsonProperty("status")]
         public MediaProcessorResource.StatusEnum Status { get; private set; }
 
@@ -487,7 +487,8 @@ namespace Kandy.Rest.Media.V1
 
 
 
-        private MediaProcessorResource() {
+        private MediaProcessorResource()
+        {
 
         }
     }

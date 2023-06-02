@@ -28,16 +28,16 @@ namespace Kandy.Rest.Media.V1.PlayerStreamer
 {
     public class PlaybackGrantResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreatePlaybackGrantOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreatePlaybackGrantOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/PlayerStreamers/{Sid}/PlaybackGrant";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -52,26 +52,26 @@ namespace Kandy.Rest.Media.V1.PlayerStreamer
         /// <param name="options"> Create PlaybackGrant parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of PlaybackGrant </returns>
-        public static PlaybackGrantResource Create(CreatePlaybackGrantOptions options, ITwilioRestClient client = null)
+        public static PlaybackGrantResource Create(CreatePlaybackGrantOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create PlaybackGrant parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of PlaybackGrant </returns>
         public static async System.Threading.Tasks.Task<PlaybackGrantResource> CreateAsync(CreatePlaybackGrantOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="pathSid"> The unique string generated to identify the PlayerStreamer resource associated with this PlaybackGrant </param>
@@ -83,13 +83,13 @@ namespace Kandy.Rest.Media.V1.PlayerStreamer
                                           string pathSid,
                                           int? ttl = null,
                                           string accessControlAllowOrigin = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreatePlaybackGrantOptions(pathSid){  Ttl = ttl, AccessControlAllowOrigin = accessControlAllowOrigin };
+            var options = new CreatePlaybackGrantOptions(pathSid) { Ttl = ttl, AccessControlAllowOrigin = accessControlAllowOrigin };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="pathSid"> The unique string generated to identify the PlayerStreamer resource associated with this PlaybackGrant </param>
         /// <param name="ttl"> The time to live of the PlaybackGrant. Default value is 15 seconds. Maximum value is 60 seconds. </param>
@@ -100,20 +100,20 @@ namespace Kandy.Rest.Media.V1.PlayerStreamer
                                                                                   string pathSid,
                                                                                   int? ttl = null,
                                                                                   string accessControlAllowOrigin = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreatePlaybackGrantOptions(pathSid){  Ttl = ttl, AccessControlAllowOrigin = accessControlAllowOrigin };
+            var options = new CreatePlaybackGrantOptions(pathSid) { Ttl = ttl, AccessControlAllowOrigin = accessControlAllowOrigin };
             return await CreateAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchPlaybackGrantOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchPlaybackGrantOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/PlayerStreamers/{Sid}/PlaybackGrant";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -128,50 +128,50 @@ namespace Kandy.Rest.Media.V1.PlayerStreamer
         /// <param name="options"> Fetch PlaybackGrant parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of PlaybackGrant </returns>
-        public static PlaybackGrantResource Fetch(FetchPlaybackGrantOptions options, ITwilioRestClient client = null)
+        public static PlaybackGrantResource Fetch(FetchPlaybackGrantOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> **This method is not enabled.** Returns a single PlaybackGrant resource identified by a SID. </summary>
         /// <param name="options"> Fetch PlaybackGrant parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of PlaybackGrant </returns>
         public static async System.Threading.Tasks.Task<PlaybackGrantResource> FetchAsync(FetchPlaybackGrantOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> **This method is not enabled.** Returns a single PlaybackGrant resource identified by a SID. </summary>
         /// <param name="pathSid"> The SID of the PlayerStreamer resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of PlaybackGrant </returns>
         public static PlaybackGrantResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchPlaybackGrantOptions(pathSid){  };
+            var options = new FetchPlaybackGrantOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> **This method is not enabled.** Returns a single PlaybackGrant resource identified by a SID. </summary>
         /// <param name="pathSid"> The SID of the PlayerStreamer resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of PlaybackGrant </returns>
-        public static async System.Threading.Tasks.Task<PlaybackGrantResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<PlaybackGrantResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchPlaybackGrantOptions(pathSid){  };
+            var options = new FetchPlaybackGrantOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a PlaybackGrantResource object
         /// </summary>
@@ -189,7 +189,7 @@ namespace Kandy.Rest.Media.V1.PlayerStreamer
             }
         }
 
-    
+
         ///<summary> The unique string generated to identify the PlayerStreamer resource that this PlaybackGrant authorizes views for. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -212,7 +212,8 @@ namespace Kandy.Rest.Media.V1.PlayerStreamer
 
 
 
-        private PlaybackGrantResource() {
+        private PlaybackGrantResource()
+        {
 
         }
     }

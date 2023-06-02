@@ -28,12 +28,12 @@ namespace Kandy.Rest.Intelligence.V2
 {
     public class TranscriptResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class StatusEnum : StringEnum
         {
-            private StatusEnum(string value) : base(value) {}
-            public StatusEnum() {}
+            private StatusEnum(string value) : base(value) { }
+            public StatusEnum() { }
             public static implicit operator StatusEnum(string value)
             {
                 return new StatusEnum(value);
@@ -46,10 +46,10 @@ namespace Kandy.Rest.Intelligence.V2
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateTranscriptOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateTranscriptOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Transcripts";
 
 
@@ -66,26 +66,26 @@ namespace Kandy.Rest.Intelligence.V2
         /// <param name="options"> Create Transcript parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Transcript </returns>
-        public static TranscriptResource Create(CreateTranscriptOptions options, ITwilioRestClient client = null)
+        public static TranscriptResource Create(CreateTranscriptOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Transcript for the service </summary>
         /// <param name="options"> Create Transcript parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Transcript </returns>
         public static async System.Threading.Tasks.Task<TranscriptResource> CreateAsync(CreateTranscriptOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new Transcript for the service </summary>
         /// <param name="serviceSid"> The unique SID identifier of the Service. </param>
@@ -99,13 +99,13 @@ namespace Kandy.Rest.Intelligence.V2
                                           object channel,
                                           string customerKey = null,
                                           DateTime? mediaStartTime = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateTranscriptOptions(serviceSid, channel){  CustomerKey = customerKey, MediaStartTime = mediaStartTime };
+            var options = new CreateTranscriptOptions(serviceSid, channel) { CustomerKey = customerKey, MediaStartTime = mediaStartTime };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Transcript for the service </summary>
         /// <param name="serviceSid"> The unique SID identifier of the Service. </param>
         /// <param name="channel"> JSON object describing Media Channel including Source and Participants </param>
@@ -118,24 +118,24 @@ namespace Kandy.Rest.Intelligence.V2
                                                                                   object channel,
                                                                                   string customerKey = null,
                                                                                   DateTime? mediaStartTime = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateTranscriptOptions(serviceSid, channel){  CustomerKey = customerKey, MediaStartTime = mediaStartTime };
+            var options = new CreateTranscriptOptions(serviceSid, channel) { CustomerKey = customerKey, MediaStartTime = mediaStartTime };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Delete a specific Transcript. </summary>
         /// <param name="options"> Delete Transcript parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Transcript </returns>
-        private static Request BuildDeleteRequest(DeleteTranscriptOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteTranscriptOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Transcripts/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -150,56 +150,56 @@ namespace Kandy.Rest.Intelligence.V2
         /// <param name="options"> Delete Transcript parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Transcript </returns>
-        public static bool Delete(DeleteTranscriptOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteTranscriptOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific Transcript. </summary>
         /// <param name="options"> Delete Transcript parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Transcript </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteTranscriptOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete a specific Transcript. </summary>
         /// <param name="pathSid"> A 34 character string that uniquely identifies this Transcript. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Transcript </returns>
-        public static bool Delete(string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteTranscriptOptions(pathSid)     ;
+            var options = new DeleteTranscriptOptions(pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a specific Transcript. </summary>
         /// <param name="pathSid"> A 34 character string that uniquely identifies this Transcript. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Transcript </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteTranscriptOptions(pathSid) ;
+            var options = new DeleteTranscriptOptions(pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchTranscriptOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchTranscriptOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Transcripts/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -214,56 +214,56 @@ namespace Kandy.Rest.Intelligence.V2
         /// <param name="options"> Fetch Transcript parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Transcript </returns>
-        public static TranscriptResource Fetch(FetchTranscriptOptions options, ITwilioRestClient client = null)
+        public static TranscriptResource Fetch(FetchTranscriptOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Transcript. </summary>
         /// <param name="options"> Fetch Transcript parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Transcript </returns>
         public static async System.Threading.Tasks.Task<TranscriptResource> FetchAsync(FetchTranscriptOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a specific Transcript. </summary>
         /// <param name="pathSid"> A 34 character string that uniquely identifies this Transcript. </param>
         /// <param name="redacted"> Grant access to PII Redacted/Unredacted Transcript. The default is `true` to access redacted Transcript. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Transcript </returns>
         public static TranscriptResource Fetch(
-                                         string pathSid, 
-                                         bool? redacted = null, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         bool? redacted = null,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchTranscriptOptions(pathSid){ Redacted = redacted };
+            var options = new FetchTranscriptOptions(pathSid) { Redacted = redacted };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a specific Transcript. </summary>
         /// <param name="pathSid"> A 34 character string that uniquely identifies this Transcript. </param>
         /// <param name="redacted"> Grant access to PII Redacted/Unredacted Transcript. The default is `true` to access redacted Transcript. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Transcript </returns>
-        public static async System.Threading.Tasks.Task<TranscriptResource> FetchAsync(string pathSid, bool? redacted = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<TranscriptResource> FetchAsync(string pathSid, bool? redacted = null, IKandyRestClient client = null)
         {
-            var options = new FetchTranscriptOptions(pathSid){ Redacted = redacted };
+            var options = new FetchTranscriptOptions(pathSid) { Redacted = redacted };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadTranscriptOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadTranscriptOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Transcripts";
 
 
@@ -279,7 +279,7 @@ namespace Kandy.Rest.Intelligence.V2
         /// <param name="options"> Read Transcript parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Transcript </returns>
-        public static ResourceSet<TranscriptResource> Read(ReadTranscriptOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<TranscriptResource> Read(ReadTranscriptOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -287,13 +287,13 @@ namespace Kandy.Rest.Intelligence.V2
             return new ResourceSet<TranscriptResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of Transcripts for a given service. </summary>
         /// <param name="options"> Read Transcript parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Transcript </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<TranscriptResource>> ReadAsync(ReadTranscriptOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -301,7 +301,7 @@ namespace Kandy.Rest.Intelligence.V2
             var page = Page<TranscriptResource>.FromJson("transcripts", response.Content);
             return new ResourceSet<TranscriptResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of Transcripts for a given service. </summary>
         /// <param name="serviceSid"> The unique SID identifier of the Service. </param>
         /// <param name="beforeStartTime"> Filter by before StartTime. </param>
@@ -326,13 +326,13 @@ namespace Kandy.Rest.Intelligence.V2
                                                      string sourceSid = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadTranscriptOptions(){ ServiceSid = serviceSid, BeforeStartTime = beforeStartTime, AfterStartTime = afterStartTime, BeforeDateCreated = beforeDateCreated, AfterDateCreated = afterDateCreated, Status = status, LanguageCode = languageCode, SourceSid = sourceSid, PageSize = pageSize, Limit = limit};
+            var options = new ReadTranscriptOptions() { ServiceSid = serviceSid, BeforeStartTime = beforeStartTime, AfterStartTime = afterStartTime, BeforeDateCreated = beforeDateCreated, AfterDateCreated = afterDateCreated, Status = status, LanguageCode = languageCode, SourceSid = sourceSid, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of Transcripts for a given service. </summary>
         /// <param name="serviceSid"> The unique SID identifier of the Service. </param>
         /// <param name="beforeStartTime"> Filter by before StartTime. </param>
@@ -357,19 +357,19 @@ namespace Kandy.Rest.Intelligence.V2
                                                                                              string sourceSid = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadTranscriptOptions(){ ServiceSid = serviceSid, BeforeStartTime = beforeStartTime, AfterStartTime = afterStartTime, BeforeDateCreated = beforeDateCreated, AfterDateCreated = afterDateCreated, Status = status, LanguageCode = languageCode, SourceSid = sourceSid, PageSize = pageSize, Limit = limit};
+            var options = new ReadTranscriptOptions() { ServiceSid = serviceSid, BeforeStartTime = beforeStartTime, AfterStartTime = afterStartTime, BeforeDateCreated = beforeDateCreated, AfterDateCreated = afterDateCreated, Status = status, LanguageCode = languageCode, SourceSid = sourceSid, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<TranscriptResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<TranscriptResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -386,7 +386,7 @@ namespace Kandy.Rest.Intelligence.V2
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<TranscriptResource> NextPage(Page<TranscriptResource> page, ITwilioRestClient client)
+        public static Page<TranscriptResource> NextPage(Page<TranscriptResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -401,7 +401,7 @@ namespace Kandy.Rest.Intelligence.V2
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<TranscriptResource> PreviousPage(Page<TranscriptResource> page, ITwilioRestClient client)
+        public static Page<TranscriptResource> PreviousPage(Page<TranscriptResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -412,7 +412,7 @@ namespace Kandy.Rest.Intelligence.V2
             return Page<TranscriptResource>.FromJson("transcripts", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a TranscriptResource object
         /// </summary>
@@ -430,7 +430,7 @@ namespace Kandy.Rest.Intelligence.V2
             }
         }
 
-    
+
         ///<summary> The unique SID identifier of the Account. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -451,7 +451,7 @@ namespace Kandy.Rest.Intelligence.V2
         [JsonProperty("date_updated")]
         public DateTime? DateUpdated { get; private set; }
 
-        
+
         [JsonProperty("status")]
         public TranscriptResource.StatusEnum Status { get; private set; }
 
@@ -493,7 +493,8 @@ namespace Kandy.Rest.Intelligence.V2
 
 
 
-        private TranscriptResource() {
+        private TranscriptResource()
+        {
 
         }
     }

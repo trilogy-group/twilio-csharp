@@ -28,16 +28,16 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace
 {
     public class WorkspaceCumulativeStatisticsResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchWorkspaceCumulativeStatisticsOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchWorkspaceCumulativeStatisticsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Workspaces/{WorkspaceSid}/CumulativeStatistics";
 
             string PathWorkspaceSid = options.PathWorkspaceSid;
-            path = path.Replace("{"+"WorkspaceSid"+"}", PathWorkspaceSid);
+            path = path.Replace("{" + "WorkspaceSid" + "}", PathWorkspaceSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -52,26 +52,26 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace
         /// <param name="options"> Fetch WorkspaceCumulativeStatistics parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of WorkspaceCumulativeStatistics </returns>
-        public static WorkspaceCumulativeStatisticsResource Fetch(FetchWorkspaceCumulativeStatisticsOptions options, ITwilioRestClient client = null)
+        public static WorkspaceCumulativeStatisticsResource Fetch(FetchWorkspaceCumulativeStatisticsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch WorkspaceCumulativeStatistics parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of WorkspaceCumulativeStatistics </returns>
         public static async System.Threading.Tasks.Task<WorkspaceCumulativeStatisticsResource> FetchAsync(FetchWorkspaceCumulativeStatisticsOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathWorkspaceSid"> The SID of the Workspace to fetch. </param>
         /// <param name="endDate"> Only include usage that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time. </param>
@@ -82,19 +82,19 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of WorkspaceCumulativeStatistics </returns>
         public static WorkspaceCumulativeStatisticsResource Fetch(
-                                         string pathWorkspaceSid, 
-                                         DateTime? endDate = null, 
-                                         int? minutes = null, 
-                                         DateTime? startDate = null, 
-                                         string taskChannel = null, 
-                                         string splitByWaitTime = null, 
-                                         ITwilioRestClient client = null)
+                                         string pathWorkspaceSid,
+                                         DateTime? endDate = null,
+                                         int? minutes = null,
+                                         DateTime? startDate = null,
+                                         string taskChannel = null,
+                                         string splitByWaitTime = null,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchWorkspaceCumulativeStatisticsOptions(pathWorkspaceSid){ EndDate = endDate,Minutes = minutes,StartDate = startDate,TaskChannel = taskChannel,SplitByWaitTime = splitByWaitTime };
+            var options = new FetchWorkspaceCumulativeStatisticsOptions(pathWorkspaceSid) { EndDate = endDate, Minutes = minutes, StartDate = startDate, TaskChannel = taskChannel, SplitByWaitTime = splitByWaitTime };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathWorkspaceSid"> The SID of the Workspace to fetch. </param>
         /// <param name="endDate"> Only include usage that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time. </param>
@@ -104,13 +104,13 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace
         /// <param name="splitByWaitTime"> A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed. For example, `5,30` would show splits of Tasks that were canceled or accepted before and after 5 seconds and before and after 30 seconds. This can be used to show short abandoned Tasks or Tasks that failed to meet an SLA. TaskRouter will calculate statistics on up to 10,000 Tasks for any given threshold. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of WorkspaceCumulativeStatistics </returns>
-        public static async System.Threading.Tasks.Task<WorkspaceCumulativeStatisticsResource> FetchAsync(string pathWorkspaceSid, DateTime? endDate = null, int? minutes = null, DateTime? startDate = null, string taskChannel = null, string splitByWaitTime = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<WorkspaceCumulativeStatisticsResource> FetchAsync(string pathWorkspaceSid, DateTime? endDate = null, int? minutes = null, DateTime? startDate = null, string taskChannel = null, string splitByWaitTime = null, IKandyRestClient client = null)
         {
-            var options = new FetchWorkspaceCumulativeStatisticsOptions(pathWorkspaceSid){ EndDate = endDate,Minutes = minutes,StartDate = startDate,TaskChannel = taskChannel,SplitByWaitTime = splitByWaitTime };
+            var options = new FetchWorkspaceCumulativeStatisticsOptions(pathWorkspaceSid) { EndDate = endDate, Minutes = minutes, StartDate = startDate, TaskChannel = taskChannel, SplitByWaitTime = splitByWaitTime };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a WorkspaceCumulativeStatisticsResource object
         /// </summary>
@@ -128,7 +128,7 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Workspace resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -215,7 +215,8 @@ namespace Kandy.Rest.Taskrouter.V1.Workspace
 
 
 
-        private WorkspaceCumulativeStatisticsResource() {
+        private WorkspaceCumulativeStatisticsResource()
+        {
 
         }
     }

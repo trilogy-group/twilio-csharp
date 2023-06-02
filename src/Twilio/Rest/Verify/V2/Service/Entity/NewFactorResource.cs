@@ -28,11 +28,11 @@ namespace Kandy.Rest.Verify.V2.Service.Entity
 {
     public class NewFactorResource : Resource
     {
-    
+
         public sealed class NotificationPlatformsEnum : StringEnum
         {
-            private NotificationPlatformsEnum(string value) : base(value) {}
-            public NotificationPlatformsEnum() {}
+            private NotificationPlatformsEnum(string value) : base(value) { }
+            public NotificationPlatformsEnum() { }
             public static implicit operator NotificationPlatformsEnum(string value)
             {
                 return new NotificationPlatformsEnum(value);
@@ -45,8 +45,8 @@ namespace Kandy.Rest.Verify.V2.Service.Entity
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class FactorTypesEnum : StringEnum
         {
-            private FactorTypesEnum(string value) : base(value) {}
-            public FactorTypesEnum() {}
+            private FactorTypesEnum(string value) : base(value) { }
+            public FactorTypesEnum() { }
             public static implicit operator FactorTypesEnum(string value)
             {
                 return new FactorTypesEnum(value);
@@ -57,8 +57,8 @@ namespace Kandy.Rest.Verify.V2.Service.Entity
         }
         public sealed class TotpAlgorithmsEnum : StringEnum
         {
-            private TotpAlgorithmsEnum(string value) : base(value) {}
-            public TotpAlgorithmsEnum() {}
+            private TotpAlgorithmsEnum(string value) : base(value) { }
+            public TotpAlgorithmsEnum() { }
             public static implicit operator TotpAlgorithmsEnum(string value)
             {
                 return new TotpAlgorithmsEnum(value);
@@ -71,8 +71,8 @@ namespace Kandy.Rest.Verify.V2.Service.Entity
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class FactorStatusesEnum : StringEnum
         {
-            private FactorStatusesEnum(string value) : base(value) {}
-            public FactorStatusesEnum() {}
+            private FactorStatusesEnum(string value) : base(value) { }
+            public FactorStatusesEnum() { }
             public static implicit operator FactorStatusesEnum(string value)
             {
                 return new FactorStatusesEnum(value);
@@ -82,16 +82,16 @@ namespace Kandy.Rest.Verify.V2.Service.Entity
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateNewFactorOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateNewFactorOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathIdentity = options.PathIdentity;
-            path = path.Replace("{"+"Identity"+"}", PathIdentity);
+            path = path.Replace("{" + "Identity" + "}", PathIdentity);
 
             return new Request(
                 HttpMethod.Post,
@@ -106,26 +106,26 @@ namespace Kandy.Rest.Verify.V2.Service.Entity
         /// <param name="options"> Create NewFactor parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of NewFactor </returns>
-        public static NewFactorResource Create(CreateNewFactorOptions options, ITwilioRestClient client = null)
+        public static NewFactorResource Create(CreateNewFactorOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Factor for the Entity </summary>
         /// <param name="options"> Create NewFactor parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of NewFactor </returns>
         public static async System.Threading.Tasks.Task<NewFactorResource> CreateAsync(CreateNewFactorOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new Factor for the Entity </summary>
         /// <param name="pathServiceSid"> The unique SID identifier of the Service. </param>
@@ -163,13 +163,13 @@ namespace Kandy.Rest.Verify.V2.Service.Entity
                                           int? configCodeLength = null,
                                           NewFactorResource.TotpAlgorithmsEnum configAlg = null,
                                           object metadata = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateNewFactorOptions(pathServiceSid, pathIdentity, friendlyName, factorType){  BindingAlg = bindingAlg, BindingPublicKey = bindingPublicKey, ConfigAppId = configAppId, ConfigNotificationPlatform = configNotificationPlatform, ConfigNotificationToken = configNotificationToken, ConfigSdkVersion = configSdkVersion, BindingSecret = bindingSecret, ConfigTimeStep = configTimeStep, ConfigSkew = configSkew, ConfigCodeLength = configCodeLength, ConfigAlg = configAlg, Metadata = metadata };
+            var options = new CreateNewFactorOptions(pathServiceSid, pathIdentity, friendlyName, factorType) { BindingAlg = bindingAlg, BindingPublicKey = bindingPublicKey, ConfigAppId = configAppId, ConfigNotificationPlatform = configNotificationPlatform, ConfigNotificationToken = configNotificationToken, ConfigSdkVersion = configSdkVersion, BindingSecret = bindingSecret, ConfigTimeStep = configTimeStep, ConfigSkew = configSkew, ConfigCodeLength = configCodeLength, ConfigAlg = configAlg, Metadata = metadata };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Factor for the Entity </summary>
         /// <param name="pathServiceSid"> The unique SID identifier of the Service. </param>
         /// <param name="pathIdentity"> Customer unique identity for the Entity owner of the Factor. This identifier should be immutable, not PII, length between 8 and 64 characters, and generated by your external system, such as your user's UUID, GUID, or SID. It can only contain dash (-) separated alphanumeric characters. </param>
@@ -206,13 +206,13 @@ namespace Kandy.Rest.Verify.V2.Service.Entity
                                                                                   int? configCodeLength = null,
                                                                                   NewFactorResource.TotpAlgorithmsEnum configAlg = null,
                                                                                   object metadata = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateNewFactorOptions(pathServiceSid, pathIdentity, friendlyName, factorType){  BindingAlg = bindingAlg, BindingPublicKey = bindingPublicKey, ConfigAppId = configAppId, ConfigNotificationPlatform = configNotificationPlatform, ConfigNotificationToken = configNotificationToken, ConfigSdkVersion = configSdkVersion, BindingSecret = bindingSecret, ConfigTimeStep = configTimeStep, ConfigSkew = configSkew, ConfigCodeLength = configCodeLength, ConfigAlg = configAlg, Metadata = metadata };
+            var options = new CreateNewFactorOptions(pathServiceSid, pathIdentity, friendlyName, factorType) { BindingAlg = bindingAlg, BindingPublicKey = bindingPublicKey, ConfigAppId = configAppId, ConfigNotificationPlatform = configNotificationPlatform, ConfigNotificationToken = configNotificationToken, ConfigSdkVersion = configSdkVersion, BindingSecret = bindingSecret, ConfigTimeStep = configTimeStep, ConfigSkew = configSkew, ConfigCodeLength = configCodeLength, ConfigAlg = configAlg, Metadata = metadata };
             return await CreateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a NewFactorResource object
         /// </summary>
@@ -230,7 +230,7 @@ namespace Kandy.Rest.Verify.V2.Service.Entity
             }
         }
 
-    
+
         ///<summary> A 34 character string that uniquely identifies this Factor. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -267,11 +267,11 @@ namespace Kandy.Rest.Verify.V2.Service.Entity
         [JsonProperty("friendly_name")]
         public string FriendlyName { get; private set; }
 
-        
+
         [JsonProperty("status")]
         public NewFactorResource.FactorStatusesEnum Status { get; private set; }
 
-        
+
         [JsonProperty("factor_type")]
         public NewFactorResource.FactorTypesEnum FactorType { get; private set; }
 
@@ -289,7 +289,8 @@ namespace Kandy.Rest.Verify.V2.Service.Entity
 
 
 
-        private NewFactorResource() {
+        private NewFactorResource()
+        {
 
         }
     }

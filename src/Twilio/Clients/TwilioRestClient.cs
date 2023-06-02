@@ -16,9 +16,9 @@ using Twilio.Http.Net35;
 namespace Kandy.Clients
 {
     /// <summary>
-    /// Implementation of a TwilioRestClient.
+    /// Implementation of a KandyRestClient.
     /// </summary>
-    public class TwilioRestClient : ITwilioRestClient
+    public class KandyRestClient : IKandyRestClient
     {
         /// <summary>
         /// Client to make HTTP requests
@@ -53,7 +53,7 @@ namespace Kandy.Clients
         private readonly string _password;
 
         /// <summary>
-        /// Constructor for a TwilioRestClient
+        /// Constructor for a KandyRestClient
         /// </summary>
         ///
         /// <param name="username">username for requests</param>
@@ -62,7 +62,7 @@ namespace Kandy.Clients
         /// <param name="region">region to make requests for</param>
         /// <param name="httpClient">http client used to make the requests</param>
         /// <param name="edge">edge to make requests for</param>
-        public TwilioRestClient(
+        public KandyRestClient(
             string username,
             string password,
             string accountSid = null,

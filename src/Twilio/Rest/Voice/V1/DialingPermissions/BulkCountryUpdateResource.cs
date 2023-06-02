@@ -28,12 +28,12 @@ namespace Kandy.Rest.Voice.V1.DialingPermissions
 {
     public class BulkCountryUpdateResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateBulkCountryUpdateOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateBulkCountryUpdateOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/DialingPermissions/BulkCountryUpdates";
 
 
@@ -50,26 +50,26 @@ namespace Kandy.Rest.Voice.V1.DialingPermissions
         /// <param name="options"> Create BulkCountryUpdate parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of BulkCountryUpdate </returns>
-        public static BulkCountryUpdateResource Create(CreateBulkCountryUpdateOptions options, ITwilioRestClient client = null)
+        public static BulkCountryUpdateResource Create(CreateBulkCountryUpdateOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a bulk update request to change voice dialing country permissions of one or more countries identified by the corresponding [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) </summary>
         /// <param name="options"> Create BulkCountryUpdate parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of BulkCountryUpdate </returns>
         public static async System.Threading.Tasks.Task<BulkCountryUpdateResource> CreateAsync(CreateBulkCountryUpdateOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a bulk update request to change voice dialing country permissions of one or more countries identified by the corresponding [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) </summary>
         /// <param name="updateRequest"> URL encoded JSON array of update objects. example : `[ { \\\"iso_code\\\": \\\"GB\\\", \\\"low_risk_numbers_enabled\\\": \\\"true\\\", \\\"high_risk_special_numbers_enabled\\\":\\\"true\\\", \\\"high_risk_tollfraud_numbers_enabled\\\": \\\"false\\\" } ]` </param>
@@ -77,26 +77,26 @@ namespace Kandy.Rest.Voice.V1.DialingPermissions
         /// <returns> A single instance of BulkCountryUpdate </returns>
         public static BulkCountryUpdateResource Create(
                                           string updateRequest,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateBulkCountryUpdateOptions(updateRequest){  };
+            var options = new CreateBulkCountryUpdateOptions(updateRequest) { };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a bulk update request to change voice dialing country permissions of one or more countries identified by the corresponding [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) </summary>
         /// <param name="updateRequest"> URL encoded JSON array of update objects. example : `[ { \\\"iso_code\\\": \\\"GB\\\", \\\"low_risk_numbers_enabled\\\": \\\"true\\\", \\\"high_risk_special_numbers_enabled\\\":\\\"true\\\", \\\"high_risk_tollfraud_numbers_enabled\\\": \\\"false\\\" } ]` </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of BulkCountryUpdate </returns>
         public static async System.Threading.Tasks.Task<BulkCountryUpdateResource> CreateAsync(
                                                                                   string updateRequest,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateBulkCountryUpdateOptions(updateRequest){  };
+            var options = new CreateBulkCountryUpdateOptions(updateRequest) { };
             return await CreateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a BulkCountryUpdateResource object
         /// </summary>
@@ -114,7 +114,7 @@ namespace Kandy.Rest.Voice.V1.DialingPermissions
             }
         }
 
-    
+
         ///<summary> The number of countries updated </summary> 
         [JsonProperty("update_count")]
         public int? UpdateCount { get; private set; }
@@ -125,7 +125,8 @@ namespace Kandy.Rest.Voice.V1.DialingPermissions
 
 
 
-        private BulkCountryUpdateResource() {
+        private BulkCountryUpdateResource()
+        {
 
         }
     }

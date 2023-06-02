@@ -28,16 +28,16 @@ namespace Kandy.Rest.Microvisor.V1.App
 {
     public class AppManifestResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchAppManifestOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchAppManifestOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Apps/{AppSid}/Manifest";
 
             string PathAppSid = options.PathAppSid;
-            path = path.Replace("{"+"AppSid"+"}", PathAppSid);
+            path = path.Replace("{" + "AppSid" + "}", PathAppSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -52,50 +52,50 @@ namespace Kandy.Rest.Microvisor.V1.App
         /// <param name="options"> Fetch AppManifest parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AppManifest </returns>
-        public static AppManifestResource Fetch(FetchAppManifestOptions options, ITwilioRestClient client = null)
+        public static AppManifestResource Fetch(FetchAppManifestOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve the Manifest for an App. </summary>
         /// <param name="options"> Fetch AppManifest parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AppManifest </returns>
         public static async System.Threading.Tasks.Task<AppManifestResource> FetchAsync(FetchAppManifestOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Retrieve the Manifest for an App. </summary>
         /// <param name="pathAppSid"> A 34-character string that uniquely identifies this App. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AppManifest </returns>
         public static AppManifestResource Fetch(
-                                         string pathAppSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathAppSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchAppManifestOptions(pathAppSid){  };
+            var options = new FetchAppManifestOptions(pathAppSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve the Manifest for an App. </summary>
         /// <param name="pathAppSid"> A 34-character string that uniquely identifies this App. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AppManifest </returns>
-        public static async System.Threading.Tasks.Task<AppManifestResource> FetchAsync(string pathAppSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<AppManifestResource> FetchAsync(string pathAppSid, IKandyRestClient client = null)
         {
-            var options = new FetchAppManifestOptions(pathAppSid){  };
+            var options = new FetchAppManifestOptions(pathAppSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a AppManifestResource object
         /// </summary>
@@ -113,7 +113,7 @@ namespace Kandy.Rest.Microvisor.V1.App
             }
         }
 
-    
+
         ///<summary> A 34-character string that uniquely identifies this App. </summary> 
         [JsonProperty("app_sid")]
         public string AppSid { get; private set; }
@@ -132,7 +132,8 @@ namespace Kandy.Rest.Microvisor.V1.App
 
 
 
-        private AppManifestResource() {
+        private AppManifestResource()
+        {
 
         }
     }

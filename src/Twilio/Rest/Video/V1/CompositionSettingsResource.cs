@@ -28,12 +28,12 @@ namespace Kandy.Rest.Video.V1
 {
     public class CompositionSettingsResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateCompositionSettingsOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateCompositionSettingsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/CompositionSettings/Default";
 
 
@@ -50,26 +50,26 @@ namespace Kandy.Rest.Video.V1
         /// <param name="options"> Create CompositionSettings parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of CompositionSettings </returns>
-        public static CompositionSettingsResource Create(CreateCompositionSettingsOptions options, ITwilioRestClient client = null)
+        public static CompositionSettingsResource Create(CreateCompositionSettingsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create CompositionSettings parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of CompositionSettings </returns>
         public static async System.Threading.Tasks.Task<CompositionSettingsResource> CreateAsync(CreateCompositionSettingsOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="friendlyName"> A descriptive string that you create to describe the resource and show to the user in the console </param>
@@ -87,13 +87,13 @@ namespace Kandy.Rest.Video.V1
                                           Uri awsS3Url = null,
                                           bool? awsStorageEnabled = null,
                                           bool? encryptionEnabled = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateCompositionSettingsOptions(friendlyName){  AwsCredentialsSid = awsCredentialsSid, EncryptionKeySid = encryptionKeySid, AwsS3Url = awsS3Url, AwsStorageEnabled = awsStorageEnabled, EncryptionEnabled = encryptionEnabled };
+            var options = new CreateCompositionSettingsOptions(friendlyName) { AwsCredentialsSid = awsCredentialsSid, EncryptionKeySid = encryptionKeySid, AwsS3Url = awsS3Url, AwsStorageEnabled = awsStorageEnabled, EncryptionEnabled = encryptionEnabled };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="friendlyName"> A descriptive string that you create to describe the resource and show to the user in the console </param>
         /// <param name="awsCredentialsSid"> The SID of the stored Credential resource. </param>
@@ -110,16 +110,16 @@ namespace Kandy.Rest.Video.V1
                                                                                   Uri awsS3Url = null,
                                                                                   bool? awsStorageEnabled = null,
                                                                                   bool? encryptionEnabled = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateCompositionSettingsOptions(friendlyName){  AwsCredentialsSid = awsCredentialsSid, EncryptionKeySid = encryptionKeySid, AwsS3Url = awsS3Url, AwsStorageEnabled = awsStorageEnabled, EncryptionEnabled = encryptionEnabled };
+            var options = new CreateCompositionSettingsOptions(friendlyName) { AwsCredentialsSid = awsCredentialsSid, EncryptionKeySid = encryptionKeySid, AwsS3Url = awsS3Url, AwsStorageEnabled = awsStorageEnabled, EncryptionEnabled = encryptionEnabled };
             return await CreateAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchCompositionSettingsOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchCompositionSettingsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/CompositionSettings/Default";
 
 
@@ -136,47 +136,47 @@ namespace Kandy.Rest.Video.V1
         /// <param name="options"> Fetch CompositionSettings parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of CompositionSettings </returns>
-        public static CompositionSettingsResource Fetch(FetchCompositionSettingsOptions options, ITwilioRestClient client = null)
+        public static CompositionSettingsResource Fetch(FetchCompositionSettingsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch CompositionSettings parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of CompositionSettings </returns>
         public static async System.Threading.Tasks.Task<CompositionSettingsResource> FetchAsync(FetchCompositionSettingsOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of CompositionSettings </returns>
         public static CompositionSettingsResource Fetch(
-                                         ITwilioRestClient client = null)
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchCompositionSettingsOptions(){  };
+            var options = new FetchCompositionSettingsOptions() { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of CompositionSettings </returns>
-        public static async System.Threading.Tasks.Task<CompositionSettingsResource> FetchAsync(ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<CompositionSettingsResource> FetchAsync(IKandyRestClient client = null)
         {
-            var options = new FetchCompositionSettingsOptions(){  };
+            var options = new FetchCompositionSettingsOptions() { };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a CompositionSettingsResource object
         /// </summary>
@@ -194,7 +194,7 @@ namespace Kandy.Rest.Video.V1
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CompositionSettings resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -229,7 +229,8 @@ namespace Kandy.Rest.Video.V1
 
 
 
-        private CompositionSettingsResource() {
+        private CompositionSettingsResource()
+        {
 
         }
     }

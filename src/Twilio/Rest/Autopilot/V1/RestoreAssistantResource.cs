@@ -28,12 +28,12 @@ namespace Kandy.Rest.Autopilot.V1
 {
     public class RestoreAssistantResource : Resource
     {
-    
 
-        
-        private static Request BuildUpdateRequest(UpdateRestoreAssistantOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildUpdateRequest(UpdateRestoreAssistantOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Assistants/Restore";
 
 
@@ -50,7 +50,7 @@ namespace Kandy.Rest.Autopilot.V1
         /// <param name="options"> Update RestoreAssistant parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of RestoreAssistant </returns>
-        public static RestoreAssistantResource Update(UpdateRestoreAssistantOptions options, ITwilioRestClient client = null)
+        public static RestoreAssistantResource Update(UpdateRestoreAssistantOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -61,15 +61,15 @@ namespace Kandy.Rest.Autopilot.V1
         /// <param name="options"> Update RestoreAssistant parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of RestoreAssistant </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<RestoreAssistantResource> UpdateAsync(UpdateRestoreAssistantOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> update </summary>
         /// <param name="assistant"> The Twilio-provided string that uniquely identifies the Assistant resource to restore. </param>
@@ -77,26 +77,26 @@ namespace Kandy.Rest.Autopilot.V1
         /// <returns> A single instance of RestoreAssistant </returns>
         public static RestoreAssistantResource Update(
                                           string assistant,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateRestoreAssistantOptions(assistant){  };
+            var options = new UpdateRestoreAssistantOptions(assistant) { };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> update </summary>
         /// <param name="assistant"> The Twilio-provided string that uniquely identifies the Assistant resource to restore. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of RestoreAssistant </returns>
         public static async System.Threading.Tasks.Task<RestoreAssistantResource> UpdateAsync(
                                                                               string assistant,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateRestoreAssistantOptions(assistant){  };
+            var options = new UpdateRestoreAssistantOptions(assistant) { };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a RestoreAssistantResource object
         /// </summary>
@@ -114,7 +114,7 @@ namespace Kandy.Rest.Autopilot.V1
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Assistant resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -165,7 +165,8 @@ namespace Kandy.Rest.Autopilot.V1
 
 
 
-        private RestoreAssistantResource() {
+        private RestoreAssistantResource()
+        {
 
         }
     }

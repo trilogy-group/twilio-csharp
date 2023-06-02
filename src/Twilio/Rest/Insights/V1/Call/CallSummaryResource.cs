@@ -28,12 +28,12 @@ namespace Kandy.Rest.Insights.V1.Call
 {
     public class CallSummaryResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class ProcessingStateEnum : StringEnum
         {
-            private ProcessingStateEnum(string value) : base(value) {}
-            public ProcessingStateEnum() {}
+            private ProcessingStateEnum(string value) : base(value) { }
+            public ProcessingStateEnum() { }
             public static implicit operator ProcessingStateEnum(string value)
             {
                 return new ProcessingStateEnum(value);
@@ -45,8 +45,8 @@ namespace Kandy.Rest.Insights.V1.Call
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class AnsweredByEnum : StringEnum
         {
-            private AnsweredByEnum(string value) : base(value) {}
-            public AnsweredByEnum() {}
+            private AnsweredByEnum(string value) : base(value) { }
+            public AnsweredByEnum() { }
             public static implicit operator AnsweredByEnum(string value)
             {
                 return new AnsweredByEnum(value);
@@ -63,8 +63,8 @@ namespace Kandy.Rest.Insights.V1.Call
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class CallStateEnum : StringEnum
         {
-            private CallStateEnum(string value) : base(value) {}
-            public CallStateEnum() {}
+            private CallStateEnum(string value) : base(value) { }
+            public CallStateEnum() { }
             public static implicit operator CallStateEnum(string value)
             {
                 return new CallStateEnum(value);
@@ -82,8 +82,8 @@ namespace Kandy.Rest.Insights.V1.Call
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class CallTypeEnum : StringEnum
         {
-            private CallTypeEnum(string value) : base(value) {}
-            public CallTypeEnum() {}
+            private CallTypeEnum(string value) : base(value) { }
+            public CallTypeEnum() { }
             public static implicit operator CallTypeEnum(string value)
             {
                 return new CallTypeEnum(value);
@@ -95,14 +95,14 @@ namespace Kandy.Rest.Insights.V1.Call
 
         }
 
-        
-        private static Request BuildFetchRequest(FetchCallSummaryOptions options, ITwilioRestClient client)
+
+        private static Request BuildFetchRequest(FetchCallSummaryOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Voice/{CallSid}/Summary";
 
             string PathCallSid = options.PathCallSid;
-            path = path.Replace("{"+"CallSid"+"}", PathCallSid);
+            path = path.Replace("{" + "CallSid" + "}", PathCallSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -117,53 +117,53 @@ namespace Kandy.Rest.Insights.V1.Call
         /// <param name="options"> Fetch CallSummary parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of CallSummary </returns>
-        public static CallSummaryResource Fetch(FetchCallSummaryOptions options, ITwilioRestClient client = null)
+        public static CallSummaryResource Fetch(FetchCallSummaryOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch CallSummary parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of CallSummary </returns>
         public static async System.Threading.Tasks.Task<CallSummaryResource> FetchAsync(FetchCallSummaryOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathCallSid">  </param>
         /// <param name="processingState">  </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of CallSummary </returns>
         public static CallSummaryResource Fetch(
-                                         string pathCallSid, 
-                                         CallSummaryResource.ProcessingStateEnum processingState = null, 
-                                         ITwilioRestClient client = null)
+                                         string pathCallSid,
+                                         CallSummaryResource.ProcessingStateEnum processingState = null,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchCallSummaryOptions(pathCallSid){ ProcessingState = processingState };
+            var options = new FetchCallSummaryOptions(pathCallSid) { ProcessingState = processingState };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathCallSid">  </param>
         /// <param name="processingState">  </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of CallSummary </returns>
-        public static async System.Threading.Tasks.Task<CallSummaryResource> FetchAsync(string pathCallSid, CallSummaryResource.ProcessingStateEnum processingState = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<CallSummaryResource> FetchAsync(string pathCallSid, CallSummaryResource.ProcessingStateEnum processingState = null, IKandyRestClient client = null)
         {
-            var options = new FetchCallSummaryOptions(pathCallSid){ ProcessingState = processingState };
+            var options = new FetchCallSummaryOptions(pathCallSid) { ProcessingState = processingState };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a CallSummaryResource object
         /// </summary>
@@ -181,7 +181,7 @@ namespace Kandy.Rest.Insights.V1.Call
             }
         }
 
-    
+
         ///<summary> The account_sid </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -190,19 +190,19 @@ namespace Kandy.Rest.Insights.V1.Call
         [JsonProperty("call_sid")]
         public string CallSid { get; private set; }
 
-        
+
         [JsonProperty("call_type")]
         public CallSummaryResource.CallTypeEnum CallType { get; private set; }
 
-        
+
         [JsonProperty("call_state")]
         public CallSummaryResource.CallStateEnum CallState { get; private set; }
 
-        
+
         [JsonProperty("answered_by")]
         public CallSummaryResource.AnsweredByEnum AnsweredBy { get; private set; }
 
-        
+
         [JsonProperty("processing_state")]
         public CallSummaryResource.ProcessingStateEnum ProcessingState { get; private set; }
 
@@ -276,7 +276,8 @@ namespace Kandy.Rest.Insights.V1.Call
 
 
 
-        private CallSummaryResource() {
+        private CallSummaryResource()
+        {
 
         }
     }

@@ -28,16 +28,16 @@ namespace Kandy.Rest.Api.V2010.Account.Sip
 {
     public class DomainResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateDomainOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateDomainOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -52,26 +52,26 @@ namespace Kandy.Rest.Api.V2010.Account.Sip
         /// <param name="options"> Create Domain parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Domain </returns>
-        public static DomainResource Create(CreateDomainOptions options, ITwilioRestClient client = null)
+        public static DomainResource Create(CreateDomainOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Domain </summary>
         /// <param name="options"> Create Domain parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Domain </returns>
         public static async System.Threading.Tasks.Task<DomainResource> CreateAsync(CreateDomainOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new Domain </summary>
         /// <param name="domainName"> The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \\\"-\\\" and must end with `sip.twilio.com`. </param>
@@ -105,13 +105,13 @@ namespace Kandy.Rest.Api.V2010.Account.Sip
                                           bool? secure = null,
                                           string byocTrunkSid = null,
                                           string emergencyCallerSid = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateDomainOptions(domainName){  PathAccountSid = pathAccountSid, FriendlyName = friendlyName, VoiceUrl = voiceUrl, VoiceMethod = voiceMethod, VoiceFallbackUrl = voiceFallbackUrl, VoiceFallbackMethod = voiceFallbackMethod, VoiceStatusCallbackUrl = voiceStatusCallbackUrl, VoiceStatusCallbackMethod = voiceStatusCallbackMethod, SipRegistration = sipRegistration, EmergencyCallingEnabled = emergencyCallingEnabled, Secure = secure, ByocTrunkSid = byocTrunkSid, EmergencyCallerSid = emergencyCallerSid };
+            var options = new CreateDomainOptions(domainName) { PathAccountSid = pathAccountSid, FriendlyName = friendlyName, VoiceUrl = voiceUrl, VoiceMethod = voiceMethod, VoiceFallbackUrl = voiceFallbackUrl, VoiceFallbackMethod = voiceFallbackMethod, VoiceStatusCallbackUrl = voiceStatusCallbackUrl, VoiceStatusCallbackMethod = voiceStatusCallbackMethod, SipRegistration = sipRegistration, EmergencyCallingEnabled = emergencyCallingEnabled, Secure = secure, ByocTrunkSid = byocTrunkSid, EmergencyCallerSid = emergencyCallerSid };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Domain </summary>
         /// <param name="domainName"> The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \\\"-\\\" and must end with `sip.twilio.com`. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource. </param>
@@ -144,26 +144,26 @@ namespace Kandy.Rest.Api.V2010.Account.Sip
                                                                                   bool? secure = null,
                                                                                   string byocTrunkSid = null,
                                                                                   string emergencyCallerSid = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateDomainOptions(domainName){  PathAccountSid = pathAccountSid, FriendlyName = friendlyName, VoiceUrl = voiceUrl, VoiceMethod = voiceMethod, VoiceFallbackUrl = voiceFallbackUrl, VoiceFallbackMethod = voiceFallbackMethod, VoiceStatusCallbackUrl = voiceStatusCallbackUrl, VoiceStatusCallbackMethod = voiceStatusCallbackMethod, SipRegistration = sipRegistration, EmergencyCallingEnabled = emergencyCallingEnabled, Secure = secure, ByocTrunkSid = byocTrunkSid, EmergencyCallerSid = emergencyCallerSid };
+            var options = new CreateDomainOptions(domainName) { PathAccountSid = pathAccountSid, FriendlyName = friendlyName, VoiceUrl = voiceUrl, VoiceMethod = voiceMethod, VoiceFallbackUrl = voiceFallbackUrl, VoiceFallbackMethod = voiceFallbackMethod, VoiceStatusCallbackUrl = voiceStatusCallbackUrl, VoiceStatusCallbackMethod = voiceStatusCallbackMethod, SipRegistration = sipRegistration, EmergencyCallingEnabled = emergencyCallingEnabled, Secure = secure, ByocTrunkSid = byocTrunkSid, EmergencyCallerSid = emergencyCallerSid };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Delete an instance of a Domain </summary>
         /// <param name="options"> Delete Domain parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Domain </returns>
-        private static Request BuildDeleteRequest(DeleteDomainOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteDomainOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -178,60 +178,60 @@ namespace Kandy.Rest.Api.V2010.Account.Sip
         /// <param name="options"> Delete Domain parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Domain </returns>
-        public static bool Delete(DeleteDomainOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteDomainOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete an instance of a Domain </summary>
         /// <param name="options"> Delete Domain parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Domain </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteDomainOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete an instance of a Domain </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the SipDomain resource to delete. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resources to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Domain </returns>
-        public static bool Delete(string pathSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static bool Delete(string pathSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new DeleteDomainOptions(pathSid)      { PathAccountSid = pathAccountSid }   ;
+            var options = new DeleteDomainOptions(pathSid) { PathAccountSid = pathAccountSid };
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete an instance of a Domain </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the SipDomain resource to delete. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resources to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Domain </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new DeleteDomainOptions(pathSid)  { PathAccountSid = pathAccountSid };
+            var options = new DeleteDomainOptions(pathSid) { PathAccountSid = pathAccountSid };
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchDomainOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchDomainOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -246,60 +246,60 @@ namespace Kandy.Rest.Api.V2010.Account.Sip
         /// <param name="options"> Fetch Domain parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Domain </returns>
-        public static DomainResource Fetch(FetchDomainOptions options, ITwilioRestClient client = null)
+        public static DomainResource Fetch(FetchDomainOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch an instance of a Domain </summary>
         /// <param name="options"> Fetch Domain parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Domain </returns>
         public static async System.Threading.Tasks.Task<DomainResource> FetchAsync(FetchDomainOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch an instance of a Domain </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the SipDomain resource to fetch. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Domain </returns>
         public static DomainResource Fetch(
-                                         string pathSid, 
-                                         string pathAccountSid = null, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         string pathAccountSid = null,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchDomainOptions(pathSid){ PathAccountSid = pathAccountSid };
+            var options = new FetchDomainOptions(pathSid) { PathAccountSid = pathAccountSid };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch an instance of a Domain </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the SipDomain resource to fetch. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Domain </returns>
-        public static async System.Threading.Tasks.Task<DomainResource> FetchAsync(string pathSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<DomainResource> FetchAsync(string pathSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new FetchDomainOptions(pathSid){ PathAccountSid = pathAccountSid };
+            var options = new FetchDomainOptions(pathSid) { PathAccountSid = pathAccountSid };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadDomainOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadDomainOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -313,7 +313,7 @@ namespace Kandy.Rest.Api.V2010.Account.Sip
         /// <param name="options"> Read Domain parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Domain </returns>
-        public static ResourceSet<DomainResource> Read(ReadDomainOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<DomainResource> Read(ReadDomainOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -321,13 +321,13 @@ namespace Kandy.Rest.Api.V2010.Account.Sip
             return new ResourceSet<DomainResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of domains belonging to the account used to make the request </summary>
         /// <param name="options"> Read Domain parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Domain </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<DomainResource>> ReadAsync(ReadDomainOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -335,7 +335,7 @@ namespace Kandy.Rest.Api.V2010.Account.Sip
             var page = Page<DomainResource>.FromJson("domains", response.Content);
             return new ResourceSet<DomainResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of domains belonging to the account used to make the request </summary>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resources to read. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -346,13 +346,13 @@ namespace Kandy.Rest.Api.V2010.Account.Sip
                                                      string pathAccountSid = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadDomainOptions(){ PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit};
+            var options = new ReadDomainOptions() { PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of domains belonging to the account used to make the request </summary>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resources to read. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -363,19 +363,19 @@ namespace Kandy.Rest.Api.V2010.Account.Sip
                                                                                              string pathAccountSid = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadDomainOptions(){ PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit};
+            var options = new ReadDomainOptions() { PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<DomainResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<DomainResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -392,7 +392,7 @@ namespace Kandy.Rest.Api.V2010.Account.Sip
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<DomainResource> NextPage(Page<DomainResource> page, ITwilioRestClient client)
+        public static Page<DomainResource> NextPage(Page<DomainResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -407,7 +407,7 @@ namespace Kandy.Rest.Api.V2010.Account.Sip
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<DomainResource> PreviousPage(Page<DomainResource> page, ITwilioRestClient client)
+        public static Page<DomainResource> PreviousPage(Page<DomainResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -418,16 +418,16 @@ namespace Kandy.Rest.Api.V2010.Account.Sip
             return Page<DomainResource>.FromJson("domains", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateDomainOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateDomainOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -442,7 +442,7 @@ namespace Kandy.Rest.Api.V2010.Account.Sip
         /// <param name="options"> Update Domain parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Domain </returns>
-        public static DomainResource Update(UpdateDomainOptions options, ITwilioRestClient client = null)
+        public static DomainResource Update(UpdateDomainOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -453,15 +453,15 @@ namespace Kandy.Rest.Api.V2010.Account.Sip
         /// <param name="options"> Update Domain parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Domain </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<DomainResource> UpdateAsync(UpdateDomainOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update the attributes of a domain </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the SipDomain resource to update. </param>
@@ -497,13 +497,13 @@ namespace Kandy.Rest.Api.V2010.Account.Sip
                                           bool? secure = null,
                                           string byocTrunkSid = null,
                                           string emergencyCallerSid = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateDomainOptions(pathSid){ PathAccountSid = pathAccountSid, FriendlyName = friendlyName, VoiceFallbackMethod = voiceFallbackMethod, VoiceFallbackUrl = voiceFallbackUrl, VoiceMethod = voiceMethod, VoiceStatusCallbackMethod = voiceStatusCallbackMethod, VoiceStatusCallbackUrl = voiceStatusCallbackUrl, VoiceUrl = voiceUrl, SipRegistration = sipRegistration, DomainName = domainName, EmergencyCallingEnabled = emergencyCallingEnabled, Secure = secure, ByocTrunkSid = byocTrunkSid, EmergencyCallerSid = emergencyCallerSid };
+            var options = new UpdateDomainOptions(pathSid) { PathAccountSid = pathAccountSid, FriendlyName = friendlyName, VoiceFallbackMethod = voiceFallbackMethod, VoiceFallbackUrl = voiceFallbackUrl, VoiceMethod = voiceMethod, VoiceStatusCallbackMethod = voiceStatusCallbackMethod, VoiceStatusCallbackUrl = voiceStatusCallbackUrl, VoiceUrl = voiceUrl, SipRegistration = sipRegistration, DomainName = domainName, EmergencyCallingEnabled = emergencyCallingEnabled, Secure = secure, ByocTrunkSid = byocTrunkSid, EmergencyCallerSid = emergencyCallerSid };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update the attributes of a domain </summary>
         /// <param name="pathSid"> The Twilio-provided string that uniquely identifies the SipDomain resource to update. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resource to update. </param>
@@ -538,13 +538,13 @@ namespace Kandy.Rest.Api.V2010.Account.Sip
                                                                               bool? secure = null,
                                                                               string byocTrunkSid = null,
                                                                               string emergencyCallerSid = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateDomainOptions(pathSid){ PathAccountSid = pathAccountSid, FriendlyName = friendlyName, VoiceFallbackMethod = voiceFallbackMethod, VoiceFallbackUrl = voiceFallbackUrl, VoiceMethod = voiceMethod, VoiceStatusCallbackMethod = voiceStatusCallbackMethod, VoiceStatusCallbackUrl = voiceStatusCallbackUrl, VoiceUrl = voiceUrl, SipRegistration = sipRegistration, DomainName = domainName, EmergencyCallingEnabled = emergencyCallingEnabled, Secure = secure, ByocTrunkSid = byocTrunkSid, EmergencyCallerSid = emergencyCallerSid };
+            var options = new UpdateDomainOptions(pathSid) { PathAccountSid = pathAccountSid, FriendlyName = friendlyName, VoiceFallbackMethod = voiceFallbackMethod, VoiceFallbackUrl = voiceFallbackUrl, VoiceMethod = voiceMethod, VoiceStatusCallbackMethod = voiceStatusCallbackMethod, VoiceStatusCallbackUrl = voiceStatusCallbackUrl, VoiceUrl = voiceUrl, SipRegistration = sipRegistration, DomainName = domainName, EmergencyCallingEnabled = emergencyCallingEnabled, Secure = secure, ByocTrunkSid = byocTrunkSid, EmergencyCallerSid = emergencyCallerSid };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a DomainResource object
         /// </summary>
@@ -562,7 +562,7 @@ namespace Kandy.Rest.Api.V2010.Account.Sip
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -649,7 +649,8 @@ namespace Kandy.Rest.Api.V2010.Account.Sip
 
 
 
-        private DomainResource() {
+        private DomainResource()
+        {
 
         }
     }

@@ -28,16 +28,16 @@ namespace Kandy.Rest.Wireless.V1.Sim
 {
     public class DataSessionResource : Resource
     {
-    
 
-        
-        private static Request BuildReadRequest(ReadDataSessionOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildReadRequest(ReadDataSessionOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Sims/{SimSid}/DataSessions";
 
             string PathSimSid = options.PathSimSid;
-            path = path.Replace("{"+"SimSid"+"}", PathSimSid);
+            path = path.Replace("{" + "SimSid" + "}", PathSimSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -51,7 +51,7 @@ namespace Kandy.Rest.Wireless.V1.Sim
         /// <param name="options"> Read DataSession parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of DataSession </returns>
-        public static ResourceSet<DataSessionResource> Read(ReadDataSessionOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<DataSessionResource> Read(ReadDataSessionOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -59,13 +59,13 @@ namespace Kandy.Rest.Wireless.V1.Sim
             return new ResourceSet<DataSessionResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read DataSession parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of DataSession </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<DataSessionResource>> ReadAsync(ReadDataSessionOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -73,7 +73,7 @@ namespace Kandy.Rest.Wireless.V1.Sim
             var page = Page<DataSessionResource>.FromJson("data_sessions", response.Content);
             return new ResourceSet<DataSessionResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="pathSimSid"> The SID of the [Sim resource](https://www.twilio.com/docs/wireless/api/sim-resource) with the Data Sessions to read. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -84,13 +84,13 @@ namespace Kandy.Rest.Wireless.V1.Sim
                                                      string pathSimSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadDataSessionOptions(pathSimSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadDataSessionOptions(pathSimSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="pathSimSid"> The SID of the [Sim resource](https://www.twilio.com/docs/wireless/api/sim-resource) with the Data Sessions to read. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -101,19 +101,19 @@ namespace Kandy.Rest.Wireless.V1.Sim
                                                                                              string pathSimSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadDataSessionOptions(pathSimSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadDataSessionOptions(pathSimSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<DataSessionResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<DataSessionResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -130,7 +130,7 @@ namespace Kandy.Rest.Wireless.V1.Sim
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<DataSessionResource> NextPage(Page<DataSessionResource> page, ITwilioRestClient client)
+        public static Page<DataSessionResource> NextPage(Page<DataSessionResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -145,7 +145,7 @@ namespace Kandy.Rest.Wireless.V1.Sim
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<DataSessionResource> PreviousPage(Page<DataSessionResource> page, ITwilioRestClient client)
+        public static Page<DataSessionResource> PreviousPage(Page<DataSessionResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -156,7 +156,7 @@ namespace Kandy.Rest.Wireless.V1.Sim
             return Page<DataSessionResource>.FromJson("data_sessions", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a DataSessionResource object
         /// </summary>
@@ -174,7 +174,7 @@ namespace Kandy.Rest.Wireless.V1.Sim
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the DataSession resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -241,7 +241,8 @@ namespace Kandy.Rest.Wireless.V1.Sim
 
 
 
-        private DataSessionResource() {
+        private DataSessionResource()
+        {
 
         }
     }

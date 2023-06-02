@@ -28,18 +28,18 @@ namespace Kandy.Rest.Api.V2010.Account
 {
     public class AvailablePhoneNumberCountryResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchAvailablePhoneNumberCountryOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchAvailablePhoneNumberCountryOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathCountryCode = options.PathCountryCode.ToString();
-            path = path.Replace("{"+"CountryCode"+"}", PathCountryCode);
+            path = path.Replace("{" + "CountryCode" + "}", PathCountryCode);
 
             return new Request(
                 HttpMethod.Get,
@@ -54,60 +54,60 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="options"> Fetch AvailablePhoneNumberCountry parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AvailablePhoneNumberCountry </returns>
-        public static AvailablePhoneNumberCountryResource Fetch(FetchAvailablePhoneNumberCountryOptions options, ITwilioRestClient client = null)
+        public static AvailablePhoneNumberCountryResource Fetch(FetchAvailablePhoneNumberCountryOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch AvailablePhoneNumberCountry parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AvailablePhoneNumberCountry </returns>
         public static async System.Threading.Tasks.Task<AvailablePhoneNumberCountryResource> FetchAsync(FetchAvailablePhoneNumberCountryOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathCountryCode"> The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country to fetch available phone number information about. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the available phone number Country resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AvailablePhoneNumberCountry </returns>
         public static AvailablePhoneNumberCountryResource Fetch(
-                                         string pathCountryCode, 
-                                         string pathAccountSid = null, 
-                                         ITwilioRestClient client = null)
+                                         string pathCountryCode,
+                                         string pathAccountSid = null,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchAvailablePhoneNumberCountryOptions(pathCountryCode){ PathAccountSid = pathAccountSid };
+            var options = new FetchAvailablePhoneNumberCountryOptions(pathCountryCode) { PathAccountSid = pathAccountSid };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathCountryCode"> The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country to fetch available phone number information about. </param>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the available phone number Country resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AvailablePhoneNumberCountry </returns>
-        public static async System.Threading.Tasks.Task<AvailablePhoneNumberCountryResource> FetchAsync(string pathCountryCode, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<AvailablePhoneNumberCountryResource> FetchAsync(string pathCountryCode, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new FetchAvailablePhoneNumberCountryOptions(pathCountryCode){ PathAccountSid = pathAccountSid };
+            var options = new FetchAvailablePhoneNumberCountryOptions(pathCountryCode) { PathAccountSid = pathAccountSid };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadAvailablePhoneNumberCountryOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadAvailablePhoneNumberCountryOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -121,7 +121,7 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="options"> Read AvailablePhoneNumberCountry parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AvailablePhoneNumberCountry </returns>
-        public static ResourceSet<AvailablePhoneNumberCountryResource> Read(ReadAvailablePhoneNumberCountryOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<AvailablePhoneNumberCountryResource> Read(ReadAvailablePhoneNumberCountryOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -129,13 +129,13 @@ namespace Kandy.Rest.Api.V2010.Account
             return new ResourceSet<AvailablePhoneNumberCountryResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read AvailablePhoneNumberCountry parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AvailablePhoneNumberCountry </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<AvailablePhoneNumberCountryResource>> ReadAsync(ReadAvailablePhoneNumberCountryOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -143,7 +143,7 @@ namespace Kandy.Rest.Api.V2010.Account
             var page = Page<AvailablePhoneNumberCountryResource>.FromJson("countries", response.Content);
             return new ResourceSet<AvailablePhoneNumberCountryResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the available phone number Country resources. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -154,13 +154,13 @@ namespace Kandy.Rest.Api.V2010.Account
                                                      string pathAccountSid = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadAvailablePhoneNumberCountryOptions(){ PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit};
+            var options = new ReadAvailablePhoneNumberCountryOptions() { PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="pathAccountSid"> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the available phone number Country resources. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -171,19 +171,19 @@ namespace Kandy.Rest.Api.V2010.Account
                                                                                              string pathAccountSid = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadAvailablePhoneNumberCountryOptions(){ PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit};
+            var options = new ReadAvailablePhoneNumberCountryOptions() { PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<AvailablePhoneNumberCountryResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<AvailablePhoneNumberCountryResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -200,7 +200,7 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<AvailablePhoneNumberCountryResource> NextPage(Page<AvailablePhoneNumberCountryResource> page, ITwilioRestClient client)
+        public static Page<AvailablePhoneNumberCountryResource> NextPage(Page<AvailablePhoneNumberCountryResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -215,7 +215,7 @@ namespace Kandy.Rest.Api.V2010.Account
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<AvailablePhoneNumberCountryResource> PreviousPage(Page<AvailablePhoneNumberCountryResource> page, ITwilioRestClient client)
+        public static Page<AvailablePhoneNumberCountryResource> PreviousPage(Page<AvailablePhoneNumberCountryResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -226,7 +226,7 @@ namespace Kandy.Rest.Api.V2010.Account
             return Page<AvailablePhoneNumberCountryResource>.FromJson("countries", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a AvailablePhoneNumberCountryResource object
         /// </summary>
@@ -244,7 +244,7 @@ namespace Kandy.Rest.Api.V2010.Account
             }
         }
 
-    
+
         ///<summary> The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country. </summary> 
         [JsonProperty("country_code")]
         public string CountryCode { get; private set; }
@@ -267,7 +267,8 @@ namespace Kandy.Rest.Api.V2010.Account
 
 
 
-        private AvailablePhoneNumberCountryResource() {
+        private AvailablePhoneNumberCountryResource()
+        {
 
         }
     }

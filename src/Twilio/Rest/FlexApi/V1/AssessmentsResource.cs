@@ -28,12 +28,12 @@ namespace Kandy.Rest.FlexApi.V1
 {
     public class AssessmentsResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateAssessmentsOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateAssessmentsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Insights/QualityManagement/Assessments";
 
 
@@ -50,26 +50,26 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="options"> Create Assessments parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Assessments </returns>
-        public static AssessmentsResource Create(CreateAssessmentsOptions options, ITwilioRestClient client = null)
+        public static AssessmentsResource Create(CreateAssessmentsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Add assessments against conversation to dynamo db. Used in assessments screen by user. Users can select the questionnaire and pick up answers for each and every question. </summary>
         /// <param name="options"> Create Assessments parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Assessments </returns>
         public static async System.Threading.Tasks.Task<AssessmentsResource> CreateAsync(CreateAssessmentsOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Add assessments against conversation to dynamo db. Used in assessments screen by user. Users can select the questionnaire and pick up answers for each and every question. </summary>
         /// <param name="categorySid"> The SID of the category  </param>
@@ -97,13 +97,13 @@ namespace Kandy.Rest.FlexApi.V1
                                           string answerId,
                                           string questionnaireSid,
                                           string authorization = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateAssessmentsOptions(categorySid, categoryName, segmentId, agentId, offset, metricId, metricName, answerText, answerId, questionnaireSid){  Authorization = authorization };
+            var options = new CreateAssessmentsOptions(categorySid, categoryName, segmentId, agentId, offset, metricId, metricName, answerText, answerId, questionnaireSid) { Authorization = authorization };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Add assessments against conversation to dynamo db. Used in assessments screen by user. Users can select the questionnaire and pick up answers for each and every question. </summary>
         /// <param name="categorySid"> The SID of the category  </param>
         /// <param name="categoryName"> The name of the category </param>
@@ -130,16 +130,16 @@ namespace Kandy.Rest.FlexApi.V1
                                                                                   string answerId,
                                                                                   string questionnaireSid,
                                                                                   string authorization = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateAssessmentsOptions(categorySid, categoryName, segmentId, agentId, offset, metricId, metricName, answerText, answerId, questionnaireSid){  Authorization = authorization };
+            var options = new CreateAssessmentsOptions(categorySid, categoryName, segmentId, agentId, offset, metricId, metricName, answerText, answerId, questionnaireSid) { Authorization = authorization };
             return await CreateAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadAssessmentsOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadAssessmentsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Insights/QualityManagement/Assessments";
 
 
@@ -155,7 +155,7 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="options"> Read Assessments parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Assessments </returns>
-        public static ResourceSet<AssessmentsResource> Read(ReadAssessmentsOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<AssessmentsResource> Read(ReadAssessmentsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -163,13 +163,13 @@ namespace Kandy.Rest.FlexApi.V1
             return new ResourceSet<AssessmentsResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Get assessments done for a conversation by logged in user </summary>
         /// <param name="options"> Read Assessments parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Assessments </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<AssessmentsResource>> ReadAsync(ReadAssessmentsOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -177,7 +177,7 @@ namespace Kandy.Rest.FlexApi.V1
             var page = Page<AssessmentsResource>.FromJson("assessments", response.Content);
             return new ResourceSet<AssessmentsResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Get assessments done for a conversation by logged in user </summary>
         /// <param name="authorization"> The Authorization HTTP request header </param>
         /// <param name="segmentId"> The id of the segment. </param>
@@ -190,13 +190,13 @@ namespace Kandy.Rest.FlexApi.V1
                                                      string segmentId = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadAssessmentsOptions(){ Authorization = authorization, SegmentId = segmentId, PageSize = pageSize, Limit = limit};
+            var options = new ReadAssessmentsOptions() { Authorization = authorization, SegmentId = segmentId, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Get assessments done for a conversation by logged in user </summary>
         /// <param name="authorization"> The Authorization HTTP request header </param>
         /// <param name="segmentId"> The id of the segment. </param>
@@ -209,19 +209,19 @@ namespace Kandy.Rest.FlexApi.V1
                                                                                              string segmentId = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadAssessmentsOptions(){ Authorization = authorization, SegmentId = segmentId, PageSize = pageSize, Limit = limit};
+            var options = new ReadAssessmentsOptions() { Authorization = authorization, SegmentId = segmentId, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<AssessmentsResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<AssessmentsResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -238,7 +238,7 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<AssessmentsResource> NextPage(Page<AssessmentsResource> page, ITwilioRestClient client)
+        public static Page<AssessmentsResource> NextPage(Page<AssessmentsResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -253,7 +253,7 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<AssessmentsResource> PreviousPage(Page<AssessmentsResource> page, ITwilioRestClient client)
+        public static Page<AssessmentsResource> PreviousPage(Page<AssessmentsResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -264,14 +264,14 @@ namespace Kandy.Rest.FlexApi.V1
             return Page<AssessmentsResource>.FromJson("assessments", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateAssessmentsOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateAssessmentsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Insights/QualityManagement/Assessments/{AssessmentSid}";
 
             string PathAssessmentSid = options.PathAssessmentSid;
-            path = path.Replace("{"+"AssessmentSid"+"}", PathAssessmentSid);
+            path = path.Replace("{" + "AssessmentSid" + "}", PathAssessmentSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -286,7 +286,7 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="options"> Update Assessments parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Assessments </returns>
-        public static AssessmentsResource Update(UpdateAssessmentsOptions options, ITwilioRestClient client = null)
+        public static AssessmentsResource Update(UpdateAssessmentsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -297,15 +297,15 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="options"> Update Assessments parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Assessments </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<AssessmentsResource> UpdateAsync(UpdateAssessmentsOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update a specific Assessment assessed earlier </summary>
         /// <param name="pathAssessmentSid"> The SID of the assessment to be modified </param>
@@ -321,13 +321,13 @@ namespace Kandy.Rest.FlexApi.V1
                                           string answerText,
                                           string answerId,
                                           string authorization = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateAssessmentsOptions(pathAssessmentSid, offset, answerText, answerId){ Authorization = authorization };
+            var options = new UpdateAssessmentsOptions(pathAssessmentSid, offset, answerText, answerId) { Authorization = authorization };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update a specific Assessment assessed earlier </summary>
         /// <param name="pathAssessmentSid"> The SID of the assessment to be modified </param>
         /// <param name="offset"> The offset of the conversation </param>
@@ -342,13 +342,13 @@ namespace Kandy.Rest.FlexApi.V1
                                                                               string answerText,
                                                                               string answerId,
                                                                               string authorization = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateAssessmentsOptions(pathAssessmentSid, offset, answerText, answerId){ Authorization = authorization };
+            var options = new UpdateAssessmentsOptions(pathAssessmentSid, offset, answerText, answerId) { Authorization = authorization };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a AssessmentsResource object
         /// </summary>
@@ -366,7 +366,7 @@ namespace Kandy.Rest.FlexApi.V1
             }
         }
 
-    
+
         ///<summary> The unique SID identifier of the Account. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -425,7 +425,8 @@ namespace Kandy.Rest.FlexApi.V1
 
 
 
-        private AssessmentsResource() {
+        private AssessmentsResource()
+        {
 
         }
     }

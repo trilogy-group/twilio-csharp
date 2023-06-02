@@ -28,12 +28,12 @@ namespace Kandy.Rest.FlexApi.V1
 {
     public class ConfigurationResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class StatusEnum : StringEnum
         {
-            private StatusEnum(string value) : base(value) {}
-            public StatusEnum() {}
+            private StatusEnum(string value) : base(value) { }
+            public StatusEnum() { }
             public static implicit operator StatusEnum(string value)
             {
                 return new StatusEnum(value);
@@ -44,10 +44,10 @@ namespace Kandy.Rest.FlexApi.V1
 
         }
 
-        
-        private static Request BuildFetchRequest(FetchConfigurationOptions options, ITwilioRestClient client)
+
+        private static Request BuildFetchRequest(FetchConfigurationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Configuration";
 
 
@@ -64,50 +64,50 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="options"> Fetch Configuration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Configuration </returns>
-        public static ConfigurationResource Fetch(FetchConfigurationOptions options, ITwilioRestClient client = null)
+        public static ConfigurationResource Fetch(FetchConfigurationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch Configuration parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Configuration </returns>
         public static async System.Threading.Tasks.Task<ConfigurationResource> FetchAsync(FetchConfigurationOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="uiVersion"> The Pinned UI version of the Configuration resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Configuration </returns>
         public static ConfigurationResource Fetch(
-                                         string uiVersion = null, 
-                                         ITwilioRestClient client = null)
+                                         string uiVersion = null,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchConfigurationOptions(){ UiVersion = uiVersion };
+            var options = new FetchConfigurationOptions() { UiVersion = uiVersion };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="uiVersion"> The Pinned UI version of the Configuration resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Configuration </returns>
-        public static async System.Threading.Tasks.Task<ConfigurationResource> FetchAsync(string uiVersion = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<ConfigurationResource> FetchAsync(string uiVersion = null, IKandyRestClient client = null)
         {
-            var options = new FetchConfigurationOptions(){ UiVersion = uiVersion };
+            var options = new FetchConfigurationOptions() { UiVersion = uiVersion };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a ConfigurationResource object
         /// </summary>
@@ -125,7 +125,7 @@ namespace Kandy.Rest.FlexApi.V1
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Configuration resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -142,7 +142,7 @@ namespace Kandy.Rest.FlexApi.V1
         [JsonProperty("attributes")]
         public object Attributes { get; private set; }
 
-        
+
         [JsonProperty("status")]
         public ConfigurationResource.StatusEnum Status { get; private set; }
 
@@ -308,7 +308,8 @@ namespace Kandy.Rest.FlexApi.V1
 
 
 
-        private ConfigurationResource() {
+        private ConfigurationResource()
+        {
 
         }
     }

@@ -28,11 +28,11 @@ namespace Kandy.Rest.Chat.V3
 {
     public class ChannelResource : Resource
     {
-    
+
         public sealed class WebhookEnabledTypeEnum : StringEnum
         {
-            private WebhookEnabledTypeEnum(string value) : base(value) {}
-            public WebhookEnabledTypeEnum() {}
+            private WebhookEnabledTypeEnum(string value) : base(value) { }
+            public WebhookEnabledTypeEnum() { }
             public static implicit operator WebhookEnabledTypeEnum(string value)
             {
                 return new WebhookEnabledTypeEnum(value);
@@ -44,8 +44,8 @@ namespace Kandy.Rest.Chat.V3
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class ChannelTypeEnum : StringEnum
         {
-            private ChannelTypeEnum(string value) : base(value) {}
-            public ChannelTypeEnum() {}
+            private ChannelTypeEnum(string value) : base(value) { }
+            public ChannelTypeEnum() { }
             public static implicit operator ChannelTypeEnum(string value)
             {
                 return new ChannelTypeEnum(value);
@@ -55,16 +55,16 @@ namespace Kandy.Rest.Chat.V3
 
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateChannelOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateChannelOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v3/Services/{ServiceSid}/Channels/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -79,7 +79,7 @@ namespace Kandy.Rest.Chat.V3
         /// <param name="options"> Update Channel parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Channel </returns>
-        public static ChannelResource Update(UpdateChannelOptions options, ITwilioRestClient client = null)
+        public static ChannelResource Update(UpdateChannelOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -90,15 +90,15 @@ namespace Kandy.Rest.Chat.V3
         /// <param name="options"> Update Channel parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Channel </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<ChannelResource> UpdateAsync(UpdateChannelOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Update a specific Channel. </summary>
         /// <param name="pathServiceSid"> The unique SID identifier of the Service. </param>
@@ -114,13 +114,13 @@ namespace Kandy.Rest.Chat.V3
                                           ChannelResource.ChannelTypeEnum type = null,
                                           string messagingServiceSid = null,
                                           ChannelResource.WebhookEnabledTypeEnum xTwilioWebhookEnabled = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateChannelOptions(pathServiceSid, pathSid){ Type = type, MessagingServiceSid = messagingServiceSid, XTwilioWebhookEnabled = xTwilioWebhookEnabled };
+            var options = new UpdateChannelOptions(pathServiceSid, pathSid) { Type = type, MessagingServiceSid = messagingServiceSid, XTwilioWebhookEnabled = xTwilioWebhookEnabled };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Update a specific Channel. </summary>
         /// <param name="pathServiceSid"> The unique SID identifier of the Service. </param>
         /// <param name="pathSid"> A 34 character string that uniquely identifies this Channel. </param>
@@ -135,13 +135,13 @@ namespace Kandy.Rest.Chat.V3
                                                                               ChannelResource.ChannelTypeEnum type = null,
                                                                               string messagingServiceSid = null,
                                                                               ChannelResource.WebhookEnabledTypeEnum xTwilioWebhookEnabled = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateChannelOptions(pathServiceSid, pathSid){ Type = type, MessagingServiceSid = messagingServiceSid, XTwilioWebhookEnabled = xTwilioWebhookEnabled };
+            var options = new UpdateChannelOptions(pathServiceSid, pathSid) { Type = type, MessagingServiceSid = messagingServiceSid, XTwilioWebhookEnabled = xTwilioWebhookEnabled };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a ChannelResource object
         /// </summary>
@@ -159,7 +159,7 @@ namespace Kandy.Rest.Chat.V3
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the Channel resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -184,7 +184,7 @@ namespace Kandy.Rest.Chat.V3
         [JsonProperty("attributes")]
         public string Attributes { get; private set; }
 
-        
+
         [JsonProperty("type")]
         public ChannelResource.ChannelTypeEnum Type { get; private set; }
 
@@ -218,7 +218,8 @@ namespace Kandy.Rest.Chat.V3
 
 
 
-        private ChannelResource() {
+        private ChannelResource()
+        {
 
         }
     }

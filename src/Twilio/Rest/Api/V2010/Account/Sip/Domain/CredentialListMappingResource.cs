@@ -28,18 +28,18 @@ namespace Kandy.Rest.Api.V2010.Account.Sip.Domain
 {
     public class CredentialListMappingResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateCredentialListMappingOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateCredentialListMappingOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathDomainSid = options.PathDomainSid;
-            path = path.Replace("{"+"DomainSid"+"}", PathDomainSid);
+            path = path.Replace("{" + "DomainSid" + "}", PathDomainSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -54,26 +54,26 @@ namespace Kandy.Rest.Api.V2010.Account.Sip.Domain
         /// <param name="options"> Create CredentialListMapping parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of CredentialListMapping </returns>
-        public static CredentialListMappingResource Create(CreateCredentialListMappingOptions options, ITwilioRestClient client = null)
+        public static CredentialListMappingResource Create(CreateCredentialListMappingOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a CredentialListMapping resource for an account. </summary>
         /// <param name="options"> Create CredentialListMapping parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of CredentialListMapping </returns>
         public static async System.Threading.Tasks.Task<CredentialListMappingResource> CreateAsync(CreateCredentialListMappingOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a CredentialListMapping resource for an account. </summary>
         /// <param name="pathDomainSid"> A 34 character string that uniquely identifies the SIP Domain for which the CredentialList resource will be mapped. </param>
@@ -85,13 +85,13 @@ namespace Kandy.Rest.Api.V2010.Account.Sip.Domain
                                           string pathDomainSid,
                                           string credentialListSid,
                                           string pathAccountSid = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateCredentialListMappingOptions(pathDomainSid, credentialListSid){  PathAccountSid = pathAccountSid };
+            var options = new CreateCredentialListMappingOptions(pathDomainSid, credentialListSid) { PathAccountSid = pathAccountSid };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a CredentialListMapping resource for an account. </summary>
         /// <param name="pathDomainSid"> A 34 character string that uniquely identifies the SIP Domain for which the CredentialList resource will be mapped. </param>
         /// <param name="credentialListSid"> A 34 character string that uniquely identifies the CredentialList resource to map to the SIP domain. </param>
@@ -102,28 +102,28 @@ namespace Kandy.Rest.Api.V2010.Account.Sip.Domain
                                                                                   string pathDomainSid,
                                                                                   string credentialListSid,
                                                                                   string pathAccountSid = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateCredentialListMappingOptions(pathDomainSid, credentialListSid){  PathAccountSid = pathAccountSid };
+            var options = new CreateCredentialListMappingOptions(pathDomainSid, credentialListSid) { PathAccountSid = pathAccountSid };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Delete a CredentialListMapping resource from an account. </summary>
         /// <param name="options"> Delete CredentialListMapping parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of CredentialListMapping </returns>
-        private static Request BuildDeleteRequest(DeleteCredentialListMappingOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteCredentialListMappingOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings/{Sid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathDomainSid = options.PathDomainSid;
-            path = path.Replace("{"+"DomainSid"+"}", PathDomainSid);
+            path = path.Replace("{" + "DomainSid" + "}", PathDomainSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -138,26 +138,26 @@ namespace Kandy.Rest.Api.V2010.Account.Sip.Domain
         /// <param name="options"> Delete CredentialListMapping parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of CredentialListMapping </returns>
-        public static bool Delete(DeleteCredentialListMappingOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteCredentialListMappingOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a CredentialListMapping resource from an account. </summary>
         /// <param name="options"> Delete CredentialListMapping parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of CredentialListMapping </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteCredentialListMappingOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete a CredentialListMapping resource from an account. </summary>
         /// <param name="pathDomainSid"> A 34 character string that uniquely identifies the SIP Domain that includes the resource to delete. </param>
@@ -165,37 +165,37 @@ namespace Kandy.Rest.Api.V2010.Account.Sip.Domain
         /// <param name="pathAccountSid"> The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of CredentialListMapping </returns>
-        public static bool Delete(string pathDomainSid, string pathSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static bool Delete(string pathDomainSid, string pathSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new DeleteCredentialListMappingOptions(pathDomainSid, pathSid)         { PathAccountSid = pathAccountSid }   ;
+            var options = new DeleteCredentialListMappingOptions(pathDomainSid, pathSid) { PathAccountSid = pathAccountSid };
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a CredentialListMapping resource from an account. </summary>
         /// <param name="pathDomainSid"> A 34 character string that uniquely identifies the SIP Domain that includes the resource to delete. </param>
         /// <param name="pathSid"> A 34 character string that uniquely identifies the resource to delete. </param>
         /// <param name="pathAccountSid"> The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of CredentialListMapping </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathDomainSid, string pathSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathDomainSid, string pathSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new DeleteCredentialListMappingOptions(pathDomainSid, pathSid)  { PathAccountSid = pathAccountSid };
+            var options = new DeleteCredentialListMappingOptions(pathDomainSid, pathSid) { PathAccountSid = pathAccountSid };
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchCredentialListMappingOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchCredentialListMappingOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings/{Sid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathDomainSid = options.PathDomainSid;
-            path = path.Replace("{"+"DomainSid"+"}", PathDomainSid);
+            path = path.Replace("{" + "DomainSid" + "}", PathDomainSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -210,26 +210,26 @@ namespace Kandy.Rest.Api.V2010.Account.Sip.Domain
         /// <param name="options"> Fetch CredentialListMapping parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of CredentialListMapping </returns>
-        public static CredentialListMappingResource Fetch(FetchCredentialListMappingOptions options, ITwilioRestClient client = null)
+        public static CredentialListMappingResource Fetch(FetchCredentialListMappingOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a single CredentialListMapping resource from an account. </summary>
         /// <param name="options"> Fetch CredentialListMapping parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of CredentialListMapping </returns>
         public static async System.Threading.Tasks.Task<CredentialListMappingResource> FetchAsync(FetchCredentialListMappingOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a single CredentialListMapping resource from an account. </summary>
         /// <param name="pathDomainSid"> A 34 character string that uniquely identifies the SIP Domain that includes the resource to fetch. </param>
         /// <param name="pathSid"> A 34 character string that uniquely identifies the resource to fetch. </param>
@@ -237,38 +237,38 @@ namespace Kandy.Rest.Api.V2010.Account.Sip.Domain
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of CredentialListMapping </returns>
         public static CredentialListMappingResource Fetch(
-                                         string pathDomainSid, 
-                                         string pathSid, 
-                                         string pathAccountSid = null, 
-                                         ITwilioRestClient client = null)
+                                         string pathDomainSid,
+                                         string pathSid,
+                                         string pathAccountSid = null,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchCredentialListMappingOptions(pathDomainSid, pathSid){ PathAccountSid = pathAccountSid };
+            var options = new FetchCredentialListMappingOptions(pathDomainSid, pathSid) { PathAccountSid = pathAccountSid };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a single CredentialListMapping resource from an account. </summary>
         /// <param name="pathDomainSid"> A 34 character string that uniquely identifies the SIP Domain that includes the resource to fetch. </param>
         /// <param name="pathSid"> A 34 character string that uniquely identifies the resource to fetch. </param>
         /// <param name="pathAccountSid"> The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of CredentialListMapping </returns>
-        public static async System.Threading.Tasks.Task<CredentialListMappingResource> FetchAsync(string pathDomainSid, string pathSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<CredentialListMappingResource> FetchAsync(string pathDomainSid, string pathSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new FetchCredentialListMappingOptions(pathDomainSid, pathSid){ PathAccountSid = pathAccountSid };
+            var options = new FetchCredentialListMappingOptions(pathDomainSid, pathSid) { PathAccountSid = pathAccountSid };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadCredentialListMappingOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadCredentialListMappingOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathDomainSid = options.PathDomainSid;
-            path = path.Replace("{"+"DomainSid"+"}", PathDomainSid);
+            path = path.Replace("{" + "DomainSid" + "}", PathDomainSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -282,7 +282,7 @@ namespace Kandy.Rest.Api.V2010.Account.Sip.Domain
         /// <param name="options"> Read CredentialListMapping parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of CredentialListMapping </returns>
-        public static ResourceSet<CredentialListMappingResource> Read(ReadCredentialListMappingOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<CredentialListMappingResource> Read(ReadCredentialListMappingOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -290,13 +290,13 @@ namespace Kandy.Rest.Api.V2010.Account.Sip.Domain
             return new ResourceSet<CredentialListMappingResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Read multiple CredentialListMapping resources from an account. </summary>
         /// <param name="options"> Read CredentialListMapping parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of CredentialListMapping </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<CredentialListMappingResource>> ReadAsync(ReadCredentialListMappingOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -304,7 +304,7 @@ namespace Kandy.Rest.Api.V2010.Account.Sip.Domain
             var page = Page<CredentialListMappingResource>.FromJson("credential_list_mappings", response.Content);
             return new ResourceSet<CredentialListMappingResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Read multiple CredentialListMapping resources from an account. </summary>
         /// <param name="pathDomainSid"> A 34 character string that uniquely identifies the SIP Domain that includes the resource to read. </param>
         /// <param name="pathAccountSid"> The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. </param>
@@ -317,13 +317,13 @@ namespace Kandy.Rest.Api.V2010.Account.Sip.Domain
                                                      string pathAccountSid = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadCredentialListMappingOptions(pathDomainSid){ PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit};
+            var options = new ReadCredentialListMappingOptions(pathDomainSid) { PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Read multiple CredentialListMapping resources from an account. </summary>
         /// <param name="pathDomainSid"> A 34 character string that uniquely identifies the SIP Domain that includes the resource to read. </param>
         /// <param name="pathAccountSid"> The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. </param>
@@ -336,19 +336,19 @@ namespace Kandy.Rest.Api.V2010.Account.Sip.Domain
                                                                                              string pathAccountSid = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadCredentialListMappingOptions(pathDomainSid){ PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit};
+            var options = new ReadCredentialListMappingOptions(pathDomainSid) { PathAccountSid = pathAccountSid, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<CredentialListMappingResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<CredentialListMappingResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -365,7 +365,7 @@ namespace Kandy.Rest.Api.V2010.Account.Sip.Domain
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<CredentialListMappingResource> NextPage(Page<CredentialListMappingResource> page, ITwilioRestClient client)
+        public static Page<CredentialListMappingResource> NextPage(Page<CredentialListMappingResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -380,7 +380,7 @@ namespace Kandy.Rest.Api.V2010.Account.Sip.Domain
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<CredentialListMappingResource> PreviousPage(Page<CredentialListMappingResource> page, ITwilioRestClient client)
+        public static Page<CredentialListMappingResource> PreviousPage(Page<CredentialListMappingResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -391,7 +391,7 @@ namespace Kandy.Rest.Api.V2010.Account.Sip.Domain
             return Page<CredentialListMappingResource>.FromJson("credential_list_mappings", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a CredentialListMappingResource object
         /// </summary>
@@ -409,7 +409,7 @@ namespace Kandy.Rest.Api.V2010.Account.Sip.Domain
             }
         }
 
-    
+
         ///<summary> The unique id of the Account that is responsible for this resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -440,7 +440,8 @@ namespace Kandy.Rest.Api.V2010.Account.Sip.Domain
 
 
 
-        private CredentialListMappingResource() {
+        private CredentialListMappingResource()
+        {
 
         }
     }

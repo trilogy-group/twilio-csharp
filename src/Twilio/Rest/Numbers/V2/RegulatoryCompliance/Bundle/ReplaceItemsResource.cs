@@ -28,12 +28,12 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
 {
     public class ReplaceItemsResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class StatusEnum : StringEnum
         {
-            private StatusEnum(string value) : base(value) {}
-            public StatusEnum() {}
+            private StatusEnum(string value) : base(value) { }
+            public StatusEnum() { }
             public static implicit operator StatusEnum(string value)
             {
                 return new StatusEnum(value);
@@ -47,14 +47,14 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateReplaceItemsOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateReplaceItemsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ReplaceItems";
 
             string PathBundleSid = options.PathBundleSid;
-            path = path.Replace("{"+"BundleSid"+"}", PathBundleSid);
+            path = path.Replace("{" + "BundleSid" + "}", PathBundleSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -69,26 +69,26 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
         /// <param name="options"> Create ReplaceItems parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of ReplaceItems </returns>
-        public static ReplaceItemsResource Create(CreateReplaceItemsOptions options, ITwilioRestClient client = null)
+        public static ReplaceItemsResource Create(CreateReplaceItemsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Replaces all bundle items in the target bundle (specified in the path) with all the bundle items of the source bundle (specified by the from_bundle_sid body param) </summary>
         /// <param name="options"> Create ReplaceItems parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of ReplaceItems </returns>
         public static async System.Threading.Tasks.Task<ReplaceItemsResource> CreateAsync(CreateReplaceItemsOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Replaces all bundle items in the target bundle (specified in the path) with all the bundle items of the source bundle (specified by the from_bundle_sid body param) </summary>
         /// <param name="pathBundleSid"> The unique string that identifies the Bundle where the item assignments are going to be replaced. </param>
@@ -98,13 +98,13 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
         public static ReplaceItemsResource Create(
                                           string pathBundleSid,
                                           string fromBundleSid,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateReplaceItemsOptions(pathBundleSid, fromBundleSid){  };
+            var options = new CreateReplaceItemsOptions(pathBundleSid, fromBundleSid) { };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Replaces all bundle items in the target bundle (specified in the path) with all the bundle items of the source bundle (specified by the from_bundle_sid body param) </summary>
         /// <param name="pathBundleSid"> The unique string that identifies the Bundle where the item assignments are going to be replaced. </param>
         /// <param name="fromBundleSid"> The source bundle sid to copy the item assignments from. </param>
@@ -113,13 +113,13 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
         public static async System.Threading.Tasks.Task<ReplaceItemsResource> CreateAsync(
                                                                                   string pathBundleSid,
                                                                                   string fromBundleSid,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateReplaceItemsOptions(pathBundleSid, fromBundleSid){  };
+            var options = new CreateReplaceItemsOptions(pathBundleSid, fromBundleSid) { };
             return await CreateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a ReplaceItemsResource object
         /// </summary>
@@ -137,7 +137,7 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the Bundle resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -154,7 +154,7 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
         [JsonProperty("friendly_name")]
         public string FriendlyName { get; private set; }
 
-        
+
         [JsonProperty("status")]
         public ReplaceItemsResource.StatusEnum Status { get; private set; }
 
@@ -180,7 +180,8 @@ namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
 
 
 
-        private ReplaceItemsResource() {
+        private ReplaceItemsResource()
+        {
 
         }
     }

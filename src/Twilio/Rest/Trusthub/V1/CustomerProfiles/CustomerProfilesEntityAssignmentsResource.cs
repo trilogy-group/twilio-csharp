@@ -28,16 +28,16 @@ namespace Kandy.Rest.Trusthub.V1.CustomerProfiles
 {
     public class CustomerProfilesEntityAssignmentsResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateCustomerProfilesEntityAssignmentsOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateCustomerProfilesEntityAssignmentsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments";
 
             string PathCustomerProfileSid = options.PathCustomerProfileSid;
-            path = path.Replace("{"+"CustomerProfileSid"+"}", PathCustomerProfileSid);
+            path = path.Replace("{" + "CustomerProfileSid" + "}", PathCustomerProfileSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -52,26 +52,26 @@ namespace Kandy.Rest.Trusthub.V1.CustomerProfiles
         /// <param name="options"> Create CustomerProfilesEntityAssignments parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of CustomerProfilesEntityAssignments </returns>
-        public static CustomerProfilesEntityAssignmentsResource Create(CreateCustomerProfilesEntityAssignmentsOptions options, ITwilioRestClient client = null)
+        public static CustomerProfilesEntityAssignmentsResource Create(CreateCustomerProfilesEntityAssignmentsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Assigned Item. </summary>
         /// <param name="options"> Create CustomerProfilesEntityAssignments parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of CustomerProfilesEntityAssignments </returns>
         public static async System.Threading.Tasks.Task<CustomerProfilesEntityAssignmentsResource> CreateAsync(CreateCustomerProfilesEntityAssignmentsOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new Assigned Item. </summary>
         /// <param name="pathCustomerProfileSid"> The unique string that we created to identify the CustomerProfile resource. </param>
@@ -81,13 +81,13 @@ namespace Kandy.Rest.Trusthub.V1.CustomerProfiles
         public static CustomerProfilesEntityAssignmentsResource Create(
                                           string pathCustomerProfileSid,
                                           string objectSid,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateCustomerProfilesEntityAssignmentsOptions(pathCustomerProfileSid, objectSid){  };
+            var options = new CreateCustomerProfilesEntityAssignmentsOptions(pathCustomerProfileSid, objectSid) { };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Assigned Item. </summary>
         /// <param name="pathCustomerProfileSid"> The unique string that we created to identify the CustomerProfile resource. </param>
         /// <param name="objectSid"> The SID of an object bag that holds information of the different items. </param>
@@ -96,26 +96,26 @@ namespace Kandy.Rest.Trusthub.V1.CustomerProfiles
         public static async System.Threading.Tasks.Task<CustomerProfilesEntityAssignmentsResource> CreateAsync(
                                                                                   string pathCustomerProfileSid,
                                                                                   string objectSid,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateCustomerProfilesEntityAssignmentsOptions(pathCustomerProfileSid, objectSid){  };
+            var options = new CreateCustomerProfilesEntityAssignmentsOptions(pathCustomerProfileSid, objectSid) { };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Remove an Assignment Item Instance. </summary>
         /// <param name="options"> Delete CustomerProfilesEntityAssignments parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of CustomerProfilesEntityAssignments </returns>
-        private static Request BuildDeleteRequest(DeleteCustomerProfilesEntityAssignmentsOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteCustomerProfilesEntityAssignmentsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments/{Sid}";
 
             string PathCustomerProfileSid = options.PathCustomerProfileSid;
-            path = path.Replace("{"+"CustomerProfileSid"+"}", PathCustomerProfileSid);
+            path = path.Replace("{" + "CustomerProfileSid" + "}", PathCustomerProfileSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -130,60 +130,60 @@ namespace Kandy.Rest.Trusthub.V1.CustomerProfiles
         /// <param name="options"> Delete CustomerProfilesEntityAssignments parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of CustomerProfilesEntityAssignments </returns>
-        public static bool Delete(DeleteCustomerProfilesEntityAssignmentsOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteCustomerProfilesEntityAssignmentsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Remove an Assignment Item Instance. </summary>
         /// <param name="options"> Delete CustomerProfilesEntityAssignments parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of CustomerProfilesEntityAssignments </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteCustomerProfilesEntityAssignmentsOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Remove an Assignment Item Instance. </summary>
         /// <param name="pathCustomerProfileSid"> The unique string that we created to identify the CustomerProfile resource. </param>
         /// <param name="pathSid"> The unique string that we created to identify the Identity resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of CustomerProfilesEntityAssignments </returns>
-        public static bool Delete(string pathCustomerProfileSid, string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathCustomerProfileSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteCustomerProfilesEntityAssignmentsOptions(pathCustomerProfileSid, pathSid)        ;
+            var options = new DeleteCustomerProfilesEntityAssignmentsOptions(pathCustomerProfileSid, pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Remove an Assignment Item Instance. </summary>
         /// <param name="pathCustomerProfileSid"> The unique string that we created to identify the CustomerProfile resource. </param>
         /// <param name="pathSid"> The unique string that we created to identify the Identity resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of CustomerProfilesEntityAssignments </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathCustomerProfileSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathCustomerProfileSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteCustomerProfilesEntityAssignmentsOptions(pathCustomerProfileSid, pathSid) ;
+            var options = new DeleteCustomerProfilesEntityAssignmentsOptions(pathCustomerProfileSid, pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchCustomerProfilesEntityAssignmentsOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchCustomerProfilesEntityAssignmentsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments/{Sid}";
 
             string PathCustomerProfileSid = options.PathCustomerProfileSid;
-            path = path.Replace("{"+"CustomerProfileSid"+"}", PathCustomerProfileSid);
+            path = path.Replace("{" + "CustomerProfileSid" + "}", PathCustomerProfileSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -198,60 +198,60 @@ namespace Kandy.Rest.Trusthub.V1.CustomerProfiles
         /// <param name="options"> Fetch CustomerProfilesEntityAssignments parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of CustomerProfilesEntityAssignments </returns>
-        public static CustomerProfilesEntityAssignmentsResource Fetch(FetchCustomerProfilesEntityAssignmentsOptions options, ITwilioRestClient client = null)
+        public static CustomerProfilesEntityAssignmentsResource Fetch(FetchCustomerProfilesEntityAssignmentsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch specific Assigned Item Instance. </summary>
         /// <param name="options"> Fetch CustomerProfilesEntityAssignments parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of CustomerProfilesEntityAssignments </returns>
         public static async System.Threading.Tasks.Task<CustomerProfilesEntityAssignmentsResource> FetchAsync(FetchCustomerProfilesEntityAssignmentsOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch specific Assigned Item Instance. </summary>
         /// <param name="pathCustomerProfileSid"> The unique string that we created to identify the CustomerProfile resource. </param>
         /// <param name="pathSid"> The unique string that we created to identify the Identity resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of CustomerProfilesEntityAssignments </returns>
         public static CustomerProfilesEntityAssignmentsResource Fetch(
-                                         string pathCustomerProfileSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathCustomerProfileSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchCustomerProfilesEntityAssignmentsOptions(pathCustomerProfileSid, pathSid){  };
+            var options = new FetchCustomerProfilesEntityAssignmentsOptions(pathCustomerProfileSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch specific Assigned Item Instance. </summary>
         /// <param name="pathCustomerProfileSid"> The unique string that we created to identify the CustomerProfile resource. </param>
         /// <param name="pathSid"> The unique string that we created to identify the Identity resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of CustomerProfilesEntityAssignments </returns>
-        public static async System.Threading.Tasks.Task<CustomerProfilesEntityAssignmentsResource> FetchAsync(string pathCustomerProfileSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<CustomerProfilesEntityAssignmentsResource> FetchAsync(string pathCustomerProfileSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchCustomerProfilesEntityAssignmentsOptions(pathCustomerProfileSid, pathSid){  };
+            var options = new FetchCustomerProfilesEntityAssignmentsOptions(pathCustomerProfileSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadCustomerProfilesEntityAssignmentsOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadCustomerProfilesEntityAssignmentsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments";
 
             string PathCustomerProfileSid = options.PathCustomerProfileSid;
-            path = path.Replace("{"+"CustomerProfileSid"+"}", PathCustomerProfileSid);
+            path = path.Replace("{" + "CustomerProfileSid" + "}", PathCustomerProfileSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -265,7 +265,7 @@ namespace Kandy.Rest.Trusthub.V1.CustomerProfiles
         /// <param name="options"> Read CustomerProfilesEntityAssignments parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of CustomerProfilesEntityAssignments </returns>
-        public static ResourceSet<CustomerProfilesEntityAssignmentsResource> Read(ReadCustomerProfilesEntityAssignmentsOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<CustomerProfilesEntityAssignmentsResource> Read(ReadCustomerProfilesEntityAssignmentsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -273,13 +273,13 @@ namespace Kandy.Rest.Trusthub.V1.CustomerProfiles
             return new ResourceSet<CustomerProfilesEntityAssignmentsResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Assigned Items for an account. </summary>
         /// <param name="options"> Read CustomerProfilesEntityAssignments parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of CustomerProfilesEntityAssignments </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<CustomerProfilesEntityAssignmentsResource>> ReadAsync(ReadCustomerProfilesEntityAssignmentsOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -287,7 +287,7 @@ namespace Kandy.Rest.Trusthub.V1.CustomerProfiles
             var page = Page<CustomerProfilesEntityAssignmentsResource>.FromJson("results", response.Content);
             return new ResourceSet<CustomerProfilesEntityAssignmentsResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Assigned Items for an account. </summary>
         /// <param name="pathCustomerProfileSid"> The unique string that we created to identify the CustomerProfile resource. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -298,13 +298,13 @@ namespace Kandy.Rest.Trusthub.V1.CustomerProfiles
                                                      string pathCustomerProfileSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadCustomerProfilesEntityAssignmentsOptions(pathCustomerProfileSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadCustomerProfilesEntityAssignmentsOptions(pathCustomerProfileSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Assigned Items for an account. </summary>
         /// <param name="pathCustomerProfileSid"> The unique string that we created to identify the CustomerProfile resource. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -315,19 +315,19 @@ namespace Kandy.Rest.Trusthub.V1.CustomerProfiles
                                                                                              string pathCustomerProfileSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadCustomerProfilesEntityAssignmentsOptions(pathCustomerProfileSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadCustomerProfilesEntityAssignmentsOptions(pathCustomerProfileSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<CustomerProfilesEntityAssignmentsResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<CustomerProfilesEntityAssignmentsResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -344,7 +344,7 @@ namespace Kandy.Rest.Trusthub.V1.CustomerProfiles
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<CustomerProfilesEntityAssignmentsResource> NextPage(Page<CustomerProfilesEntityAssignmentsResource> page, ITwilioRestClient client)
+        public static Page<CustomerProfilesEntityAssignmentsResource> NextPage(Page<CustomerProfilesEntityAssignmentsResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -359,7 +359,7 @@ namespace Kandy.Rest.Trusthub.V1.CustomerProfiles
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<CustomerProfilesEntityAssignmentsResource> PreviousPage(Page<CustomerProfilesEntityAssignmentsResource> page, ITwilioRestClient client)
+        public static Page<CustomerProfilesEntityAssignmentsResource> PreviousPage(Page<CustomerProfilesEntityAssignmentsResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -370,7 +370,7 @@ namespace Kandy.Rest.Trusthub.V1.CustomerProfiles
             return Page<CustomerProfilesEntityAssignmentsResource>.FromJson("results", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a CustomerProfilesEntityAssignmentsResource object
         /// </summary>
@@ -388,7 +388,7 @@ namespace Kandy.Rest.Trusthub.V1.CustomerProfiles
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the Item Assignment resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -415,7 +415,8 @@ namespace Kandy.Rest.Trusthub.V1.CustomerProfiles
 
 
 
-        private CustomerProfilesEntityAssignmentsResource() {
+        private CustomerProfilesEntityAssignmentsResource()
+        {
 
         }
     }

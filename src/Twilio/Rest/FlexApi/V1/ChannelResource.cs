@@ -28,12 +28,12 @@ namespace Kandy.Rest.FlexApi.V1
 {
     public class ChannelResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateChannelOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateChannelOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Channels";
 
 
@@ -50,26 +50,26 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="options"> Create Channel parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Channel </returns>
-        public static ChannelResource Create(CreateChannelOptions options, ITwilioRestClient client = null)
+        public static ChannelResource Create(CreateChannelOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create Channel parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Channel </returns>
         public static async System.Threading.Tasks.Task<ChannelResource> CreateAsync(CreateChannelOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="flexFlowSid"> The SID of the Flex Flow. </param>
@@ -95,13 +95,13 @@ namespace Kandy.Rest.FlexApi.V1
                                           string taskSid = null,
                                           string taskAttributes = null,
                                           bool? longLived = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateChannelOptions(flexFlowSid, identity, chatUserFriendlyName, chatFriendlyName){  Target = target, ChatUniqueName = chatUniqueName, PreEngagementData = preEngagementData, TaskSid = taskSid, TaskAttributes = taskAttributes, LongLived = longLived };
+            var options = new CreateChannelOptions(flexFlowSid, identity, chatUserFriendlyName, chatFriendlyName) { Target = target, ChatUniqueName = chatUniqueName, PreEngagementData = preEngagementData, TaskSid = taskSid, TaskAttributes = taskAttributes, LongLived = longLived };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="flexFlowSid"> The SID of the Flex Flow. </param>
         /// <param name="identity"> The `identity` value that uniquely identifies the new resource's chat User. </param>
@@ -126,24 +126,24 @@ namespace Kandy.Rest.FlexApi.V1
                                                                                   string taskSid = null,
                                                                                   string taskAttributes = null,
                                                                                   bool? longLived = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateChannelOptions(flexFlowSid, identity, chatUserFriendlyName, chatFriendlyName){  Target = target, ChatUniqueName = chatUniqueName, PreEngagementData = preEngagementData, TaskSid = taskSid, TaskAttributes = taskAttributes, LongLived = longLived };
+            var options = new CreateChannelOptions(flexFlowSid, identity, chatUserFriendlyName, chatFriendlyName) { Target = target, ChatUniqueName = chatUniqueName, PreEngagementData = preEngagementData, TaskSid = taskSid, TaskAttributes = taskAttributes, LongLived = longLived };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> delete </summary>
         /// <param name="options"> Delete Channel parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Channel </returns>
-        private static Request BuildDeleteRequest(DeleteChannelOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteChannelOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Channels/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -158,56 +158,56 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="options"> Delete Channel parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Channel </returns>
-        public static bool Delete(DeleteChannelOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteChannelOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="options"> Delete Channel parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Channel </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteChannelOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> delete </summary>
         /// <param name="pathSid"> The SID of the Flex chat channel resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Channel </returns>
-        public static bool Delete(string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteChannelOptions(pathSid)     ;
+            var options = new DeleteChannelOptions(pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="pathSid"> The SID of the Flex chat channel resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Channel </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteChannelOptions(pathSid) ;
+            var options = new DeleteChannelOptions(pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchChannelOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchChannelOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Channels/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -222,53 +222,53 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="options"> Fetch Channel parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Channel </returns>
-        public static ChannelResource Fetch(FetchChannelOptions options, ITwilioRestClient client = null)
+        public static ChannelResource Fetch(FetchChannelOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch Channel parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Channel </returns>
         public static async System.Threading.Tasks.Task<ChannelResource> FetchAsync(FetchChannelOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathSid"> The SID of the Flex chat channel resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Channel </returns>
         public static ChannelResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchChannelOptions(pathSid){  };
+            var options = new FetchChannelOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathSid"> The SID of the Flex chat channel resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Channel </returns>
-        public static async System.Threading.Tasks.Task<ChannelResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<ChannelResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchChannelOptions(pathSid){  };
+            var options = new FetchChannelOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadChannelOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadChannelOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Channels";
 
 
@@ -284,7 +284,7 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="options"> Read Channel parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Channel </returns>
-        public static ResourceSet<ChannelResource> Read(ReadChannelOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<ChannelResource> Read(ReadChannelOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -292,13 +292,13 @@ namespace Kandy.Rest.FlexApi.V1
             return new ResourceSet<ChannelResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read Channel parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Channel </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<ChannelResource>> ReadAsync(ReadChannelOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -306,7 +306,7 @@ namespace Kandy.Rest.FlexApi.V1
             var page = Page<ChannelResource>.FromJson("flex_chat_channels", response.Content);
             return new ResourceSet<ChannelResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -315,13 +315,13 @@ namespace Kandy.Rest.FlexApi.V1
         public static ResourceSet<ChannelResource> Read(
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadChannelOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadChannelOptions() { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -330,19 +330,19 @@ namespace Kandy.Rest.FlexApi.V1
         public static async System.Threading.Tasks.Task<ResourceSet<ChannelResource>> ReadAsync(
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadChannelOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadChannelOptions() { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<ChannelResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<ChannelResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -359,7 +359,7 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<ChannelResource> NextPage(Page<ChannelResource> page, ITwilioRestClient client)
+        public static Page<ChannelResource> NextPage(Page<ChannelResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -374,7 +374,7 @@ namespace Kandy.Rest.FlexApi.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<ChannelResource> PreviousPage(Page<ChannelResource> page, ITwilioRestClient client)
+        public static Page<ChannelResource> PreviousPage(Page<ChannelResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -385,7 +385,7 @@ namespace Kandy.Rest.FlexApi.V1
             return Page<ChannelResource>.FromJson("flex_chat_channels", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a ChannelResource object
         /// </summary>
@@ -403,7 +403,7 @@ namespace Kandy.Rest.FlexApi.V1
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Channel resource and owns this Workflow. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -438,7 +438,8 @@ namespace Kandy.Rest.FlexApi.V1
 
 
 
-        private ChannelResource() {
+        private ChannelResource()
+        {
 
         }
     }

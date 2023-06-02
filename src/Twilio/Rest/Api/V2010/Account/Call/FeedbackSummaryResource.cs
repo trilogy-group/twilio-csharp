@@ -28,12 +28,12 @@ namespace Kandy.Rest.Api.V2010.Account.Call
 {
     public class FeedbackSummaryResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class StatusEnum : StringEnum
         {
-            private StatusEnum(string value) : base(value) {}
-            public StatusEnum() {}
+            private StatusEnum(string value) : base(value) { }
+            public StatusEnum() { }
             public static implicit operator StatusEnum(string value)
             {
                 return new StatusEnum(value);
@@ -45,14 +45,14 @@ namespace Kandy.Rest.Api.V2010.Account.Call
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateFeedbackSummaryOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateFeedbackSummaryOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Calls/FeedbackSummary.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -67,26 +67,26 @@ namespace Kandy.Rest.Api.V2010.Account.Call
         /// <param name="options"> Create FeedbackSummary parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of FeedbackSummary </returns>
-        public static FeedbackSummaryResource Create(CreateFeedbackSummaryOptions options, ITwilioRestClient client = null)
+        public static FeedbackSummaryResource Create(CreateFeedbackSummaryOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a FeedbackSummary resource for a call </summary>
         /// <param name="options"> Create FeedbackSummary parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of FeedbackSummary </returns>
         public static async System.Threading.Tasks.Task<FeedbackSummaryResource> CreateAsync(CreateFeedbackSummaryOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a FeedbackSummary resource for a call </summary>
         /// <param name="startDate"> Only include feedback given on or after this date. Format is `YYYY-MM-DD` and specified in UTC. </param>
@@ -104,13 +104,13 @@ namespace Kandy.Rest.Api.V2010.Account.Call
                                           bool? includeSubaccounts = null,
                                           Uri statusCallback = null,
                                           Twilio.Http.HttpMethod statusCallbackMethod = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateFeedbackSummaryOptions(startDate, endDate){  PathAccountSid = pathAccountSid, IncludeSubaccounts = includeSubaccounts, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod };
+            var options = new CreateFeedbackSummaryOptions(startDate, endDate) { PathAccountSid = pathAccountSid, IncludeSubaccounts = includeSubaccounts, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a FeedbackSummary resource for a call </summary>
         /// <param name="startDate"> Only include feedback given on or after this date. Format is `YYYY-MM-DD` and specified in UTC. </param>
         /// <param name="endDate"> Only include feedback given on or before this date. Format is `YYYY-MM-DD` and specified in UTC. </param>
@@ -127,26 +127,26 @@ namespace Kandy.Rest.Api.V2010.Account.Call
                                                                                   bool? includeSubaccounts = null,
                                                                                   Uri statusCallback = null,
                                                                                   Twilio.Http.HttpMethod statusCallbackMethod = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateFeedbackSummaryOptions(startDate, endDate){  PathAccountSid = pathAccountSid, IncludeSubaccounts = includeSubaccounts, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod };
+            var options = new CreateFeedbackSummaryOptions(startDate, endDate) { PathAccountSid = pathAccountSid, IncludeSubaccounts = includeSubaccounts, StatusCallback = statusCallback, StatusCallbackMethod = statusCallbackMethod };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> Delete a FeedbackSummary resource from a call </summary>
         /// <param name="options"> Delete FeedbackSummary parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of FeedbackSummary </returns>
-        private static Request BuildDeleteRequest(DeleteFeedbackSummaryOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteFeedbackSummaryOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Calls/FeedbackSummary/{Sid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -161,60 +161,60 @@ namespace Kandy.Rest.Api.V2010.Account.Call
         /// <param name="options"> Delete FeedbackSummary parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of FeedbackSummary </returns>
-        public static bool Delete(DeleteFeedbackSummaryOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteFeedbackSummaryOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a FeedbackSummary resource from a call </summary>
         /// <param name="options"> Delete FeedbackSummary parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of FeedbackSummary </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteFeedbackSummaryOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> Delete a FeedbackSummary resource from a call </summary>
         /// <param name="pathSid"> A 34 character string that uniquely identifies this resource. </param>
         /// <param name="pathAccountSid"> The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of FeedbackSummary </returns>
-        public static bool Delete(string pathSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static bool Delete(string pathSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new DeleteFeedbackSummaryOptions(pathSid)      { PathAccountSid = pathAccountSid }   ;
+            var options = new DeleteFeedbackSummaryOptions(pathSid) { PathAccountSid = pathAccountSid };
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Delete a FeedbackSummary resource from a call </summary>
         /// <param name="pathSid"> A 34 character string that uniquely identifies this resource. </param>
         /// <param name="pathAccountSid"> The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of FeedbackSummary </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new DeleteFeedbackSummaryOptions(pathSid)  { PathAccountSid = pathAccountSid };
+            var options = new DeleteFeedbackSummaryOptions(pathSid) { PathAccountSid = pathAccountSid };
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchFeedbackSummaryOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchFeedbackSummaryOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/2010-04-01/Accounts/{AccountSid}/Calls/FeedbackSummary/{Sid}.json";
 
             string PathAccountSid = options.PathAccountSid ?? client.AccountSid;
-            path = path.Replace("{"+"AccountSid"+"}", PathAccountSid);
+            path = path.Replace("{" + "AccountSid" + "}", PathAccountSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -229,53 +229,53 @@ namespace Kandy.Rest.Api.V2010.Account.Call
         /// <param name="options"> Fetch FeedbackSummary parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of FeedbackSummary </returns>
-        public static FeedbackSummaryResource Fetch(FetchFeedbackSummaryOptions options, ITwilioRestClient client = null)
+        public static FeedbackSummaryResource Fetch(FetchFeedbackSummaryOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a FeedbackSummary resource from a call </summary>
         /// <param name="options"> Fetch FeedbackSummary parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of FeedbackSummary </returns>
         public static async System.Threading.Tasks.Task<FeedbackSummaryResource> FetchAsync(FetchFeedbackSummaryOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Fetch a FeedbackSummary resource from a call </summary>
         /// <param name="pathSid"> A 34 character string that uniquely identifies this resource. </param>
         /// <param name="pathAccountSid"> The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of FeedbackSummary </returns>
         public static FeedbackSummaryResource Fetch(
-                                         string pathSid, 
-                                         string pathAccountSid = null, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         string pathAccountSid = null,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchFeedbackSummaryOptions(pathSid){ PathAccountSid = pathAccountSid };
+            var options = new FetchFeedbackSummaryOptions(pathSid) { PathAccountSid = pathAccountSid };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Fetch a FeedbackSummary resource from a call </summary>
         /// <param name="pathSid"> A 34 character string that uniquely identifies this resource. </param>
         /// <param name="pathAccountSid"> The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of FeedbackSummary </returns>
-        public static async System.Threading.Tasks.Task<FeedbackSummaryResource> FetchAsync(string pathSid, string pathAccountSid = null, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<FeedbackSummaryResource> FetchAsync(string pathSid, string pathAccountSid = null, IKandyRestClient client = null)
         {
-            var options = new FetchFeedbackSummaryOptions(pathSid){ PathAccountSid = pathAccountSid };
+            var options = new FetchFeedbackSummaryOptions(pathSid) { PathAccountSid = pathAccountSid };
             return await FetchAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a FeedbackSummaryResource object
         /// </summary>
@@ -293,7 +293,7 @@ namespace Kandy.Rest.Api.V2010.Account.Call
             }
         }
 
-    
+
         ///<summary> The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -346,13 +346,14 @@ namespace Kandy.Rest.Api.V2010.Account.Call
         [JsonProperty("start_date")]
         public DateTime? StartDate { get; private set; }
 
-        
+
         [JsonProperty("status")]
         public FeedbackSummaryResource.StatusEnum Status { get; private set; }
 
 
 
-        private FeedbackSummaryResource() {
+        private FeedbackSummaryResource()
+        {
 
         }
     }

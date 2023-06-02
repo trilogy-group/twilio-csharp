@@ -28,18 +28,18 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
 {
     public class DeploymentResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateDeploymentOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateDeploymentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathEnvironmentSid = options.PathEnvironmentSid;
-            path = path.Replace("{"+"EnvironmentSid"+"}", PathEnvironmentSid);
+            path = path.Replace("{" + "EnvironmentSid" + "}", PathEnvironmentSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -54,26 +54,26 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
         /// <param name="options"> Create Deployment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Deployment </returns>
-        public static DeploymentResource Create(CreateDeploymentOptions options, ITwilioRestClient client = null)
+        public static DeploymentResource Create(CreateDeploymentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Deployment. </summary>
         /// <param name="options"> Create Deployment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Deployment </returns>
         public static async System.Threading.Tasks.Task<DeploymentResource> CreateAsync(CreateDeploymentOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Create a new Deployment. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to create the Deployment resource under. </param>
@@ -85,13 +85,13 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
                                           string pathServiceSid,
                                           string pathEnvironmentSid,
                                           string buildSid = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateDeploymentOptions(pathServiceSid, pathEnvironmentSid){  BuildSid = buildSid };
+            var options = new CreateDeploymentOptions(pathServiceSid, pathEnvironmentSid) { BuildSid = buildSid };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Create a new Deployment. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to create the Deployment resource under. </param>
         /// <param name="pathEnvironmentSid"> The SID of the Environment for the Deployment. </param>
@@ -102,24 +102,24 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
                                                                                   string pathServiceSid,
                                                                                   string pathEnvironmentSid,
                                                                                   string buildSid = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateDeploymentOptions(pathServiceSid, pathEnvironmentSid){  BuildSid = buildSid };
+            var options = new CreateDeploymentOptions(pathServiceSid, pathEnvironmentSid) { BuildSid = buildSid };
             return await CreateAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchDeploymentOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchDeploymentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments/{Sid}";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathEnvironmentSid = options.PathEnvironmentSid;
-            path = path.Replace("{"+"EnvironmentSid"+"}", PathEnvironmentSid);
+            path = path.Replace("{" + "EnvironmentSid" + "}", PathEnvironmentSid);
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -134,26 +134,26 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
         /// <param name="options"> Fetch Deployment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Deployment </returns>
-        public static DeploymentResource Fetch(FetchDeploymentOptions options, ITwilioRestClient client = null)
+        public static DeploymentResource Fetch(FetchDeploymentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a specific Deployment. </summary>
         /// <param name="options"> Fetch Deployment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Deployment </returns>
         public static async System.Threading.Tasks.Task<DeploymentResource> FetchAsync(FetchDeploymentOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> Retrieve a specific Deployment. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to fetch the Deployment resource from. </param>
         /// <param name="pathEnvironmentSid"> The SID of the Environment used by the Deployment to fetch. </param>
@@ -161,38 +161,38 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Deployment </returns>
         public static DeploymentResource Fetch(
-                                         string pathServiceSid, 
-                                         string pathEnvironmentSid, 
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathServiceSid,
+                                         string pathEnvironmentSid,
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchDeploymentOptions(pathServiceSid, pathEnvironmentSid, pathSid){  };
+            var options = new FetchDeploymentOptions(pathServiceSid, pathEnvironmentSid, pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a specific Deployment. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to fetch the Deployment resource from. </param>
         /// <param name="pathEnvironmentSid"> The SID of the Environment used by the Deployment to fetch. </param>
         /// <param name="pathSid"> The SID that identifies the Deployment resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Deployment </returns>
-        public static async System.Threading.Tasks.Task<DeploymentResource> FetchAsync(string pathServiceSid, string pathEnvironmentSid, string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<DeploymentResource> FetchAsync(string pathServiceSid, string pathEnvironmentSid, string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchDeploymentOptions(pathServiceSid, pathEnvironmentSid, pathSid){  };
+            var options = new FetchDeploymentOptions(pathServiceSid, pathEnvironmentSid, pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadDeploymentOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadDeploymentOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
             string PathEnvironmentSid = options.PathEnvironmentSid;
-            path = path.Replace("{"+"EnvironmentSid"+"}", PathEnvironmentSid);
+            path = path.Replace("{" + "EnvironmentSid" + "}", PathEnvironmentSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -206,7 +206,7 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
         /// <param name="options"> Read Deployment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Deployment </returns>
-        public static ResourceSet<DeploymentResource> Read(ReadDeploymentOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<DeploymentResource> Read(ReadDeploymentOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -214,13 +214,13 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
             return new ResourceSet<DeploymentResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Deployments. </summary>
         /// <param name="options"> Read Deployment parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Deployment </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<DeploymentResource>> ReadAsync(ReadDeploymentOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -228,7 +228,7 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
             var page = Page<DeploymentResource>.FromJson("deployments", response.Content);
             return new ResourceSet<DeploymentResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> Retrieve a list of all Deployments. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to read the Deployment resources from. </param>
         /// <param name="pathEnvironmentSid"> The SID of the Environment used by the Deployment resources to read. </param>
@@ -241,13 +241,13 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
                                                      string pathEnvironmentSid,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadDeploymentOptions(pathServiceSid, pathEnvironmentSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadDeploymentOptions(pathServiceSid, pathEnvironmentSid) { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Retrieve a list of all Deployments. </summary>
         /// <param name="pathServiceSid"> The SID of the Service to read the Deployment resources from. </param>
         /// <param name="pathEnvironmentSid"> The SID of the Environment used by the Deployment resources to read. </param>
@@ -260,19 +260,19 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
                                                                                              string pathEnvironmentSid,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadDeploymentOptions(pathServiceSid, pathEnvironmentSid){ PageSize = pageSize, Limit = limit};
+            var options = new ReadDeploymentOptions(pathServiceSid, pathEnvironmentSid) { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<DeploymentResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<DeploymentResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -289,7 +289,7 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<DeploymentResource> NextPage(Page<DeploymentResource> page, ITwilioRestClient client)
+        public static Page<DeploymentResource> NextPage(Page<DeploymentResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -304,7 +304,7 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<DeploymentResource> PreviousPage(Page<DeploymentResource> page, ITwilioRestClient client)
+        public static Page<DeploymentResource> PreviousPage(Page<DeploymentResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -315,7 +315,7 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
             return Page<DeploymentResource>.FromJson("deployments", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a DeploymentResource object
         /// </summary>
@@ -333,7 +333,7 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the Deployment resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -368,7 +368,8 @@ namespace Kandy.Rest.Serverless.V1.Service.Environment
 
 
 
-        private DeploymentResource() {
+        private DeploymentResource()
+        {
 
         }
     }

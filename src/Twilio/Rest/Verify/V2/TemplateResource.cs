@@ -28,12 +28,12 @@ namespace Kandy.Rest.Verify.V2
 {
     public class TemplateResource : Resource
     {
-    
 
-        
-        private static Request BuildReadRequest(ReadTemplateOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildReadRequest(ReadTemplateOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v2/Templates";
 
 
@@ -49,7 +49,7 @@ namespace Kandy.Rest.Verify.V2
         /// <param name="options"> Read Template parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Template </returns>
-        public static ResourceSet<TemplateResource> Read(ReadTemplateOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<TemplateResource> Read(ReadTemplateOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -57,13 +57,13 @@ namespace Kandy.Rest.Verify.V2
             return new ResourceSet<TemplateResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> List all the available templates for a given Account. </summary>
         /// <param name="options"> Read Template parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Template </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<TemplateResource>> ReadAsync(ReadTemplateOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -71,7 +71,7 @@ namespace Kandy.Rest.Verify.V2
             var page = Page<TemplateResource>.FromJson("templates", response.Content);
             return new ResourceSet<TemplateResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> List all the available templates for a given Account. </summary>
         /// <param name="friendlyName"> String filter used to query templates with a given friendly name. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -82,13 +82,13 @@ namespace Kandy.Rest.Verify.V2
                                                      string friendlyName = null,
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadTemplateOptions(){ FriendlyName = friendlyName, PageSize = pageSize, Limit = limit};
+            var options = new ReadTemplateOptions() { FriendlyName = friendlyName, PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> List all the available templates for a given Account. </summary>
         /// <param name="friendlyName"> String filter used to query templates with a given friendly name. </param>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
@@ -99,19 +99,19 @@ namespace Kandy.Rest.Verify.V2
                                                                                              string friendlyName = null,
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadTemplateOptions(){ FriendlyName = friendlyName, PageSize = pageSize, Limit = limit};
+            var options = new ReadTemplateOptions() { FriendlyName = friendlyName, PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<TemplateResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<TemplateResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -128,7 +128,7 @@ namespace Kandy.Rest.Verify.V2
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<TemplateResource> NextPage(Page<TemplateResource> page, ITwilioRestClient client)
+        public static Page<TemplateResource> NextPage(Page<TemplateResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -143,7 +143,7 @@ namespace Kandy.Rest.Verify.V2
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<TemplateResource> PreviousPage(Page<TemplateResource> page, ITwilioRestClient client)
+        public static Page<TemplateResource> PreviousPage(Page<TemplateResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -154,7 +154,7 @@ namespace Kandy.Rest.Verify.V2
             return Page<TemplateResource>.FromJson("templates", response.Content);
         }
 
-    
+
         /// <summary>
         /// Converts a JSON string into a TemplateResource object
         /// </summary>
@@ -172,7 +172,7 @@ namespace Kandy.Rest.Verify.V2
             }
         }
 
-    
+
         ///<summary> A 34 character string that uniquely identifies a Verification Template. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -195,7 +195,8 @@ namespace Kandy.Rest.Verify.V2
 
 
 
-        private TemplateResource() {
+        private TemplateResource()
+        {
 
         }
     }

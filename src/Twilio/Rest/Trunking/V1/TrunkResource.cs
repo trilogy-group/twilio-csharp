@@ -28,12 +28,12 @@ namespace Kandy.Rest.Trunking.V1
 {
     public class TrunkResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class TransferSettingEnum : StringEnum
         {
-            private TransferSettingEnum(string value) : base(value) {}
-            public TransferSettingEnum() {}
+            private TransferSettingEnum(string value) : base(value) { }
+            public TransferSettingEnum() { }
             public static implicit operator TransferSettingEnum(string value)
             {
                 return new TransferSettingEnum(value);
@@ -46,8 +46,8 @@ namespace Kandy.Rest.Trunking.V1
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class TransferCallerIdEnum : StringEnum
         {
-            private TransferCallerIdEnum(string value) : base(value) {}
-            public TransferCallerIdEnum() {}
+            private TransferCallerIdEnum(string value) : base(value) { }
+            public TransferCallerIdEnum() { }
             public static implicit operator TransferCallerIdEnum(string value)
             {
                 return new TransferCallerIdEnum(value);
@@ -57,10 +57,10 @@ namespace Kandy.Rest.Trunking.V1
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateTrunkOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateTrunkOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Trunks";
 
 
@@ -77,26 +77,26 @@ namespace Kandy.Rest.Trunking.V1
         /// <param name="options"> Create Trunk parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Trunk </returns>
-        public static TrunkResource Create(CreateTrunkOptions options, ITwilioRestClient client = null)
+        public static TrunkResource Create(CreateTrunkOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create Trunk parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Trunk </returns>
         public static async System.Threading.Tasks.Task<TrunkResource> CreateAsync(CreateTrunkOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="friendlyName"> A descriptive string that you create to describe the resource. It can be up to 64 characters long. </param>
@@ -118,13 +118,13 @@ namespace Kandy.Rest.Trunking.V1
                                           bool? secure = null,
                                           bool? cnamLookupEnabled = null,
                                           TrunkResource.TransferCallerIdEnum transferCallerId = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateTrunkOptions(){  FriendlyName = friendlyName, DomainName = domainName, DisasterRecoveryUrl = disasterRecoveryUrl, DisasterRecoveryMethod = disasterRecoveryMethod, TransferMode = transferMode, Secure = secure, CnamLookupEnabled = cnamLookupEnabled, TransferCallerId = transferCallerId };
+            var options = new CreateTrunkOptions() { FriendlyName = friendlyName, DomainName = domainName, DisasterRecoveryUrl = disasterRecoveryUrl, DisasterRecoveryMethod = disasterRecoveryMethod, TransferMode = transferMode, Secure = secure, CnamLookupEnabled = cnamLookupEnabled, TransferCallerId = transferCallerId };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="friendlyName"> A descriptive string that you create to describe the resource. It can be up to 64 characters long. </param>
         /// <param name="domainName"> The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and `-` and must end with `pstn.twilio.com`. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information. </param>
@@ -145,24 +145,24 @@ namespace Kandy.Rest.Trunking.V1
                                                                                   bool? secure = null,
                                                                                   bool? cnamLookupEnabled = null,
                                                                                   TrunkResource.TransferCallerIdEnum transferCallerId = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateTrunkOptions(){  FriendlyName = friendlyName, DomainName = domainName, DisasterRecoveryUrl = disasterRecoveryUrl, DisasterRecoveryMethod = disasterRecoveryMethod, TransferMode = transferMode, Secure = secure, CnamLookupEnabled = cnamLookupEnabled, TransferCallerId = transferCallerId };
+            var options = new CreateTrunkOptions() { FriendlyName = friendlyName, DomainName = domainName, DisasterRecoveryUrl = disasterRecoveryUrl, DisasterRecoveryMethod = disasterRecoveryMethod, TransferMode = transferMode, Secure = secure, CnamLookupEnabled = cnamLookupEnabled, TransferCallerId = transferCallerId };
             return await CreateAsync(options, client);
         }
-        #endif
-        
+#endif
+
         /// <summary> delete </summary>
         /// <param name="options"> Delete Trunk parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Trunk </returns>
-        private static Request BuildDeleteRequest(DeleteTrunkOptions options, ITwilioRestClient client)
+        private static Request BuildDeleteRequest(DeleteTrunkOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Trunks/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Delete,
@@ -177,56 +177,56 @@ namespace Kandy.Rest.Trunking.V1
         /// <param name="options"> Delete Trunk parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Trunk </returns>
-        public static bool Delete(DeleteTrunkOptions options, ITwilioRestClient client = null)
+        public static bool Delete(DeleteTrunkOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="options"> Delete Trunk parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Trunk </returns>
         public static async System.Threading.Tasks.Task<bool> DeleteAsync(DeleteTrunkOptions options,
-                                                                          ITwilioRestClient client = null)
+                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildDeleteRequest(options, client));
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
-        #endif
+#endif
 
         /// <summary> delete </summary>
         /// <param name="pathSid"> The unique string that we created to identify the Trunk resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Trunk </returns>
-        public static bool Delete(string pathSid, ITwilioRestClient client = null)
+        public static bool Delete(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteTrunkOptions(pathSid)     ;
+            var options = new DeleteTrunkOptions(pathSid);
             return Delete(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> delete </summary>
         /// <param name="pathSid"> The unique string that we created to identify the Trunk resource to delete. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Trunk </returns>
-        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<bool> DeleteAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new DeleteTrunkOptions(pathSid) ;
+            var options = new DeleteTrunkOptions(pathSid);
             return await DeleteAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildFetchRequest(FetchTrunkOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildFetchRequest(FetchTrunkOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Trunks/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -241,53 +241,53 @@ namespace Kandy.Rest.Trunking.V1
         /// <param name="options"> Fetch Trunk parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Trunk </returns>
-        public static TrunkResource Fetch(FetchTrunkOptions options, ITwilioRestClient client = null)
+        public static TrunkResource Fetch(FetchTrunkOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch Trunk parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Trunk </returns>
         public static async System.Threading.Tasks.Task<TrunkResource> FetchAsync(FetchTrunkOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathSid"> The unique string that we created to identify the Trunk resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Trunk </returns>
         public static TrunkResource Fetch(
-                                         string pathSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchTrunkOptions(pathSid){  };
+            var options = new FetchTrunkOptions(pathSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathSid"> The unique string that we created to identify the Trunk resource to fetch. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Trunk </returns>
-        public static async System.Threading.Tasks.Task<TrunkResource> FetchAsync(string pathSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<TrunkResource> FetchAsync(string pathSid, IKandyRestClient client = null)
         {
-            var options = new FetchTrunkOptions(pathSid){  };
+            var options = new FetchTrunkOptions(pathSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildReadRequest(ReadTrunkOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildReadRequest(ReadTrunkOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Trunks";
 
 
@@ -303,7 +303,7 @@ namespace Kandy.Rest.Trunking.V1
         /// <param name="options"> Read Trunk parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Trunk </returns>
-        public static ResourceSet<TrunkResource> Read(ReadTrunkOptions options, ITwilioRestClient client = null)
+        public static ResourceSet<TrunkResource> Read(ReadTrunkOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildReadRequest(options, client));
@@ -311,13 +311,13 @@ namespace Kandy.Rest.Trunking.V1
             return new ResourceSet<TrunkResource>(page, options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="options"> Read Trunk parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Trunk </returns>
         public static async System.Threading.Tasks.Task<ResourceSet<TrunkResource>> ReadAsync(ReadTrunkOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildReadRequest(options, client));
@@ -325,7 +325,7 @@ namespace Kandy.Rest.Trunking.V1
             var page = Page<TrunkResource>.FromJson("trunks", response.Content);
             return new ResourceSet<TrunkResource>(page, options, client);
         }
-        #endif
+#endif
         /// <summary> read </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -334,13 +334,13 @@ namespace Kandy.Rest.Trunking.V1
         public static ResourceSet<TrunkResource> Read(
                                                      int? pageSize = null,
                                                      long? limit = null,
-                                                     ITwilioRestClient client = null)
+                                                     IKandyRestClient client = null)
         {
-            var options = new ReadTrunkOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadTrunkOptions() { PageSize = pageSize, Limit = limit };
             return Read(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> read </summary>
         /// <param name="pageSize"> How many resources to return in each list page. The default is 50, and the maximum is 1000. </param>
         /// <param name="limit"> Record limit </param>
@@ -349,19 +349,19 @@ namespace Kandy.Rest.Trunking.V1
         public static async System.Threading.Tasks.Task<ResourceSet<TrunkResource>> ReadAsync(
                                                                                              int? pageSize = null,
                                                                                              long? limit = null,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
-            var options = new ReadTrunkOptions(){ PageSize = pageSize, Limit = limit};
+            var options = new ReadTrunkOptions() { PageSize = pageSize, Limit = limit };
             return await ReadAsync(options, client);
         }
-        #endif
+#endif
 
-        
+
         /// <summary> Fetch the target page of records </summary>
         /// <param name="targetUrl"> API-generated URL for the requested results page </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The target page of records </returns>
-        public static Page<TrunkResource> GetPage(string targetUrl, ITwilioRestClient client)
+        public static Page<TrunkResource> GetPage(string targetUrl, IKandyRestClient client)
         {
             client = client ?? TwilioClient.GetRestClient();
 
@@ -378,7 +378,7 @@ namespace Kandy.Rest.Trunking.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The next page of records </returns>
-        public static Page<TrunkResource> NextPage(Page<TrunkResource> page, ITwilioRestClient client)
+        public static Page<TrunkResource> NextPage(Page<TrunkResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -393,7 +393,7 @@ namespace Kandy.Rest.Trunking.V1
         /// <param name="page"> current page of records </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> The previous page of records </returns>
-        public static Page<TrunkResource> PreviousPage(Page<TrunkResource> page, ITwilioRestClient client)
+        public static Page<TrunkResource> PreviousPage(Page<TrunkResource> page, IKandyRestClient client)
         {
             var request = new Request(
                 HttpMethod.Get,
@@ -404,14 +404,14 @@ namespace Kandy.Rest.Trunking.V1
             return Page<TrunkResource>.FromJson("trunks", response.Content);
         }
 
-        
-        private static Request BuildUpdateRequest(UpdateTrunkOptions options, ITwilioRestClient client)
+
+        private static Request BuildUpdateRequest(UpdateTrunkOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Trunks/{Sid}";
 
             string PathSid = options.PathSid;
-            path = path.Replace("{"+"Sid"+"}", PathSid);
+            path = path.Replace("{" + "Sid" + "}", PathSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -426,7 +426,7 @@ namespace Kandy.Rest.Trunking.V1
         /// <param name="options"> Update Trunk parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Trunk </returns>
-        public static TrunkResource Update(UpdateTrunkOptions options, ITwilioRestClient client = null)
+        public static TrunkResource Update(UpdateTrunkOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -437,15 +437,15 @@ namespace Kandy.Rest.Trunking.V1
         /// <param name="options"> Update Trunk parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Trunk </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<TrunkResource> UpdateAsync(UpdateTrunkOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> update </summary>
         /// <param name="pathSid"> The unique string that we created to identify the OriginationUrl resource to update. </param>
@@ -469,13 +469,13 @@ namespace Kandy.Rest.Trunking.V1
                                           bool? secure = null,
                                           bool? cnamLookupEnabled = null,
                                           TrunkResource.TransferCallerIdEnum transferCallerId = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateTrunkOptions(pathSid){ FriendlyName = friendlyName, DomainName = domainName, DisasterRecoveryUrl = disasterRecoveryUrl, DisasterRecoveryMethod = disasterRecoveryMethod, TransferMode = transferMode, Secure = secure, CnamLookupEnabled = cnamLookupEnabled, TransferCallerId = transferCallerId };
+            var options = new UpdateTrunkOptions(pathSid) { FriendlyName = friendlyName, DomainName = domainName, DisasterRecoveryUrl = disasterRecoveryUrl, DisasterRecoveryMethod = disasterRecoveryMethod, TransferMode = transferMode, Secure = secure, CnamLookupEnabled = cnamLookupEnabled, TransferCallerId = transferCallerId };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> update </summary>
         /// <param name="pathSid"> The unique string that we created to identify the OriginationUrl resource to update. </param>
         /// <param name="friendlyName"> A descriptive string that you create to describe the resource. It can be up to 64 characters long. </param>
@@ -498,13 +498,13 @@ namespace Kandy.Rest.Trunking.V1
                                                                               bool? secure = null,
                                                                               bool? cnamLookupEnabled = null,
                                                                               TrunkResource.TransferCallerIdEnum transferCallerId = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateTrunkOptions(pathSid){ FriendlyName = friendlyName, DomainName = domainName, DisasterRecoveryUrl = disasterRecoveryUrl, DisasterRecoveryMethod = disasterRecoveryMethod, TransferMode = transferMode, Secure = secure, CnamLookupEnabled = cnamLookupEnabled, TransferCallerId = transferCallerId };
+            var options = new UpdateTrunkOptions(pathSid) { FriendlyName = friendlyName, DomainName = domainName, DisasterRecoveryUrl = disasterRecoveryUrl, DisasterRecoveryMethod = disasterRecoveryMethod, TransferMode = transferMode, Secure = secure, CnamLookupEnabled = cnamLookupEnabled, TransferCallerId = transferCallerId };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a TrunkResource object
         /// </summary>
@@ -522,7 +522,7 @@ namespace Kandy.Rest.Trunking.V1
             }
         }
 
-    
+
         ///<summary> The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Trunk resource. </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -551,11 +551,11 @@ namespace Kandy.Rest.Trunking.V1
         [JsonProperty("recording")]
         public object Recording { get; private set; }
 
-        
+
         [JsonProperty("transfer_mode")]
         public TrunkResource.TransferSettingEnum TransferMode { get; private set; }
 
-        
+
         [JsonProperty("transfer_caller_id")]
         public TrunkResource.TransferCallerIdEnum TransferCallerId { get; private set; }
 
@@ -593,7 +593,8 @@ namespace Kandy.Rest.Trunking.V1
 
 
 
-        private TrunkResource() {
+        private TrunkResource()
+        {
 
         }
     }

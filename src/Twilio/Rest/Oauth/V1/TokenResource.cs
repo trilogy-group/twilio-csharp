@@ -28,12 +28,12 @@ namespace Kandy.Rest.Oauth.V1
 {
     public class TokenResource : Resource
     {
-    
 
-        
-        private static Request BuildCreateRequest(CreateTokenOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildCreateRequest(CreateTokenOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/token";
 
 
@@ -50,26 +50,26 @@ namespace Kandy.Rest.Oauth.V1
         /// <param name="options"> Create Token parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Token </returns>
-        public static TokenResource Create(CreateTokenOptions options, ITwilioRestClient client = null)
+        public static TokenResource Create(CreateTokenOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Issues a new Access token (optionally identity_token & refresh_token) in exchange of Oauth grant </summary>
         /// <param name="options"> Create Token parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Token </returns>
         public static async System.Threading.Tasks.Task<TokenResource> CreateAsync(CreateTokenOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> Issues a new Access token (optionally identity_token & refresh_token) in exchange of Oauth grant </summary>
         /// <param name="grantType"> Grant type is a credential representing resource owner's authorization which can be used by client to obtain access token. </param>
@@ -91,13 +91,13 @@ namespace Kandy.Rest.Oauth.V1
                                           string deviceCode = null,
                                           string refreshToken = null,
                                           string deviceId = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateTokenOptions(grantType, clientSid){  ClientSecret = clientSecret, Code = code, CodeVerifier = codeVerifier, DeviceCode = deviceCode, RefreshToken = refreshToken, DeviceId = deviceId };
+            var options = new CreateTokenOptions(grantType, clientSid) { ClientSecret = clientSecret, Code = code, CodeVerifier = codeVerifier, DeviceCode = deviceCode, RefreshToken = refreshToken, DeviceId = deviceId };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> Issues a new Access token (optionally identity_token & refresh_token) in exchange of Oauth grant </summary>
         /// <param name="grantType"> Grant type is a credential representing resource owner's authorization which can be used by client to obtain access token. </param>
         /// <param name="clientSid"> A 34 character string that uniquely identifies this OAuth App. </param>
@@ -118,13 +118,13 @@ namespace Kandy.Rest.Oauth.V1
                                                                                   string deviceCode = null,
                                                                                   string refreshToken = null,
                                                                                   string deviceId = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateTokenOptions(grantType, clientSid){  ClientSecret = clientSecret, Code = code, CodeVerifier = codeVerifier, DeviceCode = deviceCode, RefreshToken = refreshToken, DeviceId = deviceId };
+            var options = new CreateTokenOptions(grantType, clientSid) { ClientSecret = clientSecret, Code = code, CodeVerifier = codeVerifier, DeviceCode = deviceCode, RefreshToken = refreshToken, DeviceId = deviceId };
             return await CreateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a TokenResource object
         /// </summary>
@@ -142,7 +142,7 @@ namespace Kandy.Rest.Oauth.V1
             }
         }
 
-    
+
         ///<summary> Token which carries the necessary information to access a Twilio resource directly. </summary> 
         [JsonProperty("access_token")]
         public string AccessToken { get; private set; }
@@ -165,7 +165,8 @@ namespace Kandy.Rest.Oauth.V1
 
 
 
-        private TokenResource() {
+        private TokenResource()
+        {
 
         }
     }

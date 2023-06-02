@@ -28,16 +28,16 @@ namespace Kandy.Rest.Preview.Understand.Assistant
 {
     public class AssistantFallbackActionsResource : Resource
     {
-    
 
-        
-        private static Request BuildFetchRequest(FetchAssistantFallbackActionsOptions options, ITwilioRestClient client)
+
+
+        private static Request BuildFetchRequest(FetchAssistantFallbackActionsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/understand/Assistants/{AssistantSid}/FallbackActions";
 
             string PathAssistantSid = options.PathAssistantSid;
-            path = path.Replace("{"+"AssistantSid"+"}", PathAssistantSid);
+            path = path.Replace("{" + "AssistantSid" + "}", PathAssistantSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -52,57 +52,57 @@ namespace Kandy.Rest.Preview.Understand.Assistant
         /// <param name="options"> Fetch AssistantFallbackActions parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AssistantFallbackActions </returns>
-        public static AssistantFallbackActionsResource Fetch(FetchAssistantFallbackActionsOptions options, ITwilioRestClient client = null)
+        public static AssistantFallbackActionsResource Fetch(FetchAssistantFallbackActionsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch AssistantFallbackActions parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AssistantFallbackActions </returns>
         public static async System.Threading.Tasks.Task<AssistantFallbackActionsResource> FetchAsync(FetchAssistantFallbackActionsOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathAssistantSid">  </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AssistantFallbackActions </returns>
         public static AssistantFallbackActionsResource Fetch(
-                                         string pathAssistantSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathAssistantSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchAssistantFallbackActionsOptions(pathAssistantSid){  };
+            var options = new FetchAssistantFallbackActionsOptions(pathAssistantSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathAssistantSid">  </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AssistantFallbackActions </returns>
-        public static async System.Threading.Tasks.Task<AssistantFallbackActionsResource> FetchAsync(string pathAssistantSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<AssistantFallbackActionsResource> FetchAsync(string pathAssistantSid, IKandyRestClient client = null)
         {
-            var options = new FetchAssistantFallbackActionsOptions(pathAssistantSid){  };
+            var options = new FetchAssistantFallbackActionsOptions(pathAssistantSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildUpdateRequest(UpdateAssistantFallbackActionsOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildUpdateRequest(UpdateAssistantFallbackActionsOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/understand/Assistants/{AssistantSid}/FallbackActions";
 
             string PathAssistantSid = options.PathAssistantSid;
-            path = path.Replace("{"+"AssistantSid"+"}", PathAssistantSid);
+            path = path.Replace("{" + "AssistantSid" + "}", PathAssistantSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -117,7 +117,7 @@ namespace Kandy.Rest.Preview.Understand.Assistant
         /// <param name="options"> Update AssistantFallbackActions parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of AssistantFallbackActions </returns>
-        public static AssistantFallbackActionsResource Update(UpdateAssistantFallbackActionsOptions options, ITwilioRestClient client = null)
+        public static AssistantFallbackActionsResource Update(UpdateAssistantFallbackActionsOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -128,15 +128,15 @@ namespace Kandy.Rest.Preview.Understand.Assistant
         /// <param name="options"> Update AssistantFallbackActions parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of AssistantFallbackActions </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<AssistantFallbackActionsResource> UpdateAsync(UpdateAssistantFallbackActionsOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> update </summary>
         /// <param name="pathAssistantSid">  </param>
@@ -146,13 +146,13 @@ namespace Kandy.Rest.Preview.Understand.Assistant
         public static AssistantFallbackActionsResource Update(
                                           string pathAssistantSid,
                                           object fallbackActions = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateAssistantFallbackActionsOptions(pathAssistantSid){ FallbackActions = fallbackActions };
+            var options = new UpdateAssistantFallbackActionsOptions(pathAssistantSid) { FallbackActions = fallbackActions };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> update </summary>
         /// <param name="pathAssistantSid">  </param>
         /// <param name="fallbackActions">  </param>
@@ -161,13 +161,13 @@ namespace Kandy.Rest.Preview.Understand.Assistant
         public static async System.Threading.Tasks.Task<AssistantFallbackActionsResource> UpdateAsync(
                                                                               string pathAssistantSid,
                                                                               object fallbackActions = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateAssistantFallbackActionsOptions(pathAssistantSid){ FallbackActions = fallbackActions };
+            var options = new UpdateAssistantFallbackActionsOptions(pathAssistantSid) { FallbackActions = fallbackActions };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a AssistantFallbackActionsResource object
         /// </summary>
@@ -185,7 +185,7 @@ namespace Kandy.Rest.Preview.Understand.Assistant
             }
         }
 
-    
+
         ///<summary> The account_sid </summary> 
         [JsonProperty("account_sid")]
         public string AccountSid { get; private set; }
@@ -204,7 +204,8 @@ namespace Kandy.Rest.Preview.Understand.Assistant
 
 
 
-        private AssistantFallbackActionsResource() {
+        private AssistantFallbackActionsResource()
+        {
 
         }
     }

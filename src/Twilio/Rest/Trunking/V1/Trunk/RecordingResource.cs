@@ -28,12 +28,12 @@ namespace Kandy.Rest.Trunking.V1.Trunk
 {
     public class RecordingResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class RecordingTrimEnum : StringEnum
         {
-            private RecordingTrimEnum(string value) : base(value) {}
-            public RecordingTrimEnum() {}
+            private RecordingTrimEnum(string value) : base(value) { }
+            public RecordingTrimEnum() { }
             public static implicit operator RecordingTrimEnum(string value)
             {
                 return new RecordingTrimEnum(value);
@@ -45,8 +45,8 @@ namespace Kandy.Rest.Trunking.V1.Trunk
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class RecordingModeEnum : StringEnum
         {
-            private RecordingModeEnum(string value) : base(value) {}
-            public RecordingModeEnum() {}
+            private RecordingModeEnum(string value) : base(value) { }
+            public RecordingModeEnum() { }
             public static implicit operator RecordingModeEnum(string value)
             {
                 return new RecordingModeEnum(value);
@@ -59,14 +59,14 @@ namespace Kandy.Rest.Trunking.V1.Trunk
 
         }
 
-        
-        private static Request BuildFetchRequest(FetchRecordingOptions options, ITwilioRestClient client)
+
+        private static Request BuildFetchRequest(FetchRecordingOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Trunks/{TrunkSid}/Recording";
 
             string PathTrunkSid = options.PathTrunkSid;
-            path = path.Replace("{"+"TrunkSid"+"}", PathTrunkSid);
+            path = path.Replace("{" + "TrunkSid" + "}", PathTrunkSid);
 
             return new Request(
                 HttpMethod.Get,
@@ -81,57 +81,57 @@ namespace Kandy.Rest.Trunking.V1.Trunk
         /// <param name="options"> Fetch Recording parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Recording </returns>
-        public static RecordingResource Fetch(FetchRecordingOptions options, ITwilioRestClient client = null)
+        public static RecordingResource Fetch(FetchRecordingOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="options"> Fetch Recording parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Recording </returns>
         public static async System.Threading.Tasks.Task<RecordingResource> FetchAsync(FetchRecordingOptions options,
-                                                                                             ITwilioRestClient client = null)
+                                                                                             IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildFetchRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
         /// <summary> fetch </summary>
         /// <param name="pathTrunkSid"> The SID of the Trunk from which to fetch the recording settings. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Recording </returns>
         public static RecordingResource Fetch(
-                                         string pathTrunkSid, 
-                                         ITwilioRestClient client = null)
+                                         string pathTrunkSid,
+                                         IKandyRestClient client = null)
         {
-            var options = new FetchRecordingOptions(pathTrunkSid){  };
+            var options = new FetchRecordingOptions(pathTrunkSid) { };
             return Fetch(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> fetch </summary>
         /// <param name="pathTrunkSid"> The SID of the Trunk from which to fetch the recording settings. </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Recording </returns>
-        public static async System.Threading.Tasks.Task<RecordingResource> FetchAsync(string pathTrunkSid, ITwilioRestClient client = null)
+        public static async System.Threading.Tasks.Task<RecordingResource> FetchAsync(string pathTrunkSid, IKandyRestClient client = null)
         {
-            var options = new FetchRecordingOptions(pathTrunkSid){  };
+            var options = new FetchRecordingOptions(pathTrunkSid) { };
             return await FetchAsync(options, client);
         }
-        #endif
-        
-        private static Request BuildUpdateRequest(UpdateRecordingOptions options, ITwilioRestClient client)
+#endif
+
+        private static Request BuildUpdateRequest(UpdateRecordingOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Trunks/{TrunkSid}/Recording";
 
             string PathTrunkSid = options.PathTrunkSid;
-            path = path.Replace("{"+"TrunkSid"+"}", PathTrunkSid);
+            path = path.Replace("{" + "TrunkSid" + "}", PathTrunkSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -146,7 +146,7 @@ namespace Kandy.Rest.Trunking.V1.Trunk
         /// <param name="options"> Update Recording parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Recording </returns>
-        public static RecordingResource Update(UpdateRecordingOptions options, ITwilioRestClient client = null)
+        public static RecordingResource Update(UpdateRecordingOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildUpdateRequest(options, client));
@@ -157,15 +157,15 @@ namespace Kandy.Rest.Trunking.V1.Trunk
         /// <param name="options"> Update Recording parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Recording </returns>
-        #if !NET35
+#if !NET35
         public static async System.Threading.Tasks.Task<RecordingResource> UpdateAsync(UpdateRecordingOptions options,
-                                                                                                          ITwilioRestClient client = null)
+                                                                                                          IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildUpdateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> update </summary>
         /// <param name="pathTrunkSid"> The SID of the Trunk that will have its recording settings updated. </param>
@@ -177,13 +177,13 @@ namespace Kandy.Rest.Trunking.V1.Trunk
                                           string pathTrunkSid,
                                           RecordingResource.RecordingModeEnum mode = null,
                                           RecordingResource.RecordingTrimEnum trim = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new UpdateRecordingOptions(pathTrunkSid){ Mode = mode, Trim = trim };
+            var options = new UpdateRecordingOptions(pathTrunkSid) { Mode = mode, Trim = trim };
             return Update(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> update </summary>
         /// <param name="pathTrunkSid"> The SID of the Trunk that will have its recording settings updated. </param>
         /// <param name="mode">  </param>
@@ -194,13 +194,13 @@ namespace Kandy.Rest.Trunking.V1.Trunk
                                                                               string pathTrunkSid,
                                                                               RecordingResource.RecordingModeEnum mode = null,
                                                                               RecordingResource.RecordingTrimEnum trim = null,
-                                                                              ITwilioRestClient client = null)
+                                                                              IKandyRestClient client = null)
         {
-            var options = new UpdateRecordingOptions(pathTrunkSid){ Mode = mode, Trim = trim };
+            var options = new UpdateRecordingOptions(pathTrunkSid) { Mode = mode, Trim = trim };
             return await UpdateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a RecordingResource object
         /// </summary>
@@ -218,18 +218,19 @@ namespace Kandy.Rest.Trunking.V1.Trunk
             }
         }
 
-    
-        
+
+
         [JsonProperty("mode")]
         public RecordingResource.RecordingModeEnum Mode { get; private set; }
 
-        
+
         [JsonProperty("trim")]
         public RecordingResource.RecordingTrimEnum Trim { get; private set; }
 
 
 
-        private RecordingResource() {
+        private RecordingResource()
+        {
 
         }
     }

@@ -28,12 +28,12 @@ namespace Kandy.Rest.Notify.V1.Service
 {
     public class NotificationResource : Resource
     {
-    
+
         [JsonConverter(typeof(StringEnumConverter))]
         public sealed class PriorityEnum : StringEnum
         {
-            private PriorityEnum(string value) : base(value) {}
-            public PriorityEnum() {}
+            private PriorityEnum(string value) : base(value) { }
+            public PriorityEnum() { }
             public static implicit operator PriorityEnum(string value)
             {
                 return new PriorityEnum(value);
@@ -43,14 +43,14 @@ namespace Kandy.Rest.Notify.V1.Service
 
         }
 
-        
-        private static Request BuildCreateRequest(CreateNotificationOptions options, ITwilioRestClient client)
+
+        private static Request BuildCreateRequest(CreateNotificationOptions options, IKandyRestClient client)
         {
-            
+
             string path = "/v1/Services/{ServiceSid}/Notifications";
 
             string PathServiceSid = options.PathServiceSid;
-            path = path.Replace("{"+"ServiceSid"+"}", PathServiceSid);
+            path = path.Replace("{" + "ServiceSid" + "}", PathServiceSid);
 
             return new Request(
                 HttpMethod.Post,
@@ -65,26 +65,26 @@ namespace Kandy.Rest.Notify.V1.Service
         /// <param name="options"> Create Notification parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> A single instance of Notification </returns>
-        public static NotificationResource Create(CreateNotificationOptions options, ITwilioRestClient client = null)
+        public static NotificationResource Create(CreateNotificationOptions options, IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = client.Request(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="options"> Create Notification parameters </param>
         /// <param name="client"> Client to make requests to Twilio </param>
         /// <returns> Task that resolves to A single instance of Notification </returns>
         public static async System.Threading.Tasks.Task<NotificationResource> CreateAsync(CreateNotificationOptions options,
-        ITwilioRestClient client = null)
+        IKandyRestClient client = null)
         {
             client = client ?? TwilioClient.GetRestClient();
             var response = await client.RequestAsync(BuildCreateRequest(options, client));
             return FromJson(response.Content);
         }
-        #endif
+#endif
 
         /// <summary> create </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/notify/api/service-resource) to create the resource under. </param>
@@ -128,13 +128,13 @@ namespace Kandy.Rest.Notify.V1.Service
                                           object alexa = null,
                                           List<string> toBinding = null,
                                           string deliveryCallbackUrl = null,
-                                          ITwilioRestClient client = null)
+                                          IKandyRestClient client = null)
         {
-            var options = new CreateNotificationOptions(pathServiceSid){  Identity = identity, Tag = tag, Body = body, Priority = priority, Ttl = ttl, Title = title, Sound = sound, Action = action, Data = data, Apn = apn, Gcm = gcm, Sms = sms, FacebookMessenger = facebookMessenger, Fcm = fcm, Segment = segment, Alexa = alexa, ToBinding = toBinding, DeliveryCallbackUrl = deliveryCallbackUrl };
+            var options = new CreateNotificationOptions(pathServiceSid) { Identity = identity, Tag = tag, Body = body, Priority = priority, Ttl = ttl, Title = title, Sound = sound, Action = action, Data = data, Apn = apn, Gcm = gcm, Sms = sms, FacebookMessenger = facebookMessenger, Fcm = fcm, Segment = segment, Alexa = alexa, ToBinding = toBinding, DeliveryCallbackUrl = deliveryCallbackUrl };
             return Create(options, client);
         }
 
-        #if !NET35
+#if !NET35
         /// <summary> create </summary>
         /// <param name="pathServiceSid"> The SID of the [Service](https://www.twilio.com/docs/notify/api/service-resource) to create the resource under. </param>
         /// <param name="identity"> The `identity` value that uniquely identifies the new resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/notify/api/service-resource). Delivery will be attempted only to Bindings with an Identity in this list. No more than 20 items are allowed in this list. </param>
@@ -177,13 +177,13 @@ namespace Kandy.Rest.Notify.V1.Service
                                                                                   object alexa = null,
                                                                                   List<string> toBinding = null,
                                                                                   string deliveryCallbackUrl = null,
-                                                                                  ITwilioRestClient client = null)
+                                                                                  IKandyRestClient client = null)
         {
-        var options = new CreateNotificationOptions(pathServiceSid){  Identity = identity, Tag = tag, Body = body, Priority = priority, Ttl = ttl, Title = title, Sound = sound, Action = action, Data = data, Apn = apn, Gcm = gcm, Sms = sms, FacebookMessenger = facebookMessenger, Fcm = fcm, Segment = segment, Alexa = alexa, ToBinding = toBinding, DeliveryCallbackUrl = deliveryCallbackUrl };
+            var options = new CreateNotificationOptions(pathServiceSid) { Identity = identity, Tag = tag, Body = body, Priority = priority, Ttl = ttl, Title = title, Sound = sound, Action = action, Data = data, Apn = apn, Gcm = gcm, Sms = sms, FacebookMessenger = facebookMessenger, Fcm = fcm, Segment = segment, Alexa = alexa, ToBinding = toBinding, DeliveryCallbackUrl = deliveryCallbackUrl };
             return await CreateAsync(options, client);
         }
-        #endif
-    
+#endif
+
         /// <summary>
         /// Converts a JSON string into a NotificationResource object
         /// </summary>
@@ -201,7 +201,7 @@ namespace Kandy.Rest.Notify.V1.Service
             }
         }
 
-    
+
         ///<summary> The unique string that we created to identify the Notification resource. </summary> 
         [JsonProperty("sid")]
         public string Sid { get; private set; }
@@ -230,7 +230,7 @@ namespace Kandy.Rest.Notify.V1.Service
         [JsonProperty("segments")]
         public List<string> Segments { get; private set; }
 
-        
+
         [JsonProperty("priority")]
         public NotificationResource.PriorityEnum Priority { get; private set; }
 
@@ -284,7 +284,8 @@ namespace Kandy.Rest.Notify.V1.Service
 
 
 
-        private NotificationResource() {
+        private NotificationResource()
+        {
 
         }
     }

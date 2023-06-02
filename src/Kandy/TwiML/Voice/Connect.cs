@@ -79,28 +79,6 @@ namespace Kandy.TwiML.Voice
         }
 
         /// <summary>
-        /// Create a new <Autopilot/> element and append it as a child of this element.
-        /// </summary>
-        /// <param name="name"> Autopilot assistant sid or unique name, the body of the TwiML Element. </param>
-        public Connect Autopilot(string name = null)
-        {
-            var newChild = new Autopilot(name);
-            this.Append(newChild);
-            return this;
-        }
-
-        /// <summary>
-        /// Append a <Autopilot/> element as a child of this element
-        /// </summary>
-        /// <param name="autopilot"> A Autopilot instance. </param>
-        [System.Obsolete("This method is deprecated, use .Append() instead.")]
-        public Connect Autopilot(Autopilot autopilot)
-        {
-            this.Append(autopilot);
-            return this;
-        }
-
-        /// <summary>
         /// Create a new <Stream/> element and append it as a child of this element.
         /// </summary>
         /// <param name="name"> Friendly name given to the Stream </param>

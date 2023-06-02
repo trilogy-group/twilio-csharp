@@ -1,4 +1,4 @@
-﻿namespace Twilio.Types
+﻿namespace Kandy.Types
 {
     /// <summary>
     /// Phone number endpoint
@@ -36,4 +36,3 @@
         }
     }
 }
-

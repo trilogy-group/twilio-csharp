@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Api.V2010.Account.Call
+namespace Kandy.Rest.Api.V2010.Account.Call
 {
 
     /// <summary> Create a FeedbackSummary resource for a call </summary>
@@ -152,4 +152,3 @@ namespace Twilio.Rest.Api.V2010.Account.Call
 
 
 }
-

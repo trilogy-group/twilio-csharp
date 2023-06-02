@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Twilio.Jwt
+namespace Kandy.Jwt
 {
     /// <summary>
     /// Scope interface of client capabilities

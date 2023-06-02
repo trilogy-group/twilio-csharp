@@ -21,7 +21,7 @@ using System.Linq;
 
 
 
-namespace Twilio.Rest.FlexApi.V1
+namespace Kandy.Rest.FlexApi.V1
 {
     /// <summary> To get segments for given reservation Ids </summary>
     public class ReadInsightsSegmentsOptions : ReadOptions<InsightsSegmentsResource>
@@ -74,4 +74,3 @@ namespace Twilio.Rest.FlexApi.V1
     }
 
 }
-

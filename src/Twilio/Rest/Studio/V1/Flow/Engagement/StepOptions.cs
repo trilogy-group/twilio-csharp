@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Studio.V1.Flow.Engagement
+namespace Kandy.Rest.Studio.V1.Flow.Engagement
 {
     /// <summary> Retrieve a Step. </summary>
     public class FetchStepOptions : IOptions<StepResource>
@@ -100,4 +100,3 @@ namespace Twilio.Rest.Studio.V1.Flow.Engagement
     }
 
 }
-

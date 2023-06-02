@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Preview.Understand.Assistant.Task
+namespace Kandy.Rest.Preview.Understand.Assistant.Task
 {
     /// <summary> Returns JSON actions for this Task. </summary>
     public class FetchTaskActionsOptions : IOptions<TaskActionsResource>
@@ -99,4 +99,3 @@ namespace Twilio.Rest.Preview.Understand.Assistant.Task
 
 
 }
-

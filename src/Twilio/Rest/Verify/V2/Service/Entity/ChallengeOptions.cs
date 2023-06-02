@@ -21,7 +21,7 @@ using System.Linq;
 
 
 
-namespace Twilio.Rest.Verify.V2.Service.Entity
+namespace Kandy.Rest.Verify.V2.Service.Entity
 {
 
     /// <summary> Create a new Challenge for the Factor </summary>
@@ -251,4 +251,3 @@ namespace Twilio.Rest.Verify.V2.Service.Entity
 
 
 }
-

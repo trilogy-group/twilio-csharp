@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Preview.DeployedDevices.Fleet
+namespace Kandy.Rest.Preview.DeployedDevices.Fleet
 {
     public class KeyResource : Resource
     {
@@ -522,4 +522,3 @@ namespace Twilio.Rest.Preview.DeployedDevices.Fleet
         }
     }
 }
-

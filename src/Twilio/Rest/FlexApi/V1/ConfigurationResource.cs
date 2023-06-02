@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.FlexApi.V1
+namespace Kandy.Rest.FlexApi.V1
 {
     public class ConfigurationResource : Resource
     {
@@ -313,4 +313,3 @@ namespace Twilio.Rest.FlexApi.V1
         }
     }
 }
-

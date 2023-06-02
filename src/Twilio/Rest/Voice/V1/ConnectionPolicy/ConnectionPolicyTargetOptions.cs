@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Voice.V1.ConnectionPolicy
+namespace Kandy.Rest.Voice.V1.ConnectionPolicy
 {
 
     /// <summary> create </summary>
@@ -257,4 +257,3 @@ namespace Twilio.Rest.Voice.V1.ConnectionPolicy
 
 
 }
-

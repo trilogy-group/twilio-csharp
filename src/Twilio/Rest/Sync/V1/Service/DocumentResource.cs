@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Sync.V1.Service
+namespace Kandy.Rest.Sync.V1.Service
 {
     public class DocumentResource : Resource
     {
@@ -538,4 +538,3 @@ namespace Twilio.Rest.Sync.V1.Service
         }
     }
 }
-

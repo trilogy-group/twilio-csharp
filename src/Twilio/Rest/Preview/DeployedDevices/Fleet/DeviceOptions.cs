@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Preview.DeployedDevices.Fleet
+namespace Kandy.Rest.Preview.DeployedDevices.Fleet
 {
 
     /// <summary> Create a new Device in the Fleet, optionally giving it a unique name, friendly name, and assigning to a Deployment and/or human identity. </summary>
@@ -255,4 +255,3 @@ namespace Twilio.Rest.Preview.DeployedDevices.Fleet
 
 
 }
-

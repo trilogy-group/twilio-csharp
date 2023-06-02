@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Media.V1
+namespace Kandy.Rest.Media.V1
 {
 
     /// <summary> create </summary>
@@ -196,4 +196,3 @@ namespace Twilio.Rest.Media.V1
 
 
 }
-

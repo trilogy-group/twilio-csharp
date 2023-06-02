@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Sync.V1.Service.SyncMap
+namespace Kandy.Rest.Sync.V1.Service.SyncMap
 {
 
     /// <summary> create </summary>
@@ -324,4 +324,3 @@ namespace Twilio.Rest.Sync.V1.Service.SyncMap
 
 
 }
-

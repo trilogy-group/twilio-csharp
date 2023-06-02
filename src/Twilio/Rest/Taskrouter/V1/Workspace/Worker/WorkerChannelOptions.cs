@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Taskrouter.V1.Workspace.Worker
+namespace Kandy.Rest.Taskrouter.V1.Workspace.Worker
 {
     /// <summary> fetch </summary>
     public class FetchWorkerChannelOptions : IOptions<WorkerChannelResource>
@@ -153,4 +153,3 @@ namespace Twilio.Rest.Taskrouter.V1.Workspace.Worker
 
 
 }
-

@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Content.V1.Content
+namespace Kandy.Rest.Content.V1.Content
 {
     /// <summary> Fetch a Content resource's approval status by its unique Content Sid </summary>
     public class FetchApprovalFetchOptions : IOptions<ApprovalFetchResource>
@@ -53,4 +53,3 @@ namespace Twilio.Rest.Content.V1.Content
 
 
 }
-

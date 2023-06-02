@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Messaging.V1.BrandRegistration
+namespace Kandy.Rest.Messaging.V1.BrandRegistration
 {
     public class BrandRegistrationOtpResource : Resource
     {
@@ -132,4 +132,3 @@ namespace Twilio.Rest.Messaging.V1.BrandRegistration
         }
     }
 }
-

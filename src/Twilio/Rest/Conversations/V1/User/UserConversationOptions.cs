@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Conversations.V1.User
+namespace Kandy.Rest.Conversations.V1.User
 {
     /// <summary> Delete a specific User Conversation. </summary>
     public class DeleteUserConversationOptions : IOptions<UserConversationResource>
@@ -179,4 +179,3 @@ namespace Twilio.Rest.Conversations.V1.User
 
 
 }
-

@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Numbers.V1
+namespace Kandy.Rest.Numbers.V1
 {
     /// <summary> Fetch an eligibility bulk check that you requested to host in Twilio. </summary>
     public class FetchBulkEligibilityOptions : IOptions<BulkEligibilityResource>
@@ -53,4 +53,3 @@ namespace Twilio.Rest.Numbers.V1
 
 
 }
-

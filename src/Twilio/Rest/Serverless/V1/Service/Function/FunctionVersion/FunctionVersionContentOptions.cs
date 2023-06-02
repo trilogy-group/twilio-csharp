@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Serverless.V1.Service.Function.FunctionVersion
+namespace Kandy.Rest.Serverless.V1.Service.Function.FunctionVersion
 {
     /// <summary> Retrieve a the content of a specific Function Version resource. </summary>
     public class FetchFunctionVersionContentOptions : IOptions<FunctionVersionContentResource>
@@ -63,4 +63,3 @@ namespace Twilio.Rest.Serverless.V1.Service.Function.FunctionVersion
 
 
 }
-

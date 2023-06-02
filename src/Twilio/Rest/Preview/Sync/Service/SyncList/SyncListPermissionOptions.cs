@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Preview.Sync.Service.SyncList
+namespace Kandy.Rest.Preview.Sync.Service.SyncList
 {
     /// <summary> Delete a specific Sync List Permission. </summary>
     public class DeleteSyncListPermissionOptions : IOptions<SyncListPermissionResource>
@@ -205,4 +205,3 @@ namespace Twilio.Rest.Preview.Sync.Service.SyncList
 
 
 }
-

@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Autopilot.V1
+namespace Kandy.Rest.Autopilot.V1
 {
     public class RestoreAssistantResource : Resource
     {
@@ -170,4 +170,3 @@ namespace Twilio.Rest.Autopilot.V1
         }
     }
 }
-

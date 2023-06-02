@@ -1,4 +1,4 @@
-namespace Twilio.Types
+namespace Kandy.Types
 {
     /// <summary>
     /// Twiml endpoint
@@ -36,4 +36,3 @@ namespace Twilio.Types
         }
     }
 }
-

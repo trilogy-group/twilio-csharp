@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Serverless.V1.Service.Environment
+namespace Kandy.Rest.Serverless.V1.Service.Environment
 {
     /// <summary> Retrieve a specific log. </summary>
     public class FetchLogOptions : IOptions<LogResource>
@@ -121,4 +121,3 @@ namespace Twilio.Rest.Serverless.V1.Service.Environment
     }
 
 }
-

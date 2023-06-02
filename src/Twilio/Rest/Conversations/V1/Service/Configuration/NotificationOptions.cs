@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Conversations.V1.Service.Configuration
+namespace Kandy.Rest.Conversations.V1.Service.Configuration
 {
     /// <summary> Fetch push notification service settings </summary>
     public class FetchNotificationOptions : IOptions<NotificationResource>
@@ -173,4 +173,3 @@ namespace Twilio.Rest.Conversations.V1.Service.Configuration
 
 
 }
-

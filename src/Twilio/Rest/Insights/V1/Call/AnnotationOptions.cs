@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Insights.V1.Call
+namespace Kandy.Rest.Insights.V1.Call
 {
     /// <summary> Fetch a specific Annotation. </summary>
     public class FetchAnnotationOptions : IOptions<AnnotationResource>
@@ -131,4 +131,3 @@ namespace Twilio.Rest.Insights.V1.Call
 
 
 }
-

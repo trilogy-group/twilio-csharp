@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Verify.V2
+namespace Kandy.Rest.Verify.V2
 {
     /// <summary> Get a summary of how many attempts were made and how many were converted. </summary>
     public class FetchVerificationAttemptsSummaryOptions : IOptions<VerificationAttemptsSummaryResource>
@@ -86,4 +86,3 @@ namespace Twilio.Rest.Verify.V2
 
 
 }
-

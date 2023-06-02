@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Api.V2010.Account.Sip.Domain.AuthTypes.AuthTypeRegistrations
+namespace Kandy.Rest.Api.V2010.Account.Sip.Domain.AuthTypes.AuthTypeRegistrations
 {
 
     /// <summary> Create a new credential list mapping resource </summary>
@@ -172,4 +172,3 @@ namespace Twilio.Rest.Api.V2010.Account.Sip.Domain.AuthTypes.AuthTypeRegistratio
     }
 
 }
-

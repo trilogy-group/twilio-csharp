@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Chat.V2.Service.User
+namespace Kandy.Rest.Chat.V2.Service.User
 {
     /// <summary> Removes User from selected Channel. </summary>
     public class DeleteUserChannelOptions : IOptions<UserChannelResource>
@@ -212,4 +212,3 @@ namespace Twilio.Rest.Chat.V2.Service.User
 
 
 }
-

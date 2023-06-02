@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Accounts.V1.Credential
+namespace Kandy.Rest.Accounts.V1.Credential
 {
 
     /// <summary> Create a new AWS Credential </summary>
@@ -186,4 +186,3 @@ namespace Twilio.Rest.Accounts.V1.Credential
 
 
 }
-

@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Chat.V1.Service.Channel
+namespace Kandy.Rest.Chat.V1.Service.Channel
 {
     public class MessageResource : Resource
     {
@@ -581,4 +581,3 @@ namespace Twilio.Rest.Chat.V1.Service.Channel
         }
     }
 }
-

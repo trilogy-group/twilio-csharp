@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace Twilio.Types
+namespace Kandy.Types
 {
     /// <summary>
     /// Ice Server POCO
@@ -47,4 +47,3 @@ namespace Twilio.Types
         }
     }
 }
-

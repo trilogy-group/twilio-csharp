@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Conversations.V1.Service.Configuration
+namespace Kandy.Rest.Conversations.V1.Service.Configuration
 {
     public class NotificationResource : Resource
     {
@@ -269,4 +269,3 @@ namespace Twilio.Rest.Conversations.V1.Service.Configuration
         }
     }
 }
-

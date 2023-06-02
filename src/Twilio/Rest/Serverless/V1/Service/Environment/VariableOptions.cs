@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Serverless.V1.Service.Environment
+namespace Kandy.Rest.Serverless.V1.Service.Environment
 {
 
     /// <summary> Create a new Variable. </summary>
@@ -242,4 +242,3 @@ namespace Twilio.Rest.Serverless.V1.Service.Environment
 
 
 }
-

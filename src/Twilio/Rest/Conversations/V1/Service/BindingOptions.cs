@@ -21,7 +21,7 @@ using System.Linq;
 
 
 
-namespace Twilio.Rest.Conversations.V1.Service
+namespace Kandy.Rest.Conversations.V1.Service
 {
     /// <summary> Remove a push notification binding from the conversation service </summary>
     public class DeleteBindingOptions : IOptions<BindingResource>
@@ -140,4 +140,3 @@ namespace Twilio.Rest.Conversations.V1.Service
     }
 
 }
-

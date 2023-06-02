@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Preview.HostedNumbers
+namespace Kandy.Rest.Preview.HostedNumbers
 {
     public class HostedNumberOrderResource : Resource
     {
@@ -693,4 +693,3 @@ namespace Twilio.Rest.Preview.HostedNumbers
         }
     }
 }
-

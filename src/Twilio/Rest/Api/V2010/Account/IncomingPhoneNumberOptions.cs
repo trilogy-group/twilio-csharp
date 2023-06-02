@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Api.V2010.Account
+namespace Kandy.Rest.Api.V2010.Account
 {
 
     /// <summary> Purchase a phone-number for the account. </summary>
@@ -524,4 +524,3 @@ namespace Twilio.Rest.Api.V2010.Account
 
 
 }
-

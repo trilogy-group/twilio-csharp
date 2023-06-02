@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Supersim.V1.NetworkAccessProfile
+namespace Kandy.Rest.Supersim.V1.NetworkAccessProfile
 {
 
     /// <summary> Add a Network resource to the Network Access Profile resource. </summary>
@@ -160,4 +160,3 @@ namespace Twilio.Rest.Supersim.V1.NetworkAccessProfile
     }
 
 }
-

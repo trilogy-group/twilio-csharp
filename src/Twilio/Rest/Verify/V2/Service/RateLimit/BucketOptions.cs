@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Verify.V2.Service.RateLimit
+namespace Kandy.Rest.Verify.V2.Service.RateLimit
 {
 
     /// <summary> Create a new Bucket for a Rate Limit </summary>
@@ -242,4 +242,3 @@ namespace Twilio.Rest.Verify.V2.Service.RateLimit
 
 
 }
-

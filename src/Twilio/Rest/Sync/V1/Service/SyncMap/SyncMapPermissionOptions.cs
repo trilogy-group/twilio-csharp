@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Sync.V1.Service.SyncMap
+namespace Kandy.Rest.Sync.V1.Service.SyncMap
 {
     /// <summary> Delete a specific Sync Map Permission. </summary>
     public class DeleteSyncMapPermissionOptions : IOptions<SyncMapPermissionResource>
@@ -205,4 +205,3 @@ namespace Twilio.Rest.Sync.V1.Service.SyncMap
 
 
 }
-

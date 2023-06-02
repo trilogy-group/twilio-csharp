@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Supersim.V1.NetworkAccessProfile
+namespace Kandy.Rest.Supersim.V1.NetworkAccessProfile
 {
     public class NetworkAccessProfileNetworkResource : Resource
     {
@@ -420,4 +420,3 @@ namespace Twilio.Rest.Supersim.V1.NetworkAccessProfile
         }
     }
 }
-

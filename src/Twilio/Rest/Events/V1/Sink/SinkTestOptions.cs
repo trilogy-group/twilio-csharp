@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Events.V1.Sink
+namespace Kandy.Rest.Events.V1.Sink
 {
 
     /// <summary> Create a new Sink Test Event for the given Sink. </summary>
@@ -51,4 +51,3 @@ namespace Twilio.Rest.Events.V1.Sink
 
     }
 }
-

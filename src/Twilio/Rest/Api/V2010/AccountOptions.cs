@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Api.V2010
+namespace Kandy.Rest.Api.V2010
 {
 
     /// <summary> Create a new Twilio Subaccount from the account making the request </summary>
@@ -146,4 +146,3 @@ namespace Twilio.Rest.Api.V2010
 
 
 }
-

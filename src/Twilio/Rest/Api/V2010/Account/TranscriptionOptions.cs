@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Api.V2010.Account
+namespace Kandy.Rest.Api.V2010.Account
 {
     /// <summary> Delete a transcription from the account used to make the request </summary>
     public class DeleteTranscriptionOptions : IOptions<TranscriptionResource>
@@ -114,4 +114,3 @@ namespace Twilio.Rest.Api.V2010.Account
     }
 
 }
-

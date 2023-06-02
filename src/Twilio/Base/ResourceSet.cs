@@ -3,7 +3,7 @@ using System.Reflection;
 using System.Collections.Generic;
 using Twilio.Clients;
 
-namespace Twilio.Base
+namespace Kandy.Base
 {
     /// <summary>
     /// A collection of resources of type T

@@ -1,6 +1,6 @@
 using System.Net;
 
-namespace Twilio.Types {
+namespace Kandy.Types {
 
     public class EmptyUri : System.Uri 
     {

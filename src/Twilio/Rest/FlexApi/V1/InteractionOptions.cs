@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.FlexApi.V1
+namespace Kandy.Rest.FlexApi.V1
 {
 
     /// <summary> Create a new Interaction. </summary>
@@ -93,4 +93,3 @@ namespace Twilio.Rest.FlexApi.V1
 
 
 }
-

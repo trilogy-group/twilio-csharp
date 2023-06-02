@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Twilio.Converters;
 
-namespace Twilio.Types
+namespace Kandy.Types
 {
     /// <summary>
     /// POCO to represent an inbound call price
@@ -79,4 +79,3 @@ namespace Twilio.Types
         }
     }
 }
-

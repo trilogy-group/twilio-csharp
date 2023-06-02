@@ -1,6 +1,6 @@
 ﻿using Twilio.Http;
 
-namespace Twilio.Clients
+namespace Kandy.Clients
 {
     /// <summary>
     /// Interface for a Twilio Client
@@ -41,4 +41,3 @@ namespace Twilio.Clients
 #endif
     }
 }
-

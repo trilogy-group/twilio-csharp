@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Preview.DeployedDevices.Fleet
+namespace Kandy.Rest.Preview.DeployedDevices.Fleet
 {
 
     /// <summary> Enroll a new Certificate credential to the Fleet, optionally giving it a friendly name and assigning to a Device. </summary>
@@ -229,4 +229,3 @@ namespace Twilio.Rest.Preview.DeployedDevices.Fleet
 
 
 }
-

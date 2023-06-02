@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Preview.Sync.Service.SyncMap
+namespace Kandy.Rest.Preview.Sync.Service.SyncMap
 {
     public class SyncMapPermissionResource : Resource
     {
@@ -463,4 +463,3 @@ namespace Twilio.Rest.Preview.Sync.Service.SyncMap
         }
     }
 }
-

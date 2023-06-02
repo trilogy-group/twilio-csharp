@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.FlexApi.V1
+namespace Kandy.Rest.FlexApi.V1
 {
     public class InsightsSettingsCommentResource : Resource
     {
@@ -131,4 +131,3 @@ namespace Twilio.Rest.FlexApi.V1
         }
     }
 }
-

@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Preview.Sync
+namespace Kandy.Rest.Preview.Sync
 {
 
     /// <summary> create </summary>
@@ -208,4 +208,3 @@ namespace Twilio.Rest.Preview.Sync
 
 
 }
-

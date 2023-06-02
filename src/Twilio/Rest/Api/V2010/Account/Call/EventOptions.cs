@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Api.V2010.Account.Call
+namespace Kandy.Rest.Api.V2010.Account.Call
 {
     /// <summary> Retrieve a list of all events for a call. </summary>
     public class ReadEventOptions : ReadOptions<EventResource>
@@ -59,4 +59,3 @@ namespace Twilio.Rest.Api.V2010.Account.Call
     }
 
 }
-

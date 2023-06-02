@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Api.V2010.Account.Queue
+namespace Kandy.Rest.Api.V2010.Account.Queue
 {
     /// <summary> Fetch a specific member from the queue </summary>
     public class FetchMemberOptions : IOptions<MemberResource>
@@ -149,4 +149,3 @@ namespace Twilio.Rest.Api.V2010.Account.Queue
 
 
 }
-

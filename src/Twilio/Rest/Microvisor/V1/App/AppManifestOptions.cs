@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Microvisor.V1.App
+namespace Kandy.Rest.Microvisor.V1.App
 {
     /// <summary> Retrieve the Manifest for an App. </summary>
     public class FetchAppManifestOptions : IOptions<AppManifestResource>
@@ -53,4 +53,3 @@ namespace Twilio.Rest.Microvisor.V1.App
 
 
 }
-

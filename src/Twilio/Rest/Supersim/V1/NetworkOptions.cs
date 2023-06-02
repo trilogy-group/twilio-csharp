@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Supersim.V1
+namespace Kandy.Rest.Supersim.V1
 {
     /// <summary> Fetch a Network resource. </summary>
     public class FetchNetworkOptions : IOptions<NetworkResource>
@@ -97,4 +97,3 @@ namespace Twilio.Rest.Supersim.V1
     }
 
 }
-

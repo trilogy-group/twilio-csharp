@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Video.V1.Room.Participant
+namespace Kandy.Rest.Video.V1.Room.Participant
 {
     /// <summary> Returns a list of Subscribe Rules for the Participant. </summary>
     public class FetchSubscribeRulesOptions : IOptions<SubscribeRulesResource>
@@ -99,4 +99,3 @@ namespace Twilio.Rest.Video.V1.Room.Participant
 
 
 }
-

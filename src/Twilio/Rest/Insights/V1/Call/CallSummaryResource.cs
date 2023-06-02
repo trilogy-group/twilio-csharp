@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Insights.V1.Call
+namespace Kandy.Rest.Insights.V1.Call
 {
     public class CallSummaryResource : Resource
     {
@@ -281,4 +281,3 @@ namespace Twilio.Rest.Insights.V1.Call
         }
     }
 }
-

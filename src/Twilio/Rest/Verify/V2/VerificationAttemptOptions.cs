@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Verify.V2
+namespace Kandy.Rest.Verify.V2
 {
     /// <summary> Fetch a specific verification attempt. </summary>
     public class FetchVerificationAttemptOptions : IOptions<VerificationAttemptResource>
@@ -132,4 +132,3 @@ namespace Twilio.Rest.Verify.V2
     }
 
 }
-

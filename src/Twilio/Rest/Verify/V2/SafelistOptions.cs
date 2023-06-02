@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Verify.V2
+namespace Kandy.Rest.Verify.V2
 {
 
     /// <summary> Add a new phone number to SafeList. </summary>
@@ -113,4 +113,3 @@ namespace Twilio.Rest.Verify.V2
 
 
 }
-

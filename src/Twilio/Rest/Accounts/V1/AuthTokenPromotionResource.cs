@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Accounts.V1
+namespace Kandy.Rest.Accounts.V1
 {
     public class AuthTokenPromotionResource : Resource
     {
@@ -138,4 +138,3 @@ namespace Twilio.Rest.Accounts.V1
         }
     }
 }
-

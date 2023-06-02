@@ -21,7 +21,7 @@ using System.Linq;
 
 
 
-namespace Twilio.Rest.Messaging.V1.Service
+namespace Kandy.Rest.Messaging.V1.Service
 {
 
     /// <summary> create </summary>
@@ -259,4 +259,3 @@ namespace Twilio.Rest.Messaging.V1.Service
     }
 
 }
-

@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Voice.V1.DialingPermissions
+namespace Kandy.Rest.Voice.V1.DialingPermissions
 {
 
     /// <summary> Create a bulk update request to change voice dialing country permissions of one or more countries identified by the corresponding [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) </summary>
@@ -55,4 +55,3 @@ namespace Twilio.Rest.Voice.V1.DialingPermissions
 
     }
 }
-

@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Api.V2010.Account.Call
+namespace Kandy.Rest.Api.V2010.Account.Call
 {
 
     /// <summary> Subscribe to User Defined Messages for a given Call SID. </summary>
@@ -114,4 +114,3 @@ namespace Twilio.Rest.Api.V2010.Account.Call
 
 
 }
-

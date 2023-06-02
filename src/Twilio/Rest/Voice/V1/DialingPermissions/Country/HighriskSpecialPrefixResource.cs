@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Voice.V1.DialingPermissions.Country
+namespace Kandy.Rest.Voice.V1.DialingPermissions.Country
 {
     public class HighriskSpecialPrefixResource : Resource
     {
@@ -186,4 +186,3 @@ namespace Twilio.Rest.Voice.V1.DialingPermissions.Country
         }
     }
 }
-

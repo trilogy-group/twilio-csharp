@@ -7,7 +7,7 @@ using System.Net;
 using System.Web;
 #endif
 
-namespace Twilio.Jwt.Client
+namespace Kandy.Jwt.Client
 {
     /// <summary>
     /// Event stream scope for client capabilities

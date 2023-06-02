@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Events.V1.Schema
+namespace Kandy.Rest.Events.V1.Schema
 {
     public class SchemaVersionResource : Resource
     {
@@ -272,4 +272,3 @@ namespace Twilio.Rest.Events.V1.Schema
         }
     }
 }
-

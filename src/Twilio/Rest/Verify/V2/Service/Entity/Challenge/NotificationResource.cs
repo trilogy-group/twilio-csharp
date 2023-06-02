@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Verify.V2.Service.Entity.Challenge
+namespace Kandy.Rest.Verify.V2.Service.Entity.Challenge
 {
     public class NotificationResource : Resource
     {
@@ -176,4 +176,3 @@ namespace Twilio.Rest.Verify.V2.Service.Entity.Challenge
         }
     }
 }
-

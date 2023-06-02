@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Bulkexports.V1.Export
+namespace Kandy.Rest.Bulkexports.V1.Export
 {
     /// <summary> delete </summary>
     public class DeleteJobOptions : IOptions<JobResource>
@@ -82,4 +82,3 @@ namespace Twilio.Rest.Bulkexports.V1.Export
 
 
 }
-

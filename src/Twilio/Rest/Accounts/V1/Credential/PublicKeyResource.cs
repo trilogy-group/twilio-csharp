@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Accounts.V1.Credential
+namespace Kandy.Rest.Accounts.V1.Credential
 {
     public class PublicKeyResource : Resource
     {
@@ -479,4 +479,3 @@ namespace Twilio.Rest.Accounts.V1.Credential
         }
     }
 }
-

@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Api.V2010.Account
+namespace Kandy.Rest.Api.V2010.Account
 {
     /// <summary> Delete the caller-id specified from the account </summary>
     public class DeleteOutgoingCallerIdOptions : IOptions<OutgoingCallerIdResource>
@@ -167,4 +167,3 @@ namespace Twilio.Rest.Api.V2010.Account
 
 
 }
-

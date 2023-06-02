@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Api.V2010.Account.Recording
+namespace Kandy.Rest.Api.V2010.Account.Recording
 {
     /// <summary> Delete a result and purge all associated Payloads </summary>
     public class DeleteAddOnResultOptions : IOptions<AddOnResultResource>
@@ -133,4 +133,3 @@ namespace Twilio.Rest.Api.V2010.Account.Recording
     }
 
 }
-

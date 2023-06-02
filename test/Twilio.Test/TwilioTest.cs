@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Twilio.Tests
+namespace Kandy.Tests
 {
     public class TwilioTest
     {
@@ -10,4 +10,3 @@ namespace Twilio.Tests
         public string Serialize(Uri url) => url.AbsoluteUri.TrimEnd('/');
     }
 }
-

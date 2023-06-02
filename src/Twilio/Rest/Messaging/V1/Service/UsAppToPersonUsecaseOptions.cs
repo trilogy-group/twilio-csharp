@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Messaging.V1.Service
+namespace Kandy.Rest.Messaging.V1.Service
 {
     /// <summary> fetch </summary>
     public class FetchUsAppToPersonUsecaseOptions : IOptions<UsAppToPersonUsecaseResource>
@@ -60,4 +60,3 @@ namespace Twilio.Rest.Messaging.V1.Service
 
 
 }
-

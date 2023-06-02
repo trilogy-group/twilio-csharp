@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Bulkexports.V1.Export
+namespace Kandy.Rest.Bulkexports.V1.Export
 {
     /// <summary> Fetch a specific Day. </summary>
     public class FetchDayOptions : IOptions<DayResource>
@@ -90,4 +90,3 @@ namespace Twilio.Rest.Bulkexports.V1.Export
     }
 
 }
-

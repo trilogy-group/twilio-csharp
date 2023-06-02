@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Chat.V2.Service.Channel
+namespace Kandy.Rest.Chat.V2.Service.Channel
 {
     public class InviteResource : Resource
     {
@@ -465,4 +465,3 @@ namespace Twilio.Rest.Chat.V2.Service.Channel
         }
     }
 }
-

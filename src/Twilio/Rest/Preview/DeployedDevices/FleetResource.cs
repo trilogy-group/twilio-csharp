@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Preview.DeployedDevices
+namespace Kandy.Rest.Preview.DeployedDevices
 {
     public class FleetResource : Resource
     {
@@ -487,4 +487,3 @@ namespace Twilio.Rest.Preview.DeployedDevices
         }
     }
 }
-

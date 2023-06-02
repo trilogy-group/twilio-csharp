@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using Twilio.Types;
 
-namespace Twilio.Tests.Types
+namespace Kandy.Tests.Types
 {
     [TestFixture]
     public class StringEnumTest

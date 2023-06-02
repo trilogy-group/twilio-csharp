@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Chat.V3
+namespace Kandy.Rest.Chat.V3
 {
     /// <summary> Update a specific Channel. </summary>
     public class UpdateChannelOptions : IOptions<ChannelResource>
@@ -85,4 +85,3 @@ namespace Twilio.Rest.Chat.V3
 
 
 }
-

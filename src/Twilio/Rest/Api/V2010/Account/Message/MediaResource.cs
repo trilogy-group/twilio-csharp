@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Api.V2010.Account.Message
+namespace Kandy.Rest.Api.V2010.Account.Message
 {
     public class MediaResource : Resource
     {
@@ -379,4 +379,3 @@ namespace Twilio.Rest.Api.V2010.Account.Message
         }
     }
 }
-

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Twilio.Jwt
+namespace Kandy.Jwt
 {
     /// <summary>
     /// JWT for Twilio Client

@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Api.V2010.Account.Recording
+namespace Kandy.Rest.Api.V2010.Account.Recording
 {
     /// <summary> delete </summary>
     public class DeleteTranscriptionOptions : IOptions<TranscriptionResource>
@@ -133,4 +133,3 @@ namespace Twilio.Rest.Api.V2010.Account.Recording
     }
 
 }
-

@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.FlexApi.V1.Interaction
+namespace Kandy.Rest.FlexApi.V1.Interaction
 {
     /// <summary> Fetch a Channel for an Interaction. </summary>
     public class FetchInteractionChannelOptions : IOptions<InteractionChannelResource>
@@ -140,4 +140,3 @@ namespace Twilio.Rest.FlexApi.V1.Interaction
 
 
 }
-

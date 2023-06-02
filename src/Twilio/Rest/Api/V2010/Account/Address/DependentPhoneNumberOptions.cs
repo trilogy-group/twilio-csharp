@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Api.V2010.Account.Address
+namespace Kandy.Rest.Api.V2010.Account.Address
 {
     /// <summary> read </summary>
     public class ReadDependentPhoneNumberOptions : ReadOptions<DependentPhoneNumberResource>
@@ -59,4 +59,3 @@ namespace Twilio.Rest.Api.V2010.Account.Address
     }
 
 }
-

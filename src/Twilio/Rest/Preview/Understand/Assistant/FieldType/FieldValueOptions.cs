@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Preview.Understand.Assistant.FieldType
+namespace Kandy.Rest.Preview.Understand.Assistant.FieldType
 {
 
     /// <summary> create </summary>
@@ -203,4 +203,3 @@ namespace Twilio.Rest.Preview.Understand.Assistant.FieldType
     }
 
 }
-

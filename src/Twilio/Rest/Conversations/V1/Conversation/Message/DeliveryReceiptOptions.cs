@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Conversations.V1.Conversation.Message
+namespace Kandy.Rest.Conversations.V1.Conversation.Message
 {
     /// <summary> Fetch the delivery and read receipts of the conversation message </summary>
     public class FetchDeliveryReceiptOptions : IOptions<DeliveryReceiptResource>
@@ -100,4 +100,3 @@ namespace Twilio.Rest.Conversations.V1.Conversation.Message
     }
 
 }
-

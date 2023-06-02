@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Insights.V1.Conference
+namespace Kandy.Rest.Insights.V1.Conference
 {
     /// <summary> Fetch a specific Conference Participant Summary. </summary>
     public class FetchConferenceParticipantOptions : IOptions<ConferenceParticipantResource>
@@ -125,4 +125,3 @@ namespace Twilio.Rest.Insights.V1.Conference
     }
 
 }
-

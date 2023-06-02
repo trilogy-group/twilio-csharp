@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Studio.V2.Flow
+namespace Kandy.Rest.Studio.V2.Flow
 {
     public class FlowTestUserResource : Resource
     {
@@ -205,4 +205,3 @@ namespace Twilio.Rest.Studio.V2.Flow
         }
     }
 }
-

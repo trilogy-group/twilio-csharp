@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Twilio.Base
+namespace Kandy.Base
 {
     /// <summary>
     /// Interface to wrap parameters of a resource

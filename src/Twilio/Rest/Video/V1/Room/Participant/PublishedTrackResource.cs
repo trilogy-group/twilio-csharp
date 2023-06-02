@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Video.V1.Room.Participant
+namespace Kandy.Rest.Video.V1.Room.Participant
 {
     public class PublishedTrackResource : Resource
     {
@@ -313,4 +313,3 @@ namespace Twilio.Rest.Video.V1.Room.Participant
         }
     }
 }
-

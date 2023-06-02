@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Oauth.V1
+namespace Kandy.Rest.Oauth.V1
 {
     /// <summary> Fetches public JWKs </summary>
     public class FetchOauthOptions : IOptions<OauthResource>
@@ -44,4 +44,3 @@ namespace Twilio.Rest.Oauth.V1
 
 
 }
-

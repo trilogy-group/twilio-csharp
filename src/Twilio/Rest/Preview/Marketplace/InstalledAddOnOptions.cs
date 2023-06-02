@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Preview.Marketplace
+namespace Kandy.Rest.Preview.Marketplace
 {
 
     /// <summary> Install an Add-on for the Account specified. </summary>
@@ -202,4 +202,3 @@ namespace Twilio.Rest.Preview.Marketplace
 
 
 }
-

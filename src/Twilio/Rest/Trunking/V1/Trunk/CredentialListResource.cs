@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Trunking.V1.Trunk
+namespace Kandy.Rest.Trunking.V1.Trunk
 {
     public class CredentialListResource : Resource
     {
@@ -424,4 +424,3 @@ namespace Twilio.Rest.Trunking.V1.Trunk
         }
     }
 }
-

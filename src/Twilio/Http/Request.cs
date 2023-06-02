@@ -10,7 +10,7 @@ using System.Net;
 using System.Web;
 #endif
 
-namespace Twilio.Http
+namespace Kandy.Http
 {
     /// <summary>
     /// Twilio request object

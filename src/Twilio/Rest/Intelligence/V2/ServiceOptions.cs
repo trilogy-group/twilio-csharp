@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Intelligence.V2
+namespace Kandy.Rest.Intelligence.V2
 {
 
     /// <summary> Create a new Service for the given Account </summary>
@@ -297,4 +297,3 @@ namespace Twilio.Rest.Intelligence.V2
 
 
 }
-

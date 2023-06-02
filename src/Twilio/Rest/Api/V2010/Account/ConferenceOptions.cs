@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Api.V2010.Account
+namespace Kandy.Rest.Api.V2010.Account
 {
     /// <summary> Fetch an instance of a conference </summary>
     public class FetchConferenceOptions : IOptions<ConferenceResource>
@@ -197,4 +197,3 @@ namespace Twilio.Rest.Api.V2010.Account
 
 
 }
-

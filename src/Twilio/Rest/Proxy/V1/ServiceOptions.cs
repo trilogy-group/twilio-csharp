@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Proxy.V1
+namespace Kandy.Rest.Proxy.V1
 {
 
     /// <summary> Create a new Service for Twilio Proxy </summary>
@@ -270,4 +270,3 @@ namespace Twilio.Rest.Proxy.V1
 
 
 }
-

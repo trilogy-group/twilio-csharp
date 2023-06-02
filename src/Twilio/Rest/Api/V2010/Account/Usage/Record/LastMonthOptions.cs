@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Api.V2010.Account.Usage.Record
+namespace Kandy.Rest.Api.V2010.Account.Usage.Record
 {
     /// <summary> read </summary>
     public class ReadLastMonthOptions : ReadOptions<LastMonthResource>
@@ -78,4 +78,3 @@ namespace Twilio.Rest.Api.V2010.Account.Usage.Record
     }
 
 }
-

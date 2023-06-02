@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Preview.Wireless
+namespace Kandy.Rest.Preview.Wireless
 {
     /// <summary> fetch </summary>
     public class FetchSimOptions : IOptions<SimResource>
@@ -252,4 +252,3 @@ namespace Twilio.Rest.Preview.Wireless
 
 
 }
-

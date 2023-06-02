@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Conversations.V1.Configuration
+namespace Kandy.Rest.Conversations.V1.Configuration
 {
     public class WebhookResource : Resource
     {
@@ -252,4 +252,3 @@ namespace Twilio.Rest.Conversations.V1.Configuration
         }
     }
 }
-

@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Insights.V1.Call
+namespace Kandy.Rest.Insights.V1.Call
 {
     /// <summary> fetch </summary>
     public class FetchCallSummaryOptions : IOptions<CallSummaryResource>
@@ -60,4 +60,3 @@ namespace Twilio.Rest.Insights.V1.Call
 
 
 }
-

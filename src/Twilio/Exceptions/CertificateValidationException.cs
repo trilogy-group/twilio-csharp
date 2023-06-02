@@ -1,7 +1,7 @@
 using System;
 using Twilio.Http;
 
-namespace Twilio.Exceptions
+namespace Kandy.Exceptions
 {
     /// <summary>
     /// Error thrown specifically when validating SSL connection

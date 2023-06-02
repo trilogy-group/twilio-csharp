@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Studio.V2.Flow
+namespace Kandy.Rest.Studio.V2.Flow
 {
 
     /// <summary> Triggers a new Execution for the Flow </summary>
@@ -233,4 +233,3 @@ namespace Twilio.Rest.Studio.V2.Flow
 
 
 }
-

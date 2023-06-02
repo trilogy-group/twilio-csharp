@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Api.V2010.Account.Usage
+namespace Kandy.Rest.Api.V2010.Account.Usage
 {
     /// <summary> Retrieve a list of usage-records belonging to the account used to make the request </summary>
     public class ReadRecordOptions : ReadOptions<RecordResource>
@@ -78,4 +78,3 @@ namespace Twilio.Rest.Api.V2010.Account.Usage
     }
 
 }
-

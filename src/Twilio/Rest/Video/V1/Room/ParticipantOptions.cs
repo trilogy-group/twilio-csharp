@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Video.V1.Room
+namespace Kandy.Rest.Video.V1.Room
 {
     /// <summary> fetch </summary>
     public class FetchParticipantOptions : IOptions<ParticipantResource>
@@ -159,4 +159,3 @@ namespace Twilio.Rest.Video.V1.Room
 
 
 }
-

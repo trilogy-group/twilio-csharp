@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Numbers.V2.RegulatoryCompliance.Bundle
+namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
 {
 
     /// <summary> Creates a new copy of a Bundle. It will internally create copies of all the bundle items (identities and documents) of the original bundle </summary>
@@ -90,4 +90,3 @@ namespace Twilio.Rest.Numbers.V2.RegulatoryCompliance.Bundle
     }
 
 }
-

@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Microvisor.V1
+namespace Kandy.Rest.Microvisor.V1
 {
 
     /// <summary> Create a secret for an Account. </summary>
@@ -183,4 +183,3 @@ namespace Twilio.Rest.Microvisor.V1
 
 
 }
-

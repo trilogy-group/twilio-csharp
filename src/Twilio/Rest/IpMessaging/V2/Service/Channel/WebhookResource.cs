@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.IpMessaging.V2.Service.Channel
+namespace Kandy.Rest.IpMessaging.V2.Service.Channel
 {
     public class WebhookResource : Resource
     {
@@ -606,4 +606,3 @@ namespace Twilio.Rest.IpMessaging.V2.Service.Channel
         }
     }
 }
-

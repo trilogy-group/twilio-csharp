@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Voice.V1.DialingPermissions.Country
+namespace Kandy.Rest.Voice.V1.DialingPermissions.Country
 {
     /// <summary> Fetch the high-risk special services prefixes from the country resource corresponding to the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) </summary>
     public class ReadHighriskSpecialPrefixOptions : ReadOptions<HighriskSpecialPrefixResource>
@@ -56,4 +56,3 @@ namespace Twilio.Rest.Voice.V1.DialingPermissions.Country
     }
 
 }
-

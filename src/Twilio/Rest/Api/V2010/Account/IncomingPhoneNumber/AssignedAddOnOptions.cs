@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Api.V2010.Account.IncomingPhoneNumber
+namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
 {
 
     /// <summary> Assign an Add-on installation to the Number specified. </summary>
@@ -172,4 +172,3 @@ namespace Twilio.Rest.Api.V2010.Account.IncomingPhoneNumber
     }
 
 }
-

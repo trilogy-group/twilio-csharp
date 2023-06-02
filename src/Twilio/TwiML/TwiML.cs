@@ -5,7 +5,7 @@ using System.Text;
 using System.Xml.Linq;
 using Twilio.Exceptions;
 
-namespace Twilio.TwiML
+namespace Kandy.TwiML
 {
 
     /// <summary>

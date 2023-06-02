@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Events.V1.Sink
+namespace Kandy.Rest.Events.V1.Sink
 {
     public class SinkValidateResource : Resource
     {
@@ -132,4 +132,3 @@ namespace Twilio.Rest.Events.V1.Sink
         }
     }
 }
-

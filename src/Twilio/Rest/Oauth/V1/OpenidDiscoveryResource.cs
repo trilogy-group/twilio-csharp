@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Oauth.V1
+namespace Kandy.Rest.Oauth.V1
 {
     public class OpenidDiscoveryResource : Resource
     {
@@ -168,4 +168,3 @@ namespace Twilio.Rest.Oauth.V1
         }
     }
 }
-

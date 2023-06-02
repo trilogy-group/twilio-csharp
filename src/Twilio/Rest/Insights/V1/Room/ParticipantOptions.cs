@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Insights.V1.Room
+namespace Kandy.Rest.Insights.V1.Room
 {
     /// <summary> Get Video Log Analyzer data for a Room Participant. </summary>
     public class FetchParticipantOptions : IOptions<ParticipantResource>
@@ -90,4 +90,3 @@ namespace Twilio.Rest.Insights.V1.Room
     }
 
 }
-

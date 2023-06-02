@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Api.V2010.Account.Call
+namespace Kandy.Rest.Api.V2010.Account.Call
 {
     /// <summary> fetch </summary>
     public class FetchNotificationOptions : IOptions<NotificationResource>
@@ -127,4 +127,3 @@ namespace Twilio.Rest.Api.V2010.Account.Call
     }
 
 }
-

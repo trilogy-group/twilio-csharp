@@ -2,7 +2,7 @@ using System;
 using System.Reflection;
 using NUnitLite;
 
-namespace Twilio.Tests
+namespace Kandy.Tests
 {
     class Program
     {

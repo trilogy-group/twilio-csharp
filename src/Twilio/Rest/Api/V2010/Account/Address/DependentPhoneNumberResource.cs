@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Api.V2010.Account.Address
+namespace Kandy.Rest.Api.V2010.Account.Address
 {
     public class DependentPhoneNumberResource : Resource
     {
@@ -322,4 +322,3 @@ namespace Twilio.Rest.Api.V2010.Account.Address
         }
     }
 }
-

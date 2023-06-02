@@ -3,7 +3,7 @@ using System;
 using Twilio.Http;
 using Twilio.Rest;
 
-namespace Twilio.Tests.Http
+namespace Kandy.Tests.Http
 {
     [TestFixture]
     public class RequestTest

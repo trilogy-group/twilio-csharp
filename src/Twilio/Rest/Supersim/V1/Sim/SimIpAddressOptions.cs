@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Supersim.V1.Sim
+namespace Kandy.Rest.Supersim.V1.Sim
 {
     /// <summary> Retrieve a list of IP Addresses for the given Super SIM. </summary>
     public class ReadSimIpAddressOptions : ReadOptions<SimIpAddressResource>
@@ -56,4 +56,3 @@ namespace Twilio.Rest.Supersim.V1.Sim
     }
 
 }
-

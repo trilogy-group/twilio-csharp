@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Microvisor.V1.Device
+namespace Kandy.Rest.Microvisor.V1.Device
 {
     public class DeviceSecretResource : Resource
     {
@@ -494,4 +494,3 @@ namespace Twilio.Rest.Microvisor.V1.Device
         }
     }
 }
-

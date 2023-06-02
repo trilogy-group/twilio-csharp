@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Preview.Sync.Service.SyncList
+namespace Kandy.Rest.Preview.Sync.Service.SyncList
 {
     public class SyncListItemResource : Resource
     {
@@ -583,4 +583,3 @@ namespace Twilio.Rest.Preview.Sync.Service.SyncList
         }
     }
 }
-

@@ -21,7 +21,7 @@ using System.Linq;
 
 
 
-namespace Twilio.Rest.Taskrouter.V1.Workspace.Worker
+namespace Kandy.Rest.Taskrouter.V1.Workspace.Worker
 {
     /// <summary> fetch </summary>
     public class FetchReservationOptions : IOptions<ReservationResource>
@@ -519,4 +519,3 @@ namespace Twilio.Rest.Taskrouter.V1.Workspace.Worker
 
 
 }
-

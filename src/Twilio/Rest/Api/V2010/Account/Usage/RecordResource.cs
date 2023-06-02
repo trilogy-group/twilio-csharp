@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Api.V2010.Account.Usage
+namespace Kandy.Rest.Api.V2010.Account.Usage
 {
     public class RecordResource : Resource
     {
@@ -514,4 +514,3 @@ namespace Twilio.Rest.Api.V2010.Account.Usage
         }
     }
 }
-

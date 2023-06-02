@@ -21,7 +21,7 @@ using System.Linq;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Api.V2010.Account.Conference
+namespace Kandy.Rest.Api.V2010.Account.Conference
 {
 
     /// <summary> create </summary>
@@ -642,4 +642,3 @@ namespace Twilio.Rest.Api.V2010.Account.Conference
 
 
 }
-

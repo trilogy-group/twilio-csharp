@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Messaging.V1.Service
+namespace Kandy.Rest.Messaging.V1.Service
 {
     public class AlphaSenderResource : Resource
     {
@@ -428,4 +428,3 @@ namespace Twilio.Rest.Messaging.V1.Service
         }
     }
 }
-

@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Twilio.Converters;
 
-namespace Twilio.Types
+namespace Kandy.Types
 {
     /// <summary>
     /// Phone number price POCO
@@ -79,4 +79,3 @@ namespace Twilio.Types
         }
     }
 }
-

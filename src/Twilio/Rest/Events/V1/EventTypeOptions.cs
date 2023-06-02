@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Events.V1
+namespace Kandy.Rest.Events.V1
 {
     /// <summary> Fetch a specific Event Type. </summary>
     public class FetchEventTypeOptions : IOptions<EventTypeResource>
@@ -83,4 +83,3 @@ namespace Twilio.Rest.Events.V1
     }
 
 }
-

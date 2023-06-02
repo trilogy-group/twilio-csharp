@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Monitor.V1
+namespace Kandy.Rest.Monitor.V1
 {
     /// <summary> fetch </summary>
     public class FetchEventOptions : IOptions<EventResource>
@@ -118,4 +118,3 @@ namespace Twilio.Rest.Monitor.V1
     }
 
 }
-

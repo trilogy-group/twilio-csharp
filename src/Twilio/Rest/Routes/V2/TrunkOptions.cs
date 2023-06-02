@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Routes.V2
+namespace Kandy.Rest.Routes.V2
 {
     /// <summary> Fetch the Inbound Processing Region assigned to a SIP Trunk. </summary>
     public class FetchTrunkOptions : IOptions<TrunkResource>
@@ -96,4 +96,3 @@ namespace Twilio.Rest.Routes.V2
 
 
 }
-

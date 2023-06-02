@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Api.V2010.Account.IncomingPhoneNumber
+namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
 {
     public class TollFreeResource : Resource
     {
@@ -553,4 +553,3 @@ namespace Twilio.Rest.Api.V2010.Account.IncomingPhoneNumber
         }
     }
 }
-

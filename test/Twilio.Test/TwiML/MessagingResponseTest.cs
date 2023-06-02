@@ -9,7 +9,7 @@ using Twilio.Converters;
 using Twilio.TwiML;
 using Twilio.TwiML.Messaging;
 
-namespace Twilio.Tests.TwiML
+namespace Kandy.Tests.TwiML
 {
 
     [TestFixture]

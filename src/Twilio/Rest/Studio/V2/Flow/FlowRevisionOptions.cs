@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Studio.V2.Flow
+namespace Kandy.Rest.Studio.V2.Flow
 {
     /// <summary> Retrieve a specific Flow revision. </summary>
     public class FetchFlowRevisionOptions : IOptions<FlowRevisionResource>
@@ -90,4 +90,3 @@ namespace Twilio.Rest.Studio.V2.Flow
     }
 
 }
-

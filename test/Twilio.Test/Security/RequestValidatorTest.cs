@@ -4,7 +4,7 @@ using System.Collections.Specialized;
 using NUnit.Framework;
 using Twilio.Security;
 
-namespace Twilio.Tests.Security
+namespace Kandy.Tests.Security
 {
     [TestFixture]
     public class RequestValidatorTest

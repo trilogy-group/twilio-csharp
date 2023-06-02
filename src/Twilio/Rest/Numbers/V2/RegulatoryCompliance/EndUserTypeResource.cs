@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Numbers.V2.RegulatoryCompliance
+namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance
 {
     public class EndUserTypeResource : Resource
     {
@@ -261,4 +261,3 @@ namespace Twilio.Rest.Numbers.V2.RegulatoryCompliance
         }
     }
 }
-

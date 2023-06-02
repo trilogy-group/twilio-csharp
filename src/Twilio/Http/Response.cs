@@ -6,7 +6,7 @@ using Headers = System.Net.WebHeaderCollection;
 using Headers = System.Net.Http.Headers.HttpResponseHeaders;
 #endif
 
-namespace Twilio.Http
+namespace Kandy.Http
 {
     /// <summary>
     /// Twilio response

@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Twilio.Converters
+namespace Kandy.Converters
 {
     /// <summary>
     /// Convert between strings and HttpMethod
@@ -71,4 +71,3 @@ namespace Twilio.Converters
         }
     }
 }
-

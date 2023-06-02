@@ -2,7 +2,7 @@ using System;
 using System.Globalization;
 using Newtonsoft.Json;
 
-namespace Twilio.Converters
+namespace Kandy.Converters
 {
     /// <summary>
     /// Serialization methods for various datatypes before making requests to the API

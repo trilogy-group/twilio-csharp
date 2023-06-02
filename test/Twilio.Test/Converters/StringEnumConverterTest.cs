@@ -4,7 +4,7 @@ using NUnit.Framework;
 using Twilio.Converters;
 using Twilio.Types;
 
-namespace Twilio.Tests.Converters
+namespace Kandy.Tests.Converters
 {
     [TestFixture]
     public class StringEnumConverterTest : TwilioTest

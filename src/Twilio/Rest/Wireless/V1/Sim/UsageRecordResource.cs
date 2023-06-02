@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Wireless.V1.Sim
+namespace Kandy.Rest.Wireless.V1.Sim
 {
     public class UsageRecordResource : Resource
     {
@@ -227,4 +227,3 @@ namespace Twilio.Rest.Wireless.V1.Sim
         }
     }
 }
-

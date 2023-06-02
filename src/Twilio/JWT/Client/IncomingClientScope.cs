@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Twilio.Jwt.Client
+namespace Kandy.Jwt.Client
 {
     /// <summary>
     /// Incoming client scope for client capabilities

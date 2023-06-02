@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Content.V1
+namespace Kandy.Rest.Content.V1
 {
     public class ContentResource : Resource
     {
@@ -349,4 +349,3 @@ namespace Twilio.Rest.Content.V1
         }
     }
 }
-

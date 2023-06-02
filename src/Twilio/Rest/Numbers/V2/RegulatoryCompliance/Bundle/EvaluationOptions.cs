@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Numbers.V2.RegulatoryCompliance.Bundle
+namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
 {
 
     /// <summary> Creates an evaluation for a bundle </summary>
@@ -117,4 +117,3 @@ namespace Twilio.Rest.Numbers.V2.RegulatoryCompliance.Bundle
     }
 
 }
-

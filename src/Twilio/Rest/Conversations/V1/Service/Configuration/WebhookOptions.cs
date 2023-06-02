@@ -21,7 +21,7 @@ using System.Linq;
 
 
 
-namespace Twilio.Rest.Conversations.V1.Service.Configuration
+namespace Kandy.Rest.Conversations.V1.Service.Configuration
 {
     /// <summary> Fetch a specific service webhook configuration. </summary>
     public class FetchWebhookOptions : IOptions<WebhookResource>
@@ -111,4 +111,3 @@ namespace Twilio.Rest.Conversations.V1.Service.Configuration
 
 
 }
-

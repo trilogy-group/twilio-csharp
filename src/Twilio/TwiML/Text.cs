@@ -1,6 +1,6 @@
 ﻿using System.Xml.Linq;
 
-namespace Twilio.TwiML
+namespace Kandy.TwiML
 {
     internal class Text : TwiML
     {

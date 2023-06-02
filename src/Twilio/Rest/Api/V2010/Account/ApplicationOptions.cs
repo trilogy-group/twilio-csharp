@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Api.V2010.Account
+namespace Kandy.Rest.Api.V2010.Account
 {
 
     /// <summary> Create a new application within your account </summary>
@@ -398,4 +398,3 @@ namespace Twilio.Rest.Api.V2010.Account
 
 
 }
-

@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Preview.DeployedDevices.Fleet
+namespace Kandy.Rest.Preview.DeployedDevices.Fleet
 {
 
     /// <summary> Create a new Key credential in the Fleet, optionally giving it a friendly name and assigning to a Device. </summary>
@@ -220,4 +220,3 @@ namespace Twilio.Rest.Preview.DeployedDevices.Fleet
 
 
 }
-

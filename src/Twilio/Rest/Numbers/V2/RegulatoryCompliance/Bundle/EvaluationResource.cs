@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Numbers.V2.RegulatoryCompliance.Bundle
+namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
 {
     public class EvaluationResource : Resource
     {
@@ -365,4 +365,3 @@ namespace Twilio.Rest.Numbers.V2.RegulatoryCompliance.Bundle
         }
     }
 }
-

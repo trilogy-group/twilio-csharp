@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Api.V2010.Account.Message
+namespace Kandy.Rest.Api.V2010.Account.Message
 {
     /// <summary> Delete media from your account. Once delete, you will no longer be billed </summary>
     public class DeleteMediaOptions : IOptions<MediaResource>
@@ -157,4 +157,3 @@ namespace Twilio.Rest.Api.V2010.Account.Message
     }
 
 }
-

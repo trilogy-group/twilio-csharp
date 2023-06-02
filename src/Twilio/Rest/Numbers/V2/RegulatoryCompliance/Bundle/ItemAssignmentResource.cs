@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Numbers.V2.RegulatoryCompliance.Bundle
+namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
 {
     public class ItemAssignmentResource : Resource
     {
@@ -420,4 +420,3 @@ namespace Twilio.Rest.Numbers.V2.RegulatoryCompliance.Bundle
         }
     }
 }
-

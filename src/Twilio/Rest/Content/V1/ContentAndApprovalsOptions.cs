@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Content.V1
+namespace Kandy.Rest.Content.V1
 {
     /// <summary> Retrieve a list of Contents with approval statuses belonging to the account used to make the request </summary>
     public class ReadContentAndApprovalsOptions : ReadOptions<ContentAndApprovalsResource>
@@ -47,4 +47,3 @@ namespace Twilio.Rest.Content.V1
     }
 
 }
-

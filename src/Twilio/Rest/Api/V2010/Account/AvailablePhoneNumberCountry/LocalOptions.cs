@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Api.V2010.Account.AvailablePhoneNumberCountry
+namespace Kandy.Rest.Api.V2010.Account.AvailablePhoneNumberCountry
 {
     /// <summary> read </summary>
     public class ReadLocalOptions : ReadOptions<LocalResource>
@@ -185,4 +185,3 @@ namespace Twilio.Rest.Api.V2010.Account.AvailablePhoneNumberCountry
     }
 
 }
-

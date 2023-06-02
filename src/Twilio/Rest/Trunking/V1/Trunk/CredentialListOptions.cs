@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Trunking.V1.Trunk
+namespace Kandy.Rest.Trunking.V1.Trunk
 {
 
     /// <summary> create </summary>
@@ -160,4 +160,3 @@ namespace Twilio.Rest.Trunking.V1.Trunk
     }
 
 }
-

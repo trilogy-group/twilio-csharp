@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Verify.V2.Service.RateLimit
+namespace Kandy.Rest.Verify.V2.Service.RateLimit
 {
     public class BucketResource : Resource
     {
@@ -545,4 +545,3 @@ namespace Twilio.Rest.Verify.V2.Service.RateLimit
         }
     }
 }
-

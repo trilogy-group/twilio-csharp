@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Api.V2010.Account.Message
+namespace Kandy.Rest.Api.V2010.Account.Message
 {
 
     /// <summary> create </summary>
@@ -61,4 +61,3 @@ namespace Twilio.Rest.Api.V2010.Account.Message
 
     }
 }
-

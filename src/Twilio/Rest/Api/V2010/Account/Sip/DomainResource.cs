@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Api.V2010.Account.Sip
+namespace Kandy.Rest.Api.V2010.Account.Sip
 {
     public class DomainResource : Resource
     {
@@ -654,4 +654,3 @@ namespace Twilio.Rest.Api.V2010.Account.Sip
         }
     }
 }
-

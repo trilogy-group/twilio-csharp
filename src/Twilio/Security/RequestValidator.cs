@@ -4,7 +4,7 @@ using System.Collections.Specialized;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Twilio.Security
+namespace Kandy.Security
 {
     /// <summary>
     /// Twilio request validator

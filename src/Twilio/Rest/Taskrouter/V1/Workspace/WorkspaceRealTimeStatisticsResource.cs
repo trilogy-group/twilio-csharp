@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Taskrouter.V1.Workspace
+namespace Kandy.Rest.Taskrouter.V1.Workspace
 {
     public class WorkspaceRealTimeStatisticsResource : Resource
     {
@@ -164,4 +164,3 @@ namespace Twilio.Rest.Taskrouter.V1.Workspace
         }
     }
 }
-

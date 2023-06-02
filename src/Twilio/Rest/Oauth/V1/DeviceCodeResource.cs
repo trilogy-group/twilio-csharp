@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Oauth.V1
+namespace Kandy.Rest.Oauth.V1
 {
     public class DeviceCodeResource : Resource
     {
@@ -154,4 +154,3 @@ namespace Twilio.Rest.Oauth.V1
         }
     }
 }
-

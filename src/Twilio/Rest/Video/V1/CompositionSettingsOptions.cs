@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Video.V1
+namespace Kandy.Rest.Video.V1
 {
 
     /// <summary> create </summary>
@@ -110,4 +110,3 @@ namespace Twilio.Rest.Video.V1
 
 
 }
-

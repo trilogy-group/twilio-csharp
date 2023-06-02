@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Api.V2010.Account.Recording
+namespace Kandy.Rest.Api.V2010.Account.Recording
 {
     public class TranscriptionResource : Resource
     {
@@ -405,4 +405,3 @@ namespace Twilio.Rest.Api.V2010.Account.Recording
         }
     }
 }
-

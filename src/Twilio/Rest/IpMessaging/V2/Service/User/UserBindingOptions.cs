@@ -21,7 +21,7 @@ using System.Linq;
 
 
 
-namespace Twilio.Rest.IpMessaging.V2.Service.User
+namespace Kandy.Rest.IpMessaging.V2.Service.User
 {
     /// <summary> delete </summary>
     public class DeleteUserBindingOptions : IOptions<UserBindingResource>
@@ -147,4 +147,3 @@ namespace Twilio.Rest.IpMessaging.V2.Service.User
     }
 
 }
-

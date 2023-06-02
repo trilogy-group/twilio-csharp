@@ -11,7 +11,7 @@ using System.Xml.Linq;
 using Twilio.Converters;
 using Twilio.TwiML.Voice;
 
-namespace Twilio.TwiML
+namespace Kandy.TwiML
 {
 
     /// <summary>

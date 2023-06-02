@@ -21,7 +21,7 @@ using System.Linq;
 
 
 
-namespace Twilio.Rest.Insights.V1
+namespace Kandy.Rest.Insights.V1
 {
     /// <summary> Get Video Log Analyzer data for a Room. </summary>
     public class FetchRoomOptions : IOptions<RoomResource>
@@ -111,4 +111,3 @@ namespace Twilio.Rest.Insights.V1
     }
 
 }
-

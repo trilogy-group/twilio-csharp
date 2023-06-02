@@ -10,7 +10,7 @@
 */
 using Twilio.Types;
 
-namespace Twilio.Rest
+namespace Kandy.Rest
 {
 
     public sealed class Domain : StringEnum

@@ -21,7 +21,7 @@ using System.Linq;
 
 
 
-namespace Twilio.Rest.IpMessaging.V1
+namespace Kandy.Rest.IpMessaging.V1
 {
 
     /// <summary> create </summary>
@@ -544,4 +544,3 @@ namespace Twilio.Rest.IpMessaging.V1
 
 
 }
-

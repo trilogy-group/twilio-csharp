@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Events.V1.Subscription
+namespace Kandy.Rest.Events.V1.Subscription
 {
 
     /// <summary> Create a new Subscribed Event type for the subscription </summary>
@@ -208,4 +208,3 @@ namespace Twilio.Rest.Events.V1.Subscription
 
 
 }
-

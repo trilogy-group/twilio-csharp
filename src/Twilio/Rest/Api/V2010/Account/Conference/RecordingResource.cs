@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Api.V2010.Account.Conference
+namespace Kandy.Rest.Api.V2010.Account.Conference
 {
     public class RecordingResource : Resource
     {
@@ -542,4 +542,3 @@ namespace Twilio.Rest.Api.V2010.Account.Conference
         }
     }
 }
-

@@ -21,7 +21,7 @@ using System.Linq;
 
 
 
-namespace Twilio.Rest.Conversations.V1
+namespace Kandy.Rest.Conversations.V1
 {
 
     /// <summary> Create a new user role in your account's default service </summary>
@@ -192,4 +192,3 @@ namespace Twilio.Rest.Conversations.V1
 
 
 }
-

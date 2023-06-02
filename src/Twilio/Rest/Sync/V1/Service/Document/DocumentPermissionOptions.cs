@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Sync.V1.Service.Document
+namespace Kandy.Rest.Sync.V1.Service.Document
 {
     /// <summary> Delete a specific Sync Document Permission. </summary>
     public class DeleteDocumentPermissionOptions : IOptions<DocumentPermissionResource>
@@ -205,4 +205,3 @@ namespace Twilio.Rest.Sync.V1.Service.Document
 
 
 }
-

@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Conversations.V1.Service
+namespace Kandy.Rest.Conversations.V1.Service
 {
     /// <summary> Fetch the configuration of a conversation service </summary>
     public class FetchConfigurationOptions : IOptions<ConfigurationResource>
@@ -110,4 +110,3 @@ namespace Twilio.Rest.Conversations.V1.Service
 
 
 }
-

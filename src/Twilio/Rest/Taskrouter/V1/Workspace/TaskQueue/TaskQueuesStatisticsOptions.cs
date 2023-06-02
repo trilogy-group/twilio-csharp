@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue
+namespace Kandy.Rest.Taskrouter.V1.Workspace.TaskQueue
 {
     /// <summary> read </summary>
     public class ReadTaskQueuesStatisticsOptions : ReadOptions<TaskQueuesStatisticsResource>
@@ -98,4 +98,3 @@ namespace Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue
     }
 
 }
-

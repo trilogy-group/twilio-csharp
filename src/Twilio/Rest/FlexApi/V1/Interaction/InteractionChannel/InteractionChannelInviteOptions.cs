@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.FlexApi.V1.Interaction.InteractionChannel
+namespace Kandy.Rest.FlexApi.V1.Interaction.InteractionChannel
 {
 
     /// <summary> Invite an Agent or a TaskQueue to a Channel. </summary>
@@ -102,4 +102,3 @@ namespace Twilio.Rest.FlexApi.V1.Interaction.InteractionChannel
     }
 
 }
-

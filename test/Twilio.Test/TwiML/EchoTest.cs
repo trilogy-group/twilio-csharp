@@ -8,7 +8,7 @@ using System;
 using Twilio.Converters;
 using Twilio.TwiML.Voice;
 
-namespace Twilio.Tests.TwiML
+namespace Kandy.Tests.TwiML
 {
 
     [TestFixture]

@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Preview.DeployedDevices
+namespace Kandy.Rest.Preview.DeployedDevices
 {
 
     /// <summary> Create a new Fleet for scoping of deployed devices within your account. </summary>
@@ -173,4 +173,3 @@ namespace Twilio.Rest.Preview.DeployedDevices
 
 
 }
-

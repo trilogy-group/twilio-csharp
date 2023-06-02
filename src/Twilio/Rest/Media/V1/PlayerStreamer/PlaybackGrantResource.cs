@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Media.V1.PlayerStreamer
+namespace Kandy.Rest.Media.V1.PlayerStreamer
 {
     public class PlaybackGrantResource : Resource
     {
@@ -217,4 +217,3 @@ namespace Twilio.Rest.Media.V1.PlayerStreamer
         }
     }
 }
-

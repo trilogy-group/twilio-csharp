@@ -1,4 +1,4 @@
-﻿namespace Twilio.Jwt.AccessToken
+﻿namespace Kandy.Jwt.AccessToken
 {
     /// <summary>
     /// Grant used in Access Tokens

@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Supersim.V1
+namespace Kandy.Rest.Supersim.V1
 {
     public class SmsCommandResource : Resource
     {
@@ -396,4 +396,3 @@ namespace Twilio.Rest.Supersim.V1
         }
     }
 }
-

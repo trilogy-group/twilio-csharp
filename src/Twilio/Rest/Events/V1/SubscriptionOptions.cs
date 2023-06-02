@@ -21,7 +21,7 @@ using System.Linq;
 
 
 
-namespace Twilio.Rest.Events.V1
+namespace Kandy.Rest.Events.V1
 {
 
     /// <summary> Create a new Subscription. </summary>
@@ -204,4 +204,3 @@ namespace Twilio.Rest.Events.V1
 
 
 }
-

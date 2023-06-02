@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Api.V2010.Account.Sip.Domain.AuthTypes.AuthTypeRegistrations
+namespace Kandy.Rest.Api.V2010.Account.Sip.Domain.AuthTypes.AuthTypeRegistrations
 {
     public class AuthRegistrationsCredentialListMappingResource : Resource
     {
@@ -437,4 +437,3 @@ namespace Twilio.Rest.Api.V2010.Account.Sip.Domain.AuthTypes.AuthTypeRegistratio
         }
     }
 }
-

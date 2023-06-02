@@ -5,7 +5,7 @@ using NUnit.Framework;
 using Twilio.Jwt;
 using Twilio.Tests.Jwt;
 
-namespace Twilio.Tests.Jwt
+namespace Kandy.Tests.Jwt
 {
     class TestJwt : BaseJwt
     {

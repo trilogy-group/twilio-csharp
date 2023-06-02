@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Trusthub.V1.TrustProducts
+namespace Kandy.Rest.Trusthub.V1.TrustProducts
 {
     public class TrustProductsChannelEndpointAssignmentResource : Resource
     {
@@ -436,4 +436,3 @@ namespace Twilio.Rest.Trusthub.V1.TrustProducts
         }
     }
 }
-

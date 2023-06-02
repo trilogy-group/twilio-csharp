@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Messaging.V1
+namespace Kandy.Rest.Messaging.V1
 {
     /// <summary> Fetch a list of all United States numbers that have been deactivated on a specific date. </summary>
     public class FetchDeactivationsOptions : IOptions<DeactivationsResource>
@@ -51,4 +51,3 @@ namespace Twilio.Rest.Messaging.V1
 
 
 }
-

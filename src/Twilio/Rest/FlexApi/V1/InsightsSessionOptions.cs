@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.FlexApi.V1
+namespace Kandy.Rest.FlexApi.V1
 {
 
     /// <summary> To obtain session details for fetching reports and dashboards </summary>
@@ -55,4 +55,3 @@ namespace Twilio.Rest.FlexApi.V1
 
     }
 }
-

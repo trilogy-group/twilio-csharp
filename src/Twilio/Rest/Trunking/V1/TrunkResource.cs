@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Trunking.V1
+namespace Kandy.Rest.Trunking.V1
 {
     public class TrunkResource : Resource
     {
@@ -598,4 +598,3 @@ namespace Twilio.Rest.Trunking.V1
         }
     }
 }
-

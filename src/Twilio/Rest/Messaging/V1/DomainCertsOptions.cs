@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Messaging.V1
+namespace Kandy.Rest.Messaging.V1
 {
     /// <summary> delete </summary>
     public class DeleteDomainCertsOptions : IOptions<DomainCertsResource>
@@ -120,4 +120,3 @@ namespace Twilio.Rest.Messaging.V1
 
 
 }
-

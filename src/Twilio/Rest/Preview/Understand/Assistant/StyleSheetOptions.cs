@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Preview.Understand.Assistant
+namespace Kandy.Rest.Preview.Understand.Assistant
 {
     /// <summary> Returns Style sheet JSON object for this Assistant </summary>
     public class FetchStyleSheetOptions : IOptions<StyleSheetResource>
@@ -89,4 +89,3 @@ namespace Twilio.Rest.Preview.Understand.Assistant
 
 
 }
-

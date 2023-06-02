@@ -12,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace Twilio.Tests.Http
+namespace Kandy.Tests.Http
 {
     [TestFixture]
     public class WebRequestClientTest : TwilioTest

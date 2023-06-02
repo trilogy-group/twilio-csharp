@@ -21,7 +21,7 @@ using System.Linq;
 
 
 
-namespace Twilio.Rest.Preview.Wireless
+namespace Kandy.Rest.Preview.Wireless
 {
 
     /// <summary> create </summary>
@@ -236,4 +236,3 @@ namespace Twilio.Rest.Preview.Wireless
 
 
 }
-

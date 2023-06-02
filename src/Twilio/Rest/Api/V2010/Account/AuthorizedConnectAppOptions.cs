@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Api.V2010.Account
+namespace Kandy.Rest.Api.V2010.Account
 {
     /// <summary> Fetch an instance of an authorized-connect-app </summary>
     public class FetchAuthorizedConnectAppOptions : IOptions<AuthorizedConnectAppResource>
@@ -82,4 +82,3 @@ namespace Twilio.Rest.Api.V2010.Account
     }
 
 }
-

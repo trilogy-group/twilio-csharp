@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Video.V1.Room.Participant
+namespace Kandy.Rest.Video.V1.Room.Participant
 {
     /// <summary> Returns a single Track resource represented by `track_sid`.  Note: This is one resource with the Video API that requires a SID, be Track Name on the subscriber side is not guaranteed to be unique. </summary>
     public class FetchSubscribedTrackOptions : IOptions<SubscribedTrackResource>
@@ -100,4 +100,3 @@ namespace Twilio.Rest.Video.V1.Room.Participant
     }
 
 }
-

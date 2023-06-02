@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Voice.V1.ConnectionPolicy
+namespace Kandy.Rest.Voice.V1.ConnectionPolicy
 {
     public class ConnectionPolicyTargetResource : Resource
     {
@@ -550,4 +550,3 @@ namespace Twilio.Rest.Voice.V1.ConnectionPolicy
         }
     }
 }
-

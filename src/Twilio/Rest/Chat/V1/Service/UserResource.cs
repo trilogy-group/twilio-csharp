@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Chat.V1.Service
+namespace Kandy.Rest.Chat.V1.Service
 {
     public class UserResource : Resource
     {
@@ -550,4 +550,3 @@ namespace Twilio.Rest.Chat.V1.Service
         }
     }
 }
-

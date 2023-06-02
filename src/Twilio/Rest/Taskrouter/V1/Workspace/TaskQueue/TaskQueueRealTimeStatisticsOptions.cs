@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue
+namespace Kandy.Rest.Taskrouter.V1.Workspace.TaskQueue
 {
     /// <summary> fetch </summary>
     public class FetchTaskQueueRealTimeStatisticsOptions : IOptions<TaskQueueRealTimeStatisticsResource>
@@ -65,4 +65,3 @@ namespace Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue
 
 
 }
-

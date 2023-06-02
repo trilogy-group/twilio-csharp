@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Api.V2010.Account
+namespace Kandy.Rest.Api.V2010.Account
 {
     public class BalanceResource : Resource
     {
@@ -133,4 +133,3 @@ namespace Twilio.Rest.Api.V2010.Account
         }
     }
 }
-

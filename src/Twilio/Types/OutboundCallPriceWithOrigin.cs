@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Twilio.Types
+namespace Kandy.Types
 {
     /// <summary>
     /// POCO for outbound call price with origin

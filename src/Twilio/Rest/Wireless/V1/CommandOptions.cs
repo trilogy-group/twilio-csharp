@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Wireless.V1
+namespace Kandy.Rest.Wireless.V1
 {
 
     /// <summary> Send a Command to a Sim. </summary>
@@ -206,4 +206,3 @@ namespace Twilio.Rest.Wireless.V1
     }
 
 }
-

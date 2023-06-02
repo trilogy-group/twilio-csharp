@@ -21,7 +21,7 @@ using System.Linq;
 
 
 
-namespace Twilio.Rest.Chat.V1
+namespace Kandy.Rest.Chat.V1
 {
 
     /// <summary> create </summary>
@@ -544,4 +544,3 @@ namespace Twilio.Rest.Chat.V1
 
 
 }
-

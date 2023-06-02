@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Preview.Wireless.Sim
+namespace Kandy.Rest.Preview.Wireless.Sim
 {
     public class UsageResource : Resource
     {
@@ -163,4 +163,3 @@ namespace Twilio.Rest.Preview.Wireless.Sim
         }
     }
 }
-

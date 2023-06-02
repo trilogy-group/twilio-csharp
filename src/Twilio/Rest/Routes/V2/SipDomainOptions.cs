@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Routes.V2
+namespace Kandy.Rest.Routes.V2
 {
     /// <summary> fetch </summary>
     public class FetchSipDomainOptions : IOptions<SipDomainResource>
@@ -96,4 +96,3 @@ namespace Twilio.Rest.Routes.V2
 
 
 }
-

@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Wireless.V1
+namespace Kandy.Rest.Wireless.V1
 {
     /// <summary> read </summary>
     public class ReadUsageRecordOptions : ReadOptions<UsageRecordResource>
@@ -68,4 +68,3 @@ namespace Twilio.Rest.Wireless.V1
     }
 
 }
-

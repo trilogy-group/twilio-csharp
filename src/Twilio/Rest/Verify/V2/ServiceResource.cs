@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Verify.V2
+namespace Kandy.Rest.Verify.V2
 {
     public class ServiceResource : Resource
     {
@@ -647,4 +647,3 @@ namespace Twilio.Rest.Verify.V2
         }
     }
 }
-

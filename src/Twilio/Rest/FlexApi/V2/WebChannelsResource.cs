@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.FlexApi.V2
+namespace Kandy.Rest.FlexApi.V2
 {
     public class WebChannelsResource : Resource
     {
@@ -142,4 +142,3 @@ namespace Twilio.Rest.FlexApi.V2
         }
     }
 }
-

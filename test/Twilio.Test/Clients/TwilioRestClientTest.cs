@@ -14,7 +14,7 @@ using Twilio.Exceptions;
 using Twilio.Http;
 using System.IO;
 
-namespace Twilio.Tests.Clients
+namespace Kandy.Tests.Clients
 {
     [TestFixture]
     public class TwilioRestClientTest

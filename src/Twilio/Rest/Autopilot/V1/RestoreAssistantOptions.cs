@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Autopilot.V1
+namespace Kandy.Rest.Autopilot.V1
 {
     /// <summary> update </summary>
     public class UpdateRestoreAssistantOptions : IOptions<RestoreAssistantResource>
@@ -57,4 +57,3 @@ namespace Twilio.Rest.Autopilot.V1
 
 
 }
-

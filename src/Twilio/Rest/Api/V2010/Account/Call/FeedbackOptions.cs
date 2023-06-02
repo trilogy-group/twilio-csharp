@@ -21,7 +21,7 @@ using System.Linq;
 
 
 
-namespace Twilio.Rest.Api.V2010.Account.Call
+namespace Kandy.Rest.Api.V2010.Account.Call
 {
     /// <summary> Fetch a Feedback resource from a call </summary>
     public class FetchFeedbackOptions : IOptions<FeedbackResource>
@@ -103,4 +103,3 @@ namespace Twilio.Rest.Api.V2010.Account.Call
 
 
 }
-

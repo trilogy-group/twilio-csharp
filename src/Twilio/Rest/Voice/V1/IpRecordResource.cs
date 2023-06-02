@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Voice.V1
+namespace Kandy.Rest.Voice.V1
 {
     public class IpRecordResource : Resource
     {
@@ -487,4 +487,3 @@ namespace Twilio.Rest.Voice.V1
         }
     }
 }
-

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Twilio.Converters
+namespace Kandy.Converters
 {
     /// <summary>
     /// Convert strings to objects
@@ -18,4 +18,3 @@ namespace Twilio.Converters
         }
     }
 }
-

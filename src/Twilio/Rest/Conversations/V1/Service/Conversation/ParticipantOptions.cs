@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Conversations.V1.Service.Conversation
+namespace Kandy.Rest.Conversations.V1.Service.Conversation
 {
 
     /// <summary> Add a new participant to the conversation in a specific service </summary>
@@ -368,4 +368,3 @@ namespace Twilio.Rest.Conversations.V1.Service.Conversation
 
 
 }
-

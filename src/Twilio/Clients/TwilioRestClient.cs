@@ -13,7 +13,7 @@ using Twilio.Http;
 using Twilio.Http.Net35;
 #endif
 
-namespace Twilio.Clients
+namespace Kandy.Clients
 {
     /// <summary>
     /// Implementation of a TwilioRestClient.

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Twilio.Types
+namespace Kandy.Types
 {
     /// <summary>
     /// POCO to represent an outbound SMS price
@@ -53,4 +53,3 @@ namespace Twilio.Types
         }
     }
 }
-

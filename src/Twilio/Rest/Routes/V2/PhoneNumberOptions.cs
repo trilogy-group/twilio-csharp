@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Routes.V2
+namespace Kandy.Rest.Routes.V2
 {
     /// <summary> Fetch the Inbound Processing Region assigned to a phone number. </summary>
     public class FetchPhoneNumberOptions : IOptions<PhoneNumberResource>
@@ -96,4 +96,3 @@ namespace Twilio.Rest.Routes.V2
 
 
 }
-

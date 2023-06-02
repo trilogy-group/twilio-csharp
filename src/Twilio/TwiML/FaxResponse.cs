@@ -10,7 +10,7 @@ using System.Xml.Linq;
 using Twilio.Converters;
 using Twilio.TwiML.Fax;
 
-namespace Twilio.TwiML
+namespace Kandy.TwiML
 {
 
     /// <summary>

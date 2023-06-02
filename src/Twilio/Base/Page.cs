@@ -6,7 +6,7 @@ using Newtonsoft.Json.Linq;
 using Twilio.Rest;
 using static System.String;
 
-namespace Twilio.Base
+namespace Kandy.Base
 {
     /// <summary>
     /// Page of resources

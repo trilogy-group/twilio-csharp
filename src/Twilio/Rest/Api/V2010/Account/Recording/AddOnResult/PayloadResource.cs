@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Api.V2010.Account.Recording.AddOnResult
+namespace Kandy.Rest.Api.V2010.Account.Recording.AddOnResult
 {
     public class PayloadResource : Resource
     {
@@ -398,4 +398,3 @@ namespace Twilio.Rest.Api.V2010.Account.Recording.AddOnResult
         }
     }
 }
-

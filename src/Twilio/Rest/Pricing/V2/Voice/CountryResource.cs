@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Pricing.V2.Voice
+namespace Kandy.Rest.Pricing.V2.Voice
 {
     public class CountryResource : Resource
     {
@@ -265,4 +265,3 @@ namespace Twilio.Rest.Pricing.V2.Voice
         }
     }
 }
-

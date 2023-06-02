@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Twilio.Converters;
 
-namespace Twilio.Types
+namespace Kandy.Types
 {
     /// <summary>
     /// POCO for inbound SMS prices
@@ -84,4 +84,3 @@ namespace Twilio.Types
         }
     }
 }
-

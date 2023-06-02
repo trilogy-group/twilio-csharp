@@ -21,7 +21,7 @@ using System.Linq;
 
 
 
-namespace Twilio.Rest.FlexApi.V1
+namespace Kandy.Rest.FlexApi.V1
 {
 
     /// <summary> To create a question for a Category </summary>
@@ -266,4 +266,3 @@ namespace Twilio.Rest.FlexApi.V1
 
 
 }
-

@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Api.V2010.Account
+namespace Kandy.Rest.Api.V2010.Account
 {
     /// <summary> Fetch an instance of a short code </summary>
     public class FetchShortCodeOptions : IOptions<ShortCodeResource>
@@ -170,4 +170,3 @@ namespace Twilio.Rest.Api.V2010.Account
 
 
 }
-

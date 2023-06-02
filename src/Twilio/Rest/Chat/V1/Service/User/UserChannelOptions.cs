@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Chat.V1.Service.User
+namespace Kandy.Rest.Chat.V1.Service.User
 {
     /// <summary> List all Channels for a given User. </summary>
     public class ReadUserChannelOptions : ReadOptions<UserChannelResource>
@@ -61,4 +61,3 @@ namespace Twilio.Rest.Chat.V1.Service.User
     }
 
 }
-

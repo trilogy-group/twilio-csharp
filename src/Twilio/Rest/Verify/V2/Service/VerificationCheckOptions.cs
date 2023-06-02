@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Verify.V2.Service
+namespace Kandy.Rest.Verify.V2.Service
 {
 
     /// <summary> challenge a specific Verification Check. </summary>
@@ -86,4 +86,3 @@ namespace Twilio.Rest.Verify.V2.Service
 
     }
 }
-

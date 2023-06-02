@@ -21,7 +21,7 @@ using System.Linq;
 
 
 
-namespace Twilio.Rest.Chat.V2.Service.User
+namespace Kandy.Rest.Chat.V2.Service.User
 {
     /// <summary> delete </summary>
     public class DeleteUserBindingOptions : IOptions<UserBindingResource>
@@ -147,4 +147,3 @@ namespace Twilio.Rest.Chat.V2.Service.User
     }
 
 }
-

@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Proxy.V1.Service
+namespace Kandy.Rest.Proxy.V1.Service
 {
 
     /// <summary> Add a Short Code to the Proxy Number Pool for the Service. </summary>
@@ -201,4 +201,3 @@ namespace Twilio.Rest.Proxy.V1.Service
 
 
 }
-

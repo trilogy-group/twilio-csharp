@@ -4,7 +4,7 @@ using System.Collections.Specialized;
 using System.IO;
 using System.Net;
 
-namespace Twilio.Http.Net35
+namespace Kandy.Http.Net35
 {
     /// <summary>
     /// These classes exist to wrap MSFT's WebRequest interfaces to enable unit testing of

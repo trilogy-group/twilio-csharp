@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Bulkexports.V1.Export
+namespace Kandy.Rest.Bulkexports.V1.Export
 {
     public class ExportCustomJobResource : Resource
     {
@@ -318,4 +318,3 @@ namespace Twilio.Rest.Bulkexports.V1.Export
         }
     }
 }
-

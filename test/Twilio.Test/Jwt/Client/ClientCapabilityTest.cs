@@ -4,7 +4,7 @@ using NUnit.Framework;
 using Twilio.Jwt;
 using Twilio.Jwt.Client;
 
-namespace Twilio.Tests.Jwt.Client
+namespace Kandy.Tests.Jwt.Client
 {
     [TestFixture]
     public class ClientCapabilityTest

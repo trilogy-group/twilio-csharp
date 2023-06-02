@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Supersim.V1
+namespace Kandy.Rest.Supersim.V1
 {
     /// <summary> Retrieve a list of Settings Updates. </summary>
     public class ReadSettingsUpdateOptions : ReadOptions<SettingsUpdateResource>
@@ -61,4 +61,3 @@ namespace Twilio.Rest.Supersim.V1
     }
 
 }
-

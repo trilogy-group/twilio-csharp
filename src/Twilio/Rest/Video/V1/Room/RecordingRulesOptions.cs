@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Video.V1.Room
+namespace Kandy.Rest.Video.V1.Room
 {
     /// <summary> Returns a list of Recording Rules for the Room. </summary>
     public class FetchRecordingRulesOptions : IOptions<RecordingRulesResource>
@@ -89,4 +89,3 @@ namespace Twilio.Rest.Video.V1.Room
 
 
 }
-

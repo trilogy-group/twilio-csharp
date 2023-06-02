@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Verify.V2
+namespace Kandy.Rest.Verify.V2
 {
 
     /// <summary> Create a new Verification Service. </summary>
@@ -396,4 +396,3 @@ namespace Twilio.Rest.Verify.V2
 
 
 }
-

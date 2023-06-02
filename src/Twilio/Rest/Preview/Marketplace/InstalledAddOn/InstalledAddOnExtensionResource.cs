@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Preview.Marketplace.InstalledAddOn
+namespace Kandy.Rest.Preview.Marketplace.InstalledAddOn
 {
     public class InstalledAddOnExtensionResource : Resource
     {
@@ -358,4 +358,3 @@ namespace Twilio.Rest.Preview.Marketplace.InstalledAddOn
         }
     }
 }
-

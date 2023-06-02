@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Verify.V2.Service
+namespace Kandy.Rest.Verify.V2.Service
 {
 
     /// <summary> Create a new MessagingConfiguration for a service. </summary>
@@ -212,4 +212,3 @@ namespace Twilio.Rest.Verify.V2.Service
 
 
 }
-

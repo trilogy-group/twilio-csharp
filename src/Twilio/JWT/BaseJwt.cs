@@ -9,7 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using JWT;
 #endif
 
-namespace Twilio.Jwt
+namespace Kandy.Jwt
 {
     /// <summary>
     /// Base JWT implementation

@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Api.V2010.Account.Recording.AddOnResult
+namespace Kandy.Rest.Api.V2010.Account.Recording.AddOnResult
 {
     /// <summary> Delete a payload from the result along with all associated Data </summary>
     public class DeletePayloadOptions : IOptions<PayloadResource>
@@ -148,4 +148,3 @@ namespace Twilio.Rest.Api.V2010.Account.Recording.AddOnResult
     }
 
 }
-

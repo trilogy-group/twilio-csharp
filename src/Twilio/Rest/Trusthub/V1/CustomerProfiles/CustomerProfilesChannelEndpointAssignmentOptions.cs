@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Trusthub.V1.CustomerProfiles
+namespace Kandy.Rest.Trusthub.V1.CustomerProfiles
 {
 
     /// <summary> Create a new Assigned Item. </summary>
@@ -183,4 +183,3 @@ namespace Twilio.Rest.Trusthub.V1.CustomerProfiles
     }
 
 }
-

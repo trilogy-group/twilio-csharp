@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Supersim.V1
+namespace Kandy.Rest.Supersim.V1
 {
     public class NetworkResource : Resource
     {
@@ -273,4 +273,3 @@ namespace Twilio.Rest.Supersim.V1
         }
     }
 }
-

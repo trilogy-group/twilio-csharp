@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Bulkexports.V1
+namespace Kandy.Rest.Bulkexports.V1
 {
     /// <summary> Fetch a specific Export Configuration. </summary>
     public class FetchExportConfigurationOptions : IOptions<ExportConfigurationResource>
@@ -103,4 +103,3 @@ namespace Twilio.Rest.Bulkexports.V1
 
 
 }
-

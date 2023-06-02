@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Wireless.V1
+namespace Kandy.Rest.Wireless.V1
 {
     public class SimResource : Resource
     {
@@ -596,4 +596,3 @@ namespace Twilio.Rest.Wireless.V1
         }
     }
 }
-

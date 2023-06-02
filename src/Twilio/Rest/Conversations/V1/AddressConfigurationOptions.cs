@@ -21,7 +21,7 @@ using System.Linq;
 
 
 
-namespace Twilio.Rest.Conversations.V1
+namespace Kandy.Rest.Conversations.V1
 {
 
     /// <summary> Create a new address configuration </summary>
@@ -316,4 +316,3 @@ namespace Twilio.Rest.Conversations.V1
 
 
 }
-

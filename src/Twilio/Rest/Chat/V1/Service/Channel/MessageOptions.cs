@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Chat.V1.Service.Channel
+namespace Kandy.Rest.Chat.V1.Service.Channel
 {
 
     /// <summary> create </summary>
@@ -254,4 +254,3 @@ namespace Twilio.Rest.Chat.V1.Service.Channel
 
 
 }
-

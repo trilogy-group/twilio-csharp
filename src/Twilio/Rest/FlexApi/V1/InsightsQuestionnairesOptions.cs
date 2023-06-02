@@ -21,7 +21,7 @@ using System.Linq;
 
 
 
-namespace Twilio.Rest.FlexApi.V1
+namespace Kandy.Rest.FlexApi.V1
 {
 
     /// <summary> To create a Questionnaire </summary>
@@ -290,4 +290,3 @@ namespace Twilio.Rest.FlexApi.V1
 
 
 }
-

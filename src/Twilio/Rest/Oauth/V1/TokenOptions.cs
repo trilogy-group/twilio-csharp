@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Oauth.V1
+namespace Kandy.Rest.Oauth.V1
 {
 
     /// <summary> Issues a new Access token (optionally identity_token & refresh_token) in exchange of Oauth grant </summary>
@@ -106,4 +106,3 @@ namespace Twilio.Rest.Oauth.V1
 
     }
 }
-

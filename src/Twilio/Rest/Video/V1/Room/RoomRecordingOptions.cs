@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Video.V1.Room
+namespace Kandy.Rest.Video.V1.Room
 {
     /// <summary> delete </summary>
     public class DeleteRoomRecordingOptions : IOptions<RoomRecordingResource>
@@ -152,4 +152,3 @@ namespace Twilio.Rest.Video.V1.Room
     }
 
 }
-

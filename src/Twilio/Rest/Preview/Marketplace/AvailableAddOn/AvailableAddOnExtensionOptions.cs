@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Preview.Marketplace.AvailableAddOn
+namespace Kandy.Rest.Preview.Marketplace.AvailableAddOn
 {
     /// <summary> Fetch an instance of an Extension for the Available Add-on. </summary>
     public class FetchAvailableAddOnExtensionOptions : IOptions<AvailableAddOnExtensionResource>
@@ -90,4 +90,3 @@ namespace Twilio.Rest.Preview.Marketplace.AvailableAddOn
     }
 
 }
-

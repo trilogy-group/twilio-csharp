@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.IpMessaging.V1.Service.User
+namespace Kandy.Rest.IpMessaging.V1.Service.User
 {
     /// <summary> read </summary>
     public class ReadUserChannelOptions : ReadOptions<UserChannelResource>
@@ -61,4 +61,3 @@ namespace Twilio.Rest.IpMessaging.V1.Service.User
     }
 
 }
-

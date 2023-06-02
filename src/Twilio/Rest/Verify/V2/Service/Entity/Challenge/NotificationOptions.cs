@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Verify.V2.Service.Entity.Challenge
+namespace Kandy.Rest.Verify.V2.Service.Entity.Challenge
 {
 
     /// <summary> Create a new Notification for the corresponding Challenge </summary>
@@ -68,4 +68,3 @@ namespace Twilio.Rest.Verify.V2.Service.Entity.Challenge
 
     }
 }
-

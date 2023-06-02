@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Twilio.Types
+namespace Kandy.Types
 {
     /// <summary>
     /// Capabilities of a phone number
@@ -47,4 +47,3 @@ namespace Twilio.Types
         }
     }
 }
-

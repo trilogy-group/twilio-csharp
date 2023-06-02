@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Messaging.V1
+namespace Kandy.Rest.Messaging.V1
 {
     public class ExternalCampaignResource : Resource
     {
@@ -146,4 +146,3 @@ namespace Twilio.Rest.Messaging.V1
         }
     }
 }
-

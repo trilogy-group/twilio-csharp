@@ -21,7 +21,7 @@ using System.Linq;
 
 
 
-namespace Twilio.Rest.Api.V2010.Account
+namespace Kandy.Rest.Api.V2010.Account
 {
     /// <summary> Delete an instance of a connect-app </summary>
     public class DeleteConnectAppOptions : IOptions<ConnectAppResource>
@@ -203,4 +203,3 @@ namespace Twilio.Rest.Api.V2010.Account
 
 
 }
-

@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Intelligence.V2.Transcript
+namespace Kandy.Rest.Intelligence.V2.Transcript
 {
     /// <summary> Get all Transcript Sentences by TranscriptSid </summary>
     public class ReadSentenceOptions : ReadOptions<SentenceResource>
@@ -63,4 +63,3 @@ namespace Twilio.Rest.Intelligence.V2.Transcript
     }
 
 }
-

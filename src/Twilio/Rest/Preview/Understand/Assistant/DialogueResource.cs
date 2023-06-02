@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Preview.Understand.Assistant
+namespace Kandy.Rest.Preview.Understand.Assistant
 {
     public class DialogueResource : Resource
     {
@@ -146,4 +146,3 @@ namespace Twilio.Rest.Preview.Understand.Assistant
         }
     }
 }
-

@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Preview.Understand.Assistant
+namespace Kandy.Rest.Preview.Understand.Assistant
 {
     public class ModelBuildResource : Resource
     {
@@ -534,4 +534,3 @@ namespace Twilio.Rest.Preview.Understand.Assistant
         }
     }
 }
-

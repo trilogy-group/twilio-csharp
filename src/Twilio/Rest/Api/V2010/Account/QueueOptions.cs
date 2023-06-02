@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Api.V2010.Account
+namespace Kandy.Rest.Api.V2010.Account
 {
 
     /// <summary> Create a queue </summary>
@@ -201,4 +201,3 @@ namespace Twilio.Rest.Api.V2010.Account
 
 
 }
-

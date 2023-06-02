@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Serverless.V1.Service.Build
+namespace Kandy.Rest.Serverless.V1.Service.Build
 {
     /// <summary> Retrieve a specific Build resource. </summary>
     public class FetchBuildStatusOptions : IOptions<BuildStatusResource>
@@ -58,4 +58,3 @@ namespace Twilio.Rest.Serverless.V1.Service.Build
 
 
 }
-

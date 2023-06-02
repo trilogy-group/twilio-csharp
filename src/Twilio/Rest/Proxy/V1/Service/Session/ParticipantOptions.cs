@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Proxy.V1.Service.Session
+namespace Kandy.Rest.Proxy.V1.Service.Session
 {
 
     /// <summary> Add a new Participant to the Session </summary>
@@ -201,4 +201,3 @@ namespace Twilio.Rest.Proxy.V1.Service.Session
     }
 
 }
-

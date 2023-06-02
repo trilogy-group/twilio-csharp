@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Media.V1
+namespace Kandy.Rest.Media.V1
 {
     public class MediaProcessorResource : Resource
     {
@@ -492,4 +492,3 @@ namespace Twilio.Rest.Media.V1
         }
     }
 }
-

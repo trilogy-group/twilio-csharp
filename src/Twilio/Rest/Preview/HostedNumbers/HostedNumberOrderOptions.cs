@@ -21,7 +21,7 @@ using System.Linq;
 
 
 
-namespace Twilio.Rest.Preview.HostedNumbers
+namespace Kandy.Rest.Preview.HostedNumbers
 {
 
     /// <summary> Host a phone number's capability on Twilio's platform. </summary>
@@ -386,4 +386,3 @@ namespace Twilio.Rest.Preview.HostedNumbers
 
 
 }
-

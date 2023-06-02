@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Numbers.V2.RegulatoryCompliance.Bundle
+namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
 {
     public class ReplaceItemsResource : Resource
     {
@@ -185,4 +185,3 @@ namespace Twilio.Rest.Numbers.V2.RegulatoryCompliance.Bundle
         }
     }
 }
-

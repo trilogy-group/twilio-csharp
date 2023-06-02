@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Microvisor.V1
+namespace Kandy.Rest.Microvisor.V1
 {
     public class AccountSecretResource : Resource
     {
@@ -463,4 +463,3 @@ namespace Twilio.Rest.Microvisor.V1
         }
     }
 }
-

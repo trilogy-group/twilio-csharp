@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Messaging.V1
+namespace Kandy.Rest.Messaging.V1
 {
     /// <summary> fetch </summary>
     public class FetchLinkshorteningMessagingServiceDomainAssociationOptions : IOptions<LinkshorteningMessagingServiceDomainAssociationResource>
@@ -53,4 +53,3 @@ namespace Twilio.Rest.Messaging.V1
 
 
 }
-

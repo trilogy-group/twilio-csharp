@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Trusthub.V1
+namespace Kandy.Rest.Trusthub.V1
 {
 
     /// <summary> Create a new End User. </summary>
@@ -195,4 +195,3 @@ namespace Twilio.Rest.Trusthub.V1
 
 
 }
-

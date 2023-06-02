@@ -1,4 +1,4 @@
-﻿namespace Twilio.Types
+﻿namespace Kandy.Types
 {
     /// <summary>
     /// Client Endpoint

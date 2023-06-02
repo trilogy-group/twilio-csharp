@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Twilio.Jwt.Taskrouter
+namespace Kandy.Jwt.Taskrouter
 {
     /// <summary>
     /// JWT for TaskRouter use

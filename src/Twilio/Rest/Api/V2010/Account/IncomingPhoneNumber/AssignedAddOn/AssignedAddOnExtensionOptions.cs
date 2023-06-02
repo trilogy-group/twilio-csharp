@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Api.V2010.Account.IncomingPhoneNumber.AssignedAddOn
+namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber.AssignedAddOn
 {
     /// <summary> Fetch an instance of an Extension for the Assigned Add-on. </summary>
     public class FetchAssignedAddOnExtensionOptions : IOptions<AssignedAddOnExtensionResource>
@@ -106,4 +106,3 @@ namespace Twilio.Rest.Api.V2010.Account.IncomingPhoneNumber.AssignedAddOn
     }
 
 }
-

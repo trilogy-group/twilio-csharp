@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Taskrouter.V1
+namespace Kandy.Rest.Taskrouter.V1
 {
     public class WorkspaceResource : Resource
     {
@@ -568,4 +568,3 @@ namespace Twilio.Rest.Taskrouter.V1
         }
     }
 }
-

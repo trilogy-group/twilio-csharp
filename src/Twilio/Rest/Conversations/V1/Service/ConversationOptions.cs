@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Conversations.V1.Service
+namespace Kandy.Rest.Conversations.V1.Service
 {
 
     /// <summary> Create a new conversation in your service </summary>
@@ -371,4 +371,3 @@ namespace Twilio.Rest.Conversations.V1.Service
 
 
 }
-

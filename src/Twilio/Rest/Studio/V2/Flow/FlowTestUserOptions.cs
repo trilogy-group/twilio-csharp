@@ -21,7 +21,7 @@ using System.Linq;
 
 
 
-namespace Twilio.Rest.Studio.V2.Flow
+namespace Kandy.Rest.Studio.V2.Flow
 {
     /// <summary> Fetch flow test users </summary>
     public class FetchFlowTestUserOptions : IOptions<FlowTestUserResource>
@@ -91,4 +91,3 @@ namespace Twilio.Rest.Studio.V2.Flow
 
 
 }
-

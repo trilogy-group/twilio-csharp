@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Studio.V1.Flow.Engagement
+namespace Kandy.Rest.Studio.V1.Flow.Engagement
 {
     public class EngagementContextResource : Resource
     {
@@ -146,4 +146,3 @@ namespace Twilio.Rest.Studio.V1.Flow.Engagement
         }
     }
 }
-

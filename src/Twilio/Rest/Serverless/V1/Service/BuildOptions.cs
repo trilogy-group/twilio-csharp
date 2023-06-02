@@ -21,7 +21,7 @@ using System.Linq;
 
 
 
-namespace Twilio.Rest.Serverless.V1.Service
+namespace Kandy.Rest.Serverless.V1.Service
 {
 
     /// <summary> Create a new Build resource. At least one function version or asset version is required. </summary>
@@ -181,4 +181,3 @@ namespace Twilio.Rest.Serverless.V1.Service
     }
 
 }
-

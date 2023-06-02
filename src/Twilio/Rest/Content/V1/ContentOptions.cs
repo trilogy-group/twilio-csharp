@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Content.V1
+namespace Kandy.Rest.Content.V1
 {
     /// <summary> Deletes a Content resource </summary>
     public class DeleteContentOptions : IOptions<ContentResource>
@@ -105,4 +105,3 @@ namespace Twilio.Rest.Content.V1
     }
 
 }
-

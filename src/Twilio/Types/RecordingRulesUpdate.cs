@@ -5,7 +5,7 @@ using Twilio.Converters;
 /// <summary>
 /// Recording Rule Update - Used to update the list of Recording Rules
 /// </summary>
-namespace Twilio.Types
+namespace Kandy.Types
 {
     public class RecordingRulesUpdate
     {

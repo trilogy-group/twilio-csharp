@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Sync.V1.Service.SyncMap
+namespace Kandy.Rest.Sync.V1.Service.SyncMap
 {
     public class SyncMapItemResource : Resource
     {
@@ -615,4 +615,3 @@ namespace Twilio.Rest.Sync.V1.Service.SyncMap
         }
     }
 }
-

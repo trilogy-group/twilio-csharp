@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Taskrouter.V1.Workspace.Workflow
+namespace Kandy.Rest.Taskrouter.V1.Workspace.Workflow
 {
     public class WorkflowCumulativeStatisticsResource : Resource
     {
@@ -229,4 +229,3 @@ namespace Twilio.Rest.Taskrouter.V1.Workspace.Workflow
         }
     }
 }
-

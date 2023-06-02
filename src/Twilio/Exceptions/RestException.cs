@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace Twilio.Exceptions
+namespace Kandy.Exceptions
 {
     /// <summary>
     /// Exception from Twilio API

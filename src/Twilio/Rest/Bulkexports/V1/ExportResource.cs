@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Bulkexports.V1
+namespace Kandy.Rest.Bulkexports.V1
 {
     public class ExportResource : Resource
     {
@@ -133,4 +133,3 @@ namespace Twilio.Rest.Bulkexports.V1
         }
     }
 }
-

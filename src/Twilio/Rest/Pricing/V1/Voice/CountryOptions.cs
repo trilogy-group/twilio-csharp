@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Pricing.V1.Voice
+namespace Kandy.Rest.Pricing.V1.Voice
 {
     /// <summary> fetch </summary>
     public class FetchCountryOptions : IOptions<CountryResource>
@@ -76,4 +76,3 @@ namespace Twilio.Rest.Pricing.V1.Voice
     }
 
 }
-

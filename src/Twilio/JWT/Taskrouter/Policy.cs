@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Twilio.Http;
 
-namespace Twilio.Jwt.Taskrouter
+namespace Kandy.Jwt.Taskrouter
 {
     /// <summary>
     /// Policy for a TaskRouter token

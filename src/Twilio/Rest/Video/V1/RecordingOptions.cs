@@ -21,7 +21,7 @@ using System.Linq;
 
 
 
-namespace Twilio.Rest.Video.V1
+namespace Kandy.Rest.Video.V1
 {
     /// <summary> Delete a Recording resource identified by a Recording SID. </summary>
     public class DeleteRecordingOptions : IOptions<RecordingResource>
@@ -147,4 +147,3 @@ namespace Twilio.Rest.Video.V1
     }
 
 }
-

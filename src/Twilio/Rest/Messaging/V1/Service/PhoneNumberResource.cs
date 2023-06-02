@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Messaging.V1.Service
+namespace Kandy.Rest.Messaging.V1.Service
 {
     public class PhoneNumberResource : Resource
     {
@@ -433,4 +433,3 @@ namespace Twilio.Rest.Messaging.V1.Service
         }
     }
 }
-

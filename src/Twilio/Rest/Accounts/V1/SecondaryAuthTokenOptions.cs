@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Accounts.V1
+namespace Kandy.Rest.Accounts.V1
 {
 
     /// <summary> Create a new secondary Auth Token </summary>
@@ -62,4 +62,3 @@ namespace Twilio.Rest.Accounts.V1
 
 
 }
-

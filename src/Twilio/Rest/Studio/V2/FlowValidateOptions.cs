@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Studio.V2
+namespace Kandy.Rest.Studio.V2
 {
     /// <summary> Validate flow JSON definition </summary>
     public class UpdateFlowValidateOptions : IOptions<FlowValidateResource>
@@ -82,4 +82,3 @@ namespace Twilio.Rest.Studio.V2
 
 
 }
-

@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Preview.Sync
+namespace Kandy.Rest.Preview.Sync
 {
     public class ServiceResource : Resource
     {
@@ -511,4 +511,3 @@ namespace Twilio.Rest.Preview.Sync
         }
     }
 }
-

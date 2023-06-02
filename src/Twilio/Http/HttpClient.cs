@@ -1,6 +1,6 @@
 using System;
 
-namespace Twilio.Http
+namespace Kandy.Http
 {
     /// <summary>
     /// Base http client used to make Twilio requests

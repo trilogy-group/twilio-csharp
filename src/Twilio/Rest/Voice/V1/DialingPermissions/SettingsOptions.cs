@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Voice.V1.DialingPermissions
+namespace Kandy.Rest.Voice.V1.DialingPermissions
 {
     /// <summary> Retrieve voice dialing permissions inheritance for the sub-account </summary>
     public class FetchSettingsOptions : IOptions<SettingsResource>
@@ -71,4 +71,3 @@ namespace Twilio.Rest.Voice.V1.DialingPermissions
 
 
 }
-

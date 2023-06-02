@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.FlexApi.V1
+namespace Kandy.Rest.FlexApi.V1
 {
     /// <summary> To get the Answer Set Settings for an Account </summary>
     public class FetchInsightsSettingsAnswerSetsOptions : IOptions<InsightsSettingsAnswerSetsResource>
@@ -57,4 +57,3 @@ namespace Twilio.Rest.FlexApi.V1
 
 
 }
-

@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Preview.HostedNumbers.AuthorizationDocument
+namespace Kandy.Rest.Preview.HostedNumbers.AuthorizationDocument
 {
     public class DependentHostedNumberOrderResource : Resource
     {
@@ -324,4 +324,3 @@ namespace Twilio.Rest.Preview.HostedNumbers.AuthorizationDocument
         }
     }
 }
-

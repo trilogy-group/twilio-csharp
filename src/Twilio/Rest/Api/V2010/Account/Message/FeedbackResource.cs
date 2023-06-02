@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Api.V2010.Account.Message
+namespace Kandy.Rest.Api.V2010.Account.Message
 {
     public class FeedbackResource : Resource
     {
@@ -171,4 +171,3 @@ namespace Twilio.Rest.Api.V2010.Account.Message
         }
     }
 }
-

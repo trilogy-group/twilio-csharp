@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Api.V2010.Account.Usage
+namespace Kandy.Rest.Api.V2010.Account.Usage
 {
 
     /// <summary> Create a new UsageTrigger </summary>
@@ -268,4 +268,3 @@ namespace Twilio.Rest.Api.V2010.Account.Usage
 
 
 }
-

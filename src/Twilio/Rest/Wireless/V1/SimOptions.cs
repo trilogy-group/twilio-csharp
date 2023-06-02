@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Wireless.V1
+namespace Kandy.Rest.Wireless.V1
 {
     /// <summary> Delete a Sim resource on your Account. </summary>
     public class DeleteSimOptions : IOptions<SimResource>
@@ -295,4 +295,3 @@ namespace Twilio.Rest.Wireless.V1
 
 
 }
-

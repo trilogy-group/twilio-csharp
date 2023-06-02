@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Api.V2010.Account
+namespace Kandy.Rest.Api.V2010.Account
 {
     public class MessageResource : Resource
     {
@@ -746,4 +746,3 @@ namespace Twilio.Rest.Api.V2010.Account
         }
     }
 }
-

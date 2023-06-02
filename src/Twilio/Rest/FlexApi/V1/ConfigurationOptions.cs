@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.FlexApi.V1
+namespace Kandy.Rest.FlexApi.V1
 {
     /// <summary> fetch </summary>
     public class FetchConfigurationOptions : IOptions<ConfigurationResource>
@@ -51,4 +51,3 @@ namespace Twilio.Rest.FlexApi.V1
 
 
 }
-

@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Preview.HostedNumbers.AuthorizationDocument
+namespace Kandy.Rest.Preview.HostedNumbers.AuthorizationDocument
 {
     /// <summary> Retrieve a list of dependent HostedNumberOrders belonging to the AuthorizationDocument. </summary>
     public class ReadDependentHostedNumberOrderOptions : ReadOptions<DependentHostedNumberOrderResource>
@@ -91,4 +91,3 @@ namespace Twilio.Rest.Preview.HostedNumbers.AuthorizationDocument
     }
 
 }
-

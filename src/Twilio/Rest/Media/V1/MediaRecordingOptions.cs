@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Media.V1
+namespace Kandy.Rest.Media.V1
 {
     /// <summary> Deletes a MediaRecording resource identified by a SID. </summary>
     public class DeleteMediaRecordingOptions : IOptions<MediaRecordingResource>
@@ -133,4 +133,3 @@ namespace Twilio.Rest.Media.V1
     }
 
 }
-

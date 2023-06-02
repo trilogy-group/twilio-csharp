@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Video.V1
+namespace Kandy.Rest.Video.V1
 {
     public class CompositionResource : Resource
     {
@@ -536,4 +536,3 @@ namespace Twilio.Rest.Video.V1
         }
     }
 }
-

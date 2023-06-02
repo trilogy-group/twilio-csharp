@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Trunking.V1.Trunk
+namespace Kandy.Rest.Trunking.V1.Trunk
 {
     /// <summary> fetch </summary>
     public class FetchRecordingOptions : IOptions<RecordingResource>
@@ -96,4 +96,3 @@ namespace Twilio.Rest.Trunking.V1.Trunk
 
 
 }
-

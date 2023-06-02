@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.FlexApi.V1.Interaction.InteractionChannel
+namespace Kandy.Rest.FlexApi.V1.Interaction.InteractionChannel
 {
     public class InteractionChannelParticipantResource : Resource
     {
@@ -402,4 +402,3 @@ namespace Twilio.Rest.FlexApi.V1.Interaction.InteractionChannel
         }
     }
 }
-

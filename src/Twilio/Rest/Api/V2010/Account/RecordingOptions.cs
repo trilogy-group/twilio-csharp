@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Api.V2010.Account
+namespace Kandy.Rest.Api.V2010.Account
 {
     /// <summary> Delete a recording from your account </summary>
     public class DeleteRecordingOptions : IOptions<RecordingResource>
@@ -166,4 +166,3 @@ namespace Twilio.Rest.Api.V2010.Account
     }
 
 }
-

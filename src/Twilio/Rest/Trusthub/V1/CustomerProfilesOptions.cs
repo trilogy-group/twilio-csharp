@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Trusthub.V1
+namespace Kandy.Rest.Trusthub.V1
 {
 
     /// <summary> Create a new Customer-Profile. </summary>
@@ -239,4 +239,3 @@ namespace Twilio.Rest.Trusthub.V1
 
 
 }
-

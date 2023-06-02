@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Supersim.V1
+namespace Kandy.Rest.Supersim.V1
 {
 
     /// <summary> Create a Fleet </summary>
@@ -248,4 +248,3 @@ namespace Twilio.Rest.Supersim.V1
 
 
 }
-

@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Preview.Understand.Assistant.Task
+namespace Kandy.Rest.Preview.Understand.Assistant.Task
 {
     public class FieldResource : Resource
     {
@@ -457,4 +457,3 @@ namespace Twilio.Rest.Preview.Understand.Assistant.Task
         }
     }
 }
-

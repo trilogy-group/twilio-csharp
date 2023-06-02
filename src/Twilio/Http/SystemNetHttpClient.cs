@@ -6,7 +6,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 
-namespace Twilio.Http
+namespace Kandy.Http
 {
     /// <summary>
     /// Sample client to make HTTP requests

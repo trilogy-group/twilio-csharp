@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Intelligence.V2.Transcript
+namespace Kandy.Rest.Intelligence.V2.Transcript
 {
     /// <summary> Get download URLs for media if possible </summary>
     public class FetchMediaOptions : IOptions<MediaResource>
@@ -60,4 +60,3 @@ namespace Twilio.Rest.Intelligence.V2.Transcript
 
 
 }
-

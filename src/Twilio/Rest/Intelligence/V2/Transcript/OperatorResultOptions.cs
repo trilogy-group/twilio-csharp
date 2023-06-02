@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Intelligence.V2.Transcript
+namespace Kandy.Rest.Intelligence.V2.Transcript
 {
     /// <summary> Fetch a specific Operator Result for the given Transcript. </summary>
     public class FetchOperatorResultOptions : IOptions<OperatorResultResource>
@@ -104,4 +104,3 @@ namespace Twilio.Rest.Intelligence.V2.Transcript
     }
 
 }
-

@@ -11,7 +11,7 @@ using NUnit.Framework;
 using Twilio.Http;
 using HttpMethod = Twilio.Http.HttpMethod;
 
-namespace Twilio.Tests.Http
+namespace Kandy.Tests.Http
 {
     public class MockResponseHandler : DelegatingHandler
     {

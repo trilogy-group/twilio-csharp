@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Insights.V1
+namespace Kandy.Rest.Insights.V1
 {
     public class CallResource : Resource
     {
@@ -133,4 +133,3 @@ namespace Twilio.Rest.Insights.V1
         }
     }
 }
-

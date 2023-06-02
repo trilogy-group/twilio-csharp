@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Taskrouter.V1.Workspace
+namespace Kandy.Rest.Taskrouter.V1.Workspace
 {
     /// <summary> fetch </summary>
     public class FetchEventOptions : IOptions<EventResource>
@@ -167,4 +167,3 @@ namespace Twilio.Rest.Taskrouter.V1.Workspace
     }
 
 }
-

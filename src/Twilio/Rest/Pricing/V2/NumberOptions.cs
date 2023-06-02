@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Pricing.V2
+namespace Kandy.Rest.Pricing.V2
 {
     /// <summary> Fetch pricing information for a specific destination and, optionally, origination phone number. </summary>
     public class FetchNumberOptions : IOptions<NumberResource>
@@ -60,4 +60,3 @@ namespace Twilio.Rest.Pricing.V2
 
 
 }
-

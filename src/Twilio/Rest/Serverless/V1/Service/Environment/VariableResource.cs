@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Serverless.V1.Service.Environment
+namespace Kandy.Rest.Serverless.V1.Service.Environment
 {
     public class VariableResource : Resource
     {
@@ -545,4 +545,3 @@ namespace Twilio.Rest.Serverless.V1.Service.Environment
         }
     }
 }
-

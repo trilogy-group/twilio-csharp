@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Autopilot.V1.Assistant.Task
+namespace Kandy.Rest.Autopilot.V1.Assistant.Task
 {
     /// <summary> Returns JSON actions for the Task. </summary>
     public class FetchTaskActionsOptions : IOptions<TaskActionsResource>
@@ -99,4 +99,3 @@ namespace Twilio.Rest.Autopilot.V1.Assistant.Task
 
 
 }
-

@@ -4,7 +4,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Newtonsoft.Json;
 
-namespace Twilio.Tests.Jwt
+namespace Kandy.Tests.Jwt
 {
     class DecodedJwt
     {

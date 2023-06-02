@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.IpMessaging.V2.Service.User
+namespace Kandy.Rest.IpMessaging.V2.Service.User
 {
     /// <summary> delete </summary>
     public class DeleteUserChannelOptions : IOptions<UserChannelResource>
@@ -199,4 +199,3 @@ namespace Twilio.Rest.IpMessaging.V2.Service.User
 
 
 }
-

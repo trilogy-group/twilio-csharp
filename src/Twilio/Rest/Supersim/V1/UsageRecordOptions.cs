@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Supersim.V1
+namespace Kandy.Rest.Supersim.V1
 {
     /// <summary> List UsageRecords </summary>
     public class ReadUsageRecordOptions : ReadOptions<UsageRecordResource>
@@ -103,4 +103,3 @@ namespace Twilio.Rest.Supersim.V1
     }
 
 }
-

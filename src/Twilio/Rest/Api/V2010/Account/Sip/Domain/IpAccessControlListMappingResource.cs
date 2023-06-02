@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Api.V2010.Account.Sip.Domain
+namespace Kandy.Rest.Api.V2010.Account.Sip.Domain
 {
     public class IpAccessControlListMappingResource : Resource
     {
@@ -445,4 +445,3 @@ namespace Twilio.Rest.Api.V2010.Account.Sip.Domain
         }
     }
 }
-

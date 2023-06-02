@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Conversations.V1
+namespace Kandy.Rest.Conversations.V1
 {
     /// <summary> Fetch the global configuration of conversations on your account </summary>
     public class FetchConfigurationOptions : IOptions<ConfigurationResource>
@@ -92,4 +92,3 @@ namespace Twilio.Rest.Conversations.V1
 
 
 }
-

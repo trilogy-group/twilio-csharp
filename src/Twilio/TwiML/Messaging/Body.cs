@@ -7,7 +7,7 @@ using System.IO;
 using System.Text;
 using System.Xml.Linq;
 
-namespace Twilio.TwiML.Messaging
+namespace Kandy.TwiML.Messaging
 {
 
     /// <summary>

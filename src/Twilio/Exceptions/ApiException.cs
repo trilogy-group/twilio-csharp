@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Twilio.Exceptions
+namespace Kandy.Exceptions
 {
     /// <summary>
     /// POCO to represent an API Exception

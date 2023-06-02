@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Api.V2010.Account.Sip.IpAccessControlList
+namespace Kandy.Rest.Api.V2010.Account.Sip.IpAccessControlList
 {
 
     /// <summary> Create a new IpAddress resource. </summary>
@@ -246,4 +246,3 @@ namespace Twilio.Rest.Api.V2010.Account.Sip.IpAccessControlList
 
 
 }
-

@@ -7,7 +7,7 @@ using Twilio.Rest.Chat.V2;
 using Twilio.Rest.Chat.V2.Service;
 using Twilio.Rest.Events.V1;
 using System.Linq;
-namespace Twilio.Tests 
+namespace Kandy.Tests 
 {
     [TestFixture]
     class ClusterTest 

@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Trusthub.V1
+namespace Kandy.Rest.Trusthub.V1
 {
     public class PoliciesResource : Resource
     {
@@ -257,4 +257,3 @@ namespace Twilio.Rest.Trusthub.V1
         }
     }
 }
-

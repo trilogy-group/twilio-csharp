@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Verify.V2
+namespace Kandy.Rest.Verify.V2
 {
     public class FormResource : Resource
     {
@@ -149,4 +149,3 @@ namespace Twilio.Rest.Verify.V2
         }
     }
 }
-

@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Verify.V2.Service.Entity
+namespace Kandy.Rest.Verify.V2.Service.Entity
 {
     public class FactorResource : Resource
     {
@@ -546,4 +546,3 @@ namespace Twilio.Rest.Verify.V2.Service.Entity
         }
     }
 }
-

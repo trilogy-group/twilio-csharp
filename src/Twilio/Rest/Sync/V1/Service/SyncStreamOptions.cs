@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Sync.V1.Service
+namespace Kandy.Rest.Sync.V1.Service
 {
 
     /// <summary> Create a new Stream. </summary>
@@ -206,4 +206,3 @@ namespace Twilio.Rest.Sync.V1.Service
 
 
 }
-

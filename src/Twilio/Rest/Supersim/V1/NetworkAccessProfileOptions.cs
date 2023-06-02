@@ -21,7 +21,7 @@ using System.Linq;
 
 
 
-namespace Twilio.Rest.Supersim.V1
+namespace Kandy.Rest.Supersim.V1
 {
 
     /// <summary> Create a new Network Access Profile </summary>
@@ -144,4 +144,3 @@ namespace Twilio.Rest.Supersim.V1
 
 
 }
-

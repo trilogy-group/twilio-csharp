@@ -21,7 +21,7 @@ using System.Linq;
 
 
 
-namespace Twilio.Rest.Conversations.V1.Service.Conversation
+namespace Kandy.Rest.Conversations.V1.Service.Conversation
 {
 
     /// <summary> Create a new webhook scoped to the conversation in a specific service </summary>
@@ -300,4 +300,3 @@ namespace Twilio.Rest.Conversations.V1.Service.Conversation
 
 
 }
-

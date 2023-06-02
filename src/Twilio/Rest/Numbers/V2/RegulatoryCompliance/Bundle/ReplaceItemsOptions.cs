@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Numbers.V2.RegulatoryCompliance.Bundle
+namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
 {
 
     /// <summary> Replaces all bundle items in the target bundle (specified in the path) with all the bundle items of the source bundle (specified by the from_bundle_sid body param) </summary>
@@ -60,4 +60,3 @@ namespace Twilio.Rest.Numbers.V2.RegulatoryCompliance.Bundle
 
     }
 }
-

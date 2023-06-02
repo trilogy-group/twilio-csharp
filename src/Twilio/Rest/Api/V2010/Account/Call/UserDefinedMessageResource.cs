@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Api.V2010.Account.Call
+namespace Kandy.Rest.Api.V2010.Account.Call
 {
     public class UserDefinedMessageResource : Resource
     {
@@ -154,4 +154,3 @@ namespace Twilio.Rest.Api.V2010.Account.Call
         }
     }
 }
-

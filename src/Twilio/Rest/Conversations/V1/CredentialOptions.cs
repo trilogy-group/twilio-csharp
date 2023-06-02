@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Conversations.V1
+namespace Kandy.Rest.Conversations.V1
 {
 
     /// <summary> Add a new push notification credential to your account </summary>
@@ -256,4 +256,3 @@ namespace Twilio.Rest.Conversations.V1
 
 
 }
-

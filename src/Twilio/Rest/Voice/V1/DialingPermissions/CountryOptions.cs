@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Voice.V1.DialingPermissions
+namespace Kandy.Rest.Voice.V1.DialingPermissions
 {
     /// <summary> Retrieve voice dialing country permissions identified by the given ISO country code </summary>
     public class FetchCountryOptions : IOptions<CountryResource>
@@ -118,4 +118,3 @@ namespace Twilio.Rest.Voice.V1.DialingPermissions
     }
 
 }
-

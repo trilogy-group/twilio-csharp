@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Twilio.Types
+namespace Kandy.Types
 {
     /// <summary>
     /// POCO for outbound call prices
@@ -32,4 +32,3 @@ namespace Twilio.Types
         }
     }
 }
-

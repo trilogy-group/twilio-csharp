@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Preview.Wireless
+namespace Kandy.Rest.Preview.Wireless
 {
     public class CommandResource : Resource
     {
@@ -391,4 +391,3 @@ namespace Twilio.Rest.Preview.Wireless
         }
     }
 }
-

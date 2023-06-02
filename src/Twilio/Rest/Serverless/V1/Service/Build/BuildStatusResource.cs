@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Serverless.V1.Service.Build
+namespace Kandy.Rest.Serverless.V1.Service.Build
 {
     public class BuildStatusResource : Resource
     {
@@ -160,4 +160,3 @@ namespace Twilio.Rest.Serverless.V1.Service.Build
         }
     }
 }
-

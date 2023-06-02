@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Api.V2010.Account.AvailablePhoneNumberCountry
+namespace Kandy.Rest.Api.V2010.Account.AvailablePhoneNumberCountry
 {
     public class SharedCostResource : Resource
     {
@@ -314,4 +314,3 @@ namespace Twilio.Rest.Api.V2010.Account.AvailablePhoneNumberCountry
         }
     }
 }
-

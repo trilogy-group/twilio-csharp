@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Twilio.Jwt.AccessToken
+namespace Kandy.Jwt.AccessToken
 {
     /// <summary>
     /// Grant to expose Twilio Video

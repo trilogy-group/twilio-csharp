@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Events.V1.Subscription
+namespace Kandy.Rest.Events.V1.Subscription
 {
     public class SubscribedEventResource : Resource
     {
@@ -498,4 +498,3 @@ namespace Twilio.Rest.Events.V1.Subscription
         }
     }
 }
-

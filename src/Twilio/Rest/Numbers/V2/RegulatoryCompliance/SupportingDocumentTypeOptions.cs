@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Numbers.V2.RegulatoryCompliance
+namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance
 {
     /// <summary> Fetch a specific Supporting Document Type Instance. </summary>
     public class FetchSupportingDocumentTypeOptions : IOptions<SupportingDocumentTypeResource>
@@ -76,4 +76,3 @@ namespace Twilio.Rest.Numbers.V2.RegulatoryCompliance
     }
 
 }
-

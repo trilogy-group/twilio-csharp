@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Video.V1.Room
+namespace Kandy.Rest.Video.V1.Room
 {
     public class RoomRecordingResource : Resource
     {
@@ -465,4 +465,3 @@ namespace Twilio.Rest.Video.V1.Room
         }
     }
 }
-

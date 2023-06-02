@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Microvisor.V1.App
+namespace Kandy.Rest.Microvisor.V1.App
 {
     public class AppManifestResource : Resource
     {
@@ -137,4 +137,3 @@ namespace Twilio.Rest.Microvisor.V1.App
         }
     }
 }
-

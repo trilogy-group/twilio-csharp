@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Studio.V1
+namespace Kandy.Rest.Studio.V1
 {
     /// <summary> Delete a specific Flow. </summary>
     public class DeleteFlowOptions : IOptions<FlowResource>
@@ -105,4 +105,3 @@ namespace Twilio.Rest.Studio.V1
     }
 
 }
-

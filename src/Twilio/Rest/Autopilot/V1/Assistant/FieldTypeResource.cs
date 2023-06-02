@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Autopilot.V1.Assistant
+namespace Kandy.Rest.Autopilot.V1.Assistant
 {
     public class FieldTypeResource : Resource
     {
@@ -518,4 +518,3 @@ namespace Twilio.Rest.Autopilot.V1.Assistant
         }
     }
 }
-

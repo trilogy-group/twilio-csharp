@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Supersim.V1.Sim
+namespace Kandy.Rest.Supersim.V1.Sim
 {
     public class SimIpAddressResource : Resource
     {
@@ -203,4 +203,3 @@ namespace Twilio.Rest.Supersim.V1.Sim
         }
     }
 }
-

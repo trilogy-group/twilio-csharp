@@ -6,7 +6,7 @@ using Twilio.Jwt;
 using Twilio.Jwt.AccessToken;
 using Newtonsoft.Json;
 
-namespace Twilio.Tests.Jwt.AccessToken
+namespace Kandy.Tests.Jwt.AccessToken
 {
     class TestToken : Token
     {

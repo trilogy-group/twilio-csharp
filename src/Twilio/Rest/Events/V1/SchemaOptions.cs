@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Events.V1
+namespace Kandy.Rest.Events.V1
 {
     /// <summary> Fetch a specific schema with its nested versions. </summary>
     public class FetchSchemaOptions : IOptions<SchemaResource>
@@ -53,4 +53,3 @@ namespace Twilio.Rest.Events.V1
 
 
 }
-

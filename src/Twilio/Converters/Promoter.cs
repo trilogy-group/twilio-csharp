@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Twilio.Converters
+namespace Kandy.Converters
 {
     /// <summary>
     /// Promote objects
@@ -29,4 +29,3 @@ namespace Twilio.Converters
         }
     }
 }
-

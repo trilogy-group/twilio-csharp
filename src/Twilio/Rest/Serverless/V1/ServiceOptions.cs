@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Serverless.V1
+namespace Kandy.Rest.Serverless.V1
 {
 
     /// <summary> Create a new Service resource. </summary>
@@ -209,4 +209,3 @@ namespace Twilio.Rest.Serverless.V1
 
 
 }
-

@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Video.V1
+namespace Kandy.Rest.Video.V1
 {
     public class RecordingSettingsResource : Resource
     {
@@ -234,4 +234,3 @@ namespace Twilio.Rest.Video.V1
         }
     }
 }
-

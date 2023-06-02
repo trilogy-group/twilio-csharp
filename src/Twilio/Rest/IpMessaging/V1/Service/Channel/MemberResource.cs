@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.IpMessaging.V1.Service.Channel
+namespace Kandy.Rest.IpMessaging.V1.Service.Channel
 {
     public class MemberResource : Resource
     {
@@ -557,4 +557,3 @@ namespace Twilio.Rest.IpMessaging.V1.Service.Channel
         }
     }
 }
-

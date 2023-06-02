@@ -21,7 +21,7 @@ using System.Linq;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Api.V2010.Account
+namespace Kandy.Rest.Api.V2010.Account
 {
 
     /// <summary> Create a new outgoing call to phones, SIP-enabled endpoints or Twilio Client connections </summary>
@@ -561,4 +561,3 @@ namespace Twilio.Rest.Api.V2010.Account
 
 
 }
-

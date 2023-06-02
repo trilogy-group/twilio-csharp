@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Twilio.Jwt.Taskrouter;
 using Twilio.Http;
 
-namespace Twilio.Tests.Jwt.Taskrouter
+namespace Kandy.Tests.Jwt.Taskrouter
 {
     [TestFixture]
     public class PolicyTest

@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Api.V2010.Account.Call
+namespace Kandy.Rest.Api.V2010.Account.Call
 {
     public class PaymentResource : Resource
     {
@@ -379,4 +379,3 @@ namespace Twilio.Rest.Api.V2010.Account.Call
         }
     }
 }
-

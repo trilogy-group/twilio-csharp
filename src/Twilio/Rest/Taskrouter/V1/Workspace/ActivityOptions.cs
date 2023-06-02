@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Taskrouter.V1.Workspace
+namespace Kandy.Rest.Taskrouter.V1.Workspace
 {
 
     /// <summary> create </summary>
@@ -222,4 +222,3 @@ namespace Twilio.Rest.Taskrouter.V1.Workspace
 
 
 }
-

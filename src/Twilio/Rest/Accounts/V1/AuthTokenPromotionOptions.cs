@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Accounts.V1
+namespace Kandy.Rest.Accounts.V1
 {
     /// <summary> Promote the secondary Auth Token to primary. After promoting the new token, all requests to Twilio using your old primary Auth Token will result in an error. </summary>
     public class UpdateAuthTokenPromotionOptions : IOptions<AuthTokenPromotionResource>
@@ -44,4 +44,3 @@ namespace Twilio.Rest.Accounts.V1
 
 
 }
-

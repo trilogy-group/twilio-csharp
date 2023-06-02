@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using Twilio.Converters;
 
-namespace Twilio.Tests.Converters
+namespace Kandy.Tests.Converters
 {
     [TestFixture]
     public class PrefixedCollapsibleMapTest : TwilioTest {

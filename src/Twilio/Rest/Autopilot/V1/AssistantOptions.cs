@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Autopilot.V1
+namespace Kandy.Rest.Autopilot.V1
 {
 
     /// <summary> create </summary>
@@ -257,4 +257,3 @@ namespace Twilio.Rest.Autopilot.V1
 
 
 }
-

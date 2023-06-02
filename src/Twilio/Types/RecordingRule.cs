@@ -5,7 +5,7 @@ using Twilio.Converters;
 /// <summary>
 /// Recording Rule - A single Recording Rule for a Room
 /// </summary>
-namespace Twilio.Types
+namespace Kandy.Types
 {
     public class RecordingRule
     {

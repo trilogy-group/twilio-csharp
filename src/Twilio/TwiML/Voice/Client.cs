@@ -12,7 +12,7 @@ using System.Xml.Linq;
 using Twilio.Converters;
 using Twilio.Types;
 
-namespace Twilio.TwiML.Voice
+namespace Kandy.TwiML.Voice
 {
 
     /// <summary>

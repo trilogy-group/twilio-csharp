@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Lookups.V2
+namespace Kandy.Rest.Lookups.V2
 {
     /// <summary> fetch </summary>
     public class FetchPhoneNumberOptions : IOptions<PhoneNumberResource>
@@ -137,4 +137,3 @@ namespace Twilio.Rest.Lookups.V2
 
 
 }
-

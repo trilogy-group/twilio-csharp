@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Supersim.V1
+namespace Kandy.Rest.Supersim.V1
 {
 
     /// <summary> Send an IP Command to a Super SIM. </summary>
@@ -174,4 +174,3 @@ namespace Twilio.Rest.Supersim.V1
     }
 
 }
-

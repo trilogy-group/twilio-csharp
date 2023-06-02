@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Twilio.Converters
+namespace Kandy.Converters
 {
     /// <summary>
     /// Flatten nested maps and give all entries a prefix
@@ -52,4 +52,3 @@ namespace Twilio.Converters
         }
     }
 }
-

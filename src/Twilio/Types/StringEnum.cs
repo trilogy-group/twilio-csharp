@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Twilio.Types
+namespace Kandy.Types
 {
     /// <summary>
     /// Enum object for strings
@@ -84,4 +84,3 @@ namespace Twilio.Types
 
     }
 }
-

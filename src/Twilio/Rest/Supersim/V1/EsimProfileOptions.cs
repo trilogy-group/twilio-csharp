@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Supersim.V1
+namespace Kandy.Rest.Supersim.V1
 {
 
     /// <summary> Order an eSIM Profile. </summary>
@@ -143,4 +143,3 @@ namespace Twilio.Rest.Supersim.V1
     }
 
 }
-

@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Preview.Understand.Assistant.Task
+namespace Kandy.Rest.Preview.Understand.Assistant.Task
 {
 
     /// <summary> create </summary>
@@ -263,4 +263,3 @@ namespace Twilio.Rest.Preview.Understand.Assistant.Task
 
 
 }
-

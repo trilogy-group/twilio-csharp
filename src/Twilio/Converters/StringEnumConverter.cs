@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Collections;
 using Twilio.Types;
 
-namespace Twilio.Converters
+namespace Kandy.Converters
 {
     /// <summary>
     /// Converts between enums and strings
@@ -107,4 +107,3 @@ namespace Twilio.Converters
     }
 
 }
-

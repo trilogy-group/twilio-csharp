@@ -5,7 +5,7 @@ using Twilio.Jwt;
 using Twilio.Jwt.Taskrouter;
 using Twilio.Http;
 
-namespace Twilio.Tests.Jwt.Taskrouter
+namespace Kandy.Tests.Jwt.Taskrouter
 {
     [TestFixture]
     public class TaskRouterCapabilityTest

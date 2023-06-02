@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Verify.V2.Service.Entity
+namespace Kandy.Rest.Verify.V2.Service.Entity
 {
     /// <summary> Delete a specific Factor. </summary>
     public class DeleteFactorOptions : IOptions<FactorResource>
@@ -241,4 +241,3 @@ namespace Twilio.Rest.Verify.V2.Service.Entity
 
 
 }
-

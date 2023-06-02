@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Content.V1.Content
+namespace Kandy.Rest.Content.V1.Content
 {
     public class ApprovalFetchResource : Resource
     {
@@ -137,4 +137,3 @@ namespace Twilio.Rest.Content.V1.Content
         }
     }
 }
-

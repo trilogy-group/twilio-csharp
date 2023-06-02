@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Insights.V1.Room
+namespace Kandy.Rest.Insights.V1.Room
 {
     public class ParticipantResource : Resource
     {
@@ -388,4 +388,3 @@ namespace Twilio.Rest.Insights.V1.Room
         }
     }
 }
-

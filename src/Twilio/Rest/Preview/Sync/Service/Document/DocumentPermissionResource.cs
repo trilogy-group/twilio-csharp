@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Preview.Sync.Service.Document
+namespace Kandy.Rest.Preview.Sync.Service.Document
 {
     public class DocumentPermissionResource : Resource
     {
@@ -463,4 +463,3 @@ namespace Twilio.Rest.Preview.Sync.Service.Document
         }
     }
 }
-

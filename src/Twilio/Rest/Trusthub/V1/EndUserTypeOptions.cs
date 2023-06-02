@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Trusthub.V1
+namespace Kandy.Rest.Trusthub.V1
 {
     /// <summary> Fetch a specific End-User Type Instance. </summary>
     public class FetchEndUserTypeOptions : IOptions<EndUserTypeResource>
@@ -76,4 +76,3 @@ namespace Twilio.Rest.Trusthub.V1
     }
 
 }
-

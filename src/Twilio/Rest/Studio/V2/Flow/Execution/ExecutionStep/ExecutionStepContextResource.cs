@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Studio.V2.Flow.Execution.ExecutionStep
+namespace Kandy.Rest.Studio.V2.Flow.Execution.ExecutionStep
 {
     public class ExecutionStepContextResource : Resource
     {
@@ -155,4 +155,3 @@ namespace Twilio.Rest.Studio.V2.Flow.Execution.ExecutionStep
         }
     }
 }
-

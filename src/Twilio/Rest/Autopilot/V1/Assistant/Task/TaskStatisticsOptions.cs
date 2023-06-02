@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Autopilot.V1.Assistant.Task
+namespace Kandy.Rest.Autopilot.V1.Assistant.Task
 {
     /// <summary> fetch </summary>
     public class FetchTaskStatisticsOptions : IOptions<TaskStatisticsResource>
@@ -58,4 +58,3 @@ namespace Twilio.Rest.Autopilot.V1.Assistant.Task
 
 
 }
-

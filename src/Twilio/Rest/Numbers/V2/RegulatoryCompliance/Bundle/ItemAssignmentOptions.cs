@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Numbers.V2.RegulatoryCompliance.Bundle
+namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance.Bundle
 {
 
     /// <summary> Create a new Assigned Item. </summary>
@@ -160,4 +160,3 @@ namespace Twilio.Rest.Numbers.V2.RegulatoryCompliance.Bundle
     }
 
 }
-

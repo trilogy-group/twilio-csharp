@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Bulkexports.V1.Export
+namespace Kandy.Rest.Bulkexports.V1.Export
 {
 
     /// <summary> create </summary>
@@ -131,4 +131,3 @@ namespace Twilio.Rest.Bulkexports.V1.Export
     }
 
 }
-

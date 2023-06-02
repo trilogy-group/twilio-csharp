@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.FlexApi.V1
+namespace Kandy.Rest.FlexApi.V1
 {
     /// <summary> To get conversation with segment id </summary>
     public class ReadInsightsConversationsOptions : ReadOptions<InsightsConversationsResource>
@@ -67,4 +67,3 @@ namespace Twilio.Rest.FlexApi.V1
     }
 
 }
-

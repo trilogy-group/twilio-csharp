@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Api.V2010.Account.IncomingPhoneNumber
+namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
 {
 
     /// <summary> create </summary>
@@ -266,4 +266,3 @@ namespace Twilio.Rest.Api.V2010.Account.IncomingPhoneNumber
     }
 
 }
-

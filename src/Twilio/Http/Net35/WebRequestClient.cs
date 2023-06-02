@@ -1,7 +1,7 @@
 #if NET35
 using System.IO;
 
-namespace Twilio.Http.Net35
+namespace Kandy.Http.Net35
 {
 
     /// <summary>

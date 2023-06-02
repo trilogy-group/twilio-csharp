@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Twilio.Jwt.AccessToken
+namespace Kandy.Jwt.AccessToken
 {
     /// <summary>
     /// Access Token for Twilio resources

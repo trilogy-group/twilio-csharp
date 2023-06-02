@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.IpMessaging.V1.Service
+namespace Kandy.Rest.IpMessaging.V1.Service
 {
 
     /// <summary> create </summary>
@@ -236,4 +236,3 @@ namespace Twilio.Rest.IpMessaging.V1.Service
 
 
 }
-

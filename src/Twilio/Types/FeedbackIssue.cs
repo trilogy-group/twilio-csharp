@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Twilio.Types
+namespace Kandy.Types
 {
     /// <summary>
     /// Feedback issue POCO
@@ -39,4 +39,3 @@ namespace Twilio.Types
         }
     }
 }
-

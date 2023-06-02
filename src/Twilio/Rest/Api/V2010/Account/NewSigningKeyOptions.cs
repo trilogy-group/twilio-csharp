@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Api.V2010.Account
+namespace Kandy.Rest.Api.V2010.Account
 {
 
     /// <summary> Create a new Signing Key for the account making the request. </summary>
@@ -52,4 +52,3 @@ namespace Twilio.Rest.Api.V2010.Account
 
     }
 }
-

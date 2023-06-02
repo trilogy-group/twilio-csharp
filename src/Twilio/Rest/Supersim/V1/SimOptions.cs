@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Supersim.V1
+namespace Kandy.Rest.Supersim.V1
 {
 
     /// <summary> Register a Super SIM to your Account </summary>
@@ -208,4 +208,3 @@ namespace Twilio.Rest.Supersim.V1
 
 
 }
-

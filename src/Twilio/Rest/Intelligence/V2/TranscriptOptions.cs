@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Intelligence.V2
+namespace Kandy.Rest.Intelligence.V2
 {
 
     /// <summary> Create a new Transcript for the service </summary>
@@ -222,4 +222,3 @@ namespace Twilio.Rest.Intelligence.V2
     }
 
 }
-

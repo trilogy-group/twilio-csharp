@@ -21,7 +21,7 @@ using System.Linq;
 
 
 
-namespace Twilio.Rest.Api.V2010.Account
+namespace Kandy.Rest.Api.V2010.Account
 {
 
     /// <summary> Send a message from the account used to make the request </summary>
@@ -381,4 +381,3 @@ namespace Twilio.Rest.Api.V2010.Account
 
 
 }
-

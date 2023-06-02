@@ -21,7 +21,7 @@ using System.Linq;
 
 
 
-namespace Twilio.Rest.Lookups.V1
+namespace Kandy.Rest.Lookups.V1
 {
     /// <summary> fetch </summary>
     public class FetchPhoneNumberOptions : IOptions<PhoneNumberResource>
@@ -83,4 +83,3 @@ namespace Twilio.Rest.Lookups.V1
 
 
 }
-

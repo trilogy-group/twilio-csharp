@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Proxy.V1.Service
+namespace Kandy.Rest.Proxy.V1.Service
 {
 
     /// <summary> Add a Phone Number to a Service's Proxy Number Pool. </summary>
@@ -213,4 +213,3 @@ namespace Twilio.Rest.Proxy.V1.Service
 
 
 }
-

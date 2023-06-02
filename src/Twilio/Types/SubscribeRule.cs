@@ -8,7 +8,7 @@ using Twilio.Converters;
 ///   For more information see:
 ///   <a href="https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr">Specifying Subscribe Rules</a>
 /// </summary>
-namespace Twilio.Types
+namespace Kandy.Types
 {
     public class SubscribeRule
     {

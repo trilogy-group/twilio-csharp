@@ -1,4 +1,4 @@
-﻿namespace Twilio.Types
+﻿namespace Kandy.Types
 {
     /// <summary>
     /// Endpoint of a call
@@ -12,4 +12,3 @@
         string ToString();
     }
 }
-

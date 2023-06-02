@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Studio.V2.Flow
+namespace Kandy.Rest.Studio.V2.Flow
 {
     public class ExecutionResource : Resource
     {
@@ -543,4 +543,3 @@ namespace Twilio.Rest.Studio.V2.Flow
         }
     }
 }
-

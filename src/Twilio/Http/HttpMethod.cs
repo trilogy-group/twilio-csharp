@@ -1,4 +1,4 @@
-﻿namespace Twilio.Http
+﻿namespace Kandy.Http
 {
     /// <summary>
     /// Represents an HTTP Method
@@ -90,4 +90,3 @@
         }
     }
 }
-

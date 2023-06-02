@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using Twilio.Jwt.Client;
 
-namespace Twilio.Tests.Jwt.Client
+namespace Kandy.Tests.Jwt.Client
 {
     [TestFixture]
     public class EventStreamScopeTest

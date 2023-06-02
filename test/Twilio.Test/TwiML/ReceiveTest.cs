@@ -8,7 +8,7 @@ using System;
 using Twilio.Converters;
 using Twilio.TwiML.Fax;
 
-namespace Twilio.Tests.TwiML
+namespace Kandy.Tests.TwiML
 {
 
     [TestFixture]

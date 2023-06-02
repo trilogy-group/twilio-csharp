@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Microvisor.V1
+namespace Kandy.Rest.Microvisor.V1
 {
     /// <summary> Fetch a specific Device. </summary>
     public class FetchDeviceOptions : IOptions<DeviceResource>
@@ -126,4 +126,3 @@ namespace Twilio.Rest.Microvisor.V1
 
 
 }
-

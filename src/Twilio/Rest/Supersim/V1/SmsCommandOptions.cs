@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Supersim.V1
+namespace Kandy.Rest.Supersim.V1
 {
 
     /// <summary> Send SMS Command to a Sim. </summary>
@@ -151,4 +151,3 @@ namespace Twilio.Rest.Supersim.V1
     }
 
 }
-

@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.FlexApi.V1
+namespace Kandy.Rest.FlexApi.V1
 {
 
     /// <summary> Add assessments against conversation to dynamo db. Used in assessments screen by user. Users can select the questionnaire and pick up answers for each and every question. </summary>
@@ -261,4 +261,3 @@ namespace Twilio.Rest.FlexApi.V1
 
 
 }
-

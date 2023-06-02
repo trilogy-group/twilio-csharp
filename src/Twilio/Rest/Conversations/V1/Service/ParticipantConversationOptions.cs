@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Conversations.V1.Service
+namespace Kandy.Rest.Conversations.V1.Service
 {
     /// <summary> Retrieve a list of all Conversations that this Participant belongs to by identity or by address. Only one parameter should be specified. </summary>
     public class ReadParticipantConversationOptions : ReadOptions<ParticipantConversationResource>
@@ -70,4 +70,3 @@ namespace Twilio.Rest.Conversations.V1.Service
     }
 
 }
-

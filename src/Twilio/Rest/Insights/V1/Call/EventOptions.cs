@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Insights.V1.Call
+namespace Kandy.Rest.Insights.V1.Call
 {
     /// <summary> read </summary>
     public class ReadEventOptions : ReadOptions<EventResource>
@@ -63,4 +63,3 @@ namespace Twilio.Rest.Insights.V1.Call
     }
 
 }
-

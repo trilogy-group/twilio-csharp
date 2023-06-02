@@ -11,7 +11,7 @@ using System.Xml.Linq;
 using Twilio.Converters;
 using Twilio.Types;
 
-namespace Twilio.TwiML.Fax
+namespace Kandy.TwiML.Fax
 {
 
     /// <summary>

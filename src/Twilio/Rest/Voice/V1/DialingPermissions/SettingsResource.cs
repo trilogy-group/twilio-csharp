@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Voice.V1.DialingPermissions
+namespace Kandy.Rest.Voice.V1.DialingPermissions
 {
     public class SettingsResource : Resource
     {
@@ -190,4 +190,3 @@ namespace Twilio.Rest.Voice.V1.DialingPermissions
         }
     }
 }
-

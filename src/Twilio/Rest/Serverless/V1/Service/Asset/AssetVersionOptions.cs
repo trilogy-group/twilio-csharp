@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Serverless.V1.Service.Asset
+namespace Kandy.Rest.Serverless.V1.Service.Asset
 {
     /// <summary> Retrieve a specific Asset Version. </summary>
     public class FetchAssetVersionOptions : IOptions<AssetVersionResource>
@@ -100,4 +100,3 @@ namespace Twilio.Rest.Serverless.V1.Service.Asset
     }
 
 }
-

@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.FlexApi.V1
+namespace Kandy.Rest.FlexApi.V1
 {
 
     /// <summary> To create a category for Questions </summary>
@@ -197,4 +197,3 @@ namespace Twilio.Rest.FlexApi.V1
 
 
 }
-

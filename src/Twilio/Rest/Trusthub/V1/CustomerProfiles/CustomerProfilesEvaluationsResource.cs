@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Trusthub.V1.CustomerProfiles
+namespace Kandy.Rest.Trusthub.V1.CustomerProfiles
 {
     public class CustomerProfilesEvaluationsResource : Resource
     {
@@ -369,4 +369,3 @@ namespace Twilio.Rest.Trusthub.V1.CustomerProfiles
         }
     }
 }
-

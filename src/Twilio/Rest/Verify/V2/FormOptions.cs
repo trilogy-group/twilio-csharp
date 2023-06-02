@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Verify.V2
+namespace Kandy.Rest.Verify.V2
 {
     /// <summary> Fetch the forms for a specific Form Type. </summary>
     public class FetchFormOptions : IOptions<FormResource>
@@ -53,4 +53,3 @@ namespace Twilio.Rest.Verify.V2
 
 
 }
-

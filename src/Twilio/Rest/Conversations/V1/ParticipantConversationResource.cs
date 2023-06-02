@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Conversations.V1
+namespace Kandy.Rest.Conversations.V1
 {
     public class ParticipantConversationResource : Resource
     {
@@ -262,4 +262,3 @@ namespace Twilio.Rest.Conversations.V1
         }
     }
 }
-

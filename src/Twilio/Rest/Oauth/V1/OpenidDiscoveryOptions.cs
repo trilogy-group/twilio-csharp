@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Oauth.V1
+namespace Kandy.Rest.Oauth.V1
 {
     /// <summary> Fetch configuration details about the OpenID Connect Authorization Server </summary>
     public class FetchOpenidDiscoveryOptions : IOptions<OpenidDiscoveryResource>
@@ -44,4 +44,3 @@ namespace Twilio.Rest.Oauth.V1
 
 
 }
-

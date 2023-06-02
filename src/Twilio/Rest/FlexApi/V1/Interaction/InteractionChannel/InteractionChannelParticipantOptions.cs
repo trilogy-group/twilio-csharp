@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.FlexApi.V1.Interaction.InteractionChannel
+namespace Kandy.Rest.FlexApi.V1.Interaction.InteractionChannel
 {
 
     /// <summary> Add a Participant to a Channel. </summary>
@@ -159,4 +159,3 @@ namespace Twilio.Rest.FlexApi.V1.Interaction.InteractionChannel
 
 
 }
-

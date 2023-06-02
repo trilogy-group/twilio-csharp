@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Api.V2010.Account.Usage
+namespace Kandy.Rest.Api.V2010.Account.Usage
 {
     public class TriggerResource : Resource
     {
@@ -867,4 +867,3 @@ namespace Twilio.Rest.Api.V2010.Account.Usage
         }
     }
 }
-

@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Api.V2010.Account.Sip.CredentialList
+namespace Kandy.Rest.Api.V2010.Account.Sip.CredentialList
 {
 
     /// <summary> Create a new credential resource. </summary>
@@ -225,4 +225,3 @@ namespace Twilio.Rest.Api.V2010.Account.Sip.CredentialList
 
 
 }
-

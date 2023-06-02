@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Proxy.V1.Service.Session
+namespace Kandy.Rest.Proxy.V1.Service.Session
 {
     /// <summary> Delete a specific Interaction. </summary>
     public class DeleteInteractionOptions : IOptions<InteractionResource>
@@ -139,4 +139,3 @@ namespace Twilio.Rest.Proxy.V1.Service.Session
     }
 
 }
-

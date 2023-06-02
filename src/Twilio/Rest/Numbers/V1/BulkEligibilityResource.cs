@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Numbers.V1
+namespace Kandy.Rest.Numbers.V1
 {
     public class BulkEligibilityResource : Resource
     {
@@ -149,4 +149,3 @@ namespace Twilio.Rest.Numbers.V1
         }
     }
 }
-

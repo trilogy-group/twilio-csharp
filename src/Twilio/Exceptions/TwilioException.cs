@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Twilio.Exceptions
+namespace Kandy.Exceptions
 {
     /// <summary>
     /// Base TwilioException
@@ -57,4 +57,3 @@ namespace Twilio.Exceptions
         public AuthenticationException(string message) : base(message) {}
     }
 }
-

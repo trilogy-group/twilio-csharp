@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.FrontlineApi.V1
+namespace Kandy.Rest.FrontlineApi.V1
 {
     /// <summary> Fetch a frontline user </summary>
     public class FetchUserOptions : IOptions<UserResource>
@@ -110,4 +110,3 @@ namespace Twilio.Rest.FrontlineApi.V1
 
 
 }
-

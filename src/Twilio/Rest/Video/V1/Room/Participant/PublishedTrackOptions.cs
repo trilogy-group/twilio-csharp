@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Video.V1.Room.Participant
+namespace Kandy.Rest.Video.V1.Room.Participant
 {
     /// <summary> Returns a single Track resource represented by TrackName or SID. </summary>
     public class FetchPublishedTrackOptions : IOptions<PublishedTrackResource>
@@ -100,4 +100,3 @@ namespace Twilio.Rest.Video.V1.Room.Participant
     }
 
 }
-

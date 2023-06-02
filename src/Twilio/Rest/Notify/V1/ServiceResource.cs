@@ -24,7 +24,7 @@ using Twilio.Http;
 
 
 
-namespace Twilio.Rest.Notify.V1
+namespace Kandy.Rest.Notify.V1
 {
     public class ServiceResource : Resource
     {
@@ -635,4 +635,3 @@ namespace Twilio.Rest.Notify.V1
         }
     }
 }
-

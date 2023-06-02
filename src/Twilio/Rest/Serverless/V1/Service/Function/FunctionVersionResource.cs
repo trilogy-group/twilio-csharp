@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Serverless.V1.Service.Function
+namespace Kandy.Rest.Serverless.V1.Service.Function
 {
     public class FunctionVersionResource : Resource
     {
@@ -313,4 +313,3 @@ namespace Twilio.Rest.Serverless.V1.Service.Function
         }
     }
 }
-

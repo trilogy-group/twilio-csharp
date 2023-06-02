@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Microvisor.V1.Device
+namespace Kandy.Rest.Microvisor.V1.Device
 {
 
     /// <summary> Create a secret for a Microvisor Device. </summary>
@@ -212,4 +212,3 @@ namespace Twilio.Rest.Microvisor.V1.Device
 
 
 }
-

@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Preview.DeployedDevices.Fleet
+namespace Kandy.Rest.Preview.DeployedDevices.Fleet
 {
 
     /// <summary> Create a new Deployment in the Fleet, optionally giving it a friendly name and linking to a specific Twilio Sync service instance. </summary>
@@ -213,4 +213,3 @@ namespace Twilio.Rest.Preview.DeployedDevices.Fleet
 
 
 }
-

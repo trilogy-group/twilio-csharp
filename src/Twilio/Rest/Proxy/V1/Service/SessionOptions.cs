@@ -21,7 +21,7 @@ using System.Linq;
 
 
 
-namespace Twilio.Rest.Proxy.V1.Service
+namespace Kandy.Rest.Proxy.V1.Service
 {
 
     /// <summary> Create a new Session </summary>
@@ -249,4 +249,3 @@ namespace Twilio.Rest.Proxy.V1.Service
 
 
 }
-

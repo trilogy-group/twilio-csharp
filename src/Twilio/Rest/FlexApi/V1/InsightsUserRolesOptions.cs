@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.FlexApi.V1
+namespace Kandy.Rest.FlexApi.V1
 {
     /// <summary> This is used by Flex UI and Quality Management to fetch the Flex Insights roles for the user </summary>
     public class FetchInsightsUserRolesOptions : IOptions<InsightsUserRolesResource>
@@ -57,4 +57,3 @@ namespace Twilio.Rest.FlexApi.V1
 
 
 }
-

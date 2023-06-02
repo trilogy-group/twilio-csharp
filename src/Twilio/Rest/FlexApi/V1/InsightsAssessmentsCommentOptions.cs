@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.FlexApi.V1
+namespace Kandy.Rest.FlexApi.V1
 {
 
     /// <summary> To create a comment assessment for a conversation </summary>
@@ -163,4 +163,3 @@ namespace Twilio.Rest.FlexApi.V1
     }
 
 }
-

@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Verify.V2
+namespace Kandy.Rest.Verify.V2
 {
     /// <summary> List all the available templates for a given Account. </summary>
     public class ReadTemplateOptions : ReadOptions<TemplateResource>
@@ -54,4 +54,3 @@ namespace Twilio.Rest.Verify.V2
     }
 
 }
-

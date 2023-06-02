@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Numbers.V2.RegulatoryCompliance
+namespace Kandy.Rest.Numbers.V2.RegulatoryCompliance
 {
     /// <summary> Fetch specific Regulation Instance. </summary>
     public class FetchRegulationOptions : IOptions<RegulationResource>
@@ -97,4 +97,3 @@ namespace Twilio.Rest.Numbers.V2.RegulatoryCompliance
     }
 
 }
-

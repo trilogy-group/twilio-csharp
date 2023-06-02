@@ -24,7 +24,7 @@ using Twilio.Http;
 using Twilio.Types;
 
 
-namespace Twilio.Rest.Proxy.V1.Service.Session
+namespace Kandy.Rest.Proxy.V1.Service.Session
 {
     public class InteractionResource : Resource
     {
@@ -461,4 +461,3 @@ namespace Twilio.Rest.Proxy.V1.Service.Session
         }
     }
 }
-

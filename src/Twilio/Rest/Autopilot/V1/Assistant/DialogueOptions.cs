@@ -21,7 +21,7 @@ using Twilio.Converters;
 
 
 
-namespace Twilio.Rest.Autopilot.V1.Assistant
+namespace Kandy.Rest.Autopilot.V1.Assistant
 {
     /// <summary> fetch </summary>
     public class FetchDialogueOptions : IOptions<DialogueResource>
@@ -58,4 +58,3 @@ namespace Twilio.Rest.Autopilot.V1.Assistant
 
 
 }
-

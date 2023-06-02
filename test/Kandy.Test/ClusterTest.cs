@@ -26,7 +26,7 @@ namespace Kandy.Tests
             apiKey = Environment.GetEnvironmentVariable("KANDY_API_KEY");
             toNumber = Environment.GetEnvironmentVariable("KANDY_TO_NUMBER");
             fromNumber = Environment.GetEnvironmentVariable("KANDY_FROM_NUMBER");
-            KandyClient.Init(username: a apiKey, password: secret, accountSid: ccountSid);
+            KandyClient.Init(username: apiKey, password: secret, accountSid: accountSid);
         }
 
 

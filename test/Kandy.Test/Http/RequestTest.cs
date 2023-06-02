@@ -16,47 +16,47 @@ namespace Kandy.Tests.Http
             Assert.AreEqual(new Uri("https://api.twilio.com"), request.buildUri());
 
             request.Region = "region";
-            Assert.AreEqual(new Uri("https://api.region.kandy.com"), request.buildUri());
+            Assert.AreEqual(new Uri("https://api.region.twilio.com"), request.buildUri());
 
             request.Edge = "edge";
-            Assert.AreEqual(new Uri("https://api.edge.region.kandy.com"), request.buildUri());
+            Assert.AreEqual(new Uri("https://api.edge.region.twilio.com"), request.buildUri());
 
             request.Region = null;
-            Assert.AreEqual(new Uri("https://api.edge.us1.kandy.com"), request.buildUri());
+            Assert.AreEqual(new Uri("https://api.edge.us1.twilio.com"), request.buildUri());
         }
 
         [Test]
         public void TestRegionInUrl()
         {
-            var request = new Request(HttpMethod.Get, "https://api.urlRegion.kandy.com");
+            var request = new Request(HttpMethod.Get, "https://api.urlRegion.twilio.com");
 
-            Assert.AreEqual(new Uri("https://api.urlRegion.kandy.com"), request.buildUri());
+            Assert.AreEqual(new Uri("https://api.urlRegion.twilio.com"), request.buildUri());
 
             request.Region = "region";
-            Assert.AreEqual(new Uri("https://api.region.kandy.com"), request.buildUri());
+            Assert.AreEqual(new Uri("https://api.region.twilio.com"), request.buildUri());
 
             request.Edge = "edge";
-            Assert.AreEqual(new Uri("https://api.edge.region.kandy.com"), request.buildUri());
+            Assert.AreEqual(new Uri("https://api.edge.region.twilio.com"), request.buildUri());
 
             request.Region = null;
-            Assert.AreEqual(new Uri("https://api.edge.urlRegion.kandy.com"), request.buildUri());
+            Assert.AreEqual(new Uri("https://api.edge.urlRegion.twilio.com"), request.buildUri());
         }
 
         [Test]
         public void TestRegionAndEdgeInUrl()
         {
-            var request = new Request(HttpMethod.Get, "https://api.urlEdge.urlRegion.kandy.com");
+            var request = new Request(HttpMethod.Get, "https://api.urlEdge.urlRegion.twilio.com");
 
-            Assert.AreEqual(new Uri("https://api.urlEdge.urlRegion.kandy.com"), request.buildUri());
+            Assert.AreEqual(new Uri("https://api.urlEdge.urlRegion.twilio.com"), request.buildUri());
 
             request.Region = "region";
-            Assert.AreEqual(new Uri("https://api.urlEdge.region.kandy.com"), request.buildUri());
+            Assert.AreEqual(new Uri("https://api.urlEdge.region.twilio.com"), request.buildUri());
 
             request.Edge = "edge";
-            Assert.AreEqual(new Uri("https://api.edge.region.kandy.com"), request.buildUri());
+            Assert.AreEqual(new Uri("https://api.edge.region.twilio.com"), request.buildUri());
 
             request.Region = null;
-            Assert.AreEqual(new Uri("https://api.edge.urlRegion.kandy.com"), request.buildUri());
+            Assert.AreEqual(new Uri("https://api.edge.urlRegion.twilio.com"), request.buildUri());
         }
 
         [Test]

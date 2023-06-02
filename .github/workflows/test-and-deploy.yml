@@ -28,17 +28,3 @@ jobs:
 
       - name: Build & Test
         run: make test
-
-      - name: Install SonarCloud scanner and run analysis
-        if: (github.event_name == 'pull_request' || github.ref_type == 'branch') && !github.event.pull_request.head.repo.fork
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          KANDY_ACCOUNT_SID: ${{ secrets.KANDY_ACCOUNT_SID }}
-          KANDY_API_KEY: ${{ secrets.KANDY_CLUSTER_TEST_API_KEY }}
-          KANDY_API_SECRET: ${{ secrets.KANDY_CLUSTER_TEST_API_KEY_SECRET }}
-          KANDY_FROM_NUMBER: ${{ secrets.KANDY_FROM_NUMBER }}
-          KANDY_TO_NUMBER: ${{ secrets.KANDY_TO_NUMBER }}
-        run: |
-          dotnet tool install --global dotnet-sonarscanner
-          make cover

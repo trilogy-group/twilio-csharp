@@ -7,7 +7,7 @@ using System.Text;
 namespace Kandy.Security
 {
     /// <summary>
-    /// Twilio request validator
+    /// Kandy request validator
     /// </summary>
     public class RequestValidator
     {
@@ -71,7 +71,7 @@ namespace Kandy.Security
         public bool ValidateBody(string rawBody, string expected)
         {
             var signature = _sha.ComputeHash(Encoding.UTF8.GetBytes(rawBody));
-            return SecureCompare(BitConverter.ToString(signature).Replace("-","").ToLower(), expected);
+            return SecureCompare(BitConverter.ToString(signature).Replace("-", "").ToLower(), expected);
         }
 
         private static IDictionary<string, string> ToDictionary(NameValueCollection col)

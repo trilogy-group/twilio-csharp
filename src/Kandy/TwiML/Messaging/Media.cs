@@ -7,7 +7,7 @@ using System;
 using System.IO;
 using System.Text;
 using System.Xml.Linq;
-using Twilio.Converters;
+using Kandy.Converters;
 
 namespace Kandy.TwiML.Messaging
 {
@@ -45,7 +45,7 @@ namespace Kandy.TwiML.Messaging
         /// <param name="childElem"> Child TwiML element to add </param>
         public new Media Append(TwiML childElem)
         {
-            return (Media) base.Append(childElem);
+            return (Media)base.Append(childElem);
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Kandy.TwiML.Messaging
         /// <param name="value"> Option value </param>
         public new Media SetOption(string key, object value)
         {
-            return (Media) base.SetOption(key, value);
+            return (Media)base.SetOption(key, value);
         }
     }
 

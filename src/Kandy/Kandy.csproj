@@ -2,24 +2,24 @@
   <PropertyGroup Label="NuGet">
     <TargetFrameworks>netstandard1.4;netstandard2.0;net451;net35</TargetFrameworks>
     <IsPackable>true</IsPackable>
-    <PackageId>Twilio</PackageId>
-    <Description>Twilio REST API helper library</Description>
-    <Copyright>Copyright © Twilio</Copyright>
-    <AssemblyTitle>Twilio</AssemblyTitle>
+    <PackageId>Kandy</PackageId>
+    <Description>Kandy REST API helper library</Description>
+    <Copyright>Copyright © Kandy</Copyright>
+    <AssemblyTitle>Kandy</AssemblyTitle>
     <NeutralLanguage>en-US</NeutralLanguage>
     <VersionPrefix>6.7.0</VersionPrefix>
     <VersionSuffix>
     </VersionSuffix>
-    <Authors>Twilio</Authors>
+    <Authors>Kandy</Authors>
     <NoWarn>$(NoWarn);CS1591</NoWarn>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <AssemblyName>Twilio</AssemblyName>
-    <PackageTags>REST;SMS;voice;telephony;phone;twilio;twiml;video;wireless;api</PackageTags>
-    <PackageIconUrl>https://www.twilio.com/docs/static/company/img/logos/red/twilio-mark-red.898073bba.png</PackageIconUrl>
-    <PackageProjectUrl>http://github.com/twilio/twilio-csharp</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/twilio/twilio-csharp/blob/HEAD/LICENSE</PackageLicenseUrl>
-    <RepositoryUrl>http://github.com/twilio/twilio-csharp</RepositoryUrl>
+    <AssemblyName>Kandy</AssemblyName>
+    <PackageTags>REST;SMS;voice;telephony;phone;kandy;twiml;video;wireless;api</PackageTags>
+    <PackageIconUrl>https://www.kandy.com/docs/static/company/img/logos/red/kandy-mark-red.898073bba.png</PackageIconUrl>
+    <PackageProjectUrl>http://github.com/kandy/kandy-csharp</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/kandy/kandy-csharp/blob/HEAD/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>http://github.com/kandy/kandy-csharp</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.4' ">1.6.1</NetStandardImplicitPackageVersion>
     <NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard2.0' ">2.0.0</NetStandardImplicitPackageVersion>

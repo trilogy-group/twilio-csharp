@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Twilio.Rest;
+using Kandy.Rest;
 
 #if !NET35
 using System.Net;
@@ -13,7 +13,7 @@ using System.Web;
 namespace Kandy.Http
 {
     /// <summary>
-    /// Twilio request object
+    /// Kandy request object
     /// </summary>
     public class Request
     {
@@ -37,12 +37,12 @@ namespace Kandy.Http
         public string Password { get; set; }
 
         /// <summary>
-        /// Twilio region
+        /// Kandy region
         /// </summary>
         public string Region { get; set; }
 
         /// <summary>
-        /// Twilio edge
+        /// Kandy edge
         /// </summary>
         public string Edge { get; set; }
 
@@ -67,7 +67,7 @@ namespace Kandy.Http
         public List<KeyValuePair<string, string>> HeaderParams { get; private set; }
 
         /// <summary>
-        /// Create a new Twilio request
+        /// Create a new Kandy request
         /// </summary>
         /// <param name="method">HTTP Method</param>
         /// <param name="url">Request URL</param>
@@ -81,15 +81,15 @@ namespace Kandy.Http
         }
 
         /// <summary>
-        /// Create a new Twilio request
+        /// Create a new Kandy request
         /// </summary>
         /// <param name="method">HTTP method</param>
-        /// <param name="domain">Twilio subdomain</param>
+        /// <param name="domain">Kandy subdomain</param>
         /// <param name="uri">Request URI</param>
-        /// <param name="region">Twilio region</param>
+        /// <param name="region">Kandy region</param>
         /// <param name="queryParams">Query parameters</param>
         /// <param name="postParams">Post data</param>
-        /// <param name="edge">Twilio edge</param>
+        /// <param name="edge">Kandy edge</param>
         /// <param name="headerParams">Custom header data</param>
         public Request(
             HttpMethod method,
@@ -103,7 +103,7 @@ namespace Kandy.Http
         )
         {
             Method = method;
-            Uri = new Uri("https://" + domain + ".twilio.com" + uri);
+            Uri = new Uri("https://" + domain + ".kandy.com" + uri);
             Region = region;
             Edge = edge;
 
@@ -136,11 +136,11 @@ namespace Kandy.Http
                 var region = Region;
                 var edge = Edge;
 
-                if (pieces.Length == 4) // product.region.twilio.com
+                if (pieces.Length == 4) // product.region.kandy.com
                 {
                     region = region ?? pieces[1];
                 }
-                else if (pieces.Length == 5) // product.edge.region.twilio.com
+                else if (pieces.Length == 5) // product.edge.region.kandy.com
                 {
                     edge = edge ?? pieces[1];
                     region = region ?? pieces[2];

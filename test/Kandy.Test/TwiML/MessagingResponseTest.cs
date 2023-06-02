@@ -5,15 +5,15 @@
 
 using NUnit.Framework;
 using System;
-using Twilio.Converters;
-using Twilio.TwiML;
-using Twilio.TwiML.Messaging;
+using Kandy.Converters;
+using Kandy.TwiML;
+using Kandy.TwiML.Messaging;
 
 namespace Kandy.Tests.TwiML
 {
 
     [TestFixture]
-    public class MessagingResponseTest : TwilioTest
+    public class MessagingResponseTest : KandyTest
     {
         [Test]
         public void TestEmptyElement()
@@ -69,11 +69,11 @@ namespace Kandy.Tests.TwiML
                 "to",
                 "from",
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
+                Kandy.Http.HttpMethod.Get,
                 new Uri("https://example.com")
             );
 
-            elem.Redirect(new Uri("https://example.com"), Twilio.Http.HttpMethod.Get);
+            elem.Redirect(new Uri("https://example.com"), Kandy.Http.HttpMethod.Get);
 
             Assert.AreEqual(
                 "<?xml version=\"1.0\" encoding=\"utf-8\"?>" + Environment.NewLine +

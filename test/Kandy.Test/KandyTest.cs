@@ -2,7 +2,7 @@
 
 namespace Kandy.Tests
 {
-    public class TwilioTest
+    public class KandyTest
     {
         public string Serialize(object obj) => obj.ToString();
         public string Serialize(DateTime date) => date.ToString("yyyy-MM-dd");

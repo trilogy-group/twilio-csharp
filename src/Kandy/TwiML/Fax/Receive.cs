@@ -8,8 +8,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml.Linq;
-using Twilio.Converters;
-using Twilio.Types;
+using Kandy.Converters;
+using Kandy.Types;
 
 namespace Kandy.TwiML.Fax
 {
@@ -21,8 +21,8 @@ namespace Kandy.TwiML.Fax
     {
         public sealed class MediaTypeEnum : StringEnum
         {
-            private MediaTypeEnum(string value) : base(value) {}
-            public MediaTypeEnum() {}
+            private MediaTypeEnum(string value) : base(value) { }
+            public MediaTypeEnum() { }
             public static implicit operator MediaTypeEnum(string value)
             {
                 return new MediaTypeEnum(value);
@@ -34,8 +34,8 @@ namespace Kandy.TwiML.Fax
 
         public sealed class PageSizeEnum : StringEnum
         {
-            private PageSizeEnum(string value) : base(value) {}
-            public PageSizeEnum() {}
+            private PageSizeEnum(string value) : base(value) { }
+            public PageSizeEnum() { }
             public static implicit operator PageSizeEnum(string value)
             {
                 return new PageSizeEnum(value);
@@ -53,7 +53,7 @@ namespace Kandy.TwiML.Fax
         /// <summary>
         /// Receive action URL method
         /// </summary>
-        public Twilio.Http.HttpMethod Method { get; set; }
+        public Kandy.Http.HttpMethod Method { get; set; }
         /// <summary>
         /// The media type used to store media in the fax media store
         /// </summary>
@@ -76,7 +76,7 @@ namespace Kandy.TwiML.Fax
         /// <param name="pageSize"> What size to interpret received pages as </param>
         /// <param name="storeMedia"> Whether or not to store received media in the fax media store </param>
         public Receive(Uri action = null,
-                       Twilio.Http.HttpMethod method = null,
+                       Kandy.Http.HttpMethod method = null,
                        Receive.MediaTypeEnum mediaType = null,
                        Receive.PageSizeEnum pageSize = null,
                        bool? storeMedia = null) : base("Receive")
@@ -123,7 +123,7 @@ namespace Kandy.TwiML.Fax
         /// <param name="childElem"> Child TwiML element to add </param>
         public new Receive Append(TwiML childElem)
         {
-            return (Receive) base.Append(childElem);
+            return (Receive)base.Append(childElem);
         }
 
         /// <summary>
@@ -133,7 +133,7 @@ namespace Kandy.TwiML.Fax
         /// <param name="value"> Option value </param>
         public new Receive SetOption(string key, object value)
         {
-            return (Receive) base.SetOption(key, value);
+            return (Receive)base.SetOption(key, value);
         }
     }
 

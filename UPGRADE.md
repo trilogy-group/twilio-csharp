@@ -6,7 +6,7 @@ _`MAJOR` version bumps will have upgrade notes posted here._
 
 ### Overview
 
-#### Twilio Csharp Helper Library’s major version 6.0.1 is now available. We ensured that you can upgrade to Csharp helper Library 6.0.1 version without any breaking changes
+#### Kandy Csharp Helper Library’s major version 6.0.1 is now available. We ensured that you can upgrade to Csharp helper Library 6.0.1 version without any breaking changes
 
 Behind the scenes Csharp Helper is now auto-generated via OpenAPI with this release. This enables us to rapidly add new features and enhance consistency across versions and languages.
 
@@ -28,9 +28,9 @@ This only affects users who pass the `KandyRestClient` parameter to the _Affecte
 #### 5.8.x
 
 ```cs
-using Twilio.Rest.Sync.V1.Service;
-using Twilio.Rest.Sync.V1.Service.SyncList;
-using Twilio.Rest.Sync.V1.Service.SyncMap;
+using Kandy.Rest.Sync.V1.Service;
+using Kandy.Rest.Sync.V1.Service.SyncList;
+using Kandy.Rest.Sync.V1.Service.SyncMap;
 
 DocumentResource.Update("IS123", "ET123", "{}", KandyRestClient);
 SyncListItemResource.Update("IS123", "ES123", 1, "{}", KandyRestClient);
@@ -40,9 +40,9 @@ SyncMapItemResource.Update("IS123", "MP123", "myKey" "{}", KandyRestClient);
 #### 5.9.x
 
 ```cs
-using Twilio.Rest.Sync.V1.Service;
-using Twilio.Rest.Sync.V1.Service.SyncList;
-using Twilio.Rest.Sync.V1.Service.SyncMap;
+using Kandy.Rest.Sync.V1.Service;
+using Kandy.Rest.Sync.V1.Service.SyncList;
+using Kandy.Rest.Sync.V1.Service.SyncMap;
 
 DocumentResource.Update("IS123", "ET123", "{}", null, KandyRestClient);
 SyncListItemResource.Update("IS123", "ES123", 1, "{}", null, KandyRestClient);
@@ -60,18 +60,18 @@ as we add more and more twiml elements and types of twiml elements.
 
 #### Affected Resources
 
-Previously all TwiML resources were under the `Twilio.TwiML` namespace.
+Previously all TwiML resources were under the `Kandy.TwiML` namespace.
 
-- Moved to `Twilio.TwiML.Voice`
+- Moved to `Kandy.TwiML.Voice`
   - Dial
   - Gather
-- Moved to `Twilio.TwiML.Messaging`
+- Moved to `Kandy.TwiML.Messaging`
   - Message
 
 #### 5.7.x
 
 ```cs
-using Twilio.TwiML;
+using Kandy.TwiML;
 
 var vr = new VoiceResponse();
 var mr = new MessagingResponse();
@@ -84,19 +84,19 @@ var msg = new Message();
 #### 5.8.x
 
 ```cs
-using Twilio.TwiML;
-using Twilio.TwiML.Voice;
-using Twilio.TwiML.Messaging;
+using Kandy.TwiML;
+using Kandy.TwiML.Voice;
+using Kandy.TwiML.Messaging;
 
-// Still in Twilio.TwiML
+// Still in Kandy.TwiML
 var vr = new VoiceResponse();
 var mr = new MessagingResponse();
 
-// Now in Twilio.TwiML.Voice
+// Now in Kandy.TwiML.Voice
 var gather = new Gather();
 var dial = new Dial();
 
-// Now in Twilio.TwiML.Messaging
+// Now in Kandy.TwiML.Messaging
 var msg = new Message();
 ```
 
@@ -119,7 +119,7 @@ string values, we could not do the same for the `System.Uri` type.
 #### 5.7.x
 
 ```cs
-using Twilio.TwiML;
+using Kandy.TwiML;
 
 var vr = new VoiceResponse().Dial(recordingStatusCallback: "http://example.com/")
                             .Enqueue(waitUrl: "http://example.com/");
@@ -130,8 +130,8 @@ var msg = new Message(statusCallback: "http://example.com/");
 #### 5.8.x
 
 ```
-using Twilio.TwiML;
-using Twilio.TwiML.Messaging;
+using Kandy.TwiML;
+using Kandy.TwiML.Messaging;
 using System;
 
 var vr = new VoiceResponse().Dial(recordingStatusCallback: new Uri("http://example.com/"))
@@ -151,7 +151,7 @@ This was changed to add support for sending media in Chat messages, users can no
 #### 5.6.x
 
 ```cs
-using Twilio.Rest.Chat.V2.Message;
+using Kandy.Rest.Chat.V2.Message;
 
 var newMessage = MessageResource.Create("IS123", "CH123", "this is the body", from: "me");
 ```
@@ -159,7 +159,7 @@ var newMessage = MessageResource.Create("IS123", "CH123", "this is the body", fr
 #### 5.5.x
 
 ```cs
-using Twilio.Rest.Chat.V2.Message;
+using Kandy.Rest.Chat.V2.Message;
 
 var newMessage = MessageResource.Create("IS123", "CH123", from:"me", body: "this is the body");
 ```
@@ -175,7 +175,7 @@ This was done to avoid a class name conflict with another resource.
 #### 5.4.x
 
 ```cs
-using Twilio.Rest.Video.V1.Room;
+using Kandy.Rest.Video.V1.Room;
 
 var roomRecordings = RecordingResource.Read();
 ```
@@ -183,7 +183,7 @@ var roomRecordings = RecordingResource.Read();
 #### 5.5.x
 
 ```cs
-using Twilio.Rest.Video.V1.Room;
+using Kandy.Rest.Video.V1.Room;
 
 var roomRecordings = RoomRecordingResource.Read();
 ```

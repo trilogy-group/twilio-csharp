@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 using NSubstitute;
 using NSubstitute.ExceptionExtensions;
 using NUnit.Framework;
-using Twilio.Clients;
-using Twilio.Exceptions;
-using Twilio.Http;
+using Kandy.Clients;
+using Kandy.Exceptions;
+using Kandy.Http;
 using System.IO;
 
 namespace Kandy.Tests.Clients
@@ -48,7 +48,7 @@ namespace Kandy.Tests.Clients
             catch (CertificateValidationException e)
             {
                 Assert.IsInstanceOf(typeof(InvalidOperationException), e.GetBaseException());
-                Assert.AreEqual("Connection to api.twilio.com:8443 failed", e.Message);
+                Assert.AreEqual("Connection to api.kandy.com:8443 failed", e.Message);
                 Assert.IsNull(e.Response);
                 Assert.IsNotNull(e.Request);
             }
@@ -86,7 +86,7 @@ namespace Kandy.Tests.Clients
             string jsonResponse = @"{
                                     ""code"": 20001,
                                     ""message"": ""Bad request"",
-                                    ""more_info"": ""https://www.twilio.com/docs/errors/20001"",
+                                    ""more_info"": ""https://www.kandy.com/docs/errors/20001"",
                                     ""status"": 400,
                                     ""details"": {
                                         ""foo"": ""bar""
@@ -95,15 +95,15 @@ namespace Kandy.Tests.Clients
             try
             {
                 Request request = new Request(HttpMethod.Get, "https://www.contoso.com");
-                KandyRestClient twilioClient = new KandyRestClient("foo", "bar", null, null, client);
-                twilioClient.Request(request);
+                KandyRestClient kandyClient = new KandyRestClient("foo", "bar", null, null, client);
+                kandyClient.Request(request);
                 Assert.Fail("Should have failed");
             }
             catch (ApiException e)
             {
                 Assert.AreEqual("Bad request", e.Message);
                 Assert.AreEqual(20001, e.Code);
-                Assert.AreEqual("https://www.twilio.com/docs/errors/20001", e.MoreInfo);
+                Assert.AreEqual("https://www.kandy.com/docs/errors/20001", e.MoreInfo);
                 Assert.AreEqual(400, e.Status);
                 var expectedDetails = new Dictionary<string, object>();
                 expectedDetails.Add("foo", "bar");
@@ -116,8 +116,8 @@ namespace Kandy.Tests.Clients
         {
             client.MakeRequest(Arg.Any<Request>()).Returns(new Response(HttpStatusCode.RedirectKeepVerb, "REDIRECT"));
             Request request = new Request(HttpMethod.Get, "https://www.contoso.com");
-            KandyRestClient twilioClient = new KandyRestClient("foo", "bar", null, null, client);
-            twilioClient.Request(request);
+            KandyRestClient kandyClient = new KandyRestClient("foo", "bar", null, null, client);
+            kandyClient.Request(request);
         }
 
         [Test]
@@ -127,9 +127,9 @@ namespace Kandy.Tests.Clients
             Console.SetOut(output);
             client.MakeRequest(Arg.Any<Request>()).Returns(new Response(HttpStatusCode.OK, "OK"));
             Request request = new Request(HttpMethod.Get, "https://www.contoso.com");
-            KandyRestClient twilioClient = new KandyRestClient("foo", "bar", null, null, client);
-            twilioClient.LogLevel = "debug";
-            twilioClient.Request(request);
+            KandyRestClient kandyClient = new KandyRestClient("foo", "bar", null, null, client);
+            kandyClient.LogLevel = "debug";
+            kandyClient.Request(request);
             Assert.That(output.ToString(), Contains.Substring("request.URI: https://www.contoso.com/"));
         }
 
@@ -137,11 +137,11 @@ namespace Kandy.Tests.Clients
         public void RequestPropagatesEdgeAndRegion()
         {
             client.MakeRequest(Arg.Any<Request>()).Returns(new Response(HttpStatusCode.OK, "OK"));
-            Request request = new Request(HttpMethod.Get, "https://verify.twilio.com/");
-            KandyRestClient twilioClient = new KandyRestClient("foo", "bar", region: "us1", httpClient: client);
-            twilioClient.Edge = "frankfurt";
+            Request request = new Request(HttpMethod.Get, "https://verify.kandy.com/");
+            KandyRestClient kandyClient = new KandyRestClient("foo", "bar", region: "us1", httpClient: client);
+            kandyClient.Edge = "frankfurt";
 
-            twilioClient.Request(request);
+            kandyClient.Request(request);
 
             Assert.AreEqual(request.Edge, "frankfurt");
             Assert.AreEqual(request.Region, "us1");
@@ -151,12 +151,12 @@ namespace Kandy.Tests.Clients
         public void RequestWithUserAgentExtensions()
         {
             client.MakeRequest(Arg.Any<Request>()).Returns(new Response(HttpStatusCode.OK, "OK"));
-            Request request = new Request(HttpMethod.Get, "https://verify.twilio.com/");
-            string[] userAgentExtensions = new string[] { "twilio-run/2.0.0-test", "flex-plugin/3.4.0" };
-            KandyRestClient twilioClient = new KandyRestClient("foo", "bar", httpClient: client);
-            twilioClient.UserAgentExtensions = userAgentExtensions;
+            Request request = new Request(HttpMethod.Get, "https://verify.kandy.com/");
+            string[] userAgentExtensions = new string[] { "kandy-run/2.0.0-test", "flex-plugin/3.4.0" };
+            KandyRestClient kandyClient = new KandyRestClient("foo", "bar", httpClient: client);
+            kandyClient.UserAgentExtensions = userAgentExtensions;
 
-            twilioClient.Request(request);
+            kandyClient.Request(request);
 
             Assert.AreEqual(request.UserAgentExtensions, userAgentExtensions);
         }
@@ -166,11 +166,11 @@ namespace Kandy.Tests.Clients
         public async Task RequestAsyncPropagatesEdgeAndRegion()
         {
             client.MakeRequestAsync(Arg.Any<Request>()).Returns(new Response(HttpStatusCode.OK, "OK"));
-            Request request = new Request(HttpMethod.Get, "https://verify.twilio.com/");
-            KandyRestClient twilioClient = new KandyRestClient("foo", "bar", region: "us1", httpClient: client);
-            twilioClient.Edge = "frankfurt";
+            Request request = new Request(HttpMethod.Get, "https://verify.kandy.com/");
+            KandyRestClient kandyClient = new KandyRestClient("foo", "bar", region: "us1", httpClient: client);
+            kandyClient.Edge = "frankfurt";
 
-            await twilioClient.RequestAsync(request);
+            await kandyClient.RequestAsync(request);
 
             Assert.AreEqual(request.Edge, "frankfurt");
             Assert.AreEqual(request.Region, "us1");
@@ -180,12 +180,12 @@ namespace Kandy.Tests.Clients
         public async Task RequestAsyncWithUserAgentExtensions()
         {
             client.MakeRequestAsync(Arg.Any<Request>()).Returns(new Response(HttpStatusCode.OK, "OK"));
-            Request request = new Request(HttpMethod.Get, "https://verify.twilio.com/");
-            string[] userAgentExtensions = new string[] { "twilio-run/2.0.0-test", "flex-plugin/3.4.0" };
-            KandyRestClient twilioClient = new KandyRestClient("foo", "bar", httpClient: client);
-            twilioClient.UserAgentExtensions = userAgentExtensions;
+            Request request = new Request(HttpMethod.Get, "https://verify.kandy.com/");
+            string[] userAgentExtensions = new string[] { "kandy-run/2.0.0-test", "flex-plugin/3.4.0" };
+            KandyRestClient kandyClient = new KandyRestClient("foo", "bar", httpClient: client);
+            kandyClient.UserAgentExtensions = userAgentExtensions;
 
-            await twilioClient.RequestAsync(request);
+            await kandyClient.RequestAsync(request);
 
             Assert.AreEqual(request.UserAgentExtensions, userAgentExtensions);
         }

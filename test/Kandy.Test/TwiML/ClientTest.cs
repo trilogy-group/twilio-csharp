@@ -5,14 +5,14 @@
 
 using NUnit.Framework;
 using System;
-using Twilio.Converters;
-using Twilio.TwiML.Voice;
+using Kandy.Converters;
+using Kandy.TwiML.Voice;
 
 namespace Kandy.Tests.TwiML
 {
 
     [TestFixture]
-    public class ClientTest : TwilioTest
+    public class ClientTest : KandyTest
     {
         [Test]
         public void TestEmptyElement()
@@ -32,10 +32,10 @@ namespace Kandy.Tests.TwiML
             var elem = new Client(
                 "identity",
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
-                new[] {Client.EventEnum.Initiated},
+                Kandy.Http.HttpMethod.Get,
+                new[] { Client.EventEnum.Initiated },
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get
+                Kandy.Http.HttpMethod.Get
             );
             Assert.AreEqual(
                 "<?xml version=\"1.0\" encoding=\"utf-8\"?>" + Environment.NewLine +

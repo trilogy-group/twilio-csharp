@@ -3,57 +3,57 @@
 namespace Kandy.Exceptions
 {
     /// <summary>
-    /// Base TwilioException
+    /// Base KandyException
     /// </summary>
-    public class TwilioException : Exception
+    public class KandyException : Exception
     {
         /// <summary>
-        /// Create an empty TwilioException
+        /// Create an empty KandyException
         /// </summary>
-        public TwilioException() {}
+        public KandyException() { }
 
         /// <summary>
-        /// Create a TwilioException from an error message
+        /// Create a KandyException from an error message
         /// </summary>
         /// <param name="message">Error message</param>
-        public TwilioException (string message) : base(message) {}
+        public KandyException(string message) : base(message) { }
 
         /// <summary>
-        /// Create a TwilioException from message and another exception
+        /// Create a KandyException from message and another exception
         /// </summary>
         /// <param name="message">Error message</param>
         /// <param name="exception">Original Exception</param>
-        public TwilioException(string message, Exception exception) : base(message, exception) {}
+        public KandyException(string message, Exception exception) : base(message, exception) { }
     }
 
     /// <summary>
     /// Exception related to connection errors
     /// </summary>
-    public class ApiConnectionException : TwilioException
+    public class ApiConnectionException : KandyException
     {
         /// <summary>
         /// Create an ApiConnectionException from a message
         /// </summary>
         /// <param name="message">Error message</param>
-        public ApiConnectionException(string message) : base(message) {}
+        public ApiConnectionException(string message) : base(message) { }
 
         /// <summary>
         /// Create an ApiConnectionException from a message and another Exception
         /// </summary>
         /// <param name="message">Error message</param>
         /// <param name="exception">Original Exception</param>
-        public ApiConnectionException(string message, Exception exception) : base(message, exception) {}
+        public ApiConnectionException(string message, Exception exception) : base(message, exception) { }
     }
 
     /// <summary>
     /// Exception related to Authentication Errors
     /// </summary>
-    public class AuthenticationException : TwilioException
+    public class AuthenticationException : KandyException
     {
         /// <summary>
         /// Create AuthenticationException from an error messsage
         /// </summary>
         /// <param name="message">Error message</param>
-        public AuthenticationException(string message) : base(message) {}
+        public AuthenticationException(string message) : base(message) { }
     }
 }

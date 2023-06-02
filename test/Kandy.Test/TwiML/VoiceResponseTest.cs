@@ -5,15 +5,15 @@
 
 using NUnit.Framework;
 using System;
-using Twilio.Converters;
-using Twilio.TwiML;
-using Twilio.TwiML.Voice;
+using Kandy.Converters;
+using Kandy.TwiML;
+using Kandy.TwiML.Voice;
 
 namespace Kandy.Tests.TwiML
 {
 
     [TestFixture]
-    public class VoiceResponseTest : TwilioTest
+    public class VoiceResponseTest : KandyTest
     {
         [Test]
         public void TestEmptyElement()
@@ -64,12 +64,12 @@ namespace Kandy.Tests.TwiML
         {
             var elem = new VoiceResponse();
 
-            elem.Connect(new Uri("https://example.com"), Twilio.Http.HttpMethod.Get);
+            elem.Connect(new Uri("https://example.com"), Kandy.Http.HttpMethod.Get);
 
             elem.Dial(
                 "number",
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
+                Kandy.Http.HttpMethod.Get,
                 1,
                 true,
                 1,
@@ -77,14 +77,14 @@ namespace Kandy.Tests.TwiML
                 Dial.RecordEnum.DoNotRecord,
                 Dial.TrimEnum.TrimSilence,
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
-                new[] {Dial.RecordingEventEnum.InProgress},
+                Kandy.Http.HttpMethod.Get,
+                new[] { Dial.RecordingEventEnum.InProgress },
                 true,
                 Dial.RingToneEnum.At,
                 Dial.RecordingTrackEnum.Both,
                 true,
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get
+                Kandy.Http.HttpMethod.Get
             );
 
             elem.Echo();
@@ -93,16 +93,16 @@ namespace Kandy.Tests.TwiML
                 "name",
                 new Uri("https://example.com"),
                 1,
-                Twilio.Http.HttpMethod.Get,
+                Kandy.Http.HttpMethod.Get,
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
+                Kandy.Http.HttpMethod.Get,
                 "workflow_sid"
             );
 
             elem.Gather(
-                new[] {Gather.InputEnum.Dtmf},
+                new[] { Gather.InputEnum.Dtmf },
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
+                Kandy.Http.HttpMethod.Get,
                 1,
                 "speech_timeout",
                 1,
@@ -110,7 +110,7 @@ namespace Kandy.Tests.TwiML
                 "finish_on_key",
                 1,
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
+                Kandy.Http.HttpMethod.Get,
                 Gather.LanguageEnum.AfZa,
                 "hints",
                 true,
@@ -131,27 +131,27 @@ namespace Kandy.Tests.TwiML
             elem.Queue(
                 "name",
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
+                Kandy.Http.HttpMethod.Get,
                 "reservation_sid",
                 "post_work_activity_sid"
             );
 
             elem.Record(
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
+                Kandy.Http.HttpMethod.Get,
                 1,
                 "finish_on_key",
                 1,
                 true,
                 Record.TrimEnum.TrimSilence,
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
-                new[] {Record.RecordingEventEnum.InProgress},
+                Kandy.Http.HttpMethod.Get,
+                new[] { Record.RecordingEventEnum.InProgress },
                 true,
                 new Uri("https://example.com")
             );
 
-            elem.Redirect(new Uri("https://example.com"), Twilio.Http.HttpMethod.Get);
+            elem.Redirect(new Uri("https://example.com"), Kandy.Http.HttpMethod.Get);
 
             elem.Reject(Reject.ReasonEnum.Rejected);
 
@@ -159,10 +159,10 @@ namespace Kandy.Tests.TwiML
 
             elem.Sms(
                 "message",
-                new Twilio.Types.PhoneNumber("+15558675310"),
-                new Twilio.Types.PhoneNumber("+15017122661"),
+                new Kandy.Types.PhoneNumber("+15558675310"),
+                new Kandy.Types.PhoneNumber("+15017122661"),
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
+                Kandy.Http.HttpMethod.Get,
                 new Uri("https://example.com")
             );
 
@@ -183,23 +183,23 @@ namespace Kandy.Tests.TwiML
                 "charge_amount",
                 "currency",
                 "description",
-                new[] {Pay.ValidCardTypesEnum.Visa},
+                new[] { Pay.ValidCardTypesEnum.Visa },
                 Pay.LanguageEnum.DeDe
             );
 
             elem.Prompt(
                 Prompt.ForEnum.PaymentCardNumber,
-                new[] {Prompt.ErrorTypeEnum.Timeout},
-                new[] {Prompt.CardTypeEnum.Visa},
-                new[] {1},
+                new[] { Prompt.ErrorTypeEnum.Timeout },
+                new[] { Prompt.CardTypeEnum.Visa },
+                new[] { 1 },
                 true
             );
 
-            elem.Start(new Uri("https://example.com"), Twilio.Http.HttpMethod.Get);
+            elem.Start(new Uri("https://example.com"), Kandy.Http.HttpMethod.Get);
 
             elem.Stop();
 
-            elem.Refer(new Uri("https://example.com"), Twilio.Http.HttpMethod.Get);
+            elem.Refer(new Uri("https://example.com"), Kandy.Http.HttpMethod.Get);
 
             Assert.AreEqual(
                 "<?xml version=\"1.0\" encoding=\"utf-8\"?>" + Environment.NewLine +

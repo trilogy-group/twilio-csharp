@@ -3,7 +3,7 @@
 namespace Kandy.Jwt.AccessToken
 {
     /// <summary>
-    /// Grant to expose Twilio Voice
+    /// Grant to expose Kandy Voice
     /// </summary>
     public class VoiceGrant : IGrant
     {

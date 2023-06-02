@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml.Linq;
-using Twilio.Types;
+using Kandy.Types;
 
 namespace Kandy.TwiML.Voice
 {
@@ -19,8 +19,8 @@ namespace Kandy.TwiML.Voice
     {
         public sealed class StrengthEnum : StringEnum
         {
-            private StrengthEnum(string value) : base(value) {}
-            public StrengthEnum() {}
+            private StrengthEnum(string value) : base(value) { }
+            public StrengthEnum() { }
             public static implicit operator StrengthEnum(string value)
             {
                 return new StrengthEnum(value);
@@ -78,7 +78,7 @@ namespace Kandy.TwiML.Voice
         /// <param name="childElem"> Child TwiML element to add </param>
         public new SsmlBreak Append(TwiML childElem)
         {
-            return (SsmlBreak) base.Append(childElem);
+            return (SsmlBreak)base.Append(childElem);
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace Kandy.TwiML.Voice
         /// <param name="value"> Option value </param>
         public new SsmlBreak SetOption(string key, object value)
         {
-            return (SsmlBreak) base.SetOption(key, value);
+            return (SsmlBreak)base.SetOption(key, value);
         }
     }
 

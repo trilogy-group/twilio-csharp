@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Kandy.Jwt
 {
     /// <summary>
-    /// JWT for Twilio Client
+    /// JWT for Kandy Client
     /// </summary>
     public class ClientCapability : BaseJwt
     {
@@ -13,8 +13,8 @@ namespace Kandy.Jwt
         /// <summary>
         /// Create a new Client JWT
         /// </summary>
-        /// <param name="accountSid">Twilio Account SID</param>
-        /// <param name="authToken">Twilio auth token</param>
+        /// <param name="accountSid">Kandy Account SID</param>
+        /// <param name="authToken">Kandy auth token</param>
         /// <param name="expiration">JWT expiration</param>
         /// <param name="scopes">Scopes to give access to</param>
         public ClientCapability(
@@ -22,7 +22,7 @@ namespace Kandy.Jwt
             string authToken,
             DateTime? expiration = null,
             HashSet<IScope> scopes = null
-        ) : base (authToken, accountSid, expiration.HasValue ? expiration.Value : DateTime.UtcNow.AddSeconds(3600))
+        ) : base(authToken, accountSid, expiration.HasValue ? expiration.Value : DateTime.UtcNow.AddSeconds(3600))
         {
             this._scopes = scopes;
         }

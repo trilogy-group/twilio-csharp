@@ -5,15 +5,15 @@
 
 using NUnit.Framework;
 using System;
-using Twilio.Converters;
-using Twilio.TwiML;
-using Twilio.TwiML.Fax;
+using Kandy.Converters;
+using Kandy.TwiML;
+using Kandy.TwiML.Fax;
 
 namespace Kandy.Tests.TwiML
 {
 
     [TestFixture]
-    public class FaxResponseTest : TwilioTest
+    public class FaxResponseTest : KandyTest
     {
         [Test]
         public void TestEmptyElement()
@@ -48,7 +48,7 @@ namespace Kandy.Tests.TwiML
 
             elem.Receive(
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
+                Kandy.Http.HttpMethod.Get,
                 Receive.MediaTypeEnum.ApplicationPdf,
                 Receive.PageSizeEnum.Letter,
                 true

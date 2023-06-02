@@ -5,14 +5,14 @@
 
 using NUnit.Framework;
 using System;
-using Twilio.Converters;
-using Twilio.TwiML.Voice;
+using Kandy.Converters;
+using Kandy.TwiML.Voice;
 
 namespace Kandy.Tests.TwiML
 {
 
     [TestFixture]
-    public class SmsTest : TwilioTest
+    public class SmsTest : KandyTest
     {
         [Test]
         public void TestEmptyElement()
@@ -31,10 +31,10 @@ namespace Kandy.Tests.TwiML
         {
             var elem = new Sms(
                 "message",
-                new Twilio.Types.PhoneNumber("+15558675310"),
-                new Twilio.Types.PhoneNumber("+15017122661"),
+                new Kandy.Types.PhoneNumber("+15558675310"),
+                new Kandy.Types.PhoneNumber("+15017122661"),
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
+                Kandy.Http.HttpMethod.Get,
                 new Uri("https://example.com")
             );
             Assert.AreEqual(

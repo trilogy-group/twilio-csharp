@@ -1,9 +1,9 @@
-﻿using Twilio.Http;
+﻿using Kandy.Http;
 
 namespace Kandy.Clients
 {
     /// <summary>
-    /// Interface for a Twilio Client
+    /// Interface for a Kandy Client
     /// </summary>
     public interface IKandyRestClient
     {
@@ -23,7 +23,7 @@ namespace Kandy.Clients
         HttpClient HttpClient { get; }
 
         /// <summary>
-        /// Make a request to Twilio
+        /// Make a request to Kandy
         /// </summary>
         ///
         /// <param name="request">Request to make</param>
@@ -32,7 +32,7 @@ namespace Kandy.Clients
 
 #if !NET35
         /// <summary>
-        /// Make a request to Twilio
+        /// Make a request to Kandy
         /// </summary>
         ///
         /// <param name="request">Request to make</param>

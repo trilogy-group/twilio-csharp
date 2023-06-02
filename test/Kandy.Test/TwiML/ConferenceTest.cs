@@ -5,14 +5,14 @@
 
 using NUnit.Framework;
 using System;
-using Twilio.Converters;
-using Twilio.TwiML.Voice;
+using Kandy.Converters;
+using Kandy.TwiML.Voice;
 
 namespace Kandy.Tests.TwiML
 {
 
     [TestFixture]
-    public class ConferenceTest : TwilioTest
+    public class ConferenceTest : KandyTest
     {
         [Test]
         public void TestEmptyElement()
@@ -36,18 +36,18 @@ namespace Kandy.Tests.TwiML
                 true,
                 true,
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
+                Kandy.Http.HttpMethod.Get,
                 1,
                 Conference.RecordEnum.DoNotRecord,
                 Conference.RegionEnum.Us1,
                 "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
                 Conference.TrimEnum.TrimSilence,
-                new[] {Conference.EventEnum.Start},
+                new[] { Conference.EventEnum.Start },
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
+                Kandy.Http.HttpMethod.Get,
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
-                new[] {Conference.RecordingEventEnum.InProgress},
+                Kandy.Http.HttpMethod.Get,
+                new[] { Conference.RecordingEventEnum.InProgress },
                 new Uri("https://example.com"),
                 Conference.JitterBufferSizeEnum.Large,
                 "participant_label"

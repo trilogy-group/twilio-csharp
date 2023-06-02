@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.IO;
 using NUnit.Framework;
-using Twilio.Jwt;
-using Twilio.Tests.Jwt;
+using Kandy.Jwt;
+using Kandy.Tests.Jwt;
 
 namespace Kandy.Tests.Jwt
 {
     class TestJwt : BaseJwt
     {
         public static string SECRET = "superduperduperdupersecret";
-        
+
         private DateTime? _nbf;
 
         public TestJwt(DateTime exp, DateTime? nbf = null) : base(TestJwt.SECRET, "issuer", exp)
@@ -22,7 +22,7 @@ namespace Kandy.Tests.Jwt
         public override Dictionary<string, object> Claims => new Dictionary<string, object>();
         public override DateTime? Nbf { get => this._nbf; }
     }
-        
+
     public class BaseJwtTest
     {
         static DateTime TEST_TIME = new DateTime(2037, 9, 7, 9, 0, 0, DateTimeKind.Utc);
@@ -37,7 +37,7 @@ namespace Kandy.Tests.Jwt
 
             Assert.AreEqual(TEST_TIMESTAMP, decoded.Payload["exp"]);
         }
-        
+
         [Test]
         public void TestSetLocalTimeExp()
         {
@@ -49,7 +49,7 @@ namespace Kandy.Tests.Jwt
 
             Assert.AreEqual(TEST_TIMESTAMP, decoded.Payload["exp"]);
         }
-        
+
         [Test]
         public void TestSetUtcNbf()
         {
@@ -58,7 +58,7 @@ namespace Kandy.Tests.Jwt
 
             Assert.AreEqual(TEST_TIMESTAMP, decoded.Payload["nbf"]);
         }
-        
+
         [Test]
         public void TestSetLocalTimeNbf()
         {

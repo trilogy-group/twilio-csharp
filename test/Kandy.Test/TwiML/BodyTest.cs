@@ -5,14 +5,14 @@
 
 using NUnit.Framework;
 using System;
-using Twilio.Converters;
-using Twilio.TwiML.Messaging;
+using Kandy.Converters;
+using Kandy.TwiML.Messaging;
 
 namespace Kandy.Tests.TwiML
 {
 
     [TestFixture]
-    public class BodyTest : TwilioTest
+    public class BodyTest : KandyTest
     {
         [Test]
         public void TestEmptyElement()

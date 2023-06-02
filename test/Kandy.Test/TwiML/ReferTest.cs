@@ -5,14 +5,14 @@
 
 using NUnit.Framework;
 using System;
-using Twilio.Converters;
-using Twilio.TwiML.Voice;
+using Kandy.Converters;
+using Kandy.TwiML.Voice;
 
 namespace Kandy.Tests.TwiML
 {
 
     [TestFixture]
-    public class ReferTest : TwilioTest
+    public class ReferTest : KandyTest
     {
         [Test]
         public void TestEmptyElement()
@@ -29,7 +29,7 @@ namespace Kandy.Tests.TwiML
         [Test]
         public void TestElementWithParams()
         {
-            var elem = new Refer(new Uri("https://example.com"), Twilio.Http.HttpMethod.Get);
+            var elem = new Refer(new Uri("https://example.com"), Kandy.Http.HttpMethod.Get);
             Assert.AreEqual(
                 "<?xml version=\"1.0\" encoding=\"utf-8\"?>" + Environment.NewLine +
                 "<Refer action=\"https://example.com\" method=\"GET\"></Refer>",

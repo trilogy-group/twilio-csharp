@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml.Linq;
-using Twilio.Converters;
+using Kandy.Converters;
 
 namespace Kandy.TwiML.Voice
 {
@@ -37,7 +37,7 @@ namespace Kandy.TwiML.Voice
         /// <summary>
         /// Action URL method
         /// </summary>
-        public Twilio.Http.HttpMethod Method { get; set; }
+        public Kandy.Http.HttpMethod Method { get; set; }
         /// <summary>
         /// Status callback URL
         /// </summary>
@@ -56,7 +56,7 @@ namespace Kandy.TwiML.Voice
                    Types.PhoneNumber to = null,
                    Types.PhoneNumber from = null,
                    Uri action = null,
-                   Twilio.Http.HttpMethod method = null,
+                   Kandy.Http.HttpMethod method = null,
                    Uri statusCallback = null) : base("Sms")
         {
             this.Message = message;
@@ -110,7 +110,7 @@ namespace Kandy.TwiML.Voice
         /// <param name="childElem"> Child TwiML element to add </param>
         public new Sms Append(TwiML childElem)
         {
-            return (Sms) base.Append(childElem);
+            return (Sms)base.Append(childElem);
         }
 
         /// <summary>
@@ -120,7 +120,7 @@ namespace Kandy.TwiML.Voice
         /// <param name="value"> Option value </param>
         public new Sms SetOption(string key, object value)
         {
-            return (Sms) base.SetOption(key, value);
+            return (Sms)base.SetOption(key, value);
         }
     }
 

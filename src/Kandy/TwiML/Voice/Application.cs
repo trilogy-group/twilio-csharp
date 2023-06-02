@@ -9,8 +9,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
-using Twilio.Converters;
-using Twilio.Types;
+using Kandy.Converters;
+using Kandy.Types;
 
 namespace Kandy.TwiML.Voice
 {
@@ -22,8 +22,8 @@ namespace Kandy.TwiML.Voice
     {
         public sealed class EventEnum : StringEnum
         {
-            private EventEnum(string value) : base(value) {}
-            public EventEnum() {}
+            private EventEnum(string value) : base(value) { }
+            public EventEnum() { }
             public static implicit operator EventEnum(string value)
             {
                 return new EventEnum(value);
@@ -46,7 +46,7 @@ namespace Kandy.TwiML.Voice
         /// <summary>
         /// TwiML URL Method
         /// </summary>
-        public Twilio.Http.HttpMethod Method { get; set; }
+        public Kandy.Http.HttpMethod Method { get; set; }
         /// <summary>
         /// Events to trigger status callback
         /// </summary>
@@ -58,7 +58,7 @@ namespace Kandy.TwiML.Voice
         /// <summary>
         /// Status Callback URL Method
         /// </summary>
-        public Twilio.Http.HttpMethod StatusCallbackMethod { get; set; }
+        public Kandy.Http.HttpMethod StatusCallbackMethod { get; set; }
         /// <summary>
         /// Identity of the customer calling application
         /// </summary>
@@ -82,10 +82,10 @@ namespace Kandy.TwiML.Voice
         ///                    as To field </param>
         public Application(string applicationSid = null,
                            Uri url = null,
-                           Twilio.Http.HttpMethod method = null,
+                           Kandy.Http.HttpMethod method = null,
                            IEnumerable<Application.EventEnum> statusCallbackEvent = null,
                            Uri statusCallback = null,
-                           Twilio.Http.HttpMethod statusCallbackMethod = null,
+                           Kandy.Http.HttpMethod statusCallbackMethod = null,
                            string customerId = null,
                            bool? copyParentTo = null) : base("Application")
         {
@@ -195,7 +195,7 @@ namespace Kandy.TwiML.Voice
         /// <param name="childElem"> Child TwiML element to add </param>
         public new Application Append(TwiML childElem)
         {
-            return (Application) base.Append(childElem);
+            return (Application)base.Append(childElem);
         }
 
         /// <summary>
@@ -205,7 +205,7 @@ namespace Kandy.TwiML.Voice
         /// <param name="value"> Option value </param>
         public new Application SetOption(string key, object value)
         {
-            return (Application) base.SetOption(key, value);
+            return (Application)base.SetOption(key, value);
         }
     }
 

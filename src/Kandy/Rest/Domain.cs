@@ -8,15 +8,15 @@
 * https://openapi-generator.tech
 * Do not edit the class manually.
 */
-using Twilio.Types;
+using Kandy.Types;
 
 namespace Kandy.Rest
 {
 
     public sealed class Domain : StringEnum
     {
-        private Domain(string value) : base(value) {}
-        public Domain() {}
+        private Domain(string value) : base(value) { }
+        public Domain() { }
         public static implicit operator Domain(string value)
         {
             return new Domain(value);

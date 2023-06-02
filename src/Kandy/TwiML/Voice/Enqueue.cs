@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml.Linq;
-using Twilio.Converters;
+using Kandy.Converters;
 
 namespace Kandy.TwiML.Voice
 {
@@ -33,7 +33,7 @@ namespace Kandy.TwiML.Voice
         /// <summary>
         /// Action URL method
         /// </summary>
-        public Twilio.Http.HttpMethod Method { get; set; }
+        public Kandy.Http.HttpMethod Method { get; set; }
         /// <summary>
         /// Wait URL
         /// </summary>
@@ -41,7 +41,7 @@ namespace Kandy.TwiML.Voice
         /// <summary>
         /// Wait URL method
         /// </summary>
-        public Twilio.Http.HttpMethod WaitUrlMethod { get; set; }
+        public Kandy.Http.HttpMethod WaitUrlMethod { get; set; }
         /// <summary>
         /// TaskRouter Workflow SID
         /// </summary>
@@ -60,9 +60,9 @@ namespace Kandy.TwiML.Voice
         public Enqueue(string name = null,
                        Uri action = null,
                        int? maxQueueSize = null,
-                       Twilio.Http.HttpMethod method = null,
+                       Kandy.Http.HttpMethod method = null,
                        Uri waitUrl = null,
-                       Twilio.Http.HttpMethod waitUrlMethod = null,
+                       Kandy.Http.HttpMethod waitUrlMethod = null,
                        string workflowSid = null) : base("Enqueue")
         {
             this.Name = name;
@@ -146,7 +146,7 @@ namespace Kandy.TwiML.Voice
         /// <param name="childElem"> Child TwiML element to add </param>
         public new Enqueue Append(TwiML childElem)
         {
-            return (Enqueue) base.Append(childElem);
+            return (Enqueue)base.Append(childElem);
         }
 
         /// <summary>
@@ -156,7 +156,7 @@ namespace Kandy.TwiML.Voice
         /// <param name="value"> Option value </param>
         public new Enqueue SetOption(string key, object value)
         {
-            return (Enqueue) base.SetOption(key, value);
+            return (Enqueue)base.SetOption(key, value);
         }
     }
 

@@ -6,10 +6,10 @@ namespace Kandy.Exceptions
     /// <summary>
     /// POCO to represent an API Exception
     /// </summary>
-    public class ApiException : TwilioException
+    public class ApiException : KandyException
     {
         /// <summary>
-        /// Twilio error code
+        /// Kandy error code
         /// </summary>
         public int Code { get; }
 
@@ -32,19 +32,19 @@ namespace Kandy.Exceptions
         /// Create a ApiException with message
         /// </summary>
         /// <param name="message">Exception message</param>
-        public ApiException(string message) : base(message) {}
+        public ApiException(string message) : base(message) { }
 
         /// <summary>
         /// Create an ApiException from another Exception
         /// </summary>
         /// <param name="message">Exception message</param>
         /// <param name="exception">Exception to copy detatils from</param>
-        public ApiException(string message, Exception exception) : base(message, exception) {}
+        public ApiException(string message, Exception exception) : base(message, exception) { }
 
         /// <summary>
         /// Create an ApiException
         /// </summary>
-        /// <param name="code">Twilio error code</param>
+        /// <param name="code">Kandy error code</param>
         /// <param name="status">HTTP status code</param>
         /// <param name="message">Error message</param>
         /// <param name="moreInfo">More info if provided</param>

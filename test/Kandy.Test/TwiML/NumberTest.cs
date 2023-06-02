@@ -5,14 +5,14 @@
 
 using NUnit.Framework;
 using System;
-using Twilio.Converters;
-using Twilio.TwiML.Voice;
+using Kandy.Converters;
+using Kandy.TwiML.Voice;
 
 namespace Kandy.Tests.TwiML
 {
 
     [TestFixture]
-    public class NumberTest : TwilioTest
+    public class NumberTest : KandyTest
     {
         [Test]
         public void TestEmptyElement()
@@ -30,16 +30,16 @@ namespace Kandy.Tests.TwiML
         public void TestElementWithParams()
         {
             var elem = new Number(
-                new Twilio.Types.PhoneNumber("+15017122661"),
+                new Kandy.Types.PhoneNumber("+15017122661"),
                 "send_digits",
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
-                new[] {Number.EventEnum.Initiated},
+                Kandy.Http.HttpMethod.Get,
+                new[] { Number.EventEnum.Initiated },
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
+                Kandy.Http.HttpMethod.Get,
                 "BYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
                 "machine_detection",
-                Twilio.Http.HttpMethod.Get,
+                Kandy.Http.HttpMethod.Get,
                 "amd_status_callback",
                 1,
                 1,

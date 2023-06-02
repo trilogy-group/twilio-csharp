@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Collections;
-using Twilio.Types;
+using Kandy.Types;
 
 namespace Kandy.Converters
 {
@@ -55,7 +55,7 @@ namespace Kandy.Converters
                     return null;
                 }
                 var constructedListType = MakeGenericType(objectType);
-                var results = (IList) Activator.CreateInstance(constructedListType);
+                var results = (IList)Activator.CreateInstance(constructedListType);
                 reader.Read();
 
                 while (reader.Value != null)
@@ -69,7 +69,7 @@ namespace Kandy.Converters
                 return results;
             }
 
-            var instance = (StringEnum) Activator.CreateInstance(objectType);
+            var instance = (StringEnum)Activator.CreateInstance(objectType);
             instance.FromString(reader.Value as string);
 
             return instance;
@@ -99,7 +99,7 @@ namespace Kandy.Converters
         private static StringEnum CreateEnum(Type objectType)
         {
 #if !NET35
-            return (StringEnum) Activator.CreateInstance(objectType.GenericTypeArguments[0]);
+            return (StringEnum)Activator.CreateInstance(objectType.GenericTypeArguments[0]);
 #else
             return (StringEnum) Activator.CreateInstance(objectType.GetGenericArguments()[0]);
 #endif

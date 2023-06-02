@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Twilio.Tests</RootNamespace>
+    <RootNamespace>Kandy.Tests</RootNamespace>
     <TargetFrameworks>netcoreapp2.0;net451;net35</TargetFrameworks>
     <RuntimeIdentifier Condition=" '$(TargetFramework)' == 'net451' ">win7-x86</RuntimeIdentifier>
     <RuntimeIdentifier Condition=" '$(TargetFramework)' == 'net35' ">win7-x86</RuntimeIdentifier>
@@ -23,7 +23,7 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Twilio\Twilio.csproj" />
+    <ProjectReference Include="..\..\src\Kandy\Kandy.csproj" />
   </ItemGroup>
   <ItemGroup Condition="($(TargetFramework.StartsWith('net3')) OR $(TargetFramework.StartsWith('net4'))) AND '$(MSBuildRuntimeType)' == 'Core' AND '$(OS)' != 'Windows_NT'">
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All" />

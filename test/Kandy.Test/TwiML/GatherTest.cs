@@ -5,14 +5,14 @@
 
 using NUnit.Framework;
 using System;
-using Twilio.Converters;
-using Twilio.TwiML.Voice;
+using Kandy.Converters;
+using Kandy.TwiML.Voice;
 
 namespace Kandy.Tests.TwiML
 {
 
     [TestFixture]
-    public class GatherTest : TwilioTest
+    public class GatherTest : KandyTest
     {
         [Test]
         public void TestEmptyElement()
@@ -30,9 +30,9 @@ namespace Kandy.Tests.TwiML
         public void TestElementWithParams()
         {
             var elem = new Gather(
-                new[] {Gather.InputEnum.Dtmf},
+                new[] { Gather.InputEnum.Dtmf },
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
+                Kandy.Http.HttpMethod.Get,
                 1,
                 "speech_timeout",
                 1,
@@ -40,7 +40,7 @@ namespace Kandy.Tests.TwiML
                 "finish_on_key",
                 1,
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
+                Kandy.Http.HttpMethod.Get,
                 Gather.LanguageEnum.AfZa,
                 "hints",
                 true,

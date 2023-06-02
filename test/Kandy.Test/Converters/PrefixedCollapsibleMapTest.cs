@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using NUnit.Framework;
-using Twilio.Converters;
+using Kandy.Converters;
 
 namespace Kandy.Tests.Converters
 {
     [TestFixture]
-    public class PrefixedCollapsibleMapTest : TwilioTest {
+    public class PrefixedCollapsibleMapTest : KandyTest 
+   {
 
         [Test]
         public void TestNullSerialize()
@@ -22,7 +23,8 @@ namespace Kandy.Tests.Converters
         }
 
         [Test]
-        public void TestNormalSerialize() {
+        public void TestNormalSerialize()
+        {
 
             var inputDict = new Dictionary<string, object>
             {
@@ -31,7 +33,7 @@ namespace Kandy.Tests.Converters
             };
 
             var result = PrefixedCollapsibleMap.Serialize(
-                inputDict, 
+                inputDict,
                 "really"
             );
 

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using NUnit.Framework;
-using Twilio.Jwt;
-using Twilio.Jwt.Taskrouter;
-using Twilio.Http;
+using Kandy.Jwt;
+using Kandy.Jwt.Taskrouter;
+using Kandy.Http;
 
 namespace Kandy.Tests.Jwt.Taskrouter
 {
@@ -20,7 +20,7 @@ namespace Kandy.Tests.Jwt.Taskrouter
         {
             var policies = new List<Policy>
             {
-                { new Policy("https://taskrouter.twilio.com/v1/Workspaces", HttpMethod.Get) }
+                { new Policy("https://taskrouter.kandy.com/v1/Workspaces", HttpMethod.Get) }
             };
 
             var jwt = new TaskRouterCapability(AccountSid, AuthToken, WorkspaceSid, WorkerSid, policies: policies).ToJwt();

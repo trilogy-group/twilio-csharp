@@ -3,7 +3,7 @@
 namespace Kandy.Jwt.AccessToken
 {
     /// <summary>
-    /// Grant for Twilio Sync
+    /// Grant for Kandy Sync
     /// </summary>
     public class SyncGrant : IGrant
     {
@@ -11,7 +11,7 @@ namespace Kandy.Jwt.AccessToken
         /// Sync service SID
         /// </summary>
         public string ServiceSid { get; set; }
-        
+
         /// <summary>
         /// Endpoint ID
         /// </summary>

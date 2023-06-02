@@ -1,44 +1,45 @@
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
-using Twilio.Converters;
+using Kandy.Converters;
 
 namespace Kandy.Tests.Converters
 {
     [TestFixture]
-    public class SerializersTest : TwilioTest {
+    public class SerializersTest : KandyTest
+    {
 
         [Test]
         public void TestJsonObjectSerializesDictionary()
         {
-            var inputDict = new Dictionary<string, string> {{"twilio", "rocks"}};
+            var inputDict = new Dictionary<string, string> { { "kandy", "rocks" } };
             var result = Serializers.JsonObject(inputDict);
-            Assert.AreEqual("{\"twilio\":\"rocks\"}", result);
+            Assert.AreEqual("{\"kandy\":\"rocks\"}", result);
         }
 
         [Test]
         public void TestJsonObjectSerializesList()
         {
             var inputDict = new List<object>{
-                "twilio",
+                "kandy",
                 new Dictionary<string, string> {{"join", "us"}}
             };
             var result = Serializers.JsonObject(inputDict);
-            Assert.AreEqual("[\"twilio\",{\"join\":\"us\"}]", result);
+            Assert.AreEqual("[\"kandy\",{\"join\":\"us\"}]", result);
         }
 
         [Test]
         public void TestJsonObjectSerializesArray()
         {
-            string[] inputDict = new string[2] {"twilio", "rocks"};
+            string[] inputDict = new string[2] { "kandy", "rocks" };
             var result = Serializers.JsonObject(inputDict);
-            Assert.AreEqual("[\"twilio\",\"rocks\"]", result);
+            Assert.AreEqual("[\"kandy\",\"rocks\"]", result);
         }
 
         [Test]
         public void TestJsonObjectPassesThroughString()
         {
-            var input = "{\"twilio\":\"is dope\"}";
+            var input = "{\"kandy\":\"is dope\"}";
             var result = Serializers.JsonObject(input);
             Assert.AreEqual(input, result);
         }

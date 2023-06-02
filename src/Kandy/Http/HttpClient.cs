@@ -3,7 +3,7 @@ using System;
 namespace Kandy.Http
 {
     /// <summary>
-    /// Base http client used to make Twilio requests
+    /// Base http client used to make Kandy requests
     /// </summary>
     public abstract class HttpClient
     {
@@ -18,7 +18,7 @@ namespace Kandy.Http
         public Response LastResponse { get; protected set; }
 
         /// <summary>
-        /// Make a request to Twilio, returns non-2XX responses as well
+        /// Make a request to Kandy, returns non-2XX responses as well
         /// </summary>
         ///
         /// <param name="request">request to make</param>
@@ -28,7 +28,7 @@ namespace Kandy.Http
 
 #if !NET35
         /// <summary>
-        /// Make an async request to Twilio, returns non-2XX responses as well
+        /// Make an async request to Kandy, returns non-2XX responses as well
         /// </summary>
         ///
         /// <param name="request">request to make</param>

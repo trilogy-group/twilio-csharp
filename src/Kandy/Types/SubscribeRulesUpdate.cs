@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using Twilio.Converters;
+using Kandy.Converters;
 
 /// <summary>
 /// Subscribe Rule Update - Used to update the list of Subscribe Rules
 ///
 ///   For more information see:
-///   <a href="https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr">Specifying Subscribe Rules</a>
+///   <a href="https://www.kandy.com/docs/video/api/track-subscriptions#specifying-sr">Specifying Subscribe Rules</a>
 /// </summary>
 namespace Kandy.Types
 {
@@ -15,7 +15,7 @@ namespace Kandy.Types
         [JsonProperty("rules")]
         public List<SubscribeRule> Rules { get; private set; }
 
-        public SubscribeRulesUpdate (
+        public SubscribeRulesUpdate(
             [JsonProperty("rules")]
             List<SubscribeRule> rules
         )

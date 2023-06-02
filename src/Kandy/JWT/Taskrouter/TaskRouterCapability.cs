@@ -17,8 +17,8 @@ namespace Kandy.Jwt.Taskrouter
         /// <summary>
         /// Create a new TaskRouter JWT
         /// </summary>
-        /// <param name="accountSid">Twilio account SID</param>
-        /// <param name="authToken">Twilio auth token</param>
+        /// <param name="accountSid">Kandy account SID</param>
+        /// <param name="authToken">Kandy auth token</param>
         /// <param name="workspaceSid">TaskRouter workspace SID</param>
         /// <param name="channelId">TaskRouter channel ID</param>
         /// <param name="friendlyName">Friendly name for this JWT</param>

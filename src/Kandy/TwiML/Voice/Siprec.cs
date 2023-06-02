@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml.Linq;
-using Twilio.Types;
+using Kandy.Types;
 
 namespace Kandy.TwiML.Voice
 {
@@ -19,8 +19,8 @@ namespace Kandy.TwiML.Voice
     {
         public sealed class TrackEnum : StringEnum
         {
-            private TrackEnum(string value) : base(value) {}
-            public TrackEnum() {}
+            private TrackEnum(string value) : base(value) { }
+            public TrackEnum() { }
             public static implicit operator TrackEnum(string value)
             {
                 return new TrackEnum(value);
@@ -107,7 +107,7 @@ namespace Kandy.TwiML.Voice
         /// <param name="childElem"> Child TwiML element to add </param>
         public new Siprec Append(TwiML childElem)
         {
-            return (Siprec) base.Append(childElem);
+            return (Siprec)base.Append(childElem);
         }
 
         /// <summary>
@@ -117,7 +117,7 @@ namespace Kandy.TwiML.Voice
         /// <param name="value"> Option value </param>
         public new Siprec SetOption(string key, object value)
         {
-            return (Siprec) base.SetOption(key, value);
+            return (Siprec)base.SetOption(key, value);
         }
     }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 namespace Kandy.Jwt.AccessToken
 {
     /// <summary>
-    /// Grant to use for Twilio Chat
+    /// Grant to use for Kandy Chat
     /// </summary>
     public class ChatGrant : IGrant
     {
@@ -11,17 +11,17 @@ namespace Kandy.Jwt.AccessToken
         /// Service SID
         /// </summary>
         public string ServiceSid { get; set; }
-        
+
         /// <summary>
         /// Endpoint ID
         /// </summary>
         public string EndpointId { get; set; }
-        
+
         /// <summary>
         /// Deployment role SID
         /// </summary>
         public string DeploymentRoleSid { get; set; }
-        
+
         /// <summary>
         /// Push credential SID
         /// </summary>

@@ -32,11 +32,11 @@ RUN apt-get update \
         mono-complete \
     && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /twilio
+WORKDIR /kandy
 
 COPY src ./src
 COPY test ./test
-COPY Twilio.sln .
+COPY Kandy.sln .
 COPY Makefile .
 
 RUN dotnet restore

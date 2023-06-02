@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml.Linq;
-using Twilio.Converters;
+using Kandy.Converters;
 
 namespace Kandy.TwiML.Messaging
 {
@@ -37,7 +37,7 @@ namespace Kandy.TwiML.Messaging
         /// <summary>
         /// Action URL Method
         /// </summary>
-        public Twilio.Http.HttpMethod Method { get; set; }
+        public Kandy.Http.HttpMethod Method { get; set; }
         /// <summary>
         /// Status callback URL. Deprecated in favor of action.
         /// </summary>
@@ -56,7 +56,7 @@ namespace Kandy.TwiML.Messaging
                        string to = null,
                        string from = null,
                        Uri action = null,
-                       Twilio.Http.HttpMethod method = null,
+                       Kandy.Http.HttpMethod method = null,
                        Uri statusCallback = null) : base("Message")
         {
             this.BodyAttribute = body;
@@ -154,7 +154,7 @@ namespace Kandy.TwiML.Messaging
         /// <param name="childElem"> Child TwiML element to add </param>
         public new Message Append(TwiML childElem)
         {
-            return (Message) base.Append(childElem);
+            return (Message)base.Append(childElem);
         }
 
         /// <summary>
@@ -164,7 +164,7 @@ namespace Kandy.TwiML.Messaging
         /// <param name="value"> Option value </param>
         public new Message SetOption(string key, object value)
         {
-            return (Message) base.SetOption(key, value);
+            return (Message)base.SetOption(key, value);
         }
     }
 

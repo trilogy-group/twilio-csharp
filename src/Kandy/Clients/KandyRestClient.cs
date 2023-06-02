@@ -2,15 +2,15 @@
 using System;
 using System.Net;
 using Newtonsoft.Json;
-using Twilio.Exceptions;
+using Kandy.Exceptions;
 
 #if !NET35
 using System.Threading.Tasks;
 #endif
 
-using Twilio.Http;
+using Kandy.Http;
 #if NET35
-using Twilio.Http.Net35;
+using Kandy.Http.Net35;
 #endif
 
 namespace Kandy.Clients
@@ -31,12 +31,12 @@ namespace Kandy.Clients
         public string AccountSid { get; }
 
         /// <summary>
-        /// Twilio region to make requests to
+        /// Kandy region to make requests to
         /// </summary>
         public string Region { get; }
 
         /// <summary>
-        /// Twilio edge to make requests to
+        /// Kandy edge to make requests to
         /// </summary>
         public string Edge { get; set; }
 
@@ -48,7 +48,7 @@ namespace Kandy.Clients
         /// <summary>
         /// Log level for logging
         /// </summary>
-        public string LogLevel { get; set; } = Environment.GetEnvironmentVariable("TWILIO_LOG_LEVEL");
+        public string LogLevel { get; set; } = Environment.GetEnvironmentVariable("KANDY_LOG_LEVEL");
         private readonly string _username;
         private readonly string _password;
 
@@ -82,7 +82,7 @@ namespace Kandy.Clients
         }
 
         /// <summary>
-        /// Make a request to the Twilio API
+        /// Make a request to the Kandy API
         /// </summary>
         ///
         /// <param name="request">request to make</param>
@@ -125,7 +125,7 @@ namespace Kandy.Clients
 
 #if !NET35
         /// <summary>
-        /// Make a request to the Twilio API
+        /// Make a request to the Kandy API
         /// </summary>
         ///
         /// <param name="request">request to make</param>
@@ -205,8 +205,8 @@ namespace Kandy.Clients
 
         /// <summary>
         /// Test that this application can use updated SSL certificates on
-        /// api.twilio.com:8443. It's a bit easier to call this method from
-        /// TwilioClient.ValidateSslCertificate().
+        /// api.kandy.com:8443. It's a bit easier to call this method from
+        /// KandyClient.ValidateSslCertificate().
         /// </summary>
         public static void ValidateSslCertificate()
         {
@@ -215,7 +215,7 @@ namespace Kandy.Clients
 
         /// <summary>
         /// Test that this application can use updated SSL certificates on
-        /// api.twilio.com:8443. Generally, you'll want to use the version of this
+        /// api.kandy.com:8443. Generally, you'll want to use the version of this
         /// function that takes no parameters unless you have a reason not to.
         /// </summary>
         ///
@@ -244,7 +244,7 @@ namespace Kandy.Clients
             catch (Exception e)
             {
                 throw new CertificateValidationException(
-                    "Connection to api.twilio.com:8443 failed",
+                    "Connection to api.kandy.com:8443 failed",
                     e,
                     request
                 );
@@ -258,7 +258,7 @@ namespace Kandy.Clients
         /// <param name="request">HTTP request</param>
         private static void LogRequest(Request request)
         {
-            Console.WriteLine("-- BEGIN Twilio API Request --");
+            Console.WriteLine("-- BEGIN Kandy API Request --");
             Console.WriteLine("request.method: " + request.Method);
             Console.WriteLine("request.URI: " + request.Uri);
 
@@ -279,7 +279,7 @@ namespace Kandy.Clients
                 }
             }
 
-            Console.WriteLine("-- END Twilio API Request --");
+            Console.WriteLine("-- END Kandy API Request --");
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Kandy.Jwt.AccessToken
 {
     /// <summary>
-    /// Access Token for Twilio resources
+    /// Access Token for Kandy resources
     /// </summary>
     public class Token : BaseJwt
     {
@@ -97,7 +97,7 @@ namespace Kandy.Jwt.AccessToken
         {
             get
             {
-                var headers = new Dictionary<string, object> { { "cty", "twilio-fpa;v=1" } };
+                var headers = new Dictionary<string, object> { { "cty", "kandy-fpa;v=1" } };
 
                 if (_region != null)
                 {

@@ -5,14 +5,14 @@
 
 using NUnit.Framework;
 using System;
-using Twilio.Converters;
-using Twilio.TwiML.Voice;
+using Kandy.Converters;
+using Kandy.TwiML.Voice;
 
 namespace Kandy.Tests.TwiML
 {
 
     [TestFixture]
-    public class VirtualAgentTest : TwilioTest
+    public class VirtualAgentTest : KandyTest
     {
         [Test]
         public void TestEmptyElement()
@@ -34,7 +34,7 @@ namespace Kandy.Tests.TwiML
                 "language",
                 true,
                 "status_callback",
-                Twilio.Http.HttpMethod.Get
+                Kandy.Http.HttpMethod.Get
             );
             Assert.AreEqual(
                 "<?xml version=\"1.0\" encoding=\"utf-8\"?>" + Environment.NewLine +

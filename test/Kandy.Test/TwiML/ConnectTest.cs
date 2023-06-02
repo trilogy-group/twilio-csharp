@@ -5,14 +5,14 @@
 
 using NUnit.Framework;
 using System;
-using Twilio.Converters;
-using Twilio.TwiML.Voice;
+using Kandy.Converters;
+using Kandy.TwiML.Voice;
 
 namespace Kandy.Tests.TwiML
 {
 
     [TestFixture]
-    public class ConnectTest : TwilioTest
+    public class ConnectTest : KandyTest
     {
         [Test]
         public void TestEmptyElement()
@@ -29,7 +29,7 @@ namespace Kandy.Tests.TwiML
         [Test]
         public void TestElementWithParams()
         {
-            var elem = new Connect(new Uri("https://example.com"), Twilio.Http.HttpMethod.Get);
+            var elem = new Connect(new Uri("https://example.com"), Kandy.Http.HttpMethod.Get);
             Assert.AreEqual(
                 "<?xml version=\"1.0\" encoding=\"utf-8\"?>" + Environment.NewLine +
                 "<Connect action=\"https://example.com\" method=\"GET\"></Connect>",
@@ -74,7 +74,7 @@ namespace Kandy.Tests.TwiML
                 "language",
                 true,
                 "status_callback",
-                Twilio.Http.HttpMethod.Get
+                Kandy.Http.HttpMethod.Get
             );
 
             elem.Conversation(
@@ -83,15 +83,15 @@ namespace Kandy.Tests.TwiML
                 1,
                 1,
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
+                Kandy.Http.HttpMethod.Get,
                 Conversation.RecordEnum.DoNotRecord,
                 Conversation.TrimEnum.TrimSilence,
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
-                new[] {Conversation.RecordingEventEnum.InProgress},
+                Kandy.Http.HttpMethod.Get,
+                new[] { Conversation.RecordingEventEnum.InProgress },
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
-                new[] {Conversation.EventEnum.CallInitiated}
+                Kandy.Http.HttpMethod.Get,
+                new[] { Conversation.EventEnum.CallInitiated }
             );
 
             Assert.AreEqual(

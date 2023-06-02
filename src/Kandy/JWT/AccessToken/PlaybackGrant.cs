@@ -3,7 +3,7 @@ using System.Collections.Generic;
 namespace Kandy.Jwt.AccessToken
 {
     /// <summary>
-    /// Grant to expose Twilio Live
+    /// Grant to expose Kandy Live
     /// </summary>
     public class PlaybackGrant : IGrant
     {

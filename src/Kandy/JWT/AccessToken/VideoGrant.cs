@@ -3,7 +3,7 @@
 namespace Kandy.Jwt.AccessToken
 {
     /// <summary>
-    /// Grant to expose Twilio Video
+    /// Grant to expose Kandy Video
     /// </summary>
     public class VideoGrant : IGrant
     {

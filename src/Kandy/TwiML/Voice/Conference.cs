@@ -9,8 +9,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
-using Twilio.Converters;
-using Twilio.Types;
+using Kandy.Converters;
+using Kandy.Types;
 
 namespace Kandy.TwiML.Voice
 {
@@ -22,8 +22,8 @@ namespace Kandy.TwiML.Voice
     {
         public sealed class BeepEnum : StringEnum
         {
-            private BeepEnum(string value) : base(value) {}
-            public BeepEnum() {}
+            private BeepEnum(string value) : base(value) { }
+            public BeepEnum() { }
             public static implicit operator BeepEnum(string value)
             {
                 return new BeepEnum(value);
@@ -37,8 +37,8 @@ namespace Kandy.TwiML.Voice
 
         public sealed class RecordEnum : StringEnum
         {
-            private RecordEnum(string value) : base(value) {}
-            public RecordEnum() {}
+            private RecordEnum(string value) : base(value) { }
+            public RecordEnum() { }
             public static implicit operator RecordEnum(string value)
             {
                 return new RecordEnum(value);
@@ -50,8 +50,8 @@ namespace Kandy.TwiML.Voice
 
         public sealed class RegionEnum : StringEnum
         {
-            private RegionEnum(string value) : base(value) {}
-            public RegionEnum() {}
+            private RegionEnum(string value) : base(value) { }
+            public RegionEnum() { }
             public static implicit operator RegionEnum(string value)
             {
                 return new RegionEnum(value);
@@ -68,8 +68,8 @@ namespace Kandy.TwiML.Voice
 
         public sealed class EventEnum : StringEnum
         {
-            private EventEnum(string value) : base(value) {}
-            public EventEnum() {}
+            private EventEnum(string value) : base(value) { }
+            public EventEnum() { }
             public static implicit operator EventEnum(string value)
             {
                 return new EventEnum(value);
@@ -88,8 +88,8 @@ namespace Kandy.TwiML.Voice
 
         public sealed class TrimEnum : StringEnum
         {
-            private TrimEnum(string value) : base(value) {}
-            public TrimEnum() {}
+            private TrimEnum(string value) : base(value) { }
+            public TrimEnum() { }
             public static implicit operator TrimEnum(string value)
             {
                 return new TrimEnum(value);
@@ -101,8 +101,8 @@ namespace Kandy.TwiML.Voice
 
         public sealed class RecordingEventEnum : StringEnum
         {
-            private RecordingEventEnum(string value) : base(value) {}
-            public RecordingEventEnum() {}
+            private RecordingEventEnum(string value) : base(value) { }
+            public RecordingEventEnum() { }
             public static implicit operator RecordingEventEnum(string value)
             {
                 return new RecordingEventEnum(value);
@@ -115,8 +115,8 @@ namespace Kandy.TwiML.Voice
 
         public sealed class JitterBufferSizeEnum : StringEnum
         {
-            private JitterBufferSizeEnum(string value) : base(value) {}
-            public JitterBufferSizeEnum() {}
+            private JitterBufferSizeEnum(string value) : base(value) { }
+            public JitterBufferSizeEnum() { }
             public static implicit operator JitterBufferSizeEnum(string value)
             {
                 return new JitterBufferSizeEnum(value);
@@ -155,7 +155,7 @@ namespace Kandy.TwiML.Voice
         /// <summary>
         /// Wait URL method
         /// </summary>
-        public Twilio.Http.HttpMethod WaitMethod { get; set; }
+        public Kandy.Http.HttpMethod WaitMethod { get; set; }
         /// <summary>
         /// Maximum number of participants
         /// </summary>
@@ -187,7 +187,7 @@ namespace Kandy.TwiML.Voice
         /// <summary>
         /// Status callback URL method
         /// </summary>
-        public Twilio.Http.HttpMethod StatusCallbackMethod { get; set; }
+        public Kandy.Http.HttpMethod StatusCallbackMethod { get; set; }
         /// <summary>
         /// Recording status callback URL
         /// </summary>
@@ -195,7 +195,7 @@ namespace Kandy.TwiML.Voice
         /// <summary>
         /// Recording status callback URL method
         /// </summary>
-        public Twilio.Http.HttpMethod RecordingStatusCallbackMethod { get; set; }
+        public Kandy.Http.HttpMethod RecordingStatusCallbackMethod { get; set; }
         /// <summary>
         /// Recording status callback events
         /// </summary>
@@ -243,7 +243,7 @@ namespace Kandy.TwiML.Voice
                           bool? startConferenceOnEnter = null,
                           bool? endConferenceOnExit = null,
                           Uri waitUrl = null,
-                          Twilio.Http.HttpMethod waitMethod = null,
+                          Kandy.Http.HttpMethod waitMethod = null,
                           int? maxParticipants = null,
                           Conference.RecordEnum record = null,
                           Conference.RegionEnum region = null,
@@ -251,9 +251,9 @@ namespace Kandy.TwiML.Voice
                           Conference.TrimEnum trim = null,
                           IEnumerable<Conference.EventEnum> statusCallbackEvent = null,
                           Uri statusCallback = null,
-                          Twilio.Http.HttpMethod statusCallbackMethod = null,
+                          Kandy.Http.HttpMethod statusCallbackMethod = null,
                           Uri recordingStatusCallback = null,
-                          Twilio.Http.HttpMethod recordingStatusCallbackMethod = null,
+                          Kandy.Http.HttpMethod recordingStatusCallbackMethod = null,
                           IEnumerable<Conference.RecordingEventEnum> recordingStatusCallbackEvent = null,
                           Uri eventCallbackUrl = null,
                           Conference.JitterBufferSizeEnum jitterBufferSize = null,
@@ -385,7 +385,7 @@ namespace Kandy.TwiML.Voice
         /// <param name="childElem"> Child TwiML element to add </param>
         public new Conference Append(TwiML childElem)
         {
-            return (Conference) base.Append(childElem);
+            return (Conference)base.Append(childElem);
         }
 
         /// <summary>
@@ -395,7 +395,7 @@ namespace Kandy.TwiML.Voice
         /// <param name="value"> Option value </param>
         public new Conference SetOption(string key, object value)
         {
-            return (Conference) base.SetOption(key, value);
+            return (Conference)base.SetOption(key, value);
         }
     }
 

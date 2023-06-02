@@ -1,12 +1,12 @@
 using System;
-using Twilio.Http;
+using Kandy.Http;
 
 namespace Kandy.Exceptions
 {
     /// <summary>
     /// Error thrown specifically when validating SSL connection
     /// </summary>
-    public class CertificateValidationException : TwilioException
+    public class CertificateValidationException : KandyException
     {
         /// <summary>
         /// Request object that triggered the exception

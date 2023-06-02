@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
-using Twilio.Http;
-using Twilio.Rest;
+using Kandy.Http;
+using Kandy.Rest;
 
 namespace Kandy.Tests.Http
 {
@@ -11,52 +11,52 @@ namespace Kandy.Tests.Http
         [Test]
         public void TestNoEdgeOrRegionInUrl()
         {
-            var request = new Request(HttpMethod.Get, "https://api.twilio.com");
+            var request = new Request(HttpMethod.Get, "https://api.kandy.com");
 
-            Assert.AreEqual(new Uri("https://api.twilio.com"), request.buildUri());
+            Assert.AreEqual(new Uri("https://api.kandy.com"), request.buildUri());
 
             request.Region = "region";
-            Assert.AreEqual(new Uri("https://api.region.twilio.com"), request.buildUri());
+            Assert.AreEqual(new Uri("https://api.region.kandy.com"), request.buildUri());
 
             request.Edge = "edge";
-            Assert.AreEqual(new Uri("https://api.edge.region.twilio.com"), request.buildUri());
+            Assert.AreEqual(new Uri("https://api.edge.region.kandy.com"), request.buildUri());
 
             request.Region = null;
-            Assert.AreEqual(new Uri("https://api.edge.us1.twilio.com"), request.buildUri());
+            Assert.AreEqual(new Uri("https://api.edge.us1.kandy.com"), request.buildUri());
         }
 
         [Test]
         public void TestRegionInUrl()
         {
-            var request = new Request(HttpMethod.Get, "https://api.urlRegion.twilio.com");
+            var request = new Request(HttpMethod.Get, "https://api.urlRegion.kandy.com");
 
-            Assert.AreEqual(new Uri("https://api.urlRegion.twilio.com"), request.buildUri());
+            Assert.AreEqual(new Uri("https://api.urlRegion.kandy.com"), request.buildUri());
 
             request.Region = "region";
-            Assert.AreEqual(new Uri("https://api.region.twilio.com"), request.buildUri());
+            Assert.AreEqual(new Uri("https://api.region.kandy.com"), request.buildUri());
 
             request.Edge = "edge";
-            Assert.AreEqual(new Uri("https://api.edge.region.twilio.com"), request.buildUri());
+            Assert.AreEqual(new Uri("https://api.edge.region.kandy.com"), request.buildUri());
 
             request.Region = null;
-            Assert.AreEqual(new Uri("https://api.edge.urlRegion.twilio.com"), request.buildUri());
+            Assert.AreEqual(new Uri("https://api.edge.urlRegion.kandy.com"), request.buildUri());
         }
 
         [Test]
         public void TestRegionAndEdgeInUrl()
         {
-            var request = new Request(HttpMethod.Get, "https://api.urlEdge.urlRegion.twilio.com");
+            var request = new Request(HttpMethod.Get, "https://api.urlEdge.urlRegion.kandy.com");
 
-            Assert.AreEqual(new Uri("https://api.urlEdge.urlRegion.twilio.com"), request.buildUri());
+            Assert.AreEqual(new Uri("https://api.urlEdge.urlRegion.kandy.com"), request.buildUri());
 
             request.Region = "region";
-            Assert.AreEqual(new Uri("https://api.urlEdge.region.twilio.com"), request.buildUri());
+            Assert.AreEqual(new Uri("https://api.urlEdge.region.kandy.com"), request.buildUri());
 
             request.Edge = "edge";
-            Assert.AreEqual(new Uri("https://api.edge.region.twilio.com"), request.buildUri());
+            Assert.AreEqual(new Uri("https://api.edge.region.kandy.com"), request.buildUri());
 
             request.Region = null;
-            Assert.AreEqual(new Uri("https://api.edge.urlRegion.twilio.com"), request.buildUri());
+            Assert.AreEqual(new Uri("https://api.edge.urlRegion.kandy.com"), request.buildUri());
         }
 
         [Test]
@@ -64,7 +64,7 @@ namespace Kandy.Tests.Http
         {
             var request = new Request(HttpMethod.Get, Domain.Accounts, "/path/to/something.json?foo=12.34", region: "region", edge: "edge");
 
-            Assert.AreEqual(new Uri("https://accounts.edge.region.twilio.com/path/to/something.json?foo=12.34"), request.buildUri());
+            Assert.AreEqual(new Uri("https://accounts.edge.region.kandy.com/path/to/something.json?foo=12.34"), request.buildUri());
         }
     }
 }

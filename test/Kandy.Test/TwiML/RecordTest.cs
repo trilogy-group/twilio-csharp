@@ -5,14 +5,14 @@
 
 using NUnit.Framework;
 using System;
-using Twilio.Converters;
-using Twilio.TwiML.Voice;
+using Kandy.Converters;
+using Kandy.TwiML.Voice;
 
 namespace Kandy.Tests.TwiML
 {
 
     [TestFixture]
-    public class RecordTest : TwilioTest
+    public class RecordTest : KandyTest
     {
         [Test]
         public void TestEmptyElement()
@@ -31,15 +31,15 @@ namespace Kandy.Tests.TwiML
         {
             var elem = new Record(
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
+                Kandy.Http.HttpMethod.Get,
                 1,
                 "finish_on_key",
                 1,
                 true,
                 Record.TrimEnum.TrimSilence,
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
-                new[] {Record.RecordingEventEnum.InProgress},
+                Kandy.Http.HttpMethod.Get,
+                new[] { Record.RecordingEventEnum.InProgress },
                 true,
                 new Uri("https://example.com")
             );

@@ -7,8 +7,8 @@ using System;
 using System.IO;
 using System.Text;
 using System.Xml.Linq;
-using Twilio.Converters;
-using Twilio.TwiML.Messaging;
+using Kandy.Converters;
+using Kandy.TwiML.Messaging;
 
 namespace Kandy.TwiML
 {
@@ -38,7 +38,7 @@ namespace Kandy.TwiML
                                          string to = null,
                                          string from = null,
                                          Uri action = null,
-                                         Twilio.Http.HttpMethod method = null,
+                                         Kandy.Http.HttpMethod method = null,
                                          Uri statusCallback = null)
         {
             var newChild = new Message(body, to, from, action, method, statusCallback);
@@ -62,7 +62,7 @@ namespace Kandy.TwiML
         /// </summary>
         /// <param name="url"> Redirect URL, the body of the TwiML Element. </param>
         /// <param name="method"> Redirect URL method </param>
-        public MessagingResponse Redirect(Uri url = null, Twilio.Http.HttpMethod method = null)
+        public MessagingResponse Redirect(Uri url = null, Kandy.Http.HttpMethod method = null)
         {
             var newChild = new Redirect(url, method);
             this.Append(newChild);
@@ -86,7 +86,7 @@ namespace Kandy.TwiML
         /// <param name="childElem"> Child TwiML element to add </param>
         public new MessagingResponse Append(TwiML childElem)
         {
-            return (MessagingResponse) base.Append(childElem);
+            return (MessagingResponse)base.Append(childElem);
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace Kandy.TwiML
         /// <param name="value"> Option value </param>
         public new MessagingResponse SetOption(string key, object value)
         {
-            return (MessagingResponse) base.SetOption(key, value);
+            return (MessagingResponse)base.SetOption(key, value);
         }
     }
 

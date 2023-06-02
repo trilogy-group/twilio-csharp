@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Twilio.Http;
+using Kandy.Http;
 
 namespace Kandy.Jwt.Taskrouter
 {
@@ -13,7 +13,7 @@ namespace Kandy.Jwt.Taskrouter
         /// </summary>
         public sealed class FilterRequirement : Dictionary<string, bool>
         {
-            private FilterRequirement(bool v) 
+            private FilterRequirement(bool v)
             {
                 Add("required", v);
             }
@@ -46,9 +46,9 @@ namespace Kandy.Jwt.Taskrouter
         public Policy(
             string url,
             HttpMethod method,
-            Dictionary<string, FilterRequirement> queryFilter=null,
-            Dictionary<string, FilterRequirement> postFilter=null,
-            bool allowed=true
+            Dictionary<string, FilterRequirement> queryFilter = null,
+            Dictionary<string, FilterRequirement> postFilter = null,
+            bool allowed = true
         )
         {
             _url = url;

@@ -8,8 +8,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml.Linq;
-using Twilio.Converters;
-using Twilio.TwiML.Voice;
+using Kandy.Converters;
+using Kandy.TwiML.Voice;
 
 namespace Kandy.TwiML
 {
@@ -31,7 +31,7 @@ namespace Kandy.TwiML
         /// </summary>
         /// <param name="action"> Action URL </param>
         /// <param name="method"> Action URL method </param>
-        public VoiceResponse Connect(Uri action = null, Twilio.Http.HttpMethod method = null)
+        public VoiceResponse Connect(Uri action = null, Kandy.Http.HttpMethod method = null)
         {
             var newChild = new Connect(action, method);
             this.Append(newChild);
@@ -66,7 +66,7 @@ namespace Kandy.TwiML
         /// <param name="recordingStatusCallbackEvent"> Recording status callback events </param>
         /// <param name="answerOnBridge"> Preserve the ringing behavior of the inbound call until the Dialed call picks up
         ///                      </param>
-        /// <param name="ringTone"> Ringtone allows you to override the ringback tone that Twilio will play back to the caller
+        /// <param name="ringTone"> Ringtone allows you to override the ringback tone that Kandy will play back to the caller
         ///                while executing the Dial </param>
         /// <param name="recordingTrack"> To indicate which audio track should be recorded </param>
         /// <param name="sequential"> Used to determine if child TwiML nouns should be dialed in order, one after the other
@@ -75,7 +75,7 @@ namespace Kandy.TwiML
         /// <param name="referMethod"> The HTTP method to use for the refer Webhook </param>
         public VoiceResponse Dial(string number = null,
                                   Uri action = null,
-                                  Twilio.Http.HttpMethod method = null,
+                                  Kandy.Http.HttpMethod method = null,
                                   int? timeout = null,
                                   bool? hangupOnStar = null,
                                   int? timeLimit = null,
@@ -83,14 +83,14 @@ namespace Kandy.TwiML
                                   Dial.RecordEnum record = null,
                                   Dial.TrimEnum trim = null,
                                   Uri recordingStatusCallback = null,
-                                  Twilio.Http.HttpMethod recordingStatusCallbackMethod = null,
+                                  Kandy.Http.HttpMethod recordingStatusCallbackMethod = null,
                                   IEnumerable<Dial.RecordingEventEnum> recordingStatusCallbackEvent = null,
                                   bool? answerOnBridge = null,
                                   Dial.RingToneEnum ringTone = null,
                                   Dial.RecordingTrackEnum recordingTrack = null,
                                   bool? sequential = null,
                                   Uri referUrl = null,
-                                  Twilio.Http.HttpMethod referMethod = null)
+                                  Kandy.Http.HttpMethod referMethod = null)
         {
             var newChild = new Dial(
                 number,
@@ -161,9 +161,9 @@ namespace Kandy.TwiML
         public VoiceResponse Enqueue(string name = null,
                                      Uri action = null,
                                      int? maxQueueSize = null,
-                                     Twilio.Http.HttpMethod method = null,
+                                     Kandy.Http.HttpMethod method = null,
                                      Uri waitUrl = null,
-                                     Twilio.Http.HttpMethod waitUrlMethod = null,
+                                     Kandy.Http.HttpMethod waitUrlMethod = null,
                                      string workflowSid = null)
         {
             var newChild = new Enqueue(name, action, maxQueueSize, method, waitUrl, waitUrlMethod, workflowSid);
@@ -185,7 +185,7 @@ namespace Kandy.TwiML
         /// <summary>
         /// Create a new <Gather/> element and append it as a child of this element.
         /// </summary>
-        /// <param name="input"> Input type Twilio should accept </param>
+        /// <param name="input"> Input type Kandy should accept </param>
         /// <param name="action"> Action URL </param>
         /// <param name="method"> Action URL method </param>
         /// <param name="timeout"> Time to wait to gather input </param>
@@ -206,7 +206,7 @@ namespace Kandy.TwiML
         /// <param name="enhanced"> Use enhanced speech model </param>
         public VoiceResponse Gather(IEnumerable<Gather.InputEnum> input = null,
                                     Uri action = null,
-                                    Twilio.Http.HttpMethod method = null,
+                                    Kandy.Http.HttpMethod method = null,
                                     int? timeout = null,
                                     string speechTimeout = null,
                                     int? maxSpeechTime = null,
@@ -214,7 +214,7 @@ namespace Kandy.TwiML
                                     string finishOnKey = null,
                                     int? numDigits = null,
                                     Uri partialResultCallback = null,
-                                    Twilio.Http.HttpMethod partialResultCallbackMethod = null,
+                                    Kandy.Http.HttpMethod partialResultCallbackMethod = null,
                                     Gather.LanguageEnum language = null,
                                     string hints = null,
                                     bool? bargeIn = null,
@@ -356,7 +356,7 @@ namespace Kandy.TwiML
         /// <param name="postWorkActivitySid"> TaskRouter Activity SID </param>
         public VoiceResponse Queue(string name = null,
                                    Uri url = null,
-                                   Twilio.Http.HttpMethod method = null,
+                                   Kandy.Http.HttpMethod method = null,
                                    string reservationSid = null,
                                    string postWorkActivitySid = null)
         {
@@ -392,14 +392,14 @@ namespace Kandy.TwiML
         /// <param name="transcribe"> Transcribe the recording </param>
         /// <param name="transcribeCallback"> Transcribe callback URL </param>
         public VoiceResponse Record(Uri action = null,
-                                    Twilio.Http.HttpMethod method = null,
+                                    Kandy.Http.HttpMethod method = null,
                                     int? timeout = null,
                                     string finishOnKey = null,
                                     int? maxLength = null,
                                     bool? playBeep = null,
                                     Record.TrimEnum trim = null,
                                     Uri recordingStatusCallback = null,
-                                    Twilio.Http.HttpMethod recordingStatusCallbackMethod = null,
+                                    Kandy.Http.HttpMethod recordingStatusCallbackMethod = null,
                                     IEnumerable<Record.RecordingEventEnum> recordingStatusCallbackEvent = null,
                                     bool? transcribe = null,
                                     Uri transcribeCallback = null)
@@ -438,7 +438,7 @@ namespace Kandy.TwiML
         /// </summary>
         /// <param name="url"> Redirect URL, the body of the TwiML Element. </param>
         /// <param name="method"> Redirect URL method </param>
-        public VoiceResponse Redirect(Uri url = null, Twilio.Http.HttpMethod method = null)
+        public VoiceResponse Redirect(Uri url = null, Kandy.Http.HttpMethod method = null)
         {
             var newChild = new Redirect(url, method);
             this.Append(newChild);
@@ -519,7 +519,7 @@ namespace Kandy.TwiML
                                  Types.PhoneNumber to = null,
                                  Types.PhoneNumber from = null,
                                  Uri action = null,
-                                 Twilio.Http.HttpMethod method = null,
+                                 Kandy.Http.HttpMethod method = null,
                                  Uri statusCallback = null)
         {
             var newChild = new Sms(message, to, from, action, method, statusCallback);
@@ -541,7 +541,7 @@ namespace Kandy.TwiML
         /// <summary>
         /// Create a new <Pay/> element and append it as a child of this element.
         /// </summary>
-        /// <param name="input"> Input type Twilio should accept </param>
+        /// <param name="input"> Input type Kandy should accept </param>
         /// <param name="action"> Action URL </param>
         /// <param name="bankAccountType"> Bank account type for ach transactions. If set, payment method attribute must be
         ///                       provided and value should be set to ach-debit. defaults to consumer-checking </param>
@@ -651,7 +651,7 @@ namespace Kandy.TwiML
         /// </summary>
         /// <param name="action"> Action URL </param>
         /// <param name="method"> Action URL method </param>
-        public VoiceResponse Start(Uri action = null, Twilio.Http.HttpMethod method = null)
+        public VoiceResponse Start(Uri action = null, Kandy.Http.HttpMethod method = null)
         {
             var newChild = new Start(action, method);
             this.Append(newChild);
@@ -695,7 +695,7 @@ namespace Kandy.TwiML
         /// </summary>
         /// <param name="action"> Action URL </param>
         /// <param name="method"> Action URL method </param>
-        public VoiceResponse Refer(Uri action = null, Twilio.Http.HttpMethod method = null)
+        public VoiceResponse Refer(Uri action = null, Kandy.Http.HttpMethod method = null)
         {
             var newChild = new Refer(action, method);
             this.Append(newChild);
@@ -719,7 +719,7 @@ namespace Kandy.TwiML
         /// <param name="childElem"> Child TwiML element to add </param>
         public new VoiceResponse Append(TwiML childElem)
         {
-            return (VoiceResponse) base.Append(childElem);
+            return (VoiceResponse)base.Append(childElem);
         }
 
         /// <summary>
@@ -729,7 +729,7 @@ namespace Kandy.TwiML
         /// <param name="value"> Option value </param>
         public new VoiceResponse SetOption(string key, object value)
         {
-            return (VoiceResponse) base.SetOption(key, value);
+            return (VoiceResponse)base.SetOption(key, value);
         }
     }
 

@@ -3,7 +3,7 @@ using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Twilio.Rest;
+using Kandy.Rest;
 using static System.String;
 
 namespace Kandy.Base
@@ -60,13 +60,13 @@ namespace Kandy.Base
 
         private static string UrlFromUri(Domain domain, string uri)
         {
-            return "https://" + domain + ".twilio.com" + uri;
+            return "https://" + domain + ".kandy.com" + uri;
         }
 
         /// <summary>
         /// Generate the first page URL
         /// </summary>
-        /// <param name="domain">Twilio subdomain</param>
+        /// <param name="domain">Kandy subdomain</param>
         /// <returns>URL for the first page of results</returns>
         public string GetFirstPageUrl(Domain domain)
         {
@@ -76,7 +76,7 @@ namespace Kandy.Base
         /// <summary>
         /// Get the next page URL
         /// </summary>
-        /// <param name="domain">Twilio subdomain</param>
+        /// <param name="domain">Kandy subdomain</param>
         /// <returns>URL for the next page of results</returns>
         public string GetNextPageUrl(Domain domain)
         {
@@ -86,7 +86,7 @@ namespace Kandy.Base
         /// <summary>
         /// Get the previous page URL
         /// </summary>
-        /// <param name="domain">Twilio subdomain</param>
+        /// <param name="domain">Kandy subdomain</param>
         /// <returns>URL for the previous page of results</returns>
         public string GetPreviousPageUrl(Domain domain)
         {
@@ -96,7 +96,7 @@ namespace Kandy.Base
         /// <summary>
         /// Get the URL for the current page
         /// </summary>
-        /// <param name="domain">Twilio subdomain</param>
+        /// <param name="domain">Kandy subdomain</param>
         /// <returns>URL for the current page of results</returns>
         public string GetUrl(Domain domain)
         {

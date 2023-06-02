@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using Twilio.Converters;
+using Kandy.Converters;
 
 namespace Kandy.Types
 {
@@ -11,13 +11,14 @@ namespace Kandy.Types
         /// <summary>
         /// Phone number types
         /// </summary>
-        public sealed class TypeEnum : StringEnum {
-            private TypeEnum(string value) : base(value) {}
+        public sealed class TypeEnum : StringEnum
+        {
+            private TypeEnum(string value) : base(value) { }
 
             /// <summary>
             /// Generic constructor
             /// </summary>
-            public TypeEnum() {}
+            public TypeEnum() { }
 
             /// <summary>
             /// Local number type
@@ -67,7 +68,7 @@ namespace Kandy.Types
         /// <summary>
         /// Generic constructor
         /// </summary>
-        public InboundSmsPrice() {}
+        public InboundSmsPrice() { }
 
         private InboundSmsPrice(
             [JsonProperty("base_price")]

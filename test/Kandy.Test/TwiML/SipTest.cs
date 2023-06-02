@@ -5,14 +5,14 @@
 
 using NUnit.Framework;
 using System;
-using Twilio.Converters;
-using Twilio.TwiML.Voice;
+using Kandy.Converters;
+using Kandy.TwiML.Voice;
 
 namespace Kandy.Tests.TwiML
 {
 
     [TestFixture]
-    public class SipTest : TwilioTest
+    public class SipTest : KandyTest
     {
         [Test]
         public void TestEmptyElement()
@@ -34,12 +34,12 @@ namespace Kandy.Tests.TwiML
                 "username",
                 "password",
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
-                new[] {Sip.EventEnum.Initiated},
+                Kandy.Http.HttpMethod.Get,
+                new[] { Sip.EventEnum.Initiated },
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
+                Kandy.Http.HttpMethod.Get,
                 "machine_detection",
-                Twilio.Http.HttpMethod.Get,
+                Kandy.Http.HttpMethod.Get,
                 "amd_status_callback",
                 1,
                 1,

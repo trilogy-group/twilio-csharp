@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Twilio.Http;
+using Kandy.Http;
 
 namespace Kandy.Jwt.Taskrouter
 {
@@ -9,14 +9,14 @@ namespace Kandy.Jwt.Taskrouter
     /// </summary>
     public class PolicyUtils
     {
-        private static readonly string TaskRouterEventUrl = "https://event-bridge.twilio.com/v1/wschannels";
+        private static readonly string TaskRouterEventUrl = "https://event-bridge.kandy.com/v1/wschannels";
 
-        private PolicyUtils() {}
+        private PolicyUtils() { }
 
         /// <summary>
         /// Generate default event bridge policies
         /// </summary>
-        /// <param name="accountSid">Twilio account SID</param>
+        /// <param name="accountSid">Kandy account SID</param>
         /// <param name="channelId">TaskRouter channel ID</param>
         /// <returns>Default event bridge policies</returns>
         public static List<Policy> DefaultEventBridgePolicies(string accountSid, string channelId)

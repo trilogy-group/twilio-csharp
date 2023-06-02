@@ -5,14 +5,14 @@
 
 using NUnit.Framework;
 using System;
-using Twilio.Converters;
-using Twilio.TwiML.Messaging;
+using Kandy.Converters;
+using Kandy.TwiML.Messaging;
 
 namespace Kandy.Tests.TwiML
 {
 
     [TestFixture]
-    public class MessageTest : TwilioTest
+    public class MessageTest : KandyTest
     {
         [Test]
         public void TestEmptyElement()
@@ -34,7 +34,7 @@ namespace Kandy.Tests.TwiML
                 "to",
                 "from",
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
+                Kandy.Http.HttpMethod.Get,
                 new Uri("https://example.com")
             );
             Assert.AreEqual(

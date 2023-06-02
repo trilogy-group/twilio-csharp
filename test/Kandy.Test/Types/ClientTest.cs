@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using Twilio.Types;
+using Kandy.Types;
 
 namespace Kandy.Tests.Types
 {

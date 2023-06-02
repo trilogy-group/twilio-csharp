@@ -9,8 +9,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
-using Twilio.Converters;
-using Twilio.Types;
+using Kandy.Converters;
+using Kandy.Types;
 
 namespace Kandy.TwiML.Voice
 {
@@ -22,8 +22,8 @@ namespace Kandy.TwiML.Voice
     {
         public sealed class InputEnum : StringEnum
         {
-            private InputEnum(string value) : base(value) {}
-            public InputEnum() {}
+            private InputEnum(string value) : base(value) { }
+            public InputEnum() { }
             public static implicit operator InputEnum(string value)
             {
                 return new InputEnum(value);
@@ -34,8 +34,8 @@ namespace Kandy.TwiML.Voice
 
         public sealed class StatusCallbackMethodEnum : StringEnum
         {
-            private StatusCallbackMethodEnum(string value) : base(value) {}
-            public StatusCallbackMethodEnum() {}
+            private StatusCallbackMethodEnum(string value) : base(value) { }
+            public StatusCallbackMethodEnum() { }
             public static implicit operator StatusCallbackMethodEnum(string value)
             {
                 return new StatusCallbackMethodEnum(value);
@@ -47,8 +47,8 @@ namespace Kandy.TwiML.Voice
 
         public sealed class TokenTypeEnum : StringEnum
         {
-            private TokenTypeEnum(string value) : base(value) {}
-            public TokenTypeEnum() {}
+            private TokenTypeEnum(string value) : base(value) { }
+            public TokenTypeEnum() { }
             public static implicit operator TokenTypeEnum(string value)
             {
                 return new TokenTypeEnum(value);
@@ -60,8 +60,8 @@ namespace Kandy.TwiML.Voice
 
         public sealed class ValidCardTypesEnum : StringEnum
         {
-            private ValidCardTypesEnum(string value) : base(value) {}
-            public ValidCardTypesEnum() {}
+            private ValidCardTypesEnum(string value) : base(value) { }
+            public ValidCardTypesEnum() { }
             public static implicit operator ValidCardTypesEnum(string value)
             {
                 return new ValidCardTypesEnum(value);
@@ -80,8 +80,8 @@ namespace Kandy.TwiML.Voice
 
         public sealed class LanguageEnum : StringEnum
         {
-            private LanguageEnum(string value) : base(value) {}
-            public LanguageEnum() {}
+            private LanguageEnum(string value) : base(value) { }
+            public LanguageEnum() { }
             public static implicit operator LanguageEnum(string value)
             {
                 return new LanguageEnum(value);
@@ -106,8 +106,8 @@ namespace Kandy.TwiML.Voice
 
         public sealed class BankAccountTypeEnum : StringEnum
         {
-            private BankAccountTypeEnum(string value) : base(value) {}
-            public BankAccountTypeEnum() {}
+            private BankAccountTypeEnum(string value) : base(value) { }
+            public BankAccountTypeEnum() { }
             public static implicit operator BankAccountTypeEnum(string value)
             {
                 return new BankAccountTypeEnum(value);
@@ -121,8 +121,8 @@ namespace Kandy.TwiML.Voice
 
         public sealed class PaymentMethodEnum : StringEnum
         {
-            private PaymentMethodEnum(string value) : base(value) {}
-            public PaymentMethodEnum() {}
+            private PaymentMethodEnum(string value) : base(value) { }
+            public PaymentMethodEnum() { }
             public static implicit operator PaymentMethodEnum(string value)
             {
                 return new PaymentMethodEnum(value);
@@ -133,7 +133,7 @@ namespace Kandy.TwiML.Voice
         }
 
         /// <summary>
-        /// Input type Twilio should accept
+        /// Input type Kandy should accept
         /// </summary>
         public Pay.InputEnum Input { get; set; }
         /// <summary>
@@ -208,7 +208,7 @@ namespace Kandy.TwiML.Voice
         /// <summary>
         /// Create a new Pay
         /// </summary>
-        /// <param name="input"> Input type Twilio should accept </param>
+        /// <param name="input"> Input type Kandy should accept </param>
         /// <param name="action"> Action URL </param>
         /// <param name="bankAccountType"> Bank account type for ach transactions. If set, payment method attribute must be
         ///                       provided and value should be set to ach-debit. defaults to consumer-checking </param>
@@ -408,7 +408,7 @@ namespace Kandy.TwiML.Voice
         /// <param name="childElem"> Child TwiML element to add </param>
         public new Pay Append(TwiML childElem)
         {
-            return (Pay) base.Append(childElem);
+            return (Pay)base.Append(childElem);
         }
 
         /// <summary>
@@ -418,7 +418,7 @@ namespace Kandy.TwiML.Voice
         /// <param name="value"> Option value </param>
         public new Pay SetOption(string key, object value)
         {
-            return (Pay) base.SetOption(key, value);
+            return (Pay)base.SetOption(key, value);
         }
     }
 

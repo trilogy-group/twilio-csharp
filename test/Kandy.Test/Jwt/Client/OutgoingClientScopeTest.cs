@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using NUnit.Framework;
-using Twilio.Jwt.Client;
+using Kandy.Jwt.Client;
 
 namespace Kandy.Tests.Jwt.Client
 {

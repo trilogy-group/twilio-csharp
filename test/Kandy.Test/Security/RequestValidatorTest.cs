@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using NUnit.Framework;
-using Twilio.Security;
+using Kandy.Security;
 
 namespace Kandy.Tests.Security
 {

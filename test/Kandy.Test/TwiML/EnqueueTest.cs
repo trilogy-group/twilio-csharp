@@ -5,14 +5,14 @@
 
 using NUnit.Framework;
 using System;
-using Twilio.Converters;
-using Twilio.TwiML.Voice;
+using Kandy.Converters;
+using Kandy.TwiML.Voice;
 
 namespace Kandy.Tests.TwiML
 {
 
     [TestFixture]
-    public class EnqueueTest : TwilioTest
+    public class EnqueueTest : KandyTest
     {
         [Test]
         public void TestEmptyElement()
@@ -33,9 +33,9 @@ namespace Kandy.Tests.TwiML
                 "name",
                 new Uri("https://example.com"),
                 1,
-                Twilio.Http.HttpMethod.Get,
+                Kandy.Http.HttpMethod.Get,
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
+                Kandy.Http.HttpMethod.Get,
                 "workflow_sid"
             );
             Assert.AreEqual(

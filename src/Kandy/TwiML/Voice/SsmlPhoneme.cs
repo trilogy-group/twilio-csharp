@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml.Linq;
-using Twilio.Types;
+using Kandy.Types;
 
 namespace Kandy.TwiML.Voice
 {
@@ -19,8 +19,8 @@ namespace Kandy.TwiML.Voice
     {
         public sealed class AlphabetEnum : StringEnum
         {
-            private AlphabetEnum(string value) : base(value) {}
-            public AlphabetEnum() {}
+            private AlphabetEnum(string value) : base(value) { }
+            public AlphabetEnum() { }
             public static implicit operator AlphabetEnum(string value)
             {
                 return new AlphabetEnum(value);
@@ -91,7 +91,7 @@ namespace Kandy.TwiML.Voice
         /// <param name="childElem"> Child TwiML element to add </param>
         public new SsmlPhoneme Append(TwiML childElem)
         {
-            return (SsmlPhoneme) base.Append(childElem);
+            return (SsmlPhoneme)base.Append(childElem);
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace Kandy.TwiML.Voice
         /// <param name="value"> Option value </param>
         public new SsmlPhoneme SetOption(string key, object value)
         {
-            return (SsmlPhoneme) base.SetOption(key, value);
+            return (SsmlPhoneme)base.SetOption(key, value);
         }
     }
 

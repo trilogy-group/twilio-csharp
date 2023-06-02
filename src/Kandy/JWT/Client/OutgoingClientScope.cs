@@ -23,7 +23,7 @@ namespace Kandy.Jwt.Client
         /// <summary>
         /// Create a new OutgoingClientScope
         /// </summary>
-        /// <param name="applicationSid">Twilio Application SID</param>
+        /// <param name="applicationSid">Kandy Application SID</param>
         /// <param name="clientName">Name of client</param>
         /// <param name="parameters">Parameters to pass</param>
         public OutgoingClientScope(

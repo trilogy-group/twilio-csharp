@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using NUnit.Framework;
-using Twilio.Converters;
-using Twilio.Types;
+using Kandy.Converters;
+using Kandy.Types;
 
 namespace Kandy.Tests.Converters
 {
     [TestFixture]
-    public class StringEnumConverterTest : TwilioTest
+    public class StringEnumConverterTest : KandyTest
     {
         class StatusClass
         {

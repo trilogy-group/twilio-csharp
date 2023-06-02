@@ -9,8 +9,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
-using Twilio.Converters;
-using Twilio.Types;
+using Kandy.Converters;
+using Kandy.Types;
 
 namespace Kandy.TwiML.Voice
 {
@@ -22,8 +22,8 @@ namespace Kandy.TwiML.Voice
     {
         public sealed class TrimEnum : StringEnum
         {
-            private TrimEnum(string value) : base(value) {}
-            public TrimEnum() {}
+            private TrimEnum(string value) : base(value) { }
+            public TrimEnum() { }
             public static implicit operator TrimEnum(string value)
             {
                 return new TrimEnum(value);
@@ -35,8 +35,8 @@ namespace Kandy.TwiML.Voice
 
         public sealed class RecordEnum : StringEnum
         {
-            private RecordEnum(string value) : base(value) {}
-            public RecordEnum() {}
+            private RecordEnum(string value) : base(value) { }
+            public RecordEnum() { }
             public static implicit operator RecordEnum(string value)
             {
                 return new RecordEnum(value);
@@ -51,8 +51,8 @@ namespace Kandy.TwiML.Voice
 
         public sealed class RecordingEventEnum : StringEnum
         {
-            private RecordingEventEnum(string value) : base(value) {}
-            public RecordingEventEnum() {}
+            private RecordingEventEnum(string value) : base(value) { }
+            public RecordingEventEnum() { }
             public static implicit operator RecordingEventEnum(string value)
             {
                 return new RecordingEventEnum(value);
@@ -65,8 +65,8 @@ namespace Kandy.TwiML.Voice
 
         public sealed class RingToneEnum : StringEnum
         {
-            private RingToneEnum(string value) : base(value) {}
-            public RingToneEnum() {}
+            private RingToneEnum(string value) : base(value) { }
+            public RingToneEnum() { }
             public static implicit operator RingToneEnum(string value)
             {
                 return new RingToneEnum(value);
@@ -116,8 +116,8 @@ namespace Kandy.TwiML.Voice
 
         public sealed class RecordingTrackEnum : StringEnum
         {
-            private RecordingTrackEnum(string value) : base(value) {}
-            public RecordingTrackEnum() {}
+            private RecordingTrackEnum(string value) : base(value) { }
+            public RecordingTrackEnum() { }
             public static implicit operator RecordingTrackEnum(string value)
             {
                 return new RecordingTrackEnum(value);
@@ -139,7 +139,7 @@ namespace Kandy.TwiML.Voice
         /// <summary>
         /// Action URL method
         /// </summary>
-        public Twilio.Http.HttpMethod Method { get; set; }
+        public Kandy.Http.HttpMethod Method { get; set; }
         /// <summary>
         /// Time to wait for answer
         /// </summary>
@@ -171,7 +171,7 @@ namespace Kandy.TwiML.Voice
         /// <summary>
         /// Recording status callback URL method
         /// </summary>
-        public Twilio.Http.HttpMethod RecordingStatusCallbackMethod { get; set; }
+        public Kandy.Http.HttpMethod RecordingStatusCallbackMethod { get; set; }
         /// <summary>
         /// Recording status callback events
         /// </summary>
@@ -181,7 +181,7 @@ namespace Kandy.TwiML.Voice
         /// </summary>
         public bool? AnswerOnBridge { get; set; }
         /// <summary>
-        /// Ringtone allows you to override the ringback tone that Twilio will play back to the caller while executing the Dial
+        /// Ringtone allows you to override the ringback tone that Kandy will play back to the caller while executing the Dial
         /// </summary>
         public Dial.RingToneEnum RingTone { get; set; }
         /// <summary>
@@ -199,7 +199,7 @@ namespace Kandy.TwiML.Voice
         /// <summary>
         /// The HTTP method to use for the refer Webhook
         /// </summary>
-        public Twilio.Http.HttpMethod ReferMethod { get; set; }
+        public Kandy.Http.HttpMethod ReferMethod { get; set; }
 
         /// <summary>
         /// Create a new Dial
@@ -218,7 +218,7 @@ namespace Kandy.TwiML.Voice
         /// <param name="recordingStatusCallbackEvent"> Recording status callback events </param>
         /// <param name="answerOnBridge"> Preserve the ringing behavior of the inbound call until the Dialed call picks up
         ///                      </param>
-        /// <param name="ringTone"> Ringtone allows you to override the ringback tone that Twilio will play back to the caller
+        /// <param name="ringTone"> Ringtone allows you to override the ringback tone that Kandy will play back to the caller
         ///                while executing the Dial </param>
         /// <param name="recordingTrack"> To indicate which audio track should be recorded </param>
         /// <param name="sequential"> Used to determine if child TwiML nouns should be dialed in order, one after the other
@@ -227,7 +227,7 @@ namespace Kandy.TwiML.Voice
         /// <param name="referMethod"> The HTTP method to use for the refer Webhook </param>
         public Dial(string number = null,
                     Uri action = null,
-                    Twilio.Http.HttpMethod method = null,
+                    Kandy.Http.HttpMethod method = null,
                     int? timeout = null,
                     bool? hangupOnStar = null,
                     int? timeLimit = null,
@@ -235,14 +235,14 @@ namespace Kandy.TwiML.Voice
                     Dial.RecordEnum record = null,
                     Dial.TrimEnum trim = null,
                     Uri recordingStatusCallback = null,
-                    Twilio.Http.HttpMethod recordingStatusCallbackMethod = null,
+                    Kandy.Http.HttpMethod recordingStatusCallbackMethod = null,
                     IEnumerable<Dial.RecordingEventEnum> recordingStatusCallbackEvent = null,
                     bool? answerOnBridge = null,
                     Dial.RingToneEnum ringTone = null,
                     Dial.RecordingTrackEnum recordingTrack = null,
                     bool? sequential = null,
                     Uri referUrl = null,
-                    Twilio.Http.HttpMethod referMethod = null) : base("Dial")
+                    Kandy.Http.HttpMethod referMethod = null) : base("Dial")
         {
             this.NumberAttribute = number;
             this.Action = action;
@@ -360,10 +360,10 @@ namespace Kandy.TwiML.Voice
         /// <param name="statusCallbackMethod"> Status Callback URL Method </param>
         public Dial Client(string identity = null,
                            Uri url = null,
-                           Twilio.Http.HttpMethod method = null,
+                           Kandy.Http.HttpMethod method = null,
                            IEnumerable<Client.EventEnum> statusCallbackEvent = null,
                            Uri statusCallback = null,
-                           Twilio.Http.HttpMethod statusCallbackMethod = null)
+                           Kandy.Http.HttpMethod statusCallbackMethod = null)
         {
             var newChild = new Client(
                 identity,
@@ -418,7 +418,7 @@ namespace Kandy.TwiML.Voice
                                bool? startConferenceOnEnter = null,
                                bool? endConferenceOnExit = null,
                                Uri waitUrl = null,
-                               Twilio.Http.HttpMethod waitMethod = null,
+                               Kandy.Http.HttpMethod waitMethod = null,
                                int? maxParticipants = null,
                                Conference.RecordEnum record = null,
                                Conference.RegionEnum region = null,
@@ -426,9 +426,9 @@ namespace Kandy.TwiML.Voice
                                Conference.TrimEnum trim = null,
                                IEnumerable<Conference.EventEnum> statusCallbackEvent = null,
                                Uri statusCallback = null,
-                               Twilio.Http.HttpMethod statusCallbackMethod = null,
+                               Kandy.Http.HttpMethod statusCallbackMethod = null,
                                Uri recordingStatusCallback = null,
-                               Twilio.Http.HttpMethod recordingStatusCallbackMethod = null,
+                               Kandy.Http.HttpMethod recordingStatusCallbackMethod = null,
                                IEnumerable<Conference.RecordingEventEnum> recordingStatusCallbackEvent = null,
                                Uri eventCallbackUrl = null,
                                Conference.JitterBufferSizeEnum jitterBufferSize = null,
@@ -494,13 +494,13 @@ namespace Kandy.TwiML.Voice
         public Dial Number(Types.PhoneNumber phoneNumber = null,
                            string sendDigits = null,
                            Uri url = null,
-                           Twilio.Http.HttpMethod method = null,
+                           Kandy.Http.HttpMethod method = null,
                            IEnumerable<Number.EventEnum> statusCallbackEvent = null,
                            Uri statusCallback = null,
-                           Twilio.Http.HttpMethod statusCallbackMethod = null,
+                           Kandy.Http.HttpMethod statusCallbackMethod = null,
                            string byoc = null,
                            string machineDetection = null,
-                           Twilio.Http.HttpMethod amdStatusCallbackMethod = null,
+                           Kandy.Http.HttpMethod amdStatusCallbackMethod = null,
                            string amdStatusCallback = null,
                            int? machineDetectionTimeout = null,
                            int? machineDetectionSpeechThreshold = null,
@@ -549,7 +549,7 @@ namespace Kandy.TwiML.Voice
         /// <param name="postWorkActivitySid"> TaskRouter Activity SID </param>
         public Dial Queue(string name = null,
                           Uri url = null,
-                          Twilio.Http.HttpMethod method = null,
+                          Kandy.Http.HttpMethod method = null,
                           string reservationSid = null,
                           string postWorkActivitySid = null)
         {
@@ -614,12 +614,12 @@ namespace Kandy.TwiML.Voice
                         string username = null,
                         string password = null,
                         Uri url = null,
-                        Twilio.Http.HttpMethod method = null,
+                        Kandy.Http.HttpMethod method = null,
                         IEnumerable<Sip.EventEnum> statusCallbackEvent = null,
                         Uri statusCallback = null,
-                        Twilio.Http.HttpMethod statusCallbackMethod = null,
+                        Kandy.Http.HttpMethod statusCallbackMethod = null,
                         string machineDetection = null,
-                        Twilio.Http.HttpMethod amdStatusCallbackMethod = null,
+                        Kandy.Http.HttpMethod amdStatusCallbackMethod = null,
                         string amdStatusCallback = null,
                         int? machineDetectionTimeout = null,
                         int? machineDetectionSpeechThreshold = null,
@@ -672,10 +672,10 @@ namespace Kandy.TwiML.Voice
         ///                    as To field </param>
         public Dial Application(string applicationSid = null,
                                 Uri url = null,
-                                Twilio.Http.HttpMethod method = null,
+                                Kandy.Http.HttpMethod method = null,
                                 IEnumerable<Application.EventEnum> statusCallbackEvent = null,
                                 Uri statusCallback = null,
-                                Twilio.Http.HttpMethod statusCallbackMethod = null,
+                                Kandy.Http.HttpMethod statusCallbackMethod = null,
                                 string customerId = null,
                                 bool? copyParentTo = null)
         {
@@ -710,7 +710,7 @@ namespace Kandy.TwiML.Voice
         /// <param name="childElem"> Child TwiML element to add </param>
         public new Dial Append(TwiML childElem)
         {
-            return (Dial) base.Append(childElem);
+            return (Dial)base.Append(childElem);
         }
 
         /// <summary>
@@ -720,7 +720,7 @@ namespace Kandy.TwiML.Voice
         /// <param name="value"> Option value </param>
         public new Dial SetOption(string key, object value)
         {
-            return (Dial) base.SetOption(key, value);
+            return (Dial)base.SetOption(key, value);
         }
     }
 

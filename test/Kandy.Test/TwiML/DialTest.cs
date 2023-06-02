@@ -5,14 +5,14 @@
 
 using NUnit.Framework;
 using System;
-using Twilio.Converters;
-using Twilio.TwiML.Voice;
+using Kandy.Converters;
+using Kandy.TwiML.Voice;
 
 namespace Kandy.Tests.TwiML
 {
 
     [TestFixture]
-    public class DialTest : TwilioTest
+    public class DialTest : KandyTest
     {
         [Test]
         public void TestEmptyElement()
@@ -32,7 +32,7 @@ namespace Kandy.Tests.TwiML
             var elem = new Dial(
                 "number",
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
+                Kandy.Http.HttpMethod.Get,
                 1,
                 true,
                 1,
@@ -40,14 +40,14 @@ namespace Kandy.Tests.TwiML
                 Dial.RecordEnum.DoNotRecord,
                 Dial.TrimEnum.TrimSilence,
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
-                new[] {Dial.RecordingEventEnum.InProgress},
+                Kandy.Http.HttpMethod.Get,
+                new[] { Dial.RecordingEventEnum.InProgress },
                 true,
                 Dial.RingToneEnum.At,
                 Dial.RecordingTrackEnum.Both,
                 true,
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get
+                Kandy.Http.HttpMethod.Get
             );
             Assert.AreEqual(
                 "<?xml version=\"1.0\" encoding=\"utf-8\"?>" + Environment.NewLine +
@@ -96,10 +96,10 @@ namespace Kandy.Tests.TwiML
             elem.Client(
                 "identity",
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
-                new[] {Client.EventEnum.Initiated},
+                Kandy.Http.HttpMethod.Get,
+                new[] { Client.EventEnum.Initiated },
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get
+                Kandy.Http.HttpMethod.Get
             );
 
             elem.Conference(
@@ -109,34 +109,34 @@ namespace Kandy.Tests.TwiML
                 true,
                 true,
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
+                Kandy.Http.HttpMethod.Get,
                 1,
                 Conference.RecordEnum.DoNotRecord,
                 Conference.RegionEnum.Us1,
                 "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
                 Conference.TrimEnum.TrimSilence,
-                new[] {Conference.EventEnum.Start},
+                new[] { Conference.EventEnum.Start },
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
+                Kandy.Http.HttpMethod.Get,
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
-                new[] {Conference.RecordingEventEnum.InProgress},
+                Kandy.Http.HttpMethod.Get,
+                new[] { Conference.RecordingEventEnum.InProgress },
                 new Uri("https://example.com"),
                 Conference.JitterBufferSizeEnum.Large,
                 "participant_label"
             );
 
             elem.Number(
-                new Twilio.Types.PhoneNumber("+15017122661"),
+                new Kandy.Types.PhoneNumber("+15017122661"),
                 "send_digits",
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
-                new[] {Number.EventEnum.Initiated},
+                Kandy.Http.HttpMethod.Get,
+                new[] { Number.EventEnum.Initiated },
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
+                Kandy.Http.HttpMethod.Get,
                 "BYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
                 "machine_detection",
-                Twilio.Http.HttpMethod.Get,
+                Kandy.Http.HttpMethod.Get,
                 "amd_status_callback",
                 1,
                 1,
@@ -147,7 +147,7 @@ namespace Kandy.Tests.TwiML
             elem.Queue(
                 "name",
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
+                Kandy.Http.HttpMethod.Get,
                 "reservation_sid",
                 "post_work_activity_sid"
             );
@@ -159,12 +159,12 @@ namespace Kandy.Tests.TwiML
                 "username",
                 "password",
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
-                new[] {Sip.EventEnum.Initiated},
+                Kandy.Http.HttpMethod.Get,
+                new[] { Sip.EventEnum.Initiated },
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
+                Kandy.Http.HttpMethod.Get,
                 "machine_detection",
-                Twilio.Http.HttpMethod.Get,
+                Kandy.Http.HttpMethod.Get,
                 "amd_status_callback",
                 1,
                 1,
@@ -175,10 +175,10 @@ namespace Kandy.Tests.TwiML
             elem.Application(
                 "application_sid",
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
-                new[] {Application.EventEnum.Initiated},
+                Kandy.Http.HttpMethod.Get,
+                new[] { Application.EventEnum.Initiated },
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
+                Kandy.Http.HttpMethod.Get,
                 "customer_id",
                 true
             );

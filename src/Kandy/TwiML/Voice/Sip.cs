@@ -9,8 +9,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
-using Twilio.Converters;
-using Twilio.Types;
+using Kandy.Converters;
+using Kandy.Types;
 
 namespace Kandy.TwiML.Voice
 {
@@ -22,8 +22,8 @@ namespace Kandy.TwiML.Voice
     {
         public sealed class EventEnum : StringEnum
         {
-            private EventEnum(string value) : base(value) {}
-            public EventEnum() {}
+            private EventEnum(string value) : base(value) { }
+            public EventEnum() { }
             public static implicit operator EventEnum(string value)
             {
                 return new EventEnum(value);
@@ -54,7 +54,7 @@ namespace Kandy.TwiML.Voice
         /// <summary>
         /// Action URL method
         /// </summary>
-        public Twilio.Http.HttpMethod Method { get; set; }
+        public Kandy.Http.HttpMethod Method { get; set; }
         /// <summary>
         /// Status callback events
         /// </summary>
@@ -66,7 +66,7 @@ namespace Kandy.TwiML.Voice
         /// <summary>
         /// Status callback URL method
         /// </summary>
-        public Twilio.Http.HttpMethod StatusCallbackMethod { get; set; }
+        public Kandy.Http.HttpMethod StatusCallbackMethod { get; set; }
         /// <summary>
         /// Enable machine detection or end of greeting detection
         /// </summary>
@@ -74,7 +74,7 @@ namespace Kandy.TwiML.Voice
         /// <summary>
         /// HTTP Method to use with amd_status_callback
         /// </summary>
-        public Twilio.Http.HttpMethod AmdStatusCallbackMethod { get; set; }
+        public Kandy.Http.HttpMethod AmdStatusCallbackMethod { get; set; }
         /// <summary>
         /// The URL we should call to send amd status information to your application
         /// </summary>
@@ -119,12 +119,12 @@ namespace Kandy.TwiML.Voice
                    string username = null,
                    string password = null,
                    Uri url = null,
-                   Twilio.Http.HttpMethod method = null,
+                   Kandy.Http.HttpMethod method = null,
                    IEnumerable<Sip.EventEnum> statusCallbackEvent = null,
                    Uri statusCallback = null,
-                   Twilio.Http.HttpMethod statusCallbackMethod = null,
+                   Kandy.Http.HttpMethod statusCallbackMethod = null,
                    string machineDetection = null,
-                   Twilio.Http.HttpMethod amdStatusCallbackMethod = null,
+                   Kandy.Http.HttpMethod amdStatusCallbackMethod = null,
                    string amdStatusCallback = null,
                    int? machineDetectionTimeout = null,
                    int? machineDetectionSpeechThreshold = null,
@@ -227,7 +227,7 @@ namespace Kandy.TwiML.Voice
         /// <param name="childElem"> Child TwiML element to add </param>
         public new Sip Append(TwiML childElem)
         {
-            return (Sip) base.Append(childElem);
+            return (Sip)base.Append(childElem);
         }
 
         /// <summary>
@@ -237,7 +237,7 @@ namespace Kandy.TwiML.Voice
         /// <param name="value"> Option value </param>
         public new Sip SetOption(string key, object value)
         {
-            return (Sip) base.SetOption(key, value);
+            return (Sip)base.SetOption(key, value);
         }
     }
 

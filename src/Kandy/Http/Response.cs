@@ -9,7 +9,7 @@ using Headers = System.Net.Http.Headers.HttpResponseHeaders;
 namespace Kandy.Http
 {
     /// <summary>
-    /// Twilio response
+    /// Kandy response
     /// </summary>
     public class Response
     {

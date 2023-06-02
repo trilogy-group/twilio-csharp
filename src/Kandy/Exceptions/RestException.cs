@@ -4,13 +4,13 @@ using System.Collections.Generic;
 namespace Kandy.Exceptions
 {
     /// <summary>
-    /// Exception from Twilio API
+    /// Exception from Kandy API
     /// </summary>
     [JsonObject(MemberSerialization.OptIn)]
-    public class RestException : TwilioException
+    public class RestException : KandyException
     {
         /// <summary>
-        /// Twilio error code
+        /// Kandy error code
         /// </summary>
         [JsonProperty("code")]
         public int Code { get; private set; }
@@ -24,7 +24,8 @@ namespace Kandy.Exceptions
         /// <summary>
         /// Error message
         /// </summary>
-        public override string Message {
+        public override string Message
+        {
             get
             {
                 return _message;
@@ -52,7 +53,7 @@ namespace Kandy.Exceptions
         /// <summary>
         /// Create an empty RestException
         /// </summary>
-        public RestException() {}
+        public RestException() { }
         private RestException(
             [JsonProperty("status")]
             int status,
@@ -64,7 +65,8 @@ namespace Kandy.Exceptions
             string moreInfo,
             [JsonProperty("details")]
             Dictionary<string, object> details
-        ) {
+        )
+        {
             Status = status;
             Code = code;
             _message = message;

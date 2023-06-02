@@ -9,8 +9,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
-using Twilio.Converters;
-using Twilio.Types;
+using Kandy.Converters;
+using Kandy.Types;
 
 namespace Kandy.TwiML.Voice
 {
@@ -22,8 +22,8 @@ namespace Kandy.TwiML.Voice
     {
         public sealed class InputEnum : StringEnum
         {
-            private InputEnum(string value) : base(value) {}
-            public InputEnum() {}
+            private InputEnum(string value) : base(value) { }
+            public InputEnum() { }
             public static implicit operator InputEnum(string value)
             {
                 return new InputEnum(value);
@@ -35,8 +35,8 @@ namespace Kandy.TwiML.Voice
 
         public sealed class LanguageEnum : StringEnum
         {
-            private LanguageEnum(string value) : base(value) {}
-            public LanguageEnum() {}
+            private LanguageEnum(string value) : base(value) { }
+            public LanguageEnum() { }
             public static implicit operator LanguageEnum(string value)
             {
                 return new LanguageEnum(value);
@@ -176,8 +176,8 @@ namespace Kandy.TwiML.Voice
 
         public sealed class SpeechModelEnum : StringEnum
         {
-            private SpeechModelEnum(string value) : base(value) {}
-            public SpeechModelEnum() {}
+            private SpeechModelEnum(string value) : base(value) { }
+            public SpeechModelEnum() { }
             public static implicit operator SpeechModelEnum(string value)
             {
                 return new SpeechModelEnum(value);
@@ -191,7 +191,7 @@ namespace Kandy.TwiML.Voice
         }
 
         /// <summary>
-        /// Input type Twilio should accept
+        /// Input type Kandy should accept
         /// </summary>
         public IEnumerable<Gather.InputEnum> Input { get; set; }
         /// <summary>
@@ -201,7 +201,7 @@ namespace Kandy.TwiML.Voice
         /// <summary>
         /// Action URL method
         /// </summary>
-        public Twilio.Http.HttpMethod Method { get; set; }
+        public Kandy.Http.HttpMethod Method { get; set; }
         /// <summary>
         /// Time to wait to gather input
         /// </summary>
@@ -233,7 +233,7 @@ namespace Kandy.TwiML.Voice
         /// <summary>
         /// Partial result callback URL method
         /// </summary>
-        public Twilio.Http.HttpMethod PartialResultCallbackMethod { get; set; }
+        public Kandy.Http.HttpMethod PartialResultCallbackMethod { get; set; }
         /// <summary>
         /// Language to use
         /// </summary>
@@ -266,7 +266,7 @@ namespace Kandy.TwiML.Voice
         /// <summary>
         /// Create a new Gather
         /// </summary>
-        /// <param name="input"> Input type Twilio should accept </param>
+        /// <param name="input"> Input type Kandy should accept </param>
         /// <param name="action"> Action URL </param>
         /// <param name="method"> Action URL method </param>
         /// <param name="timeout"> Time to wait to gather input </param>
@@ -287,7 +287,7 @@ namespace Kandy.TwiML.Voice
         /// <param name="enhanced"> Use enhanced speech model </param>
         public Gather(IEnumerable<Gather.InputEnum> input = null,
                       Uri action = null,
-                      Twilio.Http.HttpMethod method = null,
+                      Kandy.Http.HttpMethod method = null,
                       int? timeout = null,
                       string speechTimeout = null,
                       int? maxSpeechTime = null,
@@ -295,7 +295,7 @@ namespace Kandy.TwiML.Voice
                       string finishOnKey = null,
                       int? numDigits = null,
                       Uri partialResultCallback = null,
-                      Twilio.Http.HttpMethod partialResultCallbackMethod = null,
+                      Kandy.Http.HttpMethod partialResultCallbackMethod = null,
                       Gather.LanguageEnum language = null,
                       string hints = null,
                       bool? bargeIn = null,
@@ -485,7 +485,7 @@ namespace Kandy.TwiML.Voice
         /// <param name="childElem"> Child TwiML element to add </param>
         public new Gather Append(TwiML childElem)
         {
-            return (Gather) base.Append(childElem);
+            return (Gather)base.Append(childElem);
         }
 
         /// <summary>
@@ -495,7 +495,7 @@ namespace Kandy.TwiML.Voice
         /// <param name="value"> Option value </param>
         public new Gather SetOption(string key, object value)
         {
-            return (Gather) base.SetOption(key, value);
+            return (Gather)base.SetOption(key, value);
         }
     }
 

@@ -9,8 +9,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
-using Twilio.Converters;
-using Twilio.Types;
+using Kandy.Converters;
+using Kandy.Types;
 
 namespace Kandy.TwiML.Voice
 {
@@ -22,8 +22,8 @@ namespace Kandy.TwiML.Voice
     {
         public sealed class TrimEnum : StringEnum
         {
-            private TrimEnum(string value) : base(value) {}
-            public TrimEnum() {}
+            private TrimEnum(string value) : base(value) { }
+            public TrimEnum() { }
             public static implicit operator TrimEnum(string value)
             {
                 return new TrimEnum(value);
@@ -35,8 +35,8 @@ namespace Kandy.TwiML.Voice
 
         public sealed class RecordingEventEnum : StringEnum
         {
-            private RecordingEventEnum(string value) : base(value) {}
-            public RecordingEventEnum() {}
+            private RecordingEventEnum(string value) : base(value) { }
+            public RecordingEventEnum() { }
             public static implicit operator RecordingEventEnum(string value)
             {
                 return new RecordingEventEnum(value);
@@ -54,7 +54,7 @@ namespace Kandy.TwiML.Voice
         /// <summary>
         /// Action URL method
         /// </summary>
-        public Twilio.Http.HttpMethod Method { get; set; }
+        public Kandy.Http.HttpMethod Method { get; set; }
         /// <summary>
         /// Timeout to begin recording
         /// </summary>
@@ -82,7 +82,7 @@ namespace Kandy.TwiML.Voice
         /// <summary>
         /// Status callback URL method
         /// </summary>
-        public Twilio.Http.HttpMethod RecordingStatusCallbackMethod { get; set; }
+        public Kandy.Http.HttpMethod RecordingStatusCallbackMethod { get; set; }
         /// <summary>
         /// Recording status callback events
         /// </summary>
@@ -112,14 +112,14 @@ namespace Kandy.TwiML.Voice
         /// <param name="transcribe"> Transcribe the recording </param>
         /// <param name="transcribeCallback"> Transcribe callback URL </param>
         public Record(Uri action = null,
-                      Twilio.Http.HttpMethod method = null,
+                      Kandy.Http.HttpMethod method = null,
                       int? timeout = null,
                       string finishOnKey = null,
                       int? maxLength = null,
                       bool? playBeep = null,
                       Record.TrimEnum trim = null,
                       Uri recordingStatusCallback = null,
-                      Twilio.Http.HttpMethod recordingStatusCallbackMethod = null,
+                      Kandy.Http.HttpMethod recordingStatusCallbackMethod = null,
                       IEnumerable<Record.RecordingEventEnum> recordingStatusCallbackEvent = null,
                       bool? transcribe = null,
                       Uri transcribeCallback = null) : base("Record")
@@ -201,7 +201,7 @@ namespace Kandy.TwiML.Voice
         /// <param name="childElem"> Child TwiML element to add </param>
         public new Record Append(TwiML childElem)
         {
-            return (Record) base.Append(childElem);
+            return (Record)base.Append(childElem);
         }
 
         /// <summary>
@@ -211,7 +211,7 @@ namespace Kandy.TwiML.Voice
         /// <param name="value"> Option value </param>
         public new Record SetOption(string key, object value)
         {
-            return (Record) base.SetOption(key, value);
+            return (Record)base.SetOption(key, value);
         }
     }
 

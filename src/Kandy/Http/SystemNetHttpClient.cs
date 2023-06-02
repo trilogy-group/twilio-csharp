@@ -33,8 +33,8 @@ namespace Kandy.Http
         /// <summary>
         /// Make a synchronous request
         /// </summary>
-        /// <param name="request">Twilio request</param>
-        /// <returns>Twilio response</returns>
+        /// <param name="request">Kandy request</param>
+        /// <returns>Kandy response</returns>
         public override Response MakeRequest(Request request)
         {
             try
@@ -54,7 +54,7 @@ namespace Kandy.Http
         /// <summary>
         /// Make an asynchronous request
         /// </summary>
-        /// <param name="request">Twilio response</param>
+        /// <param name="request">Kandy response</param>
         /// <returns>Task that resolves to the response</returns>
         public override async Task<Response> MakeRequestAsync(Request request)
         {
@@ -92,7 +92,7 @@ namespace Kandy.Http
             httpRequest.Headers.AcceptEncoding.Add(new StringWithQualityHeaderValue("utf-8"));
 
             int lastSpaceIndex = PlatVersion.LastIndexOf(" ");
-            System.Text.StringBuilder PlatVersionSb= new System.Text.StringBuilder(PlatVersion);
+            System.Text.StringBuilder PlatVersionSb = new System.Text.StringBuilder(PlatVersion);
             PlatVersionSb[lastSpaceIndex] = '/';
 
             string helperLibVersion = AssemblyInfomation.AssemblyInformationalVersion;
@@ -121,7 +121,7 @@ namespace Kandy.Http
 #else
             osArch = Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE") ?? "Unknown"; 
 #endif
-            var libraryVersion = String.Format("twilio-csharp/{0} ({1} {2}) {3}", helperLibVersion, osName, osArch, PlatVersionSb);
+            var libraryVersion = String.Format("kandy-csharp/{0} ({1} {2}) {3}", helperLibVersion, osName, osArch, PlatVersionSb);
 
             if (request.UserAgentExtensions != null)
             {

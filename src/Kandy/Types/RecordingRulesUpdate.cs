@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using Twilio.Converters;
+using Kandy.Converters;
 
 /// <summary>
 /// Recording Rule Update - Used to update the list of Recording Rules
@@ -12,7 +12,7 @@ namespace Kandy.Types
         [JsonProperty("rules")]
         public List<RecordingRule> Rules { get; private set; }
 
-        public RecordingRulesUpdate (
+        public RecordingRulesUpdate(
             [JsonProperty("rules")]
             List<RecordingRule> rules
         )

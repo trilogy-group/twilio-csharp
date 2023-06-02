@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using Twilio.Converters;
+using Kandy.Converters;
 
 /// <summary>
 /// Recording Rule - A single Recording Rule for a Room
@@ -12,18 +12,18 @@ namespace Kandy.Types
 
         public sealed class TypeEnum : StringEnum
         {
-            private TypeEnum(string value) : base(value) {}
+            private TypeEnum(string value) : base(value) { }
 
-            public TypeEnum() {}
+            public TypeEnum() { }
             public static readonly TypeEnum Include = new TypeEnum("include");
             public static readonly TypeEnum Exclude = new TypeEnum("exclude");
         }
 
         public sealed class KindEnum : StringEnum
         {
-            private KindEnum(string value) : base(value) {}
+            private KindEnum(string value) : base(value) { }
 
-            public KindEnum() {}
+            public KindEnum() { }
 
             public static readonly KindEnum Audio = new KindEnum("audio");
             public static readonly KindEnum Data = new KindEnum("data");
@@ -47,7 +47,7 @@ namespace Kandy.Types
         [JsonConverter(typeof(StringEnumConverter))]
         public KindEnum Kind { get; private set; }
 
-        public RecordingRule (
+        public RecordingRule(
                 [JsonProperty("type")]
                 TypeEnum type,
                 [JsonProperty("all")]

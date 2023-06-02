@@ -7,8 +7,8 @@ using System;
 using System.IO;
 using System.Text;
 using System.Xml.Linq;
-using Twilio.Converters;
-using Twilio.TwiML.Fax;
+using Kandy.Converters;
+using Kandy.TwiML.Fax;
 
 namespace Kandy.TwiML
 {
@@ -34,7 +34,7 @@ namespace Kandy.TwiML
         /// <param name="pageSize"> What size to interpret received pages as </param>
         /// <param name="storeMedia"> Whether or not to store received media in the fax media store </param>
         public FaxResponse Receive(Uri action = null,
-                                   Twilio.Http.HttpMethod method = null,
+                                   Kandy.Http.HttpMethod method = null,
                                    Receive.MediaTypeEnum mediaType = null,
                                    Receive.PageSizeEnum pageSize = null,
                                    bool? storeMedia = null)
@@ -61,7 +61,7 @@ namespace Kandy.TwiML
         /// <param name="childElem"> Child TwiML element to add </param>
         public new FaxResponse Append(TwiML childElem)
         {
-            return (FaxResponse) base.Append(childElem);
+            return (FaxResponse)base.Append(childElem);
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace Kandy.TwiML
         /// <param name="value"> Option value </param>
         public new FaxResponse SetOption(string key, object value)
         {
-            return (FaxResponse) base.SetOption(key, value);
+            return (FaxResponse)base.SetOption(key, value);
         }
     }
 

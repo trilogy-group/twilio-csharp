@@ -5,14 +5,14 @@
 
 using NUnit.Framework;
 using System;
-using Twilio.Converters;
-using Twilio.TwiML.Voice;
+using Kandy.Converters;
+using Kandy.TwiML.Voice;
 
 namespace Kandy.Tests.TwiML
 {
 
     [TestFixture]
-    public class ConversationTest : TwilioTest
+    public class ConversationTest : KandyTest
     {
         [Test]
         public void TestEmptyElement()
@@ -35,15 +35,15 @@ namespace Kandy.Tests.TwiML
                 1,
                 1,
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
+                Kandy.Http.HttpMethod.Get,
                 Conversation.RecordEnum.DoNotRecord,
                 Conversation.TrimEnum.TrimSilence,
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
-                new[] {Conversation.RecordingEventEnum.InProgress},
+                Kandy.Http.HttpMethod.Get,
+                new[] { Conversation.RecordingEventEnum.InProgress },
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
-                new[] {Conversation.EventEnum.CallInitiated}
+                Kandy.Http.HttpMethod.Get,
+                new[] { Conversation.EventEnum.CallInitiated }
             );
             Assert.AreEqual(
                 "<?xml version=\"1.0\" encoding=\"utf-8\"?>" + Environment.NewLine +

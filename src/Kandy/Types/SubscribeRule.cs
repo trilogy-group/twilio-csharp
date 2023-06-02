@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using Twilio.Converters;
+using Kandy.Converters;
 
 /// <summary>
 /// Subscribe Rule - A single Subscribe Rule for a Participant
 ///
 ///   For more information see:
-///   <a href="https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr">Specifying Subscribe Rules</a>
+///   <a href="https://www.kandy.com/docs/video/api/track-subscriptions#specifying-sr">Specifying Subscribe Rules</a>
 /// </summary>
 namespace Kandy.Types
 {
@@ -14,18 +14,18 @@ namespace Kandy.Types
     {
         public sealed class TypeEnum : StringEnum
         {
-            private TypeEnum(string value) : base(value) {}
+            private TypeEnum(string value) : base(value) { }
 
-            public TypeEnum() {}
+            public TypeEnum() { }
             public static readonly TypeEnum Include = new TypeEnum("include");
             public static readonly TypeEnum Exclude = new TypeEnum("exclude");
         }
 
         public sealed class KindEnum : StringEnum
         {
-            private KindEnum(string value) : base(value) {}
+            private KindEnum(string value) : base(value) { }
 
-            public KindEnum() {}
+            public KindEnum() { }
 
             public static readonly KindEnum Audio = new KindEnum("audio");
             public static readonly KindEnum Data = new KindEnum("data");
@@ -34,9 +34,9 @@ namespace Kandy.Types
 
         public sealed class PriorityEnum : StringEnum
         {
-            private PriorityEnum(string value) : base(value) {}
+            private PriorityEnum(string value) : base(value) { }
 
-            public PriorityEnum() {}
+            public PriorityEnum() { }
 
             public static readonly PriorityEnum Low = new PriorityEnum("low");
             public static readonly PriorityEnum Standard = new PriorityEnum("standard");
@@ -64,7 +64,7 @@ namespace Kandy.Types
         [JsonConverter(typeof(StringEnumConverter))]
         public PriorityEnum Priority { get; private set; }
 
-        public SubscribeRule (
+        public SubscribeRule(
                 [JsonProperty("type")]
                 TypeEnum type,
                 [JsonProperty("all")]

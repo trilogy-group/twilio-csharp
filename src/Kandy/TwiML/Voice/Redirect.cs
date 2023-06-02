@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml.Linq;
-using Twilio.Converters;
+using Kandy.Converters;
 
 namespace Kandy.TwiML.Voice
 {
@@ -25,14 +25,14 @@ namespace Kandy.TwiML.Voice
         /// <summary>
         /// Redirect URL method
         /// </summary>
-        public Twilio.Http.HttpMethod Method { get; set; }
+        public Kandy.Http.HttpMethod Method { get; set; }
 
         /// <summary>
         /// Create a new Redirect
         /// </summary>
         /// <param name="url"> Redirect URL, the body of the TwiML Element. </param>
         /// <param name="method"> Redirect URL method </param>
-        public Redirect(Uri url = null, Twilio.Http.HttpMethod method = null) : base("Redirect")
+        public Redirect(Uri url = null, Kandy.Http.HttpMethod method = null) : base("Redirect")
         {
             this.Url = url;
             this.Method = method;
@@ -65,7 +65,7 @@ namespace Kandy.TwiML.Voice
         /// <param name="childElem"> Child TwiML element to add </param>
         public new Redirect Append(TwiML childElem)
         {
-            return (Redirect) base.Append(childElem);
+            return (Redirect)base.Append(childElem);
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace Kandy.TwiML.Voice
         /// <param name="value"> Option value </param>
         public new Redirect SetOption(string key, object value)
         {
-            return (Redirect) base.SetOption(key, value);
+            return (Redirect)base.SetOption(key, value);
         }
     }
 

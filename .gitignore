@@ -128,8 +128,8 @@ UpgradeLog*.XML
 
 # Project-Specific
 
-TwilioTest/
-TwilioTestPhone/
+KandyTest/
+KandyTestPhone/
 download/
 *.sln.userprefs
 
@@ -229,7 +229,7 @@ Thumbs.db
 *.nupkg
 
 Testrig
-Twilio/project.lock.json
+Kandy/project.lock.json
 testrunner/
 html/
 

@@ -3,7 +3,7 @@
 namespace Kandy.Jwt.AccessToken
 {
     /// <summary>
-    /// Grant to use for Twilio Conversations
+    /// Grant to use for Kandy Conversations
     /// </summary>
     [System.Obsolete("ConversationsGrant is deprecated, use VideoGrant instead")]
     public class ConversationsGrant : IGrant

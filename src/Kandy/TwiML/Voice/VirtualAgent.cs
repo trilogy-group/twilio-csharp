@@ -29,13 +29,13 @@ namespace Kandy.TwiML.Voice
         /// </summary>
         public bool? SentimentAnalysis { get; set; }
         /// <summary>
-        /// URL to post status callbacks from Twilio
+        /// URL to post status callbacks from Kandy
         /// </summary>
         public string StatusCallback { get; set; }
         /// <summary>
         /// HTTP method to use when requesting the status callback URL
         /// </summary>
-        public Twilio.Http.HttpMethod StatusCallbackMethod { get; set; }
+        public Kandy.Http.HttpMethod StatusCallbackMethod { get; set; }
 
         /// <summary>
         /// Create a new VirtualAgent
@@ -43,13 +43,13 @@ namespace Kandy.TwiML.Voice
         /// <param name="connectorName"> Defines the conversation profile Dialogflow needs to use </param>
         /// <param name="language"> Language to be used by Dialogflow to transcribe speech </param>
         /// <param name="sentimentAnalysis"> Whether sentiment analysis needs to be enabled or not </param>
-        /// <param name="statusCallback"> URL to post status callbacks from Twilio </param>
+        /// <param name="statusCallback"> URL to post status callbacks from Kandy </param>
         /// <param name="statusCallbackMethod"> HTTP method to use when requesting the status callback URL </param>
         public VirtualAgent(string connectorName = null,
                             string language = null,
                             bool? sentimentAnalysis = null,
                             string statusCallback = null,
-                            Twilio.Http.HttpMethod statusCallbackMethod = null) : base("VirtualAgent")
+                            Kandy.Http.HttpMethod statusCallbackMethod = null) : base("VirtualAgent")
         {
             this.ConnectorName = connectorName;
             this.Language = language;
@@ -139,7 +139,7 @@ namespace Kandy.TwiML.Voice
         /// <param name="childElem"> Child TwiML element to add </param>
         public new VirtualAgent Append(TwiML childElem)
         {
-            return (VirtualAgent) base.Append(childElem);
+            return (VirtualAgent)base.Append(childElem);
         }
 
         /// <summary>
@@ -149,7 +149,7 @@ namespace Kandy.TwiML.Voice
         /// <param name="value"> Option value </param>
         public new VirtualAgent SetOption(string key, object value)
         {
-            return (VirtualAgent) base.SetOption(key, value);
+            return (VirtualAgent)base.SetOption(key, value);
         }
     }
 

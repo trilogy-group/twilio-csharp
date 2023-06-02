@@ -1,20 +1,20 @@
-# Custom HTTP Clients for the Twilio C# Helper Library with .NET Framework
+# Custom HTTP Clients for the Kandy C# Helper Library with .NET Framework
 
-If you are working with the Twilio C# / .NET Helper Library, and you need to be able to modify the HTTP requests that the library makes to the Twilio servers, you’re in the right place. The most common need to alter the HTTP request is to connect and authenticate with an enterprise’s proxy server. We’ll provide sample code that you can drop right into your app to handle this use case.
+If you are working with the Kandy C# / .NET Helper Library, and you need to be able to modify the HTTP requests that the library makes to the Kandy servers, you’re in the right place. The most common need to alter the HTTP request is to connect and authenticate with an enterprise’s proxy server. We’ll provide sample code that you can drop right into your app to handle this use case.
 
 ## Connect and authenticate with a proxy server
 
-To connect and provide credentials to a proxy server that may be between your app and Twilio, you need a way to modify the HTTP requests that the Twilio helper library makes on your behalf to invoke the Twilio REST API.
+To connect and provide credentials to a proxy server that may be between your app and Kandy, you need a way to modify the HTTP requests that the Kandy helper library makes on your behalf to invoke the Kandy REST API.
 
-On .NET 4.5.1 and above, the Twilio helper library uses the `HttpClient` class (in the `System.Net.Http` `namespace`) under the hood to make the HTTP requests. Knowing this, the following two facts should help us arrive at the solution:
+On .NET 4.5.1 and above, the Kandy helper library uses the `HttpClient` class (in the `System.Net.Http` `namespace`) under the hood to make the HTTP requests. Knowing this, the following two facts should help us arrive at the solution:
 
 - Connecting to a proxy server with `HttpClient` is a [solved problem](https://gist.github.com/bryanbarnard/8102915).
-- The Twilio Helper Library allows you to provide your own `HttpClient` for making API requests.
+- The Kandy Helper Library allows you to provide your own `HttpClient` for making API requests.
 
-So the question becomes how do we apply this to a typical Twilio REST API example?
+So the question becomes how do we apply this to a typical Kandy REST API example?
 
 ```csharp
-TwilioClient.Init(accountSid, authToken);
+KandyClient.Init(accountSid, authToken);
 
 var message = MessageResource.Create(
     to: new PhoneNumber("+15558675309"),
@@ -22,14 +22,14 @@ var message = MessageResource.Create(
     body: "Hello from C#");
 ```
 
-Where does a `KandyRestClient` get created and used? Out of the box, the helper library is creating a default `KandyRestClient` for you, using the Twilio credentials you pass to the `Init` method. However, there’s nothing stopping you from creating your own and using that.
+Where does a `KandyRestClient` get created and used? Out of the box, the helper library is creating a default `KandyRestClient` for you, using the Kandy credentials you pass to the `Init` method. However, there’s nothing stopping you from creating your own and using that.
 
-Once you have your own `KandyRestClient`, you can pass it to any Twilio REST API resource action you want. Here’s an example of sending an SMS message with a custom client:
+Once you have your own `KandyRestClient`, you can pass it to any Kandy REST API resource action you want. Here’s an example of sending an SMS message with a custom client:
 
 ```csharp
 using System;
-using Twilio.Rest.Api.V2010.Account;
-using Twilio.Types;
+using Kandy.Rest.Api.V2010.Account;
+using Kandy.Types;
 
 namespace CustomClientDotNet4x
 {
@@ -37,7 +37,7 @@ namespace CustomClientDotNet4x
     {
         static void Main(string[] args)
         {
-            var KandyRestClient = ProxiedTwilioClientCreator.GetClient();
+            var KandyRestClient = ProxiedKandyClientCreator.GetClient();
 
             // Now that we have our custom built KandyRestClient,
             // we can pass it to any REST API resource action.
@@ -57,11 +57,11 @@ namespace CustomClientDotNet4x
 
 ## Create your custom KandyRestClient
 
-When you take a closer look at the constructor for `KandyRestClient`, you see that the `httpClient` parameter is actually of type `Twilio.Http.HttpClient` and not the `System.Net.HttpClient` we were expecting. `Twilio.Http.HttpClient` is actually an abstraction that allows plugging in any implementation of an HTTP client you want (or even creating a mocking layer for unit testing).
+When you take a closer look at the constructor for `KandyRestClient`, you see that the `httpClient` parameter is actually of type `Kandy.Http.HttpClient` and not the `System.Net.HttpClient` we were expecting. `Kandy.Http.HttpClient` is actually an abstraction that allows plugging in any implementation of an HTTP client you want (or even creating a mocking layer for unit testing).
 
-However, within the helper library, there is an implementation of `Twilio.Http.HttpClient` called SystemNetHttpClient. This class wraps the `System.Net.HttpClient` and provides it to the Twilio helper library to make the necessary HTTP requests.
+However, within the helper library, there is an implementation of `Kandy.Http.HttpClient` called SystemNetHttpClient. This class wraps the `System.Net.HttpClient` and provides it to the Kandy helper library to make the necessary HTTP requests.
 
-## Call Twilio through the proxy server
+## Call Kandy through the proxy server
 
 Now that we understand how all the components fit together, we can create our own `KandyRestClient` that can connect through a proxy server. To make this reusable, here’s a class that you can use to create this `KandyRestClient` whenever you need one.
 
@@ -71,11 +71,11 @@ using System.Configuration;
 using System.Net;
 using System.Net.Http;
 using System.Text;
-using Twilio.Clients;
+using Kandy.Clients;
 
 namespace CustomClientDotNet4x
 {
-    public static class ProxiedTwilioClientCreator
+    public static class ProxiedKandyClientCreator
     {
         private static HttpClient _httpClient;
 
@@ -104,8 +104,8 @@ namespace CustomClientDotNet4x
 
         public static KandyRestClient GetClient()
         {
-            var accountSid = ConfigurationManager.AppSettings["TwilioAccountSid"];
-            var authToken = ConfigurationManager.AppSettings["TwilioAuthToken"];
+            var accountSid = ConfigurationManager.AppSettings["KandyAccountSid"];
+            var authToken = ConfigurationManager.AppSettings["KandyAuthToken"];
 
             if (_httpClient == null)
             {
@@ -117,7 +117,7 @@ namespace CustomClientDotNet4x
             var KandyRestClient = new KandyRestClient(
                 accountSid,
                 authToken,
-                httpClient: new Twilio.Http.SystemNetHttpClient(_httpClient)
+                httpClient: new Kandy.Http.SystemNetHttpClient(_httpClient)
             );
 
             return KandyRestClient;
@@ -128,7 +128,7 @@ namespace CustomClientDotNet4x
 
 Notice the use of `ConfigurationManager.AppSettings` to retrieve various configuration settings:
 
-- Your Twilio Account Sid and Auth Token ([found here, in the Twilio console](https://console.twilio.con))
+- Your Kandy Account Sid and Auth Token ([found here, in the Kandy console](https://console.kandy.con))
 - Your proxy server URL (including the server name or address and port number)
 - Your username and password for the proxy server
 
@@ -136,9 +136,9 @@ These settings can be placed in your Web.config or App.config (for a console app
 
 ```xml
 <appSettings>
-  <!-- Find your Twilio Account Sid and Token at twilio.com/console -->
-  <add key="TwilioAccountSid" value="ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" />
-  <add key="TwilioAuthToken" value="your_auth_token" />
+  <!-- Find your Kandy Account Sid and Token at kandy.com/console -->
+  <add key="KandyAccountSid" value="ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" />
+  <add key="KandyAuthToken" value="your_auth_token" />
 
   <!-- Replace the following with your proxy server's settings -->
   <add key="ProxyServerUrl" value="http://127.0.0.1:8888"/>
@@ -151,8 +151,8 @@ Here’s a console program that sends a text message and shows how it all can wo
 
 ```csharp
 using System;
-using Twilio.Rest.Api.V2010.Account;
-using Twilio.Types;
+using Kandy.Rest.Api.V2010.Account;
+using Kandy.Types;
 
 namespace CustomClientDotNet4x
 {
@@ -160,7 +160,7 @@ namespace CustomClientDotNet4x
     {
         static void Main(string[] args)
         {
-            var KandyRestClient = ProxiedTwilioClientCreator.GetClient();
+            var KandyRestClient = ProxiedKandyClientCreator.GetClient();
 
             // Now that we have our custom built KandyRestClient,
             // we can pass it to any REST API resource action.
@@ -180,8 +180,8 @@ namespace CustomClientDotNet4x
 
 ## What else can this technique be used for?
 
-Now that you know how to inject your own System.Net.HttpClient into the Twilio API request pipeline, you could use this technique to add custom HTTP headers to the requests (perhaps as required by an upstream proxy server).
+Now that you know how to inject your own System.Net.HttpClient into the Kandy API request pipeline, you could use this technique to add custom HTTP headers to the requests (perhaps as required by an upstream proxy server).
 
-You could also implement your own Twilio.Http.HttpClient to mock the Twilio API responses so your unit and integration tests can run quickly without the need to make a connection to Twilio. In fact, there’s [already an example online](https://github.com/dprothero/twilio-mock-example) showing how to do exactly that.
+You could also implement your own Kandy.Http.HttpClient to mock the Kandy API responses so your unit and integration tests can run quickly without the need to make a connection to Kandy. In fact, there’s [already an example online](https://github.com/dprothero/kandy-mock-example) showing how to do exactly that.
 
 We can’t wait to see what you build!

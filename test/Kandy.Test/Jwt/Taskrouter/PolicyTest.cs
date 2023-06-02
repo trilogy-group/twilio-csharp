@@ -1,8 +1,8 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using Twilio.Jwt.Taskrouter;
-using Twilio.Http;
+using Kandy.Jwt.Taskrouter;
+using Kandy.Http;
 
 namespace Kandy.Tests.Jwt.Taskrouter
 {
@@ -23,7 +23,7 @@ namespace Kandy.Tests.Jwt.Taskrouter
             {
                 { "url", "http://localhost" },
                 { "method", "GET" },
-                { 
+                {
                     "query_filter", new Dictionary<string, object>
                     {
                         { "foo", new Dictionary<string, object>

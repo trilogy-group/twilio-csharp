@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml.Linq;
-using Twilio.Converters;
+using Kandy.Converters;
 
 namespace Kandy.TwiML.Voice
 {
@@ -25,14 +25,14 @@ namespace Kandy.TwiML.Voice
         /// <summary>
         /// Action URL method
         /// </summary>
-        public Twilio.Http.HttpMethod Method { get; set; }
+        public Kandy.Http.HttpMethod Method { get; set; }
 
         /// <summary>
         /// Create a new Connect
         /// </summary>
         /// <param name="action"> Action URL </param>
         /// <param name="method"> Action URL method </param>
-        public Connect(Uri action = null, Twilio.Http.HttpMethod method = null) : base("Connect")
+        public Connect(Uri action = null, Kandy.Http.HttpMethod method = null) : base("Connect")
         {
             this.Action = action;
             this.Method = method;
@@ -138,13 +138,13 @@ namespace Kandy.TwiML.Voice
         /// <param name="connectorName"> Defines the conversation profile Dialogflow needs to use </param>
         /// <param name="language"> Language to be used by Dialogflow to transcribe speech </param>
         /// <param name="sentimentAnalysis"> Whether sentiment analysis needs to be enabled or not </param>
-        /// <param name="statusCallback"> URL to post status callbacks from Twilio </param>
+        /// <param name="statusCallback"> URL to post status callbacks from Kandy </param>
         /// <param name="statusCallbackMethod"> HTTP method to use when requesting the status callback URL </param>
         public Connect VirtualAgent(string connectorName = null,
                                     string language = null,
                                     bool? sentimentAnalysis = null,
                                     string statusCallback = null,
-                                    Twilio.Http.HttpMethod statusCallbackMethod = null)
+                                    Kandy.Http.HttpMethod statusCallbackMethod = null)
         {
             var newChild = new VirtualAgent(
                 connectorName,
@@ -190,14 +190,14 @@ namespace Kandy.TwiML.Voice
                                     int? routingAssignmentTimeout = null,
                                     int? inboundTimeout = null,
                                     Uri url = null,
-                                    Twilio.Http.HttpMethod method = null,
+                                    Kandy.Http.HttpMethod method = null,
                                     Conversation.RecordEnum record = null,
                                     Conversation.TrimEnum trim = null,
                                     Uri recordingStatusCallback = null,
-                                    Twilio.Http.HttpMethod recordingStatusCallbackMethod = null,
+                                    Kandy.Http.HttpMethod recordingStatusCallbackMethod = null,
                                     IEnumerable<Conversation.RecordingEventEnum> recordingStatusCallbackEvent = null,
                                     Uri statusCallback = null,
-                                    Twilio.Http.HttpMethod statusCallbackMethod = null,
+                                    Kandy.Http.HttpMethod statusCallbackMethod = null,
                                     IEnumerable<Conversation.EventEnum> statusCallbackEvent = null)
         {
             var newChild = new Conversation(
@@ -237,7 +237,7 @@ namespace Kandy.TwiML.Voice
         /// <param name="childElem"> Child TwiML element to add </param>
         public new Connect Append(TwiML childElem)
         {
-            return (Connect) base.Append(childElem);
+            return (Connect)base.Append(childElem);
         }
 
         /// <summary>
@@ -247,7 +247,7 @@ namespace Kandy.TwiML.Voice
         /// <param name="value"> Option value </param>
         public new Connect SetOption(string key, object value)
         {
-            return (Connect) base.SetOption(key, value);
+            return (Connect)base.SetOption(key, value);
         }
     }
 

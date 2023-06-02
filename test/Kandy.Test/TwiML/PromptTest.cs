@@ -5,14 +5,14 @@
 
 using NUnit.Framework;
 using System;
-using Twilio.Converters;
-using Twilio.TwiML.Voice;
+using Kandy.Converters;
+using Kandy.TwiML.Voice;
 
 namespace Kandy.Tests.TwiML
 {
 
     [TestFixture]
-    public class PromptTest : TwilioTest
+    public class PromptTest : KandyTest
     {
         [Test]
         public void TestEmptyElement()
@@ -31,9 +31,9 @@ namespace Kandy.Tests.TwiML
         {
             var elem = new Prompt(
                 Prompt.ForEnum.PaymentCardNumber,
-                new[] {Prompt.ErrorTypeEnum.Timeout},
-                new[] {Prompt.CardTypeEnum.Visa},
-                new[] {1},
+                new[] { Prompt.ErrorTypeEnum.Timeout },
+                new[] { Prompt.CardTypeEnum.Visa },
+                new[] { 1 },
                 true
             );
             Assert.AreEqual(

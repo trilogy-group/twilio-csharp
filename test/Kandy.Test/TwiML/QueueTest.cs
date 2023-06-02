@@ -5,14 +5,14 @@
 
 using NUnit.Framework;
 using System;
-using Twilio.Converters;
-using Twilio.TwiML.Voice;
+using Kandy.Converters;
+using Kandy.TwiML.Voice;
 
 namespace Kandy.Tests.TwiML
 {
 
     [TestFixture]
-    public class QueueTest : TwilioTest
+    public class QueueTest : KandyTest
     {
         [Test]
         public void TestEmptyElement()
@@ -32,7 +32,7 @@ namespace Kandy.Tests.TwiML
             var elem = new Queue(
                 "name",
                 new Uri("https://example.com"),
-                Twilio.Http.HttpMethod.Get,
+                Kandy.Http.HttpMethod.Get,
                 "reservation_sid",
                 "post_work_activity_sid"
             );

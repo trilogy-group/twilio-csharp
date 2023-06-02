@@ -8,8 +8,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
-using Twilio.Http;
-using HttpMethod = Twilio.Http.HttpMethod;
+using Kandy.Http;
+using HttpMethod = Kandy.Http.HttpMethod;
 
 namespace Kandy.Tests.Http
 {
@@ -69,57 +69,57 @@ namespace Kandy.Tests.Http
     }
 
     [TestFixture]
-    public class SystemNetHttpClientTest : TwilioTest
+    public class SystemNetHttpClientTest : KandyTest
     {
         private MockResponseHandler _mockHttp;
-        public SystemNetHttpClient TwilioHttpClient { get; set; }
+        public SystemNetHttpClient KandyHttpClient { get; set; }
 
         [SetUp]
         public void Init()
         {
             this._mockHttp = new MockResponseHandler();
             var internalHttpClient = new System.Net.Http.HttpClient(this._mockHttp);
-            this.TwilioHttpClient = new SystemNetHttpClient(internalHttpClient);
+            this.KandyHttpClient = new SystemNetHttpClient(internalHttpClient);
         }
 
         [Test]
         public void TestMakeRequestSuccess()
         {
             this._mockHttp.Respond(
-                "https://api.twilio.com/v1/Resource.json",
+                "https://api.kandy.com/v1/Resource.json",
                 HttpStatusCode.OK,
                 "{'test': 'val'}"
             );
 
-            Request testRequest = new Request(HttpMethod.Get, "https://api.twilio.com/v1/Resource.json");
-            Response resp = this.TwilioHttpClient.MakeRequest(testRequest);
+            Request testRequest = new Request(HttpMethod.Get, "https://api.kandy.com/v1/Resource.json");
+            Response resp = this.KandyHttpClient.MakeRequest(testRequest);
 
             Assert.AreEqual(HttpStatusCode.OK, resp.StatusCode);
             Assert.AreEqual("{'test': 'val'}", resp.Content);
 
-            Assert.AreSame(testRequest, this.TwilioHttpClient.LastRequest);
-            Assert.AreSame(resp, this.TwilioHttpClient.LastResponse);
+            Assert.AreSame(testRequest, this.KandyHttpClient.LastRequest);
+            Assert.AreSame(resp, this.KandyHttpClient.LastResponse);
         }
 
         [Test]
         public void TestMakeRequestAsyncSuccess()
         {
             this._mockHttp.Respond(
-                "https://api.twilio.com/v1/Resource.json",
+                "https://api.kandy.com/v1/Resource.json",
                 HttpStatusCode.OK,
                 "{'test': 'val'}"
             );
 
-            Request testRequest = new Request(HttpMethod.Get, "https://api.twilio.com/v1/Resource.json");
-            Task<Response> result = this.TwilioHttpClient.MakeRequestAsync(testRequest);
+            Request testRequest = new Request(HttpMethod.Get, "https://api.kandy.com/v1/Resource.json");
+            Task<Response> result = this.KandyHttpClient.MakeRequestAsync(testRequest);
             result.Wait();
             Response resp = result.Result;
 
             Assert.AreEqual(HttpStatusCode.OK, resp.StatusCode);
             Assert.AreEqual("{'test': 'val'}", resp.Content);
 
-            Assert.AreSame(testRequest, this.TwilioHttpClient.LastRequest);
-            Assert.AreSame(resp, this.TwilioHttpClient.LastResponse);
+            Assert.AreSame(testRequest, this.KandyHttpClient.LastRequest);
+            Assert.AreSame(resp, this.KandyHttpClient.LastResponse);
         }
 
         [Test]
@@ -134,7 +134,7 @@ namespace Kandy.Tests.Http
             for (int i = 0; i < testIterations; ++i)
             {
                 this._mockHttp.Respond(
-                    "https://api.twilio.com/v1/" + i + "/Resource.json",
+                    "https://api.kandy.com/v1/" + i + "/Resource.json",
                     HttpStatusCode.OK,
                     "{'test': 'val" + i + "'}"
                 );
@@ -143,8 +143,8 @@ namespace Kandy.Tests.Http
             void testRunner(object index)
             {
                 int i = (int)index;
-                Request testRequest = new Request(HttpMethod.Get, "https://api.twilio.com/v1/" + i + "/Resource.json");
-                Task<Response> result = this.TwilioHttpClient.MakeRequestAsync(testRequest);
+                Request testRequest = new Request(HttpMethod.Get, "https://api.kandy.com/v1/" + i + "/Resource.json");
+                Task<Response> result = this.KandyHttpClient.MakeRequestAsync(testRequest);
                 result.Wait();
                 responses[i] = result.Result;
             }
@@ -173,46 +173,46 @@ namespace Kandy.Tests.Http
         [Test]
         public void TestMakeRequestReturnsNon200()
         {
-            this._mockHttp.Respond("https://api.twilio.com/v1/Resource.json", HttpStatusCode.InternalServerError);
+            this._mockHttp.Respond("https://api.kandy.com/v1/Resource.json", HttpStatusCode.InternalServerError);
 
-            Request testRequest = new Request(HttpMethod.Get, "https://api.twilio.com/v1/Resource.json");
-            Response resp = this.TwilioHttpClient.MakeRequest(testRequest);
+            Request testRequest = new Request(HttpMethod.Get, "https://api.kandy.com/v1/Resource.json");
+            Response resp = this.KandyHttpClient.MakeRequest(testRequest);
 
             Assert.AreEqual(HttpStatusCode.InternalServerError, resp.StatusCode);
-            Assert.AreSame(testRequest, this.TwilioHttpClient.LastRequest);
-            Assert.AreSame(resp, this.TwilioHttpClient.LastResponse);
+            Assert.AreSame(testRequest, this.KandyHttpClient.LastRequest);
+            Assert.AreSame(resp, this.KandyHttpClient.LastResponse);
         }
 
         [Test]
         public void TestMakeRequestThrowsOnConnectionErrors()
         {
             this._mockHttp.Error(
-                "https://api.twilio.com/v1/Resource.json",
+                "https://api.kandy.com/v1/Resource.json",
                 new HttpRequestException("Unable to connect!")
             );
 
-            Request testRequest = new Request(HttpMethod.Get, "https://api.twilio.com/v1/Resource.json");
+            Request testRequest = new Request(HttpMethod.Get, "https://api.kandy.com/v1/Resource.json");
 
-            Assert.Throws<HttpRequestException>(() => TwilioHttpClient.MakeRequest(testRequest));
+            Assert.Throws<HttpRequestException>(() => KandyHttpClient.MakeRequest(testRequest));
 
-            Assert.AreSame(testRequest, this.TwilioHttpClient.LastRequest);
-            Assert.IsNull(this.TwilioHttpClient.LastResponse);
+            Assert.AreSame(testRequest, this.KandyHttpClient.LastRequest);
+            Assert.IsNull(this.KandyHttpClient.LastResponse);
         }
 
         [Test]
         public void TestMakeRequestWithParams()
         {
-            this._mockHttp.Respond("https://api.twilio.com/v1/Resource.json", HttpStatusCode.OK);
+            this._mockHttp.Respond("https://api.kandy.com/v1/Resource.json", HttpStatusCode.OK);
 
-            Request testRequest = new Request(HttpMethod.Post, "https://api.twilio.com/v1/Resource.json");
+            Request testRequest = new Request(HttpMethod.Post, "https://api.kandy.com/v1/Resource.json");
             testRequest.AddPostParam("post_param", "post_value");
             testRequest.AddQueryParam("query_param", "query_value");
 
-            this.TwilioHttpClient.MakeRequest(testRequest);
+            this.KandyHttpClient.MakeRequest(testRequest);
 
             HttpRequestMessage internalRequest = this._mockHttp.InternalRequest;
 
-            Assert.AreEqual("https://api.twilio.com/v1/Resource.json?query_param=query_value",
+            Assert.AreEqual("https://api.kandy.com/v1/Resource.json?query_param=query_value",
                             internalRequest.RequestUri.ToString());
 
             Assert.IsNotNull(internalRequest.Content);
@@ -222,12 +222,12 @@ namespace Kandy.Tests.Http
         [Test]
         public void TestMakeRequestAddsHeadersAndUserAgent()
         {
-            this._mockHttp.Respond("https://api.twilio.com/v1/Resource.json", HttpStatusCode.OK);
+            this._mockHttp.Respond("https://api.kandy.com/v1/Resource.json", HttpStatusCode.OK);
 
-            Request testRequest = new Request(HttpMethod.Get, "https://api.twilio.com/v1/Resource.json");
+            Request testRequest = new Request(HttpMethod.Get, "https://api.kandy.com/v1/Resource.json");
             testRequest.SetAuth("username", "password");
 
-            this.TwilioHttpClient.MakeRequest(testRequest);
+            this.KandyHttpClient.MakeRequest(testRequest);
 
             HttpRequestMessage internalRequest = this._mockHttp.InternalRequest;
             Assert.IsNotNull(internalRequest);
@@ -239,22 +239,22 @@ namespace Kandy.Tests.Http
             Assert.AreEqual("utf-8", internalRequest.Headers.AcceptEncoding.ToString());
 
             Assert.IsNotNull(internalRequest.Headers.UserAgent);
-            Regex rgx = new Regex(@"^twilio-csharp/[0-9.]+(-rc\.[0-9]+)?\s\(\w+\s\w+\)\s[.\s\w]+/[^\s]+$");
+            Regex rgx = new Regex(@"^kandy-csharp/[0-9.]+(-rc\.[0-9]+)?\s\(\w+\s\w+\)\s[.\s\w]+/[^\s]+$");
             Assert.IsTrue(rgx.IsMatch(internalRequest.Headers.UserAgent.ToString()));
         }
 
         [Test]
         public void TestMakeRequestAddUserAgentExtensions()
         {
-            string[] userAgentExtensions = new string[] { "twilio-run/2.0.0-test", "flex-plugin/3.4.0" };
+            string[] userAgentExtensions = new string[] { "kandy-run/2.0.0-test", "flex-plugin/3.4.0" };
 
-            this._mockHttp.Respond("https://api.twilio.com/v1/Resource.json", HttpStatusCode.OK);
+            this._mockHttp.Respond("https://api.kandy.com/v1/Resource.json", HttpStatusCode.OK);
 
-            Request testRequest = new Request(HttpMethod.Get, "https://api.twilio.com/v1/Resource.json");
+            Request testRequest = new Request(HttpMethod.Get, "https://api.kandy.com/v1/Resource.json");
             testRequest.UserAgentExtensions = userAgentExtensions;
             testRequest.SetAuth("username", "password");
 
-            this.TwilioHttpClient.MakeRequest(testRequest);
+            this.KandyHttpClient.MakeRequest(testRequest);
 
             HttpRequestMessage internalRequest = this._mockHttp.InternalRequest;
             string userAgent = internalRequest.Headers.UserAgent.ToString();

@@ -2,8 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
-using Twilio.Jwt;
-using Twilio.Jwt.AccessToken;
+using Kandy.Jwt;
+using Kandy.Jwt.AccessToken;
 using Newtonsoft.Json;
 
 namespace Kandy.Tests.Jwt.AccessToken
@@ -19,7 +19,7 @@ namespace Kandy.Tests.Jwt.AccessToken
             DateTime? nbf = null,
             HashSet<IGrant> grants = null,
             string region = null
-        ) : base(accountSid, signingKeySid, secret, identity, expiration, nbf, grants, region) {}
+        ) : base(accountSid, signingKeySid, secret, identity, expiration, nbf, grants, region) { }
     }
 
     [TestFixture]
@@ -59,7 +59,7 @@ namespace Kandy.Tests.Jwt.AccessToken
             var decoded = new DecodedJwt(token, Secret);
             var header = decoded.Header;
             Assert.IsNotNull(header);
-            Assert.AreEqual("twilio-fpa;v=1", header["cty"]);
+            Assert.AreEqual("kandy-fpa;v=1", header["cty"]);
             Assert.AreEqual("foo", header["twr"]);
         }
 
@@ -74,12 +74,15 @@ namespace Kandy.Tests.Jwt.AccessToken
             var decoded = new DecodedJwt(token, Secret);
             var header = decoded.Header;
             Assert.IsNotNull(header);
-            Assert.AreEqual("twilio-fpa;v=1", header["cty"]);
-            
-            try {
+            Assert.AreEqual("kandy-fpa;v=1", header["cty"]);
+
+            try
+            {
                 var twr = header["twr"];
                 Assert.Fail();
-            } catch (KeyNotFoundException) {
+            }
+            catch (KeyNotFoundException)
+            {
                 // Pass
             }
         }

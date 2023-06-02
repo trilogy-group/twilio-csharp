@@ -1,12 +1,12 @@
-﻿using Twilio.Clients;
-using Twilio.Exceptions;
+﻿using Kandy.Clients;
+using Kandy.Exceptions;
 
 namespace Kandy
 {
     /// <summary>
-    /// Default Twilio Client
+    /// Default Kandy Client
     /// </summary>
-    public class TwilioClient
+    public class KandyClient
     {
         private static string _username;
         private static string _password;
@@ -16,7 +16,7 @@ namespace Kandy
         private static IKandyRestClient _restClient;
         private static string _logLevel;
 
-        private TwilioClient() { }
+        private KandyClient() { }
 
         /// <summary>
         /// Initialize base client with username and password
@@ -155,7 +155,7 @@ namespace Kandy
             if (_username == null || _password == null)
             {
                 throw new AuthenticationException(
-                    "KandyRestClient was used before AccountSid and AuthToken were set, please call TwilioClient.init()"
+                    "KandyRestClient was used before AccountSid and AuthToken were set, please call KandyClient.init()"
                 );
             }
 
@@ -184,8 +184,8 @@ namespace Kandy
         }
 
         /// <summary>
-        /// Validates that the Twilio Client can connect to api.twilio.com with
-        /// a new SSL certificate posted at api.twilio.com:8443
+        /// Validates that the Kandy Client can connect to api.kandy.com with
+        /// a new SSL certificate posted at api.kandy.com:8443
         /// </summary>
         public static void ValidateSslCertificate()
         {

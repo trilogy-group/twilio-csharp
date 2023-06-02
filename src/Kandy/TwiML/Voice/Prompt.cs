@@ -9,8 +9,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
-using Twilio.Converters;
-using Twilio.Types;
+using Kandy.Converters;
+using Kandy.Types;
 
 namespace Kandy.TwiML.Voice
 {
@@ -22,8 +22,8 @@ namespace Kandy.TwiML.Voice
     {
         public sealed class ForEnum : StringEnum
         {
-            private ForEnum(string value) : base(value) {}
-            public ForEnum() {}
+            private ForEnum(string value) : base(value) { }
+            public ForEnum() { }
             public static implicit operator ForEnum(string value)
             {
                 return new ForEnum(value);
@@ -40,8 +40,8 @@ namespace Kandy.TwiML.Voice
 
         public sealed class ErrorTypeEnum : StringEnum
         {
-            private ErrorTypeEnum(string value) : base(value) {}
-            public ErrorTypeEnum() {}
+            private ErrorTypeEnum(string value) : base(value) { }
+            public ErrorTypeEnum() { }
             public static implicit operator ErrorTypeEnum(string value)
             {
                 return new ErrorTypeEnum(value);
@@ -58,8 +58,8 @@ namespace Kandy.TwiML.Voice
 
         public sealed class CardTypeEnum : StringEnum
         {
-            private CardTypeEnum(string value) : base(value) {}
-            public CardTypeEnum() {}
+            private CardTypeEnum(string value) : base(value) { }
+            public CardTypeEnum() { }
             public static implicit operator CardTypeEnum(string value)
             {
                 return new CardTypeEnum(value);
@@ -228,7 +228,7 @@ namespace Kandy.TwiML.Voice
         /// <param name="childElem"> Child TwiML element to add </param>
         public new Prompt Append(TwiML childElem)
         {
-            return (Prompt) base.Append(childElem);
+            return (Prompt)base.Append(childElem);
         }
 
         /// <summary>
@@ -238,7 +238,7 @@ namespace Kandy.TwiML.Voice
         /// <param name="value"> Option value </param>
         public new Prompt SetOption(string key, object value)
         {
-            return (Prompt) base.SetOption(key, value);
+            return (Prompt)base.SetOption(key, value);
         }
     }
 

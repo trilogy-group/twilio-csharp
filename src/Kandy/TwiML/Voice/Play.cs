@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml.Linq;
-using Twilio.Converters;
+using Kandy.Converters;
 
 namespace Kandy.TwiML.Voice
 {
@@ -75,7 +75,7 @@ namespace Kandy.TwiML.Voice
         /// <param name="childElem"> Child TwiML element to add </param>
         public new Play Append(TwiML childElem)
         {
-            return (Play) base.Append(childElem);
+            return (Play)base.Append(childElem);
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace Kandy.TwiML.Voice
         /// <param name="value"> Option value </param>
         public new Play SetOption(string key, object value)
         {
-            return (Play) base.SetOption(key, value);
+            return (Play)base.SetOption(key, value);
         }
     }
 

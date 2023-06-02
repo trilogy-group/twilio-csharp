@@ -494,7 +494,7 @@ namespace Kandy.Rest.Api.V2010.Account.IncomingPhoneNumber
         [JsonProperty("trunk_sid")]
         public string TrunkSid { get; private set; }
 
-        ///<summary> The URI of the resource, relative to `https://api.kandy.com`. </summary> 
+        ///<summary> The URI of the resource, relative to `https://api.twilio.com`. </summary> 
         [JsonProperty("uri")]
         public string Uri { get; private set; }
 

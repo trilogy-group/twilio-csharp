@@ -395,7 +395,7 @@ namespace Kandy.Rest.Api.V2010.Account
         [JsonProperty("sms_url")]
         public Uri SmsUrl { get; private set; }
 
-        ///<summary> The URI of this resource, relative to `https://api.kandy.com`. </summary> 
+        ///<summary> The URI of this resource, relative to `https://api.twilio.com`. </summary> 
         [JsonProperty("uri")]
         public string Uri { get; private set; }
 

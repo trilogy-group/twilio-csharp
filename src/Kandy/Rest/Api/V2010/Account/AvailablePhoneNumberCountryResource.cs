@@ -253,7 +253,7 @@ namespace Kandy.Rest.Api.V2010.Account
         [JsonProperty("country")]
         public string Country { get; private set; }
 
-        ///<summary> The URI of the Country resource, relative to `https://api.kandy.com`. </summary> 
+        ///<summary> The URI of the Country resource, relative to `https://api.twilio.com`. </summary> 
         [JsonProperty("uri")]
         public Uri Uri { get; private set; }
 
@@ -261,7 +261,7 @@ namespace Kandy.Rest.Api.V2010.Account
         [JsonProperty("beta")]
         public bool? Beta { get; private set; }
 
-        ///<summary> A list of related AvailablePhoneNumber resources identified by their URIs relative to `https://api.kandy.com`. </summary> 
+        ///<summary> A list of related AvailablePhoneNumber resources identified by their URIs relative to `https://api.twilio.com`. </summary> 
         [JsonProperty("subresource_uris")]
         public Dictionary<string, string> SubresourceUris { get; private set; }
 

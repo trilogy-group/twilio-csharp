@@ -394,7 +394,7 @@ namespace Kandy.Rest.Api.V2010.Account.Recording
         [JsonProperty("type")]
         public string Type { get; private set; }
 
-        ///<summary> The URI of the resource, relative to `https://api.kandy.com`. </summary> 
+        ///<summary> The URI of the resource, relative to `https://api.twilio.com`. </summary> 
         [JsonProperty("uri")]
         public string Uri { get; private set; }
 

@@ -48,7 +48,7 @@ namespace Kandy.Tests.Clients
             catch (CertificateValidationException e)
             {
                 Assert.IsInstanceOf(typeof(InvalidOperationException), e.GetBaseException());
-                Assert.AreEqual("Connection to api.kandy.com:8443 failed", e.Message);
+                Assert.AreEqual("Connection to api.twilio.com:8443 failed", e.Message);
                 Assert.IsNull(e.Response);
                 Assert.IsNotNull(e.Request);
             }

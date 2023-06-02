@@ -802,11 +802,11 @@ namespace Kandy.Rest.Api.V2010.Account
         [JsonProperty("trunk_sid")]
         public string TrunkSid { get; private set; }
 
-        ///<summary> The URI of this resource, relative to `https://api.kandy.com`. </summary> 
+        ///<summary> The URI of this resource, relative to `https://api.twilio.com`. </summary> 
         [JsonProperty("uri")]
         public string Uri { get; private set; }
 
-        ///<summary> A list of subresources available to this call, identified by their URIs relative to `https://api.kandy.com`. </summary> 
+        ///<summary> A list of subresources available to this call, identified by their URIs relative to `https://api.twilio.com`. </summary> 
         [JsonProperty("subresource_uris")]
         public Dictionary<string, string> SubresourceUris { get; private set; }
 

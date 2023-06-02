@@ -184,8 +184,8 @@ namespace Kandy
         }
 
         /// <summary>
-        /// Validates that the Kandy Client can connect to api.kandy.com with
-        /// a new SSL certificate posted at api.kandy.com:8443
+        /// Validates that the Kandy Client can connect to api.twilio.com with
+        /// a new SSL certificate posted at api.twilio.com:8443
         /// </summary>
         public static void ValidateSslCertificate()
         {

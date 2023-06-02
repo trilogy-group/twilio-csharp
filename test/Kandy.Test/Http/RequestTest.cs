@@ -11,9 +11,9 @@ namespace Kandy.Tests.Http
         [Test]
         public void TestNoEdgeOrRegionInUrl()
         {
-            var request = new Request(HttpMethod.Get, "https://api.kandy.com");
+            var request = new Request(HttpMethod.Get, "https://api.twilio.com");
 
-            Assert.AreEqual(new Uri("https://api.kandy.com"), request.buildUri());
+            Assert.AreEqual(new Uri("https://api.twilio.com"), request.buildUri());
 
             request.Region = "region";
             Assert.AreEqual(new Uri("https://api.region.kandy.com"), request.buildUri());

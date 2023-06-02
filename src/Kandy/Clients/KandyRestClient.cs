@@ -205,7 +205,7 @@ namespace Kandy.Clients
 
         /// <summary>
         /// Test that this application can use updated SSL certificates on
-        /// api.kandy.com:8443. It's a bit easier to call this method from
+        /// api.twilio.com:8443. It's a bit easier to call this method from
         /// KandyClient.ValidateSslCertificate().
         /// </summary>
         public static void ValidateSslCertificate()
@@ -215,7 +215,7 @@ namespace Kandy.Clients
 
         /// <summary>
         /// Test that this application can use updated SSL certificates on
-        /// api.kandy.com:8443. Generally, you'll want to use the version of this
+        /// api.twilio.com:8443. Generally, you'll want to use the version of this
         /// function that takes no parameters unless you have a reason not to.
         /// </summary>
         ///
@@ -244,7 +244,7 @@ namespace Kandy.Clients
             catch (Exception e)
             {
                 throw new CertificateValidationException(
-                    "Connection to api.kandy.com:8443 failed",
+                    "Connection to api.twilio.com:8443 failed",
                     e,
                     request
                 );

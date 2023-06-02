@@ -86,12 +86,12 @@ namespace Kandy.Tests.Http
         public void TestMakeRequestSuccess()
         {
             this._mockHttp.Respond(
-                "https://api.kandy.com/v1/Resource.json",
+                "https://api.twilio.com/v1/Resource.json",
                 HttpStatusCode.OK,
                 "{'test': 'val'}"
             );
 
-            Request testRequest = new Request(HttpMethod.Get, "https://api.kandy.com/v1/Resource.json");
+            Request testRequest = new Request(HttpMethod.Get, "https://api.twilio.com/v1/Resource.json");
             Response resp = this.KandyHttpClient.MakeRequest(testRequest);
 
             Assert.AreEqual(HttpStatusCode.OK, resp.StatusCode);
@@ -105,12 +105,12 @@ namespace Kandy.Tests.Http
         public void TestMakeRequestAsyncSuccess()
         {
             this._mockHttp.Respond(
-                "https://api.kandy.com/v1/Resource.json",
+                "https://api.twilio.com/v1/Resource.json",
                 HttpStatusCode.OK,
                 "{'test': 'val'}"
             );
 
-            Request testRequest = new Request(HttpMethod.Get, "https://api.kandy.com/v1/Resource.json");
+            Request testRequest = new Request(HttpMethod.Get, "https://api.twilio.com/v1/Resource.json");
             Task<Response> result = this.KandyHttpClient.MakeRequestAsync(testRequest);
             result.Wait();
             Response resp = result.Result;
@@ -134,7 +134,7 @@ namespace Kandy.Tests.Http
             for (int i = 0; i < testIterations; ++i)
             {
                 this._mockHttp.Respond(
-                    "https://api.kandy.com/v1/" + i + "/Resource.json",
+                    "https://api.twilio.com/v1/" + i + "/Resource.json",
                     HttpStatusCode.OK,
                     "{'test': 'val" + i + "'}"
                 );
@@ -143,7 +143,7 @@ namespace Kandy.Tests.Http
             void testRunner(object index)
             {
                 int i = (int)index;
-                Request testRequest = new Request(HttpMethod.Get, "https://api.kandy.com/v1/" + i + "/Resource.json");
+                Request testRequest = new Request(HttpMethod.Get, "https://api.twilio.com/v1/" + i + "/Resource.json");
                 Task<Response> result = this.KandyHttpClient.MakeRequestAsync(testRequest);
                 result.Wait();
                 responses[i] = result.Result;
@@ -173,9 +173,9 @@ namespace Kandy.Tests.Http
         [Test]
         public void TestMakeRequestReturnsNon200()
         {
-            this._mockHttp.Respond("https://api.kandy.com/v1/Resource.json", HttpStatusCode.InternalServerError);
+            this._mockHttp.Respond("https://api.twilio.com/v1/Resource.json", HttpStatusCode.InternalServerError);
 
-            Request testRequest = new Request(HttpMethod.Get, "https://api.kandy.com/v1/Resource.json");
+            Request testRequest = new Request(HttpMethod.Get, "https://api.twilio.com/v1/Resource.json");
             Response resp = this.KandyHttpClient.MakeRequest(testRequest);
 
             Assert.AreEqual(HttpStatusCode.InternalServerError, resp.StatusCode);
@@ -187,11 +187,11 @@ namespace Kandy.Tests.Http
         public void TestMakeRequestThrowsOnConnectionErrors()
         {
             this._mockHttp.Error(
-                "https://api.kandy.com/v1/Resource.json",
+                "https://api.twilio.com/v1/Resource.json",
                 new HttpRequestException("Unable to connect!")
             );
 
-            Request testRequest = new Request(HttpMethod.Get, "https://api.kandy.com/v1/Resource.json");
+            Request testRequest = new Request(HttpMethod.Get, "https://api.twilio.com/v1/Resource.json");
 
             Assert.Throws<HttpRequestException>(() => KandyHttpClient.MakeRequest(testRequest));
 
@@ -202,9 +202,9 @@ namespace Kandy.Tests.Http
         [Test]
         public void TestMakeRequestWithParams()
         {
-            this._mockHttp.Respond("https://api.kandy.com/v1/Resource.json", HttpStatusCode.OK);
+            this._mockHttp.Respond("https://api.twilio.com/v1/Resource.json", HttpStatusCode.OK);
 
-            Request testRequest = new Request(HttpMethod.Post, "https://api.kandy.com/v1/Resource.json");
+            Request testRequest = new Request(HttpMethod.Post, "https://api.twilio.com/v1/Resource.json");
             testRequest.AddPostParam("post_param", "post_value");
             testRequest.AddQueryParam("query_param", "query_value");
 
@@ -212,7 +212,7 @@ namespace Kandy.Tests.Http
 
             HttpRequestMessage internalRequest = this._mockHttp.InternalRequest;
 
-            Assert.AreEqual("https://api.kandy.com/v1/Resource.json?query_param=query_value",
+            Assert.AreEqual("https://api.twilio.com/v1/Resource.json?query_param=query_value",
                             internalRequest.RequestUri.ToString());
 
             Assert.IsNotNull(internalRequest.Content);
@@ -222,9 +222,9 @@ namespace Kandy.Tests.Http
         [Test]
         public void TestMakeRequestAddsHeadersAndUserAgent()
         {
-            this._mockHttp.Respond("https://api.kandy.com/v1/Resource.json", HttpStatusCode.OK);
+            this._mockHttp.Respond("https://api.twilio.com/v1/Resource.json", HttpStatusCode.OK);
 
-            Request testRequest = new Request(HttpMethod.Get, "https://api.kandy.com/v1/Resource.json");
+            Request testRequest = new Request(HttpMethod.Get, "https://api.twilio.com/v1/Resource.json");
             testRequest.SetAuth("username", "password");
 
             this.KandyHttpClient.MakeRequest(testRequest);
@@ -248,9 +248,9 @@ namespace Kandy.Tests.Http
         {
             string[] userAgentExtensions = new string[] { "kandy-run/2.0.0-test", "flex-plugin/3.4.0" };
 
-            this._mockHttp.Respond("https://api.kandy.com/v1/Resource.json", HttpStatusCode.OK);
+            this._mockHttp.Respond("https://api.twilio.com/v1/Resource.json", HttpStatusCode.OK);
 
-            Request testRequest = new Request(HttpMethod.Get, "https://api.kandy.com/v1/Resource.json");
+            Request testRequest = new Request(HttpMethod.Get, "https://api.twilio.com/v1/Resource.json");
             testRequest.UserAgentExtensions = userAgentExtensions;
             testRequest.SetAuth("username", "password");
 

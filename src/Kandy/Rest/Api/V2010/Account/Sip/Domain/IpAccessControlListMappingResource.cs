@@ -434,7 +434,7 @@ namespace Kandy.Rest.Api.V2010.Account.Sip.Domain
         [JsonProperty("sid")]
         public string Sid { get; private set; }
 
-        ///<summary> The URI for this resource, relative to `https://api.kandy.com` </summary> 
+        ///<summary> The URI for this resource, relative to `https://api.twilio.com` </summary> 
         [JsonProperty("uri")]
         public string Uri { get; private set; }
 

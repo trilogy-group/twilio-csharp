@@ -487,7 +487,7 @@ namespace Kandy.Rest.Api.V2010.Account
         [JsonProperty("friendly_name")]
         public string FriendlyName { get; private set; }
 
-        ///<summary> The URI of this resource, relative to `https://api.kandy.com`. </summary> 
+        ///<summary> The URI of this resource, relative to `https://api.twilio.com`. </summary> 
         [JsonProperty("uri")]
         public string Uri { get; private set; }
 

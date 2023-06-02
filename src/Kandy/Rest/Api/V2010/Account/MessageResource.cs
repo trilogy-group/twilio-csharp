@@ -691,7 +691,7 @@ namespace Kandy.Rest.Api.V2010.Account
         [JsonProperty("error_message")]
         public string ErrorMessage { get; private set; }
 
-        ///<summary> The URI of the resource, relative to `https://api.kandy.com`. </summary> 
+        ///<summary> The URI of the resource, relative to `https://api.twilio.com`. </summary> 
         [JsonProperty("uri")]
         public string Uri { get; private set; }
 
@@ -735,7 +735,7 @@ namespace Kandy.Rest.Api.V2010.Account
         [JsonProperty("api_version")]
         public string ApiVersion { get; private set; }
 
-        ///<summary> A list of related resources identified by their URIs relative to `https://api.kandy.com` </summary> 
+        ///<summary> A list of related resources identified by their URIs relative to `https://api.twilio.com` </summary> 
         [JsonProperty("subresource_uris")]
         public Dictionary<string, string> SubresourceUris { get; private set; }
 

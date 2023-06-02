@@ -848,7 +848,7 @@ namespace Kandy.Rest.Api.V2010.Account.Usage
         [JsonProperty("trigger_value")]
         public string TriggerValue { get; private set; }
 
-        ///<summary> The URI of the resource, relative to `https://api.kandy.com`. </summary> 
+        ///<summary> The URI of the resource, relative to `https://api.twilio.com`. </summary> 
         [JsonProperty("uri")]
         public string Uri { get; private set; }
 
@@ -856,7 +856,7 @@ namespace Kandy.Rest.Api.V2010.Account.Usage
         [JsonProperty("usage_category")]
         public TriggerResource.UsageCategoryEnum UsageCategory { get; private set; }
 
-        ///<summary> The URI of the [UsageRecord](https://www.kandy.com/docs/usage/api/usage-record) resource this trigger watches, relative to `https://api.kandy.com`. </summary> 
+        ///<summary> The URI of the [UsageRecord](https://www.kandy.com/docs/usage/api/usage-record) resource this trigger watches, relative to `https://api.twilio.com`. </summary> 
         [JsonProperty("usage_record_uri")]
         public string UsageRecordUri { get; private set; }
 

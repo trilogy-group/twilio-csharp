@@ -61,11 +61,11 @@ namespace Kandy.Tests.Http
             this._mockResponse.GetResponseStream().Returns(this.responseBody("{'key': 'val'}"));
 
             // Run Test
-            var request = new Request(HttpMethod.Get, "https://api.kandy.com/v1/Resource.json");
+            var request = new Request(HttpMethod.Get, "https://api.twilio.com/v1/Resource.json");
             var response = this.KandyClient.MakeRequest(request);
 
             // Assert
-            Assert.AreEqual(new Uri("https://api.kandy.com/v1/Resource.json"), this._requestUrl);
+            Assert.AreEqual(new Uri("https://api.twilio.com/v1/Resource.json"), this._requestUrl);
 
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
             Assert.AreEqual("{'key': 'val'}", response.Content);
@@ -89,11 +89,11 @@ namespace Kandy.Tests.Http
             this._mockRequest.GetResponse().Returns(x => { throw wrappedException; });
 
             // Run Test
-            var request = new Request(HttpMethod.Get, "https://api.kandy.com/v1/Resource.json");
+            var request = new Request(HttpMethod.Get, "https://api.twilio.com/v1/Resource.json");
             var response = this.KandyClient.MakeRequest(request);
 
             // Assert
-            Assert.AreEqual(new Uri("https://api.kandy.com/v1/Resource.json"), this._requestUrl);
+            Assert.AreEqual(new Uri("https://api.twilio.com/v1/Resource.json"), this._requestUrl);
 
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
             Assert.AreEqual("{'message': 'not found'}", response.Content);
@@ -116,7 +116,7 @@ namespace Kandy.Tests.Http
             this._mockRequest.GetResponse().Returns(x => { throw wrappedException; });
 
             // Run Test
-            var request = new Request(HttpMethod.Get, "https://api.kandy.com/v1/Resource.json");
+            var request = new Request(HttpMethod.Get, "https://api.twilio.com/v1/Resource.json");
 
             try
             {
@@ -130,7 +130,7 @@ namespace Kandy.Tests.Http
             }
 
             // Assert
-            Assert.AreEqual(new Uri("https://api.kandy.com/v1/Resource.json"), this._requestUrl);
+            Assert.AreEqual(new Uri("https://api.twilio.com/v1/Resource.json"), this._requestUrl);
             Assert.IsNull(this._requestBody);
             Assert.AreSame(request, this.KandyClient.LastRequest);
             Assert.IsNull(this.KandyClient.LastResponse);
@@ -144,14 +144,14 @@ namespace Kandy.Tests.Http
             this._mockResponse.GetResponseStream().Returns(this.responseBody("{'key': 'val'}"));
 
             // Run Test
-            var request = new Request(HttpMethod.Post, "https://api.kandy.com/v1/Resource.json");
+            var request = new Request(HttpMethod.Post, "https://api.twilio.com/v1/Resource.json");
             request.AddPostParam("post_param", "post_value");
             request.AddQueryParam("query_param", "query_value");
 
             var response = this.KandyClient.MakeRequest(request);
 
             // Assert
-            Assert.AreEqual(new Uri("https://api.kandy.com/v1/Resource.json?query_param=query_value"), this._requestUrl);
+            Assert.AreEqual(new Uri("https://api.twilio.com/v1/Resource.json?query_param=query_value"), this._requestUrl);
             Assert.AreEqual("post_param=post_value", this._requestBody);
 
             Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
@@ -168,13 +168,13 @@ namespace Kandy.Tests.Http
             this._mockResponse.StatusCode = HttpStatusCode.OK;
 
             // Run Test
-            var request = new Request(HttpMethod.Post, "https://api.kandy.com/v1/Resource.json");
+            var request = new Request(HttpMethod.Post, "https://api.twilio.com/v1/Resource.json");
             request.SetAuth("user", "pass");
 
             var response = this.KandyClient.MakeRequest(request);
 
             // Assert
-            Assert.AreEqual(new Uri("https://api.kandy.com/v1/Resource.json"), this._requestUrl);
+            Assert.AreEqual(new Uri("https://api.twilio.com/v1/Resource.json"), this._requestUrl);
 
             Assert.AreEqual("POST", this._mockRequest.Method);
             Assert.AreEqual("application/json", this._mockRequest.Accept);
@@ -200,7 +200,7 @@ namespace Kandy.Tests.Http
             string[] userAgentExtensions = new string[] { "kandy-run/2.0.0-test", "flex-plugin/3.4.0" };
 
             // Run Test
-            var request = new Request(HttpMethod.Post, "https://api.kandy.com/v1/Resource.json");
+            var request = new Request(HttpMethod.Post, "https://api.twilio.com/v1/Resource.json");
             request.UserAgentExtensions = userAgentExtensions;
             request.SetAuth("user", "pass");
 
